@@ -1,0 +1,8 @@
+This is Crosser release 0.0.1-aux
+
+This release contains only one auxiliary helper script.
+packages/download_latest.sh downloads toolchain related source packages.
+
+- Versions to download are read from setups/latest.conf
+- You can define mirrors to be used by placing file named mirrors.conf
+  to root directory. There's file suitable for Finland in mirrors-directory.
