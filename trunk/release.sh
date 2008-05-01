@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CROSSER_VERSION=$(tail -n 1 Version)
-FILELIST="packets/download_latest.sh mirrors/finland.conf setups/latest.conf README"
+FILELIST="packets/download_latest.sh mirrors/finland.conf setups/latest.conf README steps/stepfuncs.sh steps/*.step ChangeLog"
 
 echo "Building Crosser release $CROSSER_VERSION"
 

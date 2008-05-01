@@ -1,0 +1,11 @@
+libiconv
+libpng
+zlib
+gettext
+glib
+jpeg
+tiff
+expat
+freetype
+fontconfig
+cairo
