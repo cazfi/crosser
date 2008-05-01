@@ -1,0 +1,15 @@
+0.0.2-aux (30-Apr-08)
+	- download_latest.sh can be used to download single packet, preset set of packets, or all
+	- Download definitions added for new "win" set of packages:
+		- libiconv
+		- zlib
+		- libpng
+		- gettext
+		- jpeg
+		- tiff
+		- glib
+		- expat
+		- freetype
+		- fontconfig
+		- cairo
+	- Support for downloading debian source packages
