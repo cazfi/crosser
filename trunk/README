@@ -1,9 +1,12 @@
-This is Crosser release 0.0.2-aux
+This is Crosser release 0.0.3-aux
 
-This release contains only one auxiliary helper script.
-packets/download_latest.sh downloads toolchain related source packages.
+This release contains only one auxiliary helper script and some helpful shell functions.
+
+Script packets/download_latest.sh downloads toolchain related source packages.
 
 - It can be used to download single package, predefined set of packages, or all packages
 - Versions to download are read from setups/latest.conf
 - You can define mirrors to be used by placing file named mirrors.conf
   to root directory. There's file suitable for Finland in mirrors-directory.
+
+For auxiliary shell helpers functions see scripts/helpers.sh
