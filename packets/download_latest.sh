@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# download_latest.sh: Source package downloader
+#
+# (c) 2008 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+
+
 # $1 - Base URL
 # $2 - Filename
 download_file() {
@@ -173,6 +180,9 @@ MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 download_needed "$MIRROR_GNU/binutils/" "binutils" $VERSION_BINUTILS "tar.bz2"
 RET="$?"
@@ -214,6 +224,12 @@ RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" $VERSION_FONTCONFIG "tar.gz"
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "cairo"      $VERSION_CAIRO      "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    $VERSION_PANGO      "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        $VERSION_ATK        "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       $VERSION_GTK        "tar.bz2"
 RET="$RET $?"
 
 for VALUE in $RET

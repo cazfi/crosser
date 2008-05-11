@@ -1,7 +1,13 @@
 #!/bin/sh
 
+# release.sh: Release builder for Crosser
+#
+# (c) 2008 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+
 CROSSER_VERSION=$(tail -n 1 Version)
-FILELIST="packets/download_latest.sh mirrors/finland.conf setups/latest.conf README steps/stepfuncs.sh steps/*.step ChangeLog"
+FILELIST="packets/download_latest.sh mirrors/finland.conf setups/latest.conf README steps/stepfuncs.sh steps/*.step ChangeLog COPYING scripts/helpers.sh scripts/aux/install-sh scripts/aux/ltmain.sh scripts/aux/config.guess scripts/aux/config.sub"
 
 echo "Building Crosser release $CROSSER_VERSION"
 

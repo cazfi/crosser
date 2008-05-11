@@ -1,4 +1,14 @@
-0.0.2-aux (30-Apr-08)
+0.0.3-aux
+	- Licensed under Gnu General Public License version 2
+	- Added bash helper functions to distribution
+	- Updated kernel package to version 2.6.25.3
+	- Added packages to "win" set
+		- pango
+		- atk
+		- gtk+
+	- Added some autotools auxiliary scripts to distribution to make sure they are found
+
+0.0.2-aux (01-May-08)
 	- download_latest.sh can be used to download single packet, preset set of packets, or all
 	- Download definitions added for new "win" set of packages:
 		- libiconv

@@ -9,3 +9,6 @@ expat
 freetype
 fontconfig
 cairo
+pango
+atk
+gtk+
