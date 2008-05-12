@@ -80,6 +80,10 @@ generate_setup_scripts() {
   chmod a+x $1/setup.sh
 }
 
+# Apply patch to component
+#
+# $1 - Subdir in source hierarchy to patch
+# $2 - Patch name
 patch_src() {
   log_write 2 "Patching $1: $2.diff"
 
@@ -91,6 +95,8 @@ patch_src() {
   fi
 }
 
+# Unpack component package to source directory
+#
 # $1   - Package name
 # $2   - Package version
 # [$3] - Subdir in source hierarchy
@@ -147,6 +153,8 @@ unpack_component() {
   fi
 }
 
+# Run set of autotools for component
+#
 # $1   - Package
 # $2   - Version
 # [$3] - List of tools to execute, "all" to force use of all tools
@@ -185,5 +193,17 @@ autogen_component()
         return 1
       fi
     done
+  fi
+}
+
+# Outputs parsed prefix
+#
+# $1   - Default prefix to use if $2 missing
+# [$2] - Prefix to parse
+setup_prefix() {
+  if test "x$2" != "x" ; then
+     echo $2 | sed -e "s/<TARGET>/$TARGET/g" -e "s/<DATE>/$BUILD_DATE/g"
+  else
+     echo $1 | sed -e "s/<TARGET>/$TARGET/g" -e "s/<DATE>/$BUILD_DATE/g"
   fi
 }
