@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # download_latest.sh: Source package downloader
 #
@@ -68,7 +68,7 @@ download_packet() {
 # $1 - Base URL
 # $2 - Base filename
 # $3 - Version
-# $4 - Package type   
+# $4 - Package type
 # Return:
 # 0 - Downloaded
 # 1 - Failure
@@ -119,25 +119,6 @@ if test "x$HELP_RETURN" != "x" ; then
   exit $HELP_RETURN
 fi
 
-if test "x$1" = "x--packet" ; then
-  if test "x$2" = "x" ; then
-    echo "No packet name given after --packet" >&2
-    exit 1
-  fi
-  DOWNLOAD_PACKET="$2"
-else
-  if test "x$1" = "xnative" ; then
-    STEPLIST="native"
-  elif test "x$1" = "xchain" ; then
-    STEPLIST="chain"
-  elif test "x$1" = "xwin" ; then
-    STEPLIST="win"
-  elif test "x$1" != "xall" ; then
-    echo "Unknown step \"$1\"" >&2
-    exit 1
-  fi
-fi
-
 if ! . $MAINDIR/setups/latest.conf ; then
   echo "Failed to read list of package versions" >&2
   exit 1
@@ -153,6 +134,22 @@ fi
 if ! . $MAINDIR/steps/stepfuncs.sh ; then
   echo "Problem in reading stepfuncs.sh" >&2
   exit 1
+fi
+
+if test "x$1" = "x--packet" ; then
+  if test "x$2" = "x" ; then
+    echo "No packet name given after --packet" >&2
+    exit 1
+  fi
+  DOWNLOAD_PACKET="$2"
+else
+  STEPLIST="$(parse_steplist $1)"
+  RET=$?
+  if test "x$RET" != "x0"
+  then
+    echo "Error in step parameters \"$1\"" >&2
+    exit 1
+  fi
 fi
 
 if test "x$MIRROR_GNU" = "x" ; then
