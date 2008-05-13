@@ -210,7 +210,7 @@ download_needed "$MIRROR_GNU/gettext/"                  "gettext"    $VERSION_GE
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       $VERSION_GLIB       "tar.bz2"
 RET="$RET $?"
-download_needed "http://www.ijg.org/files/"             "jpeg"    jpegsrc.v$VERSION_JPEG.tar.gz ""
+download_needed "$MIRROR_DEB/pool/main/libj/libjpeg6b/" "libjpeg6b"  $VERSION_JPEG       "dsc"
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    $VERSION_TIFF       "tar.gz"
 RET="$RET $?"
