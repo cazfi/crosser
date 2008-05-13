@@ -3,7 +3,7 @@ libpng
 zlib
 gettext
 glib
-jpeg
+libjpeg6b
 tiff
 expat
 freetype
