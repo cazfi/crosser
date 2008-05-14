@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# download_latest.sh: Source package downloader
+# download_packets.sh: Source package downloader
 #
 # (c) 2008 Marko Lindqvist
 #
@@ -119,8 +119,8 @@ if test "x$HELP_RETURN" != "x" ; then
   exit $HELP_RETURN
 fi
 
-if ! . $MAINDIR/setups/latest.conf ; then
-  echo "Failed to read list of package versions" >&2
+if ! . $MAINDIR/setups/current.versions ; then
+  echo "Failed to read list of package versions (current.versions)" >&2
   exit 1
 fi
 

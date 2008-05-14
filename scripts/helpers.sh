@@ -6,6 +6,15 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
+if test "x$MAINDIR" = "x"
+then
+  echo "helpers.sh: Mandatory environments variables missing! Have you sourced proper settings already?" >&2
+  exit 1
+fi
+
+CROSSER_VERSION=$(tail -n 1 $MAINDIR/Version)
+BUILD_DATE=$(date +"%d%m%y")
+
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
   LOGLEVEL_STDOUT=3
 fi
@@ -63,7 +72,12 @@ log_flags() {
   log_write 4 "  PATH:     \"$PATH\""
 }
 
+# Generate scripts which can be used to launch this compiling environment
+#
+# $1 - Target path
 generate_setup_scripts() {
+  log_write 1 "Writing setup scripts"
+
   if ! (
     echo "#"\!"/bin/sh"
     echo "export CROSSER=$TARGET"
@@ -104,7 +118,7 @@ patch_src() {
 unpack_component() {
   if test "x$DL_ON_DEMAND" = "xyes" ; then
     log_write 1 "Downloading $1 version $2"
-    if ! $MAINPACKETDIR/download_latest.sh --packet "$1" \
+    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
     then
       log_error "Failed to download $1 version $2"
