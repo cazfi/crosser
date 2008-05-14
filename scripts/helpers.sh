@@ -167,6 +167,22 @@ unpack_component() {
   fi
 }
 
+# Output subdir under source hierarchy where component lives
+#
+# $1 -   Package
+# $2 -   Version
+src_subdir() {
+  if test -d "$MAINSRCDIR/$1-$2"
+  then
+    echo "$1-$2"
+  elif test -d "$MAINSRCDIR/$1"
+  then
+    echo "$1"
+  else
+    return 1
+  fi
+}
+
 # Run set of autotools for component
 #
 # $1   - Package
@@ -176,10 +192,12 @@ autogen_component()
 {
   log_packet "autogen $1"
 
-  if test "x$2" = "x" ; then
-     SUBDIR="$1"
-  else
-     SUBDIR="$1-$2"
+  SUBDIR="$(src_subdir $1 $2)"
+
+  if "x$SUBDIR" = "x"
+  then
+    log_error "Cannot find srcdir for $1 version $2"
+    return 1
   fi
 
   cd $MAINSRCDIR/$SUBDIR
