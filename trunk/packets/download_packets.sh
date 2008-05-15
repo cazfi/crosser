@@ -181,8 +181,10 @@ PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; ec
 GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
+download_needed "$MIRROR_GNU/libtool/"  "libtool"  $VERSION_LIBTOOL  "tar.bz2" 
+RET="$?"  
 download_needed "$MIRROR_GNU/binutils/" "binutils" $VERSION_BINUTILS "tar.bz2"
-RET="$?"
+RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" $VERSION_GCC "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/glibc/" "glibc" $VERSION_GLIBC "tar.bz2"
