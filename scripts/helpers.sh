@@ -239,3 +239,106 @@ setup_prefix() {
      echo $1 | sed -e "s/<TARGET>/$TARGET/g" -e "s/<DATE>/$BUILD_DATE/g"
   fi
 }
+
+# Compare two version numbers
+#
+# $1 - First version
+# $2 - Second version
+#
+# 0  - Versions equal
+# 1  - $1 is greater than $2
+# 2  - $2 is greater than $1
+cmp_versions() {
+  VER1PARTS="$(echo $1 | sed -e 's/\./ /g' -e 's/-/ /g')"
+  VER2PARTS="$(echo $2 | sed -e 's/\./ /g' -e 's/-/ /g')"
+
+  for PART1 in $VER1PARTS
+  do
+    PART2="$(echo $VER2PARTS | sed 's/ .*//')"
+    if test "x$PART2" = "x"
+    then
+      return 1
+    fi
+    if test "x$PART1" != "x$PART2"
+    then
+      PART1NBR="$(echo $PART1 | sed 's/[^0-9].*//')"
+      PART2NBR="$(echo $PART2 | sed 's/[^0-9].*//')"
+      if test 0$PART1 -gt 0$PART2
+      then
+        return 1
+      fi
+      if test 0$PART2 -gt 0$PART1
+      then
+        return 2
+      fi
+      PART1TEXT="$(echo $PART1 | sed 's/[0-9]*//')"
+      PART2TEXT="$(echo $PART2 | sed 's/[0-9]*//')"
+      SMALLERTEXT="$(( echo $PART1TEXT && echo $PART2TEXT ) | sort | head -n 1)"
+      if test "x$PART2TEXT" = "x$SMALLERTEXT"
+      then
+        return 1
+      fi
+      return 2
+    fi
+    VER2PARTS="$(echo $VER2PARTS | sed 's/[^ ]*//')"
+  done
+
+  if test "x$VER2PARTS" != "x"
+  then
+    return 2
+  fi
+
+  return 0
+}
+
+# Check if version number is at least comparison version
+#
+# $1 - Version number
+# $2 - Comparison version
+is_minimum_version() {
+  cmp_versions "$1" "$2"
+
+  if test $? -eq 2
+  then
+    return 1
+  fi
+}
+
+# Check if version number is at most comparison version
+#
+# $1 - Version number
+# $2 - Comparison version
+is_max_version() {
+  cmp_versions "$1" "$2"
+
+  if test $? -eq 1
+  then
+    return 1
+  fi
+}
+
+# Check if version number is smaller than comparison version
+#
+# $1 - Version number
+# $2 - Comparison version
+is_smaller_version() {
+  cmp_versions "$1" "$2"
+
+  if test $? -ne 2
+  then
+    return 1
+  fi
+}
+
+# Check if version number is greater than comparison version
+#
+# $1 - Version number
+# $2 - Comparison version
+is_greater_version() {
+  cmp_versions "$1" "$2"
+
+  if test $? -ne 1
+  then
+    return 1
+  fi
+}
