@@ -1,3 +1,16 @@
+0.0.4-aux
+	- Commandline step-parameter now has syntax allowing selection of
+	  multiple steps
+	- Renamed download_latest.sh as download_packets.sh
+	- Libtool added to native step
+	- Added version number comparison functions to helpers.sh
+	- Misc functions added to helpers.sh
+		- setup_prefix()
+		- src_subdir()
+	- Debian is now considered upstream for libjpeg. Package updated to
+	  version 6b-14
+	- Updated kernel package to version 2.6.25.4
+
 0.0.3-aux
 	- Licensed under Gnu General Public License version 2
 	- Added bash helper functions to distribution
