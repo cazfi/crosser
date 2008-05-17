@@ -74,26 +74,33 @@ download_packet() {
 # 1 - Failure
 # 2 - Not needed
 download_needed() {
+  if test "x$3" != "x"
+  then
+    PACKVER="$3"
+  else
+    PACKVER="$VERSION_SELECTED"
+  fi
+
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
-      download_packet "$1" "$2" "$3" "$4"
+      download_packet "$1" "$2" "$PACKVER" "$4"
       return $?
     fi
     return 2
   fi
   if test "x$STEPLIST" = "x" ; then
-    download_packet "$1" "$2" "$3" "$4"
+    download_packet "$1" "$2" "$PACKVER" "$4"
     return $?
   fi
   for STEP in $STEPLIST
   do
     if belongs_to_step $2 $STEP ; then
-      download_packet "$1" "$2" "$3" "$4"
+      download_packet "$1" "$2" "$PACKVER" "$4"
       return $?
     fi
   done
 
-  echo "$2 version $3 not needed, skipping"
+  echo "$2 version $PACKVER not needed, skipping"
   return 2
 }
 
@@ -107,8 +114,8 @@ elif test "x$1" = "x" ; then
 fi
 
 if test "x$HELP_RETURN" != "x" ; then
-  echo "Usage: $(basename $0) <step>"
-  echo "       $(basename $0) --packet <name>"
+  echo "Usage: $(basename $0) <step> [versionset]"
+  echo "       $(basename $0) --packet <name> [version]"
   echo
   echo " Possible steps:"
   echo "  - native"
@@ -119,9 +126,28 @@ if test "x$HELP_RETURN" != "x" ; then
   exit $HELP_RETURN
 fi
 
-if ! . $MAINDIR/setups/current.versions ; then
-  echo "Failed to read list of package versions (current.versions)" >&2
-  exit 1
+if test "x$1" = "x--packet" && test "x$3" != "x"
+then
+  export VERSION_SELECTED="$3"
+elif test "x$1" != "x--packet" && test "x$2" != "x"
+then
+  VERSIONSET="$2"
+else
+  VERSIONSET="current"
+fi
+
+if test "x$VERSIONSET" != "x"
+then
+  if ! test -e $MAINDIR/setups/$VERSIONSET.versions
+  then
+    echo "Versionset $VERSIONSET.versions not found" >&2
+    exit 1
+  fi
+
+  if ! . $MAINDIR/setups/$VERSIONSET.versions ; then
+    echo "Failed to read list of package versions ($VERSIONSET.versions)" >&2
+    exit 1
+  fi
 fi
 
 if test -e $MAINDIR/mirrors.conf ; then
@@ -176,59 +202,68 @@ MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 
+if test "x$VERSION_SELECTED" != "x"
+then
+  case $DOWNLOAD_PACKET in
+    glib)  VERSION_GLIB=$VERSION_SELECTED ;;
+    pango) VERSION_PANGO=$VERSION_SELECTED ;;
+    gtk)   VERSION_GTK=$VERSION_SELECTED ;;
+    atk)   VERSION_ATK=$VERSION_SELECTED ;;
+  esac
+fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
-download_needed "$MIRROR_GNU/libtool/"  "libtool"  $VERSION_LIBTOOL  "tar.bz2" 
+download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.bz2" 
 RET="$?"  
-download_needed "$MIRROR_GNU/binutils/" "binutils" $VERSION_BINUTILS "tar.bz2"
+download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" $VERSION_GCC "tar.bz2"
+download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/" "glibc" $VERSION_GLIBC "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc" "$VERSION_GLIBC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/" "glibc-libidn" $VERSION_GLIBC "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc-libidn" "$VERSION_GLIBC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/" "glibc-ports"  $VERSION_GLIBC "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc-ports"  "$VERSION_GLIBC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_KERNEL/pub/linux/kernel/v2.6/" "linux" $VERSION_KERNEL "tar.bz2"
+download_needed "$MIRROR_KERNEL/pub/linux/kernel/v2.6/" "linux" "$VERSION_KERNEL"  "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEWARE/pub/newlib/" "newlib" $VERSION_NEWLIB "tar.gz"
+download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLIB" "tar.gz"
 RET="$RET $?"
-download_needed "http://ftp.sunet.se/pub/gnu/gmp/" "gmp" $VERSION_GMP "tar.bz2"
+download_needed "http://ftp.sunet.se/pub/gnu/gmp/"      "gmp"    "$VERSION_GMP"    "tar.bz2"
 RET="$RET $?"
-download_needed "http://www.mpfr.org/mpfr-current/" "mpfr" $VERSION_MPFR "tar.bz2"
+download_needed "http://www.mpfr.org/mpfr-current/"     "mpfr"   "$VERSION_MPFR"   "tar.bz2"
 RET="$RET $?"
 
-download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   $VERSION_ICONV      "tar.gz"
+download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     $VERSION_PNG        "tar.bz2"
+download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       $VERSION_ZLIB       "dsc"
+download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/gettext/"                  "gettext"    $VERSION_GETTEXT    "tar.gz"
+download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       $VERSION_GLIB       "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_DEB/pool/main/libj/libjpeg6b/" "libjpeg6b"  $VERSION_JPEG       "dsc"
+download_needed "$MIRROR_DEB/pool/main/libj/libjpeg6b/" "libjpeg6b"  "$VERSION_JPEG"       "dsc"
 RET="$RET $?"
-download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    $VERSION_TIFF       "tar.gz"
+download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/expat/"            "expat"      $VERSION_EXPAT      "tar.gz"
+download_needed "$MIRROR_SOURCEFORGE/expat/"            "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   $VERSION_FREETYPE   "tar.bz2"
+download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "tar.bz2"
 RET="$RET $?"
-download_needed "http://fontconfig.org/release/"        "fontconfig" $VERSION_FONTCONFIG "tar.gz"
+download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "cairo"      $VERSION_CAIRO      "tar.gz"
+download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    $VERSION_PANGO      "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        $VERSION_ATK        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       $VERSION_GTK        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
 RET="$RET $?"
 
 for VALUE in $RET
