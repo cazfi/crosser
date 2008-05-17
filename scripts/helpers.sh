@@ -118,7 +118,7 @@ patch_src() {
 unpack_component() {
   if test "x$DL_ON_DEMAND" = "xyes" ; then
     log_write 1 "Downloading $1 version $2"
-    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" \
+    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
     then
       log_error "Failed to download $1 version $2"
