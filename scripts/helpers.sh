@@ -16,10 +16,10 @@ CROSSER_VERSION=$(tail -n 1 $MAINDIR/Version)
 BUILD_DATE=$(date +"%d%m%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
-  LOGLEVEL_STDOUT=3
+  LOGLEVEL_STDOUT=2
 fi
 if test "x$LOGLEVEL_FILE" = "x" ; then
-  LOGLEVEL_FILE=3
+  LOGLEVEL_FILE=4
 fi
 
 log_init() {
@@ -246,10 +246,12 @@ setup_prefix() {
 tokenize_version() {
   # Replace '.' and '-' with space.
   # Unify alpha and beta to lower case, make them separate tokens.
+  # Make numbers appearing after letters separate token.
   echo $1 |
     sed -e 's/\./ /g' -e 's/-/ /g' \
         -e 's/[aA][lL][pP][hH][aA]/ alpha /g' \
-        -e 's/[bB][eE][tT][aA]/ beta /g'
+        -e 's/[bB][eE][tT][aA]/ beta /g' \
+        -e 's/\([^0-9]\)\([0-9]\)/\1 \2/g'
 }
 
 # Compare two version numbers
@@ -297,11 +299,11 @@ cmp_versions() {
       fi
       PART1NBR="$(echo $PART1 | sed 's/[^0-9].*//')"
       PART2NBR="$(echo $PART2 | sed 's/[^0-9].*//')"
-      if test 0$PART1 -gt 0$PART2
+      if test 0$PART1NBR -gt 0$PART2NBR
       then
         return 1
       fi
-      if test 0$PART2 -gt 0$PART1
+      if test 0$PART2NBR -gt 0$PART1NBR
       then
         return 2
       fi
