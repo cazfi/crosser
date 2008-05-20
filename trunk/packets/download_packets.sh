@@ -207,8 +207,9 @@ then
   case $DOWNLOAD_PACKET in
     glib)  VERSION_GLIB=$VERSION_SELECTED ;;
     pango) VERSION_PANGO=$VERSION_SELECTED ;;
-    gtk+)   VERSION_GTK=$VERSION_SELECTED ;;
+    gtk+)  VERSION_GTK=$VERSION_SELECTED ;;
     atk)   VERSION_ATK=$VERSION_SELECTED ;;
+    gcc)   VERSION_GCC=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
