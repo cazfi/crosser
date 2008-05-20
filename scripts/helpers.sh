@@ -240,6 +240,18 @@ setup_prefix() {
   fi
 }
 
+# Output tokenized version
+#
+# $1 - Version string
+tokenize_version() {
+  # Replace '.' and '-' with space.
+  # Unify alpha and beta to lower case, make them separate tokens.
+  echo $1 |
+    sed -e 's/\./ /g' -e 's/-/ /g' \
+        -e 's/[aA][lL][pP][hH][aA]/ alpha /g' \
+        -e 's/[bB][eE][tT][aA]/ beta /g'
+}
+
 # Compare two version numbers
 #
 # $1 - First version
@@ -249,18 +261,40 @@ setup_prefix() {
 # 1  - $1 is greater than $2
 # 2  - $2 is greater than $1
 cmp_versions() {
-  VER1PARTS="$(echo $1 | sed -e 's/\./ /g' -e 's/-/ /g')"
-  VER2PARTS="$(echo $2 | sed -e 's/\./ /g' -e 's/-/ /g')"
+  VER1PARTS="$(tokenize_version $1)"
+  VER2PARTS="$(tokenize_version $2)"
 
   for PART1 in $VER1PARTS
   do
-    PART2="$(echo $VER2PARTS | sed 's/ .*//')"
+    # First remaining part of VER2PARTS
+    PART2="$(echo $VER2PARTS | cut -f 1 -d ' ')"
     if test "x$PART2" = "x"
     then
+      if test "x$PART1" = "xalpha" || test "x$PART1" = "xbeta"
+      then
+        # alpha and beta are less than pure version.
+        return 2
+      fi
       return 1
     fi
     if test "x$PART1" != "x$PART2"
     then
+      if test "x$PART1" = "xalpha"
+      then
+        return 2
+      fi
+      if test "x$PART2" = "xalpha"
+      then
+        return 1
+      fi
+      if test "x$PART1" = "xbeta"
+      then
+        return 2
+      fi
+      if test "x$PART2" = "xbeta"
+      then
+        return 1
+      fi
       PART1NBR="$(echo $PART1 | sed 's/[^0-9].*//')"
       PART2NBR="$(echo $PART2 | sed 's/[^0-9].*//')"
       if test 0$PART1 -gt 0$PART2
@@ -280,11 +314,18 @@ cmp_versions() {
       fi
       return 2
     fi
+    # Remove first, now handled, part of VER2PARTS
     VER2PARTS="$(echo $VER2PARTS | sed 's/[^ ]*//')"
   done
 
   if test "x$VER2PARTS" != "x"
   then
+    PART2=$(echo $VER2PARTS | cut -f 1 -d " ")
+    if test "x$PART2" = "xalpha" || test "x$PART2" = "xbeta"
+    then
+      # alpha and beta are less than pure version.
+      return 1
+    fi
     return 2
   fi
 
