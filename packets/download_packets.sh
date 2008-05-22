@@ -266,6 +266,8 @@ download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_A
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
 RET="$RET $?"
+download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
+RET="$RET $?"
 
 for VALUE in $RET
 do
