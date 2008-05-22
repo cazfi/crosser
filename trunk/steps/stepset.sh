@@ -15,6 +15,8 @@ do
       STEP_CHAIN=yes ;;
     win)
       STEP_WIN=yes ;;
+    sdl)
+      STEP_SDL=yes ;;
     *)
       log_error "Unknown step $_STEP in stepset.sh" ;;
   esac
