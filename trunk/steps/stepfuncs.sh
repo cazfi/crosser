@@ -12,7 +12,7 @@ STEP_win_PACKETS=$(cat $MAINDIR/steps/win.step)
 STEP_sdl_PACKETS=$(cat $MAINDIR/steps/sdl.step)
 
 # Steps array
-STEPLIST=("native" "chain" "win", "sdl")
+STEPLIST=("native" "chain" "win" "sdl")
 
 # Check if packet belongs to step
 #
