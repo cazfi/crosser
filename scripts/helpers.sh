@@ -228,15 +228,25 @@ autogen_component()
   fi
 }
 
-# Outputs parsed prefix
+# Outputs parsed prefix.
+#
+# $1   - Prefix to parse
+setup_prefix() {
+  echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
+                -e "s/<DATE>/$BUILD_DATE/g" \
+                -e "s/<CLIB>/$LIBC_MODE/g"
+}
+
+# Outputs one parsed prefix. Can take one or two parameters and decides
+# which one to parse.
 #
 # $1   - Default prefix to use if $2 missing
 # [$2] - Prefix to parse
-setup_prefix() {
+setup_prefix_default() {
   if test "x$2" != "x" ; then
-     echo $2 | sed -e "s/<TARGET>/$TARGET/g" -e "s/<DATE>/$BUILD_DATE/g"
+    setup_prefix "$2"
   else
-     echo $1 | sed -e "s/<TARGET>/$TARGET/g" -e "s/<DATE>/$BUILD_DATE/g"
+    setup_prefix "$1"
   fi
 }
 
