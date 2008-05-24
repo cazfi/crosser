@@ -198,6 +198,10 @@ if test "x$MIRROR_DEB" = "x" ; then
   MIRROR_DEB="http://ftp.debian.org/debian"
 fi
 
+if test "x$MIRROR_CUPS" = "x" ; then
+  MIRROR_CUPS="http://ftp.easysw.com/pub"
+fi
+
 MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
@@ -210,6 +214,7 @@ then
     gtk+)  VERSION_GTK=$VERSION_SELECTED ;;
     atk)   VERSION_ATK=$VERSION_SELECTED ;;
     gcc)   VERSION_GCC=$VERSION_SELECTED ;;
+    cups)  VERSION_CUPS=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -218,6 +223,7 @@ GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.bz2"
+
 RET="$?"  
 download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
 RET="$RET $?"
@@ -267,6 +273,8 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_CUPS/cups/$VERSION_CUPS/"     "cups"       "cups-$VERSION_CUPS-source.tar.bz2"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
 RET="$RET $?"
