@@ -11,4 +11,5 @@ fontconfig
 cairo
 pango
 atk
+cups
 gtk+
