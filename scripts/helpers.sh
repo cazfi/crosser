@@ -395,3 +395,52 @@ is_greater_version() {
     return 1
   fi
 }
+
+# Recursively deletes directory
+#
+# $1 - Directory path
+#
+# 0  - Directory no longer exist
+# 1  - Directory still exist
+remove_dir() {
+  if ! test -d "$1"
+  then
+    # No such directory in the first place
+    return 0
+  fi
+
+  log_write 3 "Directory \"$1\" exist already - needs to be removed"
+
+  if test "x$FORCERM" = "xno"
+  then
+    return 1
+  fi
+
+  if test "x$FORCERM" != "xyes"
+  then
+    ANSWER="unknown"
+
+    while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
+    do
+      echo "Directory \"$1\" already exist. Is it ok delete that directory and all its contents?"
+      echo "yes/no"
+      echo -n "> "
+      read ANSWER
+      case "x$ANSWER" in
+        xyes|xy|xYES|xYes) ANSWER="yes" ;;
+        xno|XNO|xNo) ANSWER="no" ;;
+        *) echo "Please answer \"yes\" or \"no\"." ;;
+      esac
+    done
+
+    if test "x$ANSWER" != "xyes"
+    then
+      return 1
+    fi
+  fi
+
+  if ! rm -Rf "$1"
+  then
+    return 1
+  fi
+}
