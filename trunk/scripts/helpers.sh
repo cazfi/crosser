@@ -114,9 +114,9 @@ patch_src() {
 # $1   - Package name
 # $2   - Package version
 # [$3] - Subdir in source hierarchy
-# [$4] - Package file name in case it cannot be determined automatically
+# [$4] - Package file name base in case it's not 'name-version'
 unpack_component() {
-  if test "x$DL_ON_DEMAND" = "xyes" ; then
+  if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Downloading $1 version $2"
     if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
@@ -128,22 +128,24 @@ unpack_component() {
 
   log_write 1 "Unpacking $1 version $2"
 
-  if test "x$4" != "x" ; then
+  if test "x$4" != "x"
+  then
     # Custom file name format
-    if ! tar xzf $MAINPACKETDIR/$4 -C $MAINSRCDIR/$3
+    NAME_BASE="$4"
+  else
+    NAME_BASE="$1-$2"
+  fi
+
+  if test -e $MAINPACKETDIR/$NAME_BASE.tar.bz2 ; then
+    if ! tar xjf $MAINPACKETDIR/$NAME_BASE.tar.bz2 -C $MAINSRCDIR/$3
     then
-      log_error "Unpacking $4 failed"
-    fi
-  elif test -e $MAINPACKETDIR/$1-$2.tar.bz2 ; then
-    if ! tar xjf $MAINPACKETDIR/$1-$2.tar.bz2 -C $MAINSRCDIR/$3
-    then
-      log_error "Unpacking $1-$2.tar.bz2 failed"
+      log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
-  elif test -e $MAINPACKETDIR/$1-$2.tar.gz ; then
-    if ! tar xzf $MAINPACKETDIR/$1-$2.tar.gz -C $MAINSRCDIR/$3
+  elif test -e $MAINPACKETDIR/$NAME_BASE.tar.gz ; then
+    if ! tar xzf $MAINPACKETDIR/$NAME_BASE.tar.gz -C $MAINSRCDIR/$3
     then
-      log_error "Unpacking $1-$2.tar.gz failed"
+      log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
   elif test -e $MAINPACKETDIR/${1}_${2}.dsc ; then
