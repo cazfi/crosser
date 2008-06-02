@@ -278,6 +278,8 @@ download_needed "$MIRROR_CUPS/cups/$VERSION_CUPS/"     "cups"       "cups-$VERSI
 RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
 RET="$RET $?"
+download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
+RET="$RET $?"
 
 for VALUE in $RET
 do
