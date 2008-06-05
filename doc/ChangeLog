@@ -1,3 +1,21 @@
+0.1.0-win
+	- Support for selectable versionset. Added versionset for experimental
+	  versions
+	- Version number comparison functions handle alpha-, beta- and
+	  prereleases and release candidates correctly
+	- Version number comparison functions compare version tokens like
+	  a1a and a1b correctly
+	- Added step 'sdl' with packets SDL and SDL_image. These are built
+	  as part of libstack
+	- Updated libpng to version 1.2.29
+	- Updated pango to version 1.20.3
+	- Added gawk to native step
+	- Added CUPS packet to win step
+	- Added some patches to distribution
+	- New function remove_dir()
+	- Added support for CLIB tag to prefix parsing
+	- Added custom name support for tar.bz2 packets to unpack_component()
+
 0.0.4-aux
 	- Commandline step-parameter now has syntax allowing selection of
 	  multiple steps

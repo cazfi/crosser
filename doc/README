@@ -1,6 +1,9 @@
-This is Crosser release 0.0.5-aux
+This is Crosser release 0.1.0-win
 
-This release contains only one auxiliary helper script and some helpful shell functions.
+This release contains libstack builder (libstack.sh) for windows, but
+no crosser.sh.
+
+------
 
 Script packets/download_packets.sh downloads toolchain related source packages.
 
