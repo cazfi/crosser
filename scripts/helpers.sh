@@ -257,12 +257,15 @@ setup_prefix_default() {
 # $1 - Version string
 tokenize_version() {
   # Replace '.' and '-' with space.
-  # Unify alpha and beta to lower case, make them separate tokens.
+  # Unify alpha,beta,pre,rc to lower case, make them separate tokens.
+  # Check that 'rc' is not part of longer word before tokenizing.
   # Make numbers appearing after letters separate token.
   echo $1 |
     sed -e 's/\./ /g' -e 's/-/ /g' \
         -e 's/[aA][lL][pP][hH][aA]/ alpha /g' \
         -e 's/[bB][eE][tT][aA]/ beta /g' \
+        -e 's/[pP][rR][eE]/ pre /g' \
+        -e 's/[^a-Z][rR][cC][^a-Z]/ rc /g' \
         -e 's/\([^0-9]\)\([0-9]\)/\1 \2/g'
 }
 
@@ -284,7 +287,8 @@ cmp_versions() {
     PART2="$(echo $VER2PARTS | cut -f 1 -d ' ')"
     if test "x$PART2" = "x"
     then
-      if test "x$PART1" = "xalpha" || test "x$PART1" = "xbeta"
+      if test "x$PART1" = "xalpha" || test "x$PART1" = "xbeta" ||
+         test "x$PART1" = "xpre"   || test "x$PART1" = "xrc"
       then
         # alpha and beta are less than pure version.
         return 2
@@ -293,6 +297,9 @@ cmp_versions() {
     fi
     if test "x$PART1" != "x$PART2"
     then
+      # Comparison between special version tokens.
+      # We consider increasing order (latter is newer version) to be:
+      #   alpha - beta - pre - rc
       if test "x$PART1" = "xalpha"
       then
         return 2
@@ -306,6 +313,22 @@ cmp_versions() {
         return 2
       fi
       if test "x$PART2" = "xbeta"
+      then
+        return 1
+      fi
+      if test "x$PART1" = "xpre"
+      then
+        return 2
+      fi
+      if test "x$PART2" = "xpre"
+      then
+        return 1
+      fi
+      if test "x$PART1" = "xrc"
+      then
+        return 2
+      fi
+      if test "x$PART2" = "xrc"
       then
         return 1
       fi
@@ -335,7 +358,8 @@ cmp_versions() {
   if test "x$VER2PARTS" != "x"
   then
     PART2=$(echo $VER2PARTS | cut -f 1 -d " ")
-    if test "x$PART2" = "xalpha" || test "x$PART2" = "xbeta"
+    if test "x$PART2" = "xalpha" || test "x$PART2" = "xbeta" ||
+       test "x$PART2" = "xpre"   || test "x$PART2" = "xrc"
     then
       # alpha and beta are less than pure version.
       return 1
