@@ -1,4 +1,5 @@
 0.1.0-win
+	- Added libstack.sh script
 	- Support for selectable versionset. Added versionset for experimental
 	  versions
 	- Version number comparison functions handle alpha-, beta- and
