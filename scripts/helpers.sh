@@ -265,7 +265,7 @@ tokenize_version() {
         -e 's/[aA][lL][pP][hH][aA]/ alpha /g' \
         -e 's/[bB][eE][tT][aA]/ beta /g' \
         -e 's/[pP][rR][eE]/ pre /g' \
-        -e 's/[^a-Z][rR][cC][^a-Z]/ rc /g' \
+        -e 's/[^a-Z][rR][cC]/ rc /g' \
         -e 's/\([^0-9]\)\([0-9]\)/\1 \2/g'
 }
 
