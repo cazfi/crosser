@@ -7,7 +7,7 @@
 # This program is licensed under Gnu General Public License version 2.
 
 CROSSER_VERSION=$(tail -n 1 Version)
-FILELIST="packets/download_packets.sh mirrors/finland.conf setups/*.versions doc/README steps/stepfuncs.sh steps/stepset.sh steps/*.step doc/ChangeLog COPYING scripts/helpers.sh scripts/aux/install-sh scripts/aux/ltmain.sh scripts/aux/config.guess scripts/aux/config.sub patch/*.diff"
+FILELIST="packets/download_packets.sh mirrors/finland.conf setups/*.versions setups/native.sh setups/*.conf doc/README steps/stepfuncs.sh steps/stepset.sh steps/*.step doc/ChangeLog COPYING scripts/helpers.sh scripts/aux/install-sh scripts/aux/ltmain.sh scripts/aux/config.guess scripts/aux/config.sub patch/*.diff build_setup.conf libstack.sh Version"
 
 echo "Building Crosser release $CROSSER_VERSION"
 
