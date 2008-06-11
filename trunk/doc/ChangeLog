@@ -1,5 +1,6 @@
 0.1.90-win
-	- Updated linux kernel to version 2.6.25.5
+	- Updated linux kernel to version 2.6.25.6
+	- Added autoconf to native step
 
 0.1.0-win
 	- Added libstack.sh script
