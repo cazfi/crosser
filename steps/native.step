@@ -1,4 +1,5 @@
 libtool
+autoconf
 binutils
 gawk
 gcc
