@@ -213,7 +213,8 @@ build_zlib()
     return 1
   fi
 
-  if ! cp $PREFIX/lib/libz.dll* $PREFIX/bin/
+  if ! cp $PREFIX/lib/libz.dll* $PREFIX/bin/ ||
+     ! mv $PREFIX/lib/libz.a    $PREFIX/bin/
   then
     log_error "Failed to move libz dll:s to correct directory"
     return 1
