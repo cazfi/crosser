@@ -2,6 +2,9 @@
 	- Updated linux kernel to version 2.6.25.6
 	- Added autoconf and automake to native step
 
+0.1.1-win
+	- Updated freetype to version 2.3.6
+
 0.1.0-win
 	- Added libstack.sh script
 	- Support for selectable versionset. Added versionset for experimental
