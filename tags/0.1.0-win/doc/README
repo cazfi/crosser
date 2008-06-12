@@ -1,0 +1,15 @@
+This is Crosser release 0.1.0-win
+
+This release contains libstack builder (libstack.sh) for windows, but
+no crosser.sh.
+
+------
+
+Script packets/download_packets.sh downloads toolchain related source packages.
+
+- It can be used to download single package, predefined set of packages, or all packages
+- Versions to download are read from setups/current.versions
+- You can define mirrors to be used by placing file named mirrors.conf
+  to root directory. There's file suitable for Finland in mirrors-directory.
+
+For auxiliary shell helpers functions see scripts/helpers.sh
