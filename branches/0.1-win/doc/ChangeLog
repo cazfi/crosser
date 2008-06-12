@@ -1,3 +1,6 @@
+0.1.1-win
+	- Updated freetype to version 2.3.6
+
 0.1.0-win
 	- Added libstack.sh script
 	- Support for selectable versionset. Added versionset for experimental
