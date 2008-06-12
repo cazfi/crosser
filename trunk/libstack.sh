@@ -372,7 +372,6 @@ if ! patch_src zlib                           zlib_seeko                ||
    ! patch_src glib-$VERSION_GLIB             glib_acsizeof             ||
    ! patch_src glib-$VERSION_GLIB             glib_stackgrow            ||
    ! patch_src tiff-$VERSION_TIFF             tiff_config_headers       ||
-   ! patch_src freetype-$VERSION_FREETYPE     freetype_dll              ||
    ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
    ! patch_src gtk+-$VERSION_GTK              gtk_check_cxx
 then
@@ -387,13 +386,13 @@ then
   exit 1
 fi
 
-if is_smaller_version $VERSION_GTK 2.12.10
+if ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
+       patch_src gtk+-$VERSION_GTK          gtk_blddir ) ||
+   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6   ||
+       patch_src freetype-$VERSION_FREETYPE freetype_dll )
 then
-  if patch_src gtk+-$VERSION_GTK             gtk_blddir
-  then
-    log_error "Patching failed"
-    exit 1
-  fi
+  log_error "Patching failed"
+  exit 1
 fi
 
 if test "x$CROSSER_OPTION_JPEG" = "xon"
@@ -450,13 +449,14 @@ then
   CONF_JPEG_GTK="$CONF_JPEG_GTK --without-libjasper"
 fi
 
-if ! autogen_component tiff       $VERSION_TIFF             ||
+if ! autogen_component tiff       $VERSION_TIFF                   ||
    ! build_component   tiff       $VERSION_TIFF "$CONF_JPEG_TIFF"             ||
-   ! build_component   expat      $VERSION_EXPAT            ||
-   ! autogen_component freetype   $VERSION_FREETYPE         ||
-   ! build_component   freetype   $VERSION_FREETYPE         ||
-   ! autogen_component fontconfig $VERSION_FONTCONFIG       ||
-   ! build_component   fontconfig $VERSION_FONTCONFIG       \
+   ! build_component   expat      $VERSION_EXPAT                  ||
+   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6     ||
+       autogen_component freetype   $VERSION_FREETYPE )           ||
+   ! build_component   freetype   $VERSION_FREETYPE               ||
+   ! autogen_component fontconfig $VERSION_FONTCONFIG             ||
+   ! build_component   fontconfig $VERSION_FONTCONFIG             \
      "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! build_component   cairo      $VERSION_CAIRO "--disable-xlib" ||
    ! build_component   pango      $VERSION_PANGO                  ||
