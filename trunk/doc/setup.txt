@@ -63,6 +63,23 @@ MAINLOGDIR
  ; Some log files are created anew for each build, some contain
  ; information about all builds done with crosser.
 
+CROSSER_DOWNLOAD
+ ; This defines packet download model. Packets are ever downloaded only
+ ; if they are missing, but time their existence is checked depends on
+ ; this setting. Actual implementation is not yet too sophisticated.
+ ; Even with "on demand" setting quite a lot of stuff is downloaded
+ ; in the beginning.
+ ;   "yes"           - crosser.sh / libstack.sh download all required
+ ;                     packets in the beginning.
+ ;   "demand"        - On demand; download just when packet is really
+ ;                     needed. This setting has advantage that not time
+ ;                     and resources are wasted to downloading if
+ ;                     compilation of some earlier component fails.
+ ;   any other value - Assume that packets are already downloaded.
+ ;                     Fail if not.
+ ; Options other than "demand" have advantage that time is not wasted
+ ; on compiling earlier packets in case some packet cannot be downloaded.
+
 =======================================================================
 
 local_setup.conf is actually shell script fragment. Here are some things
