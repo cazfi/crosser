@@ -374,7 +374,6 @@ if ! patch_src zlib                           zlib_seeko                ||
    ! patch_src tiff-$VERSION_TIFF             tiff_config_headers       ||
    ! patch_src freetype-$VERSION_FREETYPE     freetype_dll              ||
    ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
-   ! patch_src gtk+-$VERSION_GTK              gtk_blddir                ||
    ! patch_src gtk+-$VERSION_GTK              gtk_check_cxx
 then
   log_error "Patching failed"
@@ -386,6 +385,15 @@ if ! ( ! cmp_versions $VERSION_TIFF 4.0.0alpha ||
 then
   log_error "Patching failed"
   exit 1
+fi
+
+if is_smaller_version $VERSION_GTK 2.12.10
+then
+  if patch_src gtk+-$VERSION_GTK             gtk_blddir
+  then
+    log_error "Patching failed"
+    exit 1
+  fi
 fi
 
 if test "x$CROSSER_OPTION_JPEG" = "xon"
