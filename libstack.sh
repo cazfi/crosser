@@ -373,8 +373,7 @@ if ! patch_src zlib                           zlib_seeko                ||
    ! patch_src glib-$VERSION_GLIB             glib_acsizeof             ||
    ! patch_src glib-$VERSION_GLIB             glib_stackgrow            ||
    ! patch_src tiff-$VERSION_TIFF             tiff_config_headers       ||
-   ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
-   ! patch_src gtk+-$VERSION_GTK              gtk_check_cxx
+   ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags
 then
   log_error "Patching failed"
   exit 1
@@ -389,6 +388,8 @@ fi
 
 if ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
        patch_src gtk+-$VERSION_GTK          gtk_blddir ) ||
+   ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
+       patch_src gtk+-$VERSION_GTK          gtk_check_cxx ) ||
    ! ( is_minimum_version $VERSION_FREETYPE 2.3.6   ||
        patch_src freetype-$VERSION_FREETYPE freetype_dll )
 then
