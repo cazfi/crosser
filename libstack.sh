@@ -334,6 +334,7 @@ if ! unpack_component libtool    $VERSION_LIBTOOL      ||
    ! unpack_component libiconv   $VERSION_ICONV        ||
    ! unpack_component zlib       $VERSION_ZLIB         ||
    ! unpack_component libpng     $VERSION_PNG          ||
+   ! unpack_component readline   $VERSION_READLINE     ||
    ! unpack_component gettext    $VERSION_GETTEXT      ||
    ! unpack_component glib       $VERSION_GLIB         ||
    ! unpack_component tiff       $VERSION_TIFF         ||
@@ -423,6 +424,7 @@ if ! build_component   libtool    $VERSION_LIBTOOL          ||
    ! build_component   libiconv   $VERSION_ICONV            ||
    ! build_zlib        zlib                                 ||
    ! build_component   libpng     $VERSION_PNG              ||
+   ! build_component   readline   $VERSION_READLINE         ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
    ! autogen_component glib       $VERSION_GLIB  "autoconf" ||
    ! build_component   glib       $VERSION_GLIB
