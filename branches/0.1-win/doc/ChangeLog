@@ -1,5 +1,6 @@
 0.1.1-win
 	- Updated freetype to version 2.3.6
+	- Added ncurses to win step
 	- Added readline to win step
 
 0.1.0-win
