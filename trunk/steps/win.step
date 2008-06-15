@@ -1,6 +1,7 @@
 libiconv
 libpng
 zlib
+readline
 gettext
 glib
 libjpeg6b
