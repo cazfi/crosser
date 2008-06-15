@@ -1,6 +1,7 @@
 libiconv
 libpng
 zlib
+ncurses
 readline
 gettext
 glib

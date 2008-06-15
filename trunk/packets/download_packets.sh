@@ -256,6 +256,8 @@ download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_P
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
 RET="$RET $?"
+download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
