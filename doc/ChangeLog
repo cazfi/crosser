@@ -1,4 +1,5 @@
-0.1.90-win
+0.2.0-newlib
+	- Added limited crosser.sh chain builder script
 	- Updated linux kernel to version 2.6.25.6
 	- Added autoconf and automake to native step
 
