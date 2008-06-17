@@ -9,12 +9,20 @@
 
 # $1 - Base URL
 # $2 - Filename
+# $3 - Download directory
 download_file() {
   if test "x$2" = "x" ; then
     return 0
   fi
 
-  if ! wget "$1$2" ; then
+  if test "x$3" != "x"
+  then
+    DLDIR="$3"
+  else
+    DLDIR="."
+  fi
+
+  if ! ( cd $DLDIR && wget "$1$2" ) ; then
     if test "x$CONTINUE" = "xyes" ; then
       echo "Download of $2 failed" >&2
       return 0
@@ -67,6 +75,30 @@ download_packet() {
 
 # $1 - Base URL
 # $2 - Base filename
+# $3 - Number of patches
+download_patches_internal() {
+
+  declare -i DLNUM=1
+  declare -i DLTOTAL=$3
+
+  while test $DLNUM -le $DLTOTAL
+  do
+    if test $DLNUM -lt 10 ; then
+      ZEROES="00"
+    else
+      ZEROES="0"
+    fi
+    if ! download_file "$1" "${2}${ZEROES}${DLNUM}" "patch"
+    then
+       echo "Download of $2 patch $DLNUM failed" >&2
+       return 1
+    fi
+    DLNUM=$DLNUM+1
+  done
+}
+
+# $1 - Base URL
+# $2 - Base filename
 # $3 - Version
 # $4 - Package type
 # Return:
@@ -104,6 +136,46 @@ download_needed() {
   return 2
 }
 
+# $1 - Base URL
+# $2 - Packet name
+# $3 - Base filename
+# $4 - Version
+# $5 - Number of patches
+# Return:
+# 0 - Downloaded
+# 1 - Failure
+# 2 - Not needed
+download_patches() {
+  if test "x$4" != "x"
+  then
+    PACKVER="$4"
+  else
+    PACKVER="$VERSION_SELECTED"
+  fi
+
+  if test "x$DOWNLOAD_PACKET" != "x" ; then
+    if test "x$DOWNLOAD_PACKET" = "x$2" ; then
+      download_patches_internal "$1" "$3" "$5"
+      return $?
+    fi
+    return 2
+  fi
+  if test "x$STEPLIST" = "x" ; then
+    download_patches_internal "$1" "$3" "$5"
+    return $?
+  fi
+  for STEP in $STEPLIST
+  do
+    if belongs_to_step $2 $STEP ; then
+      download_patches_internal "$1" "$3" "$5"
+      return $?
+    fi
+  done
+
+  echo "$3 version $PACKVER patches not needed, skipping"
+  return 2
+}
+
 cd "$(dirname $0)"
 MAINDIR="$(cd .. ; pwd)"
 
@@ -115,7 +187,7 @@ fi
 
 if test "x$HELP_RETURN" != "x" ; then
   echo "Usage: $(basename $0) <step> [versionset]"
-  echo "       $(basename $0) --packet <name> [version]"
+  echo "       $(basename $0) --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
   echo "  - native"
@@ -126,9 +198,24 @@ if test "x$HELP_RETURN" != "x" ; then
   exit $HELP_RETURN
 fi
 
-if test "x$1" = "x--packet" && test "x$3" != "x"
+if test "x$1" = "x--packet"
 then
-  export VERSION_SELECTED="$3"
+  if test "x$3" != "x"
+  then
+    export VERSION_SELECTED="$3"
+    if test "x$4" != "x" ; then
+      if test "x$2" != "xreadline"
+      then
+        echo "Number of patches given for component which has no patches." >&2
+        exit 1
+      fi
+      export PATCHES_SELECTED="$4"
+    else
+      PATCHES_SELECTED="0"
+    fi
+  else
+    VERSIONSET="current"
+  fi
 elif test "x$1" != "x--packet" && test "x$2" != "x"
 then
   VERSIONSET="$2"
@@ -209,18 +296,21 @@ MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
-    glib)  VERSION_GLIB=$VERSION_SELECTED ;;
-    pango) VERSION_PANGO=$VERSION_SELECTED ;;
-    gtk+)  VERSION_GTK=$VERSION_SELECTED ;;
-    atk)   VERSION_ATK=$VERSION_SELECTED ;;
-    gcc)   VERSION_GCC=$VERSION_SELECTED ;;
-    cups)  VERSION_CUPS=$VERSION_SELECTED ;;
+    glib)     VERSION_GLIB=$VERSION_SELECTED ;;
+    pango)    VERSION_PANGO=$VERSION_SELECTED ;;
+    gtk+)     VERSION_GTK=$VERSION_SELECTED ;;
+    atk)      VERSION_ATK=$VERSION_SELECTED ;;
+    gcc)      VERSION_GCC=$VERSION_SELECTED ;;
+    cups)     VERSION_CUPS=$VERSION_SELECTED ;;
+    readline) PATCHES_READLINE=$PATCHES_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+
+READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.bz2"
 
@@ -255,6 +345,10 @@ RET="$RET $?"
 download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
+RET="$RET $?"
+download_patches "$MIRROR_GNU/readline/"                "readline" \
+                 "readline-$VERSION_READLINE-patches/readline${READLINE_SHORT}-" \
+                 "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
 RET="$RET $?"
