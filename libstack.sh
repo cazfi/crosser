@@ -46,6 +46,7 @@ fi
 
 . $MAINDIR/build_setup.conf
 . $MAINDIR/scripts/helpers.sh
+. $MAINDIR/scripts/packethandlers.sh
 
 if ! log_init
 then
@@ -363,6 +364,12 @@ if test "x$CROSSER_OPTION_CUPS" = "xon" &&
    ! unpack_component cups       $VERSION_CUPS "" cups-$VERSION_CUPS-source
 then
   log_error "Unpacking failed"
+  exit 1
+fi
+
+if ! patch_readline
+then
+  log_error "Patching readline with upstream patches failed"
   exit 1
 fi      
 
