@@ -7,6 +7,7 @@
 	- Updated freetype to version 2.3.6
 	- Added ncurses to win step
 	- Added readline to win step
+	- Support for downloading upstream patches and applying them
 
 0.1.0-win
 	- Added libstack.sh script

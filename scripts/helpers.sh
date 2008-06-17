@@ -109,6 +109,21 @@ patch_src() {
   fi
 }
 
+# Apply upstream patch to component
+#
+# $1 - Subdir in source hierarchy to patch
+# $2 - Patch name
+upstream_patch() {
+  log_write 2 "Patching $1: Upstream $2"
+
+  if ! patch -p0 -d $MAINSRCDIR/$1 < $MAINPACKETDIR/patch/$2 \
+       >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
+  then
+    log_error "Patching $1 with $2 failed"
+    return 1
+  fi
+}
+
 # Unpack component package to source directory
 #
 # $1   - Package name
