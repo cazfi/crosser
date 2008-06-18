@@ -251,7 +251,8 @@ autogen_component()
 setup_prefix() {
   echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
                 -e "s/<DATE>/$BUILD_DATE/g" \
-                -e "s/<CLIB>/$LIBC_MODE/g"
+                -e "s/<CLIB>/$LIBC_MODE/g" \
+                -e "s/<VERSION>/$CROSSER_VERSION/g"
 }
 
 # Outputs one parsed prefix. Can take one or two parameters and decides
