@@ -13,6 +13,8 @@ do
       STEP_NATIVE=yes ;;
     chain)
       STEP_CHAIN=yes ;;
+    baselib)
+      STEP_BASELIB=yes ;;
     win)
       STEP_WIN=yes ;;
     sdl)
