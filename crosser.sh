@@ -144,6 +144,8 @@ fail_out() {
 # $3 - Configure options
 # $4 - Make targets
 build_generic() {
+  log_packet "$1"
+
   if test -d "$MAINBUILDDIR/$1"
   then
     rm -Rf "$MAINBUILDDIR/$1"
@@ -560,7 +562,7 @@ then
   then
 
     if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
-          "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib" \
+          "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
           "all-gcc install-gcc all-zlib install-zlib" ||
        ! build_with_newlib_compiler newlib newlib-$VERSION_NEWLIB \
           "--with-sysroot=$PREFIX --disable-multilib"
@@ -568,18 +570,9 @@ then
       fail_out
     fi
   fi
-  if test "x$LIBC_MODE" != "xnewlib"
-  then
-
-    if ! (export CPPFLAGS="-I$PREFIX/newlib/include" && build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$PREFIX" )
-    then
-      fail_out
-    fi
-  fi
 fi # STEP_CHAIN
 
-if test "x$STEP_WIN" = "xyes"
+if test "x$STEP_BASELIB" = "xyes"
 then
   if ! build_with_cross_compiler libpng libpng-$VERSION_PNG
   then

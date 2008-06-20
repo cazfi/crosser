@@ -3,6 +3,7 @@
 	- Updated linux kernel to version 2.6.25.6
 	- Added autoconf and automake to native step
 	- Tag <VERSION> supported in prefix parsing
+	- Added step baselib
 
 0.1.1-win
 	- Updated freetype to version 2.3.6
