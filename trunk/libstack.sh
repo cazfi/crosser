@@ -335,7 +335,8 @@ if ! unpack_component libtool    $VERSION_LIBTOOL      ||
    ! unpack_component libiconv   $VERSION_ICONV        ||
    ! unpack_component zlib       $VERSION_ZLIB         ||
    ! unpack_component libpng     $VERSION_PNG          ||
-   ! unpack_component readline   $VERSION_READLINE     ||
+   ! unpack_component readline   $VERSION_READLINE     \
+                      "" "" $PATCHES_READLINE          ||
    ! unpack_component gettext    $VERSION_GETTEXT      ||
    ! unpack_component glib       $VERSION_GLIB         ||
    ! unpack_component tiff       $VERSION_TIFF         ||
