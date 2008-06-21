@@ -130,10 +130,11 @@ upstream_patch() {
 # $2   - Package version
 # [$3] - Subdir in source hierarchy
 # [$4] - Package file name base in case it's not 'name-version'
+# [$5] - Number of patches
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Downloading $1 version $2"
-    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" \
+    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" "$5" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
     then
       log_error "Failed to download $1 version $2"
