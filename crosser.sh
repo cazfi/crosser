@@ -458,6 +458,13 @@ then
   exit 1
 fi
 
+if ! (! cmp_versions $VERSION_GCC 4.3.1 ||
+      patch_src gcc-$VERSION_GCC gcc_cldconf )
+then
+  log_error "Patching failed"
+  exit 1
+fi
+
 if ! ln -s ../mpfr-$VERSION_MPFR $MAINSRCDIR/gcc-$VERSION_GCC/mpfr ||
    ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp
 then
