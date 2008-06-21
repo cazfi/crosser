@@ -563,9 +563,7 @@ then
 
     if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
           "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
-          "all-gcc install-gcc all-zlib install-zlib" ||
-       ! build_with_newlib_compiler newlib newlib-$VERSION_NEWLIB \
-          "--with-sysroot=$PREFIX --disable-multilib"
+          "all-gcc install-gcc install-zlib install-target-newlib install-target-libgloss"
     then
       fail_out
     fi
