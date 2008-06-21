@@ -1,6 +1,6 @@
 0.2.0-newlib
 	- Added limited crosser.sh chain builder script
-	- Updated linux kernel to version 2.6.25.6
+	- Updated linux kernel to version 2.6.25.7
 	- Added autoconf and automake to native step
 	- Tag <VERSION> supported in prefix parsing
 	- Added step baselib
