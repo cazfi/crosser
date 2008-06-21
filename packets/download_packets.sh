@@ -211,7 +211,7 @@ then
       fi
       export PATCHES_SELECTED="$4"
     else
-      PATCHES_SELECTED="0"
+      export PATCHES_SELECTED="0"
     fi
   else
     VERSIONSET="current"
@@ -302,7 +302,8 @@ then
     atk)      VERSION_ATK=$VERSION_SELECTED ;;
     gcc)      VERSION_GCC=$VERSION_SELECTED ;;
     cups)     VERSION_CUPS=$VERSION_SELECTED ;;
-    readline) PATCHES_READLINE=$PATCHES_SELECTED ;;
+    readline) VERSION_READLINE=$VERSION_SELECTED
+              PATCHES_READLINE=$PATCHES_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
