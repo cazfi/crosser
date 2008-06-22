@@ -108,9 +108,17 @@ BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
 NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
 
-if ! test -f $NATIVE_PREFIX/bin/gcc &&
+if ! test -x $NATIVE_PREFIX/bin/gcc &&
    test "x$STEP_NATIVE" != "xyes" ; then
   log_error "There's no native compiler environment present, and step 'native' for building one is not enabled."
+  exit 1
+fi
+
+if ! test -x $PREFIX/bin/gcc &&
+   test "x$STEP_CHAIN" != "xyes" &&
+   test "x$STEP_BASELIB" = "xyes"
+then
+  log_error "Cross-compiler required, but not present nor being built. Enable step 'chain' to build one."
   exit 1
 fi
 
@@ -565,11 +573,24 @@ then
     fail_out
   fi
 
+  # Initial cross-compile
+  if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
+      "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
+      "all-gcc install-gcc"
+  then
+    fail_out
+  fi
+
+  if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX"
+  then
+    fail_out
+  fi
+
   if test "x$LIBC_MODE" = "xnewlib" || test "x$LIBC_MODE" = "xboth"
   then
 
     if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
-          "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
+          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
           "all-gcc install-gcc install-zlib install-target-newlib install-target-libgloss"
     then
       fail_out
