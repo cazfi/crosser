@@ -298,6 +298,14 @@ create_target_dirs()
 kernel_header_setup() {
   log_write 1 "Kernel setup"
 
+  KERN_INC_DIR="$1"
+
+  if ! mkdir -p "$KERN_INC_DIR"
+  then
+    log_error "Failed to create directory \"$KERN_INC_DIR\""
+    return 1
+  fi
+
   if ! unpack_component linux $VERSION_KERNEL
   then
     log_error "Failed to unpack kernel"
@@ -333,8 +341,6 @@ kernel_header_setup() {
       return 1
     fi
 
-    cp -R include/linux $1/include/
-
     ASMDIR=$(readlink include/asm)
 
     if test "x$ASMDIR" = "x" ; then
@@ -342,8 +348,11 @@ kernel_header_setup() {
       return 1
     fi
 
-    if ! cp -R include/$ASMDIR $1/include/asm ; then
-      log_error "Failed to copy headers $(pwd)/include/$ASMDIR -> $1/include/asm"
+    if ! cp -R include/linux "$KERN_INC_DIR/"       ||
+       ! cp -R include/asm-generic "$KERN_INC_DIR/" ||
+       ! cp -R include/$ASMDIR "$KERN_INC_DIR/asm"
+    then
+      log_error "Failed to copy kernel headers to $KERN_INC_DIR"
       return 1
     fi
   ) then
@@ -393,8 +402,12 @@ link_host_command() {
   fi
 }
 
+# Setup hostbin directory
+#
+# 0 - Success
+# 1 - Failure
 setup_host_commands() {
-  HOST_COMMANDS="mkdir touch true false chmod rm sed grep expr cat echo sort mv cp ln cmp test ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk perl bison bzip2 flex makeinfo wget pod2man"
+  HOST_COMMANDS="mkdir touch true false chmod rm sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk perl bison bzip2 flex makeinfo wget pod2man msgfmt"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
@@ -431,7 +444,8 @@ log_write 2 "c-lib:        \"$LIBC_MODE\""
 
 if ! remove_dir "$MAINBUILDDIR" ||
    ! remove_dir "$MAINSRCDIR"   ||
-   ! remove_dir "$PREFIX"
+   ! remove_dir "$PREFIX"       ||
+   ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX")
 then
   log_error "Failed to remove old directories"
   exit 1
@@ -522,6 +536,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      log_error "Failed to build native compiler for host"
      fail_out
   fi
+
   if ! setup_host_commands
   then
     log_error "Cannot enable selected host commands"
@@ -557,8 +572,9 @@ then
   then
     export PATH="$PATH_NATIVE:$PATH"
     hash -r
-    # Prepare kernel sources while we are still using compiler with original sysroot
-    if ! kernel_header_setup "$PREFIX"
+    # Prepare kernel sources while we are still using compiler with
+    # original sysroot
+    if ! kernel_header_setup "$PREFIX/include"
     then
       fail_out
     fi
@@ -581,7 +597,7 @@ then
     fail_out
   fi
 
-  if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX"
+  if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
   then
     fail_out
   fi
