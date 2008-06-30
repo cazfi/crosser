@@ -6,7 +6,7 @@
 	- Added step baselib
 
 0.1.1-win
-	- Updated freetype to version 2.3.6
+	- Updated freetype to version 2.3.7
 	- Added ncurses to win step
 	- Added readline to win step
 	- Support for downloading upstream patches and applying them
