@@ -3,6 +3,7 @@
 	- Added ncurses to win step
 	- Added readline to win step
 	- Support for downloading upstream patches and applying them
+	- Added versionset 2008A
 
 0.1.0-win
 	- Added libstack.sh script
