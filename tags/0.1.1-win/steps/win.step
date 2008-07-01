@@ -1,0 +1,17 @@
+libiconv
+libpng
+zlib
+ncurses
+readline
+gettext
+glib
+libjpeg6b
+tiff
+expat
+freetype
+fontconfig
+cairo
+pango
+atk
+cups
+gtk+
