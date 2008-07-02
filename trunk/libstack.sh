@@ -347,6 +347,7 @@ if ! unpack_component libtool    $VERSION_LIBTOOL      ||
    ! unpack_component pango      $VERSION_PANGO        ||
    ! unpack_component atk        $VERSION_ATK          ||
    ! unpack_component gtk+       $VERSION_GTK          ||
+   ! unpack_component gtk-engines $VERSION_GTK_ENG     ||
    ! unpack_component SDL        $VERSION_SDL          ||
    ! unpack_component SDL_image  $VERSION_SDL_IMAGE
 then
@@ -474,7 +475,8 @@ if ! autogen_component tiff       $VERSION_TIFF                   ||
    ! build_component   atk        $VERSION_ATK                    ||
    ! autogen_component gtk+       $VERSION_GTK                    ||
    ! build_component   gtk+       $VERSION_GTK \
-     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"
+     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
+   ! build_component  gtk-engines $VERSION_GTK_ENG
 then
   log_error "gtk+ stack build failed"
   exit 1

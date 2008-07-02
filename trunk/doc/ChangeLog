@@ -5,6 +5,9 @@
 	- Tag <VERSION> supported in prefix parsing
 	- Added step baselib
 
+0.1.2-win
+	- Added gtk-engines to win step
+
 0.1.1-win
 	- Updated freetype to version 2.3.7
 	- Added ncurses to win step
