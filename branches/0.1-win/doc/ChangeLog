@@ -1,6 +1,7 @@
 0.1.2-win
 	- Added gtk-engines to win step
 	- Updated gtk+ to version 2.12.11
+	- Updated glib to version 2.16.4
 
 0.1.1-win
 	- Updated freetype to version 2.3.7
