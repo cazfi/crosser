@@ -179,6 +179,12 @@ download_patches() {
 cd "$(dirname $0)"
 MAINDIR="$(cd .. ; pwd)"
 
+if ! . $MAINDIR/scripts/helpers.sh
+then
+  echo "Failed to read $MAINDIR/scripts/helpers.sh" >&2
+  exit 1
+fi
+
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   HELP_RETURN=0
 elif test "x$1" = "x" ; then
