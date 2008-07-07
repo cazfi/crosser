@@ -589,7 +589,7 @@ then
     fail_out
   fi
 
-  # Initial cross-compile
+  # Initial cross-compiler
   if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
       "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
       "all-gcc install-gcc"
@@ -605,9 +605,21 @@ then
   if test "x$LIBC_MODE" = "xnewlib" || test "x$LIBC_MODE" = "xboth"
   then
 
+    log_write 1 "Copying initial newlib headers"
+    if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" "$PREFIX/include"
+    then
+      log_error "Failed initial newlib headers copying."
+      exit 1
+    fi
+
+    if ! ln -s include "$PREFIX/sys-include" ; then
+      log_error "Failed creation of sys-include link."
+      exit 1
+    fi
+
     if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
-          "all-gcc install-gcc install-zlib install-target-newlib install-target-libgloss"
+          "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib install-target-libgloss"
     then
       fail_out
     fi
