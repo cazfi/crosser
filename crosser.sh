@@ -551,6 +551,11 @@ fi
 PATH_NATIVE="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/hostbin"
 PATH_CROSS="$PREFIX/bin:$PATH_NATIVE"
 
+if test "x$CCACHE_PATH" != "x" ; then
+  PATH_NATIVE="$CCACHE_PATH:$PATH_NATIVE"
+  PATH_CROSS="$CCACHE_PATH:$PATH_CROSS"
+fi
+
 if test "x$LIBC_MODE" = "xnewlib"
 then
   PATH_NEWLIB="$PATH_CROSS"
@@ -567,6 +572,8 @@ fi
 
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
 then
+
+  export CCACHE_DIR="$NATIVE_PREFIX/.ccache"
 
   if test "x$BUILD" = "x$TARGET"
   then
@@ -625,6 +632,8 @@ then
     fi
   fi
 fi # STEP_CHAIN
+
+export CCACHE_DIR="$PREFIX/.ccache"
 
 if test "x$STEP_BASELIB" = "xyes"
 then

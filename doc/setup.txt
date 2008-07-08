@@ -81,6 +81,34 @@ CROSSER_DOWNLOAD
  ; Options other than "demand" have advantage that time is not wasted
  ; on compiling earlier packets in case some packet cannot be downloaded.
 
+CCACHE_PATH
+ ; Path to directory containing links to ccache. If this varaible is set,
+ ; crosser will always put that directory first in its PATH so ccache
+ ; will be used. Crosser will not use user's normal ccache dir, but
+ ; will create new one depending on what step is being built. This avoids
+ ; trashing user's main cache by possibly results specific to certain
+ ; crosser build, which may be very temporary.
+ ; Example setup of ccache path directory:
+ ;   > mkdir /usr/local/ccache
+ ;   > cd /usr/local/ccache
+ ;   > ln -s /usr/bin/ccache gcc
+ ;   > ln -s /usr/bin/ccache g++
+ ;   > ln -s /usr/bin/ccache cc
+ ;   > ln -s /usr/bin/ccache i586-mingw32msvc-gcc
+ ;   > ln -s /usr/bin/ccache i586-mingw32msvc-g++
+ ;   > ln -s /usr/bin/ccache i586-mingw32msvc-cc
+ ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-gcc
+ ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-g++
+ ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-gcc
+ ;   > ln -s /usr/bin/ccache i386-linux-gnu-gcc
+ ;   > ln -s /usr/bin/ccache i386-linux-gnu-g++
+ ;   > ln -s /usr/bin/ccache i386-linux-gnu-gcc
+ ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
+ ;   > ln -s /usr/bin/ccache arm-linux-gnu-g++
+ ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
+ ;   > export CCACHE_PATH="/usr/local/ccache"
+
+
 =======================================================================
 
 local_setup.conf is actually shell script fragment. Here are some things
