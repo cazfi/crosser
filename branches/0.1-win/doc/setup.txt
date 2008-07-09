@@ -1,4 +1,4 @@
-Configuriong Crosser.sh & libstack.sh
+Configuring Crosser.sh & libstack.sh
 =====================================
 
 Both libtool.sh and crosser.sh (which is not included in this release)
