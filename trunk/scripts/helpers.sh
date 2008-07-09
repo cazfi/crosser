@@ -83,6 +83,7 @@ generate_setup_scripts() {
     echo "export CROSSER=$TARGET"
     echo "export PATH=\"$PATH\""
     echo "export PS1=\"Crosser:> \""
+    echo "export CCACHE_DIR=\"$PREFIX/.ccache\""
     echo "hash -r"
     echo "/bin/bash --norc"
   ) > $1/setup.sh
