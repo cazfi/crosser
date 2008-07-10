@@ -11,7 +11,6 @@ MAINDIR=$(cd $(dirname $0) ; pwd)
 
 # These have hardcoded value 'off' for a reason - enabling them will not work
 export CROSSER_OPTION_JPEG=off
-export CROSSER_OPTION_CUPS=off
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
@@ -329,113 +328,38 @@ then
   exit 1
 fi
 
-export CROSSER_DOWNLOAD=demand
-
-if ! unpack_component libtool    $VERSION_LIBTOOL      ||
-   ! unpack_component libiconv   $VERSION_ICONV        ||
-   ! unpack_component zlib       $VERSION_ZLIB         ||
-   ! unpack_component libpng     $VERSION_PNG          ||
-   ! unpack_component readline   $VERSION_READLINE     \
-                      "" "" $PATCHES_READLINE          ||
-   ! unpack_component gettext    $VERSION_GETTEXT      ||
-   ! unpack_component glib       $VERSION_GLIB         ||
-   ! unpack_component tiff       $VERSION_TIFF         ||
-   ! unpack_component expat      $VERSION_EXPAT        ||
-   ! unpack_component freetype   $VERSION_FREETYPE     ||
-   ! unpack_component fontconfig $VERSION_FONTCONFIG   ||
-   ! unpack_component cairo      $VERSION_CAIRO        ||
-   ! unpack_component pango      $VERSION_PANGO        ||
-   ! unpack_component atk        $VERSION_ATK          ||
-   ! unpack_component gtk+       $VERSION_GTK          ||
-   ! unpack_component gtk-engines $VERSION_GTK_ENG     ||
-   ! unpack_component SDL        $VERSION_SDL          ||
-   ! unpack_component SDL_image  $VERSION_SDL_IMAGE
+if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  log_error "Unpacking failed"
-  exit 1
-fi
-
-if test "x$CROSSER_OPTION_JPEG" = "xon" &&
-   ! unpack_component libjpeg6b  $VERSION_JPEG
-then
-  log_error "Unpacking failed"
-  exit 1
-fi
-
-if test "x$CROSSER_OPTION_CUPS" = "xon" &&
-   ! unpack_component cups       $VERSION_CUPS "" cups-$VERSION_CUPS-source
-then
-  log_error "Unpacking failed"
-  exit 1
-fi
-
-if ! patch_readline
-then
-  log_error "Patching readline with upstream patches failed"
-  exit 1
-fi      
-
-if ! patch_src zlib                           zlib_seeko                ||
-   ! patch_src zlib                           zlib_fpiccheck            ||
-   ! patch_src zlib                           zlib_nolibc               ||
-   ! patch_src zlib                           zlib_dllext               ||
-   ! patch_src glib-$VERSION_GLIB             glib_acsizeof             ||
-   ! patch_src glib-$VERSION_GLIB             glib_stackgrow            ||
-   ! patch_src tiff-$VERSION_TIFF             tiff_config_headers       ||
-   ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags
-then
-  log_error "Patching failed"
-  exit 1
-fi
-
-if ! ( ! cmp_versions $VERSION_TIFF 4.0.0alpha ||
-       patch_src tiff-$VERSION_TIFF tiff4alpha_largefile )
-then
-  log_error "Patching failed"
-  exit 1
-fi
-
-if ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
-       patch_src gtk+-$VERSION_GTK          gtk_blddir ) ||
-   ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
-       patch_src gtk+-$VERSION_GTK          gtk_check_cxx ) ||
-   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6   ||
-       patch_src freetype-$VERSION_FREETYPE freetype_dll )
-then
-  log_error "Patching failed"
-  exit 1
-fi
-
-if test "x$CROSSER_OPTION_JPEG" = "xon"
-then
-  if ! patch_src libjpeg6b                      jpeg_ltmain               ||
-     ! patch_src libjpeg6b                      jpeg_ltcompile            ||
-     ! patch_src libjpeg6b                      jpeg_ar                   ||
-     ! patch_src libjpeg6b                      jpeg_noundef
+  if ! $MAINDIR/download_packets.sh "win,sdl"
   then
-    log_error "Patching failed"
+    log_error "Downloading packets failed"
     exit 1
   fi
 fi
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
-if is_smaller_version $VERSION_TIFF 4.0.0beta1
-then
-  log_write 1 "Removing upstream libtiff config"
-  if ! rm $MAINSRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h
-  then
-    log_error "Failed to remove old tiffconf.h"
-    exit 1
-  fi
-fi
-
-if ! build_component   libtool    $VERSION_LIBTOOL          ||
+if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
+   ! build_component   libtool    $VERSION_LIBTOOL          ||
+   ! unpack_component  libiconv   $VERSION_ICONV            ||
    ! build_component   libiconv   $VERSION_ICONV            ||
+   ! unpack_component  zlib       $VERSION_ZLIB             ||
+   ! patch_src zlib               zlib_seeko                ||
+   ! patch_src zlib               zlib_fpiccheck            ||
+   ! patch_src zlib               zlib_nolibc               ||
+   ! patch_src zlib               zlib_dllext               ||
    ! build_zlib        zlib                                 ||
+   ! unpack_component  libpng     $VERSION_PNG              ||
    ! build_component   libpng     $VERSION_PNG              ||
+   ! unpack_component  readline   $VERSION_READLINE         \
+                       "" ""      $PATCHES_READLINE         ||
+   ! patch_readline                                         ||
    ! build_component   readline   $VERSION_READLINE         ||
+   ! unpack_component  gettext    $VERSION_GETTEXT          ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
+   ! unpack_component  glib       $VERSION_GLIB             ||
+   ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
+   ! patch_src glib-$VERSION_GLIB glib_stackgrow            ||
    ! autogen_component glib       $VERSION_GLIB  "autoconf" ||
    ! build_component   glib       $VERSION_GLIB
 then
@@ -445,10 +369,15 @@ fi
 
 if test "x$CROSSER_OPTION_JPEG" = "xon"
 then
-  if ! update_aux_files     libjpeg6b  $VERSION_JPEG          ||
+  if ! unpack_component libjpeg6b  $VERSION_JPEG            ||
+     ! patch_src libjpeg6b        jpeg_ltmain               ||
+     ! patch_src libjpeg6b        jpeg_ltcompile            ||
+     ! patch_src libjpeg6b        jpeg_ar                   ||
+     ! patch_src libjpeg6b        jpeg_noundef
+     ! update_aux_files     libjpeg6b  $VERSION_JPEG        ||
      ! build_component_full libjpeg6b  $VERSION_JPEG "--enable-shared" "" "overwrite"
   then
-    log_error "Build failed"
+    log_error "Libjpeg build failed"
     exit 1
   fi
 else
@@ -461,21 +390,75 @@ then
   CONF_JPEG_GTK="$CONF_JPEG_GTK --without-libjasper"
 fi
 
+if ! unpack_component tiff       $VERSION_TIFF
+then
+  log_error "Tiff unpacking failed"
+  exit 1
+fi
+
+if ! patch_src tiff-$VERSION_TIFF tiff_config_headers       ||
+   ! ( ! cmp_versions $VERSION_TIFF 4.0.0alpha ||
+       patch_src tiff-$VERSION_TIFF tiff4alpha_largefile )
+then
+  log_error "Tiff patching failed"
+  exit 1
+fi
+
+if is_smaller_version $VERSION_TIFF 4.0.0beta1
+then
+  log_write 1 "Removing upstream libtiff config"
+  if ! rm $MAINSRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h
+  then
+    log_error "Failed to remove old tiffconf.h"
+    exit 1
+  fi
+fi
+
 if ! autogen_component tiff       $VERSION_TIFF                   ||
-   ! build_component   tiff       $VERSION_TIFF "$CONF_JPEG_TIFF"             ||
-   ! build_component   expat      $VERSION_EXPAT                  ||
-   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6     ||
+   ! build_component   tiff       $VERSION_TIFF "$CONF_JPEG_TIFF" ||
+   ! unpack_component  expat      $VERSION_EXPAT                  ||
+   ! build_component   expat      $VERSION_EXPAT
+then
+  log_error "Build failed"
+  exit 1
+fi
+
+if ! unpack_component  freetype   $VERSION_FREETYPE               ||
+   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6 ||
+       patch_src freetype-$VERSION_FREETYPE freetype_dll )        ||
+   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6                 ||
        autogen_component freetype   $VERSION_FREETYPE )           ||
-   ! build_component   freetype   $VERSION_FREETYPE               ||
+   ! build_component   freetype   $VERSION_FREETYPE
+then
+  log_error "Freetype build failed"
+  exit 1
+fi
+
+if ! unpack_component  fontconfig $VERSION_FONTCONFIG             ||
+   ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG             ||
    ! build_component   fontconfig $VERSION_FONTCONFIG             \
      "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" ||
+   ! unpack_component  cairo      $VERSION_CAIRO                  ||
    ! build_component   cairo      $VERSION_CAIRO "--disable-xlib" ||
+   ! unpack_component  pango      $VERSION_PANGO                  ||
    ! build_component   pango      $VERSION_PANGO                  ||
-   ! build_component   atk        $VERSION_ATK                    ||
+   ! unpack_component  atk        $VERSION_ATK                    ||
+   ! build_component   atk        $VERSION_ATK
+then
+  log_error "Build failed"
+  exit 1
+fi
+
+if ! unpack_component  gtk+       $VERSION_GTK                    ||
+   ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
+       patch_src gtk+-$VERSION_GTK          gtk_blddir )          ||
+   ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
+       patch_src gtk+-$VERSION_GTK          gtk_check_cxx )       ||
    ! autogen_component gtk+       $VERSION_GTK                    ||
    ! build_component   gtk+       $VERSION_GTK \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
+   ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG
 then
   log_error "gtk+ stack build failed"
@@ -495,7 +478,9 @@ else
   log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 fi
 
-if ! build_component   SDL        $VERSION_SDL       ||
+if ! unpack_component  SDL        $VERSION_SDL          ||
+   ! build_component   SDL        $VERSION_SDL          ||
+   ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE
 then
   log_error "SDL stack build failed"
