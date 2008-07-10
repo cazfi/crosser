@@ -407,7 +407,7 @@ link_host_command() {
 # 0 - Success
 # 1 - Failure
 setup_host_commands() {
-  HOST_COMMANDS="mkdir touch true false chmod rm sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  HOST_COMMANDS="mkdir touch true false chmod rm sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
