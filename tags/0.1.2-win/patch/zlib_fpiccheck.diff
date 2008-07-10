@@ -1,0 +1,18 @@
+diff -Nurd zlib/configure zlib/configure
+--- zlib/configure	2008-04-07 19:24:07.000000000 +0300
++++ zlib/configure	2008-04-07 19:29:26.000000000 +0300
+@@ -80,7 +80,13 @@
+ 
+ if test "$gcc" -eq 1 && ($cc -c $cflags $test.c) 2>/dev/null; then
+   CC="$cc"
+-  SFLAGS="${CFLAGS-"-O3"} -fPIC"
++  SFLAGS="${CFLAGS-"-O3"}"
++
++  if ! $CC -c $CFLAGS -fPIC $test.c 2>&1 |
++       grep "all code is position independent" >/dev/null
++  then
++    SFLAGS="$SFLAGS -fPIC"
++  fi
+   CFLAGS="${CFLAGS-"-O3"}"
+   if test -z $uname; then
+     uname=`(uname -s || echo unknown) 2>/dev/null`

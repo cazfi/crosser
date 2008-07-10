@@ -1,0 +1,14 @@
+diff -Nurd glib-2.14.6/configure.in glib-2.14.6/configure.in
+--- glib-2.14.6/configure.in	2008-02-07 07:25:02.000000000 +0200
++++ glib-2.14.6/configure.in	2008-04-08 12:15:52.000000000 +0300
+@@ -552,6 +552,10 @@
+ AC_CHECK_SIZEOF(long long)
+ AC_CHECK_SIZEOF(__int64)
+ 
++ac_cv_sizeof_long=$(echo $ac_cv_sizeof_long | sed 's/\r//g')
++ac_cv_sizeof_long_long=$(echo $ac_cv_sizeof_long_long | sed 's/\r//g')
++ac_cv_sizeof___int64=$(echo $ac_cv_sizeof___int64 | sed 's/\r//g')
++
+ if test x$ac_cv_sizeof_long = x8 || test x$ac_cv_sizeof_long_long = x8 || test x$ac_cv_sizeof___int64 = x8 ; then
+   :
+ else
