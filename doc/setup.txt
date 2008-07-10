@@ -69,7 +69,7 @@ CROSSER_DOWNLOAD
  ; if they are missing, but time their existence is checked depends on
  ; this setting. Actual implementation is not yet too sophisticated.
  ; Even with "on demand" setting quite a lot of stuff is downloaded
- ; in the beginning.
+ ; in the beginning. Default is "demand".
  ;   "yes"           - crosser.sh / libstack.sh download all required
  ;                     packets in the beginning.
  ;   "demand"        - On demand; download just when packet is really
