@@ -474,9 +474,8 @@ if test "x$AUTOWINE" = "xyes" ; then
     log_error "Failed to create configuration files in wine."
     exit 1
   fi
-else
-  log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 fi
+log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 
 if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL        $VERSION_SDL          ||
