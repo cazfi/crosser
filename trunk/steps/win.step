@@ -13,6 +13,5 @@ fontconfig
 cairo
 pango
 atk
-cups
 gtk+
 gtk-engines
