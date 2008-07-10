@@ -1,8 +1,7 @@
 libtool
-autoconf
-automake
 binutils
 gawk
 gcc
+glibc
 gmp
 mpfr

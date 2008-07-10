@@ -179,12 +179,6 @@ download_patches() {
 cd "$(dirname $0)"
 MAINDIR="$(cd .. ; pwd)"
 
-if ! . $MAINDIR/scripts/helpers.sh
-then
-  echo "Failed to read $MAINDIR/scripts/helpers.sh" >&2
-  exit 1
-fi
-
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   HELP_RETURN=0
 elif test "x$1" = "x" ; then
@@ -311,7 +305,6 @@ then
     cups)     VERSION_CUPS=$VERSION_SELECTED ;;
     readline) VERSION_READLINE=$VERSION_SELECTED
               PATCHES_READLINE=$PATCHES_SELECTED ;;
-    automake) VERSION_AUTOMAKE=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -322,23 +315,12 @@ ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
-if is_minimum_version $VERSION_AUTOMAKE 1.6.1
-then
-  AUTOMAKE_PACK="tar.bz2"
-else
-  AUTOMAKE_PACK="tar.gz"
-fi
-
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.bz2"
 
 RET="$?"  
 download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gawk/"     "gawk"     "$VERSION_GAWK"     "tar.bz2"
-RET="$RET $?"
-download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.bz2"
-RET="$RET $?"
-download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"

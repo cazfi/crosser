@@ -24,12 +24,11 @@ PREFIX
  ; Directory hierarchy where generated environment will be installed.
  ; This directory will be completely removed.
  ; This path is parsed:
- ;   - <TARGET>  -> Target architecture
- ;   - <DATE>    -> Build start date. Note that build may take long time and
- ;                  often start date is not same as current date of some build
- ;                  action.
- ;   - <CLIB>    -> libc to use
- ;   - <VERSION> -> crosser version
+ ;   - <TARGET> -> Target architecture
+ ;   - <DATE>   -> Build start date. Note that build may take long time and
+ ;                 often start date is not same as current date of some build
+ ;                 action.
+ ;   - <CLIB>   -> libc to use
  ; Either enclose value inside quotes or escape tags like \<TARGET\>
 
 NATIVE_PREFIX
@@ -80,34 +79,6 @@ CROSSER_DOWNLOAD
  ;                     Fail if not.
  ; Options other than "demand" have advantage that time is not wasted
  ; on compiling earlier packets in case some packet cannot be downloaded.
-
-CROSSER_CCACHE
- ; Path to directory containing links to ccache. If this varaible is set,
- ; crosser will always put that directory first in its PATH so ccache
- ; will be used. Crosser will not use user's normal ccache dir, but
- ; will create new one depending on what step is being built. This avoids
- ; trashing user's main cache by possibly results specific to certain
- ; crosser build, which may be very temporary.
- ; Example setup of ccache path directory:
- ;   > mkdir /usr/local/ccache
- ;   > cd /usr/local/ccache
- ;   > ln -s /usr/bin/ccache gcc
- ;   > ln -s /usr/bin/ccache g++
- ;   > ln -s /usr/bin/ccache cc
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-gcc
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-g++
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-cc
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
- ;   > export CROSSER_CCACHE="/usr/local/ccache"
-
 
 =======================================================================
 

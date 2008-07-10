@@ -83,7 +83,6 @@ generate_setup_scripts() {
     echo "export CROSSER=$TARGET"
     echo "export PATH=\"$PATH\""
     echo "export PS1=\"Crosser:> \""
-    echo "export CCACHE_DIR=\"$PREFIX/.ccache\""
     echo "hash -r"
     echo "/bin/bash --norc"
   ) > $1/setup.sh
@@ -253,8 +252,7 @@ autogen_component()
 setup_prefix() {
   echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
                 -e "s/<DATE>/$BUILD_DATE/g" \
-                -e "s/<CLIB>/$LIBC_MODE/g" \
-                -e "s/<VERSION>/$CROSSER_VERSION/g"
+                -e "s/<CLIB>/$LIBC_MODE/g"
 }
 
 # Outputs one parsed prefix. Can take one or two parameters and decides
