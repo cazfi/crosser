@@ -17,8 +17,8 @@ AUTOWINE
  ; If this has value "yes", libstack.sh uses wine to run some
  ; gtk+ configuration programs. Do not define this if wine is not available
  ; and automatically usable.
- ; If wine is not available, these configuration programs must be run
- ; when doing actual install to Windows machine
+ ; These configuration programs must be run when doing actual install to
+ ; Windows machine.
 
 PREFIX
  ; Directory hierarchy where generated environment will be installed.
