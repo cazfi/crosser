@@ -561,13 +561,6 @@ if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_CROSS="$CROSSER_CCACHE:$PATH_CROSS"
 fi
 
-if test "x$LIBC_MODE" = "xnewlib"
-then
-  PATH_NEWLIB="$PATH_CROSS"
-else
-  PATH_NEWLIB="$PREFIX/newlib/bin:$PREFIX/bin:$PATH_NATIVE"
-fi
-
 if ! create_target_dirs ; then
   fail_out
 fi
@@ -591,7 +584,7 @@ then
     fi
   fi
 
-  export PATH="$PATH_NEWLIB"
+  export PATH="$PATH_CROSS"
   hash -r
 
   if ! build_with_native_compiler binutils binutils-$VERSION_BINUTILS \
@@ -635,7 +628,11 @@ then
       fail_out
     fi
   fi
-fi # STEP_CHAIN
+else # STEP_CHAIN
+  # Set PATH only if it's not already correct to avoid unnecessary hash reset.
+  export PATH="$PATH_CROSS"
+  hash -r
+fi   # STEP_CHAIN
 
 export CCACHE_DIR="$PREFIX/.ccache"
 
