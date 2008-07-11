@@ -108,7 +108,7 @@ BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
 NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
 
-if ! test -x $NATIVE_PREFIX/bin/gcc &&
+if ! test -f $NATIVE_PREFIX/crosser/crosser.hierarchy &&
    test "x$STEP_NATIVE" != "xyes" ; then
   log_error "There's no native compiler environment present, and step 'native' for building one is not enabled."
   exit 1
@@ -124,7 +124,7 @@ fi
 
 PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
 
-if ! test -x $PREFIX/bin/$TARGET-gcc &&
+if ! test -f $PREFIX/crosser/crosser.hierarchy &&
    test "x$STEP_CHAIN" != "xyes" &&
    test "x$STEP_BASELIB" = "xyes"
 then
@@ -271,6 +271,8 @@ build_with_cross_compiler() {
   fi
 }
 
+# Creates base directories to native hierarchy
+#
 create_host_dirs()
 {
   # Remove old
@@ -279,17 +281,21 @@ create_host_dirs()
     return 1
   fi
 
-  if ! mkdir -p $NATIVE_PREFIX/usr/include
+  if ! mkdir -p $NATIVE_PREFIX/crosser ||
+     ! mkdir -p $NATIVE_PREFIX/usr/include
   then
     log_error "Failed to create host directories under \"$NATIVE_PREFIX\""
     return 1
   fi
 }
 
+# Creates base directories to cross-chain hierarchy
+#
 create_target_dirs()
 {
-  if ! mkdir -p $PREFIX/etc ||
-     ! mkdir -p $PREFIX/include ||
+  if ! mkdir -p $PREFIX/crosser     ||
+     ! mkdir -p $PREFIX/etc         ||
+     ! mkdir -p $PREFIX/include     ||
      ! mkdir -p $PREFIX/usr/include ||
      ! mkdir -p $PREFIX/usr/lib
   then
@@ -548,6 +554,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
     fail_out
   fi
 
+  echo "Setup:   Native"           >  "$NATIVE_PREFIX/crosser/crosser.hierarchy"
+  echo "Version: $CROSSER_VERSION" >> "$NATIVE_PREFIX/crosser/crosser.hierarchy"
 fi
 
 # None of these path variables contain original $PATH.
@@ -627,6 +635,9 @@ then
     then
       fail_out
     fi
+
+    echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
+    echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
   fi
 else # STEP_CHAIN
   # Set PATH only if it's not already correct to avoid unnecessary hash reset.
