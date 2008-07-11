@@ -625,8 +625,8 @@ then
     fi
 
     if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
-          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
-          "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib install-target-libgloss"
+          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
+          "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
       fail_out
     fi
