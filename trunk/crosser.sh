@@ -9,7 +9,7 @@
 MAINDIR=$(cd $(dirname $0) ; pwd)
 
 STEP="setup"
-STEPADD=" "
+STEPADD="  "
 
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   echo "Usage: $(basename $0) [target setup name] [steps] [versionset] [c-lib]"
@@ -114,14 +114,6 @@ if ! test -x $NATIVE_PREFIX/bin/gcc &&
   exit 1
 fi
 
-if ! test -x $PREFIX/bin/gcc &&
-   test "x$STEP_CHAIN" != "xyes" &&
-   test "x$STEP_BASELIB" = "xyes"
-then
-  log_error "Cross-compiler required, but not present nor being built. Enable step 'chain' to build one."
-  exit 1
-fi
-
 # If native build, and cross-compile is not already being forced
 if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x" ; then
   CROSS_OFF=yes
@@ -131,6 +123,14 @@ else
 fi
 
 PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
+
+if ! test -x $PREFIX/bin/$TARGET-gcc &&
+   test "x$STEP_CHAIN" != "xyes" &&
+   test "x$STEP_BASELIB" = "xyes"
+then
+  log_error "Cross-compiler required, but not present nor being built. Enable step 'chain' to build one."
+  exit 1
+fi
 
 #############################################################################
 
@@ -254,6 +254,12 @@ build_with_native_compiler() {
   fi
 }
 
+# Build component using cross-compiler
+#
+# $1 - Component name
+# $2 - Source dir in source hierarchy
+# $3 - Configure options
+# $4 - Make targets
 build_with_cross_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
@@ -407,7 +413,7 @@ link_host_command() {
 # 0 - Success
 # 1 - Failure
 setup_host_commands() {
-  HOST_COMMANDS="mkdir touch true false chmod rm sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  HOST_COMMANDS="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
@@ -444,8 +450,8 @@ log_write 2 "c-lib:        \"$LIBC_MODE\""
 
 if ! remove_dir "$MAINBUILDDIR" ||
    ! remove_dir "$MAINSRCDIR"   ||
-   ! remove_dir "$PREFIX"       ||
    ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX")
+   ! (test "x$STEP_CHAIN"  != "xyes" || remove_dir "$PREFIX")
 then
   log_error "Failed to remove old directories"
   exit 1
@@ -473,8 +479,7 @@ if ! unpack_component binutils     $VERSION_BINUTILS ||
    ! unpack_component gcc          $VERSION_GCC      ||
    ! unpack_component newlib       $VERSION_NEWLIB   ||
    ! unpack_component gmp          $VERSION_GMP      ||
-   ! unpack_component mpfr         $VERSION_MPFR     ||
-   ! unpack_component libpng       $VERSION_PNG
+   ! unpack_component mpfr         $VERSION_MPFR
 then
   log_error "Unpacking failed"
   exit 1
@@ -518,7 +523,7 @@ fi
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
-  STEPADD=""
+  STEPADD=" "
   if ! create_host_dirs ||
      ! unpack_component libtool $VERSION_LIBTOOL ||
      ! build_for_host libtool libtool-$VERSION_LIBTOOL ||
@@ -563,15 +568,14 @@ else
   PATH_NEWLIB="$PREFIX/newlib/bin:$PREFIX/bin:$PATH_NATIVE"
 fi
 
-STEP="chain"
-STEPADD=" "
-
 if ! create_target_dirs ; then
   fail_out
 fi
 
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
 then
+  STEP="chain"
+  STEPADD="  "
 
   export CCACHE_DIR="$NATIVE_PREFIX/.ccache"
 
@@ -637,6 +641,25 @@ export CCACHE_DIR="$PREFIX/.ccache"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
+  STEP="baselib"
+  STEPADD=""
+
+  if ! unpack_component  zlib         $VERSION_ZLIB           ||
+     ! unpack_component  libpng       $VERSION_PNG
+  then
+    log_error "Baselib unpacking failed"
+    exit 1
+  fi
+
+  # Some patches work only when compiling for Windows target and
+  # thus used in libstack.sh only
+  if ! patch_src zlib               zlib_seeko                ||
+     ! patch_src zlib               zlib_fpiccheck
+  then
+    error_log "Baselib patching failed"
+    exit 1
+  fi
+
   if ! build_with_cross_compiler libpng libpng-$VERSION_PNG
   then
     fail_out
