@@ -397,14 +397,22 @@ build_for_host() {
   fi
 }
 
+# Create link to one host command in hostbin directory
+#
 # $1 - Command to link
+# $2 - Required ('no')
 link_host_command() {
   CMDPATH="$(which $1)"
 
   if test "x$CMDPATH" = "x"
   then
-    log_error "Cannot find host command $1"
-    return 1
+    if test "x$2" != "xno"
+    then
+      log_error "Cannot find host command $1"
+      return 1
+    else
+      return 0
+    fi
   fi
 
   if ! ln -s $CMDPATH $NATIVE_PREFIX/hostbin/
@@ -419,27 +427,40 @@ link_host_command() {
 # 0 - Success
 # 1 - Failure
 setup_host_commands() {
-  HOST_COMMANDS="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  # Absolutely required commands
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  # Usefull commands
+  HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gunzip patch"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
     return 1
   fi
 
-  for HOST_CMD in $HOST_COMMANDS
+  for HOST_CMD in $HOST_COMMANDS_REQ
   do
     if ! link_host_command $HOST_CMD
     then
       return 1
     fi
   done
+
+  for HOST_CMD in $HOST_COMMANDS_TRY
+  do
+    if ! link_host_command $HOST_CMD no
+    then
+      return 1
+    fi
+  done
 }
 
-if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x" ; then
+if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x"
+then
   CROSS_OFF=yes
 fi
 
-if test "x$CROSS_OFF" = "xyes" ; then
+if test "x$CROSS_OFF" = "xyes"
+then
   log_write 2 "Building to native target. Cross-compilers will not be built or used"
 fi
 
@@ -456,14 +477,15 @@ log_write 2 "c-lib:        \"$LIBC_MODE\""
 
 if ! remove_dir "$MAINBUILDDIR" ||
    ! remove_dir "$MAINSRCDIR"   ||
-   ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX")
+   ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX") ||
    ! (test "x$STEP_CHAIN"  != "xyes" || remove_dir "$PREFIX")
 then
   log_error "Failed to remove old directories"
   exit 1
 fi
 
-if ! mkdir -p $MAINSRCDIR || ! mkdir -p $MAINBUILDDIR ; then
+if ! mkdir -p $MAINSRCDIR || ! mkdir -p $MAINBUILDDIR
+then
   log_error "Cannot create main directories"
   exit 1
 fi
@@ -512,8 +534,11 @@ if test "x$CROSS_OFF" != "xyes" ; then
     exit 1
   fi
 
-  if ! ln -s ../newlib-$VERSION_NEWLIB/newlib $MAINSRCDIR/gcc-newlib-$VERSION_GCC ||
-     ! ln -s ../newlib-$VERSION_NEWLIB/libgloss $MAINSRCDIR/gcc-newlib-$VERSION_GCC ; then
+  if ! ln -s ../newlib-$VERSION_NEWLIB/newlib \
+             $MAINSRCDIR/gcc-newlib-$VERSION_GCC ||
+     ! ln -s ../newlib-$VERSION_NEWLIB/libgloss \
+             $MAINSRCDIR/gcc-newlib-$VERSION_GCC
+  then
     log_error "Creation of newlib links failed"
     exit 1
   fi
@@ -530,6 +555,7 @@ fi
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD=" "
+
   if ! create_host_dirs ||
      ! unpack_component libtool $VERSION_LIBTOOL ||
      ! build_for_host libtool libtool-$VERSION_LIBTOOL ||
