@@ -108,6 +108,10 @@ CROSSER_CCACHE
  ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
  ;   > export CROSSER_CCACHE="/usr/local/ccache"
 
+DEBUG_CROSSER
+ ; If set to 'yes', support for logging crosser internal errors and
+ ; generating reports about crosser behavior is enabled. This is usefull
+ ; only when developing crosser itself.
 
 =======================================================================
 

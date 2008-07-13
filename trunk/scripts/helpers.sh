@@ -64,6 +64,28 @@ log_error() {
   echo "$1" >&2
 }
 
+# Logging function for debugging internal errors
+#
+# $1 - Error message
+crosser_error() {
+  log_error "$1"
+  if test "x$DEBUG_CROSSER" = "xyes"
+  then
+     ( echo "** Env dump begins **"
+       /usr/bin/env
+       echo "**  Env dump ends  **" ) >> $MAINLOGDIR/stdout.log
+     if mkdir -p "$PREFIX/debug"
+     then
+       generate_setup_scripts "$PREFIX/debug"
+     elif test -d "$PREFIX"
+     then
+       generate_setup_scripts "$PREFIX"
+     else
+       log_error "Cannot generate debug script, since directory \"$PREFIX\" missing."
+     fi
+  fi
+}
+
 log_flags() {
   log_write 4 "  CPPFLAGS: \"$CPPFLAGS\""
   log_write 4 "  CFLAGS:   \"$CFLAGS\""
