@@ -147,27 +147,37 @@ fail_out() {
 
 # Generic function to compile one component
 #
-# $1 - Build directory in build hierarchy
-# $2 - Sourcedir in source hierarchy
-# $3 - Configure options
-# $4 - Make targets
+# $1   - Build directory in build hierarchy
+# $2   - Sourcedir in source hierarchy
+# $3   - Configure options
+# $4   - Make targets
+# [$5] - Build in srcdir ('yes')
 build_generic() {
   log_packet "$1"
 
-  if test -d "$MAINBUILDDIR/$1"
+  if test "x$5" != "xyes"
   then
-    rm -Rf "$MAINBUILDDIR/$1"
-  fi
+    if test -d "$MAINBUILDDIR/$1"
+    then
+      rm -Rf "$MAINBUILDDIR/$1"
+    fi
 
-  if ! mkdir -p $MAINBUILDDIR/$1
-  then
-     log_error "Failed to create directory \"$MAINBUILDDIR/$1\""
-     return 1
-  fi
-  if ! cd $MAINBUILDDIR/$1
-  then
-     log_error "Failed to change workdir to \"$MAINBUILDDIR/$1\""
-     return 1
+    if ! mkdir -p $MAINBUILDDIR/$1
+    then
+       log_error "Failed to create directory \"$MAINBUILDDIR/$1\""
+       return 1
+    fi
+    if ! cd $MAINBUILDDIR/$1
+    then
+       log_error "Failed to change workdir to \"$MAINBUILDDIR/$1\""
+       return 1
+    fi
+  else
+    if ! cd $MAINSRCDIR/$2
+    then
+       log_error "Failed to change workdir to \"$MAINSRCDIR/$2\""
+       return 1
+    fi
   fi
 
   log_write 1 "Configuring: $2"
@@ -250,19 +260,42 @@ build_with_native_compiler() {
 
 # Build component using cross-compiler
 #
+# $1   - Component name
+# $2   - Source dir in source hierarchy
+# $3   - Configure options
+# $4   - Make targets
+build_with_cross_compiler() {
+  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
+
+  export CPPFLAGS="-isystem $PREFIX/include"
+  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
+
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4" "$5"
+  then
+    return 1
+  fi
+}
+
+# Build zlib using cross-compiler
+#
 # $1 - Component name
 # $2 - Source dir in source hierarchy
 # $3 - Configure options
 # $4 - Make targets
-build_with_cross_compiler() {
-  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
+build_zlib() {
+  export CC=$TARGET-gcc
+  export RANLIB=$TARGET-ranlib
+  export AR=$TARGET-ar
 
-  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX"
+  export CPPFLAGS="-isystem $PREFIX/include"
+  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4"
-  then
-    return 1
-  fi
+  CONFOPTIONS="--prefix=$PREFIX $3"
+
+  # TODO: zlib build doesn't like this variable, check why.
+  unset TARGET_ARCH
+
+  build_generic "$1" "$2" "$CONFOPTIONS" "$4" yes
 }
 
 # Creates base directories to native hierarchy
@@ -704,7 +737,9 @@ then
     exit 1
   fi
 
-  if ! build_with_cross_compiler libpng libpng-$VERSION_PNG
+  if ! build_zlib                zlib   zlib                  \
+       "--shared"                                             ||
+     ! build_with_cross_compiler libpng libpng-$VERSION_PNG
   then
     fail_out
   fi
