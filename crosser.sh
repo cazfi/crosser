@@ -211,16 +211,10 @@ build_generic() {
 build_newlib_chain() {
   export CFLAGS=""
 
-  if test "x$LIBC_MODE" != "xnewlib" ; then
-    SUBDIR="/newlib"
-  else
-    SUBDIR=""
-  fi
+  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
-  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX$SUBDIR $3 --disable-nls"
-
-  export LDFLAGS="-Wl,-rpath=$PREFIX$SUBDIR -L$PREFIX$SUBDIR"
-  export CPPFLAGS="-I$PREFIX$SUBDIR/include"
+  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX"
+  export CPPFLAGS="-I$PREFIX/include"
 
   if ! build_generic "newlib-$1" "$2" "$CONFOPTIONS" "$4"
   then
@@ -430,7 +424,7 @@ setup_host_commands() {
   # Absolutely required commands
   HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
   # Usefull commands
-  HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gunzip patch"
+  HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
@@ -452,6 +446,45 @@ setup_host_commands() {
       return 1
     fi
   done
+}
+
+# Prepare binutils source tree
+#
+prepare_binutils_src() {
+  if ! unpack_component binutils     $VERSION_BINUTILS            ||
+     ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
+         patch_src binutils-$VERSION_BINUTILS binutils_makeinfo ) ||
+     ! (cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf)
+  then
+    log_error "Binutils setup failed"
+    return 1
+  fi
+}
+
+# Basic preparation of gcc source tree
+#
+prepare_gcc_src() {
+  if ! unpack_component gcc          $VERSION_GCC      ||
+     ! unpack_component gmp          $VERSION_GMP      ||
+     ! unpack_component mpfr         $VERSION_MPFR
+  then
+    log_error "Unpacking failed"
+    exit 1
+  fi
+
+  if ! (! cmp_versions $VERSION_GCC 4.3.1 ||
+        patch_src gcc-$VERSION_GCC gcc_cldconf )
+  then
+    log_error "GCC patching failed"
+    exit 1
+  fi
+
+  if ! ln -s ../mpfr-$VERSION_MPFR $MAINSRCDIR/gcc-$VERSION_GCC/mpfr ||
+     ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp
+  then
+    log_error "Creation of links to additional gcc modules failed"
+    exit 1
+  fi
 }
 
 if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x"
@@ -490,8 +523,6 @@ then
   exit 1
 fi
 
-export CROSSER_DOWNLOAD=demand
-
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
   if ! $MAINDIR/download_packets.sh "$STEPPARAM"
@@ -501,62 +532,13 @@ then
   fi
 fi
 
-if ! unpack_component binutils     $VERSION_BINUTILS ||
-   ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
-       patch_src binutils-$VERSION_BINUTILS binutils_makeinfo ) ||
-   ! unpack_component gcc          $VERSION_GCC      ||
-   ! unpack_component newlib       $VERSION_NEWLIB   ||
-   ! unpack_component gmp          $VERSION_GMP      ||
-   ! unpack_component mpfr         $VERSION_MPFR
-then
-  log_error "Unpacking failed"
-  exit 1
-fi
-
-if ! (! cmp_versions $VERSION_GCC 4.3.1 ||
-      patch_src gcc-$VERSION_GCC gcc_cldconf )
-then
-  log_error "Patching failed"
-  exit 1
-fi
-
-if ! ln -s ../mpfr-$VERSION_MPFR $MAINSRCDIR/gcc-$VERSION_GCC/mpfr ||
-   ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp
-then
-  log_error "Creation of links to additional gcc modules failed"
-  exit 1
-fi
-
-if test "x$CROSS_OFF" != "xyes" ; then
-  if ! cp -R $MAINSRCDIR/gcc-$VERSION_GCC $MAINSRCDIR/gcc-newlib-$VERSION_GCC
-  then
-    log_error "Cannot make separate newlib-enabled gcc source tree"
-    exit 1
-  fi
-
-  if ! ln -s ../newlib-$VERSION_NEWLIB/newlib \
-             $MAINSRCDIR/gcc-newlib-$VERSION_GCC ||
-     ! ln -s ../newlib-$VERSION_NEWLIB/libgloss \
-             $MAINSRCDIR/gcc-newlib-$VERSION_GCC
-  then
-    log_error "Creation of newlib links failed"
-    exit 1
-  fi
-fi
-
 LDCONFIG=/sbin/ldconfig
-
-if ! (cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf)
-then
-  log_error "Preparing sources failed"
-  fail_out
-fi
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD=" "
 
-  if ! create_host_dirs ||
+  if ! create_host_dirs     ||
      ! unpack_component libtool $VERSION_LIBTOOL ||
      ! build_for_host libtool libtool-$VERSION_LIBTOOL ||
      ! unpack_component gawk     $VERSION_GAWK                ||
@@ -565,8 +547,10 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   autoconf autoconf-$VERSION_AUTOCONF   ||
      ! unpack_component automake $VERSION_AUTOMAKE            ||
      ! build_for_host   automake automake-$VERSION_AUTOMAKE   ||
+     ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
+     ! prepare_gcc_src                                        ||
      ! build_for_host gcc gcc-$VERSION_GCC                    \
      "--enable-languages=c,c++ --disable-multilib --with-tls"
   then
@@ -606,6 +590,16 @@ then
 
   export CCACHE_DIR="$NATIVE_PREFIX/.ccache"
 
+  # If native step already executed, these preparations are done.
+  if test "x$STEP_NATIVE" != "xyes"
+  then
+    if ! prepare_binutils_src ||
+       ! prepare_gcc_src
+    then
+      exit 1
+    fi
+  fi
+
   if test "x$BUILD" = "x$TARGET"
   then
     export PATH="$PATH_NATIVE:$PATH"
@@ -640,11 +634,27 @@ then
     fail_out
   fi
 
-  if test "x$LIBC_MODE" = "xnewlib" || test "x$LIBC_MODE" = "xboth"
+  if test "x$LIBC_MODE" = "xnewlib"
   then
 
+    if ! unpack_component newlib       $VERSION_NEWLIB
+    then
+      log_error "Newlib unpacking failed"
+      exit 1
+    fi
+
+    if ! ln -s ../newlib-$VERSION_NEWLIB/newlib \
+               $MAINSRCDIR/gcc-$VERSION_GCC ||
+       ! ln -s ../newlib-$VERSION_NEWLIB/libgloss \
+               $MAINSRCDIR/gcc-$VERSION_GCC
+    then
+      log_error "Creation of newlib links failed"
+      exit 1
+    fi
+
     log_write 1 "Copying initial newlib headers"
-    if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" "$PREFIX/include"
+    if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
+               "$PREFIX/include"
     then
       log_error "Failed initial newlib headers copying."
       exit 1
@@ -655,7 +665,7 @@ then
       exit 1
     fi
 
-    if ! build_newlib_compiler gcc gcc-newlib-$VERSION_GCC \
+    if ! build_newlib_compiler gcc gcc-$VERSION_GCC \
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
