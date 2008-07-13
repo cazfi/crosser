@@ -225,10 +225,6 @@ build_newlib_compiler() {
   build_newlib_chain "$1" "$2" "$3" "$4"
 }
 
-build_with_newlib_compiler() {
-  build_newlib_chain "$1" "$2" "$3" "$4"
-}
-
 # Build with compiler built in native step
 #
 # $1 - Component to compile
@@ -655,6 +651,11 @@ then
     exit 1
   fi
 
+  if ! ln -s include "$PREFIX/sys-include" ; then
+    log_error "Failed creation of sys-include link."
+    exit 1
+  fi
+
   if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
   then
     crosser_error "Kernel header setup failed"
@@ -675,7 +676,7 @@ then
        ! ln -s ../newlib-$VERSION_NEWLIB/libgloss \
                $MAINSRCDIR/gcc-$VERSION_GCC
     then
-      log_error "Creation of newlib links failed"
+      crosser_error "Creation of newlib links failed"
       exit 1
     fi
 
@@ -683,12 +684,7 @@ then
     if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
                "$PREFIX/include"
     then
-      log_error "Failed initial newlib headers copying."
-      exit 1
-    fi
-
-    if ! ln -s include "$PREFIX/sys-include" ; then
-      log_error "Failed creation of sys-include link."
+      crosser_error "Failed initial newlib headers copying."
       exit 1
     fi
 
@@ -699,10 +695,10 @@ then
       crosser_error "Cross-compiler build failed"
       exit 1
     fi
-
-    echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
-    echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
   fi
+
+  echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
+  echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
 else # STEP_CHAIN
   # Set PATH only if it's not already correct to avoid unnecessary hash reset.
   export PATH="$PATH_CROSS"
