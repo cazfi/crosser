@@ -1,6 +1,6 @@
 diff -Nurd zlib/configure zlib/configure
---- zlib/configure	2007-06-19 13:26:13.000000000 +0300
-+++ zlib/configure	2008-04-07 18:21:36.000000000 +0300
+--- zlib/configure	2008-07-13 01:45:10.000000000 +0300
++++ zlib/configure	2008-07-13 01:51:13.000000000 +0300
 @@ -232,23 +232,22 @@
    CFLAGS="${CFLAGS} -D_LARGEFILE64_SOURCE=1"
    SFLAGS="${SFLAGS} -D_LARGEFILE64_SOURCE=1"
@@ -17,14 +17,14 @@ diff -Nurd zlib/configure zlib/configure
    return 0;
  }
  EOF
--  if test "`($CC $CFLAGS -o $test $test.c) 2>&1`" = ""; then
+-  if $CC $CFLAGS -o $test $test.c >/dev/null 2>&1 ; then
 -    echo "Checking for fseeko... Yes."
 -  else
 -    CFLAGS="${CFLAGS} -DNO_FSEEKO"
 -    SFLAGS="${SFLAGS} -DNO_FSEEKO"
 -    echo "Checking for fseeko... No."
 -  fi
-+if test "`($CC $CFLAGS -o $test $test.c) 2>&1`" = ""; then
++if $CC $CFLAGS -o $test $test.c >/dev/null 2>&1 ; then
 +  echo "Checking for fseeko... Yes."
 +else
 +  CFLAGS="${CFLAGS} -DNO_FSEEKO"
