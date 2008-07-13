@@ -697,8 +697,8 @@ then
 
   # Some patches work only when compiling for Windows target and
   # thus used in libstack.sh only
-  if ! patch_src zlib               zlib_seeko                ||
-     ! patch_src zlib               zlib_fpiccheck
+  if ! patch_src zlib               zlib_cctest               ||
+     ! patch_src zlib               zlib_seeko
   then
     error_log "Baselib patching failed"
     exit 1
