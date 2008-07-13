@@ -134,17 +134,6 @@ fi
 
 #############################################################################
 
-fail_out() {
-  log_error "FAILING OUT"
-  if test -d $PREFIX
-  then
-    generate_setup_scripts $PREFIX
-  else
-    log_error "Target directory not yet created - cannot generate environment for debugging"
-  fi
-  exit 1
-}
-
 # Generic function to compile one component
 #
 # $1   - Build directory in build hierarchy
@@ -587,14 +576,14 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host gcc gcc-$VERSION_GCC                    \
      "--enable-languages=c,c++ --disable-multilib --with-tls"
   then
-     log_error "Failed to build native compiler for host"
-     fail_out
+     crosser_error "Failed to build native compiler for host"
+     exit 1
   fi
 
   if ! setup_host_commands
   then
-    log_error "Cannot enable selected host commands"
-    fail_out
+    crosser_error "Cannot enable selected host commands"
+    exit 1
   fi
 
   echo "Setup:   Native"           >  "$NATIVE_PREFIX/crosser/crosser.hierarchy"
@@ -613,7 +602,8 @@ if test "x$CROSSER_CCACHE" != "x" ; then
 fi
 
 if ! create_target_dirs ; then
-  fail_out
+  crosser_error "Failed to create target dirs"
+  exit 1
 fi
 
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
@@ -641,7 +631,8 @@ then
     # original sysroot
     if ! kernel_header_setup "$PREFIX/include"
     then
-      fail_out
+      crosser_error "Kernel header setup failed"
+      exit 1
     fi
   fi
 
@@ -651,7 +642,8 @@ then
   if ! build_with_native_compiler binutils binutils-$VERSION_BINUTILS \
         "--with-sysroot=$PREFIX --with-tls --enable-stage1-languages=all"
   then
-    fail_out
+    crosser_error "Binutils build failed"
+    exit 1
   fi
 
   # Initial cross-compiler
@@ -659,12 +651,14 @@ then
       "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
       "all-gcc install-gcc"
   then
-    fail_out
+    crosser_error "Build of initial cross-compiler failed"
+    exit 1
   fi
 
   if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
   then
-    fail_out
+    crosser_error "Kernel header setup failed"
+    exit
   fi
 
   if test "x$LIBC_MODE" = "xnewlib"
@@ -672,7 +666,7 @@ then
 
     if ! unpack_component newlib       $VERSION_NEWLIB
     then
-      log_error "Newlib unpacking failed"
+      crosser_error "Newlib unpacking failed"
       exit 1
     fi
 
@@ -702,7 +696,8 @@ then
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
-      fail_out
+      crosser_error "Cross-compiler build failed"
+      exit 1
     fi
 
     echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
@@ -741,7 +736,8 @@ then
        "--shared"                                             ||
      ! build_with_cross_compiler libpng libpng-$VERSION_PNG
   then
-    fail_out
+    crosser_error "Baselib build failed"
+    exit 1
   fi
 fi
 
