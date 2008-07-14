@@ -96,6 +96,12 @@ if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
 fi
 source "$MAINDIR/setups/$SETUP.conf"
 
+if test "x$LIBC_MODE" = "xnewlib" && test "x$LIBC_NEWLIB" = "xno"
+then
+  log_error "Configuration \"$SETUP\" cannot be used with newlib c-library"
+  exit 1
+fi
+
 TARGET="$TARGET_ARCH-$TARGET_OS"
 
 if ! source $MAINDIR/setups/native.sh ; then

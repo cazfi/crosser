@@ -278,6 +278,12 @@ if ! test -e "$MAINSETUPDIR/$SETUP.conf" ; then
 fi
 source "$MAINSETUPDIR/$SETUP.conf"
 
+if test "x$LIBSTACK" = "xno"
+then
+  log_error "Libstack.sh cannot be used with configuration \"$SETUP\"."
+  exit 1
+fi
+
 TARGET="$TARGET_ARCH-$TARGET_OS"
 
 if test -d /usr/$TARGET/include
