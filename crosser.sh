@@ -52,15 +52,15 @@ fi
 if test "x$1" != "x" ; then
   SETUP="$1"
 else
-  SETUP="i386-linux"
+  SETUP="arm-elf"
   log_write 1 "No setup selected, defaulting to \"$SETUP\""
 fi
 
 if test "x$2" != "x" ; then
   STEPPARAM="$2"
 else
-  log_write 1 "No build steps defined, building everything"
-  STEPPARAM="all"
+  log_write 1 "No build steps defined, building native to baselib"
+  STEPPARAM="native:baselib"
 fi
 
 . $MAINDIR/steps/stepfuncs.sh
@@ -322,88 +322,6 @@ create_target_dirs()
   fi
 }
 
-# Install kernel headers
-#
-# $1 - Target directory
-kernel_header_setup() {
-  log_write 1 "Kernel setup"
-
-  KERN_INC_DIR="$1"
-
-  if ! mkdir -p "$KERN_INC_DIR"
-  then
-    log_error "Failed to create directory \"$KERN_INC_DIR\""
-    return 1
-  fi
-
-  if ! unpack_component linux $VERSION_KERNEL
-  then
-    log_error "Failed to unpack kernel"
-    return 1
-  fi
-
-  if ! (
-    cd $MAINSRCDIR/linux-$VERSION_KERNEL
-
-    if test -f $MAINPACKETDIR/kernel-$TARGET.config ; then
-      cp $MAINPACKETDIR/kernel-$TARGET.config .config
-      KCONFTARGET=silentoldconfig
-    else
-      KCONFTARGET=defconfig
-    fi
-
-    if test "x$CROSS_OFF" != "xyes" ; then
-      export CROSSPARAM="CROSS_COMPILE=$TARGET-"
-      if test "x$KERN_ARCH" = "x" ; then
-         KERN_ARCH=$TARGET_ARCH
-      fi
-      KERN_PARAM="ARCH=$KERN_ARCH"
-    fi
-
-    MAKEPARAMS="$CROSSPARAM $KERN_PARAM $KCONFTARGET prepare"
-
-    log_write 3 "  Make params: $MAKEPARAMS"
-
-    if ! make $MAKEPARAMS \
-	           2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
-    then
-      log_error "Kernel prepare failed"
-      return 1
-    fi
-
-    ASMDIR=$(readlink include/asm)
-
-    if test "x$ASMDIR" = "x" ; then
-      log_error "Link linux-$VERSION_KERNEL/include/asm not found"
-      return 1
-    fi
-
-    if ! cp -R include/linux "$KERN_INC_DIR/"       ||
-       ! cp -R include/asm-generic "$KERN_INC_DIR/" ||
-       ! cp -R include/$ASMDIR "$KERN_INC_DIR/asm"
-    then
-      log_error "Failed to copy kernel headers to $KERN_INC_DIR"
-      return 1
-    fi
-  ) then
-    return 1
-  fi
-}
-
-run_ldconfig() {
-  log_write 1 "Running ldconfig"
-
-  if ! touch $PREFIX/etc/ld.so.conf ; then
-    log_error "Failed to create ld.so.conf"
-    return 1
-  fi
-
-  if ! $LDCONFIG -r $PREFIX ; then
-    log_error "ldconfig failed"
-    return 1
-  fi
-}
-
 build_for_host() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$BUILD --prefix=$NATIVE_PREFIX $3"
   export CFLAGS="-march=native -O2"
@@ -556,8 +474,6 @@ then
   fi
 fi
 
-LDCONFIG=/sbin/ldconfig
-
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD=" "
@@ -625,19 +541,6 @@ then
     fi
   fi
 
-  if test "x$BUILD" = "x$TARGET"
-  then
-    export PATH="$PATH_NATIVE:$PATH"
-    hash -r
-    # Prepare kernel sources while we are still using compiler with
-    # original sysroot
-    if ! kernel_header_setup "$PREFIX/include"
-    then
-      crosser_error "Kernel header setup failed"
-      exit 1
-    fi
-  fi
-
   export PATH="$PATH_CROSS"
   hash -r
 
@@ -660,12 +563,6 @@ then
   if ! ln -s include "$PREFIX/sys-include" ; then
     log_error "Failed creation of sys-include link."
     exit 1
-  fi
-
-  if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
-  then
-    crosser_error "Kernel header setup failed"
-    exit
   fi
 
   if test "x$LIBC_MODE" = "xnewlib"
