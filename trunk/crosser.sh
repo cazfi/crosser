@@ -213,24 +213,6 @@ build_generic() {
   return 0
 }
 
-build_newlib_chain() {
-  export CFLAGS=""
-
-  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
-
-  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX"
-  export CPPFLAGS="-I$PREFIX/include"
-
-  if ! build_generic "newlib-$1" "$2" "$CONFOPTIONS" "$4"
-  then
-    return 1
-  fi
-}
-
-build_newlib_compiler() {
-  build_newlib_chain "$1" "$2" "$3" "$4"
-}
-
 # Build with compiler built in native step
 #
 # $1 - Component to compile
@@ -240,8 +222,9 @@ build_newlib_compiler() {
 build_with_native_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
-  export CFLAGS="-march=native"
-  export LDFLAGS="-Wl,-rpath=$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
+  export CFLAGS="-O2"
+  export CPPFLAGS="-I$PREFIX/include"
+  export LDFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
 
   if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
   then
@@ -258,10 +241,28 @@ build_with_native_compiler() {
 build_with_cross_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
+  export CFLAGS="-O2"
   export CPPFLAGS="-isystem $PREFIX/include"
   export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4" "$5"
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4"
+  then
+    return 1
+  fi
+}
+
+# Build component to native directory hierarchy
+#
+# $1   - Component name
+# $2   - Source dir in source hierarchy
+# $3   - Configure options
+# $4   - Make targets
+build_for_host() {
+  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$BUILD --prefix=$NATIVE_PREFIX $3"
+  export CFLAGS="-march=native -O2"
+  export LDFLAGS="-Wl,-rpath=$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
+
+  if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
   then
     return 1
   fi
@@ -400,17 +401,6 @@ run_ldconfig() {
 
   if ! $LDCONFIG -r $PREFIX ; then
     log_error "ldconfig failed"
-    return 1
-  fi
-}
-
-build_for_host() {
-  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$BUILD --prefix=$NATIVE_PREFIX $3"
-  export CFLAGS="-march=native -O2"
-  export LDFLAGS="-Wl,-rpath=$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
-
-  if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
-  then
     return 1
   fi
 }
@@ -694,11 +684,11 @@ then
       exit 1
     fi
 
-    if ! build_newlib_compiler gcc gcc-$VERSION_GCC \
+    if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
-      crosser_error "Cross-compiler build failed"
+      crosser_error "Build of final cross-compiler failed"
       exit 1
     fi
   fi
