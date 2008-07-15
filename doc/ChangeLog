@@ -5,6 +5,7 @@
 	- Tag <VERSION> supported in prefix parsing
 	- Added step baselib
 	- Updated gcc to version 4.3.1
+	- Made libjpeg part of the libstack.sh build
 
 0.1.2-win
 	- Added gtk-engines to win step
