@@ -9,8 +9,7 @@
 
 MAINDIR=$(cd $(dirname $0) ; pwd)
 
-# These have hardcoded value 'off' for a reason - enabling them will not work
-export CROSSER_OPTION_JPEG=off
+export CROSSER_OPTION_JPEG=on
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
@@ -221,6 +220,10 @@ build_zlib()
   fi
 }
 
+# Update one autotools auxiliary file for component
+#
+# $1 - Source directory in source hierarchy
+# $2 - Aux file
 update_aux_file()
 {
   # Update only those files that already exist in target directory
@@ -233,13 +236,17 @@ update_aux_file()
   fi
 }
 
+# Update autotools auxiliary files for component
+#
+# $1 - Component
+# $2 - Version
 update_aux_files() {
 
   log_write 1 "Updating auxiliary files for $1"
 
   SUBDIR="$(src_subdir $1 $2)"
 
-  if "x$SUBDIR" = "x"
+  if test "x$SUBDIR" = "x"
   then
     log_error "Cannot find srcdir for $1 version $2"
     return 1
@@ -376,10 +383,9 @@ fi
 if test "x$CROSSER_OPTION_JPEG" = "xon"
 then
   if ! unpack_component libjpeg6b  $VERSION_JPEG            ||
-     ! patch_src libjpeg6b        jpeg_ltmain               ||
-     ! patch_src libjpeg6b        jpeg_ltcompile            ||
-     ! patch_src libjpeg6b        jpeg_ar                   ||
-     ! patch_src libjpeg6b        jpeg_noundef
+     ! patch_src        libjpeg6b  jpeg_ltcompile           ||
+     ! patch_src        libjpeg6b  jpeg_ar                  ||
+     ! patch_src        libjpeg6b  jpeg_noundef             ||
      ! update_aux_files     libjpeg6b  $VERSION_JPEG        ||
      ! build_component_full libjpeg6b  $VERSION_JPEG "--enable-shared" "" "overwrite"
   then
