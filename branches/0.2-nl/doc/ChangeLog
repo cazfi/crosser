@@ -1,9 +1,10 @@
-0.2.0-newlib
+0.2.0-nl
 	- Added limited crosser.sh chain builder script
-	- Updated linux kernel to version 2.6.25.9
+	- Updated linux kernel to version 2.6.26
 	- Added autoconf and automake to native step
 	- Tag <VERSION> supported in prefix parsing
 	- Added step baselib
+	- Updated gcc to version 4.3.1
 
 0.1.2-win
 	- Added gtk-engines to win step
@@ -62,10 +63,12 @@
 		- pango
 		- atk
 		- gtk+
-	- Added some autotools auxiliary scripts to distribution to make sure they are found
+	- Added some autotools auxiliary scripts to distribution to make sure
+	  they are found
 
 0.0.2-aux (01-May-08)
-	- download_latest.sh can be used to download single packet, preset set of packets, or all
+	- download_latest.sh can be used to download single packet, preset set
+	  of packets, or all
 	- Download definitions added for new "win" set of packages:
 		- libiconv
 		- zlib
