@@ -350,8 +350,8 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! unpack_component  libiconv   $VERSION_ICONV            ||
    ! build_component   libiconv   $VERSION_ICONV            ||
    ! unpack_component  zlib       $VERSION_ZLIB             ||
+   ! patch_src zlib               zlib_cctest               ||
    ! patch_src zlib               zlib_seeko                ||
-   ! patch_src zlib               zlib_fpiccheck            ||
    ! patch_src zlib               zlib_nolibc               ||
    ! patch_src zlib               zlib_dllext               ||
    ! build_zlib        zlib                                 ||
