@@ -248,7 +248,7 @@ autogen_component()
       log_write 1 "Making $1 autogen.sh executable"
       chmod u+x autogen.sh
     fi
-    if ! ./autogen.sh ; then
+    if ! ./autogen.sh >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log ; then
       log_error "Autogen failed for $1"
       return 1
     fi
