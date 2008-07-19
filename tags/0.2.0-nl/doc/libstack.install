@@ -1,0 +1,10 @@
+Installing library stack produced by libstack.sh
+================================================
+
+Once library stack is copied to target environment, some files
+must be regenerated to use correct paths. For build environment
+these are generated automatically, if local setting AUTOWINE is
+set to "yes".
+
+bin\pango-querymodules.exe > etc\pango\pango.modules
+bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders
