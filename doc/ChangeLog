@@ -6,6 +6,7 @@
 	- Added step baselib
 	- Updated gcc to version 4.3.1
 	- Made libjpeg part of the libstack.sh build
+	- Replaced patch zlib_fpiccheck.diff with zlib_cctest.diff
 
 0.1.2-win
 	- Added gtk-engines to win step
