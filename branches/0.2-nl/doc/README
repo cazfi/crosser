@@ -1,8 +1,8 @@
-This is Crosser release 0.1.91-nl
+This is Crosser release 0.2.0-nl
 
 This release contains libstack builder (libstack.sh) for windows and
 limited version of toolchain builder (crosser.sh). This version of
-crosser.sh supports using only newlib as target clib.
+crosser.sh supports using only newlib as target c-library.
 
 ------
 
