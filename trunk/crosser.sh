@@ -372,18 +372,10 @@ kernel_header_setup() {
       return 1
     fi
 
-    ASMDIR=$(readlink include/asm)
-
-    if test "x$ASMDIR" = "x" ; then
-      log_error "Link linux-$VERSION_KERNEL/include/asm not found"
-      return 1
-    fi
-
-    if ! cp -R include/linux "$KERN_INC_DIR/"       ||
-       ! cp -R include/asm-generic "$KERN_INC_DIR/" ||
-       ! cp -R include/$ASMDIR "$KERN_INC_DIR/asm"
+    if ! make $CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$PREFIX/usr \
+              headers_install
     then
-      log_error "Failed to copy kernel headers to $KERN_INC_DIR"
+      log_error "Failed to install kernel headers"
       return 1
     fi
   ) then
