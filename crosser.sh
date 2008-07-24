@@ -268,6 +268,21 @@ build_for_host() {
   fi
 }
 
+# Build glibc using cross-compiler
+#
+# $1   - Component to compile
+# $2   - Sourcedir in source hierarchy
+# $3   - Configure options
+# $4   - Make targets
+build_glibc() {
+  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=/usr $3 --disable-nls"
+
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
+  then
+    return 1
+  fi
+}
+
 # Build zlib using cross-compiler
 #
 # $1 - Component name
@@ -328,14 +343,7 @@ create_target_dirs()
 # $1 - Target directory
 kernel_header_setup() {
   log_write 1 "Kernel setup"
-
-  KERN_INC_DIR="$1"
-
-  if ! mkdir -p "$KERN_INC_DIR"
-  then
-    log_error "Failed to create directory \"$KERN_INC_DIR\""
-    return 1
-  fi
+  log_packet "Kernel headers"
 
   if ! unpack_component linux $VERSION_KERNEL
   then
@@ -372,10 +380,13 @@ kernel_header_setup() {
       return 1
     fi
 
-    if ! make $CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$PREFIX/usr \
-              headers_install
+    MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$PREFIX/usr headers_install"
+
+    log_write 3 "  Make params: $MAKEPARAMS"
+    if ! make $MAKEPARAMS \
+                2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
     then
-      log_error "Failed to install kernel headers"
+      log_error "Kernel headers install failed"
       return 1
     fi
   ) then
@@ -607,7 +618,7 @@ then
     fi
   fi
 
-  if test "x$BUILD" = "x$TARGET"
+  if test "x$BUILD" = "x$TARGET" && test "x$LIBC_MODE" = "xglibc"
   then
     export PATH="$PATH_NATIVE:$PATH"
     hash -r
@@ -644,12 +655,6 @@ then
     exit 1
   fi
 
-  if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
-  then
-    crosser_error "Kernel header setup failed"
-    exit
-  fi
-
   if test "x$LIBC_MODE" = "xnewlib"
   then
 
@@ -683,6 +688,34 @@ then
       crosser_error "Build of final cross-compiler failed"
       exit 1
     fi
+  fi
+
+  if test "x$LIBC_MODE" = "xglibc"
+  then
+
+    if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
+    then
+      crosser_error "Kernel header setup failed"
+      exit
+    fi
+
+    if ! unpack_component glibc $VERSION_GLIBC ||
+       ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc
+    then
+      crosser_error "Glibc unpacking failed"
+      exit 1
+    fi
+
+    log_write 1 "Installing initial glibc headers"
+    if ! ( export CFLAGS="-O2" &&
+      build_glibc glibc glibc-$VERSION_GLIBC \
+       "--with-tls --enable-add-ons --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+       "install-headers")
+    then
+      log_error "Failed to install initial glibc headers"
+      exit 1
+    fi
+
   fi
 
   echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
