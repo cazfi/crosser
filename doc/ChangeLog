@@ -1,3 +1,6 @@
+0.2.1-nl
+	- Updated glib to version 2.16.5
+
 0.2.0-nl
 	- Added limited crosser.sh chain builder script
 	- Updated linux kernel to version 2.6.26
