@@ -22,6 +22,8 @@ if test "x$LOGLEVEL_FILE" = "x" ; then
   LOGLEVEL_FILE=4
 fi
 
+# Start new logfiles
+#
 log_init() {
   if ! mkdir -p $MAINLOGDIR
   then
@@ -35,6 +37,7 @@ log_init() {
 }
 
 # Call this when starting build of new packet
+#
 # $1 - Packet name
 log_packet() {
   # Create lines separating output from one packet build from the other
@@ -42,6 +45,10 @@ log_packet() {
   echo "**** $1 ****" >> $MAINLOGDIR/stderr.log
 }
 
+# Write message to logs
+#
+# $1 - Log level
+# $2 - Message
 log_write() {
   DSTAMP=$(date +"%d.%m %H:%M")
 
@@ -59,6 +66,9 @@ log_write() {
   fi
 }
 
+# Write error message to logs
+#
+# $1 - Error message
 log_error() {
   log_write 1 "$1"
   echo "$1" >&2
@@ -86,6 +96,8 @@ crosser_error() {
   fi
 }
 
+# Write flag variables to logfile
+#
 log_flags() {
   log_write 4 "  CPPFLAGS: \"$CPPFLAGS\""
   log_write 4 "  CFLAGS:   \"$CFLAGS\""
