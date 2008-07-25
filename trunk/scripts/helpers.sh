@@ -522,3 +522,26 @@ remove_dir() {
     return 1
   fi
 }
+
+# Prints error message if given directory is not root of proper
+# crosser hierarchy
+#
+# $1 - Directory to check
+# $2 - Required hierarchy type
+check_crosser_env() {
+  if ! test -f "$1/crosser/crosser.hierarchy"
+  then
+    echo "There's no $2 compiler environment present."
+    return 1
+  fi
+
+  VER=$(grep '^Version:' $1/crosser/crosser.hierarchy | sed 's/Version: //')
+
+  if test "x$VER" != "x$CROSSER_VERSION"
+  then
+    echo "$2 compiler environment is not for this crosser version."
+    return 1
+  fi
+
+  return 0
+}

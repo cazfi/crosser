@@ -100,9 +100,10 @@ BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
 NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
 
-if ! test -f $NATIVE_PREFIX/crosser/crosser.hierarchy &&
-   test "x$STEP_NATIVE" != "xyes" ; then
-  log_error "There's no native compiler environment present, and step 'native' for building one is not enabled."
+CH_ERROR="$(check_crosser_env $NATIVE_PREFIX native)"
+if test "x$CH_ERROR" != "x" && test "x$STEP_NATIVE" != "xyes" ; then
+  log_error "$CH_ERROR"
+  log_error "Step 'native' for building environment is not enabled."
   exit 1
 fi
 
@@ -116,11 +117,13 @@ fi
 
 PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
 
-if ! test -f $PREFIX/crosser/crosser.hierarchy &&
+CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
+if test "x$CH_ERROR" != "x" &&
    test "x$STEP_CHAIN" != "xyes" &&
    test "x$STEP_BASELIB" = "xyes"
 then
-  log_error "Cross-compiler required, but not present nor being built. Enable step 'chain' to build one."
+  log_error "$CH_ERROR"
+  log_error "Step 'chain' for building environment is not enabled."
   exit 1
 fi
 
