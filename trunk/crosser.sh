@@ -12,7 +12,7 @@ STEP="setup"
 STEPADD="  "
 
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
-  echo "Usage: $(basename $0) [target setup name] [steps] [versionset] [c-lib]"
+  echo "Usage: $(basename $0) [target setup name] [steps] [versionset]"
   exit 0
 fi
 
@@ -76,29 +76,15 @@ fi
 # Setup step variables
 . $MAINDIR/steps/stepset.sh
 
-if test "x$4" = "x"
-then
-  log_write 1 "No c-lib selected, defaulting to newlib"
-  LIBC_MODE="newlib"
-else
-  LIBC_MODE="$4"
-  if test "x$LIBC_MODE" != "xnewlib" &&
-     test "x$LIBC_MODE" != "xnone"
-  then
-    log_error "Unknown c-lib \"$LIBC_MODE\""
-    exit 1
-  fi
-fi
-
 if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
 fi
 source "$MAINDIR/setups/$SETUP.conf"
 
-if test "x$LIBC_MODE" = "xnewlib" && test "x$LIBC_NEWLIB" = "xno"
+if test "x$LIBC_MODE" = "xnone"
 then
-  log_error "Configuration \"$SETUP\" cannot be used with newlib c-library"
+  log_error "Configuration \"$SETUP\" cannot be used with crosser.sh"
   exit 1
 fi
 
