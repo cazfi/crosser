@@ -698,7 +698,7 @@ then
     log_write 1 "Installing initial glibc headers"
     if ! ( export CFLAGS="-O2" &&
       build_glibc glibc glibc-$VERSION_GLIBC \
-       "--with-tls --enable-add-ons --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+       "--with-tls --disable-add-ons --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
        "install-headers")
     then
       log_error "Failed to install initial glibc headers"
