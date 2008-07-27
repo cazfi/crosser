@@ -263,12 +263,31 @@ build_for_host() {
 # $2   - Sourcedir in source hierarchy
 # $3   - Configure options
 # $4   - Make targets
+# $5   - glibc pass
 build_glibc() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=/usr $3 --disable-nls"
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
   then
     return 1
+  fi
+
+  if test "x$5" = "xheaders"
+  then
+    log_write 3 "  Copying dummy headers"
+
+    if ! cp "$MAINBUILDDIR/tgt-$1/bits/stdio_lim.h" \
+            "$PREFIX/usr/include/bits/"
+    then
+      log_error "Failed to copy initial stdio_lim.h"
+      return 1
+    fi
+
+    if ! touch "$PREFIX/usr/include/gnu/stubs.h"
+    then
+      log_error "Failed to create dummy stubs.h"
+      return 1
+    fi
   fi
 }
 
@@ -699,7 +718,7 @@ then
     if ! ( export CFLAGS="-O2" &&
       build_glibc glibc glibc-$VERSION_GLIBC \
        "--with-tls --disable-add-ons --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
-       "install-headers")
+       "install-headers" "headers")
     then
       log_error "Failed to install initial glibc headers"
       exit 1
