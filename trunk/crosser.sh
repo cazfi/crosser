@@ -9,7 +9,7 @@
 MAINDIR=$(cd $(dirname $0) ; pwd)
 
 STEP="setup"
-STEPADD="  "
+STEPADD="   "
 
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   echo "Usage: $(basename $0) [target setup name] [steps] [versionset]"
@@ -473,6 +473,46 @@ setup_host_commands() {
   done
 }
 
+# Build dummy glibc objects
+#
+dummy_glibc_objects() {
+  log_write 1 "Generating dummy glibc objects"
+
+  if ! mkdir $MAINBUILDDIR/crt ; then
+     return 1
+  fi
+
+  if ! (
+    cd $MAINBUILDDIR/crt
+
+    echo "/* Build dummy crt.o object from this comment */" > crt.c
+
+    if ! $TARGET-gcc -c crt.c ; then
+       log_error "crt.o build failed"
+       return 1
+    fi
+
+    if ! test -e $PREFIX/usr/lib/crt1.o &&
+       ! cp crt.o $PREFIX/usr/lib/crt1.o ; then
+       log_error "Failed to copy crt1.o"
+       return 1
+    fi
+    if ! test -e $PREFIX/usr/lib/crti.o &&
+       ! cp crt.o $PREFIX/usr/lib/crti.o ; then
+       log_error "Failed to copy crti.o"
+       return 1
+    fi
+    if ! test -e $PREFIX/usr/lib/crtn.o &&
+       ! cp crt.o $PREFIX/usr/lib/crtn.o ; then
+       log_error "Failed to copy crtn.o"
+       return 1
+    fi
+
+  ) ; then
+    return 1
+  fi
+}
+
 # Prepare binutils source tree
 #
 prepare_binutils_src() {
@@ -561,7 +601,7 @@ LDCONFIG=/sbin/ldconfig
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
-  STEPADD=" "
+  STEPADD="  "
 
   if ! create_host_dirs     ||
      ! unpack_component libtool $VERSION_LIBTOOL ||
@@ -611,8 +651,8 @@ fi
 
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
 then
-  STEP="chain"
-  STEPADD="  "
+  STEP="chain(1)"
+  STEPADD=""
 
   export CCACHE_DIR="$NATIVE_PREFIX/.ccache"
 
@@ -651,7 +691,7 @@ then
 
   # Initial cross-compiler
   if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-      "--enable-languages=c --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads=posix" \
+      "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib" \
       "all-gcc install-gcc"
   then
     crosser_error "Build of initial cross-compiler failed"
@@ -689,6 +729,8 @@ then
       exit 1
     fi
 
+    STEP="chain(2)"
+
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
@@ -724,6 +766,13 @@ then
       exit 1
     fi
 
+    if ! dummy_glibc_objects
+    then
+      log_error "Failed to build dummy glibc objects"
+      exit 1
+    fi
+
+    STEP="chain(2)"
   fi
 
   echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
@@ -739,7 +788,7 @@ export CCACHE_DIR="$PREFIX/.ccache"
 if test "x$STEP_BASELIB" = "xyes"
 then
   STEP="baselib"
-  STEPADD=""
+  STEPADD=" "
 
   if ! unpack_component  zlib         $VERSION_ZLIB           ||
      ! unpack_component  libpng       $VERSION_PNG
