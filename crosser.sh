@@ -212,7 +212,6 @@ build_with_native_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
   export CFLAGS="-O2"
-  export CPPFLAGS="-I$PREFIX/include"
   export LDFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
 
   if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
@@ -266,6 +265,7 @@ build_for_host() {
 # $5   - glibc pass
 build_glibc() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=/usr $3 --disable-nls"
+  export CFLAGS="-O2"
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
   then
@@ -348,7 +348,6 @@ create_target_dirs()
 
 # Install kernel headers
 #
-# $1 - Target directory
 kernel_header_setup() {
   log_write 1 "Kernel setup"
   log_packet "Kernel headers"
@@ -447,7 +446,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo wget pod2man msgfmt"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
 
@@ -672,7 +671,7 @@ then
     hash -r
     # Prepare kernel sources while we are still using compiler with
     # original sysroot
-    if ! kernel_header_setup "$PREFIX/include"
+    if ! kernel_header_setup
     then
       crosser_error "Kernel header setup failed"
       exit 1
@@ -723,7 +722,7 @@ then
 
     log_write 1 "Copying initial newlib headers"
     if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
-               "$PREFIX/include"
+               "$PREFIX/"
     then
       crosser_error "Failed initial newlib headers copying."
       exit 1
@@ -743,7 +742,7 @@ then
   if test "x$LIBC_MODE" = "xglibc"
   then
 
-    if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup "$PREFIX/include"
+    if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup
     then
       crosser_error "Kernel header setup failed"
       exit
@@ -757,10 +756,9 @@ then
     fi
 
     log_write 1 "Installing initial glibc headers"
-    if ! ( export CFLAGS="-O2" &&
-      build_glibc glibc glibc-$VERSION_GLIBC \
-       "--with-tls --disable-add-ons --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
-       "install-headers" "headers")
+    if ! build_glibc glibc glibc-$VERSION_GLIBC \
+           "--with-tls --disable-add-ons --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+           "install-headers" "headers"
     then
       log_error "Failed to install initial glibc headers"
       exit 1
