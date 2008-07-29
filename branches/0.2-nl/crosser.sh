@@ -226,7 +226,6 @@ build_with_native_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
   export CFLAGS="-O2"
-  export CPPFLAGS="-I$PREFIX/include"
   export LDFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
 
   if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
@@ -578,7 +577,7 @@ then
 
     log_write 1 "Copying initial newlib headers"
     if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
-               "$PREFIX/include"
+               "$PREFIX/"
     then
       crosser_error "Failed initial newlib headers copying."
       exit 1
