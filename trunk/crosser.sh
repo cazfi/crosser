@@ -182,6 +182,14 @@ build_generic() {
       MKTARGETS="all install"
     fi
 
+    # We need old, dummy, libc.so for running configure for glibc itself,
+    # but it has to be removed before we make real one.
+    if test "x$1" = "xtgt-glibc" && test -e "$PREFIX/usr/lib/libc.so"
+    then
+      log_write 3 "  Removing old libc.so"
+      rm -f "$PREFIX/usr/lib/libc.so"
+    fi
+
     if test "x$CROSSER_CORES" != "x"
     then
        COREOPT="-j $CROSSER_CORES"
@@ -490,6 +498,10 @@ dummy_glibc_objects() {
        log_error "crt.o build failed"
        return 1
     fi
+    if ! $TARGET-gcc -c -shared $MAINDIR/scripts/dummyclib.c -o libc.so ; then
+        log_error "Failed to build dummy libc.so"
+       return 1
+    fi
 
     if ! test -e $PREFIX/usr/lib/crt1.o &&
        ! cp crt.o $PREFIX/usr/lib/crt1.o ; then
@@ -504,6 +516,11 @@ dummy_glibc_objects() {
     if ! test -e $PREFIX/usr/lib/crtn.o &&
        ! cp crt.o $PREFIX/usr/lib/crtn.o ; then
        log_error "Failed to copy crtn.o"
+       return 1
+    fi
+    if ! test -e $PREFIX/usr/lib/libc.so &&
+       ! cp libc.so $PREFIX/usr/lib/libc.so ; then
+       log_error "Failed to copy libc.so"
        return 1
     fi
 
