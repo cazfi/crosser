@@ -273,7 +273,7 @@ build_for_host() {
 # $5   - glibc pass
 build_glibc() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=/usr $3 --disable-nls"
-  export CFLAGS="-O2"
+  export CFLAGS="-O2 $CFLAGS_GLIBC"
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
   then
@@ -793,6 +793,23 @@ then
           "--disable-multilib --enable-languages=c --with-tls --with-__thread --with-sysroot=$PREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
     then
       crosser_error "Failed to build phase 2 cross-compiler"
+      exit 1
+    fi
+
+    if ! build_glibc glibc glibc-$VERSION_GLIBC \
+             "--with-tls --with-__thread --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+             "all install"
+    then
+      crosser_error "Failed to build final glibc"
+      exit 1
+    fi
+
+    STEP="chain(3)"
+
+    if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
+          "--disable-multilib --enable-languages=c,c++ --with-tls --with-__thread --with-sysroot=$PREFIX --enable-threads"
+    then
+      crosser_error "Failed to build final cross-compiler"
       exit 1
     fi
 
