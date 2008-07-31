@@ -788,6 +788,14 @@ then
     fi
 
     STEP="chain(2)"
+
+    if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
+          "--disable-multilib --enable-languages=c --with-tls --with-__thread --with-sysroot=$PREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
+    then
+      crosser_error "Failed to build phase 2 cross-compiler"
+      exit 1
+    fi
+
   fi
 
   echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
