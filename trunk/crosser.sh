@@ -220,7 +220,7 @@ build_with_native_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
   export CFLAGS="-O2"
-  export LDFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
+  export LDFLAGS=""
 
   if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
   then
