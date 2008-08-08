@@ -88,15 +88,27 @@ then
   exit 1
 fi
 
-TARGET="$TARGET_ARCH-$TARGET_OS"
+if test "x$TARGET_VENDOR" = "x"
+then
+  TARGET="$TARGET_ARCH-$TARGET_OS"
+else
+  TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
+fi
 
 if ! source $MAINDIR/setups/native.sh ; then
   log_error "Failed to read $MAINDIR/setups/native.sh"
   exit 1
 fi
 NATIVE_ARCH="$TMP_ARCH"
+NATIVE_VENDOR="$TMP_VENDOR"
 NATIVE_OS="$TMP_OS"
-BUILD="$NATIVE_ARCH-$NATIVE_OS"
+
+if test "x$NATIVE_VENDOR" = "x"
+then
+  BUILD="$NATIVE_ARCH-$NATIVE_OS"
+else
+  BUILD="$NATIVE_ARCH-$NATIVE_VENDOR-$NATIVE_OS"
+fi
 
 NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
 
