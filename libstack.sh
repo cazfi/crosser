@@ -291,7 +291,12 @@ then
   exit 1
 fi
 
-TARGET="$TARGET_ARCH-$TARGET_OS"
+if test "x$TARGET_VENDOR" = "x"
+then
+  TARGET="$TARGET_ARCH-$TARGET_OS"
+else
+  TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
+fi
 
 if test -d /usr/$TARGET/include
 then
