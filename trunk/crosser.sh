@@ -717,15 +717,6 @@ then
     exit 1
   fi
 
-  # Initial cross-compiler
-  if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-      "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib" \
-      "all-gcc install-gcc"
-  then
-    crosser_error "Build of initial cross-compiler failed"
-    exit 1
-  fi
-
   if ! ln -s include "$PREFIX/sys-include" ; then
     log_error "Failed creation of sys-include link."
     exit 1
@@ -757,19 +748,26 @@ then
       exit 1
     fi
 
-    STEP="chain(2)"
-
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
           "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
-      crosser_error "Build of final cross-compiler failed"
+      crosser_error "Build of cross-compiler failed"
       exit 1
     fi
   fi
 
   if test "x$LIBC_MODE" = "xglibc"
   then
+
+    # Initial cross-compiler                                                                      
+    if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
+        "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib" \
+        "all-gcc install-gcc"
+    then
+      crosser_error "Build of initial cross-compiler failed"
+      exit 1
+    fi
 
     if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup
     then
