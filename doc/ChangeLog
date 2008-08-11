@@ -1,4 +1,6 @@
 0.3.0
+	- Support for building glibc based chain for i686
+	- Removed unnecessary gcc build round from build of newlib based chain
 	- Updated glib to version 2.16.5
 	- Updated CUPS to version 1.3.8
 	- Updated linux kernel to version 2.6.26.2
