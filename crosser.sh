@@ -232,6 +232,7 @@ build_with_native_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
 
   export CFLAGS="-O2"
+  export CPPFLAGS=""
   export LDFLAGS=""
 
   if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
@@ -267,7 +268,9 @@ build_with_cross_compiler() {
 # $4   - Make targets
 build_for_host() {
   CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$BUILD --prefix=$NATIVE_PREFIX $3"
+
   export CFLAGS="-march=native -O2"
+  export CPPFLAGS=""
   export LDFLAGS="-Wl,-rpath=$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
 
   if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
@@ -285,7 +288,10 @@ build_for_host() {
 # $5   - glibc pass
 build_glibc() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=/usr $3 --disable-nls"
+
   export CFLAGS="-O2 $CFLAGS_GLIBC"
+  export CPPFLAGS=""
+  export LDFLAGS=""
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
   then
@@ -322,6 +328,7 @@ build_zlib() {
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
+  export CFLAGS=""
   export CPPFLAGS="-isystem $PREFIX/include"
   export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
 
