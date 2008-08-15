@@ -782,7 +782,8 @@ then
       exit
     fi
 
-    if ! unpack_component glibc $VERSION_GLIBC ||
+    if ! unpack_component glibc $VERSION_GLIBC                            ||
+       ! unpack_component glibc-ports $VERSION_GLIBC glibc-$VERSION_GLIBC ||
        ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc
     then
       crosser_error "Glibc unpacking failed"
@@ -791,7 +792,7 @@ then
 
     log_write 1 "Installing initial glibc headers"
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-           "--with-tls --disable-add-ons --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+           "--with-tls --enable-add-ons=glibc-ports-$VERSION_GLIBC --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
            "install-headers" "headers"
     then
       log_error "Failed to install initial glibc headers"
