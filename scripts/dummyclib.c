@@ -36,3 +36,8 @@ size_t strlen(const char *s)
 {
   return 0;
 }
+
+int raise(int sig)
+{
+  return 0;
+}
