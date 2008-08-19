@@ -1,0 +1,48 @@
+This is Crosser release 0.2.90
+
+This release contains libstack builder (libstack.sh) for windows and
+limited version of toolchain builder (crosser.sh). This version of
+crosser.sh supports using only newlib as target clib.
+
+------
+
+Script packets/download_packets.sh downloads toolchain related source packages.
+
+- It can be used to download single package, predefined set of packages, or all packages
+- Versions to download are read from setups/<VERSIONSET>.versions, where
+  default versionset is 'current'. Other sets can be selected from commandline.
+- You can define mirrors to be used by placing file named mirrors.conf
+  to crosser root directory.
+  There's file suitable for Finland in mirrors-directory.
+
+------
+
+ Crosser.sh is used to create toolchains.
+
+ Example:
+ > ./crosser.sh arm-elf native:baselib
+
+  First parameter is target configuration to use. Currently only one target
+ configuration, arm-elf, is supported.
+
+  Second parameter is definition of steps to execute. You can provide comma
+ separated list of steps, or range with start and end separated by semicolon,
+ or any combination of these.
+  Examples: "native" "native,chain" "native:baselib" "native:chain,baselib"
+  Steps relevant for crosser.sh are:
+  native  - This step builds native tools used in later steps. You can use
+            same native environment for all your different target chains.
+  chain   - Actual cross-compilers
+  baselib - A couple of basic libraries for target
+
+  Third parameter is versionset to use. Default is "current". Versionsets
+ are defined in setups/<versionset>.versions files, one per file. By listing
+ these files you can list supported versionsets.
+  Currently there is three versionsets:
+  current      - This versionset will always contain currently best supported
+                 versionlist. It's constantly updated.
+  2008A        - This versionset contains versions of the early 2008. This
+                 versionset is quite static. It will be updated only to add
+                 bugfix releases and other minor changes.
+  experimental - Experimental versions for crosser.sh. This constanly
+                 changing list does not necessarily even work out-of-the-box.
