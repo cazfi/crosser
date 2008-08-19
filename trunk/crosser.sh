@@ -784,7 +784,9 @@ then
 
     if ! unpack_component glibc $VERSION_GLIBC                            ||
        ! unpack_component glibc-ports $VERSION_GLIBC glibc-$VERSION_GLIBC ||
-       ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc
+       ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc               ||
+       ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs ||
+       ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc
     then
       crosser_error "Glibc unpacking failed"
       exit 1
@@ -808,14 +810,14 @@ then
     STEP="chain(2)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c --with-tls --with-__thread --with-sysroot=$PREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
+          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$PREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
     then
       crosser_error "Failed to build phase 2 cross-compiler"
       exit 1
     fi
 
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-             "--with-tls --with-__thread --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+             "--with-tls --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
              "all install"
     then
       crosser_error "Failed to build final glibc"
@@ -825,7 +827,7 @@ then
     STEP="chain(3)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c,c++ --with-tls --with-__thread --with-sysroot=$PREFIX --enable-threads"
+          "--disable-multilib --enable-languages=c,c++ --with-tls --with-sysroot=$PREFIX --enable-threads"
     then
       crosser_error "Failed to build final cross-compiler"
       exit 1
