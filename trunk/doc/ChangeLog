@@ -1,3 +1,6 @@
+0.4.0
+	- Debian considered glibc upstream
+
 0.3.0
 	- Support for building glibc based chain for i686
 	- Removed unnecessary gcc build round from build of newlib based chain
