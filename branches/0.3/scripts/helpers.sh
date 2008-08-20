@@ -500,7 +500,7 @@ remove_dir() {
 
     while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
     do
-      echo "Directory \"$1\" already exist. Is it ok delete that directory and all its contents?"
+      echo "Directory \"$1\" already exist. Is it ok to delete that directory and all its contents?"
       echo "yes/no"
       echo -n "> "
       read ANSWER
