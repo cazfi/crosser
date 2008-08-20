@@ -587,6 +587,27 @@ prepare_gcc_src() {
   fi
 }
 
+# Upack glibc tarballs. They have to be extracted from deb-packet already
+#
+unpack_glibc() {
+  if is_minimum_version $VERSION_GLIBC 2.8
+  then
+    return 0
+  fi
+
+  GPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-$VERSION_GLIBC*.tar.bz2)
+  GPPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-ports-$VERSION_GLIBC*.tar.bz2)
+  LTPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-linuxthreads-*.tar.bz2)
+
+  if ! tar xjf $GPACKNAME -C $MAINSRCDIR ||
+     ! tar xjf $GPPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC ||
+     ! tar xjf $LTPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC
+  then
+    log_error "Unpacking glibc tarballs failed"
+    return 1
+  fi
+}
+
 if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x"
 then
   CROSS_OFF=yes
@@ -782,9 +803,10 @@ then
       exit
     fi
 
-    if ! unpack_component glibc $VERSION_GLIBC                            ||
-       ! unpack_component glibc-ports $VERSION_GLIBC glibc-$VERSION_GLIBC ||
+    if ! unpack_component glibc $VERSION_GLIBC_DEB                        ||
+       ! unpack_glibc                                                     ||
        ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc               ||
+       ! patch_src glibc-$VERSION_GLIBC glibc_nomanual                    ||
        ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs ||
        ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc
     then
@@ -794,7 +816,7 @@ then
 
     log_write 1 "Installing initial glibc headers"
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-           "--with-tls --enable-add-ons=glibc-ports-$VERSION_GLIBC --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+           "--with-tls --enable-add-ons=glibc-ports-$VERSION_GLIBC,linuxthreads --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
            "install-headers" "headers"
     then
       log_error "Failed to install initial glibc headers"
