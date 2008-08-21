@@ -52,7 +52,7 @@ fi
 if test "x$1" != "x" ; then
   SETUP="$1"
 else
-  SETUP="i386-linux"
+  SETUP="i686-linux"
   log_write 1 "No setup selected, defaulting to \"$SETUP\""
 fi
 
@@ -592,6 +592,7 @@ prepare_gcc_src() {
 unpack_glibc() {
   if is_minimum_version $VERSION_GLIBC 2.8
   then
+    ln -s glibc $MAINSRCDIR/glibc-$VERSION_GLIBC
     return 0
   fi
 
@@ -601,7 +602,8 @@ unpack_glibc() {
 
   if ! tar xjf $GPACKNAME -C $MAINSRCDIR ||
      ! tar xjf $GPPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC ||
-     ! tar xjf $LTPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC
+     ! tar xjf $LTPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC ||
+     ! ln -s glibc-ports-$VERSION_GLIBC $MAINSRCDIR/glibc-$VERSION_GLIBC/ports
   then
     log_error "Unpacking glibc tarballs failed"
     return 1
@@ -805,10 +807,13 @@ then
 
     if ! unpack_component glibc $VERSION_GLIBC_DEB                        ||
        ! unpack_glibc                                                     ||
-       ! patch_src glibc-$VERSION_GLIBC glibc_upstream_finc               ||
+       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
+          patch_src glibc-$VERSION_GLIBC glibc_upstream_finc)             ||
        ! patch_src glibc-$VERSION_GLIBC glibc_nomanual                    ||
-       ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs ||
-       ! patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc
+       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
+          patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs) ||
+       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
+          patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc)
     then
       crosser_error "Glibc unpacking failed"
       exit 1
@@ -816,7 +821,7 @@ then
 
     log_write 1 "Installing initial glibc headers"
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-           "--with-tls --enable-add-ons=glibc-ports-$VERSION_GLIBC,linuxthreads --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
            "install-headers" "headers"
     then
       log_error "Failed to install initial glibc headers"
