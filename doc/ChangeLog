@@ -3,7 +3,7 @@
 	- Removed unnecessary gcc build round from build of newlib based chain
 	- Updated glib to version 2.16.5
 	- Updated CUPS to version 1.3.8
-	- Updated libpng to version 1.2.30
+	- Updated libpng to version 1.2.31
 	- Updated linux kernel to version 2.6.26.3
 	- Check that existing crosser environment version matches crosser in use
 	- Added vendor part to arch triplets
