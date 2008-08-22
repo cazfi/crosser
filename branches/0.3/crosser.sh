@@ -52,7 +52,7 @@ fi
 if test "x$1" != "x" ; then
   SETUP="$1"
 else
-  SETUP="i386-linux"
+  SETUP="i686-linux"
   log_write 1 "No setup selected, defaulting to \"$SETUP\""
 fi
 
