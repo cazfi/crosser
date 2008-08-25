@@ -12,6 +12,7 @@
 	- Check that existing crosser environment version matches crosser in use
 	- Added vendor part to arch triplets
 	- Output of unpacking deb-packages to proper logfiles
+	- Corrected paths in files meant to target environment
 
 0.2.0-nl
 	- Added limited crosser.sh chain builder script
