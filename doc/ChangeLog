@@ -9,6 +9,8 @@
 	- Added vendor part to arch triplets
 	- Output of unpacking deb-packages to proper logfiles
 	- Corrected paths in files meant to target environment
+	- If build steps are not explicitly given abd FORCERM is not "yes", ask
+	  user to confirm full build
 
 0.2.0-nl
 	- Added limited crosser.sh chain builder script
