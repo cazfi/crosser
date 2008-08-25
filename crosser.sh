@@ -59,6 +59,29 @@ fi
 if test "x$2" != "x" ; then
   STEPPARAM="$2"
 else
+  if test "x$FORCERM" != "xyes"
+  then
+    ANSWER="unknown"
+
+    while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
+    do
+      echo "You gave no steps. Building everything from scratch will take hours."
+      echo "Are you sure you want to continue?"
+      echo "yes/no"
+      echo -n "> "
+      read ANSWER
+      case "x$ANSWER" in
+        xyes|xy|xYES|xYes) ANSWER="yes" ;;
+        xno|XNO|xNo) ANSWER="no" ;;
+        *) echo "Please answer \"yes\" or \"no\"." ;;
+      esac
+    done
+
+    if test "x$ANSWER" != "xyes"
+    then
+      exit 1
+    fi
+  fi
   log_write 1 "No build steps defined, building everything"
   STEPPARAM="all"
 fi
