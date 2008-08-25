@@ -248,13 +248,13 @@ build_with_native_compiler() {
 # $3   - Configure options
 # $4   - Make targets
 build_with_cross_compiler() {
-  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
+  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET $3 --disable-nls"
 
   export CFLAGS="-O2"
   export CPPFLAGS="-isystem $PREFIX/include"
   export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4"
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$PREFIX $4"
   then
     return 1
   fi
