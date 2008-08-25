@@ -168,7 +168,7 @@ upstream_patch() {
 # [$5] - Number of patches
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
-    log_write 1 "Downloading $1 version $2"
+    log_write 1 "Fetching $1 version $2"
     if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" "$5" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
     then
@@ -209,7 +209,8 @@ unpack_component() {
     else
       SRCDIR="$3"
     fi
-    if ! dpkg-source -x $MAINPACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR
+    if ! dpkg-source -x $MAINPACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR \
+                     >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
     then
       log_error "Unpacking $1_$2.dsc failed"
       return 1
