@@ -275,7 +275,7 @@ build_with_cross_compiler() {
 
   export CFLAGS="-O2"
   export CPPFLAGS="-isystem $PREFIX/include"
-  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
+  export LDFLAGS="-L$PREFIX/lib"
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$PREFIX $4"
   then
@@ -294,7 +294,7 @@ build_for_host() {
 
   export CFLAGS="-march=native -O2"
   export CPPFLAGS=""
-  export LDFLAGS="-Wl,-rpath=$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
+  export LDFLAGS="-Wl,-rpath,$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
 
   if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
   then
@@ -353,7 +353,7 @@ build_zlib() {
 
   export CFLAGS=""
   export CPPFLAGS="-isystem $PREFIX/include"
-  export LDFLAGS="-Wl,-rpath=$PREFIX -L$PREFIX/lib"
+  export LDFLAGS="-L$PREFIX/lib"
 
   CONFOPTIONS="--prefix=$PREFIX $3"
 
