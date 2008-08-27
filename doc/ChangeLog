@@ -2,6 +2,7 @@
 	- Debian considered glibc upstream
 	- Glibc updated to version 2.8
 	- Added support for arm-linux
+	- Renamed environment start script as launch.sh
 
 0.3.0
 	- Support for building glibc based chain for i686
