@@ -120,13 +120,13 @@ generate_setup_scripts() {
     echo "export CCACHE_DIR=\"$PREFIX/.ccache\""
     echo "hash -r"
     echo "/bin/bash --norc"
-  ) > $1/setup.sh
+  ) > $1/launch.sh
   then
-    log_error "Failed to create $1/setup.sh"
+    log_error "Failed to create $1/launch.sh"
     return 1
   fi
 
-  chmod a+x $1/setup.sh
+  chmod a+x $1/launch.sh
 }
 
 # Apply patch to component
