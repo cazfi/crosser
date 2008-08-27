@@ -1,6 +1,7 @@
 0.4.0
 	- Debian considered glibc upstream
 	- Glibc updated to version 2.8
+	- Added support for arm-linux
 
 0.3.0
 	- Support for building glibc based chain for i686
