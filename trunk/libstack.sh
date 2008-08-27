@@ -13,7 +13,7 @@ export CROSSER_OPTION_JPEG=on
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
-  echo "Usage: $(basename $0) [[-h|--help]|[-v|--version]|[setup]] [install prefix] [versionset]"
+  echo "Usage: $(basename $0) [[-h|--help]|[-v|--version]|[install prefix]] [versionset]"
   exit 0
 fi
 
@@ -26,8 +26,8 @@ fi
 # In order to give local setup opportunity to override versions,
 # we have to load versionset before build_setup.conf
 # helpers.sh requires environment to be set up by build_setup.conf.
-if test "x$3" != "x" ; then
-  VERSIONSET="$3"
+if test "x$2" != "x" ; then
+  VERSIONSET="$2"
 else
   VERSIONSET="current"
 fi
@@ -58,9 +58,9 @@ then
   exit 1
 fi
 
-if test "x$2" != "x"
+if test "x$1" != "x"
 then
-  PREFIX="$2"
+  PREFIX="$1"
 fi
 
 # $1 - Component
@@ -272,12 +272,7 @@ NATIVE_ARCH="$TMP_ARCH"
 NATIVE_OS="$TMP_OS"
 BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
-if test "x$1" != "x" ; then
-  SETUP="$1"
-else
-  SETUP="win32"
-  log_write 1 "No setup selected, defaulting to \"$SETUP\""
-fi
+SETUP="win32"
 
 if ! test -e "$MAINSETUPDIR/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""

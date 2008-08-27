@@ -3,6 +3,7 @@
 	- Glibc updated to version 2.8
 	- Added support for arm-linux
 	- Renamed environment start script as launch.sh
+	- Libstack.sh does not take setup parameter as only one value makes sense
 
 0.3.0
 	- Support for building glibc based chain for i686
