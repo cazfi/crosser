@@ -4,6 +4,7 @@
 	- Added support for arm-linux
 	- Renamed environment start script as launch.sh
 	- Libstack.sh does not take setup parameter as only one value makes sense
+	- Updated gcc to version 4.3.2
 
 0.3.0
 	- Support for building glibc based chain for i686
