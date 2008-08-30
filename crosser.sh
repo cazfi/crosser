@@ -778,7 +778,8 @@ then
   if test "x$LIBC_MODE" = "xnewlib"
   then
 
-    if ! unpack_component newlib       $VERSION_NEWLIB
+    if ! unpack_component newlib       $VERSION_NEWLIB ||
+       ! patch_src newlib-$VERSION_NEWLIB newlib_gloss_ldflags
     then
       crosser_error "Newlib unpacking failed"
       exit 1
