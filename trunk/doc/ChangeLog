@@ -5,6 +5,7 @@
 	- Renamed environment start script as launch.sh
 	- Libstack.sh does not take setup parameter as only one value makes sense
 	- Updated gcc to version 4.3.2
+	- Updated gmp to version 4.2.3
 
 0.3.0
 	- Support for building glibc based chain for i686
@@ -17,7 +18,7 @@
 	- Added vendor part to arch triplets
 	- Output of unpacking deb-packages to proper logfiles
 	- Corrected paths in files meant to target environment
-	- If build steps are not explicitly given abd FORCERM is not "yes", ask
+	- If build steps are not explicitly given and FORCERM is not "yes", ask
 	  user to confirm full build
 
 0.2.0-nl
