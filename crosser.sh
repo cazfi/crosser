@@ -151,6 +151,8 @@ else
 fi
 
 PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
+SYSPREFIX="$PREFIX/target"
+CROSSPREFIX="$PREFIX/crosstools"
 
 CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
 if test "x$CH_ERROR" != "x" &&
@@ -219,10 +221,10 @@ build_generic() {
 
     # We need old, dummy, libc.so for running configure for glibc itself,
     # but it has to be removed before we make real one.
-    if test "x$1" = "xtgt-glibc" && test -e "$PREFIX/usr/lib/libc.so"
+    if test "x$1" = "xtgt-glibc" && test -e "$SYSPREFIX/usr/lib/libc.so"
     then
       log_write 3 "  Removing old libc.so"
-      rm -f "$PREFIX/usr/lib/libc.so"
+      rm -f "$SYSPREFIX/usr/lib/libc.so"
     fi
 
     if test "x$CROSSER_CORES" != "x"
@@ -252,7 +254,7 @@ build_generic() {
 # $3 - Configure options
 # $4 - Make targets
 build_with_native_compiler() {
-  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$PREFIX $3 --disable-nls"
+  CONFOPTIONS="--build=$BUILD --host=$BUILD --target=$TARGET --prefix=$CROSSPREFIX $3 --disable-nls"
 
   export CFLAGS="-O2"
   export CPPFLAGS=""
@@ -274,10 +276,10 @@ build_with_cross_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET $3 --disable-nls"
 
   export CFLAGS="-O2"
-  export CPPFLAGS="-isystem $PREFIX/include"
-  export LDFLAGS="-L$PREFIX/lib"
+  export CPPFLAGS="-isystem $SYSPREFIX/include"
+  export LDFLAGS="-L$SYSPREFIX/lib"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$PREFIX $4"
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$SYSPREFIX $4"
   then
     return 1
   fi
@@ -316,7 +318,7 @@ build_glibc() {
   export CPPFLAGS=""
   export LDFLAGS=""
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$PREFIX"
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$SYSPREFIX"
   then
     return 1
   fi
@@ -326,13 +328,13 @@ build_glibc() {
     log_write 3 "  Copying dummy headers"
 
     if ! cp "$MAINBUILDDIR/tgt-$1/bits/stdio_lim.h" \
-            "$PREFIX/usr/include/bits/"
+            "$SYSPREFIX/usr/include/bits/"
     then
       log_error "Failed to copy initial stdio_lim.h"
       return 1
     fi
 
-    if ! touch "$PREFIX/usr/include/gnu/stubs.h"
+    if ! touch "$SYSPREFIX/usr/include/gnu/stubs.h"
     then
       log_error "Failed to create dummy stubs.h"
       return 1
@@ -352,10 +354,10 @@ build_zlib() {
   export AR=$TARGET-ar
 
   export CFLAGS=""
-  export CPPFLAGS="-isystem $PREFIX/include"
-  export LDFLAGS="-L$PREFIX/lib"
+  export CPPFLAGS="-isystem $SYSPREFIX/include"
+  export LDFLAGS="-L$SYSPREFIX/lib"
 
-  CONFOPTIONS="--prefix=$PREFIX $3"
+  CONFOPTIONS="--prefix=$SYSPREFIX $3"
 
   # TODO: zlib build doesn't like this variable, check why.
   unset TARGET_ARCH
@@ -385,11 +387,11 @@ create_host_dirs()
 #
 create_target_dirs()
 {
-  if ! mkdir -p $PREFIX/crosser     ||
-     ! mkdir -p $PREFIX/etc         ||
-     ! mkdir -p $PREFIX/include     ||
-     ! mkdir -p $PREFIX/usr/include ||
-     ! mkdir -p $PREFIX/usr/lib
+  if ! mkdir -p $PREFIX/crosser        ||
+     ! mkdir -p $SYSPREFIX/etc         ||
+     ! mkdir -p $SYSPREFIX/include     ||
+     ! mkdir -p $SYSPREFIX/usr/include ||
+     ! mkdir -p $SYSPREFIX/usr/lib
   then
     log_error "Failed to create target directories under \"$PREFIX\""
     return 1
@@ -437,7 +439,7 @@ kernel_header_setup() {
       return 1
     fi
 
-    MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$PREFIX/usr headers_install"
+    MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$SYSPREFIX/usr headers_install"
 
     log_write 3 "  Make params: $MAKEPARAMS"
     if ! make $MAKEPARAMS \
@@ -447,20 +449,6 @@ kernel_header_setup() {
       return 1
     fi
   ) then
-    return 1
-  fi
-}
-
-run_ldconfig() {
-  log_write 1 "Running ldconfig"
-
-  if ! touch $PREFIX/etc/ld.so.conf ; then
-    log_error "Failed to create ld.so.conf"
-    return 1
-  fi
-
-  if ! $LDCONFIG -r $PREFIX ; then
-    log_error "ldconfig failed"
     return 1
   fi
 }
@@ -545,23 +533,23 @@ dummy_glibc_objects() {
        return 1
     fi
 
-    if ! test -e $PREFIX/usr/lib/crt1.o &&
-       ! cp crt.o $PREFIX/usr/lib/crt1.o ; then
+    if ! test -e $SYSPREFIX/usr/lib/crt1.o &&
+       ! cp crt.o $SYSPREFIX/usr/lib/crt1.o ; then
        log_error "Failed to copy crt1.o"
        return 1
     fi
-    if ! test -e $PREFIX/usr/lib/crti.o &&
-       ! cp crt.o $PREFIX/usr/lib/crti.o ; then
+    if ! test -e $SYSPREFIX/usr/lib/crti.o &&
+       ! cp crt.o $SYSPREFIX/usr/lib/crti.o ; then
        log_error "Failed to copy crti.o"
        return 1
     fi
-    if ! test -e $PREFIX/usr/lib/crtn.o &&
-       ! cp crt.o $PREFIX/usr/lib/crtn.o ; then
+    if ! test -e $SYSPREFIX/usr/lib/crtn.o &&
+       ! cp crt.o $SYSPREFIX/usr/lib/crtn.o ; then
        log_error "Failed to copy crtn.o"
        return 1
     fi
-    if ! test -e $PREFIX/usr/lib/libc.so &&
-       ! cp libc.so $PREFIX/usr/lib/libc.so ; then
+    if ! test -e $SYSPREFIX/usr/lib/libc.so &&
+       ! cp libc.so $SYSPREFIX/usr/lib/libc.so ; then
        log_error "Failed to copy libc.so"
        return 1
     fi
@@ -718,7 +706,7 @@ fi
 # This limits risk of host system commands from 'leaking' to our environments.
 # Commands that are safe to use from host system are accessed through hostbin.
 PATH_NATIVE="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/hostbin"
-PATH_CROSS="$PREFIX/bin:$PATH_NATIVE"
+PATH_CROSS="$CROSSPREFIX/bin:$PATH_NATIVE"
 
 if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_NATIVE="$CROSSER_CCACHE:$PATH_NATIVE"
@@ -764,13 +752,13 @@ then
   hash -r
 
   if ! build_with_native_compiler binutils binutils-$VERSION_BINUTILS \
-        "--with-sysroot=$PREFIX --with-tls --enable-stage1-languages=all"
+        "--with-sysroot=$SYSPREFIX --with-tls --enable-stage1-languages=all"
   then
     crosser_error "Binutils build failed"
     exit 1
   fi
 
-  if ! ln -s include "$PREFIX/sys-include" ; then
+  if ! ln -s include "$SYSPREFIX/sys-include" ; then
     log_error "Failed creation of sys-include link."
     exit 1
   fi
@@ -796,14 +784,14 @@ then
 
     log_write 1 "Copying initial newlib headers"
     if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
-               "$PREFIX/"
+               "$SYSPREFIX/"
     then
       crosser_error "Failed initial newlib headers copying."
       exit 1
     fi
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib --enable-threads --disable-decimal-float" \
+          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$SYSPREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
       crosser_error "Build of cross-compiler failed"
@@ -816,7 +804,7 @@ then
 
     # Initial cross-compiler                                                                      
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-        "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$PREFIX --disable-multilib" \
+        "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$SYSPREFIX --disable-multilib" \
         "all-gcc install-gcc"
     then
       crosser_error "Build of initial cross-compiler failed"
@@ -846,7 +834,7 @@ then
 
     log_write 1 "Installing initial glibc headers"
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include" \
+           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
            "install-headers" "headers"
     then
       log_error "Failed to install initial glibc headers"
@@ -862,14 +850,14 @@ then
     STEP="chain(2)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$PREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
+          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$SYSPREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
     then
       crosser_error "Failed to build phase 2 cross-compiler"
       exit 1
     fi
 
     if ! build_glibc glibc glibc-$VERSION_GLIBC \
-             "--with-tls --with-sysroot=$PREFIX --with-headers=$PREFIX/usr/include --enable-add-ons=ports,nptl" \
+             "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=ports,nptl" \
              "all install"
     then
       crosser_error "Failed to build final glibc"
@@ -879,7 +867,7 @@ then
     STEP="chain(3)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c,c++ --with-tls --with-sysroot=$PREFIX --enable-threads"
+          "--disable-multilib --enable-languages=c,c++ --with-tls --with-sysroot=$SYSPREFIX --enable-threads"
     then
       crosser_error "Failed to build final cross-compiler"
       exit 1

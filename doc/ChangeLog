@@ -6,6 +6,7 @@
 	- Libstack.sh does not take setup parameter as only one value makes sense
 	- Updated gcc to version 4.3.2
 	- Updated gmp to version 4.2.3
+	- Separate subdirs for cross-tools and target files
 
 0.3.0
 	- Support for building glibc based chain for i686
