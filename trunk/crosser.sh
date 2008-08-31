@@ -528,7 +528,7 @@ dummy_glibc_objects() {
        log_error "crt.o build failed"
        return 1
     fi
-    if ! $TARGET-gcc -c -shared $MAINDIR/scripts/dummyclib.c -o libc.so ; then
+    if ! $TARGET-gcc -c -shared -fPIC $MAINDIR/scripts/dummyclib.c -o libc.so ; then
         log_error "Failed to build dummy libc.so"
        return 1
     fi
