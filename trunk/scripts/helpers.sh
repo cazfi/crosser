@@ -114,10 +114,14 @@ generate_setup_scripts() {
 
   if ! (
     echo "#"\!"/bin/sh"
+    echo
     echo "export CROSSER=$TARGET"
     echo "export PATH=\"$PATH\""
     echo "export PS1=\"Crosser:> \""
     echo "export CCACHE_DIR=\"$PREFIX/.ccache\""
+    echo "export CFLAGS=\"-I$SYSPREFIX/include\" -I$SYSPREFIX/usr/include"
+    echo "export LDFLAGS=\"-L$SYSPREFIX/lib\" -L$SYSPREFIX/usr/include"
+    echo "export PKG_CONFIG_PATH=\"$SYSPREFIX/lib/pkgconfig\""
     echo "hash -r"
     echo "/bin/bash --norc"
   ) > $1/launch.sh
