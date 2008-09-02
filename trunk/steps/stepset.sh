@@ -17,6 +17,8 @@ do
       STEP_BASELIB=yes ;;
     win)
       STEP_WIN=yes ;;
+    gtk)
+      STEP_GTK=yes ;;
     sdl)
       STEP_SDL=yes ;;
     *)
