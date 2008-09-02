@@ -83,7 +83,7 @@ else
     fi
   fi
   log_write 1 "No build steps defined, building everything"
-  STEPPARAM="all"
+  STEPPARAM="native:gtk"
 fi
 
 . $MAINDIR/steps/stepfuncs.sh
@@ -484,7 +484,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo wget pod2man msgfmt"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo wget pod2man msgfmt pkg-config sh glib-genmarshal"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
 
@@ -885,6 +885,8 @@ fi   # STEP_CHAIN
 
 export CCACHE_DIR="$PREFIX/.ccache"
 
+export PKG_CONFIG_PATH="$SYSPREFIX/lib/pkgconfig"
+
 if test "x$STEP_BASELIB" = "xyes"
 then
   STEP="baselib"
@@ -911,6 +913,21 @@ then
      ! build_with_cross_compiler libpng libpng-$VERSION_PNG
   then
     crosser_error "Baselib build failed"
+    exit 1
+  fi
+fi
+
+if test "x$STEP_GTK" = "xyes"
+then
+  STEP="gtk"
+  STEPADD="     "
+
+  if ! unpack_component          glib          $VERSION_GLIB         ||
+     ! patch_src         glib-$VERSION_GLIB    glib_crosscompile     ||
+     ! autogen_component glib    $VERSION_GLIB "autoconf"            ||
+     ! build_with_cross_compiler glib          glib-$VERSION_GLIB
+  then
+    crosser_error "gtk+ chain build failed"
     exit 1
   fi
 fi

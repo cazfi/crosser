@@ -10,10 +10,11 @@ STEP_native_PACKETS=$(cat $MAINDIR/steps/native.step)
 STEP_chain_PACKETS=$(cat $MAINDIR/steps/chain.step)
 STEP_baselib_PACKETS=$(cat $MAINDIR/steps/baselib.step)
 STEP_win_PACKETS=$(cat $MAINDIR/steps/win.step)
+STEP_gtk_PACKETS=$(cat $MAINDIR/steps/gtk.step)
 STEP_sdl_PACKETS=$(cat $MAINDIR/steps/sdl.step)
 
 # Steps array
-STEPLIST=("native" "chain" "baselib" "win" "sdl")
+STEPLIST=("native" "chain" "baselib" "gtk" "win" "sdl")
 
 # Check if packet belongs to step
 #
