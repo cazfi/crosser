@@ -279,7 +279,14 @@ build_with_cross_compiler() {
   export CPPFLAGS="-isystem $SYSPREFIX/include"
   export LDFLAGS="-L$SYSPREFIX/lib"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$SYSPREFIX $4"
+  if test "x$4" = "x"
+  then
+    MAKETARGETS="all install"
+  else
+    MAKETARGETS="$4"
+  fi
+
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$SYSPREFIX $MAKETARGETS"
   then
     return 1
   fi
@@ -922,10 +929,15 @@ then
   STEP="gtk"
   STEPADD="     "
 
-  if ! unpack_component          glib          $VERSION_GLIB         ||
-     ! patch_src         glib-$VERSION_GLIB    glib_crosscompile     ||
-     ! autogen_component glib    $VERSION_GLIB "autoconf"            ||
-     ! build_with_cross_compiler glib          glib-$VERSION_GLIB
+  if ! unpack_component          glib          $VERSION_GLIB                           ||
+     ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
+     ! autogen_component glib    $VERSION_GLIB "autoconf"                              ||
+     ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
+     ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+     ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
+       "--prefix=/usr"                                                                 ||
+     ! unpack_component          expat         $VERSION_EXPAT                          ||
+     ! build_with_cross_compiler expat         expat-$VERSION_EXPAT
   then
     crosser_error "gtk+ chain build failed"
     exit 1
