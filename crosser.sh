@@ -157,7 +157,8 @@ CROSSPREFIX="$PREFIX/crosstools"
 CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
 if test "x$CH_ERROR" != "x" &&
    test "x$STEP_CHAIN" != "xyes" &&
-   test "x$STEP_BASELIB" = "xyes"
+   ( test "x$STEP_BASELIB" = "xyes" ||
+     test "x$STEP_GTK" = "xyes" )
 then
   log_error "$CH_ERROR"
   log_error "Step 'chain' for building environment is not enabled."
@@ -929,18 +930,23 @@ then
   STEP="gtk"
   STEPADD="     "
 
-  if ! unpack_component          glib          $VERSION_GLIB                           ||
-     ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
-     ! autogen_component glib    $VERSION_GLIB "autoconf"                              ||
-     ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
-     ! unpack_component          freetype      $VERSION_FREETYPE                       ||
-     ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-       "--prefix=/usr"                                                                 ||
-     ! unpack_component          expat         $VERSION_EXPAT                          ||
-     ! build_with_cross_compiler expat         expat-$VERSION_EXPAT
+  if test "x$LIBC_MODE" != "xglibc"
   then
-    crosser_error "gtk+ chain build failed"
-    exit 1
+    log_write 1 "Step gtk not available for $LIBC_MODE based builds, skipping"
+  else
+    if ! unpack_component          glib          $VERSION_GLIB                           ||
+       ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
+       ! autogen_component glib    $VERSION_GLIB "autoconf"                              ||
+       ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
+       ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
+         "--prefix=/usr"                                                                 ||
+       ! unpack_component          expat         $VERSION_EXPAT                          ||
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT
+    then
+      crosser_error "gtk+ chain build failed"
+      exit 1
+    fi
   fi
 fi
 
