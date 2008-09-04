@@ -373,7 +373,9 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! unpack_component  glib       $VERSION_GLIB             ||
    ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
    ! patch_src glib-$VERSION_GLIB glib_stackgrow            ||
-   ! autogen_component glib       $VERSION_GLIB  "autoconf" ||
+   ! ( is_smaller_version $VERSION_GLIB 2.18.0    ||
+       patch_src glib-$VERSION_GLIB glib_gmoddef    )       ||
+   ! autogen_component glib       $VERSION_GLIB  "automake autoconf" ||
    ! build_component   glib       $VERSION_GLIB
 then
   log_error "Build failed"

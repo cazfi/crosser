@@ -1,0 +1,12 @@
+diff -Nurd glib-2.18.0/gmodule/Makefile.am glib-2.18.0/gmodule/Makefile.am
+--- glib-2.18.0/gmodule/Makefile.am	2008-09-02 18:09:12.000000000 +0300
++++ glib-2.18.0/gmodule/Makefile.am	2008-09-04 18:05:39.000000000 +0300
+@@ -10,7 +10,7 @@
+ 	-DG_DISABLE_DEPRECATED
+ 
+ gmodule.def: gmodule.symbols
+-	(echo -e EXPORTS; $(CPP) -P - <$(srcdir)/gmodule.symbols | sed -e '/^$$/d' -e 's/^/	/') > gmodule.def
++	(echo -e EXPORTS; $(CPP) -P - <$(srcdir)/gmodule.symbols | sed -e '/^$$/d' -e 's/^/	/') > $(srcdir)/gmodule.def
+ 
+ EXTRA_DIST +=				\
+ 		makefile.msc.in 	\
