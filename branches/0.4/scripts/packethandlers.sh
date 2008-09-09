@@ -28,3 +28,10 @@ patch_readline() {
     DLNUM=$DLNUM+1
   done
 }
+
+# Echo base version of libtool version string
+#
+# $1 - Full version
+basever_libtool() {
+  echo $1 | sed 's/[a-Z]//g'
+}
