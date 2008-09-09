@@ -352,8 +352,10 @@ fi
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
+BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
+
 if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
-   ! build_component   libtool    $VERSION_LIBTOOL          ||
+   ! build_component   libtool    $BASEVER_LIBTOOL          ||
    ! unpack_component  libiconv   $VERSION_ICONV            ||
    ! build_component   libiconv   $VERSION_ICONV            ||
    ! unpack_component  zlib       $VERSION_ZLIB             ||

@@ -329,7 +329,14 @@ else
   AUTOMAKE_PACK="tar.gz"
 fi
 
-download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.bz2"
+if ! cmp_versions $VERSION_LIBTOOL 2.2.6a
+then
+  LIBTOOL_PACK="tar.gz"
+else
+  LIBTOOL_PACK="tar.bz2"
+fi
+
+download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  $LIBTOOL_PACK
 
 RET="$?"  
 download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
