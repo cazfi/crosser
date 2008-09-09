@@ -37,6 +37,7 @@ fi
 
 . $MAINDIR/build_setup.conf
 . $MAINDIR/scripts/helpers.sh
+. $MAINDIR/scripts/packethandlers.sh
 
 if ! log_init
 then
@@ -680,9 +681,11 @@ if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD="  "
 
+  BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
+
   if ! create_host_dirs     ||
-     ! unpack_component libtool $VERSION_LIBTOOL ||
-     ! build_for_host libtool libtool-$VERSION_LIBTOOL ||
+     ! unpack_component libtool  $VERSION_LIBTOOL             ||
+     ! build_for_host   libtool  libtool-$BASEVER_LIBTOOL     ||
      ! unpack_component gawk     $VERSION_GAWK                ||
      ! build_for_host   gawk     gawk-$VERSION_GAWK           ||
      ! unpack_component autoconf $VERSION_AUTOCONF            ||
