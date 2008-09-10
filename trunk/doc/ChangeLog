@@ -10,6 +10,7 @@
 	- Updated glib to version 2.18.0
 	- Updated linux kernel to version 2.6.26.4
 	- Updated libtool to version 2.2.6a
+	- Updated autoconf to version 2.63
 	- Separate subdirs for cross-tools and target files
 	- Set correct CFLAGS, LDFLAGS and PKG_CONFIG_PATH in launch.sh
 	- Added initial version of step "gtk" to crosser.sh
