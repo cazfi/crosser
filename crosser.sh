@@ -939,7 +939,7 @@ then
   else
     if ! unpack_component          glib          $VERSION_GLIB                           ||
        ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
-       ! ( is_smaller_version $VERSION_GLIB 2.18.0    ||
+       ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
            patch_src glib-$VERSION_GLIB glib_gmoddef    )                                ||
        ! autogen_component glib    $VERSION_GLIB "automake autoconf"                     ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
