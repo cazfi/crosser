@@ -7,7 +7,7 @@
 	- Libstack.sh does not take setup parameter as only one value makes sense
 	- Updated gcc to version 4.3.2
 	- Updated gmp to version 4.2.3
-	- Updated glib to version 2.18.0
+	- Updated glib to version 2.18.0, versionset 2008A: 2.16.6
 	- Updated linux kernel to version 2.6.26.5
 	- Updated libtool to version 2.2.6a
 	- Updated autoconf to version 2.63
