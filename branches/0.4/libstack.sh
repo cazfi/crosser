@@ -460,6 +460,8 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG             ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! build_component   pango      $VERSION_PANGO                  ||
    ! unpack_component  atk        $VERSION_ATK                    ||
+   ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
+       patch_src          atk-$VERSION_ATK atk_def    )           ||
    ! build_component   atk        $VERSION_ATK
 then
   log_error "Build failed"
