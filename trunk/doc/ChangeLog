@@ -1,6 +1,7 @@
 0.4.1
 	- Updated atk to version 1.24.0
 	- Updated glib to version 2.18.1
+	- Fixed bug preventing libtool download when "on demand" dowloading is not used
 
 0.4.0
 	- Debian considered glibc upstream

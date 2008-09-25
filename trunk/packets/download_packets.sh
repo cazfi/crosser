@@ -312,6 +312,7 @@ then
     readline) VERSION_READLINE=$VERSION_SELECTED
               PATCHES_READLINE=$PATCHES_SELECTED ;;
     automake) VERSION_AUTOMAKE=$VERSION_SELECTED ;;
+    libtool)  VERSION_LIBTOOL=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -329,7 +330,7 @@ else
   AUTOMAKE_PACK="tar.gz"
 fi
 
-if ! cmp_versions $VERSION_LIBTOOL 2.2.6a
+if cmp_versions $VERSION_LIBTOOL 2.2.6a
 then
   LIBTOOL_PACK="tar.gz"
 else
