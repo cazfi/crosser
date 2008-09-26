@@ -33,5 +33,5 @@ patch_readline() {
 #
 # $1 - Full version
 basever_libtool() {
-  echo $1 | sed 's/[a-Z]//g'
+  echo $1 | sed 's/[a-z]//g'
 }
