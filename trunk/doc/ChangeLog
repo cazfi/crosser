@@ -7,6 +7,7 @@
 	- Fixed bug preventing libtool download when "on demand" dowloading is not used
 	- Fixed downloading of old mpfr versions
 	- Updated mpfr to version 2.3.2
+	- Updated linux kernel to version 2.6.27
 
 0.4.0
 	- Debian considered glibc upstream
