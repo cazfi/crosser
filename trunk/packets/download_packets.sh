@@ -313,6 +313,7 @@ then
               PATCHES_READLINE=$PATCHES_SELECTED ;;
     automake) VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)  VERSION_LIBTOOL=$VERSION_SELECTED ;;
+    mpfr)     VERSION_MPFR=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -358,7 +359,7 @@ download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLI
 RET="$RET $?"
 download_needed "http://ftp.sunet.se/pub/gnu/gmp/"      "gmp"    "$VERSION_GMP"    "tar.bz2"
 RET="$RET $?"
-download_needed "http://www.mpfr.org/mpfr-current/"     "mpfr"   "$VERSION_MPFR"   "tar.bz2"
+download_needed "http://www.mpfr.org/mpfr-$VERSION_MPFR/" "mpfr"   "$VERSION_MPFR"   "tar.bz2"
 RET="$RET $?"
 
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
