@@ -1,6 +1,6 @@
 0.4.1
 	- Updated atk to version 1.24.0
-	- Updated glib to version 2.18.1
+	- Updated glib to version 2.18.2
 	- Fixed bug preventing libtool download when "on demand" dowloading is not used
 	- Fixed downloading of old mpfr versions
 	- Updated mpfr to version 2.3.2
