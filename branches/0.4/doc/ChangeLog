@@ -5,6 +5,7 @@
 	- Fixed downloading of old mpfr versions
 	- Updated mpfr to version 2.3.2
 	- Updated linux kernel to version 2.6.27.3
+	- Updated glibc to version 2.8+20080809-3
 
 0.4.0
 	- Debian considered glibc upstream
