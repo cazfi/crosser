@@ -1,0 +1,19 @@
+diff -Nurd gcc-4.3.1/gcc/config.gcc gcc-4.3.1/gcc/config.gcc
+--- gcc-4.3.1/gcc/config.gcc	2008-06-20 05:09:11.000000000 +0300
++++ gcc-4.3.1/gcc/config.gcc	2008-06-20 08:00:42.000000000 +0300
+@@ -393,13 +393,13 @@
+ 
+ case ${target} in
+ i[34567]86-*-*)
+-	if test $enable_cld = yes; then
++	if test x$enable_cld = xyes ; then
+ 		tm_defines="${tm_defines} USE_IX86_CLD=1"
+ 	fi
+ 	;;
+ x86_64-*-*)
+ 	tm_file="i386/biarch64.h ${tm_file}"
+-	if test $enable_cld = yes; then
++	if test x$enable_cld = xyes ; then
+ 		tm_defines="${tm_defines} USE_IX86_CLD=1"
+ 	fi
+ 	;;

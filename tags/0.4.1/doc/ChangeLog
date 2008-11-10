@@ -1,0 +1,129 @@
+0.4.1
+	- Updated atk to version 1.24.0
+	- Updated glib to version 2.18.2
+	- Fixed bug preventing libtool download when "on demand" dowloading is not used
+	- Fixed downloading of old mpfr versions
+	- Updated mpfr to version 2.3.2
+	- Updated linux kernel to version 2.6.27.3
+	- Updated glibc to version 2.8+20080809-3
+	- Updated libpng to version 1.2.33
+
+0.4.0
+	- Debian considered glibc upstream
+	- Glibc updated to version 2.8
+	- Added support for building arm-linux chains
+	- Added support for building x86_84-linux chains
+	- Renamed environment start script as launch.sh
+	- Libstack.sh does not take setup parameter as only one value makes sense
+	- Updated gcc to version 4.3.2
+	- Updated gmp to version 4.2.3
+	- Updated glib to version 2.18.0, versionset 2008A: 2.16.6
+	- Updated linux kernel to version 2.6.26.5
+	- Updated libtool to version 2.2.6a
+	- Updated autoconf to version 2.63
+	- Updated libpng to version 1.2.32
+	- Updated gtk+ to version 2.12.12
+	- Separate subdirs for cross-tools and target files
+	- Set correct CFLAGS, LDFLAGS and PKG_CONFIG_PATH in launch.sh
+	- Added initial version of step "gtk" to crosser.sh
+
+0.3.0
+	- Support for building glibc based chain for i686
+	- Removed unnecessary gcc build round from build of newlib based chain
+	- Updated glib to version 2.16.5
+	- Updated CUPS to version 1.3.8
+	- Updated libpng to version 1.2.31
+	- Updated linux kernel to version 2.6.26.3
+	- Check that existing crosser environment version matches crosser in use
+	- Added vendor part to arch triplets
+	- Output of unpacking deb-packages to proper logfiles
+	- Corrected paths in files meant to target environment
+	- If build steps are not explicitly given and FORCERM is not "yes", ask
+	  user to confirm full build
+
+0.2.0-nl
+	- Added limited crosser.sh chain builder script
+	- Updated linux kernel to version 2.6.26
+	- Added autoconf and automake to native step
+	- Tag <VERSION> supported in prefix parsing
+	- Added step baselib
+	- Updated gcc to version 4.3.1
+	- Made libjpeg part of the libstack.sh build
+	- Replaced patch zlib_fpiccheck.diff with zlib_cctest.diff
+
+0.1.2-win
+	- Added gtk-engines to win step
+	- Updated gtk+ to version 2.12.11
+	- Updated glib to version 2.16.4
+	- Updated pango to version 1.20.5
+	- libstack.sh now respects "on demand" download setting
+	- Added libstack.install-document
+
+0.1.1-win
+	- Updated freetype to version 2.3.7
+	- Added ncurses to win step
+	- Added readline to win step
+	- Support for downloading upstream patches and applying them
+	- Added versionset 2008A
+
+0.1.0-win
+	- Added libstack.sh script
+	- Support for selectable versionset. Added versionset for experimental
+	  versions
+	- Version number comparison functions handle alpha-, beta- and
+	  prereleases and release candidates correctly
+	- Version number comparison functions compare version tokens like
+	  a1a and a1b correctly
+	- Added step 'sdl' with packets SDL and SDL_image. These are built
+	  as part of libstack
+	- Updated libpng to version 1.2.29
+	- Updated pango to version 1.20.3
+	- Updated fontconfig to version 2.6.0
+	- Updated gtk+ to version 2.12.10
+	- Added gawk to native step
+	- Added CUPS packet to win step
+	- Added some patches to distribution
+	- New function remove_dir()
+	- Added support for CLIB tag to prefix parsing
+	- Added custom name support for tar.bz2 packets to unpack_component()
+
+0.0.4-aux
+	- Commandline step-parameter now has syntax allowing selection of
+	  multiple steps
+	- Renamed download_latest.sh as download_packets.sh
+	- Libtool added to native step
+	- Added version number comparison functions to helpers.sh
+	- Misc functions added to helpers.sh
+		- setup_prefix()
+		- src_subdir()
+	- Debian is now considered upstream for libjpeg. Package updated to
+	  version 6b-14
+	- Updated kernel package to version 2.6.25.4
+
+0.0.3-aux
+	- Licensed under Gnu General Public License version 2
+	- Added bash helper functions to distribution
+	- Updated kernel package to version 2.6.25.3
+	- Added packages to "win" set
+		- pango
+		- atk
+		- gtk+
+	- Added some autotools auxiliary scripts to distribution to make sure
+	  they are found
+
+0.0.2-aux (01-May-08)
+	- download_latest.sh can be used to download single packet, preset set
+	  of packets, or all
+	- Download definitions added for new "win" set of packages:
+		- libiconv
+		- zlib
+		- libpng
+		- gettext
+		- jpeg
+		- tiff
+		- glib
+		- expat
+		- freetype
+		- fontconfig
+		- cairo
+	- Support for downloading debian source packages
