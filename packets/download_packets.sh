@@ -390,8 +390,6 @@ download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_F
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
-RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.bz2"

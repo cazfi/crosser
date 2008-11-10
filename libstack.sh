@@ -455,9 +455,6 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG             ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG             ||
    ! build_component   fontconfig $VERSION_FONTCONFIG             \
      "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" ||
-   ! unpack_component  pixman     $VERSION_PIXMAN                 ||
-   ! build_component   pixman     $VERSION_PIXMAN                 \
-     "--disable-gtk"                                              ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
    ! build_component   cairo      $VERSION_CAIRO "--disable-xlib" ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
