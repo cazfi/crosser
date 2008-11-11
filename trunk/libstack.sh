@@ -63,12 +63,17 @@ then
   PREFIX="$1"
 fi
 
+if test "x$3" != "x"
+then
+  NATIVE_PREFIX="$3"
+fi
+
 # $1 - Component
 # $2 - Version
 # $3 - Extra configure options
 build_component_srcdir()
 {
-  build_component_full "$1" "$2" "$3" "src"
+  build_component_full "$1" "$1" "$2" "$3" "src"
 }
 
 # $1 - Component
@@ -76,27 +81,29 @@ build_component_srcdir()
 # $3 - Extra configure options
 build_component()
 {
-  build_component_full "$1" "$2" "$3"
+  build_component_full "$1" "$1" "$2" "$3"
 }
 
-# $1 - Component
-# $2 - Version
-# $3 - Extra configure options
-# $4 - Build in src dir?
-# $5 - Overwrite libtool
+# $1 - Build dir
+# $2 - Component
+# $3 - Version
+# $4 - Extra configure options
+# $5 - Build in src dir?
+# $6 - Overwrite libtool
+# $7 - Native
 build_component_full()
 {
   log_packet "$1"
 
-  SUBDIR="$(src_subdir $1 $2)"
+  SUBDIR="$(src_subdir $2 $3)"
 
   if test "x$SUBDIR" = "x"
   then
-    log_error "Cannot find srcdir for $1 version $2"
+    log_error "Cannot find srcdir for $2 version $3"
     return 1
   fi
 
-  if test "x$4" != "xsrc" ; then
+  if test "x$5" != "xsrc" ; then
     BUILDDIR="$MAINBUILDDIR/$1"
     if ! mkdir -p "$BUILDDIR"
     then
@@ -114,10 +121,16 @@ build_component_full()
     SRCDIR="."
   fi
 
-  CONFOPTIONS="--prefix=$PREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
-
-  export CPPFLAGS="-isystem $PREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
-  export LDFLAGS="-L$PREFIX/lib $USER_LDFLAGS"
+  if test "x$7" != "xnative"
+  then
+    CONFOPTIONS="--prefix=$PREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
+    export CPPFLAGS="-isystem $PREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+    export LDFLAGS="-L$PREFIX/lib $USER_LDFLAGS"
+  else
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX $4"
+    unset CPPFLAGS
+    unset LDFLAGS
+  fi
 
   log_write 1 "Configuring: $1"
   log_write 3 "  Options: \"$CONFOPTIONS\""
@@ -129,15 +142,15 @@ build_component_full()
     return 1
   fi
 
-  if test "x$5" = "xoverwrite" ; then
+  if test "x$6" = "xoverwrite" ; then
     log_write 2 "Copying working libtool to $1"
     if ! cp $MAINBUILDDIR/libtool/libtool .
     then
       log_error "Failed to copy libtool"
       return 1
     fi
-  elif test "x$5" != "x" ; then
-    log_error "Illegal libtool overwrite parameter $5"
+  elif test "x$6" != "x" ; then
+    log_error "Illegal libtool overwrite parameter $6"
     return 1
   fi
 
@@ -303,6 +316,7 @@ TGT_MARCH="-march=$TARGET_ARCH"
 export LIBC_MODE="none"
 
 export PREFIX=$(setup_prefix_default "$(pwd)/install-<TARGET>-<DATE>" "$PREFIX")
+export NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/lshost" "$NATIVE_PREFIX")
 
 export USER_CPPFLGS="$CPPFLAGS"
 export USER_LDFLAGS="$LDFLAGS"
@@ -315,9 +329,10 @@ log_write 2 "Log:        \"$MAINLOGDIR\""
 log_write 2 "Build:      \"$MAINBUILDDIR\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 
-if ! remove_dir "$MAINSRCDIR"   ||
-   ! remove_dir "$MAINBUILDDIR" ||
-   ! remove_dir "$PREFIX"
+if ! remove_dir "$MAINSRCDIR"    ||
+   ! remove_dir "$MAINBUILDDIR"  ||
+   ! remove_dir "$PREFIX"        ||
+   ! remove_dir "$NATIVE_PREFIX"
 then
   log_error "Failed to remove old directories"
   exit 1
@@ -341,6 +356,14 @@ then
   exit 1
 fi
 
+if ! mkdir -p $NATIVE_PREFIX/bin
+then
+  log_error "Cannot create host directory hierarchy under $NATIVE_PREFIX"
+  exit 1
+fi
+
+export PATH=$NATIVE_PREFIX/bin:$PATH
+
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
   if ! $MAINDIR/download_packets.sh "win,sdl"
@@ -353,6 +376,18 @@ fi
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
+
+if ! unpack_component  glib       $VERSION_GLIB             ||
+   ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
+   ! patch_src glib-$VERSION_GLIB glib_stackgrow            ||
+   ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
+       patch_src glib-$VERSION_GLIB glib_gmoddef    )       ||
+   ! autogen_component glib       $VERSION_GLIB  "automake autoconf" ||
+   ! build_component_full host_glib glib $VERSION_GLIB "" "" "" native
+then
+  log_error "Native build failed"
+  exit 1
+fi
 
 if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! build_component   libtool    $BASEVER_LIBTOOL          ||
@@ -372,12 +407,6 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! build_component   readline   $VERSION_READLINE         ||
    ! unpack_component  gettext    $VERSION_GETTEXT          ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
-   ! unpack_component  glib       $VERSION_GLIB             ||
-   ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
-   ! patch_src glib-$VERSION_GLIB glib_stackgrow            ||
-   ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
-       patch_src glib-$VERSION_GLIB glib_gmoddef    )       ||
-   ! autogen_component glib       $VERSION_GLIB  "automake autoconf" ||
    ! build_component   glib       $VERSION_GLIB
 then
   log_error "Build failed"
@@ -391,7 +420,7 @@ then
      ! patch_src        libjpeg6b  jpeg_ar                  ||
      ! patch_src        libjpeg6b  jpeg_noundef             ||
      ! update_aux_files     libjpeg6b  $VERSION_JPEG        ||
-     ! build_component_full libjpeg6b  $VERSION_JPEG "--enable-shared" "" "overwrite"
+     ! build_component_full libjpeg6b libjpeg6b  $VERSION_JPEG "--enable-shared" "" "overwrite"
   then
     log_error "Libjpeg build failed"
     exit 1
