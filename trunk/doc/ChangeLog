@@ -1,6 +1,9 @@
 0.5.0
 	- Added pixman to win step
-	- libstack.sh builds native version of glib-genmarshal
+	- libstack.sh builds native glib-genmarshal used in build
+	- Updated cairo to version 1.6.4
+	- Updated gtk+ to version 2.14.4
+	- Updated gtk-engines to version 2.16.1
 
 0.4.1
 	- Updated atk to version 1.24.0
