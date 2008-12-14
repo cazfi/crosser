@@ -4,6 +4,11 @@
 	- Updated cairo to version 1.6.4
 	- Updated gtk+ to version 2.14.4
 	- Updated gtk-engines to version 2.16.1
+	- Updated ncurses to version 5.7
+	- Added official readline-5.2 patch 013
+	- Updated glib to version 2.18.3
+	- Updated SDL_image to version 1.2.7
+	- Updated linux kernel to version 2.6.27.8
 
 0.4.1
 	- Updated atk to version 1.24.0
