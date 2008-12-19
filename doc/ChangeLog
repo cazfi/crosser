@@ -10,6 +10,7 @@
 	- Updated SDL_image to version 1.2.7
 	- Updated linux kernel to version 2.6.27.9
 	- Updated binutils to version 2.19
+	- Updated libpng to version 1.2.34
 
 0.4.1
 	- Updated atk to version 1.24.0
