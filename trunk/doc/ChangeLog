@@ -1,6 +1,9 @@
 0.5.0
 	- Added pixman to win step
 	- libstack.sh builds native glib-genmarshal used in build
+	- autogen_component() runs autoheader
+	- Added python to native step
+	- Added gtk-doc to native step
 	- Updated cairo to version 1.6.4
 	- Updated gtk+ to version 2.14.4
 	- Updated gtk-engines to version 2.16.1

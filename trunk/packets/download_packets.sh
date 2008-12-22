@@ -306,6 +306,7 @@ then
     pango)    VERSION_PANGO=$VERSION_SELECTED ;;
     gtk+)     VERSION_GTK=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
+    gtk-doc)  VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)      VERSION_ATK=$VERSION_SELECTED ;;
     gcc)      VERSION_GCC=$VERSION_SELECTED ;;
     cups)     VERSION_CUPS=$VERSION_SELECTED ;;
@@ -314,12 +315,14 @@ then
     automake) VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)  VERSION_LIBTOOL=$VERSION_SELECTED ;;
     mpfr)     VERSION_MPFR=$VERSION_SELECTED ;;
+    Python)   VERSION_PYTHON=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
@@ -348,6 +351,8 @@ RET="$RET $?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
+RET="$RET $?"
+download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON/" "Python" "$VERSION_PYTHON" "tgz"
 RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
@@ -397,6 +402,8 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
 RET="$RET $?"

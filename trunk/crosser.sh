@@ -692,6 +692,10 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   autoconf autoconf-$VERSION_AUTOCONF   ||
      ! unpack_component automake $VERSION_AUTOMAKE            ||
      ! build_for_host   automake automake-$VERSION_AUTOMAKE   ||
+     ! unpack_component Python   $VERSION_PYTHON              ||
+     ! build_for_host   Python   Python-$VERSION_PYTHON       ||
+     ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
+     ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC     ||
      ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
