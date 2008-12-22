@@ -210,6 +210,12 @@ unpack_component() {
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
+  elif test -e $MAINPACKETDIR/$NAME_BASE.tgz ; then
+    if ! tar xzf $MAINPACKETDIR/$NAME_BASE.tgz -C $MAINSRCDIR/$3
+    then
+      log_error "Unpacking $NAME_BASE.tgz failed"
+      return 1
+    fi
   elif test -e $MAINPACKETDIR/${1}_${2}.dsc ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
@@ -278,7 +284,7 @@ autogen_component()
     fi
   else
     if test "x$3" = "x" || test "x$3" = "xall" ; then
-      TOOLS="aclocal automake autoconf"
+      TOOLS="aclocal autoheader automake autoconf"
     else
       TOOLS="$3"
     fi
