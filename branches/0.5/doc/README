@@ -40,7 +40,10 @@ Script packets/download_packets.sh downloads toolchain related source packages.
   Currently there is three versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist. It's constantly updated.
-  2008A        - This versionset contains versions of the early 2008. This
+  2008A        - This versionset contains versions of the June 2008. This
+                 versionset is quite static. It will be updated only to add
+                 bugfix releases and other minor changes.
+  2008B        - This versionset contains versions of the December 2008. This
                  versionset is quite static. It will be updated only to add
                  bugfix releases and other minor changes.
   experimental - Experimental versions for crosser.sh. This constanly
