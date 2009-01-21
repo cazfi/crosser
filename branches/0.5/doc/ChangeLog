@@ -1,3 +1,7 @@
+0.5.1
+	- Updated glib to version 2.18.4
+	- Updated freetype to version 2.3.8
+
 0.5.0
 	- Added pixman to win step
 	- libstack.sh builds native glib-genmarshal used in build
