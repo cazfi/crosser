@@ -1,6 +1,7 @@
 0.5.1
 	- Updated glib to version 2.18.4
 	- Updated freetype to version 2.3.8
+	- Updated gtk+ to version 2.14.7
 
 0.5.0
 	- Added pixman to win step
