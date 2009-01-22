@@ -488,7 +488,9 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG             ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
-   ! build_component   cairo      $VERSION_CAIRO "--disable-xlib" ||
+   ! rm $MAINSRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h     ||
+   ! build_component   cairo      $VERSION_CAIRO                  \
+     "--disable-xlib --enable-win32"                              ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! build_component   pango      $VERSION_PANGO                  ||
    ! unpack_component  atk        $VERSION_ATK                    ||
