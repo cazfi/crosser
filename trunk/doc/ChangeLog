@@ -1,3 +1,7 @@
+0.6.0
+	- libstack.sh: Give cache variables needed in cross-compilation at
+	  configure command line instead of using hackish patches
+
 0.5.1
 	- Updated glib to version 2.18.4
 	- Updated freetype to version 2.3.8

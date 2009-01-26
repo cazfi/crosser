@@ -379,7 +379,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
 if ! unpack_component  glib       $VERSION_GLIB             ||
    ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
-   ! patch_src glib-$VERSION_GLIB glib_stackgrow            ||
    ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
        patch_src glib-$VERSION_GLIB glib_gmoddef    )       ||
    ! autogen_component glib       $VERSION_GLIB  "automake autoconf" ||
@@ -407,7 +406,8 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! build_component   readline   $VERSION_READLINE         ||
    ! unpack_component  gettext    $VERSION_GETTEXT          ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
-   ! build_component   glib       $VERSION_GLIB
+   ! build_component   glib       $VERSION_GLIB             \
+       "glib_cv_stack_grows=yes"
 then
   log_error "Build failed"
   exit 1
