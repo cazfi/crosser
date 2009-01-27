@@ -479,11 +479,12 @@ then
   exit 1
 fi
 
-if ! unpack_component  fontconfig $VERSION_FONTCONFIG             ||
+if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
-   ! autogen_component fontconfig $VERSION_FONTCONFIG             ||
-   ! build_component   fontconfig $VERSION_FONTCONFIG             \
-     "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" ||
+   ! autogen_component fontconfig $VERSION_FONTCONFIG               ||
+   ! build_component_full fontconfig fontconfig $VERSION_FONTCONFIG \
+     "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" \
+     "" "overwrite"                                                 ||
    ! unpack_component  pixman     $VERSION_PIXMAN                 ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||

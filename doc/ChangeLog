@@ -3,6 +3,7 @@
 	  configure command line instead of using hackish patches
 
 0.5.1
+	- Use self built libtool when building fontconfig
 	- Updated glib to version 2.18.4
 	- Updated freetype to version 2.3.8
 	- Updated gtk+ to version 2.14.7
