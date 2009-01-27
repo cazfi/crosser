@@ -512,8 +512,9 @@ if ! unpack_component  gtk+       $VERSION_GTK                    ||
    ! ( is_smaller_version $VERSION_GTK      2.14.0 ||
        patch_src gtk+-$VERSION_GTK          gtk_gailutildef )     ||
    ! autogen_component gtk+       $VERSION_GTK                    ||
-   ! build_component   gtk+       $VERSION_GTK \
-     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
+   ! build_component_full gtk+ gtk+ $VERSION_GTK                  \
+     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      \
+     "" "overwrite"                                               ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG
 then
