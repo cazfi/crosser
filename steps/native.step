@@ -8,3 +8,4 @@ gawk
 gcc
 gmp
 mpfr
+pkg-config
