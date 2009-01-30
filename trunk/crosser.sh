@@ -696,6 +696,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   Python   Python-$VERSION_PYTHON       ||
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC     ||
+     ! unpack_component pkg-config $VERSION_PKG_CONFIG            ||
+     ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
      ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
@@ -945,7 +947,7 @@ then
        ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
        ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
            patch_src glib-$VERSION_GLIB glib_gmoddef    )                                ||
-       ! autogen_component glib    $VERSION_GLIB "automake autoconf"                     ||
+       ! autogen_component glib    $VERSION_GLIB "automake autoconf"             ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \

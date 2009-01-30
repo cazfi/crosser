@@ -354,6 +354,8 @@ download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAK
 RET="$RET $?"
 download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON/" "Python" "$VERSION_PYTHON" "tgz"
 RET="$RET $?"
+download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/g/glibc/"        "glibc"  "$VERSION_GLIBC_DEB" "dsc"
