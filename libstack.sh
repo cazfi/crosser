@@ -381,7 +381,8 @@ if ! unpack_component  glib       $VERSION_GLIB             ||
    ! patch_src glib-$VERSION_GLIB glib_acsizeof             ||
    ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
        patch_src glib-$VERSION_GLIB glib_gmoddef    )       ||
-   ! autogen_component glib       $VERSION_GLIB  "automake autoconf" ||
+   ! autogen_component glib       $VERSION_GLIB             \
+       "libtoolize aclocal automake autoconf"               ||
    ! build_component_full host_glib glib $VERSION_GLIB "" "" "" native
 then
   log_error "Native build failed"
