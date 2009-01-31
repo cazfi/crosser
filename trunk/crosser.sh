@@ -947,7 +947,7 @@ then
        ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
        ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
            patch_src glib-$VERSION_GLIB glib_gmoddef    )                                ||
-       ! autogen_component glib    $VERSION_GLIB "automake autoconf"             ||
+       ! autogen_component glib    $VERSION_GLIB "aclocal automake autoconf"             ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
