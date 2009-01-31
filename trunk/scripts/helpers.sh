@@ -290,7 +290,17 @@ autogen_component()
     fi
     for TOOL in $TOOLS
     do
-      if ! $TOOL >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+      if test "x$TOOL" = "xlibtoolize"
+      then
+        TOOLPARAM=" -f"
+      elif test "x$TOOL" = "xautomake"
+      then
+        TOOLPARAM=" -a"
+      else
+        TOOLPARAM=""
+      fi
+
+      if ! $TOOL$TOOLPARAM >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
       then
         log_error "Autotool $TOOL failed for $1 version $2"
         return 1
