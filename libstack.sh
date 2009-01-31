@@ -2,7 +2,7 @@
 
 # libstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
