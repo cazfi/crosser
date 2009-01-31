@@ -3,6 +3,7 @@
 	  configure command line instead of using hackish patches
 	- autogen_component() executes commands with sensible default parameters
 	- Added pkg-config to native step
+	- Added pixman to gtk step
 	- Updated automake to version 1.10.2
 
 0.5.1

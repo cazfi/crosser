@@ -953,7 +953,10 @@ then
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=/usr"                                                                 ||
        ! unpack_component          expat         $VERSION_EXPAT                          ||
-       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
+       ! unpack_component          pixman        $VERSION_PIXMAN                         ||
+       ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
+         "--disable-gtk"
     then
       crosser_error "gtk+ chain build failed"
       exit 1
