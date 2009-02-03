@@ -573,3 +573,31 @@ check_crosser_env() {
 
   return 0
 }
+
+# Prints configure variables for component
+#
+# $1 - Component
+#
+# 0 - Success
+# 1 - Failure
+read_configure_vars() {
+  CONF_FILE="$MAINDIR/setups/cachevars/$1.vars"
+
+  if test -f "$CONF_FILE"
+  then
+    cat "$CONF_FILE" | ( while read CONDITION SEPARATOR REST
+      do
+        if test "x$SEPARATOR" != "x:"
+        then
+          log_error "Error in format of $CONF_FILE"
+          return 1
+        fi
+        if echo "$TARGET" | grep $CONDITION > /dev/null
+        then
+          echo -n "$REST "
+        fi
+      done )
+  fi
+
+  return 0
+}

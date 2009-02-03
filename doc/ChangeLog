@@ -1,6 +1,6 @@
 0.6.0
-	- libstack.sh: Give cache variables needed in cross-compilation at
-	  configure command line instead of using hackish patches
+	- Give cache variables needed in cross-compilation at configure command line
+	  instead of using hackish patches
 	- autogen_component() executes commands with sensible default parameters
 	- libtoolize fontconfig, atk, gtk+
 	- Added pkg-config to native step
