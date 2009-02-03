@@ -482,10 +482,10 @@ fi
 
 if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
-   ! autogen_component fontconfig $VERSION_FONTCONFIG               ||
-   ! build_component_full fontconfig fontconfig $VERSION_FONTCONFIG \
-     "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" \
-     "" "overwrite"                                                 ||
+   ! autogen_component fontconfig $VERSION_FONTCONFIG                   \
+     "libtoolize aclocal automake autoconf"                             ||
+   ! build_component   fontconfig $VERSION_FONTCONFIG                   \
+     "--with-freetype-config=$PREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                 ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||
@@ -498,7 +498,8 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! unpack_component  atk        $VERSION_ATK                    ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
        patch_src          atk-$VERSION_ATK atk_def    )           ||
-   ! autogen_component atk        $VERSION_ATK                    ||
+   ! autogen_component atk        $VERSION_ATK                    \
+     "libtoolize aclocal automake autoconf"                       ||
    ! build_component   atk        $VERSION_ATK
 then
   log_error "Build failed"
@@ -512,10 +513,10 @@ if ! unpack_component  gtk+       $VERSION_GTK                    ||
        patch_src gtk+-$VERSION_GTK          gtk_check_cxx )       ||
    ! ( is_smaller_version $VERSION_GTK      2.14.0 ||
        patch_src gtk+-$VERSION_GTK          gtk_gailutildef )     ||
-   ! autogen_component gtk+       $VERSION_GTK                    ||
-   ! build_component_full gtk+ gtk+ $VERSION_GTK                  \
-     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      \
-     "" "overwrite"                                               ||
+   ! autogen_component gtk+       $VERSION_GTK                    \
+     "libtoolize aclocal automake autoconf"                       ||
+   ! build_component   gtk+       $VERSION_GTK                    \
+     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG
 then
