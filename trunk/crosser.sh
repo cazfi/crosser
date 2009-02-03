@@ -2,7 +2,7 @@
 
 # crosser.sh: Generic toolchain builder.
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -943,12 +943,15 @@ then
   then
     log_write 1 "Step gtk not available for $LIBC_MODE based builds, skipping"
   else
+    GLIB_VARS="$(read_configure_vars glib)"
+    log_write 4 "Glib variables: $GLIB_VARS"
+
     if ! unpack_component          glib          $VERSION_GLIB                           ||
-       ! patch_src         glib-$VERSION_GLIB    glib_crosscompile                       ||
        ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
            patch_src glib-$VERSION_GLIB glib_gmoddef    )                                ||
        ! autogen_component glib    $VERSION_GLIB "aclocal automake autoconf"             ||
-       ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      ||
+       ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
+         "$GLIB_VARS"                                                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=/usr"                                                                 ||
