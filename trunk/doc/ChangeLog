@@ -7,6 +7,7 @@
 	- Added pkg-config to native step
 	- Added pixman to gtk step
 	- Updated automake to version 1.10.2
+	- Updated linux kernel to version 2.6.28.3
 
 0.5.1
 	- Use self built libtool when building fontconfig and gtk+
