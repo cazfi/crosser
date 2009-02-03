@@ -10,6 +10,7 @@
 0.5.1
 	- Use self built libtool when building fontconfig and gtk+
 	- Autogen atk source tree
+	- Updated auxiliary files used in libjpeg build
 	- Updated glib to version 2.18.4
 	- Updated freetype to version 2.3.8
 	- Updated gtk+ to version 2.14.7
