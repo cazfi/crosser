@@ -24,12 +24,13 @@ PREFIX
  ; Directory hierarchy where generated environment will be installed.
  ; This directory will be completely removed.
  ; This path is parsed:
- ;   - <TARGET>  -> Target architecture
- ;   - <DATE>    -> Build start date. Note that build may take long time and
- ;                  often start date is not same as current date of some build
- ;                  action.
- ;   - <CLIB>    -> libc to use
- ;   - <VERSION> -> crosser version
+ ;   - <TARGET>     -> Target architecture
+ ;   - <DATE>       -> Build start date. Note that build may take long time and
+ ;                     often start date is not same as current date of some build
+ ;                     action.
+ ;   - <CLIB>       -> libc to use
+ ;   - <VERSION>    -> crosser version
+ ;   - <VERSIONSET> -> Versionset used 
  ; Either enclose value inside quotes or escape tags like \<TARGET\>
 
 NATIVE_PREFIX
