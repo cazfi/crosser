@@ -1,0 +1,12 @@
+diff -Nurd zlib/configure zlib/configure
+--- zlib/configure	2008-04-07 19:43:02.000000000 +0300
++++ zlib/configure	2008-04-07 19:46:47.000000000 +0300
+@@ -31,7 +31,7 @@
+ libdir=${libdir-'${exec_prefix}/lib'}
+ includedir=${includedir-'${prefix}/include'}
+ mandir=${mandir-'${prefix}/share/man'}
+-shared_ext='.so'
++shared_ext='.dll'
+ shared=1
+ zprefix=0
+ gcc=0
