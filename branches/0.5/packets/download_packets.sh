@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -198,7 +198,10 @@ if test "x$HELP_RETURN" != "x" ; then
   echo " Possible steps:"
   echo "  - native"
   echo "  - chain"
+  echo "  - baselib"
+  echo "  - gtk"
   echo "  - win"
+  echo "  - sdl"
   echo "  - all"
 
   exit $HELP_RETURN
