@@ -74,12 +74,13 @@ download_packet() {
 }
 
 # $1 - Base URL
-# $2 - Base filename
-# $3 - Number of patches
+# $2 - Packet name
+# $3 - Base filename
+# $4 - Number of patches
 download_patches_internal() {
 
   declare -i DLNUM=1
-  declare -i DLTOTAL=$3
+  declare -i DLTOTAL=$4
 
   while test $DLNUM -le $DLTOTAL
   do
@@ -88,10 +89,13 @@ download_patches_internal() {
     else
       ZEROES="0"
     fi
-    if ! download_file "$1" "${2}${ZEROES}${DLNUM}" "patch"
+    DLFILENAME="${3}${ZEROES}${DLNUM}"
+    if test -f "patch/$DLFILENAME" ; then
+      echo "Already has $2 patch $DLNUM, skipping"
+    elif ! download_file "$1" "$DLFILENAME" "patch"
     then
-       echo "Download of $2 patch $DLNUM failed" >&2
-       return 1
+      echo "Download of $2 patch $DLNUM failed" >&2
+      return 1
     fi
     DLNUM=$DLNUM+1
   done
@@ -155,19 +159,19 @@ download_patches() {
 
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
-      download_patches_internal "$1" "$3" "$5"
+      download_patches_internal "$1" "$2" "$3" "$5"
       return $?
     fi
     return 2
   fi
   if test "x$STEPLIST" = "x" ; then
-    download_patches_internal "$1" "$3" "$5"
+    download_patches_internal "$1" "$2" "$3" "$5"
     return $?
   fi
   for STEP in $STEPLIST
   do
     if belongs_to_step $2 $STEP ; then
-      download_patches_internal "$1" "$3" "$5"
+      download_patches_internal "$1" "$2" "$3" "$5"
       return $?
     fi
   done
@@ -382,8 +386,8 @@ download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_N
 RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
-download_patches "$MIRROR_GNU/readline/"                "readline" \
-                 "readline-$VERSION_READLINE-patches/readline${READLINE_SHORT}-" \
+download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
+                 "readline"            "readline${READLINE_SHORT}-" \
                  "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
