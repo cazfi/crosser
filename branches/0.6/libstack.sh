@@ -406,6 +406,7 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! patch_readline                                         ||
    ! build_component   readline   $VERSION_READLINE         ||
    ! unpack_component  gettext    $VERSION_GETTEXT          ||
+   ! patch_src gettext-$VERSION_GETTEXT gettext_bash        ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
    ! build_component   glib       $VERSION_GLIB             \
        "glib_cv_stack_grows=yes"
