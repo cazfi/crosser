@@ -6,6 +6,7 @@
 	- Autogen atk source tree
 	- libtoolize fontconfig, atk, gtk+
 	- Updated auxiliary files used in libjpeg build
+	- Fixed gettext build when /bin/sh is not bash
 	- Documentation fixes
 	- Added pkg-config to native step
 	- Added pixman to gtk step
