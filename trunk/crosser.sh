@@ -668,7 +668,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! $MAINDIR/download_packets.sh "$STEPPARAM"
+  if ! $MAINPACKETDIR/download_packets.sh "$STEPPARAM"
   then
     log_error "Download failed"
     exit 1
