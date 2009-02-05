@@ -3,6 +3,8 @@
 	  command line instead of using hackish patches
 	- autogen_component() executes commands with sensible default parameters
 	- Added support for VERSIONSET tag to prefix parsing
+	- Made libstack.sh to use separate installation directory for its native parts from
+	  crosser.sh
 	- Autogen atk source tree
 	- libtoolize fontconfig, atk, gtk+
 	- Updated auxiliary files used in libjpeg build
