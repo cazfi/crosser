@@ -180,8 +180,8 @@ upstream_patch() {
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Fetching $1 version $2"
-    if ! $MAINPACKETDIR/download_packets.sh --packet "$1" "$2" "$5" \
-         >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+    if ! ( cd $MAINPACKETDIR && ./download_packets.sh --packet "$1" "$2" "$5" \
+         >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log )
     then
       log_error "Failed to download $1 version $2"
       return 1
