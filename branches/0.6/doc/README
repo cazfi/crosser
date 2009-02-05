@@ -5,6 +5,11 @@ toolchain builder (crosser.sh).
 
 ------
 
+Crosser homepage is http://www.cazfi.net/other/crosser/
+Please report any bugs to Bugzilla at https://www.cazfi.net/bugs/index.cgi
+
+------
+
 Script packets/download_packets.sh downloads toolchain related source packages.
 
 - It can be used to download single package, predefined set of packages, or all packages
