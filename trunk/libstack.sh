@@ -364,9 +364,15 @@ fi
 
 export PATH=$NATIVE_PREFIX/bin:$PATH
 
+if ! packetdir_check
+then
+  log_error "Packetdir missing"
+  exit 1
+fi
+
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd $MAINPACKETDIR && ./download_packets.sh "win,sdl" )
+  if ! (cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "win,sdl" )
   then
     log_error "Downloading packets failed"
     exit 1

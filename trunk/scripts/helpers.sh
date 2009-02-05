@@ -162,7 +162,7 @@ patch_src() {
 upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
-  if ! patch -p0 -d $MAINSRCDIR/$1 < $MAINPACKETDIR/patch/$2 \
+  if ! patch -p0 -d $MAINSRCDIR/$1 < $PACKETDIR/patch/$2 \
        >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
   then
     log_error "Patching $1 with $2 failed"
@@ -180,7 +180,7 @@ upstream_patch() {
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Fetching $1 version $2"
-    if ! ( cd $MAINPACKETDIR && ./download_packets.sh --packet "$1" "$2" "$5" \
+    if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh --packet "$1" "$2" "$5" \
          >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log )
     then
       log_error "Failed to download $1 version $2"
@@ -198,25 +198,25 @@ unpack_component() {
     NAME_BASE="$1-$2"
   fi
 
-  if test -e $MAINPACKETDIR/$NAME_BASE.tar.bz2 ; then
-    if ! tar xjf $MAINPACKETDIR/$NAME_BASE.tar.bz2 -C $MAINSRCDIR/$3
+  if test -e $PACKETDIR/$NAME_BASE.tar.bz2 ; then
+    if ! tar xjf $PACKETDIR/$NAME_BASE.tar.bz2 -C $MAINSRCDIR/$3
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
-  elif test -e $MAINPACKETDIR/$NAME_BASE.tar.gz ; then
-    if ! tar xzf $MAINPACKETDIR/$NAME_BASE.tar.gz -C $MAINSRCDIR/$3
+  elif test -e $PACKETDIR/$NAME_BASE.tar.gz ; then
+    if ! tar xzf $PACKETDIR/$NAME_BASE.tar.gz -C $MAINSRCDIR/$3
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
-  elif test -e $MAINPACKETDIR/$NAME_BASE.tgz ; then
-    if ! tar xzf $MAINPACKETDIR/$NAME_BASE.tgz -C $MAINSRCDIR/$3
+  elif test -e $PACKETDIR/$NAME_BASE.tgz ; then
+    if ! tar xzf $PACKETDIR/$NAME_BASE.tgz -C $MAINSRCDIR/$3
     then
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e $MAINPACKETDIR/${1}_${2}.dsc ; then
+  elif test -e $PACKETDIR/${1}_${2}.dsc ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
       return 1
@@ -226,7 +226,7 @@ unpack_component() {
     else
       SRCDIR="$3"
     fi
-    if ! dpkg-source -x $MAINPACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR \
+    if ! dpkg-source -x $PACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR \
                      >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
     then
       log_error "Unpacking $1_$2.dsc failed"
@@ -598,6 +598,51 @@ read_configure_vars() {
           echo -n "$REST "
         fi
       done )
+  fi
+
+  return 0
+}
+
+# Check if packet directory exist and possibly create one
+#
+# 0 - Packetdir exist
+# 1 - Packetdir missing
+packetdir_check() {
+  if ! test -d "$PACKETDIR/patch"
+  then
+    if test "x$FORCERM" = "xno"
+    then
+      return 1
+    fi
+
+    if test "x$FORCERM" != "xyes"
+    then
+      ANSWER="unknown"
+
+      while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
+      do
+        echo "Packet directory $PACKETDIR, or some subdirectory, missing. Create one?"
+        echo "yes/no"
+        echo -n "> "
+        read ANSWER
+        case "x$ANSWER" in
+          xyes|xy|xY|xYES|xYes) ANSWER="yes" ;;
+          xno|xn|xN|XNO|xNo) ANSWER="no" ;;
+          *) echo "Please answer \"yes\" or \"no\"." ;;
+        esac
+      done
+
+      if test "x$ANSWER" != "xyes"
+      then
+        return 1
+      fi
+    fi
+
+    if ! mkdir -p "$PACKETDIR/patch"
+    then
+      echo "Failed to create packet directory $PACKETDIR"
+      return 1
+    fi
   fi
 
   return 0
