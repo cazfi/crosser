@@ -34,7 +34,7 @@ PREFIX
 
 NATIVE_PREFIX
  ; Directory hierarchy where native environment generated in native-step
- ; will be installed. This affects only crosser.sh, not libtstack.sh at all.
+ ; will be installed.
  ; Path parsing is similar to that of PREFIX.
 
 LOGLEVEL_STDOUT
