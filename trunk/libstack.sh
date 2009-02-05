@@ -366,7 +366,7 @@ export PATH=$NATIVE_PREFIX/bin:$PATH
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! $MAINPACKETDIR/download_packets.sh "win,sdl"
+  if ! (cd $MAINPACKETDIR && ./download_packets.sh "win,sdl" )
   then
     log_error "Downloading packets failed"
     exit 1

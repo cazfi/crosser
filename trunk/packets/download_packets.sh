@@ -180,8 +180,7 @@ download_patches() {
   return 2
 }
 
-cd "$(dirname $0)"
-MAINDIR="$(cd .. ; pwd)"
+MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
 
 if ! . $MAINDIR/scripts/helpers.sh
 then
