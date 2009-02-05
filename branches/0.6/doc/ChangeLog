@@ -10,6 +10,7 @@
 	- Updated auxiliary files used in libjpeg build
 	- Fixed gettext build when /bin/sh is not bash
 	- Fixed a bug that readline patches were always redownloaded
+	- Fixed "all in the beginning" download mode
 	- Documentation fixes
 	- Added pkg-config to native step
 	- Added pixman to gtk step
