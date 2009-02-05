@@ -1,3 +1,6 @@
+0.7.0
+	- Configurable packetdir
+
 0.6.0
 	- Give cache variables needed in cross-compilation at configure
 	  command line instead of using hackish patches

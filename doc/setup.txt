@@ -70,6 +70,9 @@ MAINLOGDIR
  ; Some log files are created anew for each build, some contain
  ; information about all builds done with crosser.
 
+PACKETDIR
+ ; Directory for storing source packets.
+
 CROSSER_DOWNLOAD
  ; This defines packet download model. Packets are ever downloaded only
  ; if they are missing, but time their existence is checked depends on
