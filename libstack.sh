@@ -379,10 +379,11 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
 # glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component  glib       $VERSION_GLIB             ||
-   ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
-       ( patch_src glib-$VERSION_GLIB glib_acsizeof &&
-         patch_src glib-$VERSION_GLIB glib_gmoddef  &&
-         autogen_component glib       $VERSION_GLIB \
+   ! ( is_smaller_version $VERSION_GLIB 2.18.0          ||
+       ( (! cmp_versions $VERSION_GLIB 2.18.0 ||
+          patch_src glib-$VERSION_GLIB glib_gmoddef) &&
+        patch_src glib-$VERSION_GLIB glib_acsizeof   &&
+        autogen_component glib       $VERSION_GLIB   \
          "libtoolize aclocal automake autoconf" ))          ||
    ! build_component_full host_glib glib $VERSION_GLIB "" "" "" native
 then
