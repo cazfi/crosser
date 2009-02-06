@@ -22,11 +22,38 @@ download_file() {
     DLDIR="."
   fi
 
+  TIMEPART=$(date +%y%m%d%H%M)
+
+  if test -f filelist.txt
+  then
+    if grep ": $2\$" filelist.txt > /dev/null
+    then
+      sed "s/.*: $2\$/$TIMEPART : $2/" filelist.txt > filelist.tmp
+      mv filelist.tmp filelist.txt
+    else
+      APPEND=yes
+    fi
+  else
+    APPEND=yes
+  fi
+
+  if test "x$APPEND" = "xyes"
+  then
+    echo "$TIMEPART : $2" >> filelist.txt
+  fi
+
+  if test -f $DLDIR/$2
+  then
+    echo "Already has $2, skipping"
+    return 0
+  fi
+
   if ! ( cd $DLDIR && wget "$1$2" ) ; then
     if test "x$CONTINUE" = "xyes" ; then
       echo "Download of $2 failed" >&2
       return 0
     fi
+    echo "Downloaded $2"
     return 1
   fi
 }
@@ -52,14 +79,6 @@ download_packet() {
     fi
   fi
 
-  if test -f "$DLFILENAME" ; then
-    if test "x$FORCE" != "xyes" ; then
-       echo "Already has $2 version $3, skipping"
-       return 0
-    fi
-    echo "Already has $2 version $3, but forced to load"
-  fi
-
   # Download DLFILENAME last as its presence marks packet download already finished
   # when rerunning download script.
   if ! download_file "$1" "$DLFILE2" ||
@@ -69,8 +88,6 @@ download_packet() {
      echo "Download of $2 version $3 failed" >&2
      return 1
   fi
-
-  echo "Downloaded $2 version $3"
 }
 
 # $1 - Base URL
@@ -90,9 +107,7 @@ download_patches_internal() {
       ZEROES="0"
     fi
     DLFILENAME="${3}${ZEROES}${DLNUM}"
-    if test -f "patch/$DLFILENAME" ; then
-      echo "Already has $2 patch $DLNUM, skipping"
-    elif ! download_file "$1" "$DLFILENAME" "patch"
+    if ! download_file "$1" "$DLFILENAME" "patch"
     then
       echo "Download of $2 patch $DLNUM failed" >&2
       return 1
