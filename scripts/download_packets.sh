@@ -28,7 +28,7 @@ download_file() {
   then
     if grep ": $2\$" filelist.txt > /dev/null
     then
-      sed "s/.*: $2\$/$TIMEPART : $2/" filelist.txt > filelist.tmp
+      sed "s/: .* : $2\$/: $TIMEPART : $2/" filelist.txt > filelist.tmp
       mv filelist.tmp filelist.txt
     else
       APPEND=yes
@@ -39,7 +39,7 @@ download_file() {
 
   if test "x$APPEND" = "xyes"
   then
-    echo "$TIMEPART : $2" >> filelist.txt
+    echo "$TIMEPART : $TIMEPART : $2" >> filelist.txt
   fi
 
   if test -f $DLDIR/$2
