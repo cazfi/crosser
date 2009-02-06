@@ -422,8 +422,8 @@ kernel_header_setup() {
   if ! (
     cd $MAINSRCDIR/linux-$VERSION_KERNEL
 
-    if test -f $PACKETDIR/kernel-$TARGET.config ; then
-      cp $PACKETDIR/kernel-$TARGET.config .config
+    if test -f $MAINPACKETDIR/kernel-$TARGET.config ; then
+      cp $MAINPACKETDIR/kernel-$TARGET.config .config
       KCONFTARGET=silentoldconfig
     else
       KCONFTARGET=defconfig
@@ -666,15 +666,9 @@ then
   exit 1
 fi
 
-if ! packetdir_check
-then
-  log_error "Packetdir missing"
-  exit 1
-fi
-
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "$STEPPARAM" )
+  if ! $MAINPACKETDIR/download_packets.sh "$STEPPARAM"
   then
     log_error "Download failed"
     exit 1
