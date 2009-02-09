@@ -155,15 +155,18 @@ PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
 SYSPREFIX="$PREFIX/target"
 CROSSPREFIX="$PREFIX/crosstools"
 
-CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
-if test "x$CH_ERROR" != "x" &&
-   test "x$STEP_CHAIN" != "xyes" &&
-   ( test "x$STEP_BASELIB" = "xyes" ||
-     test "x$STEP_GTK" = "xyes" )
+if test "x$CROSS_OFF" != "xyes"
 then
-  log_error "$CH_ERROR"
-  log_error "Step 'chain' for building environment is not enabled."
-  exit 1
+  CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
+  if test "x$CH_ERROR" != "x" &&
+     test "x$STEP_CHAIN" != "xyes" &&
+     ( test "x$STEP_BASELIB" = "xyes" ||
+       test "x$STEP_GTK" = "xyes" )
+  then
+    log_error "$CH_ERROR"
+    log_error "Step 'chain' for building environment is not enabled."
+    exit 1
+  fi
 fi
 
 #############################################################################
@@ -358,9 +361,16 @@ build_glibc() {
 # $3 - Configure options
 # $4 - Make targets
 build_zlib() {
-  export CC=$TARGET-gcc
-  export RANLIB=$TARGET-ranlib
-  export AR=$TARGET-ar
+  if test "x$CROSS_OFF" = "xyes"
+  then
+    export CC=gcc
+    export RANLIB=ranlib
+    export AR=ar
+  else
+    export CC=$TARGET-gcc
+    export RANLIB=$TARGET-ranlib
+    export AR=$TARGET-ar
+  fi
 
   export CFLAGS=""
   export CPPFLAGS="-isystem $SYSPREFIX/include"
