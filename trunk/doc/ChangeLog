@@ -1,6 +1,7 @@
-0.7.0
+0.7.0.0
 	- Configurable packetdir
 	- download_packets.sh keeps list of source packet access times
+	- Fixed build with 'native' chain
 
 0.6.0
 	- Give cache variables needed in cross-compilation at configure
