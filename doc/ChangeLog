@@ -2,6 +2,7 @@
 	- Configurable packetdir
 	- download_packets.sh keeps list of source packet access times
 	- Fixed build with 'native' chain
+	- Updated linux kernel to version 2.6.28.4
 
 0.6.0
 	- Give cache variables needed in cross-compilation at configure
