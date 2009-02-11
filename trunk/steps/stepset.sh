@@ -2,7 +2,7 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -21,6 +21,8 @@ do
       STEP_GTK=yes ;;
     sdl)
       STEP_SDL=yes ;;
+    test)
+      STEP_TEST=yes ;;
     *)
       log_error "Unknown step $_STEP in stepset.sh" ;;
   esac

@@ -277,12 +277,13 @@ build_with_native_compiler() {
 # $2   - Source dir in source hierarchy
 # $3   - Configure options
 # $4   - Make targets
+# [$5] - Destdir
 build_with_cross_compiler() {
   CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET $3 --disable-nls"
 
   export CFLAGS="-O2"
-  export CPPFLAGS="-isystem $SYSPREFIX/include"
-  export LDFLAGS="-L$SYSPREFIX/lib"
+  export CPPFLAGS="-isystem $SYSPREFIX/include -isystem $SYSPREFIX/usr/include"
+  export LDFLAGS="-L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib"
 
   if test "x$4" = "x"
   then
@@ -291,7 +292,14 @@ build_with_cross_compiler() {
     MAKETARGETS="$4"
   fi
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$SYSPREFIX $MAKETARGETS"
+  if test "x$5" = "x"
+  then
+    DESTDIR="$SYSPREFIX"
+  else
+    DESTDIR="$5"
+  fi
+
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
   then
     return 1
   fi
@@ -970,6 +978,8 @@ then
          "$GLIB_VARS"                                                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
+         "--prefix=$PREFIX/interm" "" "/"                                                ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=/usr"                                                                 ||
        ! unpack_component          expat         $VERSION_EXPAT                          ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
@@ -981,6 +991,14 @@ then
       exit 1
     fi
   fi
+fi
+
+if test "x$STEP_TEST" = "xyes"
+then
+  STEP="test"
+  STEPADD="    "
+
+  # This is debugging step used only temporarily while testing.
 fi
 
 generate_setup_scripts $PREFIX
