@@ -2,6 +2,7 @@
 	- Configurable packetdir
 	- download_packets.sh keeps list of source packet access times
 	- Fixed build with 'native' chain
+	- Added .../usr/lib/pkgconfig to pkg-config path in launch.sh
 	- Updated linux kernel to version 2.6.28.4
 
 0.6.0
