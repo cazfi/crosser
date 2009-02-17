@@ -126,7 +126,7 @@ generate_setup_scripts() {
     echo
     echo "export CFLAGS=\"-I$SYSPREFIX/include -I$SYSPREFIX/usr/include\""
     echo "export LDFLAGS=\"-L$SYSPREFIX/lib -L$SYSPREFIX/usr/include\""
-    echo "export PKG_CONFIG_PATH=\"$SYSPREFIX/lib/pkgconfig\""
+    echo "export PKG_CONFIG_PATH=\"$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig\""
     echo
     echo "# Reset cache since we changed PATH"
     echo "hash -r"
