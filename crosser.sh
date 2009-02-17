@@ -918,6 +918,8 @@ then
 
   echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
   echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
+
+  generate_setup_scripts $PREFIX
 else # STEP_CHAIN
   # Set PATH only if it's not already correct to avoid unnecessary hash reset.
   export PATH="$PATH_CROSS"
@@ -1000,7 +1002,5 @@ then
 
   # This is debugging step used only temporarily while testing.
 fi
-
-generate_setup_scripts $PREFIX
 
 log_write 1 "SUCCESS"
