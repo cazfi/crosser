@@ -279,7 +279,13 @@ build_with_native_compiler() {
 # $4   - Make targets
 # [$5] - Destdir
 build_with_cross_compiler() {
-  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET $3 --disable-nls"
+  if test "x$3" = "x"
+  then
+    PREFIXOPTION="--prefix=/usr"
+  else
+    PREFIXOPTION=""
+  fi
+  CONFOPTIONS="--build=$BUILD --host=$TARGET --target=$TARGET $PREFIXOPTION $3 --disable-nls"
 
   export CFLAGS="-O2"
   export CPPFLAGS="-isystem $SYSPREFIX/include -isystem $SYSPREFIX/usr/include"
@@ -977,18 +983,16 @@ then
            ( patch_src glib-$VERSION_GLIB glib_gmoddef &&
              autogen_component glib    $VERSION_GLIB "aclocal automake autoconf" ))      ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "$GLIB_VARS"                                                                    ||
+         "--prefix=/usr $GLIB_VARS"                                                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=$PREFIX/interm" "" "/"                                                ||
-       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=/usr"                                                                 ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
        ! unpack_component          expat         $VERSION_EXPAT                          ||
-       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    \
-         "--prefix=/usr"                                                                 ||
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--disable-gtk"                                                                 ||
+         "--prefix=/usr --disable-gtk"                                                   ||
        ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_libtool                     ||
@@ -996,7 +1000,7 @@ then
          "libtoolize aclocal autoconf"                                                   ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET"
+          "--prefix=/usr --with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET"
     then
       crosser_error "gtk+ chain build failed"
       exit 1

@@ -4,6 +4,7 @@
 	- Fixed build with 'native' chain
 	- Added .../usr/lib/pkgconfig to pkg-config path in launch.sh
 	- Fixed launch.sh LDFLAGS setting to point lib directory instead of header directory
+	- Install target hierarchy files with prefix "/usr", not default ("/usr/local")
 	- Added fontconfig to gtk step
 	- Updated linux kernel to version 2.6.28.7
 	- Updated libpng to version 1.2.35
