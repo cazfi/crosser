@@ -1,6 +1,6 @@
 # 2008B.versions: Package versions
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -23,7 +23,7 @@ VERSION_MPFR=2.3.2
 VERSION_NEWLIB=1.17.0
 
 VERSION_ICONV=1.12
-VERSION_PNG=1.2.34
+VERSION_PNG=1.2.35
 VERSION_ZLIB=1.2.3.3.dfsg-12
 VERSION_GETTEXT=0.17
 VERSION_PKG_CONFIG=0.23

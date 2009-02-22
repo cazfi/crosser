@@ -984,10 +984,19 @@ then
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=/usr"                                                                 ||
        ! unpack_component          expat         $VERSION_EXPAT                          ||
-       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    \
+         "--prefix=/usr"                                                                 ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--disable-gtk"
+         "--disable-gtk"                                                                 ||
+       ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
+       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
+       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_libtool                     ||
+       ! autogen_component fontconfig $VERSION_FONTCONFIG                                \
+         "libtoolize aclocal autoconf"                                                   ||
+       ! build_with_cross_compiler fontconfig                                            \
+          fontconfig-$VERSION_FONTCONFIG                                                 \
+          "--with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET"
     then
       crosser_error "gtk+ chain build failed"
       exit 1
