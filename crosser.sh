@@ -873,7 +873,9 @@ then
           patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs) ||
        ! (is_minimum_version $VERSION_GLIBC 2.8 ||
           patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc) ||
-       ! patch_src glibc-$VERSION_GLIBC/ports glibc_ports_arm_tlsinc
+       ! patch_src glibc-$VERSION_GLIBC/ports glibc_ports_arm_tlsinc      ||
+       ! (is_smaller_version $VERSION_GLIBC 2.9 ||
+          patch_src glibc-$VERSION_GLIBC/ports glibc_upstream_arm_sigsetjmp)
     then
       crosser_error "Glibc unpacking failed"
       exit 1
