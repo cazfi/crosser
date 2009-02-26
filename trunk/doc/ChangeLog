@@ -6,6 +6,7 @@
 	- Fixed launch.sh LDFLAGS setting to point lib directory instead of header directory
 	- Install target hierarchy files with prefix "/usr", not default ("/usr/local")
 	- Warn if local configuration is not set up before build
+	- Removed readline build from libstack.sh
 	- Added fontconfig to gtk step
 	- Updated glibc to version 2.9-3
 	- Updated binutils to version 2.19.1

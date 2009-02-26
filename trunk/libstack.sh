@@ -409,10 +409,6 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
    ! build_zlib        zlib                                 ||
    ! unpack_component  libpng     $VERSION_PNG              ||
    ! build_component   libpng     $VERSION_PNG              ||
-   ! unpack_component  readline   $VERSION_READLINE         \
-                       "" ""      $PATCHES_READLINE         ||
-   ! patch_readline                                         ||
-   ! build_component   readline   $VERSION_READLINE         ||
    ! unpack_component  gettext    $VERSION_GETTEXT          ||
    ! patch_src gettext-$VERSION_GETTEXT gettext_bash        ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
