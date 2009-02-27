@@ -1,0 +1,51 @@
+# 2008B.versions: Package versions
+#
+# (c) 2008-2009 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+#
+# This versionset has software versions on crosser 0.5.0 (December 2008)
+# feature level. No later major releases will ever be part of this set.
+# Bugfix releases and minor improvements may get in to this set.
+# We are also sometimes forced to update those packets that are fetched
+# as debian source packets as debian remove old versions.
+
+VERSION_BINUTILS=2.19.1
+VERSION_GAWK=3.1.6
+VERSION_AUTOCONF=2.63
+VERSION_AUTOMAKE=1.10.1
+VERSION_PYTHON=3.0
+VERSION_GCC=4.3.3
+VERSION_GLIBC=2.9
+VERSION_GLIBC_DEB=2.9-3
+VERSION_GMP=4.2.4
+VERSION_KERNEL=2.6.27.10
+VERSION_LIBTOOL=2.2.6a
+VERSION_MPFR=2.3.2
+VERSION_NEWLIB=1.17.0
+
+VERSION_ICONV=1.12
+VERSION_PNG=1.2.35
+VERSION_ZLIB=1.2.3.3.dfsg-12
+VERSION_GETTEXT=0.17
+VERSION_PKG_CONFIG=0.23
+VERSION_NCURSES=5.7
+VERSION_READLINE=5.2
+PATCHES_READLINE=13
+VERSION_GLIB=2.18.4
+VERSION_JPEG=6b-14
+VERSION_TIFF=3.8.2
+VERSION_EXPAT=2.0.1
+VERSION_FREETYPE=2.3.8
+VERSION_FONTCONFIG=2.6.0
+VERSION_PIXMAN=0.13.2
+VERSION_CAIRO=1.6.4
+VERSION_PANGO=1.20.5
+VERSION_ATK=1.24.0
+VERSION_CUPS=1.3.8
+VERSION_GTK=2.14.7
+VERSION_GTK_ENG=2.16.1
+VERSION_GTK_DOC=1.10
+
+VERSION_SDL=1.2.13
+VERSION_SDL_IMAGE=1.2.7
