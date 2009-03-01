@@ -49,13 +49,11 @@ download_file() {
   fi
 
   if ! ( cd $DLDIR && wget "$1$2" ) ; then
-    if test "x$CONTINUE" = "xyes" ; then
-      echo "Download of $2 failed" >&2
-      return 0
-    fi
-    echo "Downloaded $2"
+    echo "Download of $2 failed" >&2
     return 1
   fi
+
+  echo "Downloaded $2"
 }
 
 # $1 - Base URL
