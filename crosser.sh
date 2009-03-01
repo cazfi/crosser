@@ -408,8 +408,7 @@ create_host_dirs()
     return 1
   fi
 
-  if ! mkdir -p $NATIVE_PREFIX/crosser ||
-     ! mkdir -p $NATIVE_PREFIX/usr/include
+  if ! mkdir -p $NATIVE_PREFIX/usr/include
   then
     log_error "Failed to create host directories under \"$NATIVE_PREFIX\""
     return 1
@@ -420,8 +419,7 @@ create_host_dirs()
 #
 create_target_dirs()
 {
-  if ! mkdir -p $PREFIX/crosser        ||
-     ! mkdir -p $SYSPREFIX/etc         ||
+  if ! mkdir -p $SYSPREFIX/etc         ||
      ! mkdir -p $SYSPREFIX/include     ||
      ! mkdir -p $SYSPREFIX/usr/include ||
      ! mkdir -p $SYSPREFIX/usr/lib
@@ -745,8 +743,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
     exit 1
   fi
 
-  echo "Setup:   Native"           >  "$NATIVE_PREFIX/crosser/crosser.hierarchy"
-  echo "Version: $CROSSER_VERSION" >> "$NATIVE_PREFIX/crosser/crosser.hierarchy"
+  write_crosser_env "$NATIVE_PREFIX" Native
 fi
 
 # None of these path variables contain original $PATH.
@@ -924,8 +921,7 @@ then
 
   fi
 
-  echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
-  echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
+  write_crosser_env "$PREFIX" "$TARGET"
 
   generate_setup_scripts $PREFIX
 else # STEP_CHAIN
