@@ -1020,7 +1020,7 @@ then
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_libtool                     ||
        ! autogen_component fontconfig $VERSION_FONTCONFIG                                \
-         "libtoolize aclocal autoconf"                                                   ||
+         "libtoolize aclocal automake autoconf"                                          ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=/usr --with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET"
