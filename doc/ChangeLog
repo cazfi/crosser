@@ -1,10 +1,16 @@
+0.6.2
+	- Loglines of building intermediate and target freetype differ from
+	  each other
+
 0.6.1
 	- Configurable packetdir
 	- download_packets.sh keeps list of source packet access times
 	- Fixed build with 'native' chain
 	- Added .../usr/lib/pkgconfig to pkg-config path in launch.sh
-	- Fixed launch.sh LDFLAGS setting to point lib directory instead of header directory
-	- Install target hierarchy files with prefix "/usr", not default ("/usr/local")
+	- Fixed launch.sh LDFLAGS setting to point lib directory instead of
+	  header directory
+	- Install target hierarchy files with prefix "/usr", not default
+	  ("/usr/local")
 	- Warn if local configuration is not set up before build
 	- Removed readline build from libstack.sh
 	- Added fontconfig to gtk step
@@ -19,8 +25,8 @@
 	  command line instead of using hackish patches
 	- autogen_component() executes commands with sensible default parameters
 	- Added support for VERSIONSET tag to prefix parsing
-	- Made libstack.sh to use separate installation directory for its native parts from
-	  crosser.sh
+	- Made libstack.sh to use separate installation directory for its
+	  native parts from crosser.sh
 	- Autogen atk source tree
 	- libtoolize fontconfig, atk, gtk+
 	- Updated auxiliary files used in libjpeg build
@@ -63,7 +69,8 @@
 0.4.1
 	- Updated atk to version 1.24.0
 	- Updated glib to version 2.18.2
-	- Fixed bug preventing libtool download when "on demand" dowloading is not used
+	- Fixed bug preventing libtool download when "on demand" dowloading is
+	  not used
 	- Fixed downloading of old mpfr versions
 	- Updated mpfr to version 2.3.2
 	- Updated linux kernel to version 2.6.27.3
@@ -76,7 +83,8 @@
 	- Added support for building arm-linux chains
 	- Added support for building x86_84-linux chains
 	- Renamed environment start script as launch.sh
-	- Libstack.sh does not take setup parameter as only one value makes sense
+	- Libstack.sh does not take setup parameter as only one value makes
+	  sense
 	- Updated gcc to version 4.3.2
 	- Updated gmp to version 4.2.3
 	- Updated glib to version 2.18.0, versionset 2008A: 2.16.6
