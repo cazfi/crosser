@@ -161,7 +161,8 @@ then
   if test "x$CH_ERROR" != "x" &&
      test "x$STEP_CHAIN" != "xyes" &&
      ( test "x$STEP_BASELIB" = "xyes" ||
-       test "x$STEP_GTK" = "xyes" )
+       test "x$STEP_GTK" = "xyes" ||
+       test "x$STEP_SDL" = "xyes" )
   then
     log_error "$CH_ERROR"
     log_error "Step 'chain' for building environment is not enabled."
@@ -1024,6 +1025,21 @@ then
       crosser_error "gtk+ chain build failed"
       exit 1
     fi
+  fi
+fi
+
+if test "x$STEP_SDL" = "xyes"
+then
+  STEP="sdl"
+  STEPADD="     "
+
+  if ! unpack_component          SDL       $VERSION_SDL                 ||
+     ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
+     ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
+     ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
+  then
+    crosser_error "sdl stack build failed"
+    exit 1
   fi
 fi
 
