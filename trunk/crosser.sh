@@ -985,12 +985,33 @@ then
            ( patch_src glib-$VERSION_GLIB glib_gmoddef &&
              autogen_component glib    $VERSION_GLIB "aclocal automake autoconf" ))      ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "--prefix=/usr $GLIB_VARS"                                                                    ||
-       ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+         "--prefix=/usr $GLIB_VARS"
+    then
+      crosser_error "Glib build failed"
+      exit 1
+    fi
+
+    STEP="gtk(ft1)"
+    STEPADD=""
+    if ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$PREFIX/interm" "" "/"                                                ||
-       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
-       ! unpack_component          expat         $VERSION_EXPAT                          ||
+         "--prefix=$PREFIX/interm" "" "/"
+    then
+      crosser_error "Intermediate freetype build failed"
+      exit 1
+    fi
+
+    STEP="gtk(ft2)"
+    STEPADD=""
+    if ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE
+    then
+      crosser_error "Target freetype build failed"
+      exit 1
+    fi
+
+    STEP="gtk"
+    STEPADD="     "
+    if ! unpack_component          expat         $VERSION_EXPAT                          ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
