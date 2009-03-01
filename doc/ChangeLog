@@ -4,6 +4,8 @@
 	- Fixed build with 'native' chain
 	- Added .../usr/lib/pkgconfig to pkg-config path in launch.sh
 	- Fixed launch.sh LDFLAGS setting to point lib directory instead of header directory
+	- Fixed a bug that even when download failed, success message was
+	  printed
 	- Install target hierarchy files with prefix "/usr", not default ("/usr/local")
 	- Warn if local configuration is not set up before build
 	- Removed readline build from libstack.sh
