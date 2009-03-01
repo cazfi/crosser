@@ -932,7 +932,7 @@ fi   # STEP_CHAIN
 
 export CCACHE_DIR="$PREFIX/.ccache"
 
-export PKG_CONFIG_PATH="$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/local/lib/pkgconfig"
+export PKG_CONFIG_PATH="$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
