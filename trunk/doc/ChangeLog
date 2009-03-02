@@ -18,7 +18,7 @@
 	- Warn if local configuration is not set up before build
 	- Removed readline build from libstack.sh
 	- Added fontconfig to gtk step
-	- Updated glibc to version 2.9-3
+	- Updated glibc to version 2.9-4
 	- Updated binutils to version 2.19.1
 	- Updated linux kernel to version 2.6.28.7
 	- Updated libpng to version 1.2.35
