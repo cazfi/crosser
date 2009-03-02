@@ -3,6 +3,7 @@
 	- Added sdl step to crosser.sh
 	- Loglines of building intermediate and target freetype differ from
 	  each other
+	- Updated zlib to version 1.2.3.3.dfsg-13
 
 0.6.1
 	- Configurable packetdir
