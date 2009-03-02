@@ -3,7 +3,6 @@
 	- Added sdl step to crosser.sh
 	- Loglines of building intermediate and target freetype differ from
 	  each other
-	- Updated zlib to version 1.2.3.3.dfsg-13
 
 0.6.1
 	- Configurable packetdir
@@ -24,6 +23,7 @@
 	- Updated linux kernel to version 2.6.28.7
 	- Updated libpng to version 1.2.35
 	- Updated pixman to version 0.14.0
+	- Updated zlib to version 1.2.3.3.dfsg-13
 
 0.6.0
 	- Give cache variables needed in cross-compilation at configure
