@@ -539,6 +539,11 @@ if test "x$AUTOWINE" = "xyes" ; then
     exit 1
   fi
 fi
+log_write 1 "Creating setup.bat"
+(
+  echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
+  echo -n -e "bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders\r\n"
+) > $PREFIX/setup.bat
 log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 
 if ! unpack_component  SDL        $VERSION_SDL          ||
