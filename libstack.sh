@@ -372,7 +372,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "win,sdl" )
+  if ! (cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "win" )
   then
     log_error "Downloading packets failed"
     exit 1

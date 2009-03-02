@@ -15,7 +15,7 @@ STEP_sdl_PACKETS=$(cat $MAINDIR/steps/sdl.step)
 STEP_test_PACKETS=""
 
 # Steps array
-STEPLIST=("native" "chain" "baselib" "gtk" "win" "sdl" "test")
+STEPLIST=("native" "chain" "baselib" "gtk" "sdl" "test" "win")
 
 # Check if packet belongs to step
 #

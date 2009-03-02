@@ -2,6 +2,8 @@
 	- libstack.sh generates setup.bat
 	- crosser.hierarchy contains versionset information
 	- Added sdl step to crosser.sh
+	- Packets from sdl step added to win step, libstack.sh
+	  builds only win step
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 
