@@ -1,4 +1,5 @@
 0.6.2
+	- Timeout for download attempts
 	- libstack.sh generates setup.bat
 	- crosser.hierarchy contains versionset information
 	- Added sdl step to crosser.sh
