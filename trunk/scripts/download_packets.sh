@@ -48,7 +48,7 @@ download_file() {
     return 0
   fi
 
-  if ! ( cd $DLDIR && wget "$1$2" ) ; then
+  if ! ( cd $DLDIR && wget -T 180 -t 2 "$1$2" ) ; then
     echo "Download of $2 failed" >&2
     return 1
   fi
