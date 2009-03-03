@@ -296,6 +296,9 @@ autogen_component()
       elif test "x$TOOL" = "xautomake"
       then
         TOOLPARAM=" -a"
+      elif test "x$TOOL" = "xaclocal" && test -d m4
+      then
+        TOOLPARAM=" -I m4"
       else
         TOOLPARAM=""
       fi
