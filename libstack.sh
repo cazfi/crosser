@@ -466,7 +466,8 @@ then
 fi
 
 if ! autogen_component tiff       $VERSION_TIFF                   ||
-   ! build_component   tiff       $VERSION_TIFF "$CONF_JPEG_TIFF" ||
+   ! build_component_full                                         \
+     tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "" "overwrite"     ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||
    ! build_component   expat      $VERSION_EXPAT
 then
