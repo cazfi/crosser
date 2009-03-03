@@ -207,7 +207,7 @@ build_generic() {
     fi
   fi
 
-  log_write 1 "Configuring: $2"
+  log_write 1 "Configuring $2"
   log_write 3 "  Options: \"$3\""
   log_flags
 
