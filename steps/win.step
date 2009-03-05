@@ -14,5 +14,3 @@ pango
 atk
 gtk+
 gtk-engines
-SDL
-SDL_image

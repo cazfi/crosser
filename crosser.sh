@@ -161,8 +161,7 @@ then
   if test "x$CH_ERROR" != "x" &&
      test "x$STEP_CHAIN" != "xyes" &&
      ( test "x$STEP_BASELIB" = "xyes" ||
-       test "x$STEP_GTK" = "xyes" ||
-       test "x$STEP_SDL" = "xyes" )
+       test "x$STEP_GTK" = "xyes" )
   then
     log_error "$CH_ERROR"
     log_error "Step 'chain' for building environment is not enabled."
@@ -207,7 +206,7 @@ build_generic() {
     fi
   fi
 
-  log_write 1 "Configuring $2"
+  log_write 1 "Configuring: $2"
   log_write 3 "  Options: \"$3\""
   log_flags
 
@@ -409,7 +408,8 @@ create_host_dirs()
     return 1
   fi
 
-  if ! mkdir -p $NATIVE_PREFIX/usr/include
+  if ! mkdir -p $NATIVE_PREFIX/crosser ||
+     ! mkdir -p $NATIVE_PREFIX/usr/include
   then
     log_error "Failed to create host directories under \"$NATIVE_PREFIX\""
     return 1
@@ -420,7 +420,8 @@ create_host_dirs()
 #
 create_target_dirs()
 {
-  if ! mkdir -p $SYSPREFIX/etc         ||
+  if ! mkdir -p $PREFIX/crosser        ||
+     ! mkdir -p $SYSPREFIX/etc         ||
      ! mkdir -p $SYSPREFIX/include     ||
      ! mkdir -p $SYSPREFIX/usr/include ||
      ! mkdir -p $SYSPREFIX/usr/lib
@@ -744,7 +745,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
     exit 1
   fi
 
-  write_crosser_env "$NATIVE_PREFIX" Native
+  echo "Setup:   Native"           >  "$NATIVE_PREFIX/crosser/crosser.hierarchy"
+  echo "Version: $CROSSER_VERSION" >> "$NATIVE_PREFIX/crosser/crosser.hierarchy"
 fi
 
 # None of these path variables contain original $PATH.
@@ -922,7 +924,8 @@ then
 
   fi
 
-  write_crosser_env "$PREFIX" "$TARGET"
+  echo "Setup:   $TARGET"          >  "$PREFIX/crosser/crosser.hierarchy"
+  echo "Version: $CROSSER_VERSION" >> "$PREFIX/crosser/crosser.hierarchy"
 
   generate_setup_scripts $PREFIX
 else # STEP_CHAIN
@@ -982,33 +985,12 @@ then
            ( patch_src glib-$VERSION_GLIB glib_gmoddef &&
              autogen_component glib    $VERSION_GLIB "aclocal automake autoconf" ))      ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "--prefix=/usr $GLIB_VARS"
-    then
-      crosser_error "Glib build failed"
-      exit 1
-    fi
-
-    STEP="gtk(ft1)"
-    STEPADD=""
-    if ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+         "--prefix=/usr $GLIB_VARS"                                                                    ||
+       ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$PREFIX/interm" "" "/"
-    then
-      crosser_error "Intermediate freetype build failed"
-      exit 1
-    fi
-
-    STEP="gtk(ft2)"
-    STEPADD=""
-    if ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE
-    then
-      crosser_error "Target freetype build failed"
-      exit 1
-    fi
-
-    STEP="gtk"
-    STEPADD="     "
-    if ! unpack_component          expat         $VERSION_EXPAT                          ||
+         "--prefix=$PREFIX/interm" "" "/"                                                ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
+       ! unpack_component          expat         $VERSION_EXPAT                          ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
@@ -1025,21 +1007,6 @@ then
       crosser_error "gtk+ chain build failed"
       exit 1
     fi
-  fi
-fi
-
-if test "x$STEP_SDL" = "xyes"
-then
-  STEP="sdl"
-  STEPADD="     "
-
-  if ! unpack_component          SDL       $VERSION_SDL                 ||
-     ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
-     ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
-     ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
-  then
-    crosser_error "sdl stack build failed"
-    exit 1
   fi
 fi
 
