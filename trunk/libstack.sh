@@ -315,8 +315,9 @@ TGT_MARCH="-march=$TARGET_ARCH"
 
 export LIBC_MODE="none"
 
-export PREFIX=$(setup_prefix_default "$(pwd)/install-<TARGET>-<DATE>" "$PREFIX")
-export NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/lshost" "$LSHOST_PREFIX")
+export PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/winstack" "$PREFIX")
+export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/lshost" \
+                       "$LSHOST_PREFIX")
 
 export USER_CPPFLGS="$CPPFLAGS"
 export USER_LDFLAGS="$LDFLAGS"
