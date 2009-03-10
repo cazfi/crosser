@@ -134,7 +134,7 @@ else
   BUILD="$NATIVE_ARCH-$NATIVE_VENDOR-$NATIVE_OS"
 fi
 
-NATIVE_PREFIX=$(setup_prefix_default "/usr/local/crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
+NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/host" "$NATIVE_PREFIX")
 
 CH_ERROR="$(check_crosser_env $NATIVE_PREFIX native)"
 if test "x$CH_ERROR" != "x" && test "x$STEP_NATIVE" != "xyes" ; then
@@ -146,9 +146,9 @@ fi
 # If native build, and cross-compile is not already being forced
 if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x" ; then
   CROSS_OFF=yes
-  DEFPREFIX="/usr/local/crosser/$CROSSER_VERSION/native"
+  DEFPREFIX="$HOME/.crosser/$CROSSER_VERSION/native"
 else
-  DEFPREFIX="/usr/local/crosser/$CROSSER_VERSION/$TARGET-$LIBC_MODE"
+  DEFPREFIX="$HOME/.crosser/$CROSSER_VERSION/$TARGET-$LIBC_MODE"
 fi
 
 PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
