@@ -1,10 +1,9 @@
 Configuring Crosser.sh & libstack.sh
 =====================================
 
-Both libtool.sh and crosser.sh (which is not included in this release)
-can be configured with file names local_setup.conf in main crosser
-directory. This is same directory where libstack.sh and crosser.sh
-scripts are.
+Both libtool.sh and crosser.sh can be configured with file names
+local_setup.conf in main crosser directory. This is same directory
+where libstack.sh and crosser.sh scripts are.
 
 This file lists some of the variables one can place to local_setup.conf
 
