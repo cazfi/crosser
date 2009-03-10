@@ -71,26 +71,25 @@ fi
 # $1 - Component
 # $2 - Version
 # $3 - Extra configure options
-build_component_srcdir()
+build_component()
 {
-  build_component_full "$1" "$1" "$2" "$3" "src"
+  build_component_full "$1" "$1" "$2" "$3"
 }
 
 # $1 - Component
 # $2 - Version
 # $3 - Extra configure options
-build_component()
+build_component_host()
 {
-  build_component_full "$1" "$1" "$2" "$3"
+  build_component_full "host-$1" "$1" "$2" "$3" "" "native"
 }
 
 # $1 - Build dir
 # $2 - Component
 # $3 - Version
 # $4 - Extra configure options
-# $5 - Build in src dir?
-# $6 - Overwrite libtool
-# $7 - Native
+# $5 - Overwrite libtool ('overwrite')
+# $6 - Native ('native')
 build_component_full()
 {
   log_packet "$1"
@@ -103,25 +102,16 @@ build_component_full()
     return 1
   fi
 
-  if test "x$5" != "xsrc" ; then
-    BUILDDIR="$MAINBUILDDIR/$1"
-    if ! mkdir -p "$BUILDDIR"
-    then
-      log_error "Failed to create directory $BUILDDIR"
-      return 1
-    fi
-    cd $BUILDDIR
-    SRCDIR="$MAINSRCDIR/$SUBDIR"
-  else
-    if ! cd $MAINSRCDIR/$SUBDIR
-    then
-      log_error "Cannot change to directory $MAINSRCDIR/$SUBDIR"
-      return 1
-    fi
-    SRCDIR="."
+  BUILDDIR="$MAINBUILDDIR/$1"
+  if ! mkdir -p "$BUILDDIR"
+  then
+    log_error "Failed to create directory $BUILDDIR"
+    return 1
   fi
+  cd $BUILDDIR
+  SRCDIR="$MAINSRCDIR/$SUBDIR"
 
-  if test "x$7" != "xnative"
+  if test "x$6" != "xnative"
   then
     CONFOPTIONS="--prefix=$PREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     export CPPFLAGS="-isystem $PREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
@@ -142,14 +132,14 @@ build_component_full()
     return 1
   fi
 
-  if test "x$6" = "xoverwrite" ; then
+  if test "x$5" = "xoverwrite" ; then
     log_write 2 "Copying working libtool to $1"
     if ! cp $MAINBUILDDIR/libtool/libtool .
     then
       log_error "Failed to copy libtool"
       return 1
     fi
-  elif test "x$6" != "x" ; then
+  elif test "x$5" != "x" ; then
     log_error "Illegal libtool overwrite parameter $6"
     return 1
   fi
@@ -392,7 +382,7 @@ if ! unpack_component  glib       $VERSION_GLIB             ||
         patch_src glib-$VERSION_GLIB glib_acsizeof   &&
         autogen_component glib       $VERSION_GLIB   \
          "libtoolize aclocal automake autoconf" ))          ||
-   ! build_component_full host_glib glib $VERSION_GLIB "" "" "" native
+   ! build_component_host glib $VERSION_GLIB
 then
   log_error "Native build failed"
   exit 1
@@ -427,7 +417,7 @@ then
      ! patch_src        libjpeg6b  jpeg_ar                  ||
      ! patch_src        libjpeg6b  jpeg_noundef             ||
      ! update_aux_files     libjpeg6b  $VERSION_JPEG        ||
-     ! build_component_full libjpeg6b libjpeg6b  $VERSION_JPEG "--enable-shared" "" "overwrite"
+     ! build_component_full libjpeg6b libjpeg6b  $VERSION_JPEG "--enable-shared" "overwrite"
   then
     log_error "Libjpeg build failed"
     exit 1
@@ -468,7 +458,7 @@ fi
 
 if ! autogen_component tiff       $VERSION_TIFF                   ||
    ! build_component_full                                         \
-     tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "" "overwrite"     ||
+     tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "overwrite"        ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||
    ! build_component   expat      $VERSION_EXPAT
 then
