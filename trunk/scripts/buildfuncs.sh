@@ -1,6 +1,6 @@
 # No shebang, this script is not executed, but sourced.
 
-# helpers.sh: Functions for Crosser
+# buildfuncs.sh: Build functions for Crosser
 #
 # (c) 2008-2009 Marko Lindqvist
 #
