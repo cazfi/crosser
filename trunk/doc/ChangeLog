@@ -6,6 +6,7 @@
 	- Added sdl step to crosser.sh
 	- Packets from sdl step added to win step, libstack.sh
 	  builds only win step
+	- Configuration variables read from ~/.crosser.conf
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 
