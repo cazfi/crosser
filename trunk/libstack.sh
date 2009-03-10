@@ -267,8 +267,8 @@ update_aux_files() {
 
 cd $(dirname $0)
 
-if ! source $MAINSETUPDIR/native.sh ; then
-  log_error "Failed to read $MAINSETUPDIR/native.sh"
+if ! . $MAINDIR/setups/native.sh ; then
+  log_error "Failed to read $MAINDIR/setups/native.sh"
   exit 1
 fi
 NATIVE_ARCH="$TMP_ARCH"
@@ -277,11 +277,11 @@ BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
 SETUP="win32"
 
-if ! test -e "$MAINSETUPDIR/$SETUP.conf" ; then
+if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
 fi
-source "$MAINSETUPDIR/$SETUP.conf"
+source "$MAINDIR/setups/$SETUP.conf"
 
 if test "x$LIBSTACK" = "xno"
 then
