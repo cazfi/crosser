@@ -9,6 +9,7 @@
 	- Configuration variables read from ~/.crosser.conf
 	- Loglines of building intermediate and target freetype differ from
 	  each other
+	- Updated mpfr to version 2.4.1
 
 0.6.1
 	- Configurable packetdir
