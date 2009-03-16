@@ -509,6 +509,7 @@ if ! unpack_component  gtk+       $VERSION_GTK                    ||
    ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
        patch_src gtk+-$VERSION_GTK          gtk_check_cxx )       ||
    ! ( is_smaller_version $VERSION_GTK      2.14.0 ||
+       is_minimum_version $VERSION_GTK      2.16.0 ||
        patch_src gtk+-$VERSION_GTK          gtk_gailutildef )     ||
    ! autogen_component gtk+       $VERSION_GTK                    \
      "libtoolize aclocal automake autoconf"                       ||
