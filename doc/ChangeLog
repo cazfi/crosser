@@ -7,6 +7,8 @@
 	- Packets from sdl step added to win step, libstack.sh
 	  builds only win step
 	- Configuration variables read from ~/.crosser.conf
+	- Added svgalib to sdl step
+	- Added install, whoami and depmod to hostbin
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 	- Updated mpfr to version 2.4.1

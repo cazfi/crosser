@@ -392,6 +392,8 @@ download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_I
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "tar.bz2"
 RET="$RET $?"
+download_needed "http://my.arava.co.il/~matan/svgalib/" "svgalib"    "$VERSION_SVGALIB"   "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
