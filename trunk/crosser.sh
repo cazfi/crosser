@@ -336,12 +336,17 @@ link_host_command() {
 
   if test "x$CMDPATH" = "x"
   then
-    if test "x$2" != "xno"
+    if test -x "/sbin/$1"
     then
-      log_error "Cannot find host command $1"
-      return 1
+      CMDPATH="/sbin/$1"
     else
-      return 0
+      if test "x$2" != "xno"
+      then
+        log_error "Cannot find host command $1"
+        return 1
+      else
+        return 0
+      fi
     fi
   fi
 
@@ -358,7 +363,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo wget pod2man msgfmt pkg-config sh glib-genmarshal"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt pkg-config sh glib-genmarshal"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
 
@@ -790,7 +795,7 @@ then
   fi
 
   # Some patches work only when compiling for Windows target and
-  # thus used in libstack.sh only
+  # thus are used in libstack.sh only
   if ! patch_src zlib               zlib_cctest               ||
      ! patch_src zlib               zlib_seeko
   then
@@ -798,9 +803,9 @@ then
     exit 1
   fi
 
-  if ! build_zlib                zlib   zlib                  \
-       "--shared"                                             ||
-     ! build_with_cross_compiler libpng libpng-$VERSION_PNG
+  if ! build_zlib                zlib    zlib                 \
+        "--shared"                                            ||
+     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG
   then
     crosser_error "Baselib build failed"
     exit 1
@@ -875,7 +880,13 @@ then
   STEP="sdl"
   STEPADD="     "
 
-  if ! unpack_component          SDL       $VERSION_SDL                 ||
+  if ! unpack_component          svgalib $VERSION_SVGALIB               ||
+     ! patch_src svgalib-$VERSION_SVGALIB svgalib_cfg                   ||
+     ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k26            ||
+     ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
+     ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
+        "clean install"                                                 ||
+     ! unpack_component          SDL       $VERSION_SDL                 ||
      ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
      ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
      ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE

@@ -43,15 +43,18 @@ build_generic() {
     fi
   fi
 
-  log_write 1 "Configuring $2"
-  log_write 3 "  Options: \"$3\""
-  log_flags
-
-  if ! "$MAINSRCDIR/$2/configure" $3 \
-      2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+  if test -x "$MAINSRCDIR/$2/configure"
   then
-    log_error "Configure failed: $1"
-    return 1
+    log_write 1 "Configuring $2"
+    log_write 3 "  Options: \"$3\""
+    log_flags
+
+    if ! "$MAINSRCDIR/$2/configure" $3 \
+        2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+    then
+      log_error "Configure failed: $1"
+      return 1
+    fi
   fi
 
   if test "x$4" != "x-" ; then
@@ -162,6 +165,46 @@ build_for_host() {
   export LDFLAGS="-Wl,-rpath,$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
 
   if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
+  then
+    return 1
+  fi
+}
+
+# Build svgalib using cross-compiler
+#
+# $1   - Component name
+# $2   - Source dir in source hierarchy
+# $3   - Make targets
+# [$4] - Destdir
+build_svgalib() {
+  export CFLAGS="-O2"
+  export CPPFLAGS="-isystem $SYSPREFIX/include -isystem $SYSPREFIX/usr/include"
+  export LDFLAGS="-L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib"
+
+  export CC="$TARGET-gcc"
+
+  if test "x$3" = "x"
+  then
+    MAKETARGETS="clean install"
+  else
+    MAKETARGETS="$3"
+  fi
+
+  if test "x$4" = "x"
+  then
+    DESTDIR="$SYSPREFIX"
+  else
+    DESTDIR="$4"
+  fi
+
+  MFCFG="$MAINSRCDIR/$2/Makefile.cfg"
+  sed "s,<TOPDIR>,$DESTDIR,g" "$MFCFG" > "$MFCFG.tmp"
+  mv "$MFCFG.tmp" "$MFCFG"
+  MFCFG="$MAINSRCDIR/$2/kernel/svgalib_helper/Makefile"
+  sed "s,<TOPDIR>,$DESTDIR,g" "$MFCFG" > "$MFCFG.tmp"
+  mv "$MFCFG.tmp" "$MFCFG"
+
+  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS" "yes"
   then
     return 1
   fi

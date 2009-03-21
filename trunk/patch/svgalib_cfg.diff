@@ -1,0 +1,28 @@
+diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/svgalib_helper/Makefile
+--- svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-03-21 23:15:28.000000000 +0200
++++ svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-03-21 23:23:12.000000000 +0200
+@@ -60,7 +60,7 @@
+ install: device modules_install
+ 
+ modules_install: $(MODNAME)
+-	mkdir -p /lib/modules/$(VER)/kernel/misc
+-	install -m 0644 -c $(TARGET).ko /lib/modules/$(VER)/kernel/misc ||	install -m 0644 -c $(TARGET).o /lib/modules/$(VER)/kernel/misc
+-	depmod -a $(VER)
++	mkdir -p <TOPDIR>/lib/modules/$(VER)/kernel/misc
++	install -m 0644 -c $(TARGET).ko <TOPDIR>/lib/modules/$(VER)/kernel/misc ||	install -m 0644 -c $(TARGET).o <TOPDIR>/lib/modules/$(VER)/kernel/misc
++	depmod -a $(VER) -b <TOPDIR>
+ 
+diff -Nurd svgalib-1.9.25/Makefile.cfg svgalib-1.9.25/Makefile.cfg
+--- svgalib-1.9.25/Makefile.cfg	2009-03-21 23:18:08.000000000 +0200
++++ svgalib-1.9.25/Makefile.cfg	2009-03-21 23:18:30.000000000 +0200
+@@ -43,8 +43,8 @@
+ 
+ # Common prefix for installation directories.
+ # NOTE: This directory must exist when you start the install.
+-TOPDIR=
+-prefix = $(TOPDIR)/usr/local
++TOPDIR=<TOPDIR>
++prefix = $(TOPDIR)/usr
+ exec_prefix = $(prefix)
+ 
+ # Directory where the shared stubs and static library will be installed.
