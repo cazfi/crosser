@@ -13,10 +13,12 @@
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 	- Updated mpfr to version 2.4.1
-	- Updated glibc to version 2.9-5
+	- Updated glibc to version 2.9-6
 	- Updated glib to version 2.20.0
 	- Updated freetype to version 2.3.9
 	- Updated gtk+ to version 2.16.0
+	- Updated pango to version 1.24.0
+	- Updated linux kernel to version 2.6.28.8
 
 0.6.1
 	- Configurable packetdir
