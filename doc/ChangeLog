@@ -8,7 +8,8 @@
 	  builds only win step
 	- Configuration variables read from ~/.crosser.conf
 	- Added svgalib to sdl step
-	- Added install, whoami and depmod to hostbin
+	- Added commands install, whoami and depmod to hostbin
+	- Set PKG_CONFIG_LIBDIR, not PKG_CONFIG_PATH when cross-compiling
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 	- Updated mpfr to version 2.4.1
