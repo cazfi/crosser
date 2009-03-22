@@ -370,7 +370,7 @@ then
   fi
 fi
 
-export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
