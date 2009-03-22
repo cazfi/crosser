@@ -10,6 +10,7 @@
 	- Added svgalib to sdl step
 	- Added commands install, whoami and depmod to hostbin
 	- Set PKG_CONFIG_LIBDIR, not PKG_CONFIG_PATH when cross-compiling
+	- Prevented anybody from running crosser.sh as root
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 	- Updated mpfr to version 2.4.1

@@ -51,6 +51,12 @@ then
   exit 1
 fi
 
+if test $(id -u) == 0
+then
+  log_error "Do not run crosser.sh as root. That can destroy your system."
+  exit 1
+fi
+
 if test "x$1" != "x" ; then
   SETUP="$1"
 else
