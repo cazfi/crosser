@@ -85,7 +85,7 @@ else
     fi
   fi
   log_write 1 "No build steps defined, building everything"
-  STEPPARAM="native:gtk"
+  STEPPARAM="native:sdl"
 fi
 
 . $MAINDIR/steps/stepfuncs.sh
