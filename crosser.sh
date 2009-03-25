@@ -338,14 +338,20 @@ kernel_header_setup() {
 # $1 - Command to link
 # $2 - Required ('no')
 link_host_command() {
+  CMDDIRS="/usr/local/sbin /usr/sbin /sbin"
   CMDPATH="$(which $1)"
 
   if test "x$CMDPATH" = "x"
   then
-    if test -x "/sbin/$1"
+    for CMDDIR in $CMDDIRS
+    do
+      if test "x$CMDPATH" = "x" && test -x "$CMDDIR/$1"
+      then
+        CMDPATH="$CMDDIR/$1"
+      fi
+    done
+    if test "x$CMDPATH" = "x"
     then
-      CMDPATH="/sbin/$1"
-    else
       if test "x$2" != "xno"
       then
         log_error "Cannot find host command $1"
@@ -372,6 +378,8 @@ setup_host_commands() {
   HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt pkg-config sh glib-genmarshal"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
+
+  log_write 1 "Setting up hostbin"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
     log_error "Cannot create directory $PREFIX/hostbin"
@@ -556,8 +564,6 @@ then
     exit 1
   fi
 fi
-
-LDCONFIG=/sbin/ldconfig
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
