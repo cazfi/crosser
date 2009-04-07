@@ -894,7 +894,7 @@ then
 
   if test "x$LIBC_MODE" != "xglibc"
   then
-    log_write 1 "Step gtk not available for $LIBC_MODE based builds, skipping"
+    log_write 1 "Step sdl not available for $LIBC_MODE based builds, skipping"
   else
 
     if ! unpack_component          svgalib $VERSION_SVGALIB               ||
