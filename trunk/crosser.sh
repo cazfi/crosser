@@ -892,21 +892,27 @@ then
   STEP="sdl"
   STEPADD="     "
 
-  if ! unpack_component          svgalib $VERSION_SVGALIB               ||
-     ! patch_src svgalib-$VERSION_SVGALIB svgalib_cfg                   ||
-     ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k26            ||
-     ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
-     ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
-     ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
-     ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
-        "clean install"                                                 ||
-     ! unpack_component          SDL       $VERSION_SDL                 ||
-     ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
-     ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
-     ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
+  if test "x$LIBC_MODE" != "xglibc"
   then
-    crosser_error "sdl stack build failed"
-    exit 1
+    log_write 1 "Step gtk not available for $LIBC_MODE based builds, skipping"
+  else
+
+    if ! unpack_component          svgalib $VERSION_SVGALIB               ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_cfg                   ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k26            ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
+       ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
+          "clean install"                                                 ||
+       ! unpack_component          SDL       $VERSION_SDL                 ||
+       ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
+       ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
+       ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
+    then
+      crosser_error "sdl stack build failed"
+      exit 1
+    fi
   fi
 fi
 
