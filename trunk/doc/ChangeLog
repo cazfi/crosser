@@ -16,7 +16,7 @@
 	- Loglines of building intermediate and target freetype differ from
 	  each other
 	- Updated mpfr to version 2.4.1
-	- Updated glibc to version 2.9-7
+	- Updated glibc to version 2.9-8
 	- Updated glib to version 2.20.1
 	- Updated freetype to version 2.3.9
 	- Updated gtk+ to version 2.16.1
@@ -25,6 +25,9 @@
 	- Updated atk to version 1.26.0
 	- Updated gtk-engines to version 2.18.0
 	- Updated pixman to version 0.15.2
+	- Updated libiconv to version 1.13
+	- Updated gcc to version 4.4.0
+	- Updated gmp to version 4.3.0
 
 0.6.1
 	- Configurable packetdir
