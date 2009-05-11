@@ -15,8 +15,8 @@
 	- Prevented anybody from running crosser.sh as root
 	- Loglines of building intermediate and target freetype differ from
 	  each other
+	- Replaced glibc with eglibc version 2.9-12
 	- Updated mpfr to version 2.4.1
-	- Updated glibc to version 2.9-10
 	- Updated glib to version 2.20.1
 	- Updated freetype to version 2.3.9
 	- Updated gtk+ to version 2.16.1

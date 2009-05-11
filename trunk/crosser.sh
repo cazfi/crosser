@@ -406,7 +406,7 @@ setup_host_commands() {
 # Build dummy glibc objects
 #
 dummy_glibc_objects() {
-  log_write 1 "Generating dummy glibc objects"
+  log_write 1 "Generating dummy (e)glibc objects"
 
   if ! mkdir $MAINBUILDDIR/crt ; then
      return 1
@@ -496,9 +496,14 @@ prepare_gcc_src() {
 # Upack glibc tarballs. They have to be extracted from deb-packet already
 #
 unpack_glibc() {
-  if is_minimum_version $VERSION_GLIBC 2.8
+  if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
   then
-    ln -s glibc $MAINSRCDIR/glibc-$VERSION_GLIBC
+    ln -s eglibc $MAINSRCDIR/eglibc-$VERSION_EGLIBC
+    return 0
+  fi
+  if is_minimum_version $VERSION_EGLIBC 2.8
+  then
+    ln -s glibc $MAINSRCDIR/glibc-$VERSION_EGLIBC
     return 0
   fi
 
@@ -535,7 +540,12 @@ log_write 2 "Build:        \"$MAINBUILDDIR\""
 log_write 2 "Setup:        \"$SETUP\""
 log_write 2 "Versionset:   \"$VERSIONSET\""
 log_write 2 "Steps:        \"$STEPLIST\""
-log_write 2 "c-lib:        \"$LIBC_MODE\""
+if test "x$LIBC_MODE" = "xglibc"
+then
+  log_write 2 "c-lib:        \"(e)glibc\""
+else
+  log_write 2 "c-lib:        \"$LIBC_MODE\""
+fi
 
 if ! remove_dir "$MAINBUILDDIR" ||
    ! remove_dir "$MAINSRCDIR"   ||
@@ -723,35 +733,58 @@ then
       exit
     fi
 
-    if ! unpack_component glibc $VERSION_GLIBC_DEB                        ||
-       ! unpack_glibc                                                     ||
-       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
-          patch_src glibc-$VERSION_GLIBC glibc_upstream_finc)             ||
-       ! patch_src glibc-$VERSION_GLIBC glibc_nomanual                    ||
-       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
-          patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_docargs) ||
-       ! (is_minimum_version $VERSION_GLIBC 2.8 ||
-          patch_src glibc-$VERSION_GLIBC/glibc-ports-$VERSION_GLIBC glibc_ports_arm_pageh_inc) ||
-       ! patch_src glibc-$VERSION_GLIBC/ports glibc_ports_arm_tlsinc      ||
-       ! (is_smaller_version $VERSION_GLIBC 2.9 ||
-          patch_src glibc-$VERSION_GLIBC/ports glibc_upstream_arm_sigsetjmp)
+    if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
     then
-      crosser_error "Glibc unpacking failed"
+      LIBCNAME=eglibc
+      LIBCDIR=eglibc-$VERSION_EGLIBC
+    else
+      LIBCNAME=glibc
+      LIBCDIR=glibc-$VERSION_EGLIBC
+    fi
+
+    if ! unpack_component $LIBCNAME $VERSION_EGLIBC_DEB                             ||
+       ! unpack_glibc
+    then
+      crosser_error "(E)glibc unpacking failed"
       exit 1
     fi
 
-    log_write 1 "Installing initial glibc headers"
-    if ! build_glibc glibc glibc-$VERSION_GLIBC \
-           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
-           "install-headers" "headers"
+    if ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
+          patch_src $LIBCDIR glibc_upstream_finc)                                   ||
+       ! patch_src $LIBCDIR glibc_nomanual                                          ||
+       ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
+          patch_src $LIBCDIR/glibc-ports-$VERSION_EGLIBC glibc_ports_arm_docargs)   ||
+       ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
+          patch_src $LIBCDIR/glibc-ports-$VERSION_EGLIBC glibc_ports_arm_pageh_inc) ||
+       ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc                            ||
+       ! (is_smaller_version $VERSION_EGLIBC 2.9 ||
+          patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
     then
-      log_error "Failed to install initial glibc headers"
+      crosser_error "(E)glibc patching failed"
+      exit 1
+    fi
+
+    if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
+    then
+      if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
+      then
+        crosser_error "Eglibc autogen failed"
+        exit 1
+      fi
+    fi
+
+    log_write 1 "Installing initial (e)glibc headers"
+    if ! build_glibc $LIBCNAME $LIBCDIR \
+           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
+           "install-headers install-bootstrap-headers=yes" "headers"
+    then
+      log_error "Failed to install initial (e)glibc headers"
       exit 1
     fi
 
     if ! dummy_glibc_objects
     then
-      log_error "Failed to build dummy glibc objects"
+      log_error "Failed to build dummy (e)glibc objects"
       exit 1
     fi
 
@@ -764,11 +797,11 @@ then
       exit 1
     fi
 
-    if ! build_glibc glibc glibc-$VERSION_GLIBC \
+    if ! build_glibc $LIBCNAME $LIBCDIR \
              "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=ports,nptl" \
              "all install"
     then
-      crosser_error "Failed to build final glibc"
+      crosser_error "Failed to build final (e)glibc"
       exit 1
     fi
 
