@@ -321,6 +321,7 @@ MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
+    eglibc|glibc) VERSION_EGLIBC_DEB=$VERSION_SELECTED ;;
     glib)     VERSION_GLIB=$VERSION_SELECTED ;;
     pango)    VERSION_PANGO=$VERSION_SELECTED ;;
     gtk+)     VERSION_GTK=$VERSION_SELECTED ;;
@@ -377,8 +378,16 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_DEB/pool/main/g/glibc/"        "glibc"  "$VERSION_GLIBC_DEB" "dsc"
-RET="$RET $?"
+
+if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
+then
+  download_needed "$MIRROR_DEB/pool/main/e/eglibc/"       "eglibc" "$VERSION_EGLIBC_DEB" "dsc"
+  RET="$RET $?"
+else
+  download_needed "$MIRROR_DEB/pool/main/g/glibc/"        "glibc"  "$VERSION_EGLIBC_DEB" "dsc"
+  RET="$RET $?"
+fi
+
 download_needed "$MIRROR_KERNEL/pub/linux/kernel/v2.6/" "linux" "$VERSION_KERNEL"  "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLIB" "tar.gz"
