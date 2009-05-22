@@ -15,7 +15,7 @@
 	- Prevented anybody from running crosser.sh as root
 	- Loglines of building intermediate and target freetype differ from
 	  each other
-	- Replaced glibc with eglibc version 2.9-12
+	- Upstream glibc used instead of debian packets
 	- Updated mpfr to version 2.4.1
 	- Updated glib to version 2.20.2
 	- Updated freetype to version 2.3.9
