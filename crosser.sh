@@ -73,7 +73,7 @@ else
 
     while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
     do
-      echo "You gave no steps. Building everything from scratch will take hours."
+      echo "You gave no steps. Building everything from scratch will take very long time."
       echo "Are you sure you want to continue?"
       echo "yes/no"
       echo -n "> "
@@ -406,7 +406,7 @@ setup_host_commands() {
 # Build dummy glibc objects
 #
 dummy_glibc_objects() {
-  log_write 1 "Generating dummy (e)glibc objects"
+  log_write 1 "Generating dummy c-lib objects"
 
   if ! mkdir $MAINBUILDDIR/crt ; then
      return 1
