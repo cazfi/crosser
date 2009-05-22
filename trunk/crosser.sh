@@ -493,34 +493,6 @@ prepare_gcc_src() {
   fi
 }
 
-# Upack glibc tarballs. They have to be extracted from deb-packet already
-#
-unpack_glibc() {
-  if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
-  then
-    ln -s eglibc $MAINSRCDIR/eglibc-$VERSION_EGLIBC
-    return 0
-  fi
-  if is_minimum_version $VERSION_EGLIBC 2.8
-  then
-    ln -s glibc $MAINSRCDIR/glibc-$VERSION_EGLIBC
-    return 0
-  fi
-
-  GPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-$VERSION_GLIBC*.tar.bz2)
-  GPPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-ports-$VERSION_GLIBC*.tar.bz2)
-  LTPACKNAME=$(ls -1 $MAINSRCDIR/glibc/glibc-linuxthreads-*.tar.bz2)
-
-  if ! tar xjf $GPACKNAME -C $MAINSRCDIR ||
-     ! tar xjf $GPPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC ||
-     ! tar xjf $LTPACKNAME -C $MAINSRCDIR/glibc-$VERSION_GLIBC ||
-     ! ln -s glibc-ports-$VERSION_GLIBC $MAINSRCDIR/glibc-$VERSION_GLIBC/ports
-  then
-    log_error "Unpacking glibc tarballs failed"
-    return 1
-  fi
-}
-
 if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x"
 then
   CROSS_OFF=yes
@@ -540,12 +512,7 @@ log_write 2 "Build:        \"$MAINBUILDDIR\""
 log_write 2 "Setup:        \"$SETUP\""
 log_write 2 "Versionset:   \"$VERSIONSET\""
 log_write 2 "Steps:        \"$STEPLIST\""
-if test "x$LIBC_MODE" = "xglibc"
-then
-  log_write 2 "c-lib:        \"(e)glibc\""
-else
-  log_write 2 "c-lib:        \"$LIBC_MODE\""
-fi
+log_write 2 "c-lib:        \"$LIBC_MODE\""
 
 if ! remove_dir "$MAINBUILDDIR" ||
    ! remove_dir "$MAINSRCDIR"   ||
@@ -733,58 +700,49 @@ then
       exit
     fi
 
-    if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
-    then
-      LIBCNAME=eglibc
-      LIBCDIR=eglibc-$VERSION_EGLIBC
-    else
-      LIBCNAME=glibc
-      LIBCDIR=glibc-$VERSION_EGLIBC
-    fi
+    LIBCNAME=glibc
+    LIBCVER=$VERSION_GLIBC
+    LIBCDIR=$LIBCNAME-$LIBCVER
 
-    if ! unpack_component $LIBCNAME $VERSION_EGLIBC_DEB                             ||
-       ! unpack_glibc
+    if ! unpack_component $LIBCNAME       $LIBCVER          ||
+       ! unpack_component $LIBCNAME-ports $LIBCVER $LIBCDIR
     then
-      crosser_error "(E)glibc unpacking failed"
+      crosser_error "$LIBCNAME unpacking failed"
       exit 1
     fi
 
-    if ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
-          patch_src $LIBCDIR glibc_upstream_finc)                                   ||
-       ! patch_src $LIBCDIR glibc_nomanual                                          ||
-       ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
-          patch_src $LIBCDIR/glibc-ports-$VERSION_EGLIBC glibc_ports_arm_docargs)   ||
-       ! (is_minimum_version $VERSION_EGLIBC 2.8 ||
-          patch_src $LIBCDIR/glibc-ports-$VERSION_EGLIBC glibc_ports_arm_pageh_inc) ||
-       ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc                            ||
-       ! (is_smaller_version $VERSION_EGLIBC 2.9 ||
-          patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
+    if ! (is_minimum_version $LIBCVER 2.8 ||
+          patch_src $LIBCDIR glibc_upstream_finc)                                 ||
+       ! (is_minimum_version $LIBCVER 2.8 ||
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_docargs)    ||
+       ! (is_minimum_version $LIBCVER 2.8 ||
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_pageh_inc)  ||
+       ! patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_tlsinc       ||
+       ! (is_smaller_version $LIBCVER 2.9 ||
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_upstream_arm_sigsetjmp)
     then
-      crosser_error "(E)glibc patching failed"
+      crosser_error "$LIBCNAME patching failed"
       exit 1
     fi
 
-    if is_minimum_version $VERSION_EGLIBC_DEB 2.9-11
-    then
-      if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
-      then
-        crosser_error "Eglibc autogen failed"
-        exit 1
-      fi
-    fi
+#    if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
+#    then
+#      crosser_error "Eglibc autogen failed"
+#      exit 1
+#    fi
 
-    log_write 1 "Installing initial (e)glibc headers"
+    log_write 1 "Installing initial $LIBCNAME headers"
     if ! build_glibc $LIBCNAME $LIBCDIR \
-           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
+           "--with-tls --enable-add-ons=$LIBCNAME-ports-$LIBCVER --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
            "install-headers install-bootstrap-headers=yes" "headers"
     then
-      log_error "Failed to install initial (e)glibc headers"
+      log_error "Failed to install initial $LIBCNAME headers"
       exit 1
     fi
 
     if ! dummy_glibc_objects
     then
-      log_error "Failed to build dummy (e)glibc objects"
+      log_error "Failed to build dummy $LIBCNAME objects"
       exit 1
     fi
 
@@ -798,10 +756,10 @@ then
     fi
 
     if ! build_glibc $LIBCNAME $LIBCDIR \
-             "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=ports,nptl" \
+             "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=$LIBCNAME-ports-$LIBCVER,nptl" \
              "all install"
     then
-      crosser_error "Failed to build final (e)glibc"
+      crosser_error "Failed to build final $LIBCNAME"
       exit 1
     fi
 
