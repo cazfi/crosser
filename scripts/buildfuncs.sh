@@ -87,6 +87,7 @@ build_generic() {
     fi
   fi
 
+  # Reset hash in case it has old version of just built tool
   hash -r
 
   return 0
