@@ -550,6 +550,9 @@ if test "x$STEP_NATIVE" = "xyes" ; then
 
   BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
+  # Build of latter tools uses earlier tools
+  export PATH=$NATIVE_PREFIX/bin:$PATH
+
   if ! create_host_dirs     ||
      ! unpack_component libtool  $VERSION_LIBTOOL             ||
      ! build_for_host   libtool  libtool-$BASEVER_LIBTOOL     ||
