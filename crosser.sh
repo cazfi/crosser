@@ -278,13 +278,23 @@ create_target_dirs()
   fi
 }
 
-# Install kernel headers
+# Install kernel or kernel headers
 #
-kernel_header_setup() {
-  log_write 1 "Kernel setup"
-  log_packet "Kernel headers"
+# [$1] - "full" - build kernel. Default is to only install headers
+#
+kernel_setup() {
+  if test "x$1" = "xfull"
+  then
+    log_write 1 "Kernel setup"
+    log_packet "Kernel"
+  else
+    log_write 1 "Kernel header setup"
+    log_packet "Kernel headers"
+  fi
 
-  if ! unpack_component linux $VERSION_KERNEL
+  # Kernel may have been unpacked already in chain step
+  if ! test -d $MAINSRCDIR/linux-$VERSION_KERNEL &&
+     ! unpack_component linux $VERSION_KERNEL
   then
     log_error "Failed to unpack kernel"
     return 1
@@ -319,13 +329,25 @@ kernel_header_setup() {
       return 1
     fi
 
-    MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$SYSPREFIX/usr headers_install"
+    if test "x$1" = "xfull"
+    then
+      MAKETARGETS="bzImage modules modules_install"
+      log_write 1 "Building linux kernel"
+    else
+      MAKETARGETS="headers_install"
+    fi
+    MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$SYSPREFIX/usr INSTALL_MOD_PATH=$SYSPREFIX $MAKETARGETS"
 
     log_write 3 "  Make params: $MAKEPARAMS"
     if ! make $MAKEPARAMS \
                 2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
     then
-      log_error "Kernel headers install failed"
+      if test "x$1" = "xfull"
+      then
+        log_error "Kernel build failed"
+      else
+        log_error "Kernel headers install failed"
+      fi
       return 1
     fi
   ) then
@@ -375,7 +397,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt pkg-config sh glib-genmarshal"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt pkg-config sh glib-genmarshal hostname dnsdomainname mktemp"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg sha1sum sha256sum gzip gunzip patch"
 
@@ -627,7 +649,7 @@ then
     hash -r
     # Prepare kernel sources while we are still using compiler with
     # original sysroot
-    if ! kernel_header_setup
+    if ! kernel_setup
     then
       crosser_error "Kernel header setup failed"
       exit 1
@@ -697,7 +719,7 @@ then
       exit 1
     fi
 
-    if test "x$BUILD" != "x$TARGET" && ! kernel_header_setup
+    if test "x$BUILD" != "x$TARGET" && ! kernel_setup
     then
       crosser_error "Kernel header setup failed"
       exit
@@ -893,7 +915,8 @@ then
     log_write 1 "Step sdl not available for $LIBC_MODE based builds, skipping"
   else
 
-    if ! unpack_component          svgalib $VERSION_SVGALIB               ||
+    if ! kernel_setup full                                                ||
+       ! unpack_component          svgalib $VERSION_SVGALIB               ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_cfg                   ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k26            ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||

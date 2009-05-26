@@ -8,6 +8,7 @@
 	  builds only win step
 	- Configuration variables read from ~/.crosser.conf
 	- Added svgalib to sdl step
+	- Build linux kernel in sdl step
 	- Search hostbin commands from /sbin, /usr/sbin and /usr/local/sbin
 	  directories even if they are not in PATH
 	- Added commands install, whoami and depmod to hostbin
