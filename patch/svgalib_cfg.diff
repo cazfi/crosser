@@ -1,7 +1,29 @@
 diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/svgalib_helper/Makefile
---- svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-03-21 23:15:28.000000000 +0200
-+++ svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-03-21 23:23:12.000000000 +0200
-@@ -60,7 +60,7 @@
+--- svgalib-1.9.25/kernel/svgalib_helper/Makefile	2006-05-20 15:31:04.000000000 +0300
++++ svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-05-27 01:25:21.000000000 +0300
+@@ -4,10 +4,11 @@
+ svgalib_helper-objs := main.o i810.o interrupt.o virtual.o displaystart.o
+ obj-m		:= svgalib_helper.o
+ 
++KERNELRELEASE=<KERNELVER>
+ ifneq ($(KERNELRELEASE),)
+ 
+    VER    ?= $(KERNELRELEASE)
+-   KDIR	:= /lib/modules/$(VER)/build
++   KDIR	:= <TOPDIR>/lib/modules/$(VER)/build
+    PWD	:= $(shell pwd)
+    TARGET  := svgalib_helper
+ 
+@@ -18,7 +19,7 @@
+ else
+ 
+    VER    ?= $(shell uname -r)
+-   KDIR	:= /lib/modules/$(VER)/build
++   KDIR	:= <TOPDIR>/lib/modules/$(VER)/build
+    PWD	:= $(shell pwd)
+    TARGET  := svgalib_helper
+ 
+@@ -60,7 +61,7 @@
  install: device modules_install
  
  modules_install: $(MODNAME)
@@ -13,9 +35,31 @@ diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/s
 +	depmod -a $(VER) -b <TOPDIR>
  
 diff -Nurd svgalib-1.9.25/Makefile.cfg svgalib-1.9.25/Makefile.cfg
---- svgalib-1.9.25/Makefile.cfg	2009-03-21 23:18:08.000000000 +0200
-+++ svgalib-1.9.25/Makefile.cfg	2009-03-21 23:18:30.000000000 +0200
-@@ -43,8 +43,8 @@
+--- svgalib-1.9.25/Makefile.cfg	2006-07-14 14:38:58.000000000 +0300
++++ svgalib-1.9.25/Makefile.cfg	2009-05-27 01:25:21.000000000 +0300
+@@ -19,18 +19,19 @@
+ SVGALIB_HELPER_MAJOR = 209
+ 
+ # Linux kernel includes
++S_KERNELRELEASE=<KERNELVER>
+ ifeq ($(S_KERNELRELEASE),)
+ S_KERNELRELEASE = $(shell uname -r)
+ endif
+ 
+-INCLUDEDIR = /lib/modules/$(S_KERNELRELEASE)/build/include
++INCLUDEDIR = <TOPDIR>/lib/modules/$(S_KERNELRELEASE)/build/include
+ 
+ DIREXIST = $(shell if [ -e $(INCLUDEDIR) ] ; then echo OK ; fi)
+ ifneq ($(DIREXIST), OK)
+ INCLUDEDIR = /usr/src/linux/include
+ endif
+ 
+-ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/)
++ARCH := <ARCH>
+ 
+ #----------------------------------------------------------------------
+ # Configuration Section
+@@ -43,8 +44,8 @@
  
  # Common prefix for installation directories.
  # NOTE: This directory must exist when you start the install.

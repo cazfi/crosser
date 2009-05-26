@@ -913,6 +913,9 @@ then
   if test "x$LIBC_MODE" != "xglibc"
   then
     log_write 1 "Step sdl not available for $LIBC_MODE based builds, skipping"
+  elif test "x$KERN_ARCH" = "xarm"
+  then
+    log_write 1 "Step sdl not available for $KERN_ARCH architecture, skipping"
   else
 
     if ! kernel_setup full                                                ||
@@ -922,7 +925,6 @@ then
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
-       ! patch_src svgalib-$VERSION_SVGALIB svgalib_crossarch             ||
        ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
           "clean install"                                                 ||
        ! unpack_component          SDL       $VERSION_SDL                 ||
