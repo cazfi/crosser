@@ -200,11 +200,14 @@ build_svgalib() {
 
   MFCFG="$MAINSRCDIR/$2/Makefile.cfg"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
+      -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
       -e "s,<ARCH>,$KERN_ARCH,g" \
       "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
   MFCFG="$MAINSRCDIR/$2/kernel/svgalib_helper/Makefile"
-  sed "s,<TOPDIR>,$DESTDIR,g" "$MFCFG" > "$MFCFG.tmp"
+  sed -e "s,<TOPDIR>,$DESTDIR,g" \
+      -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
+      "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
 
   if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS" "yes"
