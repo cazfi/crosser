@@ -10,7 +10,7 @@ Please report any bugs to Bugzilla at https://www.cazfi.net/bugs/index.cgi
 
 ------
 
-Script packets/download_packets.sh downloads toolchain related source packages.
+Script scripts/download_packets.sh downloads toolchain related source packages.
 
 - It can be used to download single package, predefined set of packages, or all packages
 - Versions to download are read from setups/<VERSIONSET>.versions, where
@@ -38,11 +38,15 @@ Script packets/download_packets.sh downloads toolchain related source packages.
             same native environment for all your different target chains.
   chain   - Actual cross-compilers
   baselib - A couple of basic libraries for target
+  gtk     - A couple of gtk+ dependency libraries, but not yet gtk+ itself
+            This step is not available on arm-elf target
+  sdl     - sdl dependencies and sdl library itself
+            This step is not available on arm architecture targets
 
   Third parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
-  Currently there is three versionsets:
+  Currently there is four versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist. It's constantly updated.
   2008A        - This versionset contains versions of the June 2008. This
