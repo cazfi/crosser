@@ -207,6 +207,8 @@ build_svgalib() {
   MFCFG="$MAINSRCDIR/$2/kernel/svgalib_helper/Makefile"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
       -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
+      -e "s,<ARCH>,$KERN_ARCH,g" \
+      -e "s,<TARGET>,$TARGET,g" \
       "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
 
