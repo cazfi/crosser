@@ -479,10 +479,13 @@ dummy_glibc_objects() {
 # Prepare binutils source tree
 #
 prepare_binutils_src() {
-  if ! unpack_component binutils     $VERSION_BINUTILS            ||
+  if ! unpack_component binutils     $VERSION_BINUTILS              ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
         (  patch_src binutils-$VERSION_BINUTILS binutils_makeinfo &&
-           cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf ))
+           cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf )) ||
+     ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
+        (  patch_src binutils-$VERSION_BINUTILS binutils_printffix &&
+	   patch_src binutils-$VERSION_BINUTILS binutils_ignret ))
   then
     log_error "Binutils setup failed"
     return 1
