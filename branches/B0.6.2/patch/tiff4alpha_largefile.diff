@@ -1,0 +1,14 @@
+diff -Nurd tiff-4.0.0alpha/libtiff/tif_unix.c tiff-4.0.0alpha/libtiff/tif_unix.c
+--- tiff-4.0.0alpha/libtiff/tif_unix.c	2007-07-12 12:59:01.000000000 +0300
++++ tiff-4.0.0alpha/libtiff/tif_unix.c	2008-05-17 15:23:38.000000000 +0300
+@@ -219,8 +219,9 @@
+ 	m |= O_BINARY;
+ #endif
+ 
+-
++#ifdef O_LARGEFILE
+ 	m |= O_LARGEFILE;
++#endif /* O_LARGEFILE */
+ 
+ 	fd = _wopen(name, m, 0666);
+ 	if (fd < 0) {
