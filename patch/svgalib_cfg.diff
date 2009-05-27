@@ -1,6 +1,6 @@
 diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/svgalib_helper/Makefile
 --- svgalib-1.9.25/kernel/svgalib_helper/Makefile	2006-05-20 15:31:04.000000000 +0300
-+++ svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-05-27 01:25:21.000000000 +0300
++++ svgalib-1.9.25/kernel/svgalib_helper/Makefile	2009-05-27 15:55:36.000000000 +0300
 @@ -4,10 +4,11 @@
  svgalib_helper-objs := main.o i810.o interrupt.o virtual.o displaystart.o
  obj-m		:= svgalib_helper.o
@@ -23,7 +23,23 @@ diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/s
     PWD	:= $(shell pwd)
     TARGET  := svgalib_helper
  
-@@ -60,7 +61,7 @@
+@@ -33,12 +34,13 @@
+ 
+ EXTRA_CFLAGS := -DSVGALIB_HELPER_MAJOR=$(SVGALIB_HELPER_MAJOR) $(CLASS_CFLAGS)
+ 
++CROSS_PARAMS=CROSS_COMPILE=<TARGET>- ARCH=<ARCH>
+ 
+ default:
+-	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) CLASS_CFLAGS=$(CLASS_CFLAGS) modules
++	( cd $(KDIR) && $(MAKE) $(CROSS_PARAMS) SUBDIRS=$(PWD) CLASS_CFLAGS=$(CLASS_CFLAGS) modules )
+ 
+ depend:
+-	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) depend
++	( cd $(KDIR) && $(MAKE) $(CROSS_PARAMS) SUBDIRS=$(PWD) depend )
+ 
+ 
+ clean:
+@@ -60,7 +62,7 @@
  install: device modules_install
  
  modules_install: $(MODNAME)
@@ -36,7 +52,7 @@ diff -Nurd svgalib-1.9.25/kernel/svgalib_helper/Makefile svgalib-1.9.25/kernel/s
  
 diff -Nurd svgalib-1.9.25/Makefile.cfg svgalib-1.9.25/Makefile.cfg
 --- svgalib-1.9.25/Makefile.cfg	2006-07-14 14:38:58.000000000 +0300
-+++ svgalib-1.9.25/Makefile.cfg	2009-05-27 01:25:21.000000000 +0300
++++ svgalib-1.9.25/Makefile.cfg	2009-05-27 15:55:03.000000000 +0300
 @@ -19,18 +19,19 @@
  SVGALIB_HELPER_MAJOR = 209
  
