@@ -1,3 +1,6 @@
+0.6.3
+	- Added setup arm-eglibc
+
 0.6.2
 	- Build environments under $HOME/.crosser by default
 	- Timeout for download attempts
