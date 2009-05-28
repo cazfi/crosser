@@ -1,7 +1,6 @@
 binutils
 gcc
 glibc
-eglibc
 gmp
 mpfr
 linux
