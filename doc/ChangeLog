@@ -1,5 +1,6 @@
 0.6.3
 	- Added setup arm-eglibc
+	- main.log rotated when its size exceeds 150000 bytes
 
 0.6.2
 	- Build environments under $HOME/.crosser by default
