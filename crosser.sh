@@ -560,11 +560,6 @@ then
   exit 1
 fi
 
-if test "x$LIBC_MODE" = "xglibc" || test "x$LIBC_MODE" = "xeglibc"
-then
-  E_GLIBC=yes
-fi
-
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
   if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "$STEPPARAM" )
@@ -651,7 +646,7 @@ then
     fi
   fi
 
-  if test "x$BUILD" = "x$TARGET" && test "x$E_GLIBC" = "xyes"
+  if test "x$BUILD" = "x$TARGET" && test "x$LIBC_MODE" = "xglibc"
   then
     export PATH="$PATH_NATIVE:$PATH"
     hash -r
@@ -715,7 +710,7 @@ then
     fi
   fi
 
-  if test "x$E_GLIBC" = "xyes"
+  if test "x$LIBC_MODE" = "xglibc"
   then
 
     # Initial cross-compiler                                                                      
@@ -733,71 +728,40 @@ then
       exit
     fi
 
-    if test "x$LIBC_MODE" = "xeglibc"
+    LIBCNAME=glibc
+    LIBCVER=$VERSION_GLIBC
+    LIBCDIR=$LIBCNAME-$LIBCVER
+
+    if ! unpack_component $LIBCNAME       $LIBCVER          ||
+       ! unpack_component $LIBCNAME-ports $LIBCVER $LIBCDIR
     then
-      # eglibc
-      LIBCNAME=eglibc
-      LIBCVER=$VERSION_EGLIBC
-      LIBCDIR=$LIBCNAME-$LIBCVER
-      if ! unpack_component $LIBCNAME $VERSION_EGLIBC_DEB
-      then
-        crosser_error "$LIBCNAME unpacking failed"
-        exit 1
-      fi
-      if ! ln -s $LIBCNAME $MAINSRCDIR/$LIBCDIR
-      then
-        crosser_error "Creation of $LIBCNAME links failed"
-        exit 1
-      fi
-      if ! patch_src $LIBCDIR glibc_nomanual
-      then
-        crosser_error "$LIBCNAME patching failed"
-        exit 1
-      fi
-    else
-      # glibc
-      LIBCNAME=glibc
-      LIBCVER=$VERSION_GLIBC
-      LIBCDIR=$LIBCNAME-$LIBCVER
-      if ! unpack_component $LIBCNAME       $LIBCVER       ||
-         ! unpack_component $LIBCNAME-ports $LIBCVER $LIBCDIR
-      then
-        crosser_error "$LIBCNAME unpacking failed"
-        exit 1
-      fi
-      if ! ln -s $LIBCNAME-ports-$LIBCVER $MAINSRCDIR/$LIBCDIR/ports
-      then
-	crosser_error "Creation of $LIBCNAME links failed"
-        exit 1
-      fi
+      crosser_error "$LIBCNAME unpacking failed"
+      exit 1
     fi
 
     if ! (is_minimum_version $LIBCVER 2.8 ||
           patch_src $LIBCDIR glibc_upstream_finc)                                 ||
        ! (is_minimum_version $LIBCVER 2.8 ||
-          patch_src $LIBCDIR/ports glibc_ports_arm_docargs)    ||
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_docargs)    ||
        ! (is_minimum_version $LIBCVER 2.8 ||
-          patch_src $LIBCDIR/ports glibc_ports_arm_pageh_inc)  ||
-       ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc       ||
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_pageh_inc)  ||
+       ! patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_ports_arm_tlsinc       ||
        ! (is_smaller_version $LIBCVER 2.9 ||
-          patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
+          patch_src $LIBCDIR/$LIBCNAME-ports-$LIBCVER glibc_upstream_arm_sigsetjmp)
     then
       crosser_error "$LIBCNAME patching failed"
       exit 1
     fi
 
-    if test "x$LIBC_MODE" = "xeglibc"
-    then
-      if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
-      then
-        crosser_error "Eglibc autogen failed"
-         exit 1
-      fi
-    fi
+#    if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
+#    then
+#      crosser_error "Eglibc autogen failed"
+#      exit 1
+#    fi
 
     log_write 1 "Installing initial $LIBCNAME headers"
     if ! build_glibc $LIBCNAME $LIBCDIR \
-           "--with-tls --enable-add-ons=ports --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
+           "--with-tls --enable-add-ons=$LIBCNAME-ports-$LIBCVER --disable-sanity-checks --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include" \
            "install-headers install-bootstrap-headers=yes" "headers"
     then
       log_error "Failed to install initial $LIBCNAME headers"
@@ -820,7 +784,7 @@ then
     fi
 
     if ! build_glibc $LIBCNAME $LIBCDIR \
-             "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=ports,nptl" \
+             "--with-tls --with-sysroot=$SYSPREFIX --with-headers=$SYSPREFIX/usr/include --enable-add-ons=$LIBCNAME-ports-$LIBCVER,nptl" \
              "all install"
     then
       crosser_error "Failed to build final $LIBCNAME"

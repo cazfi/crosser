@@ -7,9 +7,6 @@
 # This versionset has software versions on June 2008 feature level.
 # No later major releases will ever be part of this set. Bugfix releases
 # and minor improvements may get in to this set.
-# Bugfix releases and minor improvements may get in to this set.
-# We are also sometimes forced to update those packets that are fetched
-# as debian source packets as debian removes old versions.
 
 VERSION_BINUTILS=2.18
 VERSION_GAWK=3.1.6
@@ -18,8 +15,6 @@ VERSION_AUTOMAKE=1.10.1
 VERSION_PYTHON=3.0.1
 VERSION_GCC=4.3.3
 VERSION_GLIBC=2.7
-VERSION_EGLIBC=2.9
-VERSION_EGLIBC_DEB=$VERSION_EGLIBC-13
 VERSION_GMP=4.2.3
 VERSION_KERNEL=2.6.25.10
 VERSION_LIBTOOL=2.2.4

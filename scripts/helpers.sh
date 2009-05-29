@@ -57,16 +57,7 @@ log_write() {
     log_write 1 "======================================"
   fi
 
-  if test $1 -le $LOGLEVEL_FILE
-  then
-    if test -f $MAINLOGDIR/main.log
-    then
-      LOGSIZE=$(ls -l $MAINLOGDIR/main.log | cut -f 5 -d " ")
-      if test $LOGSIZE -gt 150000
-      then
-        mv $MAINLOGDIR/main.log $MAINLOGDIR/main.old
-      fi
-    fi
+  if test $1 -le $LOGLEVEL_FILE ; then
     echo -e "$DSTAMP $STEP:$STEPADD $2" >> $MAINLOGDIR/main.log
   fi
 
