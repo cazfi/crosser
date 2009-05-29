@@ -212,7 +212,14 @@ build_svgalib() {
       "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS" "yes"
+  if test "x$CROSS_OFF" != "xyes"
+  then
+    SVGALIB_CROSS=yes
+  else
+    SVGALIB_CROSS=
+  fi
+
+  if ! CROSS_COMPILATION=$SVGALIB_CROSS build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS" "yes"
   then
     return 1
   fi
