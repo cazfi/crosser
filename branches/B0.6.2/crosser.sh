@@ -928,6 +928,7 @@ then
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_glinc                 ||
        ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
           "clean install"                                                 ||
        ! unpack_component          SDL       $VERSION_SDL                 ||
