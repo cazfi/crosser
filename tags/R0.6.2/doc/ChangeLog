@@ -1,0 +1,238 @@
+0.6.2
+	- Build environments under $HOME/.crosser by default
+	- Timeout for download attempts
+	- libstack.sh generates setup.bat
+	- crosser.hierarchy contains versionset information
+	- Added sdl step to crosser.sh
+	- Packets from sdl step added to win step, libstack.sh
+	  builds only win step
+	- Configuration variables read from ~/.crosser.conf
+	- Added svgalib to sdl step
+	- Build linux kernel in sdl step
+	- Search hostbin commands from /sbin, /usr/sbin and /usr/local/sbin
+	  directories even if they are not in PATH
+	- Added commands install, whoami and depmod to hostbin
+	- Set PKG_CONFIG_LIBDIR, not PKG_CONFIG_PATH when cross-compiling
+	- Prevented anybody from running crosser.sh as root
+	- Use tools built earlier when building latter host tools
+	- Fixed binutils 2.18 build with hardened gcc
+	- Loglines of building intermediate and target freetype differ from
+	  each other
+	- Upstream glibc used instead of debian packets
+	- Updated mpfr to version 2.4.1
+	- Updated glib to version 2.20.2
+	- Updated freetype to version 2.3.9
+	- Updated gtk+ to version 2.16.1
+	- Updated pango to version 1.24.2
+	- Updated linux kernel to version 2.6.29.4
+	- Updated atk to version 1.26.0
+	- Updated gtk-engines to version 2.18.1
+	- Updated pixman to version 0.15.2
+	- Updated libiconv to version 1.13
+	- Updated gcc to version 4.4.0
+	- Updated gmp to version 4.3.1
+	- Updated python to version 3.0.1
+	- Updated libpng to version 1.2.36
+	- Updated automake to version 1.11
+
+0.6.1
+	- Configurable packetdir
+	- download_packets.sh keeps list of source packet access times
+	- Fixed build with 'native' chain
+	- Added .../usr/lib/pkgconfig to pkg-config path in launch.sh
+	- Fixed launch.sh LDFLAGS setting to point lib directory instead of
+	  header directory
+	- Fixed a bug that even when download failed, success message was
+	  printed
+	- Install target hierarchy files with prefix "/usr", not default
+	  ("/usr/local")
+	- autogen_component() executes aclocal with parameters "-I m4" when
+	  needed
+	- Warn if local configuration is not set up before build
+	- Removed readline build from libstack.sh
+	- Added fontconfig to gtk step
+	- Copy working libtool to tiff tree
+	- Updated glibc to version 2.9-4
+	- Updated binutils to version 2.19.1
+	- Updated linux kernel to version 2.6.28.7
+	- Updated libpng to version 1.2.35
+	- Updated pixman to version 0.14.0
+	- Updated zlib to version 1.2.3.3.dfsg-13
+
+0.6.0
+	- Give cache variables needed in cross-compilation at configure
+	  command line instead of using hackish patches
+	- autogen_component() executes commands with sensible default parameters
+	- Added support for VERSIONSET tag to prefix parsing
+	- Made libstack.sh to use separate installation directory for its
+	  native parts from crosser.sh
+	- Autogen atk source tree
+	- libtoolize fontconfig, atk, gtk+
+	- Updated auxiliary files used in libjpeg build
+	- Fixed gettext build when /bin/sh is not bash
+	- Fixed a bug that readline patches were always redownloaded
+	- Fixed "all in the beginning" download mode
+	- Documentation fixes
+	- Added pkg-config to native step
+	- Added pixman to gtk step
+	- Updated automake to version 1.10.2
+	- Updated linux kernel to version 2.6.28.3
+	- Updated glib to version 2.18.4
+	- Updated freetype to version 2.3.8
+	- Updated gtk+ to version 2.14.7
+	- Updated cairo to version 1.8.6
+	- Updated pango to version 1.22.4
+	- Updated gcc to version 4.3.3
+	- Updated gmp to version 4.2.4
+	- Updated mpfr to version 2.4.0
+
+0.5.0
+	- Added pixman to win step
+	- libstack.sh builds native glib-genmarshal used in build
+	- autogen_component() runs autoheader
+	- Added versionset 2008B
+	- Added python to native step
+	- Added gtk-doc to native step
+	- Updated cairo to version 1.6.4
+	- Updated gtk+ to version 2.14.4
+	- Updated gtk-engines to version 2.16.1
+	- Updated ncurses to version 5.7
+	- Added official readline-5.2 patch 013
+	- Updated glib to version 2.18.3
+	- Updated SDL_image to version 1.2.7
+	- Updated linux kernel to version 2.6.27.10
+	- Updated binutils to version 2.19
+	- Updated libpng to version 1.2.34
+	- Updated newlib to version 1.17.0
+
+0.4.1
+	- Updated atk to version 1.24.0
+	- Updated glib to version 2.18.2
+	- Fixed bug preventing libtool download when "on demand" dowloading is
+	  not used
+	- Fixed downloading of old mpfr versions
+	- Updated mpfr to version 2.3.2
+	- Updated linux kernel to version 2.6.27.3
+	- Updated glibc to version 2.8+20080809-3
+	- Updated libpng to version 1.2.33
+
+0.4.0
+	- Debian considered glibc upstream
+	- Glibc updated to version 2.8
+	- Added support for building arm-linux chains
+	- Added support for building x86_84-linux chains
+	- Renamed environment start script as launch.sh
+	- Libstack.sh does not take setup parameter as only one value makes
+	  sense
+	- Updated gcc to version 4.3.2
+	- Updated gmp to version 4.2.3
+	- Updated glib to version 2.18.0, versionset 2008A: 2.16.6
+	- Updated linux kernel to version 2.6.26.5
+	- Updated libtool to version 2.2.6a
+	- Updated autoconf to version 2.63
+	- Updated libpng to version 1.2.32
+	- Updated gtk+ to version 2.12.12
+	- Separate subdirs for cross-tools and target files
+	- Set correct CFLAGS, LDFLAGS and PKG_CONFIG_PATH in launch.sh
+	- Added initial version of step "gtk" to crosser.sh
+
+0.3.0
+	- Support for building glibc based chain for i686
+	- Removed unnecessary gcc build round from build of newlib based chain
+	- Updated glib to version 2.16.5
+	- Updated CUPS to version 1.3.8
+	- Updated libpng to version 1.2.31
+	- Updated linux kernel to version 2.6.26.3
+	- Check that existing crosser environment version matches crosser in use
+	- Added vendor part to arch triplets
+	- Output of unpacking deb-packages to proper logfiles
+	- Corrected paths in files meant to target environment
+	- If build steps are not explicitly given and FORCERM is not "yes", ask
+	  user to confirm full build
+
+0.2.0-nl
+	- Added limited crosser.sh chain builder script
+	- Updated linux kernel to version 2.6.26
+	- Added autoconf and automake to native step
+	- Tag <VERSION> supported in prefix parsing
+	- Added step baselib
+	- Updated gcc to version 4.3.1
+	- Made libjpeg part of the libstack.sh build
+	- Replaced patch zlib_fpiccheck.diff with zlib_cctest.diff
+
+0.1.2-win
+	- Added gtk-engines to win step
+	- Updated gtk+ to version 2.12.11
+	- Updated glib to version 2.16.4
+	- Updated pango to version 1.20.5
+	- libstack.sh now respects "on demand" download setting
+	- Added libstack.install-document
+
+0.1.1-win
+	- Updated freetype to version 2.3.7
+	- Added ncurses to win step
+	- Added readline to win step
+	- Support for downloading upstream patches and applying them
+	- Added versionset 2008A
+
+0.1.0-win
+	- Added libstack.sh script
+	- Support for selectable versionset. Added versionset for experimental
+	  versions
+	- Version number comparison functions handle alpha-, beta- and
+	  prereleases and release candidates correctly
+	- Version number comparison functions compare version tokens like
+	  a1a and a1b correctly
+	- Added step 'sdl' with packets SDL and SDL_image. These are built
+	  as part of libstack
+	- Updated libpng to version 1.2.29
+	- Updated pango to version 1.20.3
+	- Updated fontconfig to version 2.6.0
+	- Updated gtk+ to version 2.12.10
+	- Added gawk to native step
+	- Added CUPS packet to win step
+	- Added some patches to distribution
+	- New function remove_dir()
+	- Added support for CLIB tag to prefix parsing
+	- Added custom name support for tar.bz2 packets to unpack_component()
+
+0.0.4-aux
+	- Commandline step-parameter now has syntax allowing selection of
+	  multiple steps
+	- Renamed download_latest.sh as download_packets.sh
+	- Libtool added to native step
+	- Added version number comparison functions to helpers.sh
+	- Misc functions added to helpers.sh
+		- setup_prefix()
+		- src_subdir()
+	- Debian is now considered upstream for libjpeg. Package updated to
+	  version 6b-14
+	- Updated kernel package to version 2.6.25.4
+
+0.0.3-aux
+	- Licensed under Gnu General Public License version 2
+	- Added bash helper functions to distribution
+	- Updated kernel package to version 2.6.25.3
+	- Added packages to "win" set
+		- pango
+		- atk
+		- gtk+
+	- Added some autotools auxiliary scripts to distribution to make sure
+	  they are found
+
+0.0.2-aux (01-May-08)
+	- download_latest.sh can be used to download single packet, preset set
+	  of packets, or all
+	- Download definitions added for new "win" set of packages:
+		- libiconv
+		- zlib
+		- libpng
+		- gettext
+		- jpeg
+		- tiff
+		- glib
+		- expat
+		- freetype
+		- fontconfig
+		- cairo
+	- Support for downloading debian source packages

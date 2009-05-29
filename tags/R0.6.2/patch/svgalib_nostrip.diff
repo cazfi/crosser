@@ -1,0 +1,12 @@
+diff -Nurd svgalib-1.9.25/Makefile.cfg svgalib-1.9.25/Makefile.cfg
+--- svgalib-1.9.25/Makefile.cfg	2009-03-31 17:43:45.000000000 +0300
++++ svgalib-1.9.25/Makefile.cfg	2009-03-31 17:50:57.000000000 +0300
+@@ -320,7 +320,7 @@
+ 
+ # Utilites used.
+ AR	  = ar
+-INSTALL_PROGRAM	= install -sm755
++INSTALL_PROGRAM	= install -m755
+ INSTALL_SCRIPT	= install -m755
+ INSTALL_SHLIB	= install -m755
+ INSTALL_DATA	= install -m644
