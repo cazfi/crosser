@@ -71,11 +71,11 @@ MAINBUILDDIR
  ; Directory hierarchy where binaries will be built
  ; Default is tmp/build under crosser main dir.
 
-MAINLOGDIR
+LOGDIR
  ; Directory where logfiles will be written.
- ; Default is directory log under crosser main dir.
- ; Some log files are created anew for each build, some contain
- ; information about all builds done with crosser.
+ ; Default is $HOME/.crosser/log
+ ; Logfiles stdout.log and stderr are created anew for each build,
+ ; main.log is rotated once it reaches 150000 bytes.
 
 PACKETDIR
  ; Directory for storing source packets.

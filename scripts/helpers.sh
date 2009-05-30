@@ -25,15 +25,15 @@ fi
 # Start new logfiles
 #
 log_init() {
-  if ! mkdir -p $MAINLOGDIR
+  if ! mkdir -p $LOGDIR
   then
-    echo "Failed to create logdir \"$MAINLOGDIR\"" >&2
+    echo "Failed to create logdir \"$LOGDIR\"" >&2
     return 1
   fi
 
-  log_write 0 "== Build starts =="
-  rm -f $MAINLOGDIR/stderr.log
-  rm -f $MAINLOGDIR/stdout.log
+  log_write 0 "== $(basename $0) $CROSSER_VERSION build starts =="
+  rm -f $LOGDIR/stderr.log
+  rm -f $LOGDIR/stdout.log
 }
 
 # Call this when starting build of new packet
@@ -41,8 +41,8 @@ log_init() {
 # $1 - Packet name
 log_packet() {
   # Create lines separating output from one packet build from the other
-  echo "**** $1 ****" >> $MAINLOGDIR/stdout.log
-  echo "**** $1 ****" >> $MAINLOGDIR/stderr.log
+  echo "**** $1 ****" >> $LOGDIR/stdout.log
+  echo "**** $1 ****" >> $LOGDIR/stderr.log
 }
 
 # Write message to logs
@@ -53,21 +53,21 @@ log_write() {
   DSTAMP=$(date +"%d.%m %H:%M")
 
   if test "x$1" = "x0" ; then
-    echo >> $MAINLOGDIR/main.log
-    log_write 1 "======================================"
+    echo >> $LOGDIR/main.log
+    log_write 1 "==========================================="
   fi
 
   if test $1 -le $LOGLEVEL_FILE
   then
-    if test -f $MAINLOGDIR/main.log
+    if test -f $LOGDIR/main.log
     then
-      LOGSIZE=$(ls -l $MAINLOGDIR/main.log | cut -f 5 -d " ")
+      LOGSIZE=$(ls -l $LOGDIR/main.log | cut -f 5 -d " ")
       if test $LOGSIZE -gt 150000
       then
-        mv $MAINLOGDIR/main.log $MAINLOGDIR/main.old
+        mv $LOGDIR/main.log $LOGDIR/main.old
       fi
     fi
-    echo -e "$DSTAMP $STEP:$STEPADD $2" >> $MAINLOGDIR/main.log
+    echo -e "$DSTAMP $STEP:$STEPADD $2" >> $LOGDIR/main.log
   fi
 
   if test $1 -le $LOGLEVEL_STDOUT ; then
@@ -92,7 +92,7 @@ crosser_error() {
   then
      ( echo "** Env dump begins **"
        /usr/bin/env
-       echo "**  Env dump ends  **" ) >> $MAINLOGDIR/stdout.log
+       echo "**  Env dump ends  **" ) >> $LOGDIR/stdout.log
      if mkdir -p "$PREFIX/debug"
      then
        generate_setup_scripts "$PREFIX/debug"
@@ -157,7 +157,7 @@ patch_src() {
   log_write 2 "Patching $1: $2.diff"
 
   if ! patch -u -p1 -d $MAINSRCDIR/$1 < $MAINDIR/patch/$2.diff \
-       >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
+       >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
     log_error "Patching $1 with $2.diff failed"
     return 1
@@ -172,7 +172,7 @@ upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
   if ! patch -p0 -d $MAINSRCDIR/$1 < $PACKETDIR/patch/$2 \
-       >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
+       >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
     log_error "Patching $1 with $2 failed"
     return 1
@@ -190,7 +190,7 @@ unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Fetching $1 version $2"
     if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh --packet "$1" "$2" "$5" \
-         >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log )
+         >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log )
     then
       log_error "Failed to download $1 version $2"
       return 1
@@ -236,7 +236,7 @@ unpack_component() {
       SRCDIR="$3"
     fi
     if ! dpkg-source -x $PACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR \
-                     >> $MAINLOGDIR/stdout.log 2>> $MAINLOGDIR/stderr.log
+                     >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
     then
       log_error "Unpacking $1_$2.dsc failed"
       return 1
@@ -287,7 +287,7 @@ autogen_component()
       log_write 1 "Making $1 autogen.sh executable"
       chmod u+x autogen.sh
     fi
-    if ! ./autogen.sh >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log ; then
+    if ! ./autogen.sh >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log ; then
       log_error "Autogen failed for $1"
       return 1
     fi
@@ -312,7 +312,7 @@ autogen_component()
         TOOLPARAM=""
       fi
 
-      if ! $TOOL$TOOLPARAM >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+      if ! $TOOL$TOOLPARAM >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
       then
         log_error "Autotool $TOOL failed for $1 version $2"
         return 1

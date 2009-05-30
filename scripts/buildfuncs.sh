@@ -50,7 +50,7 @@ build_generic() {
     log_flags
 
     if ! "$MAINSRCDIR/$2/configure" $3 \
-        2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+        2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
       log_error "Configure failed: $1"
       return 1
@@ -80,7 +80,7 @@ build_generic() {
     log_write 1 "Building $2"
     log_write 3 "  Make targets: $MKTARGETS"
     if ! make $COREOPT $MKTARGETS \
-        2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+        2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
       log_error "Make failed: $1"
       return 1
