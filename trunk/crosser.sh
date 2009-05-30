@@ -323,7 +323,7 @@ kernel_setup() {
     log_write 3 "  Make params: $MAKEPARAMS"
 
     if ! make $MAKEPARAMS \
-	           2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+	           2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
       log_error "Kernel prepare failed"
       return 1
@@ -340,7 +340,7 @@ kernel_setup() {
 
     log_write 3 "  Make params: $MAKEPARAMS"
     if ! make $MAKEPARAMS \
-                2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+                2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
       if test "x$1" = "xfull"
       then
@@ -444,7 +444,7 @@ dummy_glibc_objects() {
        return 1
     fi
     if ! $TARGET-gcc -c -shared -fPIC $MAINDIR/scripts/dummyclib.c -o libc.so \
-         2>>$MAINLOGDIR/stderr.log >>$MAINLOGDIR/stdout.log
+         2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
         log_error "Failed to build dummy libc.so"
        return 1
@@ -532,7 +532,7 @@ log_write 2 "Native tools: \"$NATIVE_PREFIX\""
 log_write 2 "Toolchain:    \"$PREFIX\""
 log_write 2 "Target:       \"$TARGET\""
 log_write 2 "Src:          \"$MAINSRCDIR\""
-log_write 2 "Log:          \"$MAINLOGDIR\""
+log_write 2 "Log:          \"$LOGDIR\""
 log_write 2 "Build:        \"$MAINBUILDDIR\""
 log_write 2 "Setup:        \"$SETUP\""
 log_write 2 "Versionset:   \"$VERSIONSET\""

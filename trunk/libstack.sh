@@ -126,7 +126,7 @@ build_component_full()
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
 
-  if ! $SRCDIR/configure $CONFOPTIONS >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! $SRCDIR/configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Configure for $1 failed"
     return 1
@@ -147,13 +147,13 @@ build_component_full()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make  >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! make  >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! make install >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Install for $1 failed"
     return 1
@@ -194,7 +194,7 @@ build_zlib()
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
 
-  if ! ./configure $CONFOPTIONS >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! ./configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Configure for $1 failed"
     return 1
@@ -203,13 +203,13 @@ build_zlib()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! make >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install  >>$MAINLOGDIR/stdout.log 2>>$MAINLOGDIR/stderr.log
+  if ! make install  >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
   then
     log_error "Install for $1 failed"
     return 1
@@ -316,7 +316,7 @@ export USER_CXXFLAGS="$CXXFLAGS"
 
 log_write 2 "Install:    \"$PREFIX\""
 log_write 2 "Src:        \"$MAINSRCDIR\""
-log_write 2 "Log:        \"$MAINLOGDIR\""
+log_write 2 "Log:        \"$LOGDIR\""
 log_write 2 "Build:      \"$MAINBUILDDIR\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 
