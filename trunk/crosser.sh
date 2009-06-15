@@ -886,7 +886,7 @@ then
   STEP="gtk"
   STEPADD="     "
 
-  if test "x$LIBC_MODE" != "xglibc"
+  if test "x$E_GLIBC" != "xyes"
   then
     log_write 1 "Step gtk not available for $LIBC_MODE based builds, skipping"
   else
@@ -949,7 +949,7 @@ then
   STEP="sdl"
   STEPADD="     "
 
-  if test "x$LIBC_MODE" != "xglibc"
+  if test "x$E_GLIBC" != "xyes"
   then
     log_write 1 "Step sdl not available for $LIBC_MODE based builds, skipping"
   elif test "x$KERN_ARCH" = "xarm"
