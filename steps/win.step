@@ -16,3 +16,4 @@ gtk+
 gtk-engines
 SDL
 SDL_image
+SDL_mixer
