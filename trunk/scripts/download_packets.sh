@@ -442,6 +442,8 @@ download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_S
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
 RET="$RET $?"
+download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
+RET="$RET $?"
 
 for VALUE in $RET
 do

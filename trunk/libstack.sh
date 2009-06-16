@@ -542,7 +542,10 @@ log_write 1 "IMPORTANT: Remember to create configuration files when installing t
 if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL        $VERSION_SDL          ||
    ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
-   ! build_component   SDL_image  $VERSION_SDL_IMAGE
+   ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
+   ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER    ||
+   ! build_component   SDL_mixer  $VERSION_SDL_MIXER    \
+     "--disable-music-mp3 --disable-smpegtest"
 then
   log_error "SDL stack build failed"
   exit 1
