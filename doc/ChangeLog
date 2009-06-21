@@ -3,6 +3,7 @@
 	- Added SDL_mixer build to libstack.sh
 	- main.log rotated when its size exceeds 150000 bytes
 	- Default logdir is now $HOME/.crosser/log
+	- Updated auxiliary files used in libjpeg build
 	- Updated libpng to version 1.2.37
 	- Updated glib to version 2.20.3
 	- Updated gtk+ to version 2.16.2
