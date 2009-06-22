@@ -262,9 +262,15 @@ then
   fi
 fi
 
-if test -e $MAINDIR/mirrors.conf ; then
-  if ! . $MAINDIR/mirrors.conf ; then
-    echo "Problem in reading list of mirrors to use" >&2
+if test -e "$MAINDIR/mirrors.conf" ; then
+  MIRRORCONF="$MAINDIR/mirrors.conf"
+elif test -e "$HOME/.crosser.mirrors" ; then
+  MIRRORCONF="$HOME/.crosser.mirrors"
+fi
+
+if test "x$MIRRORCONF" != "x" ; then
+  if ! . "$MIRRORCONF" ; then
+    echo "Problem in reading list of mirrors to use from $MIRRORCONF" >&2
     exit 1
   fi
 fi

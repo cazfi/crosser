@@ -15,9 +15,9 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
 - It can be used to download single package, predefined set of packages, or all packages
 - Versions to download are read from setups/<VERSIONSET>.versions, where
   default versionset is 'current'. Other sets can be selected from commandline.
-- You can define mirrors to be used by placing file named mirrors.conf
-  to crosser root directory.
-  There's file suitable for Finland in mirrors-directory.
+- You can define mirrors to be used in file called .crosser.mirrors in your
+  home directory or mirrors.conf in crosser root directory.
+  There's example file suitable for Finland in mirrors-directory.
 
 ------
 
