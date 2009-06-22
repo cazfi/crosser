@@ -3,8 +3,9 @@
 	- Added SDL_mixer build to libstack.sh
 	- main.log rotated when its size exceeds 150000 bytes
 	- Default logdir is now $HOME/.crosser/log
-	- Added separate configuration variable, LSPREFIX, for libstack installation
-	  prefix
+	- Added separate configuration variable, LSPREFIX, for libstack
+	  installation prefix
+	- Mirrors information read from ~/.crosser.mirrors
 	- Updated auxiliary files used in libjpeg build
 	- Updated libpng to version 1.2.37
 	- Updated glib to version 2.20.3
