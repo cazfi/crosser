@@ -8,13 +8,15 @@
 	- Mirrors information read from ~/.crosser.mirrors
 	- Updated auxiliary files used in libjpeg build
 	- Updated libpng to version 1.2.37
-	- Updated glib to version 2.20.3
-	- Updated gtk+ to version 2.16.2
+	- Updated glib to version 2.20.4
+	- Updated gtk+ to version 2.16.4
 	- Updated gtk-engines to version 2.18.2
-	- Updated linux kernel to version 2.6.30
+	- Updated linux kernel to version 2.6.30.1
 	- Updated cairo to version 1.8.8
-	- Updated pango to version 1.24.3
+	- Updated pango to version 1.24.4
 	- Updated pixman to version 0.15.12
+	- Updated zlib to version 1.2.3.3.dfsg-14
+	- Updated python to version 3.1
 
 0.6.2
 	- Build environments under $HOME/.crosser by default
