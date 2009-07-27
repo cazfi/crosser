@@ -936,7 +936,8 @@ then
          "libtoolize aclocal automake autoconf"                                          ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=/usr --with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET"
+          "--prefix=/usr --with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "install"
     then
       crosser_error "gtk+ chain build failed"
       exit 1
