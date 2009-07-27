@@ -479,6 +479,8 @@ fi
 
 if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
+   ! (! cmp_versions $VERSION_FONTCONFIG 2.7.0 ||
+      patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_fcstatfix)    ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG                   \
      "libtoolize aclocal automake autoconf"                             ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
