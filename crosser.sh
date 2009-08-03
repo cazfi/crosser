@@ -779,7 +779,7 @@ then
        ! (is_minimum_version $LIBCVER 2.8 ||
           patch_src $LIBCDIR/ports glibc_ports_arm_pageh_inc)  ||
        ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc       ||
-       ! (is_smaller_version $LIBCVER 2.9 ||
+       ! (! cmp_versions $LIBCVER 2.9 ||
           patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
     then
       crosser_error "$LIBCNAME patching failed"
@@ -966,6 +966,7 @@ then
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_glinc                 ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_round                 ||
        ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
           "clean install"                                                 ||
        ! unpack_component          SDL       $VERSION_SDL                 ||
