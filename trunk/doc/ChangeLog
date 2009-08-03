@@ -11,7 +11,7 @@
 	- Updated glib to version 2.20.4
 	- Updated gtk+ to version 2.16.5
 	- Updated gtk-engines to version 2.18.2
-	- Updated linux kernel to version 2.6.30.3
+	- Updated linux kernel to version 2.6.30.4
 	- Updated cairo to version 1.8.8
 	- Updated pango to version 1.24.5
 	- Updated pixman to version 0.15.18
@@ -21,6 +21,8 @@
 	- Updated libiconv to version 1.13.1
 	- Updated autoconf to version 2.64
 	- Updated fontconfig to version 2.7.0
+	- Updated glibc to version 2.10.1
+	- Updated gawk to version 3.1.7
 
 0.6.2
 	- Build environments under $HOME/.crosser by default
