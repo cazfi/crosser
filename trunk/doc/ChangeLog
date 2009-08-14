@@ -7,7 +7,7 @@
 	  installation prefix
 	- Mirrors information read from ~/.crosser.mirrors
 	- Updated auxiliary files used in libjpeg build
-	- Updated libpng to version 1.2.38
+	- Updated libpng to version 1.2.39
 	- Updated glib to version 2.20.4
 	- Updated gtk+ to version 2.16.5
 	- Updated gtk-engines to version 2.18.2
@@ -15,7 +15,7 @@
 	- Updated cairo to version 1.8.8
 	- Updated pango to version 1.24.5
 	- Updated pixman to version 0.15.18
-	- Updated zlib to version 1.2.3.3.dfsg-14
+	- Updated zlib to version 1.2.3.3.dfsg-15
 	- Updated python to version 3.1
 	- Updated gcc to version 4.4.1
 	- Updated libiconv to version 1.13.1
@@ -23,6 +23,7 @@
 	- Updated fontconfig to version 2.7.0
 	- Updated glibc to version 2.10.1
 	- Updated gawk to version 3.1.7
+	- 2008A,2008B: Updated gcc to version 4.3.4
 
 0.6.2
 	- Build environments under $HOME/.crosser by default
