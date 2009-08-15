@@ -412,12 +412,24 @@ fi
 
 if test "x$CROSSER_OPTION_JPEG" = "xon"
 then
-  if ! unpack_component libjpeg6b  $VERSION_JPEG            ||
-     ! patch_src        libjpeg6b  jpeg_ltcompile           ||
-     ! patch_src        libjpeg6b  jpeg_ar                  ||
-     ! patch_src        libjpeg6b  jpeg_noundef             ||
-     ! update_aux_files     libjpeg6b  $VERSION_JPEG        ||
-     ! build_component_full libjpeg6b libjpeg6b  $VERSION_JPEG "--enable-shared" "overwrite"
+  JPEG_BASENAME=libjpeg$VERSION_JPEG
+  if ! unpack_component     $JPEG_BASENAME $VERSION_JPEG_DEB
+  then
+    log_error "Libjpeg download failed"
+    exit 1
+  fi
+  if is_smaller_version $VERSION_JPEG 7
+  then
+    if ! patch_src            $JPEG_BASENAME jpeg_ltcompile           ||
+       ! patch_src            $JPEG_BASENAME jpeg_ar                  ||
+       ! patch_src            $JPEG_BASENAME jpeg_noundef             ||
+       ! update_aux_files     $JPEG_BASENAME $VERSION_JPEG
+    then
+      log_error "Libjpeg preparation failed"
+      exit 1
+    fi
+  fi
+  if ! build_component_full $JPEG_BASENAME $JPEG_BASENAME  $VERSION_JPEG "--enable-shared" "overwrite"
   then
     log_error "Libjpeg build failed"
     exit 1
