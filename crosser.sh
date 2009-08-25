@@ -595,7 +595,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! unpack_component Python   $VERSION_PYTHON              ||
      ! build_for_host   Python   Python-$VERSION_PYTHON       ||
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
-     ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC     ||
+     ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
+       "--disable-scrollkeeper"                                   ||
      ! unpack_component pkg-config $VERSION_PKG_CONFIG            ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
      ! prepare_binutils_src                                   ||
