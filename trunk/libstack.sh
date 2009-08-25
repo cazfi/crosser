@@ -458,7 +458,7 @@ then
   exit 1
 fi
 
-if is_smaller_version $VERSION_TIFF 4.0.0beta1
+if is_smaller_version $VERSION_TIFF 3.9.0
 then
   log_write 1 "Removing upstream libtiff config"
   if ! rm $MAINSRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h
@@ -468,7 +468,8 @@ then
   fi
 fi
 
-if ! autogen_component tiff       $VERSION_TIFF                   ||
+if ! ( cmp_versions $VERSION_TIFF 3.9.0 ||
+      autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
      tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "overwrite"        ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||

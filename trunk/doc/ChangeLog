@@ -6,12 +6,12 @@
 	- Added separate configuration variable, LSPREFIX, for libstack
 	  installation prefix
 	- Mirrors information read from ~/.crosser.mirrors
-	- Updated auxiliary files used in libjpeg build
+	- Updated auxiliary files used in libjpeg6b build
 	- Updated libpng to version 1.2.39
 	- Updated glib to version 2.20.4
 	- Updated gtk+ to version 2.16.5
 	- Updated gtk-engines to version 2.18.2
-	- Updated linux kernel to version 2.6.30.4
+	- Updated linux kernel to version 2.6.30.5
 	- Updated cairo to version 1.8.8
 	- Updated pango to version 1.24.5
 	- Updated pixman to version 0.15.18
@@ -24,6 +24,7 @@
 	- Updated glibc to version 2.10.1
 	- Updated gawk to version 3.1.7
 	- Updated libjpeg to version 7-1
+	- Updated libtiff to version 3.9.0
 	- 2008A,2008B: Updated gcc to version 4.3.4
 
 0.6.2
