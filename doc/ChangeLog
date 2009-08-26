@@ -1,5 +1,5 @@
 0.6.3
-	- Added setup arm-eglibc
+	- Added target setups arm-eglibc, i686-eglibc
 	- Added SDL_mixer build to libstack.sh
 	- main.log rotated when its size exceeds 150000 bytes
 	- Default logdir is now $HOME/.crosser/log
