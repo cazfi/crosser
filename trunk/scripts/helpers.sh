@@ -156,6 +156,12 @@ generate_setup_scripts() {
 patch_src() {
   log_write 2 "Patching $1: $2.diff"
 
+  if ! test -r "$MAINDIR/patch/$2.diff"
+  then
+    log_error "Patch file $2.diff not found."
+    return 1
+  fi
+
   if ! patch -u -p1 -d $MAINSRCDIR/$1 < $MAINDIR/patch/$2.diff \
        >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
