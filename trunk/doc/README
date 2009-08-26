@@ -27,7 +27,8 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
  > ./crosser.sh arm-elf native:baselib
 
   First parameter is target configuration to use. Currently supported target
- configurations are i686-linux, x86_64-linux, arm-linux, arm-eglibc and arm-elf.
+ configurations are i686-linux, x86_64-linux, arm-linux, arm-eglibc,
+ i686-eglibc and arm-elf.
 
   Second parameter is definition of steps to execute. You can provide comma
  separated list of steps, or range with start and end separated by semicolon,
