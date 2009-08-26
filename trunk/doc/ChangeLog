@@ -1,6 +1,7 @@
 0.6.3
 	- Added target setups arm-eglibc, i686-eglibc
 	- Added SDL_mixer build to libstack.sh
+	- Fixed svgalib cross-compilation from i686-linux to x86_64-linux
 	- main.log rotated when its size exceeds 150000 bytes
 	- Default logdir is now $HOME/.crosser/log
 	- Added separate configuration variable, LSPREFIX, for libstack
