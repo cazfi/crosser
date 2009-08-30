@@ -16,7 +16,7 @@
 	- Updated linux kernel to version 2.6.30.5
 	- Updated cairo to version 1.8.8
 	- Updated pango to version 1.24.5
-	- Updated pixman to version 0.15.18
+	- Updated pixman to version 0.16.0
 	- Updated zlib to version 1.2.3.3.dfsg-15
 	- Updated python to version 3.1
 	- Updated gcc to version 4.4.1
@@ -26,8 +26,10 @@
 	- Updated glibc to version 2.10.1
 	- Updated gawk to version 3.1.7
 	- Updated libjpeg to version 7-1
-	- Updated libtiff to version 3.9.0
+	- Updated libtiff to version 3.9.1
 	- 2008A,2008B: Updated gcc to version 4.3.4
+	- 2008A: Updated linux kernel to version 2.6.25.20
+	- 2008B: Updated linux kernel to version 2.6.27.31	
 
 0.6.2
 	- Build environments under $HOME/.crosser by default

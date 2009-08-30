@@ -468,7 +468,7 @@ then
   fi
 fi
 
-if ! ( cmp_versions $VERSION_TIFF 3.9.0 ||
+if ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
       autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
      tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "overwrite"        ||
