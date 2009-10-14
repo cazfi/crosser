@@ -375,7 +375,9 @@ export PKG_CONFIG_LIBDIR=$LSPREFIX/lib/pkgconfig
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
 # glib_acsizeof -patch is required only when running autogen for glib
-if ! unpack_component  glib       $VERSION_GLIB             ||
+if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
+   ! build_component_host autoconf   $VERSION_AUTOCONF      ||
+   ! unpack_component     glib       $VERSION_GLIB          ||
    ! ( is_smaller_version $VERSION_GLIB 2.18.0          ||
        ( (! cmp_versions $VERSION_GLIB 2.18.0 ||
           patch_src glib-$VERSION_GLIB glib_gmoddef) &&

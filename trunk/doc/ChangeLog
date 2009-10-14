@@ -1,4 +1,5 @@
 0.6.3
+	- Use self built autoconf in libstack.sh
 	- Added target setups arm-eglibc, i686-eglibc
 	- Added SDL_mixer build to libstack.sh
 	- Fixed svgalib cross-compilation from i686-linux to x86_64-linux
@@ -21,7 +22,6 @@
 	- Updated python to version 3.1.1
 	- Updated gcc to version 4.4.1
 	- Updated libiconv to version 1.13.1
-	- Updated autoconf to version 2.64
 	- Updated fontconfig to version 2.7.3
 	- Updated glibc to version 2.10.1
 	- Updated gawk to version 3.1.7
@@ -30,7 +30,7 @@
 	- Updated atk to version 1.28.0
 	- 2008A,2008B: Updated gcc to version 4.3.4
 	- 2008A: Updated linux kernel to version 2.6.25.20
-	- 2008B: Updated linux kernel to version 2.6.27.31	
+	- 2008B: Updated linux kernel to version 2.6.27.31
 
 0.6.2
 	- Build environments under $HOME/.crosser by default
