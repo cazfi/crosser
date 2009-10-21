@@ -771,15 +771,20 @@ then
 	crosser_error "Creation of $LIBCNAME links failed"
         exit 1
       fi
+      if ! patch_src $LIBCDIR glibc_binutils2.20
+      then
+        crosser_error "$LIBCNAME patching failed"
+        exit 1
+      fi
     fi
 
     if ! (is_minimum_version $LIBCVER 2.8 ||
-          patch_src $LIBCDIR glibc_upstream_finc)                                 ||
+          patch_src $LIBCDIR glibc_upstream_finc)                ||
        ! (is_minimum_version $LIBCVER 2.8 ||
-          patch_src $LIBCDIR/ports glibc_ports_arm_docargs)    ||
+          patch_src $LIBCDIR/ports glibc_ports_arm_docargs)      ||
        ! (is_minimum_version $LIBCVER 2.8 ||
-          patch_src $LIBCDIR/ports glibc_ports_arm_pageh_inc)  ||
-       ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc       ||
+          patch_src $LIBCDIR/ports glibc_ports_arm_pageh_inc)    ||
+       ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc         ||
        ! (! cmp_versions $LIBCVER 2.9 ||
           patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
     then
@@ -787,13 +792,10 @@ then
       exit 1
     fi
 
-    if test "x$LIBC_MODE" = "xeglibc"
+    if ! autogen_component $LIBCNAME $LIBCVER "autoconf"
     then
-      if ! autogen_component eglibc $VERSION_EGLIBC "autoconf"
-      then
-        crosser_error "Eglibc autogen failed"
-         exit 1
-      fi
+      crosser_error "$LIBCNAME autogen failed"
+      exit 1
     fi
 
     log_write 1 "Installing initial $LIBCNAME headers"
