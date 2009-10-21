@@ -485,7 +485,9 @@ prepare_binutils_src() {
            cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf )) ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
         (  patch_src binutils-$VERSION_BINUTILS binutils_printffix &&
-	   patch_src binutils-$VERSION_BINUTILS binutils_ignret ))
+	   patch_src binutils-$VERSION_BINUTILS binutils_ignret ))  ||
+     ! ( ! cmp_versions $VERSION_BINUTILS 2.20 ||
+         patch_src binutils-$VERSION_BINUTILS binutils_arm_empty_body )
   then
     log_error "Binutils setup failed"
     return 1
