@@ -752,7 +752,10 @@ then
         crosser_error "Creation of $LIBCNAME links failed"
         exit 1
       fi
-      if ! patch_src $LIBCDIR glibc_nomanual
+      if ! ( is_greater_version $LIBCVER 2.9 ||
+             patch_src $LIBCDIR glibc_nomanual )           ||
+         ! ( is_smaller_version $LIBCVER 2.10.1 ||
+             patch_src $LIBCDIR eglibc2.10.1_nomanual )
       then
         crosser_error "$LIBCNAME patching failed"
         exit 1
