@@ -9,6 +9,7 @@
 	  installation prefix
 	- Mirrors information read from ~/.crosser.mirrors
 	- Check that patch file exist before trying to apply it
+	- Added trim_packetdir.sh script for deleting oldest source packets
 	- Updated auxiliary files used in libjpeg6b build
 	- Updated libpng to version 1.2.40
 	- Updated glib to version 2.22.2
