@@ -15,7 +15,7 @@
 	- Updated glib to version 2.22.2
 	- Updated gtk+ to version 2.18.3
 	- Updated gtk-engines to version 2.18.4
-	- Updated linux kernel to version 2.6.31.5
+	- Updated linux kernel to version 2.6.31.6
 	- Updated cairo to version 1.8.8
 	- Updated pango to version 1.24.5
 	- Updated pixman to version 0.16.2
@@ -31,9 +31,10 @@
 	- Updated atk to version 1.28.0
 	- Updated binutils to version 2.20
 	- Updated SDL to version 1.2.14
-	- Updated SDL_image to version 1.2.8
+	- Updated SDL_image to version 1.2.10
 	- Updated freetype to version 2.3.11
 	- 2008A,2008B: Updated gcc to version 4.3.4
+	- 2008A,2008B: Updated automake to version 1.10.2
 	- 2008A: Updated linux kernel to version 2.6.25.20
 	- 2008B: Updated linux kernel to version 2.6.27.31
 
