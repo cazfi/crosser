@@ -390,20 +390,22 @@ then
   exit 1
 fi
 
-if ! unpack_component  libtool    $VERSION_LIBTOOL          ||
-   ! build_component   libtool    $BASEVER_LIBTOOL          ||
-   ! unpack_component  libiconv   $VERSION_ICONV            ||
-   ! build_component   libiconv   $VERSION_ICONV            ||
-   ! unpack_component  zlib       $VERSION_ZLIB             ||
-   ! patch_src zlib               zlib_cctest               ||
-   ! patch_src zlib               zlib_seeko                ||
-   ! patch_src zlib               zlib_nolibc               ||
-   ! patch_src zlib               zlib_dllext               ||
-   ! build_zlib        zlib                                 ||
-   ! unpack_component  libpng     $VERSION_PNG              ||
-   ! build_component   libpng     $VERSION_PNG              ||
-   ! unpack_component  gettext    $VERSION_GETTEXT          ||
-   ! patch_src gettext-$VERSION_GETTEXT gettext_bash        ||
+if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
+   ! build_component   libtool    $BASEVER_LIBTOOL                   ||
+   ! unpack_component  libiconv   $VERSION_ICONV                     ||
+   ! build_component   libiconv   $VERSION_ICONV                     ||
+   ! unpack_component  zlib       $VERSION_ZLIB                      ||
+   ! patch_src zlib               zlib_cctest                        ||
+   ! patch_src zlib               zlib_seeko                         ||
+   ! patch_src zlib               zlib_nolibc                        ||
+   ! patch_src zlib               zlib_dllext                        ||
+   ! build_zlib        zlib                                          ||
+   ! unpack_component  libpng     $VERSION_PNG                       ||
+   ! build_component   libpng     $VERSION_PNG                       ||
+   ! unpack_component  gettext    $VERSION_GETTEXT                   ||
+   ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
+       ( patch_src gettext-$VERSION_GETTEXT gettext_bash &&
+         patch_src gettext-$VERSION_GETTEXT gettext_no_rpl_optarg )) ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
    ! build_component   glib       $VERSION_GLIB             \
        "glib_cv_stack_grows=yes"
