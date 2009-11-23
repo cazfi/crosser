@@ -12,6 +12,7 @@
 	- Added trim_packetdir.sh script for deleting oldest source packets
 	- Fixed gettext compilation with recent MinGW versions
 	- Updated auxiliary files used in libjpeg6b build
+	- Added versionset 2009A
 	- Updated libpng to version 1.2.40
 	- Updated glib to version 2.22.2
 	- Updated gtk+ to version 2.18.3
