@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# libstack.sh: Cross-compile set of libraries for Windows target.
+# dllstack.sh: Cross-compile set of libraries for Windows target.
 #
 # (c) 2008-2009 Marko Lindqvist
 #
@@ -283,9 +283,9 @@ if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
 fi
 source "$MAINDIR/setups/$SETUP.conf"
 
-if test "x$LIBSTACK" = "xno"
+if test "x$DLLSTACK" = "xno"
 then
-  log_error "Libstack.sh cannot be used with configuration \"$SETUP\"."
+  log_error "dllstack.sh cannot be used with configuration \"$SETUP\"."
   exit 1
 fi
 
