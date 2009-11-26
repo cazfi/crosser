@@ -1,3 +1,6 @@
+0.6.4
+	- Removed ncurses download support
+
 0.6.3
 	- Use self built autoconf in libstack.sh
 	- Added target setups arm-eglibc, i686-eglibc
