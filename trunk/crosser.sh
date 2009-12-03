@@ -776,7 +776,8 @@ then
 	crosser_error "Creation of $LIBCNAME links failed"
         exit 1
       fi
-      if ! patch_src $LIBCDIR glibc_binutils2.20
+      if ! ( is_minimum_version $LIBCVER 2.11 ||
+             patch_src $LIBCDIR glibc_binutils2.20 )
       then
         crosser_error "$LIBCNAME patching failed"
         exit 1
