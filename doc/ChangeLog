@@ -1,6 +1,10 @@
 0.6.4
 	- Renamed libstack.sh as dllstack.sh
 	- Removed ncurses download support
+	- Updated glibc to version 2.11
+	- Updated mpfr to version 2.4.2
+	- Updated eglibc to version 2.10.2-2
+	- Updated libtool to version 2.2.6b
 
 0.6.3
 	- Use self built autoconf in libstack.sh

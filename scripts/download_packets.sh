@@ -365,7 +365,7 @@ else
   AUTOMAKE_PACK="tar.gz"
 fi
 
-if cmp_versions $VERSION_LIBTOOL 2.2.6a
+if is_minimum_version $VERSION_LIBTOOL 2.2.6a
 then
   LIBTOOL_PACK="tar.gz"
 else

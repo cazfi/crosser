@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008 Marko Lindqvist
+# (c) 2008-2009 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -33,5 +33,10 @@ patch_readline() {
 #
 # $1 - Full version
 basever_libtool() {
-  echo $1 | sed 's/[a-z]//g'
+  if cmp_versions $VERSION_LIBTOOL 2.2.6a
+  then
+    echo $1 | sed 's/[a-z]//g'
+  else
+    echo $1
+  fi
 }
