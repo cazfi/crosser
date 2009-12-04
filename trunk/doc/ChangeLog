@@ -5,6 +5,7 @@
 	- Updated mpfr to version 2.4.2
 	- Updated eglibc to version 2.10.2-2
 	- Updated libtool to version 2.2.6b
+	- Updated pango to version 1.26.1
 
 0.6.3
 	- Use self built autoconf in libstack.sh

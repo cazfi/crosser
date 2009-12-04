@@ -510,7 +510,7 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
-   ! build_component   pango      $VERSION_PANGO                  ||
+   ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
    ! unpack_component  atk        $VERSION_ATK                    ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
        patch_src          atk-$VERSION_ATK atk_def    )           ||
