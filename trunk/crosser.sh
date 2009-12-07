@@ -40,6 +40,13 @@ fi
 . $MAINDIR/scripts/packethandlers.sh
 . $MAINDIR/scripts/buildfuncs.sh
 
+# This must be after reading helpers.sh so that $CROSSER_VERSION is set
+if test "x$1" = "x-v" || test "x$1" = "x--version"
+then
+  echo "Crosser $CROSSER_VERSION"
+  exit 0
+fi
+
 if ! log_init
 then
   exit 1
