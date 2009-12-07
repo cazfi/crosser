@@ -61,3 +61,15 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
                  bugfix releases and other minor changes.
   experimental - Experimental versions for crosser.sh. This constanly
                  changing list does not necessarily even work out-of-the-box.
+
+------
+
+ Dllstack.sh is used to create set of Windows dlls.
+
+ Example:
+ > ./dllstack.sh /usr/local/dllstack
+
+ First parameter is prefix for installation directory hierarchy.
+
+ Second parameter is versionset to use. See crosser.sh documentation above
+ for list of possible versionsets.
