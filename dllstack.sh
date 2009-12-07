@@ -63,11 +63,6 @@ then
   LSPREFIX="$1"
 fi
 
-if test "x$3" != "x"
-then
-  NATIVE_PREFIX="$3"
-fi
-
 # $1 - Component
 # $2 - Version
 # $3 - Extra configure options
