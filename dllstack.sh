@@ -17,12 +17,6 @@ then
   exit 0
 fi
 
-if test "x$1" = "x-v" || test "x$1" = "x--version"
-then
-  echo "Windows library stack builder for Crosser $CROSSER_VERSION"
-  exit 0
-fi
-
 # In order to give local setup opportunity to override versions,
 # we have to load versionset before build_setup.conf
 # helpers.sh requires environment to be set up by build_setup.conf.
@@ -45,6 +39,13 @@ fi
 . $MAINDIR/build_setup.conf
 . $MAINDIR/scripts/helpers.sh
 . $MAINDIR/scripts/packethandlers.sh
+
+# This must be after reading helpers.sh so that $CROSSER_VERSION is set
+if test "x$1" = "x-v" || test "x$1" = "x--version"
+then
+  echo "Windows library stack builder for Crosser $CROSSER_VERSION"
+  exit 0
+fi
 
 if ! log_init
 then
