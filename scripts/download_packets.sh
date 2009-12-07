@@ -223,9 +223,14 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "  - gtk"
   echo "  - win"
   echo "  - sdl"
-  echo "  - all"
 
   exit $HELP_RETURN
+fi
+
+if test "x$1" = "x-v" || test "x$1" = "x--version"
+then
+  echo "Downloader for Crosser $CROSSER_VERSION"
+  exit 0
 fi
 
 if test "x$1" = "x--packet"

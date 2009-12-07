@@ -1,6 +1,6 @@
 0.6.4
 	- Fixed dllstack.sh "--version" output
-	- Added "--version" parameter for crosser.sh
+	- Added "--version" parameter for all scripts
 	- Renamed libstack.sh as dllstack.sh
 	- Removed ncurses download support
 	- Updated glibc to version 2.11
