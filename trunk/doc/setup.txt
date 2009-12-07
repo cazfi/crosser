@@ -12,6 +12,11 @@ This file lists some of the variables one can place to local_setup.conf
 Entries are of form:
 VARIABLE=VALUE
 
+Before configuration is read, variable $MAINDIR has been set. It contains
+path to the directory where crosser.sh and dllstack.sh scripts are.
+E.g. to set log directory under that main dir one would use
+LOGDIR="$MAINDIR/log"
+
 =======================================================================
 
 AUTOWINE
