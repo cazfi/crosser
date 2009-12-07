@@ -378,12 +378,11 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
    ! unpack_component     glib       $VERSION_GLIB          ||
-   ! ( is_smaller_version $VERSION_GLIB 2.18.0          ||
-       ( (! cmp_versions $VERSION_GLIB 2.18.0 ||
-          patch_src glib-$VERSION_GLIB glib_gmoddef) &&
-        patch_src glib-$VERSION_GLIB glib_acsizeof   &&
-        autogen_component glib       $VERSION_GLIB   \
-         "libtoolize aclocal automake autoconf" ))          ||
+   ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
+        ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
+          patch_src glib-$VERSION_GLIB glib_acsizeof &&
+          autogen_component glib       $VERSION_GLIB \
+           "libtoolize aclocal automake autoconf" ))        ||
    ! build_component_host glib $VERSION_GLIB
 then
   log_error "Native build failed"
@@ -530,8 +529,9 @@ if ! unpack_component  gtk+       $VERSION_GTK                    ||
    ! ( is_smaller_version $VERSION_GTK      2.14.0 ||
        is_minimum_version $VERSION_GTK      2.16.0 ||
        patch_src gtk+-$VERSION_GTK          gtk_gailutildef )     ||
-   ! autogen_component gtk+       $VERSION_GTK                    \
-     "libtoolize aclocal automake autoconf"                       ||
+   ! ( is_minimum_version $VERSION_GTK      2.16.0 ||
+       autogen_component gtk+       $VERSION_GTK   \
+         "libtoolize aclocal automake autoconf" )                 ||
    ! build_component   gtk+       $VERSION_GTK                    \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
