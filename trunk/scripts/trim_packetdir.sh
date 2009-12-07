@@ -8,10 +8,24 @@
 
 export FILELIMIT=200
 
+MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
+
+if ! . $MAINDIR/scripts/helpers.sh
+then
+  echo "Failed to read $MAINDIR/scripts/helpers.sh" >&2
+  exit 1
+fi
+
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   HELP_RETURN=0
 elif test "x$1" = "x" ; then
   HELP_RETURN=1
+fi
+
+if test "x$1" = "x-v" || test "x$1" = "x--version"
+then
+  echo "Packetdir trimmer script for Crosser $CROSSER_VERSION"
+  exit 0
 fi
 
 if test "x$HELP_RETURN" != "x" ; then
