@@ -330,6 +330,10 @@ if test "x$MIRROR_CUPS" = "x" ; then
   MIRROR_CUPS="http://ftp.easysw.com/pub"
 fi
 
+if test "x$MIRROR_XORG" = "x" ; then
+  MIRROR_XORG="http://xorg.freedesktop.org/releases"
+fi
+
 MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
@@ -337,21 +341,25 @@ MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
-    glib)     VERSION_GLIB=$VERSION_SELECTED ;;
-    pango)    VERSION_PANGO=$VERSION_SELECTED ;;
-    gtk+)     VERSION_GTK=$VERSION_SELECTED ;;
+    glib)        VERSION_GLIB=$VERSION_SELECTED ;;
+    pango)       VERSION_PANGO=$VERSION_SELECTED ;;
+    gtk+)        VERSION_GTK=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
-    gtk-doc)  VERSION_GTK_DOC=$VERSION_SELECTED ;;
-    atk)      VERSION_ATK=$VERSION_SELECTED ;;
-    gcc)      VERSION_GCC=$VERSION_SELECTED ;;
-    cups)     VERSION_CUPS=$VERSION_SELECTED ;;
-    readline) VERSION_READLINE=$VERSION_SELECTED
-              PATCHES_READLINE=$PATCHES_SELECTED ;;
-    automake) VERSION_AUTOMAKE=$VERSION_SELECTED ;;
-    libtool)  VERSION_LIBTOOL=$VERSION_SELECTED ;;
-    mpfr)     VERSION_MPFR=$VERSION_SELECTED ;;
-    Python)   VERSION_PYTHON=$VERSION_SELECTED ;;
-    libjpeg*) VERSION_JPEG=$(echo $VERSION_SELECTED | sed 's/-.*//') ;;
+    gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
+    atk)         VERSION_ATK=$VERSION_SELECTED ;;
+    gcc)         VERSION_GCC=$VERSION_SELECTED ;;
+    cups)        VERSION_CUPS=$VERSION_SELECTED ;;
+    readline)    VERSION_READLINE=$VERSION_SELECTED
+                 PATCHES_READLINE=$PATCHES_SELECTED ;;
+    automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
+    libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
+    mpfr)        VERSION_MPFR=$VERSION_SELECTED ;;
+    Python)      VERSION_PYTHON=$VERSION_SELECTED ;;
+    libjpeg*)    VERSION_JPEG=$(echo $VERSION_SELECTED | sed 's/-.*//') ;;
+    xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
+    xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
+    xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
+    libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -362,6 +370,26 @@ GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
+
+case "x$VERSION_XORG_XPROTO" in
+  x) ;;
+  x7.0.13) VERSION_XORG=X11R7.4 ;;
+esac
+
+case "x$VERSION_XORG_XEXTPROTO" in
+  x) ;;
+  x7.0.3) VERSION_XORG=X11R7.4 ;;
+esac
+
+case "x$VERSION_XORG_XTRANS" in
+  x) ;;
+  x1.2.1) VERSION_XORG=X11R7.4 ;;
+esac
+
+case "x$VERSION_XORG_LIBX11" in
+  x) ;;
+  x1.1.5) VERSION_XORG=X11R7.4 ;;
+esac
 
 if is_minimum_version $VERSION_AUTOMAKE 1.6.1
 then
@@ -458,6 +486,14 @@ RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xproto" "$VERSION_XORG_XPROTO" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xextproto" "$VERSION_XORG_XEXTPROTO" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xtrans" "$VERSION_XORG_XTRANS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libX11" "$VERSION_XORG_LIBX11" "tar.bz2"
 RET="$RET $?"
 
 for VALUE in $RET
