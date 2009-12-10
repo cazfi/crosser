@@ -897,6 +897,23 @@ then
   fi
 fi
 
+if test "x$STEP_XORG" = "xyes"
+then
+  STEP="xorg"
+  STEPADD="    "
+
+  if ! unpack_component xproto $VERSION_XORG_XPROTO                          ||
+     ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO          ||
+     ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                    ||
+     ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
+     ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
+     ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS
+  then
+    crosser_error "Xorg build failed"
+    exit 1
+  fi
+fi
+
 if test "x$STEP_GTK" = "xyes"
 then
   STEP="gtk"
