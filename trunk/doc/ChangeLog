@@ -1,5 +1,6 @@
 0.6.4
 	- Added step 'xorg'
+	- Added libxml2 to baselib step
 	- Fixed dllstack.sh "--version" output
 	- Added "--version" parameter for all scripts
 	- Renamed libstack.sh as dllstack.sh
