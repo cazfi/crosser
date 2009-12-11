@@ -888,9 +888,11 @@ then
     exit 1
   fi
 
-  if ! build_zlib                zlib    zlib                 \
-        "--shared"                                            ||
-     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG
+  if ! build_zlib                zlib    zlib                     \
+        "--shared"                                                ||
+     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG      ||
+     ! unpack_component libxml2 $VERSION_LIBXML2                  ||
+     ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
   then
     crosser_error "Baselib build failed"
     exit 1
