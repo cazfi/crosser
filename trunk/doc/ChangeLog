@@ -11,8 +11,10 @@
 	- Updated libtool to version 2.2.6b
 	- Updated pango to version 1.26.1
 	- Updated glib to version 2.22.3
-	- Updated gtk+ to version 2.18.4
+	- Updated gtk+ to version 2.18.5
 	- Updated libpng to version 1.2.41
+	- Updated automake to version 1.11.1
+	- Updated linux kernel to version 2.6.32
 
 0.6.3
 	- Use self built autoconf in libstack.sh
