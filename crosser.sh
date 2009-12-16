@@ -890,12 +890,22 @@ then
 
   if ! build_zlib                zlib    zlib                     \
         "--shared"                                                ||
-     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG      ||
-     ! unpack_component libxml2 $VERSION_LIBXML2                  ||
-     ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
+     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG
   then
     crosser_error "Baselib build failed"
     exit 1
+  fi
+
+  if test "x$E_GLIBC" != "xyes"
+  then
+    log_write 1 "Some parts of baselib step not available for $LIBC_MODE based builds, skipping"
+  else
+    if ! unpack_component libxml2 $VERSION_LIBXML2                  ||
+       ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
+    then
+      crosser_error "Baselib build failed"
+      exit 1
+    fi
   fi
 fi
 
@@ -904,15 +914,20 @@ then
   STEP="xorg"
   STEPADD="    "
 
-  if ! unpack_component xproto $VERSION_XORG_XPROTO                          ||
-     ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO          ||
-     ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                    ||
-     ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
-     ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
-     ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS
+  if test "x$E_GLIBC" != "xyes"
   then
-    crosser_error "Xorg build failed"
-    exit 1
+    log_write 1 "Step xorg not available for $LIBC_MODE based builds, skipping"
+  else
+    if ! unpack_component xproto $VERSION_XORG_XPROTO                          ||
+       ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO          ||
+       ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                    ||
+       ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
+       ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
+       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS
+    then
+      crosser_error "Xorg build failed"
+      exit 1
+    fi
   fi
 fi
 
