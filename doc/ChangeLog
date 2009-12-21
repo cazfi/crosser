@@ -14,7 +14,8 @@
 	- Updated gtk+ to version 2.18.5
 	- Updated libpng to version 1.2.41
 	- Updated automake to version 1.11.1
-	- Updated linux kernel to version 2.6.32
+	- Updated linux kernel to version 2.6.32.2
+	- Updated newlib to version 1.18.0
 
 0.6.3
 	- Use self built autoconf in libstack.sh
