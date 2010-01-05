@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -424,7 +424,7 @@ download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/glibc/"    "glibc"    "$VERSION_GLIBC"    "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC" "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC_PORTS" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/e/eglibc/"       "eglibc"     "$VERSION_EGLIBC_DEB" "dsc"
 RET="$RET $?"

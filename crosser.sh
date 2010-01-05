@@ -2,7 +2,7 @@
 
 # crosser.sh: Generic toolchain builder.
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -773,12 +773,12 @@ then
       LIBCVER=$VERSION_GLIBC
       LIBCDIR=$LIBCNAME-$LIBCVER
       if ! unpack_component $LIBCNAME       $LIBCVER       ||
-         ! unpack_component $LIBCNAME-ports $LIBCVER $LIBCDIR
+         ! unpack_component $LIBCNAME-ports $VERSION_GLIBC_PORTS $LIBCDIR
       then
         crosser_error "$LIBCNAME unpacking failed"
         exit 1
       fi
-      if ! ln -s $LIBCNAME-ports-$LIBCVER $MAINSRCDIR/$LIBCDIR/ports
+      if ! ln -s $LIBCNAME-ports-$VERSION_GLIBC_PORTS $MAINSRCDIR/$LIBCDIR/ports
       then
 	crosser_error "Creation of $LIBCNAME links failed"
         exit 1
