@@ -4,8 +4,10 @@
 	- Fixed dllstack.sh "--version" output
 	- Added "--version" parameter for all scripts
 	- Renamed libstack.sh as dllstack.sh
+	- Glibc ports version number can be different from glibc version
 	- Removed ncurses download support
-	- Updated glibc to version 2.11
+	- Updated glibc to version 2.11.1
+	- Updated glibc ports to version 2.11
 	- Updated mpfr to version 2.4.2
 	- Updated eglibc to version 2.10.2-3
 	- Updated libtool to version 2.2.6b
