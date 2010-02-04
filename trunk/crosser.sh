@@ -884,7 +884,7 @@ then
   if ! patch_src zlib               zlib_cctest               ||
      ! patch_src zlib               zlib_seeko
   then
-    error_log "Baselib patching failed"
+    crosser_error "Baselib patching failed"
     exit 1
   fi
 
