@@ -9,19 +9,22 @@
 	- Updated glibc to version 2.11.1
 	- Updated glibc ports to version 2.11
 	- Updated mpfr to version 2.4.2
-	- Updated eglibc to version 2.10.2-3
+	- Updated eglibc to version 2.10.2-5
 	- Updated libtool to version 2.2.6b
 	- Updated pango to version 1.26.2
-	- Updated glib to version 2.22.3
-	- Updated gtk+ to version 2.18.5
-	- Updated libpng to version 1.2.41
+	- Updated glib to version 2.22.4
+	- Updated gtk+ to version 2.18.6
+	- Updated libpng to version 1.2.42
 	- Updated automake to version 1.11.1
-	- Updated linux kernel to version 2.6.32.2
+	- Updated linux kernel to version 2.6.32.7
 	- Updated newlib to version 1.18.0
 	- Updated pixman to version 0.16.4
 	- Updated gtk-doc to version 1.12
 	- Updated gtk-engines to version 2.18.5
 	- Updated fontconfig to version 2.8.0
+	- Updated gcc to version 4.4.3
+	- Updated gmp to version 5.0.0
+	- Updated libjpeg to version 7-2
 
 0.6.3
 	- Use self built autoconf in libstack.sh
