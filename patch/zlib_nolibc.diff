@@ -1,12 +1,12 @@
 diff -Nurd zlib/Makefile.in zlib/Makefile.in
---- zlib/Makefile.in	2007-06-19 13:26:13.000000000 +0300
-+++ zlib/Makefile.in	2008-04-07 19:33:47.000000000 +0300
-@@ -112,7 +112,7 @@
- 	$(CC) $(SFLAGS) -DPIC -c $< -o $@
+--- zlib/Makefile.in	2010-01-11 00:24:56.000000000 +0200
++++ zlib/Makefile.in	2010-02-03 17:14:46.000000000 +0200
+@@ -137,7 +137,7 @@
+ 	-@mv objs/$*.o $@
  
  $(SHAREDLIBV): $(PIC_OBJS)
--	$(LDSHARED) -o $@ $(PIC_OBJS) -lc
-+	$(LDSHARED) -o $@ $(PIC_OBJS)
+-	$(LDSHARED) $(SFLAGS) -o $@ $(PIC_OBJS) -lc
++	$(LDSHARED) $(SFLAGS) -o $@ $(PIC_OBJS)
  	rm -f $(SHAREDLIB) $(SHAREDLIBM)
  	ln -s $@ $(SHAREDLIB)
  	ln -s $@ $(SHAREDLIBM)
