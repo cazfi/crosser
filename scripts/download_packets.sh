@@ -64,27 +64,50 @@ download_packet() {
 
   if test "x$4" = "xdsc" ; then
     DLFILENAME="${2}_$3.$4"
+
+    if ! download_file "$1" "$DLFILENAME"
+    then
+      echo "Download of $2 version $3 dsc file failed" >&2
+      return 1
+    fi
+
+    FILELIST_SECTION=no
+    cat $DLDIR/$DLFILENAME |
+    ( while read PART1 PART2 PART3
+      do
+        if test "x$FILELIST_SECTION" = "xyes"
+        then
+          if test "x$PART1" = "x"
+          then
+            FILELIST_SECTION=no
+          else
+            if ! download_file "$1" "$PART3"
+            then
+              echo "Download of $2 version $3 file $PART3 failed" >&2
+              return 1
+            fi
+          fi
+        elif test "x$PART1" = "xFiles:"
+        then
+          FILELIST_SECTION=yes
+        fi
+      done
+    )
+
     DLFILE2="${2}_$3.diff.gz"
     BASEVERSION=$(echo $3 | sed 's/-.*//')
     DLFILE3="${2}_$BASEVERSION.orig.tar.gz"
   else
-    DLFILE2=""
-    DLFILE3=""
     if test "x$4" = "x" ; then
       DLFILENAME="$3"
     else
       DLFILENAME="$2-$3.$4"
     fi
-  fi
-
-  # Download DLFILENAME last as its presence marks packet download already finished
-  # when rerunning download script.
-  if ! download_file "$1" "$DLFILE2" ||
-     ! download_file "$1" "$DLFILE3" ||
-     ! download_file "$1" "$DLFILENAME"
-  then
-     echo "Download of $2 version $3 failed" >&2
-     return 1
+    if ! download_file "$1" "$DLFILENAME"
+    then
+       echo "Download of $2 version $3 failed" >&2
+       return 1
+    fi
   fi
 }
 

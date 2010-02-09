@@ -1,4 +1,6 @@
 0.6.4
+	- When downloading debian source packets, get list of files to
+	  download from .dsc file
 	- Added step 'xorg'
 	- Added libxml2 to baselib step
 	- Fixed dllstack.sh "--version" output
