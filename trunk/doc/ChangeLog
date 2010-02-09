@@ -27,6 +27,7 @@
 	- Updated gcc to version 4.4.3
 	- Updated gmp to version 5.0.0
 	- Updated libjpeg to version 7-2
+	- Updated zlib to version 1.2.3.5.dfsg-1
 
 0.6.3
 	- Use self built autoconf in libstack.sh
