@@ -7,6 +7,7 @@
 	- Added "--version" parameter for all scripts
 	- Renamed libstack.sh as dllstack.sh
 	- Glibc ports version number can be different from glibc version
+	- Added gpgv, quilt, getopt and bash to hostbin
 	- Removed ncurses download support
 	- Updated glibc to version 2.11.1
 	- Updated glibc ports to version 2.11
