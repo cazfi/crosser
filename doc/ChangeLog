@@ -17,7 +17,7 @@
 	- Updated pango to version 1.26.2
 	- Updated glib to version 2.22.4
 	- Updated gtk+ to version 2.18.7
-	- Updated libpng to version 1.2.43
+	- Updated libpng to version 1.4.1
 	- Updated automake to version 1.11.1
 	- Updated linux kernel to version 2.6.33
 	- Updated newlib to version 1.18.0
@@ -33,6 +33,7 @@
 	- Updated freetype to version 2.3.12
 	- 2009A: Updated linux kernel to version 2.6.31.12
 	- 2008B: Updated linux kernel to version 2.6.27.45
+	- 2008A-2009A: Updated libpng to version 1.2.43
 
 0.6.3
 	- Use self built autoconf in libstack.sh
