@@ -549,6 +549,7 @@ if test "x$AUTOWINE" = "xyes" ; then
 fi
 log_write 1 "Creating setup.bat"
 (
+  echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
   echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
   echo -n -e "bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders\r\n"
 ) > $LSPREFIX/setup.bat
