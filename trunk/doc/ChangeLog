@@ -16,8 +16,8 @@
 	- Updated eglibc to version 2.10.2-6
 	- Updated libtool to version 2.2.6b
 	- Updated pango to version 1.26.2
-	- Updated glib to version 2.22.4
-	- Updated gtk+ to version 2.18.7
+	- Updated glib to version 2.22.5
+	- Updated gtk+ to version 2.18.9
 	- Updated libpng to version 1.4.1
 	- Updated automake to version 1.11.1
 	- Updated linux kernel to version 2.6.33
