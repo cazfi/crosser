@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -274,6 +274,7 @@ src_subdir() {
 # $1   - Package
 # $2   - Version
 # [$3] - List of tools to execute, "all" to force use of all tools
+# [$4] - Subdir under srcdir
 autogen_component()
 {
   log_packet "autogen $1"
@@ -286,7 +287,13 @@ autogen_component()
     return 1
   fi
 
-  cd $MAINSRCDIR/$SUBDIR
+  if ! test -d "$MAINSRCDIR/$SUBDIR/$4"
+  then
+    log_error "No subdirectory $4 in $1 version $2 src directory"
+    return 1
+  fi
+
+  cd $MAINSRCDIR/$SUBDIR/$4
 
   if test "x$3" = "x" && test -f autogen.sh ; then
     if ! test -x autogen.sh ; then
@@ -311,9 +318,22 @@ autogen_component()
       elif test "x$TOOL" = "xautomake"
       then
         TOOLPARAM=" -a"
-      elif test "x$TOOL" = "xaclocal" && test -d m4
+      elif test "x$TOOL" = "xaclocal"
       then
-        TOOLPARAM=" -I m4"
+        if test -d m4
+        then
+          TOOLPARAM=" -I m4"
+        else
+          TOOLPARAM=""
+        fi
+        if test -d gnulib-m4
+        then
+          TOOLPARAM="$TOOLPARAM -I gnulib-m4"
+        fi
+        if test "x$4" != "x" && test -d "../m4"
+        then
+          TOOLPARAM="$TOOLPARAM -I ../m4"
+        fi
       else
         TOOLPARAM=""
       fi
