@@ -612,6 +612,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
      ! prepare_gcc_src                                        ||
+     ! log_write 1 "-Building native gcc can take hours!-"    ||
      ! build_for_host gcc gcc-$VERSION_GCC                    \
      "--enable-languages=c,c++ --disable-multilib --with-tls"
   then
