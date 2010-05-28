@@ -14,6 +14,7 @@
 	- Renamed file Version as CrosserVersion
 	- Renamed configuration variable FORCERM as CROSSER_FORCE
 	- Renamed configuration variable LSPREFIX as DLLSPREFIX
+	- Renamed configuration variable LSHOST_PREFIX as DLLSHOST_PREFIX
 	- Preparation for installable version of crosser instead of running
 	  it from its own directory tree
 	- Updated glibc to version 2.11.1

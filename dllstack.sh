@@ -306,9 +306,14 @@ TGT_MARCH="-march=$TARGET_ARCH"
 
 export LIBC_MODE="none"
 
+if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
+  echo "Configuration variable LSHOST_PREFIX is deprecated. Please use DLLSHOST_PREFIX." &>2
+  DLLSHOST_PREFIX="$LSHOST_PREFIX"
+fi
+
 export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/winstack" "$DLLSPREFIX")
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/lshost" \
-                       "$LSHOST_PREFIX")
+                       "$DLLSHOST_PREFIX")
 
 export USER_CPPFLGS="$CPPFLAGS"
 export USER_LDFLAGS="$LDFLAGS"
