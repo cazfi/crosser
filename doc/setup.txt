@@ -67,7 +67,7 @@ LOGLEVEL_STDERR
  ; 1 (Fatal errors only) to 5 (debug logging).
  ; Defaults are 2 for screen and 4 for file.
 
-FORCERM
+CROSSER_FORCE
  ; If this is set to 'yes', scripts will not provide confirmation prompts
  ; when deleting old directories. It's recommended that this is never
  ; used in local_setup.conf and set as environment variable before running 

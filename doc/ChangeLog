@@ -12,6 +12,7 @@
 	- Removed ncurses download support
 	- Updated auxiliary files used in libjpeg7 build
 	- Renamed file Version as CrosserVersion
+	- Renamed environment variable FORCERM as CROSSER_FORCE
 	- Updated glibc to version 2.11.1
 	- Updated glibc ports to version 2.11
 	- Updated mpfr to version 2.4.2
