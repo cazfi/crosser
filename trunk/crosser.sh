@@ -74,7 +74,7 @@ fi
 if test "x$2" != "x" ; then
   STEPPARAM="$2"
 else
-  if test "x$FORCERM" != "xyes"
+  if test "x$CROSSER_FORCE" != "xyes"
   then
     ANSWER="unknown"
 

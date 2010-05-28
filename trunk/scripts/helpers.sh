@@ -556,12 +556,12 @@ remove_dir() {
 
   log_write 3 "Directory \"$1\" exist already - needs to be removed"
 
-  if test "x$FORCERM" = "xno"
+  if test "x$CROSSER_FORCE" = "xno"
   then
     return 1
   fi
 
-  if test "x$FORCERM" != "xyes"
+  if test "x$CROSSER_FORCE" != "xyes"
   then
     ANSWER="unknown"
 
@@ -680,12 +680,12 @@ read_configure_vars() {
 packetdir_check() {
   if ! test -d "$PACKETDIR/patch"
   then
-    if test "x$FORCERM" = "xno"
+    if test "x$CROSSER_FORCE" = "xno"
     then
       return 1
     fi
 
-    if test "x$FORCERM" != "xyes"
+    if test "x$CROSSER_FORCE" != "xyes"
     then
       ANSWER="unknown"
 
