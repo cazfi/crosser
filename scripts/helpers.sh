@@ -12,7 +12,7 @@ then
   exit 1
 fi
 
-CROSSER_VERSION=$(tail -n 1 $MAINDIR/Version)
+CROSSER_VERSION=$(tail -n 1 $MAINDIR/CrosserVersion)
 BUILD_DATE=$(date +"%d%m%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
