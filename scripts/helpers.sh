@@ -6,13 +6,13 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
-if test "x$MAINDIR" = "x"
+if test "x$CROSSER_MAINDIR" = "x"
 then
   echo "helpers.sh: Mandatory environments variables missing! Have you sourced proper settings already?" >&2
   exit 1
 fi
 
-CROSSER_VERSION=$(tail -n 1 $MAINDIR/CrosserVersion)
+CROSSER_VERSION=$(tail -n 1 $CROSSER_MAINDIR/CrosserVersion)
 BUILD_DATE=$(date +"%d%m%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
@@ -156,13 +156,13 @@ generate_setup_scripts() {
 patch_src() {
   log_write 2 "Patching $1: $2.diff"
 
-  if ! test -r "$MAINDIR/patch/$2.diff"
+  if ! test -r "$CROSSER_MAINDIR/patch/$2.diff"
   then
     log_error "Patch file $2.diff not found."
     return 1
   fi
 
-  if ! patch -u -p1 -d $MAINSRCDIR/$1 < $MAINDIR/patch/$2.diff \
+  if ! patch -u -p1 -d $MAINSRCDIR/$1 < $CROSSER_MAINDIR/patch/$2.diff \
        >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
     log_error "Patching $1 with $2.diff failed"
@@ -195,7 +195,7 @@ upstream_patch() {
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Fetching $1 version $2"
-    if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh --packet "$1" "$2" "$5" \
+    if ! ( cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh --packet "$1" "$2" "$5" \
          >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log )
     then
       log_error "Failed to download $1 version $2"
@@ -652,7 +652,7 @@ write_crosser_env() {
 # 0 - Success
 # 1 - Failure
 read_configure_vars() {
-  CONF_FILE="$MAINDIR/setups/cachevars/$1.vars"
+  CONF_FILE="$CROSSER_MAINDIR/setups/cachevars/$1.vars"
 
   if test -f "$CONF_FILE"
   then

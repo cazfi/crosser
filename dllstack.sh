@@ -2,12 +2,17 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 
-MAINDIR=$(cd $(dirname $0) ; pwd)
+CROSSER_MAINDIR=$(cd $(dirname $0) ; pwd)
+
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+then
+  CROSSER_MAINDIR="/usr/share/crosser"
+fi
 
 export CROSSER_OPTION_JPEG=on
 
@@ -25,9 +30,9 @@ if test "x$2" != "x" ; then
 else
   VERSIONSET="current"
 fi
-if test -e $MAINDIR/setups/$VERSIONSET.versions
+if test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 then
-  . $MAINDIR/setups/$VERSIONSET.versions
+  . $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 else
   # Versions being unset do not prevent loading of build_setup.conf and helper.sh,
   # resulting environment would just be unusable for building.
@@ -36,9 +41,9 @@ else
   ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
-. $MAINDIR/build_setup.conf
-. $MAINDIR/scripts/helpers.sh
-. $MAINDIR/scripts/packethandlers.sh
+. $CROSSER_MAINDIR/build_setup.conf
+. $CROSSER_MAINDIR/scripts/helpers.sh
+. $CROSSER_MAINDIR/scripts/packethandlers.sh
 
 # This must be after reading helpers.sh so that $CROSSER_VERSION is set
 if test "x$1" = "x-v" || test "x$1" = "x--version"
@@ -228,7 +233,7 @@ update_aux_file()
   # Update only those files that already exist in target directory
   if test -e $MAINSRCDIR/$1/$2 ; then
     log_write 2 "Updating $2"
-    if ! cp $MAINDIR/scripts/aux/$2 $MAINSRCDIR/$1/
+    if ! cp $CROSSER_MAINDIR/scripts/aux/$2 $MAINSRCDIR/$1/
     then
       return 1
     fi
@@ -263,8 +268,8 @@ update_aux_files() {
 
 cd $(dirname $0)
 
-if ! . $MAINDIR/setups/native.sh ; then
-  log_error "Failed to read $MAINDIR/setups/native.sh"
+if ! . $CROSSER_MAINDIR/setups/native.sh ; then
+  log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
 NATIVE_ARCH="$TMP_ARCH"
@@ -273,11 +278,11 @@ BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
 SETUP="win32"
 
-if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
+if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
 fi
-source "$MAINDIR/setups/$SETUP.conf"
+. "$CROSSER_MAINDIR/setups/$SETUP.conf"
 
 if test "x$DLLSTACK" = "xno"
 then
@@ -359,7 +364,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "win" )
+  if ! (cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh "win" )
   then
     log_error "Downloading packets failed"
     exit 1

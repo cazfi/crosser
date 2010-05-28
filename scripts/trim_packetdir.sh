@@ -2,17 +2,22 @@
 
 # trim_packetdir.sh: Delete old source packets
 #
-# (c) 2009 Marko Lindqvist
+# (c) 2009-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
 export FILELIMIT=200
 
-MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
+CROSSER_MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
 
-if ! . $MAINDIR/scripts/helpers.sh
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
-  echo "Failed to read $MAINDIR/scripts/helpers.sh" >&2
+  CROSSER_MAINDIR="/usr/share/crosser"
+fi
+
+if ! . $CROSSER_MAINDIR/scripts/helpers.sh
+then
+  echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
   exit 1
 fi
 

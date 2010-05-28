@@ -6,7 +6,12 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
-MAINDIR=$(cd $(dirname $0) ; pwd)
+CROSSER_MAINDIR=$(cd $(dirname $0) ; pwd)
+
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+then
+  CROSSER_MAINDIR="/usr/share/crosser"
+fi
 
 STEP="setup"
 STEPADD="   "
@@ -24,9 +29,9 @@ if test "x$3" != "x" ; then
 else
   VERSIONSET="current"
 fi
-if test -e $MAINDIR/setups/$VERSIONSET.versions
+if test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 then
-  . $MAINDIR/setups/$VERSIONSET.versions
+  . $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 else
   # Versions being unset do not prevent loading of build_setup.conf and helper.sh,
   # resulting environment would just be unusable for building.
@@ -35,10 +40,10 @@ else
   ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
-. $MAINDIR/build_setup.conf
-. $MAINDIR/scripts/helpers.sh
-. $MAINDIR/scripts/packethandlers.sh
-. $MAINDIR/scripts/buildfuncs.sh
+. $CROSSER_MAINDIR/build_setup.conf
+. $CROSSER_MAINDIR/scripts/helpers.sh
+. $CROSSER_MAINDIR/scripts/packethandlers.sh
+. $CROSSER_MAINDIR/scripts/buildfuncs.sh
 
 # This must be after reading helpers.sh so that $CROSSER_VERSION is set
 if test "x$1" = "x-v" || test "x$1" = "x--version"
@@ -101,7 +106,7 @@ else
   STEPPARAM="native:sdl"
 fi
 
-. $MAINDIR/steps/stepfuncs.sh
+. $CROSSER_MAINDIR/steps/stepfuncs.sh
 
 STEPLIST="$(parse_steplist $STEPPARAM)"
 
@@ -112,13 +117,13 @@ then
 fi
 
 # Setup step variables
-. $MAINDIR/steps/stepset.sh
+. $CROSSER_MAINDIR/steps/stepset.sh
 
-if ! test -e "$MAINDIR/setups/$SETUP.conf" ; then
+if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
 fi
-source "$MAINDIR/setups/$SETUP.conf"
+source "$CROSSER_MAINDIR/setups/$SETUP.conf"
 
 if test "x$LIBC_MODE" = "xnone"
 then
@@ -133,8 +138,8 @@ else
   TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-if ! source $MAINDIR/setups/native.sh ; then
-  log_error "Failed to read $MAINDIR/setups/native.sh"
+if ! source $CROSSER_MAINDIR/setups/native.sh ; then
+  log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
 NATIVE_ARCH="$TMP_ARCH"
@@ -450,7 +455,7 @@ dummy_glibc_objects() {
        log_error "crt.o build failed"
        return 1
     fi
-    if ! $TARGET-gcc -c -shared -fPIC $MAINDIR/scripts/dummyclib.c -o libc.so \
+    if ! $TARGET-gcc -c -shared -fPIC $CROSSER_MAINDIR/scripts/dummyclib.c -o libc.so \
          2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
         log_error "Failed to build dummy libc.so"
@@ -576,7 +581,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! ( cd $PACKETDIR && $MAINDIR/scripts/download_packets.sh "$STEPPARAM" )
+  if ! ( cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh "$STEPPARAM" )
   then
     log_error "Download failed"
     exit 1
