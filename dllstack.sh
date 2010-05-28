@@ -66,7 +66,7 @@ fi
 
 if test "x$1" != "x"
 then
-  LSPREFIX="$1"
+  DLLSPREFIX="$1"
 fi
 
 # $1 - Component
@@ -114,9 +114,9 @@ build_component_full()
 
   if test "x$6" != "xnative"
   then
-    CONFOPTIONS="--prefix=$LSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
-    export CPPFLAGS="-isystem $LSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
-    export LDFLAGS="-L$LSPREFIX/lib $USER_LDFLAGS"
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $4"
     unset CPPFLAGS
@@ -183,10 +183,10 @@ build_zlib()
     return 1
   fi
 
-  export CPPFLAGS="-isystem $LSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
-  export LDFLAGS="-L$LSPREFIX/lib $USER_LDFLAGS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
+  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
 
-  CONFOPTIONS="--prefix=$LSPREFIX --shared $3"
+  CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
 
   # TODO: zlib build doesn't like this variable, check why.
   unset TARGET_ARCH
@@ -216,8 +216,8 @@ build_zlib()
     return 1
   fi
 
-  if ! cp $LSPREFIX/lib/libz.dll* $LSPREFIX/bin/ ||
-     ! mv $LSPREFIX/lib/libz.a    $LSPREFIX/bin/
+  if ! cp $DLLSPREFIX/lib/libz.dll* $DLLSPREFIX/bin/ ||
+     ! mv $DLLSPREFIX/lib/libz.a    $DLLSPREFIX/bin/
   then
     log_error "Failed to move libz dll:s to correct directory"
     return 1
@@ -306,7 +306,7 @@ TGT_MARCH="-march=$TARGET_ARCH"
 
 export LIBC_MODE="none"
 
-export LSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/winstack" "$LSPREFIX")
+export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/winstack" "$DLLSPREFIX")
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/lshost" \
                        "$LSHOST_PREFIX")
 
@@ -315,7 +315,7 @@ export USER_LDFLAGS="$LDFLAGS"
 export USER_CFLAGS="$CFLAGS"
 export USER_CXXFLAGS="$CXXFLAGS"
 
-log_write 2 "Install:    \"$LSPREFIX\""
+log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$MAINSRCDIR\""
 log_write 2 "Log:        \"$LOGDIR\""
 log_write 2 "Build:      \"$MAINBUILDDIR\""
@@ -323,7 +323,7 @@ log_write 2 "Versionset: \"$VERSIONSET\""
 
 if ! remove_dir "$MAINSRCDIR"    ||
    ! remove_dir "$MAINBUILDDIR"  ||
-   ! remove_dir "$LSPREFIX"      ||
+   ! remove_dir "$DLLSPREFIX"    ||
    ! remove_dir "$NATIVE_PREFIX"
 then
   log_error "Failed to remove old directories"
@@ -342,9 +342,9 @@ then
   exit 1
 fi
 
-if ! mkdir -p $LSPREFIX/man/man1
+if ! mkdir -p $DLLSPREFIX/man/man1
 then
-  log_error "Cannot create target directory hierarchy under $LSPREFIX"
+  log_error "Cannot create target directory hierarchy under $DLLSPREFIX"
   exit 1
 fi
 
@@ -371,7 +371,7 @@ then
   fi
 fi
 
-export PKG_CONFIG_LIBDIR=$LSPREFIX/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=$DLLSPREFIX/lib/pkgconfig
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
@@ -501,7 +501,7 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG                   \
      "libtoolize aclocal automake autoconf"                             ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
-     "--with-freetype-config=$LSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
+     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                 ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||
@@ -544,9 +544,9 @@ fi
 
 if test "x$AUTOWINE" = "xyes" ; then
   log_write 1 "Creating configuration files"
-  if ! mkdir -p $LSPREFIX/etc/pango ||
-     ! $LSPREFIX/bin/pango-querymodules.exe > $LSPREFIX/etc/pango/pango.modules ||
-     ! $LSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $LSPREFIX/etc/gtk-2.0/gdk-pixbuf.loaders
+  if ! mkdir -p $DLLSPREFIX/etc/pango ||
+     ! $DLLSPREFIX/bin/pango-querymodules.exe > $DLLSPREFIX/etc/pango/pango.modules ||
+     ! $DLLSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $DLLSPREFIX/etc/gtk-2.0/gdk-pixbuf.loaders
   then
     log_error "Failed to create configuration files in wine."
     exit 1
@@ -557,7 +557,7 @@ log_write 1 "Creating setup.bat"
   echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
   echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
   echo -n -e "bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders\r\n"
-) > $LSPREFIX/setup.bat
+) > $DLLSPREFIX/setup.bat
 log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 
 if ! unpack_component  SDL        $VERSION_SDL          ||

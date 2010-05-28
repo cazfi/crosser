@@ -14,8 +14,8 @@ fi
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
-  echo "helpers.sh: There seems to be problem with crosser installation" >&2
-  echo "Looking data from $CROSSER_MAINDIR, but it's not there" >&2
+  echo "helpers.sh: There seems to be problem with crosser installation." >&2
+  echo "Looking data from $CROSSER_MAINDIR, but it's not there!" >&2
   exit 1
 fi
 
