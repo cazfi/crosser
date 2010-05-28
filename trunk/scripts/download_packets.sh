@@ -221,11 +221,16 @@ download_patches() {
   return 2
 }
 
-MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
+CROSSER_MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
 
-if ! . $MAINDIR/scripts/helpers.sh
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
-  echo "Failed to read $MAINDIR/scripts/helpers.sh" >&2
+  CROSSER_MAINDIR="/usr/share/crosser"
+fi
+
+if ! . $CROSSER_MAINDIR/scripts/helpers.sh
+then
+  echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
   exit 1
 fi
 
@@ -283,20 +288,20 @@ fi
 
 if test "x$VERSIONSET" != "x"
 then
-  if ! test -e $MAINDIR/setups/$VERSIONSET.versions
+  if ! test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
   then
     echo "Versionset $VERSIONSET.versions not found" >&2
     exit 1
   fi
 
-  if ! . $MAINDIR/setups/$VERSIONSET.versions ; then
+  if ! . $CROSSER_MAINDIR/setups/$VERSIONSET.versions ; then
     echo "Failed to read list of package versions ($VERSIONSET.versions)" >&2
     exit 1
   fi
 fi
 
-if test -e "$MAINDIR/mirrors.conf" ; then
-  MIRRORCONF="$MAINDIR/mirrors.conf"
+if test -e "$CROSSER_MAINDIR/mirrors.conf" ; then
+  MIRRORCONF="$CROSSER_MAINDIR/mirrors.conf"
 elif test -e "$HOME/.crosser.mirrors" ; then
   MIRRORCONF="$HOME/.crosser.mirrors"
 fi
@@ -308,7 +313,7 @@ if test "x$MIRRORCONF" != "x" ; then
   fi
 fi
 
-if ! . $MAINDIR/steps/stepfuncs.sh ; then
+if ! . $CROSSER_MAINDIR/steps/stepfuncs.sh ; then
   echo "Problem in reading stepfuncs.sh" >&2
   exit 1
 fi
