@@ -12,6 +12,13 @@ then
   exit 1
 fi
 
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+then
+  echo "helpers.sh: There seems to be problem with crosser installation" >&2
+  echo "Looking data from $CROSSER_MAINDIR, but it's not there" >&2
+  exit 1
+fi
+
 CROSSER_VERSION=$(tail -n 1 $CROSSER_MAINDIR/CrosserVersion)
 BUILD_DATE=$(date +"%d%m%y")
 
