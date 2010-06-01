@@ -406,6 +406,8 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! patch_src zlib               zlib_dllext                        ||
    ! build_zlib        zlib                                          ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
+   ! patch_src libpng-$VERSION_PNG png_symbol_prefix                 ||
+   ! autogen_component libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
