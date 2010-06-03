@@ -511,7 +511,9 @@ prepare_binutils_src() {
 prepare_gcc_src() {
   if ! unpack_component gcc          $VERSION_GCC      ||
      ! unpack_component gmp          $VERSION_GMP      ||
-     ! unpack_component mpfr         $VERSION_MPFR
+     ! unpack_component mpfr         $VERSION_MPFR     ||
+     ! (is_smaller_version $VERSION_GCC 4.5.0 ||
+        unpack_component mpc          $VERSION_MPC )
   then
     log_error "Unpacking failed"
     exit 1
@@ -525,7 +527,9 @@ prepare_gcc_src() {
   fi
 
   if ! ln -s ../mpfr-$VERSION_MPFR $MAINSRCDIR/gcc-$VERSION_GCC/mpfr ||
-     ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp
+     ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp ||
+     ! (is_smaller_version $VERSION_GCC 4.5.0 ||
+        ln -s ../mpc-$VERSION_MPC $MAINSRCDIR/gcc-$VERSION_GCC/mpc)
   then
     log_error "Creation of links to additional gcc modules failed"
     exit 1

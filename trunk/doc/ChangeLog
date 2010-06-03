@@ -18,10 +18,11 @@
 	- Renamed configuration variable LSHOST_PREFIX as DLLSHOST_PREFIX
 	- Preparation for installable version of crosser instead of running
 	  it from its own directory tree
+	- Added mpc (0.8.2) to gcc build
 	- Updated glibc to version 2.11.2
 	- Updated glibc ports to version 2.11
 	- Updated mpfr to version 2.4.2
-	- Updated eglibc to version 2.10.2-6
+	- Updated eglibc to version 2.11.1-2
 	- Updated libtool to version 2.2.6b
 	- Updated pango to version 1.28.0
 	- Updated glib to version 2.24.1
@@ -34,7 +35,7 @@
 	- Updated gtk-doc to version 1.14
 	- Updated gtk-engines to version 2.20.1
 	- Updated fontconfig to version 2.8.0
-	- Updated gcc to version 4.4.4
+	- Updated gcc to version 4.5.0
 	- Updated gmp to version 5.0.1
 	- Updated libjpeg to version 7-2
 	- Updated zlib to version 1.2.3.5.dfsg-1
