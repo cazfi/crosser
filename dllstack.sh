@@ -307,7 +307,7 @@ TGT_MARCH="-march=$TARGET_ARCH"
 export LIBC_MODE="none"
 
 if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
-  echo "Configuration variable LSHOST_PREFIX is deprecated. Please use DLLSHOST_PREFIX." &>2
+  echo "Configuration variable LSHOST_PREFIX is deprecated. Please use DLLSHOST_PREFIX." >&2
   DLLSHOST_PREFIX="$LSHOST_PREFIX"
 fi
 
