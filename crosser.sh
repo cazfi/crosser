@@ -794,7 +794,8 @@ then
         exit 1
       fi
       if ! ( is_minimum_version $LIBCVER 2.11 ||
-             patch_src $LIBCDIR glibc_binutils2.20 )
+             patch_src $LIBCDIR glibc_binutils2.20 ) ||
+         ! patch_src $LIBCDIR glibc_i686define
       then
         crosser_error "$LIBCNAME patching failed"
         exit 1
