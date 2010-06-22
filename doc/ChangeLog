@@ -19,6 +19,7 @@
 	- Default directory for dllstack host files now $HOME/.crosser/<VERSION>/dllshost
 	- Preparation for installable version of crosser instead of running
 	  it from its own directory tree
+	- Documented trim_packetdir.sh
 	- Added mpc (version 0.8.2) to gcc build
 	- Updated glibc to version 2.11.2
 	- Updated glibc ports to version 2.11
