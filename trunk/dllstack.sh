@@ -312,7 +312,7 @@ if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
 fi
 
 export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/winstack" "$DLLSPREFIX")
-export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/lshost" \
+export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/$CROSSER_VERSION/dllshost" \
                        "$DLLSHOST_PREFIX")
 
 export USER_CPPFLGS="$CPPFLAGS"
