@@ -73,3 +73,16 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
 
  Second parameter is versionset to use. See crosser.sh documentation above
  for list of possible versionsets.
+
+------
+
+ Script scripts/trim_packetdir.sh can be used to clean up obsolete source
+packets from packetdir. Usually source packet gets obsolete because
+newer version is used by all the versionsets in newer crosser version
+than the one that originally downloaded packet.
+
+ It does not really know which packets are obsolete and which ones are not.
+It just removes those packets that are most likely obsolete. It determines
+this by checking last time that source package was used by crosser. Those
+packets which are not used in a long time are removed. Currently 
+trim_packetdir.sh removes all but 200 most recently used files to packetdir.
