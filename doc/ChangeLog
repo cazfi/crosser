@@ -16,6 +16,7 @@
 	- Renamed configuration variable FORCERM as CROSSER_FORCE
 	- Renamed configuration variable LSPREFIX as DLLSPREFIX
 	- Renamed configuration variable LSHOST_PREFIX as DLLSHOST_PREFIX
+	- Default directory for dllstack host files now $HOME/.crosser/<VERSION>/dllshost
 	- Preparation for installable version of crosser instead of running
 	  it from its own directory tree
 	- Added mpc (version 0.8.2) to gcc build
