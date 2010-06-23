@@ -1,16 +1,16 @@
-# 2009A.versions: Package versions
+# stable.versions: Package versions
 #
 # (c) 2009-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
-# This versionset has software versions on crosser 0.6.3 (November 2009)
-# feature level. No later major releases will ever be part of this set.
-# Bugfix releases and minor improvements may get in to this set.
-# We are also sometimes forced to update those packets that are fetched
-# as debian source packets as debian removes old versions.
-# When new software packages are added to crosser, usually even old
-# versionsets get initially the newest version.
+# This versionset has a bit more mature versions of the software than
+# current versionset. This started up as copy of current versionset in
+# November 2009.
+# Typically these versions are final releases from previous release
+# series of the software. For example; this contains gcc version from
+# 4.4 series until gcc 4.6.0 is released, at which point latest 4.5.x
+# release is added here.
 
 VERSION_BINUTILS=2.20.1
 VERSION_GAWK=3.1.8
