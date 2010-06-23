@@ -47,20 +47,14 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
   Third parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
-  Currently there is five versionsets:
+  Currently there is three versionsets:
   current      - This versionset will always contain currently best supported
-                 versionlist. It's constantly updated.
-  2008A        - This versionset contains versions of the June 2008. This
-                 versionset is quite static. It will be updated only to add
-                 bugfix releases and other minor changes.
-  2008B        - This versionset contains versions of the December 2008. This
-                 versionset is quite static. It will be updated only to add
-                 bugfix releases and other minor changes.
-  2009A        - This versionset contains versions of the November 2009. This
-                 versionset is quite static. It will be updated only to add
-                 bugfix releases and other minor changes.
-  experimental - Experimental versions for crosser.sh. This constanly
-                 changing list does not necessarily even work out-of-the-box.
+                 versionlist.
+  stable       - This versionset contains a bit more mature versions.
+                 Typically those are final (most mature) versions from
+                 previous release series of the software.
+  experimental - Experimental versions for crosser.sh. This list
+                 does not necessarily even work out-of-the-box.
 
 ------
 
