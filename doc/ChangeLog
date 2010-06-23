@@ -24,7 +24,7 @@
 	- Updated glibc to version 2.11.2
 	- Updated glibc ports to version 2.11
 	- Updated mpfr to version 2.4.2
-	- Updated eglibc to version 2.11.1-2
+	- Updated eglibc to version 2.11.2-1
 	- Updated libtool to version 2.2.6b
 	- Updated pango to version 1.28.1
 	- Updated glib to version 2.24.1
@@ -47,6 +47,8 @@
 	- Updated atk to version 1.30.0
 	- Updated gawk to version 3.1.8
 	- Updated libtiff to version 3.9.4
+	- Updated python to version 3.1.2
+	- Updated pkg-config to version 0.25
 	- 2009A: Updated linux kernel to version 2.6.31.12
 	- 2008B: Updated linux kernel to version 2.6.27.45
 	- 2008A-2009A: Updated libpng to version 1.2.43
