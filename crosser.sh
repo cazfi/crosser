@@ -536,11 +536,6 @@ prepare_gcc_src() {
   fi
 }
 
-if test "x$TARGET" = "x$BUILD" && test "x$CROSS_OFF" = "x"
-then
-  CROSS_OFF=yes
-fi
-
 if test "x$CROSS_OFF" = "xyes"
 then
   log_write 2 "Building to native target. Cross-compilers will not be built or used"
