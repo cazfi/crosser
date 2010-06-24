@@ -1,0 +1,11 @@
+diff -Nurd gettext-0.17/gettext-tools/woe32dll/gettextlib-exports.c gettext-0.17/gettext-tools/woe32dll/gettextlib-exports.c
+--- gettext-0.17/gettext-tools/woe32dll/gettextlib-exports.c	2007-10-18 00:56:46.000000000 +0300
++++ gettext-0.17/gettext-tools/woe32dll/gettextlib-exports.c	2009-11-18 16:30:17.000000000 +0200
+@@ -26,7 +26,5 @@
+ VARIABLE(gl_array_list_implementation)
+ VARIABLE(gl_linkedhash_list_implementation)
+ VARIABLE(program_name)
+-VARIABLE(rpl_optarg)
+-VARIABLE(rpl_optind)
+ VARIABLE(simple_backup_suffix)
+ VARIABLE(styled_ostream_typeinfo)
