@@ -22,8 +22,8 @@ if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
 fi
 
 # In order to give local setup opportunity to override versions,
-# we have to load versionset before build_setup.conf
-# helpers.sh requires environment to be set up by build_setup.conf.
+# we have to load versionset before setup_reader.sh
+# helpers.sh requires environment to be set up by setup_reader.sh.
 if test "x$3" != "x" ; then
   VERSIONSET="$3"
 else
@@ -33,14 +33,14 @@ if test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 then
   . $CROSSER_MAINDIR/setups/$VERSIONSET.versions
 else
-  # Versions being unset do not prevent loading of build_setup.conf and helper.sh,
+  # Versions being unset do not prevent loading of setup_reader.sh and helper.sh,
   # resulting environment would just be unusable for building.
   # We are not going to build anything, but just issuing error message - and for
   # that we read log_error from helpers.sh
   ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
-. $CROSSER_MAINDIR/build_setup.conf
+. $CROSSER_MAINDIR/scripts/setup_reader.sh
 . $CROSSER_MAINDIR/scripts/helpers.sh
 . $CROSSER_MAINDIR/scripts/packethandlers.sh
 . $CROSSER_MAINDIR/scripts/buildfuncs.sh

@@ -1,3 +1,6 @@
+0.6.5
+	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
+
 0.6.4
 	- When downloading debian source packets, get list of files to
 	  download from .dsc file

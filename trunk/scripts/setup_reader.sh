@@ -1,6 +1,6 @@
 # No shebang, this script is not executed, but sourced.
 
-# build_setup.conf: Setup build environment variables
+# setup_reader.sh: Setup build environment variables
 #
 # (c) 2008-2010 Marko Lindqvist
 #
