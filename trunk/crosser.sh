@@ -123,7 +123,7 @@ if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
 fi
-source "$CROSSER_MAINDIR/setups/$SETUP.conf"
+. "$CROSSER_MAINDIR/setups/$SETUP.conf"
 
 if test "x$LIBC_MODE" = "xnone"
 then
@@ -138,7 +138,7 @@ else
   TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-if ! source $CROSSER_MAINDIR/setups/native.sh ; then
+if ! . $CROSSER_MAINDIR/setups/native.sh ; then
   log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
