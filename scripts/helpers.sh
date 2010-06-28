@@ -20,7 +20,7 @@ then
 fi
 
 CROSSER_VERSION=$(tail -n 1 $CROSSER_MAINDIR/CrosserVersion)
-BUILD_DATE=$(date +"%d%m%y")
+BUILD_DATE=$(date +"%d.%m.%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
   LOGLEVEL_STDOUT=2
@@ -645,6 +645,7 @@ write_crosser_env() {
       echo "Setup:   $2"
       echo "Version: $CROSSER_VERSION"
       echo "VSet:    $VERSIONSET"
+      echo "Built:   $BUILD_DATE"
     ) > $1/crosser/crosser.hierarchy
   then
     log_error "Cannot write crosser env file $1/crosser/crosser.hierarchy"
