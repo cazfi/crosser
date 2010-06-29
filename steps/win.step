@@ -12,6 +12,7 @@ pixman
 cairo
 pango
 atk
+gdk-pixbuf
 gtk+
 gtk-engines
 SDL

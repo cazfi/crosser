@@ -529,7 +529,10 @@ then
   exit 1
 fi
 
-if ! unpack_component  gtk+       $VERSION_GTK                    ||
+if ! ( is_max_version $VERSION_GTK 2.90.3 ||
+       ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
+         build_component gdk-pixbuf $VERSION_GDK_PIXBUF ))        ||
+   ! unpack_component  gtk+       $VERSION_GTK                    ||
    ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
        patch_src gtk+-$VERSION_GTK          gtk_blddir )          ||
    ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
