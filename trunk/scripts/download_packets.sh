@@ -371,6 +371,7 @@ then
   case $DOWNLOAD_PACKET in
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
+    gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
     gtk+)        VERSION_GTK=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
@@ -392,6 +393,7 @@ then
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo -n $MAJOR.$MINOR ))"
@@ -503,6 +505,8 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "tar.bz2" 
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
 RET="$RET $?"
