@@ -4,6 +4,7 @@
 	- Tag <DATE> now expands to form "dd.mm.yy"
 	- Added gdk-pixbuf build to dllstack
 	- Updated libpng to version 1.4.3
+	- Updated libtool to version 2.2.10
 
 0.6.4
 	- When downloading debian source packets, get list of files to
