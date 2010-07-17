@@ -3,6 +3,7 @@
 	- Build date saved to crosser.hierarchy file
 	- Tag <DATE> now expands to form "dd.mm.yy"
 	- Added gdk-pixbuf build to dllstack
+	- Added host pkg-config build to dllstack
 	- Updated libpng to version 1.4.3
 	- Updated libtool to version 2.2.10
 
