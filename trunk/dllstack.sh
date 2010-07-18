@@ -384,6 +384,8 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
+   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
+      patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
