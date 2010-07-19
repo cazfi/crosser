@@ -1,4 +1,5 @@
 autoconf
+automake
 pkg-config
 libiconv
 libpng
