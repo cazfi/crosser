@@ -409,7 +409,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt pkg-config sh glib-genmarshal hostname dnsdomainname mktemp"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 flex makeinfo install whoami depmod wget pod2man msgfmt sh glib-genmarshal hostname dnsdomainname mktemp"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg gpgv sha1sum sha256sum gzip gunzip patch quilt bash getopt"
 
@@ -611,6 +611,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
        "--disable-scrollkeeper"                                   ||
      ! unpack_component pkg-config $VERSION_PKG_CONFIG            ||
+     ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
+        patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
      ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
