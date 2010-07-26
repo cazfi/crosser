@@ -4,6 +4,7 @@ pkg-config
 libiconv
 libpng
 zlib
+bzip2
 gettext
 glib
 libjpeg

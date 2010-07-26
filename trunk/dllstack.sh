@@ -123,14 +123,17 @@ build_component_full()
     unset LDFLAGS
   fi
 
-  log_write 1 "Configuring $1"
-  log_write 3 "  Options: \"$CONFOPTIONS\""
-  log_flags
-
-  if ! $SRCDIR/configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if test -x $SRCDIR/configure
   then
-    log_error "Configure for $1 failed"
-    return 1
+    log_write 1 "Configuring $1"
+    log_write 3 "  Options: \"$CONFOPTIONS\""
+    log_flags
+
+    if ! $SRCDIR/configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+    then
+      log_error "Configure for $1 failed"
+      return 1
+    fi
   fi
 
   if test "x$5" = "xoverwrite" ; then
@@ -161,6 +164,12 @@ build_component_full()
   fi
 }
 
+# Build zlib
+#
+# $1 - Package name
+# $2 - Version
+# $3 - Configure options
+#
 build_zlib()
 {
   log_packet "$1"
@@ -220,6 +229,54 @@ build_zlib()
      ! mv $DLLSPREFIX/lib/libz.a    $DLLSPREFIX/bin/
   then
     log_error "Failed to move libz dll:s to correct directory"
+    return 1
+  fi
+}
+
+# Build bzip2
+#
+# $1 - Package name
+# $2 - Version
+#
+build_bzip2()
+{
+  log_packet "$1"
+
+  SUBDIR="$(src_subdir $1 $2)"
+
+  if test "x$SUBDIR" = "x"
+  then
+    log_error "Cannot find srcdir for $1 version $2"
+    return 1
+  fi
+
+  if ! cd $MAINSRCDIR/$SUBDIR
+  then
+    log_error "Cannot change to directory $MAINSRCDIR/$SUBDIR"
+    return 1
+  fi
+
+  export CC=$TARGET-gcc
+  export RANLIB=$TARGET-ranlib
+  export AR=$TARGET-ar
+  export PREFIX=$DLLSPREFIX
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+
+  log_write 1 "Building $1"
+  log_write 3 "  Make targets: libbz2.a bzip2 bzip2recover & install"
+  log_flags
+
+  if ! make libbz2.a bzip2 bzip2recover \
+       >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  then
+    log_error "Make for $1 failed"
+    return 1
+  fi
+
+  if ! make install >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  then
+    log_error "Install for $1 failed"
     return 1
   fi
 }
@@ -413,6 +470,10 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! patch_src zlib               zlib_nolibc                        ||
    ! patch_src zlib               zlib_dllext                        ||
    ! build_zlib        zlib                                          ||
+   ! unpack_component  bzip2      $VERSION_BZIP2                     ||
+   ! patch_src bzip2-$VERSION_BZIP2 bzip2_unhardcodecc               ||
+   ! patch_src bzip2-$VERSION_BZIP2 bzip2_incpathsep                 ||
+   ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! patch_src libpng-$VERSION_PNG png_symbol_prefix                 ||
    ! autogen_component libpng     $VERSION_PNG                       ||
