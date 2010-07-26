@@ -369,6 +369,7 @@ MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
+    bzip2)       VERSION_BZIP2=$VERSION_SELECTED ;;
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
@@ -475,6 +476,8 @@ RET="$RET $?"
 download_needed "http://my.arava.co.il/~matan/svgalib/" "svgalib"    "$VERSION_SVGALIB"   "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
+RET="$RET $?"
+download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
