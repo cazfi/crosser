@@ -583,6 +583,8 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
      "--disable-gtk"                                              ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
    ! rm -f $MAINSRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h  ||
+   ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
+       patch_src         cairo-$VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
