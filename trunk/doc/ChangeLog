@@ -13,6 +13,9 @@
 	- Updated linux kernel to version 2.6.35
 	- Updated eglibc to version 2.11.2-2
 	- Updated gcc to version 4.5.1
+	- Updated glib to version 2.24.2
+	- Updated cairo to version 1.10.0
+	- Updated pixman to version 0.18.4
 
 0.6.4
 	- When downloading debian source packets, get list of files to
