@@ -9,9 +9,9 @@
 	- dllstack builds libtool for host also
 	- Updated libpng to version 1.4.3
 	- Updated libtool to version 2.2.10
-	- Updated autoconf to version 2.67
-	- Updated linux kernel to version 2.6.35
-	- Updated eglibc to version 2.11.2-2
+	- Updated autoconf to version 2.68
+	- Updated linux kernel to version 2.6.35.5
+	- Updated eglibc to version 2.11.2-6
 	- Updated gcc to version 4.5.1
 	- Updated glib to version 2.24.2
 	- Updated cairo to version 1.10.0
