@@ -17,7 +17,7 @@
 	- Updated cairo to version 1.10.0
 	- Updated pixman to version 0.18.4
 
-0.6.4
+0.6.4 (24-Jun-10)
 	- When downloading debian source packets, get list of files to
 	  download from .dsc file
 	- Fixed libpng build with recent binutils
@@ -70,7 +70,7 @@
 	- Updated python to version 3.1.2
 	- Updated pkg-config to version 0.25
 
-0.6.3
+0.6.3 (23-Nov-09)
 	- Use self built autoconf in libstack.sh
 	- Added target setups arm-eglibc, i686-eglibc
 	- Added SDL_mixer build to libstack.sh
@@ -113,7 +113,7 @@
 	- 2008A: Updated linux kernel to version 2.6.25.20
 	- 2008B: Updated linux kernel to version 2.6.27.39
 
-0.6.2
+0.6.2 (30-May-09)
 	- Build environments under $HOME/.crosser by default
 	- Timeout for download attempts
 	- libstack.sh generates setup.bat
@@ -150,7 +150,7 @@
 	- Updated libpng to version 1.2.36
 	- Updated automake to version 1.11
 
-0.6.1
+0.6.1 (05-Mar-09)
 	- Configurable packetdir
 	- download_packets.sh keeps list of source packet access times
 	- Fixed build with 'native' chain
@@ -174,7 +174,7 @@
 	- Updated pixman to version 0.14.0
 	- Updated zlib to version 1.2.3.3.dfsg-13
 
-0.6.0
+0.6.0 (06-Feb-09)
 	- Give cache variables needed in cross-compilation at configure
 	  command line instead of using hackish patches
 	- autogen_component() executes commands with sensible default parameters
@@ -201,7 +201,7 @@
 	- Updated gmp to version 4.2.4
 	- Updated mpfr to version 2.4.0
 
-0.5.0
+0.5.0 (28-Dec-08)
 	- Added pixman to win step
 	- libstack.sh builds native glib-genmarshal used in build
 	- autogen_component() runs autoheader
@@ -220,7 +220,7 @@
 	- Updated libpng to version 1.2.34
 	- Updated newlib to version 1.17.0
 
-0.4.1
+0.4.1 (10-Nov-08)
 	- Updated atk to version 1.24.0
 	- Updated glib to version 2.18.2
 	- Fixed bug preventing libtool download when "on demand" dowloading is
@@ -231,7 +231,7 @@
 	- Updated glibc to version 2.8+20080809-3
 	- Updated libpng to version 1.2.33
 
-0.4.0
+0.4.0 (22-Sep-08)
 	- Debian considered glibc upstream
 	- Glibc updated to version 2.8
 	- Added support for building arm-linux chains
@@ -251,7 +251,7 @@
 	- Set correct CFLAGS, LDFLAGS and PKG_CONFIG_PATH in launch.sh
 	- Added initial version of step "gtk" to crosser.sh
 
-0.3.0
+0.3.0 (27-Aug-08)
 	- Support for building glibc based chain for i686
 	- Removed unnecessary gcc build round from build of newlib based chain
 	- Updated glib to version 2.16.5
@@ -265,7 +265,7 @@
 	- If build steps are not explicitly given and FORCERM is not "yes", ask
 	  user to confirm full build
 
-0.2.0-nl
+0.2.0-nl (20-Jul-08)
 	- Added limited crosser.sh chain builder script
 	- Updated linux kernel to version 2.6.26
 	- Added autoconf and automake to native step
@@ -275,7 +275,7 @@
 	- Made libjpeg part of the libstack.sh build
 	- Replaced patch zlib_fpiccheck.diff with zlib_cctest.diff
 
-0.1.2-win
+0.1.2-win (10-Jul-08)
 	- Added gtk-engines to win step
 	- Updated gtk+ to version 2.12.11
 	- Updated glib to version 2.16.4
@@ -283,14 +283,14 @@
 	- libstack.sh now respects "on demand" download setting
 	- Added libstack.install-document
 
-0.1.1-win
+0.1.1-win (01-Jul-08)
 	- Updated freetype to version 2.3.7
 	- Added ncurses to win step
 	- Added readline to win step
 	- Support for downloading upstream patches and applying them
 	- Added versionset 2008A
 
-0.1.0-win
+0.1.0-win (12-Jun-08)
 	- Added libstack.sh script
 	- Support for selectable versionset. Added versionset for experimental
 	  versions
@@ -311,7 +311,7 @@
 	- Added support for CLIB tag to prefix parsing
 	- Added custom name support for tar.bz2 packets to unpack_component()
 
-0.0.4-aux
+0.0.4-aux (16-May-08)
 	- Commandline step-parameter now has syntax allowing selection of
 	  multiple steps
 	- Renamed download_latest.sh as download_packets.sh
@@ -324,7 +324,7 @@
 	  version 6b-14
 	- Updated kernel package to version 2.6.25.4
 
-0.0.3-aux
+0.0.3-aux (11-May-08)
 	- Licensed under Gnu General Public License version 2
 	- Added bash helper functions to distribution
 	- Updated kernel package to version 2.6.25.3
