@@ -214,7 +214,7 @@ build_glibc() {
   then
     log_write 3 "  Copying dummy headers"
 
-    if ! cp "$MAINBUILDDIR/tgt-$1/bits/stdio_lim.h" \
+    if ! cp "$CROSSER_BUILDDIR/tgt-$1/bits/stdio_lim.h" \
             "$SYSPREFIX/usr/include/bits/"
     then
       log_error "Failed to copy initial stdio_lim.h"
@@ -305,7 +305,7 @@ kernel_setup() {
   fi
 
   # Kernel may have been unpacked already in chain step
-  if ! test -d $MAINSRCDIR/linux-$VERSION_KERNEL &&
+  if ! test -d "$CROSSER_SRCDIR/linux-$VERSION_KERNEL" &&
      ! unpack_component linux $VERSION_KERNEL
   then
     log_error "Failed to unpack kernel"
@@ -313,7 +313,7 @@ kernel_setup() {
   fi
 
   if ! (
-    cd $MAINSRCDIR/linux-$VERSION_KERNEL
+    cd "$CROSSER_SRCDIR/linux-$VERSION_KERNEL"
 
     if test -f $PACKETDIR/kernel-$TARGET.config ; then
       cp $PACKETDIR/kernel-$TARGET.config .config
@@ -442,12 +442,12 @@ setup_host_commands() {
 dummy_glibc_objects() {
   log_write 1 "Generating dummy c-lib objects"
 
-  if ! mkdir $MAINBUILDDIR/crt ; then
+  if ! mkdir "$CROSSER_BUILDDIR/crt" ; then
      return 1
   fi
 
   if ! (
-    cd $MAINBUILDDIR/crt
+    cd "$CROSSER_BUILDDIR/crt"
 
     echo "/* Build dummy crt.o object from this comment */" > crt.c
 
@@ -494,7 +494,7 @@ prepare_binutils_src() {
   if ! unpack_component binutils     $VERSION_BINUTILS              ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
         (  patch_src binutils-$VERSION_BINUTILS binutils_makeinfo &&
-           cd $MAINSRCDIR/binutils-$VERSION_BINUTILS && autoconf )) ||
+           cd "$CROSSER_SRCDIR/binutils-$VERSION_BINUTILS" && autoconf )) ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
         (  patch_src binutils-$VERSION_BINUTILS binutils_printffix &&
 	   patch_src binutils-$VERSION_BINUTILS binutils_ignret ))  ||
@@ -526,10 +526,10 @@ prepare_gcc_src() {
     exit 1
   fi
 
-  if ! ln -s ../mpfr-$VERSION_MPFR $MAINSRCDIR/gcc-$VERSION_GCC/mpfr ||
-     ! ln -s ../gmp-$VERSION_GMP $MAINSRCDIR/gcc-$VERSION_GCC/gmp ||
+  if ! ln -s ../mpfr-$VERSION_MPFR "$CROSSER_SRCDIR/gcc-$VERSION_GCC/mpfr" ||
+     ! ln -s ../gmp-$VERSION_GMP "$CROSSER_SRCDIR/gcc-$VERSION_GCC/gmp" ||
      ! (is_smaller_version $VERSION_GCC 4.5.0 ||
-        ln -s ../mpc-$VERSION_MPC $MAINSRCDIR/gcc-$VERSION_GCC/mpc)
+        ln -s ../mpc-$VERSION_MPC "$CROSSER_SRCDIR/gcc-$VERSION_GCC/mpc")
   then
     log_error "Creation of links to additional gcc modules failed"
     exit 1
@@ -544,16 +544,16 @@ fi
 log_write 2 "Native tools: \"$NATIVE_PREFIX\""
 log_write 2 "Toolchain:    \"$PREFIX\""
 log_write 2 "Target:       \"$TARGET\""
-log_write 2 "Src:          \"$MAINSRCDIR\""
+log_write 2 "Src:          \"$CROSSER_SRCDIR\""
 log_write 2 "Log:          \"$LOGDIR\""
-log_write 2 "Build:        \"$MAINBUILDDIR\""
+log_write 2 "Build:        \"$CROSSER_BUILDDIR\""
 log_write 2 "Setup:        \"$SETUP\""
 log_write 2 "Versionset:   \"$VERSIONSET\""
 log_write 2 "Steps:        \"$STEPLIST\""
 log_write 2 "c-lib:        \"$LIBC_MODE\""
 
-if ! remove_dir "$MAINBUILDDIR" ||
-   ! remove_dir "$MAINSRCDIR"   ||
+if ! remove_dir "$CROSSER_BUILDDIR" ||
+   ! remove_dir "$CROSSER_SRCDIR"   ||
    ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX") ||
    ! (test "x$STEP_CHAIN"  != "xyes" || remove_dir "$PREFIX")
 then
@@ -561,7 +561,7 @@ then
   exit 1
 fi
 
-if ! mkdir -p $MAINSRCDIR || ! mkdir -p $MAINBUILDDIR
+if ! mkdir -p "$CROSSER_SRCDIR" || ! mkdir -p "$CROSSER_BUILDDIR"
 then
   log_error "Cannot create main directories"
   exit 1
@@ -707,16 +707,16 @@ then
     fi
 
     if ! ln -s ../newlib-$VERSION_NEWLIB/newlib \
-               $MAINSRCDIR/gcc-$VERSION_GCC ||
+               "$CROSSER_SRCDIR/gcc-$VERSION_GCC" ||
        ! ln -s ../newlib-$VERSION_NEWLIB/libgloss \
-               $MAINSRCDIR/gcc-$VERSION_GCC
+               "$CROSSER_SRCDIR/gcc-$VERSION_GCC"
     then
       crosser_error "Creation of newlib links failed"
       exit 1
     fi
 
     log_write 1 "Copying initial newlib headers"
-    if ! cp -R "$MAINSRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
+    if ! cp -R "$CROSSER_SRCDIR/newlib-$VERSION_NEWLIB/newlib/libc/include" \
                "$SYSPREFIX/"
     then
       crosser_error "Failed initial newlib headers copying."
@@ -761,7 +761,7 @@ then
         crosser_error "$LIBCNAME unpacking failed"
         exit 1
       fi
-      if ! ln -s $LIBCNAME $MAINSRCDIR/$LIBCDIR
+      if ! ln -s $LIBCNAME "$CROSSER_SRCDIR/$LIBCDIR"
       then
         crosser_error "Creation of $LIBCNAME links failed"
         exit 1
@@ -785,7 +785,7 @@ then
         crosser_error "$LIBCNAME unpacking failed"
         exit 1
       fi
-      if ! ln -s $LIBCNAME-ports-$VERSION_GLIBC_PORTS $MAINSRCDIR/$LIBCDIR/ports
+      if ! ln -s $LIBCNAME-ports-$VERSION_GLIBC_PORTS "$CROSSER_SRCDIR/$LIBCDIR/ports"
       then
 	crosser_error "Creation of $LIBCNAME links failed"
         exit 1

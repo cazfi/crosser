@@ -2,7 +2,7 @@
 
 # buildfuncs.sh: Build functions for Crosser
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2010 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -20,36 +20,36 @@ build_generic() {
 
   if test "x$5" != "xyes"
   then
-    if test -d "$MAINBUILDDIR/$1"
+    if test -d "$CROSSER_BUILDDIR/$1"
     then
-      rm -Rf "$MAINBUILDDIR/$1"
+      rm -Rf "$CROSSER_BUILDDIR/$1"
     fi
 
-    if ! mkdir -p $MAINBUILDDIR/$1
+    if ! mkdir -p "$CROSSER_BUILDDIR/$1"
     then
-       log_error "Failed to create directory \"$MAINBUILDDIR/$1\""
+       log_error "Failed to create directory \"$CROSSER_BUILDDIR/$1\""
        return 1
     fi
-    if ! cd $MAINBUILDDIR/$1
+    if ! cd "$CROSSER_BUILDDIR/$1"
     then
-       log_error "Failed to change workdir to \"$MAINBUILDDIR/$1\""
+       log_error "Failed to change workdir to \"$CROSSER_BUILDDIR/$1\""
        return 1
     fi
   else
-    if ! cd $MAINSRCDIR/$2
+    if ! cd "$CROSSER_SRCDIR/$2"
     then
-       log_error "Failed to change workdir to \"$MAINSRCDIR/$2\""
+       log_error "Failed to change workdir to \"$CROSSER_SRCDIR/$2\""
        return 1
     fi
   fi
 
-  if test -x "$MAINSRCDIR/$2/configure"
+  if test -x "$CROSSER_SRCDIR/$2/configure"
   then
     log_write 1 "Configuring $2"
     log_write 3 "  Options: \"$3\""
     log_flags
 
-    if ! "$MAINSRCDIR/$2/configure" $3 \
+    if ! "$CROSSER_SRCDIR/$2/configure" $3 \
         2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
     then
       log_error "Configure failed: $1"
@@ -198,13 +198,13 @@ build_svgalib() {
     DESTDIR="$4"
   fi
 
-  MFCFG="$MAINSRCDIR/$2/Makefile.cfg"
+  MFCFG="$CROSSER_SRCDIR/$2/Makefile.cfg"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
       -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
       -e "s,<ARCH>,$KERN_ARCH,g" \
       "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
-  MFCFG="$MAINSRCDIR/$2/kernel/svgalib_helper/Makefile"
+  MFCFG="$CROSSER_SRCDIR/$2/kernel/svgalib_helper/Makefile"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
       -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
       -e "s,<ARCH>,$KERN_ARCH,g" \

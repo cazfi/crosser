@@ -169,7 +169,7 @@ patch_src() {
     return 1
   fi
 
-  if ! patch -u -p1 -d $MAINSRCDIR/$1 < $CROSSER_MAINDIR/patch/$2.diff \
+  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$1" < $CROSSER_MAINDIR/patch/$2.diff \
        >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
     log_error "Patching $1 with $2.diff failed"
@@ -184,7 +184,7 @@ patch_src() {
 upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
-  if ! patch -p0 -d $MAINSRCDIR/$1 < $PACKETDIR/patch/$2 \
+  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < $PACKETDIR/patch/$2 \
        >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
   then
     log_error "Patching $1 with $2 failed"
@@ -221,19 +221,19 @@ unpack_component() {
   fi
 
   if test -e $PACKETDIR/$NAME_BASE.tar.bz2 ; then
-    if ! tar xjf $PACKETDIR/$NAME_BASE.tar.bz2 -C $MAINSRCDIR/$3
+    if ! tar xjf $PACKETDIR/$NAME_BASE.tar.bz2 -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
   elif test -e $PACKETDIR/$NAME_BASE.tar.gz ; then
-    if ! tar xzf $PACKETDIR/$NAME_BASE.tar.gz -C $MAINSRCDIR/$3
+    if ! tar xzf $PACKETDIR/$NAME_BASE.tar.gz -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
   elif test -e $PACKETDIR/$NAME_BASE.tgz ; then
-    if ! tar xzf $PACKETDIR/$NAME_BASE.tgz -C $MAINSRCDIR/$3
+    if ! tar xzf $PACKETDIR/$NAME_BASE.tgz -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
@@ -248,7 +248,7 @@ unpack_component() {
     else
       SRCDIR="$3"
     fi
-    if ! dpkg-source -x $PACKETDIR/${1}_${2}.dsc $MAINSRCDIR/$SRCDIR \
+    if ! dpkg-source -x $PACKETDIR/${1}_${2}.dsc "$CROSSER_SRCDIR/$SRCDIR" \
                      >> $LOGDIR/stdout.log 2>> $LOGDIR/stderr.log
     then
       log_error "Unpacking $1_$2.dsc failed"
@@ -265,10 +265,10 @@ unpack_component() {
 # $1 -   Package
 # $2 -   Version
 src_subdir() {
-  if test -d "$MAINSRCDIR/$1-$2"
+  if test -d "$CROSSER_SRCDIR/$1-$2"
   then
     echo "$1-$2"
-  elif test -d "$MAINSRCDIR/$1"
+  elif test -d "$CROSSER_SRCDIR/$1"
   then
     echo "$1"
   else
@@ -294,13 +294,13 @@ autogen_component()
     return 1
   fi
 
-  if ! test -d "$MAINSRCDIR/$SUBDIR/$4"
+  if ! test -d "$CROSSER_SRCDIR/$SUBDIR/$4"
   then
     log_error "No subdirectory $4 in $1 version $2 src directory"
     return 1
   fi
 
-  cd $MAINSRCDIR/$SUBDIR/$4
+  cd "$CROSSER_SRCDIR/$SUBDIR/$4"
 
   if test "x$3" = "x" && test -f autogen.sh ; then
     if ! test -x autogen.sh ; then

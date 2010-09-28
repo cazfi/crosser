@@ -103,14 +103,14 @@ build_component_full()
     return 1
   fi
 
-  BUILDDIR="$MAINBUILDDIR/$1"
+  BUILDDIR="$CROSSER_BUILDDIR/$1"
   if ! mkdir -p "$BUILDDIR"
   then
     log_error "Failed to create directory $BUILDDIR"
     return 1
   fi
   cd $BUILDDIR
-  SRCDIR="$MAINSRCDIR/$SUBDIR"
+  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
   if test "x$6" != "xnative"
   then
@@ -138,7 +138,7 @@ build_component_full()
 
   if test "x$5" = "xoverwrite" ; then
     log_write 2 "Copying working libtool to $1"
-    if ! cp $MAINBUILDDIR/libtool/libtool .
+    if ! cp "$CROSSER_BUILDDIR/libtool/libtool" .
     then
       log_error "Failed to copy libtool"
       return 1
@@ -186,9 +186,9 @@ build_zlib()
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
-  if ! cd $MAINSRCDIR/$SUBDIR
+  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
-    log_error "Cannot change to directory $MAINSRCDIR/$SUBDIR"
+    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
     return 1
   fi
 
@@ -250,9 +250,9 @@ build_bzip2()
     return 1
   fi
 
-  if ! cd $MAINSRCDIR/$SUBDIR
+  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
-    log_error "Cannot change to directory $MAINSRCDIR/$SUBDIR"
+    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
     return 1
   fi
 
@@ -288,9 +288,9 @@ build_bzip2()
 update_aux_file()
 {
   # Update only those files that already exist in target directory
-  if test -e $MAINSRCDIR/$1/$2 ; then
+  if test -e "$CROSSER_SRCDIR/$1/$2" ; then
     log_write 2 "Updating $2"
-    if ! cp $CROSSER_MAINDIR/scripts/aux/$2 $MAINSRCDIR/$1/
+    if ! cp $CROSSER_MAINDIR/scripts/aux/$2 $CROSSER_SRCDIR/$1/
     then
       return 1
     fi
@@ -378,29 +378,29 @@ export USER_CFLAGS="$CFLAGS"
 export USER_CXXFLAGS="$CXXFLAGS"
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
-log_write 2 "Src:        \"$MAINSRCDIR\""
+log_write 2 "Src:        \"$CROSSER_SRCDIR\""
 log_write 2 "Log:        \"$LOGDIR\""
-log_write 2 "Build:      \"$MAINBUILDDIR\""
+log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 
-if ! remove_dir "$MAINSRCDIR"    ||
-   ! remove_dir "$MAINBUILDDIR"  ||
-   ! remove_dir "$DLLSPREFIX"    ||
+if ! remove_dir "$CROSSER_SRCDIR"    ||
+   ! remove_dir "$CROSSER_BUILDDIR"  ||
+   ! remove_dir "$DLLSPREFIX"        ||
    ! remove_dir "$NATIVE_PREFIX"
 then
   log_error "Failed to remove old directories"
   exit 1
 fi
 
-if ! mkdir -p $MAINSRCDIR
+if ! mkdir -p "$CROSSER_SRCDIR"
 then
-  log_error "Cannot create directory $MAINSRCDIR"
+  log_error "Cannot create directory $CROSSER_SRCDIR"
   exit 1
 fi
 
-if ! mkdir -p $MAINBUILDDIR
+if ! mkdir -p "$CROSSER_BUILDDIR"
 then
-  log_error "Cannot create directory $MAINBUILDDIR"
+  log_error "Cannot create directory $CROSSER_BUILDDIR"
   exit 1
 fi
 
@@ -541,7 +541,7 @@ fi
 if is_smaller_version $VERSION_TIFF 3.9.0
 then
   log_write 1 "Removing upstream libtiff config"
-  if ! rm $MAINSRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h
+  if ! rm "$CROSSER_SRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h"
   then
     log_error "Failed to remove old tiffconf.h"
     exit 1
@@ -582,7 +582,7 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
-   ! rm -f $MAINSRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h  ||
+   ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo-$VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
