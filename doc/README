@@ -79,4 +79,4 @@ than the one that originally downloaded packet.
 It just removes those packets that are most likely obsolete. It determines
 this by checking last time that source package was used by crosser. Those
 packets which are not used in a long time are removed. Currently 
-trim_packetdir.sh removes all but 200 most recently used files to packetdir.
+trim_packetdir.sh removes all but 200 most recently used files from packetdir.
