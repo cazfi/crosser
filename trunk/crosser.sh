@@ -456,7 +456,7 @@ dummy_glibc_objects() {
        return 1
     fi
     if ! $TARGET-gcc -c -shared -fPIC $CROSSER_MAINDIR/scripts/dummyclib.c -o libc.so \
-         2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
+         2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
     then
         log_error "Failed to build dummy libc.so"
        return 1
@@ -545,7 +545,7 @@ log_write 2 "Native tools: \"$NATIVE_PREFIX\""
 log_write 2 "Toolchain:    \"$PREFIX\""
 log_write 2 "Target:       \"$TARGET\""
 log_write 2 "Src:          \"$CROSSER_SRCDIR\""
-log_write 2 "Log:          \"$LOGDIR\""
+log_write 2 "Log:          \"$CROSSER_LOGDIR\""
 log_write 2 "Build:        \"$CROSSER_BUILDDIR\""
 log_write 2 "Setup:        \"$SETUP\""
 log_write 2 "Versionset:   \"$VERSIONSET\""

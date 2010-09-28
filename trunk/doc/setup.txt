@@ -17,7 +17,7 @@ It contains path to the directory where file CrosserVersion is. This is
 either where full crosser packet is unpacked or, lacking such location,
 /usr/share/crosser.
 E.g. to set log directory under that main dir one would use
-LOGDIR="$CROSSER_MAINDIR/log"
+CROSSER_LOGDIR="$CROSSER_MAINDIR/log"
 
 =======================================================================
 
@@ -84,7 +84,7 @@ CROSSER_BUILDDIR
  ; Directory hierarchy where binaries will be built
  ; Default is tmp/build under crosser main dir.
 
-LOGDIR
+CROSSER_LOGDIR
  ; Directory where logfiles will be written.
  ; Default is $HOME/.crosser/log
  ; Logfiles stdout.log and stderr are created anew for each build,
@@ -118,6 +118,7 @@ CROSSER_CCACHE
  ; will create new one depending on what step is being built. This avoids
  ; trashing user's main cache by possibly results specific to certain
  ; crosser build, which may be very temporary.
+ ;
  ; Example setup of ccache path directory:
  ;   > mkdir /usr/local/ccache
  ;   > cd /usr/local/ccache
