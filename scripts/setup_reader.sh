@@ -34,8 +34,13 @@ fi
 if test "x$CROSSER_SRCDIR" = "x" ; then
   CROSSER_SRCDIR="$CROSSER_MAINDIR/tmp/src"
 fi
-if test "x$LOGDIR" = "x" ; then
-  LOGDIR="$HOME/.crosser/log"
+if test "x$CROSSER_LOGDIR" = "x" && test "x$LOGDIR" != "x"
+then
+  echo "Configuration variable LOGDIR is deprecated. Please use CROSSER_LOGDIR" >&2
+  CROSSER_LOGDIR="$LOGDIR"
+fi
+if test "x$CROSSER_LOGDIR" = "x" ; then
+  CROSSER_LOGDIR="$HOME/.crosser/log"
 fi
 if test "x$CROSSER_DOWNLOAD" = "x" ; then
   CROSSER_DOWNLOAD="demand"

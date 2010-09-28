@@ -129,7 +129,7 @@ build_component_full()
     log_write 3 "  Options: \"$CONFOPTIONS\""
     log_flags
 
-    if ! $SRCDIR/configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+    if ! $SRCDIR/configure $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
       log_error "Configure for $1 failed"
       return 1
@@ -151,13 +151,13 @@ build_component_full()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make  >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! make  >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! make install >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Install for $1 failed"
     return 1
@@ -204,7 +204,7 @@ build_zlib()
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
 
-  if ! ./configure $CONFOPTIONS >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! ./configure $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Configure for $1 failed"
     return 1
@@ -213,13 +213,13 @@ build_zlib()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! make >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install  >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! make install  >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Install for $1 failed"
     return 1
@@ -268,13 +268,13 @@ build_bzip2()
   log_flags
 
   if ! make libbz2.a bzip2 bzip2recover \
-       >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+       >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >>$LOGDIR/stdout.log 2>>$LOGDIR/stderr.log
+  if ! make install >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   then
     log_error "Install for $1 failed"
     return 1
@@ -379,7 +379,7 @@ export USER_CXXFLAGS="$CXXFLAGS"
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
-log_write 2 "Log:        \"$LOGDIR\""
+log_write 2 "Log:        \"$CROSSER_LOGDIR\""
 log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 
