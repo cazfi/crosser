@@ -76,11 +76,11 @@ CROSSER_FORCE
  ; script only when setup has been already tested and one really knows
  ; that nothing important will be destroyed.
 
-MAINSRCDIR
+CROSSER_SRCDIR
  ; Directory hierarchy where sources will be unpacked.
  ; Default is tmp/src under crosser main dir.
 
-MAINBUILDDIR
+CROSSER_BUILDDIR
  ; Directory hierarchy where binaries will be built
  ; Default is tmp/build under crosser main dir.
 

@@ -18,11 +18,21 @@ fi
 if test "x$PACKETDIR" = "x" ; then
   PACKETDIR="$HOME/.crosser/packets"
 fi
-if test "x$MAINBUILDDIR" = "x" ; then
-  MAINBUILDDIR="$CROSSER_MAINDIR/tmp/build"
+if test "x$CROSSER_BUILDDIR" = "x" && test "x$MAINBUILDDIR" != "x"
+then
+  echo "Configuration variable MAINBUILDDIR is deprecated. Please use CROSSER_BUILDDIR" >&2
+  CROSSER_BUILDDIR="$MAINBUILDDIR"
 fi
-if test "x$MAINSRCDIR" = "x" ; then
-  MAINSRCDIR="$CROSSER_MAINDIR/tmp/src"
+if test "x$CROSSER_BUILDDIR" = "x" ; then
+  CROSSER_BUILDDIR="$CROSSER_MAINDIR/tmp/build"
+fi
+if test "x$CROSSER_SRCDIR" = "x" && test "x$MAINSRCDIR" != "x"
+then
+  echo "Configuration variable MAINSRCDIR is deprecated. Please use CROSSER_SRCDIR" >&2
+  CROSSER_SRCDIR="$MAINSRCDIR"
+fi
+if test "x$CROSSER_SRCDIR" = "x" ; then
+  CROSSER_SRCDIR="$CROSSER_MAINDIR/tmp/src"
 fi
 if test "x$LOGDIR" = "x" ; then
   LOGDIR="$HOME/.crosser/log"

@@ -7,6 +7,8 @@
 	- Added host automake build to dllstack
 	- Added bzip2 build to dllstack
 	- dllstack builds libtool for host also
+	- Renamed configuration variable MAINSRCDIR as CROSSER_SRCDIR
+	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
 	- Updated libpng to version 1.4.3
 	- Updated libtool to version 2.2.10
 	- Updated autoconf to version 2.68
