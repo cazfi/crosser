@@ -335,7 +335,7 @@ kernel_setup() {
     log_write 3 "  Make params: $MAKEPARAMS"
 
     if ! make $MAKEPARAMS \
-	           2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
+	           2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
     then
       log_error "Kernel prepare failed"
       return 1
@@ -352,7 +352,7 @@ kernel_setup() {
 
     log_write 3 "  Make params: $MAKEPARAMS"
     if ! make $MAKEPARAMS \
-                2>>$LOGDIR/stderr.log >>$LOGDIR/stdout.log
+                2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
     then
       if test "x$1" = "xfull"
       then
