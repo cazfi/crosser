@@ -166,7 +166,7 @@ download_needed() {
   fi
   for STEP in $STEPLIST
   do
-    if "x$2" = "xlibjpeg$VERSION_JPEG" ; then
+    if test "x$2" = "xlibjpeg$VERSION_JPEG" ; then
       BASENAME=libjpeg
     else
       BASENAME=$2
