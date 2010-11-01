@@ -11,6 +11,7 @@
 	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
 	- Renamed configuration variable LOGDIR as CROSSER_LOGDIR
 	- Fixed syntax error in download_packets.sh when packets downloaded by step
+	- Do not create target arch directories if building only native step
 	- Updated libpng to version 1.4.3
 	- Updated libtool to version 2.4
 	- Updated autoconf to version 2.68
