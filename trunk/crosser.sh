@@ -646,9 +646,11 @@ if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_CROSS="$CROSSER_CCACHE:$PATH_CROSS"
 fi
 
-if ! create_target_dirs ; then
-  crosser_error "Failed to create target dirs"
-  exit 1
+if "x$STEPLIST" != "xnative" ; then
+  if ! create_target_dirs ; then
+    crosser_error "Failed to create target dirs"
+    exit 1
+  fi
 fi
 
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
@@ -735,7 +737,8 @@ then
   if test "x$E_GLIBC" = "xyes"
   then
 
-    # Initial cross-compiler                                                                      
+    # Initial cross-compiler
+
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
         "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$SYSPREFIX --disable-multilib" \
         "all-gcc install-gcc"
