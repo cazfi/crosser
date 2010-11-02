@@ -170,13 +170,13 @@ else
   DEFPREFIX="$HOME/.crosser/$CROSSER_VERSION/$TARGET-$LIBC_MODE"
 fi
 
-PREFIX=$(setup_prefix_default "$DEFPREFIX" "$PREFIX")
-SYSPREFIX="$PREFIX/target"
-CROSSPREFIX="$PREFIX/crosstools"
+CROSSER_DST_PFX=$(setup_prefix_default "$DEFPREFIX" "$CROSSER_DST_PFX")
+SYSPREFIX="$CROSSER_DST_PFX/target"
+CROSSPREFIX="$CROSSER_DST_PFX/crosstools"
 
 if test "x$CROSS_OFF" != "xyes"
 then
-  CH_ERROR="$(check_crosser_env $PREFIX $TARGET)"
+  CH_ERROR="$(check_crosser_env $CROSSER_DST_PFX $TARGET)"
   if test "x$CH_ERROR" != "x" &&
      test "x$STEP_CHAIN" != "xyes" &&
      ( test "x$STEP_BASELIB" = "xyes" ||
@@ -285,7 +285,7 @@ create_target_dirs()
      ! mkdir -p $SYSPREFIX/usr/include ||
      ! mkdir -p $SYSPREFIX/usr/lib
   then
-    log_error "Failed to create target directories under \"$PREFIX\""
+    log_error "Failed to create target directories under \"$SYSPREFIX\""
     return 1
   fi
 }
@@ -416,7 +416,7 @@ setup_host_commands() {
   log_write 1 "Setting up hostbin"
 
   if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
-    log_error "Cannot create directory $PREFIX/hostbin"
+    log_error "Cannot create directory $NATIVE_PREFIX/hostbin"
     return 1
   fi
 
@@ -542,7 +542,7 @@ then
 fi
 
 log_write 2 "Native tools: \"$NATIVE_PREFIX\""
-log_write 2 "Toolchain:    \"$PREFIX\""
+log_write 2 "Toolchain:    \"$CROSSER_DST_PFX\""
 log_write 2 "Target:       \"$TARGET\""
 log_write 2 "Src:          \"$CROSSER_SRCDIR\""
 log_write 2 "Log:          \"$CROSSER_LOGDIR\""
@@ -555,7 +555,7 @@ log_write 2 "c-lib:        \"$LIBC_MODE\""
 if ! remove_dir "$CROSSER_BUILDDIR" ||
    ! remove_dir "$CROSSER_SRCDIR"   ||
    ! (test "x$STEP_NATIVE" != "xyes" || remove_dir "$NATIVE_PREFIX") ||
-   ! (test "x$STEP_CHAIN"  != "xyes" || remove_dir "$PREFIX")
+   ! (test "x$STEP_CHAIN"  != "xyes" || remove_dir "$CROSSER_DST_PFX")
 then
   log_error "Failed to remove old directories"
   exit 1
@@ -865,18 +865,18 @@ then
 
   fi
 
-  write_crosser_env "$PREFIX" "$TARGET"
+  write_crosser_env "$CROSSER_DST_PFX" "$TARGET"
 
-  generate_setup_scripts $PREFIX
+  generate_setup_scripts "$CROSSER_DST_PFX"
 else # STEP_CHAIN
   # Set PATH only if it's not already correct to avoid unnecessary hash reset.
   export PATH="$PATH_CROSS"
   hash -r
 fi   # STEP_CHAIN
 
-export CCACHE_DIR="$PREFIX/.ccache"
+export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
-export PKG_CONFIG_LIBDIR="$PREFIX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="$CROSSER_DST_PFX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
@@ -969,7 +969,7 @@ then
     STEPADD=""
     if ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$PREFIX/interm" "" "/"
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
     then
       crosser_error "Intermediate freetype build failed"
       exit 1
@@ -997,7 +997,7 @@ then
          "libtoolize aclocal automake autoconf"                                          ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=/usr --with-freetype-config=$PREFIX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "--prefix=/usr --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
           "install"
     then
       crosser_error "gtk+ chain build failed"
@@ -1039,7 +1039,7 @@ then
     STEP="sdl(1)"
     STEPADD="  "
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             \
-         "--prefix=$PREFIX/interm" "" "/"
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
     then
       crosser_error "Intermediate SDL build failed"
       exit 1
