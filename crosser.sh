@@ -646,7 +646,7 @@ if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_CROSS="$CROSSER_CCACHE:$PATH_CROSS"
 fi
 
-if "x$STEPLIST" != "xnative" ; then
+if test "x$STEPLIST" != "xnative" ; then
   if ! create_target_dirs ; then
     crosser_error "Failed to create target dirs"
     exit 1
