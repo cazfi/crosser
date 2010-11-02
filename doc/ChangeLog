@@ -7,6 +7,7 @@
 	- Added host automake build to dllstack
 	- Added bzip2 build to dllstack
 	- dllstack builds libtool for host also
+	- Renamed configuration variable PREFIX as CROSSER_DST_PFX
 	- Renamed configuration variable MAINSRCDIR as CROSSER_SRCDIR
 	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
 	- Renamed configuration variable LOGDIR as CROSSER_LOGDIR

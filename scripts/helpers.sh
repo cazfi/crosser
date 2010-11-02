@@ -100,14 +100,14 @@ crosser_error() {
      ( echo "** Env dump begins **"
        /usr/bin/env
        echo "**  Env dump ends  **" ) >> $CROSSER_LOGDIR/stdout.log
-     if mkdir -p "$PREFIX/debug"
+     if mkdir -p "$CROSSER_DST_PFX/debug"
      then
-       generate_setup_scripts "$PREFIX/debug"
-     elif test -d "$PREFIX"
+       generate_setup_scripts "$CROSSER_DST_PFX/debug"
+     elif test -d "$CROSSER_DST_PFX"
      then
-       generate_setup_scripts "$PREFIX"
+       generate_setup_scripts "$CROSSER_DST_PFX"
      else
-       log_error "Cannot generate debug script, since directory \"$PREFIX\" missing."
+       log_error "Cannot generate debug script, since directory \"$CROSSER_DST_PFX\" missing."
      fi
   fi
 }
@@ -138,11 +138,11 @@ generate_setup_scripts() {
     echo
     echo "export PATH=\"$PATH\""
     echo "export PS1=\"Crosser:> \""
-    echo "export CCACHE_DIR=\"$PREFIX/.ccache\""
+    echo "export CCACHE_DIR=\"$CROSSER_DST_PFX/.ccache\""
     echo
     echo "export CFLAGS=\"-I$SYSPREFIX/include -I$SYSPREFIX/usr/include\""
     echo "export LDFLAGS=\"-L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib\""
-    echo "export PKG_CONFIG_LIBDIR=\"$PREFIX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig\""
+    echo "export PKG_CONFIG_LIBDIR=\"$CROSSER_DST_PFX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig\""
     echo
     echo "# Reset cache since we changed PATH"
     echo "hash -r"

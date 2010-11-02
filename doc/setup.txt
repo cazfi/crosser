@@ -28,7 +28,7 @@ AUTOWINE
  ; These configuration programs must be run when doing actual install to
  ; Windows machine.
 
-PREFIX
+CROSSER_DST_PFX
  ; Directory hierarchy where generated environment will be installed.
  ; For dllstack this can be overridden by DLLSPREFIX. 
  ; This directory will be completely removed in the beginning of build.

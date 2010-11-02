@@ -45,10 +45,14 @@ fi
 if test "x$CROSSER_DOWNLOAD" = "x" ; then
   CROSSER_DOWNLOAD="demand"
 fi
+if test "x$CROSSER_DST_PFX" = "x" && test "x$PREFIX" != "x" ; then
+  echo "Configuration variable PREFIX is deprecated. Please use CROSSER_DST_PFX." >&2
+  CROSSER_DST_PFX="$PREFIX"
+fi
 if test "x$DLLSPREFIX" = "x" && test "x$LSPREFIX" != "x" ; then
   echo "Configuration variable LSPREFIX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$LSPREFIX"
 fi
-if test "x$DLLSPREFIX" = "x" && test "x$PREFIX" != "x" ; then
-  DLLSPREFIX="$PREFIX"
+if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
+  DLLSPREFIX="$CROSSER_DST_PFX"
 fi
