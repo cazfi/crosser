@@ -876,7 +876,7 @@ fi   # STEP_CHAIN
 
 export CCACHE_DIR="$PREFIX/.ccache"
 
-export PKG_CONFIG_LIBDIR="$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="$PREFIX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
@@ -1030,9 +1030,31 @@ then
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_round                 ||
        ! build_svgalib             svgalib svgalib-$VERSION_SVGALIB       \
           "clean install"                                                 ||
-       ! unpack_component          SDL       $VERSION_SDL                 ||
-       ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             ||
-       ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
+       ! unpack_component          SDL       $VERSION_SDL
+    then
+      crosser_error "sdl stack build failed"
+      exit 1
+    fi
+
+    STEP="sdl(1)"
+    STEPADD="  "
+    if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             \
+         "--prefix=$PREFIX/interm" "" "/"
+    then
+      crosser_error "Intermediate SDL build failed"
+      exit 1
+    fi
+
+    STEP="sdl(2)"
+    if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL
+    then
+      crosser_error "Target SDL build failed"
+      exit 1
+    fi
+
+    STEP="sdl"
+    STEPADD="     "
+    if ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
        ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
     then
       crosser_error "sdl stack build failed"
