@@ -600,7 +600,7 @@ then
   exit 1
 fi
 
-if ! ( is_max_version $VERSION_GTK 2.90.3 ||
+if ! ( is_smaller_version $VERSION_GTK 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          build_component gdk-pixbuf $VERSION_GDK_PIXBUF ))        ||
    ! unpack_component  gtk+       $VERSION_GTK                    ||
