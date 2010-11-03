@@ -8,6 +8,7 @@
 	- Added bzip2 build to dllstack
 	- dllstack builds libtool for host also
 	- crosser builds glib for host also (native step)
+	- main.log rotated only when its size exceeds 250000 bytes
 	- Renamed configuration variable PREFIX as CROSSER_DST_PFX
 	- Renamed configuration variable MAINSRCDIR as CROSSER_SRCDIR
 	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
