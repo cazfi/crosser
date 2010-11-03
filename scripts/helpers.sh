@@ -69,7 +69,7 @@ log_write() {
     if test -f $CROSSER_LOGDIR/main.log
     then
       LOGSIZE=$(ls -l $CROSSER_LOGDIR/main.log | cut -f 5 -d " ")
-      if test $LOGSIZE -gt 150000
+      if test $LOGSIZE -gt 250000
       then
         mv $CROSSER_LOGDIR/main.log $CROSSER_LOGDIR/main.old
       fi
