@@ -436,6 +436,7 @@ fi
 export PKG_CONFIG_LIBDIR=$DLLSPREFIX/lib/pkgconfig
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
+GLIB_VARS="$(read_configure_vars glib)"
 
 # glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
@@ -484,7 +485,7 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
          patch_src gettext-$VERSION_GETTEXT gettext_no_rpl_optarg )) ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
    ! build_component   glib       $VERSION_GLIB             \
-       "glib_cv_stack_grows=yes"
+       "$GLIB_VARS"
 then
   log_error "Build failed"
   exit 1
