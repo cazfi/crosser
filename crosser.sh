@@ -614,6 +614,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
         patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
+     ! unpack_component glib       $VERSION_GLIB                  ||
+     ! build_for_host   glib       glib-$VERSION_GLIB             ||
      ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
@@ -954,8 +956,17 @@ then
     GLIB_VARS="$(read_configure_vars glib)"
     log_write 4 "Glib variables: $GLIB_VARS"
 
-    if ! unpack_component          glib          $VERSION_GLIB                           ||
-       ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
+    # If native step already executed, glib already unpacked
+    if test "x$STEP_NATIVE" != "xyes"
+    then
+      if ! unpack_component          glib          $VERSION_GLIB
+      then
+        crosser_error "Glib unpacking failed"
+        exit 1
+      fi
+    fi
+
+    if ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
            ( patch_src glib-$VERSION_GLIB glib_gmoddef &&
              autogen_component glib    $VERSION_GLIB "aclocal automake autoconf" ))      ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
