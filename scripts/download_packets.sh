@@ -42,13 +42,13 @@ download_file() {
     echo "$TIMEPART : $TIMEPART : $2" >> filelist.txt
   fi
 
-  if test -f $DLDIR/$2
+  if test -f "$DLDIR/$2"
   then
     echo "Already has $2, skipping"
     return 0
   fi
 
-  if ! ( cd $DLDIR && wget -T 180 -t 2 "$1$2" ) ; then
+  if ! ( cd "$DLDIR" && wget -T 180 -t 2 "$1$2" ) ; then
     echo "Download of $2 failed" >&2
     return 1
   fi
@@ -72,7 +72,7 @@ download_packet() {
     fi
 
     FILELIST_SECTION=no
-    cat $DLDIR/$DLFILENAME |
+    cat "$DLDIR/$DLFILENAME" |
     ( while read PART1 PART2 PART3
       do
         if test "x$FILELIST_SECTION" = "xyes"
@@ -221,14 +221,14 @@ download_patches() {
   return 2
 }
 
-CROSSER_MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
+CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
 
-if ! . $CROSSER_MAINDIR/scripts/helpers.sh
+if ! . "$CROSSER_MAINDIR/scripts/helpers.sh"
 then
   echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
   exit 1
@@ -241,8 +241,8 @@ elif test "x$1" = "x" ; then
 fi
 
 if test "x$HELP_RETURN" != "x" ; then
-  echo "Usage: $(basename $0) <step> [versionset]"
-  echo "       $(basename $0) --packet <name> [version] [patches]"
+  echo "Usage: $(basename "$0") <step> [versionset]"
+  echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
   echo "  - native"
@@ -288,13 +288,13 @@ fi
 
 if test "x$VERSIONSET" != "x"
 then
-  if ! test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
+  if ! test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
   then
     echo "Versionset $VERSIONSET.versions not found" >&2
     exit 1
   fi
 
-  if ! . $CROSSER_MAINDIR/setups/$VERSIONSET.versions ; then
+  if ! . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions" ; then
     echo "Failed to read list of package versions ($VERSIONSET.versions)" >&2
     exit 1
   fi
@@ -313,7 +313,7 @@ if test "x$MIRRORCONF" != "x" ; then
   fi
 fi
 
-if ! . $CROSSER_MAINDIR/steps/stepfuncs.sh ; then
+if ! . "$CROSSER_MAINDIR/steps/stepfuncs.sh" ; then
   echo "Problem in reading stepfuncs.sh" >&2
   exit 1
 fi

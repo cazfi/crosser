@@ -7,7 +7,7 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-CROSSER_MAINDIR=$(cd $(dirname $0) ; pwd)
+CROSSER_MAINDIR="$(cd "$(dirname "$0")" ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
@@ -18,7 +18,7 @@ export CROSSER_OPTION_JPEG=on
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
-  echo "Usage: $(basename $0) [[-h|--help]|[-v|--version]|[install prefix]] [versionset]"
+  echo "Usage: $(basename "$0") [[-h|--help]|[-v|--version]|[install prefix]] [versionset]"
   exit 0
 fi
 
