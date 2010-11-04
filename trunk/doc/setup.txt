@@ -64,7 +64,7 @@ DLLSHOST_PREFIX
  ; Default is $HOME/.crosser/<VERSION>/dllshost
 
 LOGLEVEL_STDOUT
-LOGLEVEL_STDERR
+LOGLEVEL_FILE
  ; Level of logging to screen and to file. Values can be from
  ; 1 (Fatal errors only) to 5 (debug logging).
  ; Defaults are 2 for screen and 4 for file.
