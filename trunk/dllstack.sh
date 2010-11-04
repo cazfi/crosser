@@ -30,9 +30,9 @@ if test "x$2" != "x" ; then
 else
   VERSIONSET="current"
 fi
-if test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
+if test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
 then
-  . $CROSSER_MAINDIR/setups/$VERSIONSET.versions
+  . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
 else
   # Versions being unset do not prevent loading of setup_reader.sh and helper.sh,
   # resulting environment would just be unusable for building.
@@ -41,9 +41,9 @@ else
   ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
-. $CROSSER_MAINDIR/scripts/setup_reader.sh
-. $CROSSER_MAINDIR/scripts/helpers.sh
-. $CROSSER_MAINDIR/scripts/packethandlers.sh
+. "$CROSSER_MAINDIR/scripts/setup_reader.sh"
+. "$CROSSER_MAINDIR/scripts/helpers.sh"
+. "$CROSSER_MAINDIR/scripts/packethandlers.sh"
 
 # This must be after reading helpers.sh so that $CROSSER_VERSION is set
 if test "x$1" = "x-v" || test "x$1" = "x--version"
@@ -109,7 +109,7 @@ build_component_full()
     log_error "Failed to create directory $BUILDDIR"
     return 1
   fi
-  cd $BUILDDIR
+  cd "$BUILDDIR"
   SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
   if test "x$6" != "xnative"
@@ -123,13 +123,13 @@ build_component_full()
     unset LDFLAGS
   fi
 
-  if test -x $SRCDIR/configure
+  if test -x "$SRCDIR/configure"
   then
     log_write 1 "Configuring $1"
     log_write 3 "  Options: \"$CONFOPTIONS\""
     log_flags
 
-    if ! $SRCDIR/configure $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    if ! "$SRCDIR/configure" $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
       log_error "Configure for $1 failed"
       return 1
@@ -151,13 +151,13 @@ build_component_full()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make  >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! make  >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -204,7 +204,7 @@ build_zlib()
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
 
-  if ! ./configure $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! ./configure $CONFOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Configure for $1 failed"
     return 1
@@ -213,20 +213,20 @@ build_zlib()
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
 
-  if ! make >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! make >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install  >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
   fi
 
-  if ! cp $DLLSPREFIX/lib/libz.dll* $DLLSPREFIX/bin/ ||
-     ! mv $DLLSPREFIX/lib/libz.a    $DLLSPREFIX/bin/
+  if ! cp "$DLLSPREFIX/lib/libz.dll"* "$DLLSPREFIX/bin/" ||
+     ! mv "$DLLSPREFIX/lib/libz.a"    "$DLLSPREFIX/bin/"
   then
     log_error "Failed to move libz dll:s to correct directory"
     return 1
@@ -268,13 +268,13 @@ build_bzip2()
   log_flags
 
   if ! make libbz2.a bzip2 bzip2recover \
-       >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -290,7 +290,7 @@ update_aux_file()
   # Update only those files that already exist in target directory
   if test -e "$CROSSER_SRCDIR/$1/$2" ; then
     log_write 2 "Updating $2"
-    if ! cp $CROSSER_MAINDIR/scripts/aux/$2 $CROSSER_SRCDIR/$1/
+    if ! cp "$CROSSER_MAINDIR/scripts/aux/$2" "$CROSSER_SRCDIR/$1/"
     then
       return 1
     fi
@@ -313,10 +313,10 @@ update_aux_files() {
     return 1
   fi
 
-  if ! update_aux_file $SUBDIR config.guess ||
-     ! update_aux_file $SUBDIR config.sub   ||
-     ! update_aux_file $SUBDIR install-sh   ||
-     ! update_aux_file $SUBDIR ltmain.sh
+  if ! update_aux_file "$SUBDIR" config.guess ||
+     ! update_aux_file "$SUBDIR" config.sub   ||
+     ! update_aux_file "$SUBDIR" install-sh   ||
+     ! update_aux_file "$SUBDIR" ltmain.sh
   then
     log_error "Failed to update auxiliary files in directory $SUBDIR"
     return 1
@@ -325,7 +325,7 @@ update_aux_files() {
 
 cd $(dirname $0)
 
-if ! . $CROSSER_MAINDIR/setups/native.sh ; then
+if ! . "$CROSSER_MAINDIR/setups/native.sh" ; then
   log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
@@ -354,9 +354,9 @@ else
   TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-if test -d /usr/$TARGET/include
+if test -d "/usr/$TARGET/include"
 then
-  export TGT_HEADERS=/usr/$TARGET/include
+  export TGT_HEADERS="/usr/$TARGET/include"
 fi
 
 TGT_MARCH="-march=$TARGET_ARCH"
@@ -404,19 +404,19 @@ then
   exit 1
 fi
 
-if ! mkdir -p $DLLSPREFIX/man/man1
+if ! mkdir -p "$DLLSPREFIX/man/man1"
 then
   log_error "Cannot create target directory hierarchy under $DLLSPREFIX"
   exit 1
 fi
 
-if ! mkdir -p $NATIVE_PREFIX/bin
+if ! mkdir -p "$NATIVE_PREFIX/bin"
 then
   log_error "Cannot create host directory hierarchy under $NATIVE_PREFIX"
   exit 1
 fi
 
-export PATH=$NATIVE_PREFIX/bin:$PATH
+export PATH="$NATIVE_PREFIX/bin:$PATH"
 
 if ! packetdir_check
 then
@@ -426,14 +426,14 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh "win" )
+  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" )
   then
     log_error "Downloading packets failed"
     exit 1
   fi
 fi
 
-export PKG_CONFIG_LIBDIR=$DLLSPREFIX/lib/pkgconfig
+export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
@@ -639,7 +639,7 @@ log_write 1 "Creating setup.bat"
   echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
   echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
   echo -n -e "bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders\r\n"
-) > $DLLSPREFIX/setup.bat
+) > "$DLLSPREFIX/setup.bat"
 log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 
 if ! unpack_component  SDL        $VERSION_SDL          ||

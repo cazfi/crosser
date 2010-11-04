@@ -29,9 +29,9 @@ if test "x$3" != "x" ; then
 else
   VERSIONSET="current"
 fi
-if test -e $CROSSER_MAINDIR/setups/$VERSIONSET.versions
+if test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
 then
-  . $CROSSER_MAINDIR/setups/$VERSIONSET.versions
+  . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
 else
   # Versions being unset do not prevent loading of setup_reader.sh and helper.sh,
   # resulting environment would just be unusable for building.
@@ -40,10 +40,10 @@ else
   ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
-. $CROSSER_MAINDIR/scripts/setup_reader.sh
-. $CROSSER_MAINDIR/scripts/helpers.sh
-. $CROSSER_MAINDIR/scripts/packethandlers.sh
-. $CROSSER_MAINDIR/scripts/buildfuncs.sh
+. "$CROSSER_MAINDIR/scripts/setup_reader.sh"
+. "$CROSSER_MAINDIR/scripts/helpers.sh"
+. "$CROSSER_MAINDIR/scripts/packethandlers.sh"
+. "$CROSSER_MAINDIR/scripts/buildfuncs.sh"
 
 # This must be after reading helpers.sh so that $CROSSER_VERSION is set
 if test "x$1" = "x-v" || test "x$1" = "x--version"
@@ -106,7 +106,7 @@ else
   STEPPARAM="native:sdl"
 fi
 
-. $CROSSER_MAINDIR/steps/stepfuncs.sh
+. "$CROSSER_MAINDIR/steps/stepfuncs.sh"
 
 STEPLIST="$(parse_steplist $STEPPARAM)"
 
@@ -117,7 +117,7 @@ then
 fi
 
 # Setup step variables
-. $CROSSER_MAINDIR/steps/stepset.sh
+. "$CROSSER_MAINDIR/steps/stepset.sh"
 
 if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
@@ -138,7 +138,7 @@ else
   TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-if ! . $CROSSER_MAINDIR/setups/native.sh ; then
+if ! . "$CROSSER_MAINDIR/setups/native.sh" ; then
   log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
@@ -269,7 +269,7 @@ create_host_dirs()
     return 1
   fi
 
-  if ! mkdir -p $NATIVE_PREFIX/usr/include
+  if ! mkdir -p "$NATIVE_PREFIX/usr/include"
   then
     log_error "Failed to create host directories under \"$NATIVE_PREFIX\""
     return 1
@@ -280,10 +280,10 @@ create_host_dirs()
 #
 create_target_dirs()
 {
-  if ! mkdir -p $SYSPREFIX/etc         ||
-     ! mkdir -p $SYSPREFIX/include     ||
-     ! mkdir -p $SYSPREFIX/usr/include ||
-     ! mkdir -p $SYSPREFIX/usr/lib
+  if ! mkdir -p "$SYSPREFIX/etc"         ||
+     ! mkdir -p "$SYSPREFIX/include"     ||
+     ! mkdir -p "$SYSPREFIX/usr/include" ||
+     ! mkdir -p "$SYSPREFIX/usr/lib"
   then
     log_error "Failed to create target directories under \"$SYSPREFIX\""
     return 1
@@ -315,8 +315,8 @@ kernel_setup() {
   if ! (
     cd "$CROSSER_SRCDIR/linux-$VERSION_KERNEL"
 
-    if test -f $PACKETDIR/kernel-$TARGET.config ; then
-      cp $PACKETDIR/kernel-$TARGET.config .config
+    if test -f "$PACKETDIR/kernel-$TARGET.config" ; then
+      cp "$PACKETDIR/kernel-$TARGET.config" .config
       KCONFTARGET=silentoldconfig
     else
       KCONFTARGET=defconfig
@@ -335,7 +335,7 @@ kernel_setup() {
     log_write 3 "  Make params: $MAKEPARAMS"
 
     if ! make $MAKEPARAMS \
-	           2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
+	           2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       log_error "Kernel prepare failed"
       return 1
@@ -352,7 +352,7 @@ kernel_setup() {
 
     log_write 3 "  Make params: $MAKEPARAMS"
     if ! make $MAKEPARAMS \
-                2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
+                2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       if test "x$1" = "xfull"
       then
@@ -396,7 +396,7 @@ link_host_command() {
     fi
   fi
 
-  if ! ln -s $CMDPATH $NATIVE_PREFIX/hostbin/
+  if ! ln -s "$CMDPATH" "$NATIVE_PREFIX/hostbin/"
   then
     log_error "Failed to make symbolic link to host command $1"
     return 1
@@ -415,7 +415,7 @@ setup_host_commands() {
 
   log_write 1 "Setting up hostbin"
 
-  if ! mkdir -p $NATIVE_PREFIX/hostbin ; then
+  if ! mkdir -p "$NATIVE_PREFIX/hostbin" ; then
     log_error "Cannot create directory $NATIVE_PREFIX/hostbin"
     return 1
   fi
@@ -455,30 +455,30 @@ dummy_glibc_objects() {
        log_error "crt.o build failed"
        return 1
     fi
-    if ! $TARGET-gcc -c -shared -fPIC $CROSSER_MAINDIR/scripts/dummyclib.c -o libc.so \
-         2>>$CROSSER_LOGDIR/stderr.log >>$CROSSER_LOGDIR/stdout.log
+    if ! $TARGET-gcc -c -shared -fPIC "$CROSSER_MAINDIR/scripts/dummyclib.c" -o libc.so \
+         2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
         log_error "Failed to build dummy libc.so"
        return 1
     fi
 
-    if ! test -e $SYSPREFIX/usr/lib/crt1.o &&
-       ! cp crt.o $SYSPREFIX/usr/lib/crt1.o ; then
+    if ! test -e "$SYSPREFIX/usr/lib/crt1.o" &&
+       ! cp crt.o "$SYSPREFIX/usr/lib/crt1.o" ; then
        log_error "Failed to copy crt1.o"
        return 1
     fi
-    if ! test -e $SYSPREFIX/usr/lib/crti.o &&
-       ! cp crt.o $SYSPREFIX/usr/lib/crti.o ; then
+    if ! test -e "$SYSPREFIX/usr/lib/crti.o" &&
+       ! cp crt.o "$SYSPREFIX/usr/lib/crti.o" ; then
        log_error "Failed to copy crti.o"
        return 1
     fi
-    if ! test -e $SYSPREFIX/usr/lib/crtn.o &&
-       ! cp crt.o $SYSPREFIX/usr/lib/crtn.o ; then
+    if ! test -e "$SYSPREFIX/usr/lib/crtn.o" &&
+       ! cp crt.o "$SYSPREFIX/usr/lib/crtn.o" ; then
        log_error "Failed to copy crtn.o"
        return 1
     fi
-    if ! test -e $SYSPREFIX/usr/lib/libc.so &&
-       ! cp libc.so $SYSPREFIX/usr/lib/libc.so ; then
+    if ! test -e "$SYSPREFIX/usr/lib/libc.so" &&
+       ! cp libc.so "$SYSPREFIX/usr/lib/libc.so" ; then
        log_error "Failed to copy libc.so"
        return 1
     fi
@@ -580,7 +580,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! ( cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh "$STEPPARAM" )
+  if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$STEPPARAM" )
   then
     log_error "Download failed"
     exit 1
