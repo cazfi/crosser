@@ -6,7 +6,7 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
-CROSSER_MAINDIR=$(cd $(dirname $0) ; pwd)
+CROSSER_MAINDIR="$(cd "$(dirname "$0")" ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
@@ -17,7 +17,7 @@ STEP="setup"
 STEPADD="   "
 
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
-  echo "Usage: $(basename $0) [target setup name] [steps] [versionset]"
+  echo "Usage: $(basename "$0") [target setup name] [steps] [versionset]"
   exit 0
 fi
 

@@ -8,14 +8,14 @@
 
 export FILELIMIT=200
 
-CROSSER_MAINDIR="$(cd $(dirname $0)/.. ; pwd)"
+CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
 
-if ! . $CROSSER_MAINDIR/scripts/helpers.sh
+if ! . "$CROSSER_MAINDIR/scripts/helpers.sh"
 then
   echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
   exit 1
@@ -34,7 +34,7 @@ then
 fi
 
 if test "x$HELP_RETURN" != "x" ; then
-  echo "Usage: $(basename $0) <packetdir>"
+  echo "Usage: $(basename "$0") <packetdir>"
   exit $HELP_RETURN
 fi
 
