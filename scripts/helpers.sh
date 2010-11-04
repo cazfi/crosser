@@ -19,7 +19,7 @@ then
   exit 1
 fi
 
-CROSSER_VERSION=$(tail -n 1 $CROSSER_MAINDIR/CrosserVersion)
+CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
 BUILD_DATE=$(date +"%d.%m.%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
@@ -32,15 +32,15 @@ fi
 # Start new logfiles
 #
 log_init() {
-  if ! mkdir -p $CROSSER_LOGDIR
+  if ! mkdir -p "$CROSSER_LOGDIR"
   then
     echo "Failed to create logdir \"$CROSSER_LOGDIR\"" >&2
     return 1
   fi
 
   log_write 0 "== $(basename $0) $CROSSER_VERSION build starts =="
-  rm -f $CROSSER_LOGDIR/stderr.log
-  rm -f $CROSSER_LOGDIR/stdout.log
+  rm -f "$CROSSER_LOGDIR/stderr.log"
+  rm -f "$CROSSER_LOGDIR/stdout.log"
 }
 
 # Call this when starting build of new packet
@@ -48,8 +48,8 @@ log_init() {
 # $1 - Packet name
 log_packet() {
   # Create lines separating output from one packet build from the other
-  echo "**** $1 ****" >> $CROSSER_LOGDIR/stdout.log
-  echo "**** $1 ****" >> $CROSSER_LOGDIR/stderr.log
+  echo "**** $1 ****" >> "$CROSSER_LOGDIR/stdout.log"
+  echo "**** $1 ****" >> "$CROSSER_LOGDIR/stderr.log"
 }
 
 # Write message to logs
@@ -60,21 +60,21 @@ log_write() {
   DSTAMP=$(date +"%d.%m %H:%M")
 
   if test "x$1" = "x0" ; then
-    echo >> $CROSSER_LOGDIR/main.log
+    echo >> "$CROSSER_LOGDIR/main.log"
     log_write 1 "==========================================="
   fi
 
   if test $1 -le $LOGLEVEL_FILE
   then
-    if test -f $CROSSER_LOGDIR/main.log
+    if test -f "$CROSSER_LOGDIR/main.log"
     then
-      LOGSIZE=$(ls -l $CROSSER_LOGDIR/main.log | cut -f 5 -d " ")
+      LOGSIZE=$(ls -l "$CROSSER_LOGDIR/main.log" | cut -f 5 -d " ")
       if test $LOGSIZE -gt 250000
       then
-        mv $CROSSER_LOGDIR/main.log $CROSSER_LOGDIR/main.old
+        mv "$CROSSER_LOGDIR/main.log" "$CROSSER_LOGDIR/main.old"
       fi
     fi
-    echo -e "$DSTAMP $STEP:$STEPADD $2" >> $CROSSER_LOGDIR/main.log
+    echo -e "$DSTAMP $STEP:$STEPADD $2" >> "$CROSSER_LOGDIR/main.log"
   fi
 
   if test $1 -le $LOGLEVEL_STDOUT ; then
@@ -99,7 +99,7 @@ crosser_error() {
   then
      ( echo "** Env dump begins **"
        /usr/bin/env
-       echo "**  Env dump ends  **" ) >> $CROSSER_LOGDIR/stdout.log
+       echo "**  Env dump ends  **" ) >> "$CROSSER_LOGDIR/stdout.log"
      if mkdir -p "$CROSSER_DST_PFX/debug"
      then
        generate_setup_scripts "$CROSSER_DST_PFX/debug"
@@ -147,13 +147,13 @@ generate_setup_scripts() {
     echo "# Reset cache since we changed PATH"
     echo "hash -r"
     echo "/bin/bash --norc"
-  ) > $1/launch.sh
+  ) > "$1/launch.sh"
   then
     log_error "Failed to create $1/launch.sh"
     return 1
   fi
 
-  chmod a+x $1/launch.sh
+  chmod a+x "$1/launch.sh"
 }
 
 # Apply patch to component
@@ -169,8 +169,8 @@ patch_src() {
     return 1
   fi
 
-  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$1" < $CROSSER_MAINDIR/patch/$2.diff \
-       >> $CROSSER_LOGDIR/stdout.log 2>> $CROSSER_LOGDIR/stderr.log
+  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$1" < "$CROSSER_MAINDIR/patch/$2.diff" \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Patching $1 with $2.diff failed"
     return 1
@@ -184,8 +184,8 @@ patch_src() {
 upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
-  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < $PACKETDIR/patch/$2 \
-       >> $CROSSER_LOGDIR/stdout.log 2>> $CROSSER_LOGDIR/stderr.log
+  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < "$PACKETDIR/patch/$2" \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Patching $1 with $2 failed"
     return 1
@@ -202,8 +202,8 @@ upstream_patch() {
 unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
     log_write 1 "Fetching $1 version $2"
-    if ! ( cd $PACKETDIR && $CROSSER_MAINDIR/scripts/download_packets.sh --packet "$1" "$2" "$5" \
-         >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log )
+    if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$2" "$5" \
+         >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
     then
       log_error "Failed to download $1 version $2"
       return 1
@@ -220,25 +220,25 @@ unpack_component() {
     NAME_BASE="$1-$2"
   fi
 
-  if test -e $PACKETDIR/$NAME_BASE.tar.bz2 ; then
-    if ! tar xjf $PACKETDIR/$NAME_BASE.tar.bz2 -C "$CROSSER_SRCDIR/$3"
+  if test -e "$PACKETDIR/$NAME_BASE.tar.bz2" ; then
+    if ! tar xjf "$PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
-  elif test -e $PACKETDIR/$NAME_BASE.tar.gz ; then
-    if ! tar xzf $PACKETDIR/$NAME_BASE.tar.gz -C "$CROSSER_SRCDIR/$3"
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.gz" ; then
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
-  elif test -e $PACKETDIR/$NAME_BASE.tgz ; then
-    if ! tar xzf $PACKETDIR/$NAME_BASE.tgz -C "$CROSSER_SRCDIR/$3"
+  elif test -e "$PACKETDIR/$NAME_BASE.tgz" ; then
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e $PACKETDIR/${1}_${2}.dsc ; then
+  elif test -e "$PACKETDIR/${1}_${2}.dsc" ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
       return 1
@@ -248,8 +248,8 @@ unpack_component() {
     else
       SRCDIR="$3"
     fi
-    if ! dpkg-source -x $PACKETDIR/${1}_${2}.dsc "$CROSSER_SRCDIR/$SRCDIR" \
-                     >> $CROSSER_LOGDIR/stdout.log 2>> $CROSSER_LOGDIR/stderr.log
+    if ! dpkg-source -x "$PACKETDIR/${1}_${2}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
+                     >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
       log_error "Unpacking $1_$2.dsc failed"
       return 1
@@ -307,7 +307,7 @@ autogen_component()
       log_write 1 "Making $1 autogen.sh executable"
       chmod u+x autogen.sh
     fi
-    if ! ./autogen.sh >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log ; then
+    if ! ./autogen.sh >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" ; then
       log_error "Autogen failed for $1"
       return 1
     fi
@@ -345,7 +345,7 @@ autogen_component()
         TOOLPARAM=""
       fi
 
-      if ! $TOOL$TOOLPARAM >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+      if ! $TOOL$TOOLPARAM >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
       then
         log_error "Autotool $TOOL failed for $1 version $2"
         return 1
@@ -610,7 +610,7 @@ check_crosser_env() {
     return 1
   fi
 
-  VER=$(grep '^Version:' $1/crosser/crosser.hierarchy | sed 's/Version: //')
+  VER=$(grep '^Version:' "$1/crosser/crosser.hierarchy" | sed 's/Version: //')
 
   if test "x$VER" != "x$CROSSER_VERSION"
   then
@@ -618,7 +618,7 @@ check_crosser_env() {
     return 1
   fi
 
-  SET=$(grep '^VSet:' $1/crosser/crosser.hierarchy | sed 's/VSet: *//')
+  SET=$(grep '^VSet:' "$1/crosser/crosser.hierarchy" | sed 's/VSet: *//')
 
   if test "x$SET" != "x$VERSIONSET"
   then
@@ -637,7 +637,7 @@ check_crosser_env() {
 # 0 - Success
 # 1 - Failure
 write_crosser_env() {
-  if ! mkdir -p $1/crosser
+  if ! mkdir -p "$1/crosser"
   then
     log_error "Cannot create crosser env directory $1/crosser"
     return 1
@@ -647,7 +647,7 @@ write_crosser_env() {
       echo "Version: $CROSSER_VERSION"
       echo "VSet:    $VERSIONSET"
       echo "Built:   $BUILD_DATE"
-    ) > $1/crosser/crosser.hierarchy
+    ) > "$1/crosser/crosser.hierarchy"
   then
     log_error "Cannot write crosser env file $1/crosser/crosser.hierarchy"
     return 1
