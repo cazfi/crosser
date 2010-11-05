@@ -13,6 +13,7 @@
 	- Renamed configuration variable MAINSRCDIR as CROSSER_SRCDIR
 	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
 	- Renamed configuration variable LOGDIR as CROSSER_LOGDIR
+	- Added configuration variable CROSSER_TMPDIR
 	- Fixed syntax error in download_packets.sh when packets downloaded by step
 	- Do not create target arch directories if building only native step
 	- Updated libpng to version 1.4.3

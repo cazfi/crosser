@@ -6,6 +6,11 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
+if test "x$CROSSER_TMPDIR" = "x"
+then
+  CROSSER_TMPDIR="/tmp/crosser"
+fi
+
 if test -e $CROSSER_MAINDIR/local_setup.conf ; then
   . $CROSSER_MAINDIR/local_setup.conf
 elif test -e $HOME/.crosser.conf ; then
@@ -24,7 +29,7 @@ then
   CROSSER_BUILDDIR="$MAINBUILDDIR"
 fi
 if test "x$CROSSER_BUILDDIR" = "x" ; then
-  CROSSER_BUILDDIR="$CROSSER_MAINDIR/tmp/build"
+  CROSSER_BUILDDIR="$CROSSER_TMPDIR/build"
 fi
 if test "x$CROSSER_SRCDIR" = "x" && test "x$MAINSRCDIR" != "x"
 then
@@ -32,7 +37,7 @@ then
   CROSSER_SRCDIR="$MAINSRCDIR"
 fi
 if test "x$CROSSER_SRCDIR" = "x" ; then
-  CROSSER_SRCDIR="$CROSSER_MAINDIR/tmp/src"
+  CROSSER_SRCDIR="$CROSSER_TMPDIR/src"
 fi
 if test "x$CROSSER_LOGDIR" = "x" && test "x$LOGDIR" != "x"
 then
