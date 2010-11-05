@@ -548,6 +548,41 @@ is_greater_version() {
   fi
 }
 
+# Prompt yes/no question from user
+#
+# $1   - Question to ask, line 1
+# [$2] - Question to ask, line 2 
+#
+# 0 - Answer was yes
+# 1 - Answer was no
+ask_yes_no() {
+  ANSWER="unknown"
+
+  while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
+  do
+    echo "$1"
+    if test "x$2" != "x"
+    then
+      echo "$2"
+    fi
+    echo "yes/no"
+    echo -n "> "
+    read ANSWER
+    case "x$ANSWER" in
+      xyes|xy|xYES|xYes) ANSWER="yes" ;;
+      xno|XNO|xNo) ANSWER="no" ;;
+      *) echo "Please answer \"yes\" or \"no\"." ;;
+    esac
+  done
+
+  if test "x$ANSWER" != "xyes"
+  then
+    return 1
+  fi
+
+  return 0
+}
+
 # Recursively deletes directory
 #
 # $1 - Directory path
@@ -570,23 +605,8 @@ remove_dir() {
 
   if test "x$CROSSER_FORCE" != "xyes"
   then
-    ANSWER="unknown"
-
-    while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
-    do
-      echo "Directory \"$1\" already exist."
-      echo "Is it ok to delete that directory and all its contents?"
-      echo "yes/no"
-      echo -n "> "
-      read ANSWER
-      case "x$ANSWER" in
-        xyes|xy|xYES|xYes) ANSWER="yes" ;;
-        xno|XNO|xNo) ANSWER="no" ;;
-        *) echo "Please answer \"yes\" or \"no\"." ;;
-      esac
-    done
-
-    if test "x$ANSWER" != "xyes"
+    if ! ask_yes_no "Directory \"$1\" already exist." \
+                    "Is it ok to delete that directory and all its contents?"
     then
       return 1
     fi
@@ -696,22 +716,8 @@ packetdir_check() {
 
     if test "x$CROSSER_FORCE" != "xyes"
     then
-      ANSWER="unknown"
 
-      while test "x$ANSWER" != "xyes" && test "x$ANSWER" != "xno"
-      do
-        echo "Packet directory $PACKETDIR, or some subdirectory, missing. Create one?"
-        echo "yes/no"
-        echo -n "> "
-        read ANSWER
-        case "x$ANSWER" in
-          xyes|xy|xY|xYES|xYes) ANSWER="yes" ;;
-          xno|xn|xN|XNO|xNo) ANSWER="no" ;;
-          *) echo "Please answer \"yes\" or \"no\"." ;;
-        esac
-      done
-
-      if test "x$ANSWER" != "xyes"
+      if ! ask_yes_no "Packet directory $PACKETDIR, or some subdirectory, missing. Create one?"
       then
         return 1
       fi
