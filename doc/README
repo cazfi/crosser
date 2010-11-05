@@ -39,6 +39,7 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
             same native environment for all your different target chains.
   chain   - Actual cross-compilers
   baselib - A couple of basic libraries for target
+  xorg    - Some X libraries
   gtk     - A couple of gtk+ dependency libraries, but not yet gtk+ itself
             This step is not available on arm-elf target
   sdl     - sdl dependencies and sdl library itself
