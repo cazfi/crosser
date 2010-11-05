@@ -180,6 +180,7 @@ then
   if test "x$CH_ERROR" != "x" &&
      test "x$STEP_CHAIN" != "xyes" &&
      ( test "x$STEP_BASELIB" = "xyes" ||
+       test "x$STEP_XORG" = "xyes" ||
        test "x$STEP_GTK" = "xyes" ||
        test "x$STEP_SDL" = "xyes" )
   then
