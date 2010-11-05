@@ -1,4 +1,10 @@
-#!/bin/sh
+# No shebang, this script is not executed, but sourced.
+
+# native.sh: Get information of native environment
+#
+# (c) 2008-2010 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
 
 TMP_ALL="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 
