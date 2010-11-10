@@ -83,6 +83,10 @@ build_component()
 build_component_host()
 {
   build_component_full "host-$1" "$1" "$2" "$3" "" "native"
+
+  # Reset command hash in case it already contained old version of the
+  # just built tool
+  hash -r 
 }
 
 # $1 - Build dir
