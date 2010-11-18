@@ -30,6 +30,8 @@
 	- Updated atk to version 1.32.0
 	- Updated gtk+ to version 2.22.1
 	- Updated gtk-engines to version 2.20.2
+	- Updated glibc to version 2.12.1
+	- Updated glibc-ports to version 2.12.1
 
 0.6.4 (24-Jun-10)
 	- When downloading debian source packets, get list of files to
