@@ -1036,6 +1036,7 @@ then
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_cfg                   ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k26            ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2628          ||
+       ! patch_src svgalib-$VERSION_SVGALIB svgalib_gentoo_k2636          ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_arm_outsb             ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_nostrip               ||
        ! patch_src svgalib-$VERSION_SVGALIB svgalib_glinc                 ||
