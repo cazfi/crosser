@@ -25,13 +25,14 @@
 	- Updated glib to version 2.26.1
 	- Updated cairo to version 1.10.0
 	- Updated pixman to version 0.20.0
-	- Updated freetype to version 2.4.3
+	- Updated freetype to version 2.4.4
 	- Updated pango to version 1.28.3
 	- Updated atk to version 1.32.0
 	- Updated gtk+ to version 2.22.1
 	- Updated gtk-engines to version 2.20.2
 	- Updated glibc to version 2.12.1
 	- Updated glibc-ports to version 2.12.1
+	- Updated python to version 3.1.3
 
 0.6.4 (24-Jun-10)
 	- When downloading debian source packets, get list of files to
