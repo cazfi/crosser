@@ -405,16 +405,19 @@ READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 case "x$VERSION_XORG_XPROTO" in
   x) ;;
   x7.0.13) VERSION_XORG=X11R7.4 ;;
+  x7.0.16) VERSION_XORG=X11R7.5 ;;
 esac
 
 case "x$VERSION_XORG_XEXTPROTO" in
   x) ;;
   x7.0.3) VERSION_XORG=X11R7.4 ;;
+  x7.1.1) VERSION_XORG=X11R7.5 ;;
 esac
 
 case "x$VERSION_XORG_XTRANS" in
   x) ;;
   x1.2.1) VERSION_XORG=X11R7.4 ;;
+  x1.2.5) VERSION_XORG=X11R7.5 ;;
 esac
 
 case "x$VERSION_XORG_LIBX11" in
