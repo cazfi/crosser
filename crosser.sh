@@ -976,7 +976,16 @@ then
          "--prefix=$CROSSER_DST_PFX/interm" "" "/" ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--prefix=$CROSSER_DST_PFX/interm --disable-gtk" "" "/"
+         "--prefix=$CROSSER_DST_PFX/interm --disable-gtk" "" "/" ||
+       ! unpack_component          expat         $VERSION_EXPAT                          ||
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    \
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/" ||
+       ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
+       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
+       ! build_with_cross_compiler fontconfig                                            \
+          fontconfig-$VERSION_FONTCONFIG                                                 \
+          "--prefix=/$CROSSER_DST_PFX/interm --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "install"
     then
       crosser_error "Intermediate part of gtk+ chain build failed"
       exit 1
@@ -988,7 +997,12 @@ then
          "--prefix=/usr $GLIB_VARS" ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--prefix=/usr --disable-gtk"
+         "--prefix=/usr --disable-gtk" ||
+       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
+       ! build_with_cross_compiler fontconfig                                            \
+          fontconfig-$VERSION_FONTCONFIG                                                 \
+          "--prefix=/usr --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "install"
     then
       crosser_error "Target gtk+ chain build failed"
       exit 1
@@ -996,18 +1010,7 @@ then
 
     STEP="gtk"
     STEPADD="     "
-    if ! unpack_component          expat         $VERSION_EXPAT                          ||
-       ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
-       ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
-       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
-       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_libtool                     ||
-       ! autogen_component fontconfig $VERSION_FONTCONFIG                                \
-         "libtoolize aclocal automake autoconf"                                          ||
-       ! build_with_cross_compiler fontconfig                                            \
-          fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=/usr --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
-          "install" ||
-       ! unpack_component          atk           $VERSION_ATK                            ||
+    if ! unpack_component          atk           $VERSION_ATK                            ||
        ! build_with_cross_compiler atk           atk-$VERSION_ATK                        \
          "--disable-glibtest"  
     then
