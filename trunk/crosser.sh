@@ -629,6 +629,12 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      exit 1
   fi
 
+  if ! ln -s gcc "$NATIVE_PREFIX/bin/cc"
+  then
+    crosser_error "Cannot create cc link for host"
+    exit 1
+  fi
+
   if ! setup_host_commands
   then
     crosser_error "Cannot enable selected host commands"
@@ -902,9 +908,9 @@ then
     exit 1
   fi
 
-  if ! build_zlib                zlib    zlib                     \
-        "--shared"                                                ||
-     ! build_with_cross_compiler libpng  libpng-$VERSION_PNG
+  if ! build_zlib                zlib      zlib                         \
+        "--shared"                                                      ||
+     ! build_with_cross_compiler libpng    libpng-$VERSION_PNG
   then
     crosser_error "Baselib build failed"
     exit 1
@@ -920,6 +926,10 @@ then
     if ! unpack_component libxml2 $VERSION_LIBXML2                  ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2 \
          "--prefix=$CROSSER_DST_PFX/interm" "" "/"
+       ! unpack_component          libgpg-error $VERSION_GPGERROR   ||
+       ! build_with_cross_compiler libgpg-error \
+         libgpg-error-$VERSION_GPGERROR \
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
     then
       crosser_error "Baselib intermediate part build failed"
       exit 1
@@ -928,7 +938,12 @@ then
     STEP="bl(tgt)"
     STEPADD=" "
 
-    if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
+    if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
+       ! build_with_cross_compiler libgpg-error \
+         libgpg-error-$VERSION_GPGERROR                                   ||
+       ! unpack_component          libgcrypt $VERSION_LIBGCRYPT           ||
+       ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
+         "--with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm"
     then
       crosser_error "Baselib target build failed"
       exit 1

@@ -541,6 +541,10 @@ download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xtrans"    "$VERSI
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libX11"    "$VERSION_XORG_LIBX11" "tar.bz2"
 RET="$RET $?"
+download_needed "ftp://ftp.gnupg.org/gcrypt/libgpg-error/"   "libgpg-error" "$VERSION_GPGERROR" "tar.bz2"
+RET="$RET $?"
+download_needed "ftp://ftp.gnupg.org/gcrypt/libgcrypt/"      "libgcrypt" "$VERSION_LIBGCRYPT"   "tar.bz2"
+RET="$RET $?"
 
 for VALUE in $RET
 do
