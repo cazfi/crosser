@@ -1006,7 +1006,10 @@ then
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=/usr --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
-          "install"
+          "install" ||
+       ! unpack_component          atk           $VERSION_ATK                            ||
+       ! build_with_cross_compiler atk           atk-$VERSION_ATK                        \
+         "--disable-glibtest"  
     then
       crosser_error "gtk+ chain build failed"
       exit 1

@@ -141,7 +141,7 @@ generate_setup_scripts() {
     echo "export CCACHE_DIR=\"$CROSSER_DST_PFX/.ccache\""
     echo
     echo "export CFLAGS=\"-I$SYSPREFIX/include -I$SYSPREFIX/usr/include\""
-    echo "export LDFLAGS=\"-L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib\""
+    echo "export LDFLAGS=\"-L$CROSSER_DST_PFX/interm -L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib\""
     echo "export PKG_CONFIG_LIBDIR=\"$CROSSER_DST_PFX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig\""
     echo
     echo "# Reset cache since we changed PATH"
