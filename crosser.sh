@@ -984,7 +984,7 @@ then
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=/$CROSSER_DST_PFX/interm --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "--prefix=$CROSSER_DST_PFX/interm --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
           "install"
     then
       crosser_error "Intermediate part of gtk+ chain build failed"
@@ -1012,7 +1012,9 @@ then
     STEPADD="     "
     if ! unpack_component          atk           $VERSION_ATK                            ||
        ! build_with_cross_compiler atk           atk-$VERSION_ATK                        \
-         "--disable-glibtest"  
+         "--disable-glibtest" ||
+       ! unpack_component          tiff          $VERSION_TIFF                           ||
+       ! build_with_cross_compiler tiff          tiff-$VERSION_TIFF
     then
       crosser_error "gtk+ chain build failed"
       exit 1
