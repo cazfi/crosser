@@ -967,31 +967,30 @@ then
       fi
     fi
 
-    if ! ( ! cmp_versions $VERSION_GLIB 2.18.0    ||
-           ( patch_src glib-$VERSION_GLIB glib_gmoddef &&
-             autogen_component glib    $VERSION_GLIB "aclocal automake autoconf" ))      ||
-       ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "--prefix=/usr $GLIB_VARS"
-    then
-      crosser_error "Glib build failed"
-      exit 1
-    fi
-
-    STEP="gtk(ft1)"
-    STEPADD=""
-    if ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+    STEP="gtk(im)"
+    STEPADD=" "
+    if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
+         "--prefix=$CROSSER_DST_PFX/interm $GLIB_VARS" "" "/"                            ||
+       ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/" ||
+       ! unpack_component          pixman        $VERSION_PIXMAN                         ||
+       ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
+         "--prefix=$CROSSER_DST_PFX/interm --disable-gtk" "" "/"
     then
-      crosser_error "Intermediate freetype build failed"
+      crosser_error "Intermediate part of gtk+ chain build failed"
       exit 1
     fi
 
-    STEP="gtk(ft2)"
+    STEP="gtk(tgt)"
     STEPADD=""
-    if ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE
+    if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
+         "--prefix=/usr $GLIB_VARS" ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
+       ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
+         "--prefix=/usr --disable-gtk"
     then
-      crosser_error "Target freetype build failed"
+      crosser_error "Target gtk+ chain build failed"
       exit 1
     fi
 
@@ -999,9 +998,6 @@ then
     STEPADD="     "
     if ! unpack_component          expat         $VERSION_EXPAT                          ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
-       ! unpack_component          pixman        $VERSION_PIXMAN                         ||
-       ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--prefix=/usr --disable-gtk"                                                   ||
        ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_libtool                     ||
