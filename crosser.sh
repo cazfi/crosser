@@ -648,7 +648,7 @@ fi
 # This limits risk of host system commands from 'leaking' to our environments.
 # Commands that are safe to use from host system are accessed through hostbin.
 PATH_NATIVE="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/hostbin"
-PATH_CROSS="$CROSSPREFIX/bin:$PATH_NATIVE"
+PATH_CROSS="$CROSSPREFIX/bin:$CROSSER_DST_PFX/interm/bin:$PATH_NATIVE"
 
 if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_NATIVE="$CROSSER_CCACHE:$PATH_NATIVE"
@@ -929,7 +929,11 @@ then
        ! unpack_component          libgpg-error $VERSION_GPGERROR   ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/"                  ||
+       ! unpack_component          libgcrypt $VERSION_LIBGCRYPT           ||
+       ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
+         "--prefix=$CROSSER_DST_PFX/interm --with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm" \
+         "" "/"
     then
       crosser_error "Baselib intermediate part build failed"
       exit 1
@@ -941,9 +945,11 @@ then
     if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
-       ! unpack_component          libgcrypt $VERSION_LIBGCRYPT           ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
-         "--with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm"
+         "--with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm"  ||
+       ! unpack_component          libxslt   $VERSION_LIBXSLT             ||
+       ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
+         "--with-libxml-prefix=$CROSSER_DST_PFX/interm"
     then
       crosser_error "Baselib target build failed"
       exit 1
