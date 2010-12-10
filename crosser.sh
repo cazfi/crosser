@@ -985,7 +985,7 @@ then
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=$CROSSER_DST_PFX/interm --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
-          "install"
+          "install" "/"
     then
       crosser_error "Intermediate part of gtk+ chain build failed"
       exit 1
