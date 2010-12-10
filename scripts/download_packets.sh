@@ -248,9 +248,10 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "  - native"
   echo "  - chain"
   echo "  - baselib"
+  echo "  - xorg"
   echo "  - gtk"
-  echo "  - win"
   echo "  - sdl"
+  echo "  - win"
 
   exit $HELP_RETURN
 fi

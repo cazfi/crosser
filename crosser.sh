@@ -914,10 +914,23 @@ then
   then
     log_write 1 "Some parts of baselib step not available for $LIBC_MODE based builds, skipping"
   else
+    STEP="bl(im)"
+    STEPADD="  "
+
     if ! unpack_component libxml2 $VERSION_LIBXML2                  ||
-       ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
+       ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2 \
+         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
     then
-      crosser_error "Baselib build failed"
+      crosser_error "Baselib intermediate part build failed"
+      exit 1
+    fi
+
+    STEP="bl(tgt)"
+    STEPADD=" "
+
+    if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2
+    then
+      crosser_error "Baselib target build failed"
       exit 1
     fi
   fi
