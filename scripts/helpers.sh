@@ -137,7 +137,7 @@ generate_setup_scripts() {
     echo "export CROSSER_VERSION=$CROSSER_VERSION"
     echo
     echo "export PATH=\"$PATH\""
-    echo "export PS1=\"Crosser:> \""
+    echo "export PS1=\"Crosser $TARGET:> \""
     echo "export CCACHE_DIR=\"$CROSSER_DST_PFX/.ccache\""
     echo
     echo "export CFLAGS=\"-I$SYSPREFIX/include -I$SYSPREFIX/usr/include\""
