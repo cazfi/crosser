@@ -533,6 +533,8 @@ download_needed "ftp://xmlsoft.org/libxslt/"                 "libxslt"   "$VERSI
 RET="$RET $?"
 download_needed "http://xcb.freedesktop.org/dist/"           "libxcb"    "$VERSION_LIBXCB"         "tar.bz2"
 RET="$RET $?"
+download_needed "http://xcb.freedesktop.org/dist/"           "xcb-proto" "$VERSION_XCB_PROTO"      "tar.bz2"
+RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xproto"    "$VERSION_XORG_XPROTO"    "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xextproto" "$VERSION_XORG_XEXTPROTO" "tar.bz2"

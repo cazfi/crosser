@@ -618,6 +618,13 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
      ! unpack_component glib       $VERSION_GLIB                  ||
      ! build_for_host   glib       glib-$VERSION_GLIB             ||
+     ! unpack_component          libgpg-error $VERSION_GPGERROR     ||
+     ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
+     ! unpack_component          libgcrypt $VERSION_LIBGCRYPT       ||
+     ! build_for_host   libgcrypt libgcrypt-$VERSION_LIBGCRYPT      \
+         "--disable-asm"                                            ||
+     ! unpack_component libxslt    $VERSION_LIBXSLT               ||
+     ! build_for_host   libxslt    libxslt-$VERSION_LIBXSLT       ||
      ! prepare_binutils_src                                   ||
      ! build_for_host binutils binutils-$VERSION_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
@@ -924,17 +931,29 @@ then
     STEP="bl(im)"
     STEPADD="  "
 
+    # If native step already executed, libxslt already unpacked
+    if test "x$STEP_NATIVE" != "xyes"
+    then
+      if ! unpack_component libgpg-error $VERSION_GPGERROR ||
+         ! unpack_component libgcrypt $VERSION_LIBGCRYPT   ||
+         ! unpack_component libxslt $VERSION_LIBXSLT
+      then
+        crosser_error "Unpacking of baselib source packages failed"
+        exit 1
+      fi
+    fi
+
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
          "--prefix=$CROSSER_IM_PFX" "" "/"
-       ! unpack_component          libgpg-error $VERSION_GPGERROR         ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
-       ! unpack_component          libgcrypt $VERSION_LIBGCRYPT           ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--prefix=$CROSSER_IM_PFX --with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm" \
-         "" "/"
+         "" "/" ||
+       ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
+         "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"
     then
       crosser_error "Baselib intermediate part build failed"
       exit 1
@@ -948,7 +967,6 @@ then
          libgpg-error-$VERSION_GPGERROR                                   ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
-       ! unpack_component          libxslt   $VERSION_LIBXSLT             ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
          "--with-libxml-prefix=$CROSSER_IM_PFX"
     then
@@ -972,7 +990,9 @@ then
        ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                    ||
        ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
        ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
-       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS
+       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          ||
+       ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
+       ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO
     then
       crosser_error "Xorg build failed"
       exit 1

@@ -8,9 +8,10 @@
 	- Added bzip2 build to dllstack
 	- Added atk build to gtk+ step
 	- Added tiff build to gtk+ step
-	- Added libgpg-error build to baselib step
-	- Added libgcrypt build to baselib step
-	- Added libxslt build to baselib step
+	- Added libgpg-error build to native and baselib steps
+	- Added libgcrypt build to native and baselib steps
+	- Added libxslt build to native and baselib steps
+	- Added xcb-proto build to xorg step
 	- dllstack builds libtool for host also
 	- crosser builds glib for host also (native step)
 	- main.log rotated only when its size exceeds 250000 bytes
