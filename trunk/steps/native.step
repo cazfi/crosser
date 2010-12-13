@@ -10,3 +10,6 @@ gmp
 mpfr
 mpc
 pkg-config
+libgpg-error
+libgcrypt
+libxslt
