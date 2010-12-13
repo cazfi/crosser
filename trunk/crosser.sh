@@ -173,6 +173,7 @@ fi
 CROSSER_DST_PFX=$(setup_prefix_default "$DEFPREFIX" "$CROSSER_DST_PFX")
 SYSPREFIX="$CROSSER_DST_PFX/target"
 CROSSPREFIX="$CROSSER_DST_PFX/crosstools"
+CROSSER_IM_PFX="$CROSSER_DST_PFX/interm"
 
 if test "x$CROSS_OFF" != "xyes"
 then
@@ -648,7 +649,7 @@ fi
 # This limits risk of host system commands from 'leaking' to our environments.
 # Commands that are safe to use from host system are accessed through hostbin.
 PATH_NATIVE="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/hostbin"
-PATH_CROSS="$CROSSPREFIX/bin:$CROSSER_DST_PFX/interm/bin:$PATH_NATIVE"
+PATH_CROSS="$CROSSPREFIX/bin:$CROSSER_IM_PFX/bin:$PATH_NATIVE"
 
 if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_NATIVE="$CROSSER_CCACHE:$PATH_NATIVE"
@@ -885,7 +886,7 @@ fi   # STEP_CHAIN
 
 export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
-export PKG_CONFIG_LIBDIR="$CROSSER_DST_PFX/interm/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
@@ -923,16 +924,16 @@ then
     STEP="bl(im)"
     STEPADD="  "
 
-    if ! unpack_component libxml2 $VERSION_LIBXML2                  ||
-       ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2 \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
-       ! unpack_component          libgpg-error $VERSION_GPGERROR   ||
+    if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
+       ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
+         "--prefix=$CROSSER_IM_PFX" "" "/"
+       ! unpack_component          libgpg-error $VERSION_GPGERROR         ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/"                  ||
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
        ! unpack_component          libgcrypt $VERSION_LIBGCRYPT           ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
-         "--prefix=$CROSSER_DST_PFX/interm --with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm" \
+         "--prefix=$CROSSER_IM_PFX --with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm" \
          "" "/"
     then
       crosser_error "Baselib intermediate part build failed"
@@ -946,10 +947,10 @@ then
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
-         "--with-gpg-error-prefix=$CROSSER_DST_PFX/interm --disable-asm"  ||
+         "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
        ! unpack_component          libxslt   $VERSION_LIBXSLT             ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
-         "--with-libxml-prefix=$CROSSER_DST_PFX/interm"
+         "--with-libxml-prefix=$CROSSER_IM_PFX"
     then
       crosser_error "Baselib target build failed"
       exit 1
@@ -1004,21 +1005,21 @@ then
     STEP="gtk(im)"
     STEPADD=" "
     if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "--prefix=$CROSSER_DST_PFX/interm $GLIB_VARS" "" "/"                            ||
+         "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/" ||
+         "--prefix=$CROSSER_IM_PFX" "" "/" ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--prefix=$CROSSER_DST_PFX/interm --disable-gtk" "" "/" ||
+         "--prefix=$CROSSER_IM_PFX --disable-gtk" "" "/" ||
        ! unpack_component          expat         $VERSION_EXPAT                          ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/" ||
+         "--prefix=$CROSSER_IM_PFX" "" "/" ||
        ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=$CROSSER_DST_PFX/interm --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "--prefix=$CROSSER_IM_PFX --with-freetype-config=$CROSSER_IM_PFX/bin/freetype-config --with-arch=$TARGET" \
           "install" "/"
     then
       crosser_error "Intermediate part of gtk+ chain build failed"
@@ -1035,7 +1036,7 @@ then
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
-          "--prefix=/usr --with-freetype-config=$CROSSER_DST_PFX/interm/bin/freetype-config --with-arch=$TARGET" \
+          "--prefix=/usr --with-freetype-config=$CROSSER_IM_PFX/bin/freetype-config --with-arch=$TARGET" \
           "install"
     then
       crosser_error "Target gtk+ chain build failed"
@@ -1090,7 +1091,7 @@ then
     STEP="sdl(1)"
     STEPADD="  "
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             \
-         "--prefix=$CROSSER_DST_PFX/interm" "" "/"
+         "--prefix=$CROSSER_IM_PFX" "" "/"
     then
       crosser_error "Intermediate SDL build failed"
       exit 1
