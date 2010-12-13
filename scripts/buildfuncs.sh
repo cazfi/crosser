@@ -130,7 +130,7 @@ build_with_cross_compiler() {
 
   export CFLAGS="-O2"
   export CPPFLAGS="-isystem $SYSPREFIX/include -isystem $SYSPREFIX/usr/include"
-  export LDFLAGS="-L$CROSSER_DST_PFX/interm/lib -L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib"
+  export LDFLAGS="-L$CROSSER_IM_PFX/lib -L$SYSPREFIX/lib -L$SYSPREFIX/usr/lib"
 
   if test "x$4" = "x"
   then
