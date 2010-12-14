@@ -22,6 +22,7 @@
 	- Added configuration variable CROSSER_TMPDIR
 	- Fixed syntax error in download_packets.sh when packets downloaded by step
 	- Do not create target arch directories if building only native step
+	- Most default paths now have <VERSIONSET> component
 	- Updated libpng to version 1.4.3
 	- Updated libtool to version 2.4
 	- Updated autoconf to version 2.68
