@@ -538,6 +538,23 @@ prepare_gcc_src() {
   fi
 }
 
+# Create link to intermediate build program to intermediate hostbin directory
+#
+# $1 - Program to link
+link_im_host_prog() {
+  if ! mkdir -p "$CROSSER_IM_PFX/hostbin"
+  then
+    log_error "Failed to create directory for intermediate build host programs"
+    return 1
+  fi
+
+  if ! ln -s "$CROSSER_IM_PFX/bin/$1" "$CROSSER_IM_PFX/hostbin"
+  then
+    log_error "Failed to link intermediate build host program $1"
+    return 1
+  fi
+}
+
 if test "x$CROSS_OFF" = "xyes"
 then
   log_write 2 "Building to native target. Cross-compilers will not be built or used"
@@ -656,7 +673,7 @@ fi
 # This limits risk of host system commands from 'leaking' to our environments.
 # Commands that are safe to use from host system are accessed through hostbin.
 PATH_NATIVE="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/hostbin"
-PATH_CROSS="$CROSSPREFIX/bin:$CROSSER_IM_PFX/bin:$PATH_NATIVE"
+PATH_CROSS="$CROSSPREFIX/bin:$CROSSER_IM_PFX/hostbin:$PATH_NATIVE"
 
 if test "x$CROSSER_CCACHE" != "x" ; then
   PATH_NATIVE="$CROSSER_CCACHE:$PATH_NATIVE"
@@ -952,6 +969,7 @@ then
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--prefix=$CROSSER_IM_PFX --with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm" \
          "" "/" ||
+       ! link_im_host_prog libgcrypt-config ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
          "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"
     then
