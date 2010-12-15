@@ -966,6 +966,8 @@ then
       fi
     fi
 
+    JPEG_BASENAME=libjpeg$VERSION_JPEG
+
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
          "--prefix=$CROSSER_IM_PFX" "" "/"
@@ -977,7 +979,11 @@ then
          "" "/" ||
        ! link_im_host_prog libgcrypt-config ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
-         "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"
+         "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"  \
+         "" "/" ||
+       ! unpack_component $JPEG_BASENAME $VERSION_JPEG_DEB                ||
+       ! build_with_cross_compiler $JPEG_BASENAME $JPEG_BASENAME          \
+         "--prefix=$CROSSER_IM_PFX" "" "/"
     then
       crosser_error "Baselib intermediate part build failed"
       exit 1
@@ -986,8 +992,6 @@ then
     STEP="bl(tgt)"
     STEPADD=" "
 
-    JPEG_BASENAME=libjpeg$VERSION_JPEG
-
     if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
@@ -995,7 +999,6 @@ then
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
          "--with-libxml-prefix=$CROSSER_IM_PFX"                           ||
-       ! unpack_component $JPEG_BASENAME $VERSION_JPEG_DEB                ||
        ! build_with_cross_compiler $JPEG_BASENAME $JPEG_BASENAME
     then
       crosser_error "Baselib target build failed"
@@ -1136,8 +1139,8 @@ then
       exit 1
     fi
 
-    STEP="sdl(1)"
-    STEPADD="  "
+    STEP="sdl(im)"
+    STEPADD=" "
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             \
          "--prefix=$CROSSER_IM_PFX" "" "/"
     then
@@ -1145,7 +1148,8 @@ then
       exit 1
     fi
 
-    STEP="sdl(2)"
+    STEP="sdl(tgt)"
+    STEPADD=""
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL
     then
       crosser_error "Target SDL build failed"
