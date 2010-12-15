@@ -548,6 +548,12 @@ link_im_host_prog() {
     return 1
   fi
 
+  if test -f "$CROSSER_IM_PFX/hostbin/$1"
+  then
+    # Exist already
+    return 0
+  fi
+
   if ! ln -s "$CROSSER_IM_PFX/bin/$1" "$CROSSER_IM_PFX/hostbin"
   then
     log_error "Failed to link intermediate build host program $1"
@@ -980,13 +986,17 @@ then
     STEP="bl(tgt)"
     STEPADD=" "
 
+    JPEG_BASENAME=libjpeg$VERSION_JPEG
+
     if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
-         "--with-libxml-prefix=$CROSSER_IM_PFX"
+         "--with-libxml-prefix=$CROSSER_IM_PFX"                           ||
+       ! unpack_component $JPEG_BASENAME $VERSION_JPEG_DEB                ||
+       ! build_with_cross_compiler $JPEG_BASENAME $JPEG_BASENAME
     then
       crosser_error "Baselib target build failed"
       exit 1
