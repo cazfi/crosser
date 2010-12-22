@@ -29,7 +29,7 @@
 	- Updated autoconf to version 2.68
 	- Updated linux kernel to version 2.6.36.2
 	- Updated eglibc to version 2.11.2-7
-	- Updated gcc to version 4.5.1
+	- Updated gcc to version 4.5.2
 	- Updated glib to version 2.26.1
 	- Updated cairo to version 1.10.0
 	- Updated pixman to version 0.20.0
@@ -46,6 +46,8 @@
 	- Updated xextproto to version 7.1.1
 	- Updated xtrans to version 1.2.5
 	- Updated binutils to version 2.21
+	- Updated newlib to version 1.19.0
+	- Updated mpfr to version 3.0.0
 
 0.6.4 (24-Jun-10)
 	- When downloading debian source packets, get list of files to
