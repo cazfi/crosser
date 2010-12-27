@@ -30,6 +30,7 @@ download_file() {
     then
       sed "s/: .* : $2\$/: $TIMEPART : $2/" filelist.txt > filelist.tmp
       mv filelist.tmp filelist.txt
+      APPEND=no
     else
       APPEND=yes
     fi
@@ -93,10 +94,6 @@ download_packet() {
         fi
       done
     )
-
-    DLFILE2="${2}_$3.diff.gz"
-    BASEVERSION=$(echo $3 | sed 's/-.*//')
-    DLFILE3="${2}_$BASEVERSION.orig.tar.gz"
   else
     if test "x$4" = "x" ; then
       DLFILENAME="$3"
