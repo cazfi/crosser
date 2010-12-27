@@ -418,9 +418,16 @@ case "x$VERSION_XORG_XTRANS" in
   x1.2.5) VERSION_XORG=X11R7.5 ;;
 esac
 
+case "x$VERSION_XORG_LIBXAU" in
+  x) ;;
+  x1.0.4) VERSION_XORG=X11R7.4 ;;
+  x1.0.5) VERSION_XORG=X11R7.5 ;;
+esac
+
 case "x$VERSION_XORG_LIBX11" in
   x) ;;
   x1.1.5) VERSION_XORG=X11R7.4 ;;
+  x1.3.2) VERSION_XORG=X11R7.5 ;;
 esac
 
 if is_minimum_version $VERSION_AUTOMAKE 1.6.1
@@ -528,15 +535,19 @@ download_needed "ftp://xmlsoft.org/libxml2/"                 "libxml2"   "$VERSI
 RET="$RET $?"
 download_needed "ftp://xmlsoft.org/libxslt/"                 "libxslt"   "$VERSION_LIBXSLT"        "tar.gz"
 RET="$RET $?"
-download_needed "http://xcb.freedesktop.org/dist/"           "libxcb"    "$VERSION_LIBXCB"         "tar.bz2"
+download_needed "http://xcb.freedesktop.org/dist/"           "libpthread-stubs" "$VERSION_PTHREAD_STUBS" "tar.bz2"
 RET="$RET $?"
 download_needed "http://xcb.freedesktop.org/dist/"           "xcb-proto" "$VERSION_XCB_PROTO"      "tar.bz2"
+RET="$RET $?"
+download_needed "http://xcb.freedesktop.org/dist/"           "libxcb"    "$VERSION_LIBXCB"         "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xproto"    "$VERSION_XORG_XPROTO"    "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xextproto" "$VERSION_XORG_XEXTPROTO" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xtrans"    "$VERSION_XORG_XTRANS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXau"    "$VERSION_XORG_LIBXAU" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libX11"    "$VERSION_XORG_LIBX11" "tar.bz2"
 RET="$RET $?"

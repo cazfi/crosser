@@ -14,6 +14,8 @@
 	- Added libxslt build to native and baselib steps
 	- Added libjpeg built to baselib step
 	- Added xcb-proto build to xorg step
+	- Added libpthread-stubs built to xorg step
+	- Added libXau build to xorg step
 	- dllstack builds libtool for host also
 	- crosser builds glib for host also (native step)
 	- main.log rotated only when its size exceeds 250000 bytes

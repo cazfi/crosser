@@ -1,4 +1,6 @@
+libpthread-stubs
 xproto
 xextproto
 xtrans
 xcb-proto
+libXau
