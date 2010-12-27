@@ -1022,6 +1022,10 @@ then
        ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
        ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
        ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          ||
+       ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS              ||
+       ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS ||
+       ! unpack_component libXau    $VERSION_XORG_LIBXAU                            ||
+       ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU          ||
        ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
        ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO
     then
