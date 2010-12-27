@@ -24,14 +24,14 @@
 	- Fixed syntax error in download_packets.sh when packets downloaded by step
 	- Do not create target arch directories if building only native step
 	- Most default paths now have <VERSIONSET> component
-	- Updated libpng to version 1.4.3
+	- Updated libpng to version 1.4.5
 	- Updated libtool to version 2.4
 	- Updated autoconf to version 2.68
 	- Updated linux kernel to version 2.6.36.2
 	- Updated eglibc to version 2.11.2-7
 	- Updated gcc to version 4.5.2
 	- Updated glib to version 2.26.1
-	- Updated cairo to version 1.10.0
+	- Updated cairo to version 1.10.2
 	- Updated pixman to version 0.20.0
 	- Updated freetype to version 2.4.4
 	- Updated pango to version 1.28.3
