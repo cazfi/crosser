@@ -51,6 +51,7 @@
 	- Updated binutils to version 2.21
 	- Updated newlib to version 1.19.0
 	- Updated mpfr to version 3.0.0
+	- Updated jpeg to version 8b, Debian no longer considered upstream
 
 0.6.4 (24-Jun-10)
 	- When downloading debian source packets, get list of files to

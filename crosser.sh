@@ -966,8 +966,6 @@ then
       fi
     fi
 
-    JPEG_BASENAME=libjpeg$VERSION_JPEG
-
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
          "--prefix=$CROSSER_IM_PFX" "" "/"
@@ -981,8 +979,8 @@ then
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
          "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"  \
          "" "/" ||
-       ! unpack_component $JPEG_BASENAME $VERSION_JPEG_DEB                ||
-       ! build_with_cross_compiler $JPEG_BASENAME $JPEG_BASENAME          \
+       ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
+       ! build_with_cross_compiler jpeg      jpeg-$VERSION_JPEG           \
          "--prefix=$CROSSER_IM_PFX" "" "/"
     then
       crosser_error "Baselib intermediate part build failed"
@@ -999,7 +997,7 @@ then
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
          "--with-libxml-prefix=$CROSSER_IM_PFX"                           ||
-       ! build_with_cross_compiler $JPEG_BASENAME $JPEG_BASENAME
+       ! build_with_cross_compiler jpeg      jpeg-$VERSION_JPEG
     then
       crosser_error "Baselib target build failed"
       exit 1
