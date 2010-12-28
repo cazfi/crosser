@@ -163,11 +163,7 @@ download_needed() {
   fi
   for STEP in $STEPLIST
   do
-    if test "x$2" = "xlibjpeg$VERSION_JPEG" ; then
-      BASENAME=libjpeg
-    else
-      BASENAME=$2
-    fi
+    BASENAME=$2
     if belongs_to_step $BASENAME $STEP ; then
       download_packet "$1" "$2" "$PACKVER" "$4"
       return $?
@@ -383,7 +379,7 @@ then
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     mpfr)        VERSION_MPFR=$VERSION_SELECTED ;;
     Python)      VERSION_PYTHON=$VERSION_SELECTED ;;
-    libjpeg*)    VERSION_JPEG=$(echo $VERSION_SELECTED | sed 's/-.*//') ;;
+    jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
     xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
     xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
@@ -497,7 +493,7 @@ download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_G
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_DEB/pool/main/libj/libjpeg$VERSION_JPEG/" "libjpeg$VERSION_JPEG"  "$VERSION_JPEG_DEB"       "dsc"
+download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
