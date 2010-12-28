@@ -523,9 +523,7 @@ then
   exit 1
 fi
 
-if ! patch_src tiff-$VERSION_TIFF tiff_config_headers       ||
-   ! ( ! cmp_versions $VERSION_TIFF 4.0.0alpha ||
-       patch_src tiff-$VERSION_TIFF tiff4alpha_largefile )
+if ! patch_src tiff-$VERSION_TIFF tiff_config_headers
 then
   log_error "Tiff patching failed"
   exit 1
