@@ -401,30 +401,35 @@ case "x$VERSION_XORG_XPROTO" in
   x) ;;
   x7.0.13) VERSION_XORG=X11R7.4 ;;
   x7.0.16) VERSION_XORG=X11R7.5 ;;
+  x7.0.20) VERSION_XORG=X11R7.6 ;;
 esac
 
 case "x$VERSION_XORG_XEXTPROTO" in
   x) ;;
   x7.0.3) VERSION_XORG=X11R7.4 ;;
   x7.1.1) VERSION_XORG=X11R7.5 ;;
+  x7.1.2) VERSION_XORG=X11R7.6 ;;
 esac
 
 case "x$VERSION_XORG_XTRANS" in
   x) ;;
   x1.2.1) VERSION_XORG=X11R7.4 ;;
   x1.2.5) VERSION_XORG=X11R7.5 ;;
+  x1.2.6) VERSION_XORG=X11R7.6 ;;
 esac
 
 case "x$VERSION_XORG_LIBXAU" in
   x) ;;
   x1.0.4) VERSION_XORG=X11R7.4 ;;
   x1.0.5) VERSION_XORG=X11R7.5 ;;
+  x1.0.6) VERSION_XORG=X11R7.6 ;;
 esac
 
 case "x$VERSION_XORG_LIBX11" in
   x) ;;
   x1.1.5) VERSION_XORG=X11R7.4 ;;
   x1.3.2) VERSION_XORG=X11R7.5 ;;
+  x1.4.0) VERSION_XORG=X11R7.6 ;;
 esac
 
 if is_minimum_version $VERSION_AUTOMAKE 1.6.1
