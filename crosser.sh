@@ -14,7 +14,7 @@ then
 fi
 
 STEP="setup"
-STEPADD="   "
+STEPADD="    "
 
 if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
   echo "Usage: $(basename "$0") [target setup name] [steps] [versionset]"
@@ -614,7 +614,7 @@ fi
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
-  STEPADD="  "
+  STEPADD="   "
 
   BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 
@@ -696,7 +696,7 @@ fi
 if test "x$STEP_CHAIN" = "xyes" && test "x$CROSS_OFF" != "xyes"
 then
   STEP="chain(1)"
-  STEPADD=""
+  STEPADD=" "
 
   export CCACHE_DIR="$NATIVE_PREFIX/.ccache"
 
@@ -918,10 +918,15 @@ export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
 export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
+PYTHON_SUBDIR="python$(echo $VERSION_PYTHON | sed 's/\./ /g' |
+( read MAJ MIN PATCH ; echo $MAJ.$MIN ))"
+
+export PYTHONPATH="$CROSSER_IM_PFX/lib/$PYTHON_SUBDIR/site-packages:$CROSSER_IM_PFX/lib/$PYTHON_SUBDIR/site-packages/xcbgen"
+
 if test "x$STEP_BASELIB" = "xyes"
 then
   STEP="baselib"
-  STEPADD=" "
+  STEPADD="  "
 
   if ! unpack_component  zlib         $VERSION_ZLIB           ||
      ! unpack_component  libpng       $VERSION_PNG
@@ -952,7 +957,7 @@ then
     log_write 1 "Some parts of baselib step not available for $LIBC_MODE based builds, skipping"
   else
     STEP="bl(im)"
-    STEPADD="  "
+    STEPADD="   "
 
     # If native step already executed, libxslt already unpacked
     if test "x$STEP_NATIVE" != "xyes"
@@ -988,7 +993,7 @@ then
     fi
 
     STEP="bl(tgt)"
-    STEPADD=" "
+    STEPADD="  "
 
     if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
        ! build_with_cross_compiler libgpg-error \
@@ -1008,7 +1013,7 @@ fi
 if test "x$STEP_XORG" = "xyes"
 then
   STEP="xorg"
-  STEPADD="    "
+  STEPADD="     "
 
   if test "x$E_GLIBC" != "xyes"
   then
@@ -1023,9 +1028,27 @@ then
        ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS              ||
        ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS ||
        ! unpack_component libXau    $VERSION_XORG_LIBXAU                            ||
-       ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU          ||
-       ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
-       ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO
+       ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU
+    then
+      crosser_error "Xorg build failed"
+      exit 1
+    fi
+
+    STEP="xorg(im)"
+    STEPADD=" "
+
+    if ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
+       ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      \
+         "--prefix=$CROSSER_IM_PFX" "" "/"
+    then
+      crosser_error "Xorg intermediate part build failed"
+      exit 1
+    fi
+
+    STEP="xorg(tgt)"
+    STEPADD=""
+
+    if ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO
     then
       crosser_error "Xorg build failed"
       exit 1
@@ -1036,7 +1059,7 @@ fi
 if test "x$STEP_GTK" = "xyes"
 then
   STEP="gtk"
-  STEPADD="     "
+  STEPADD="      "
 
   if test "x$E_GLIBC" != "xyes"
   then
@@ -1056,7 +1079,7 @@ then
     fi
 
     STEP="gtk(im)"
-    STEPADD=" "
+    STEPADD="  "
     if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
@@ -1080,7 +1103,7 @@ then
     fi
 
     STEP="gtk(tgt)"
-    STEPADD=""
+    STEPADD=" "
     if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=/usr $GLIB_VARS" ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
