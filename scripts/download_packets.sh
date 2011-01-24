@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -508,6 +508,8 @@ RET="$RET $?"
 download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "tar.bz2"
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"
+RET="$RET $?"
+download_needed "http://curl.haxx.se/download/"         "curl"       "$VERSION_CULR" "tar.bz2"
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
