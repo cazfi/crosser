@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -479,6 +479,8 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_unhardcodecc               ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_incpathsep                 ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
+   ! unpack_component  curl       $VERSION_CURL                      ||
+   ! build_component   curl       $VERSION_CURL                      ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! patch_src libpng-$VERSION_PNG png_symbol_prefix                 ||
    ! autogen_component libpng     $VERSION_PNG                       ||
