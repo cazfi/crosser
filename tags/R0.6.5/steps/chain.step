@@ -1,0 +1,9 @@
+binutils
+gcc
+glibc
+eglibc
+gmp
+mpfr
+mpc
+linux
+newlib
