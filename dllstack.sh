@@ -514,7 +514,7 @@ else
   CONF_JPEG_GTK="--without-libjpeg"
 fi
 
-if is_minimum_version $VERSION_GTK 2.13.0
+if is_minimum_version $VERSION_GTK2 2.13.0
 then
   CONF_JPEG_GTK="$CONF_JPEG_GTK --without-libjasper"
 fi
@@ -593,21 +593,21 @@ then
   exit 1
 fi
 
-if ! ( is_smaller_version $VERSION_GTK 2.22.0 ||
+if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          build_component gdk-pixbuf $VERSION_GDK_PIXBUF ))        ||
-   ! unpack_component  gtk+       $VERSION_GTK                    ||
-   ! ( is_minimum_version $VERSION_GTK      2.12.10 ||
-       patch_src gtk+-$VERSION_GTK          gtk_blddir )          ||
-   ! ( is_minimum_version $VERSION_GTK      2.13.2 ||
-       patch_src gtk+-$VERSION_GTK          gtk_check_cxx )       ||
-   ! ( is_smaller_version $VERSION_GTK      2.14.0 ||
-       is_minimum_version $VERSION_GTK      2.16.0 ||
-       patch_src gtk+-$VERSION_GTK          gtk_gailutildef )     ||
-   ! ( is_minimum_version $VERSION_GTK      2.16.0 ||
-       autogen_component gtk+       $VERSION_GTK   \
+   ! unpack_component  gtk2       $VERSION_GTK2                   ||
+   ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
+       patch_src gtk+-$VERSION_GTK2         gtk_blddir )          ||
+   ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
+       patch_src gtk+-$VERSION_GTK2         gtk_check_cxx )       ||
+   ! ( is_smaller_version $VERSION_GTK2     2.14.0 ||
+       is_minimum_version $VERSION_GTK2     2.16.0 ||
+       patch_src gtk+-$VERSION_GTK2         gtk_gailutildef )     ||
+   ! ( is_minimum_version $VERSION_GTK2     2.16.0 ||
+       autogen_component gtk+       $VERSION_GTK2   \
          "libtoolize aclocal automake autoconf" )                 ||
-   ! build_component   gtk+       $VERSION_GTK                    \
+   ! build_component   gtk+       $VERSION_GTK2                   \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG

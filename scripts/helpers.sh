@@ -200,24 +200,32 @@ upstream_patch() {
 # [$4] - Package file name base in case it's not 'name-version'
 # [$5] - Number of patches
 unpack_component() {
-  if test "x$CROSSER_DOWNLOAD" = "xdemand" ; then
-    log_write 1 "Fetching $1 version $2"
+  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
+  then
+    BNAME="gtk+"
+  else
+    BNAME="$1"
+  fi
+
+  if test "x$CROSSER_DOWNLOAD" = "xdemand"
+  then
+    log_write 1 "Fetching $BNAME version $2"
     if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$2" "$5" \
          >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
     then
-      log_error "Failed to download $1 version $2"
+      log_error "Failed to download $BNAME version $2"
       return 1
     fi
   fi
 
-  log_write 1 "Unpacking $1 version $2"
+  log_write 1 "Unpacking $BNAME version $2"
 
   if test "x$4" != "x"
   then
     # Custom file name format
     NAME_BASE="$4"
   else
-    NAME_BASE="$1-$2"
+    NAME_BASE="$BNAME-$2"
   fi
 
   if test -e "$PACKETDIR/$NAME_BASE.tar.bz2" ; then
@@ -238,24 +246,24 @@ unpack_component() {
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e "$PACKETDIR/${1}_${2}.dsc" ; then
+  elif test -e "$PACKETDIR/${BNAME}_${2}.dsc" ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
       return 1
     fi
     if test "x$3" = "x" ; then
-      SRCDIR="$1"
+      SRCDIR="$BNAME"
     else
       SRCDIR="$3"
     fi
-    if ! dpkg-source -x "$PACKETDIR/${1}_${2}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
+    if ! dpkg-source -x "$PACKETDIR/${BNAME}_${2}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
                      >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
-      log_error "Unpacking $1_$2.dsc failed"
+      log_error "Unpacking $BNAME_$2.dsc failed"
       return 1
     fi
   else
-    log_error "Can't find $1 version $2 package to unpack."
+    log_error "Can't find $BNAME version $2 package to unpack."
     return 1
   fi
 }
