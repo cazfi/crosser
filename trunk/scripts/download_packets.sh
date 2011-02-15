@@ -58,17 +58,23 @@ download_file() {
 }
 
 # $1 - Base URL
-# $2 - Base filename
+# $2 - Base name, usually base filename
 # $3 - Version      - or nonstandard filename (See $4)
 # $4 - Package type - empty means nonstandard naming (See $3)
 download_packet() {
 
+  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
+    BFNAME="gtk+"
+  else
+    BFNAME="$2"
+  fi
+
   if test "x$4" = "xdsc" ; then
-    DLFILENAME="${2}_$3.$4"
+    DLFILENAME="${BFNAME}_$3.$4"
 
     if ! download_file "$1" "$DLFILENAME"
     then
-      echo "Download of $2 version $3 dsc file failed" >&2
+      echo "Download of $BFNAME version $3 dsc file failed" >&2
       return 1
     fi
 
@@ -84,7 +90,7 @@ download_packet() {
           else
             if ! download_file "$1" "$PART3"
             then
-              echo "Download of $2 version $3 file $PART3 failed" >&2
+              echo "Download of $BFNAME version $3 file $PART3 failed" >&2
               return 1
             fi
           fi
@@ -98,11 +104,11 @@ download_packet() {
     if test "x$4" = "x" ; then
       DLFILENAME="$3"
     else
-      DLFILENAME="$2-$3.$4"
+      DLFILENAME="$BFNAME-$3.$4"
     fi
     if ! download_file "$1" "$DLFILENAME"
     then
-       echo "Download of $2 version $3 failed" >&2
+       echo "Download of $BFNAME version $3 failed" >&2
        return 1
     fi
   fi
@@ -367,7 +373,8 @@ then
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
-    gtk+)        VERSION_GTK=$VERSION_SELECTED ;;
+    gtk2)        VERSION_GTK2=$VERSION_SELECTED ;;
+    gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
@@ -390,7 +397,8 @@ fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GTK_DIR="$(echo $VERSION_GTK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GTK2_DIR="$(echo $VERSION_GTK2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -523,7 +531,9 @@ download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSIO
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "tar.bz2" 
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK_DIR/"  "gtk+"       "$VERSION_GTK"        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
