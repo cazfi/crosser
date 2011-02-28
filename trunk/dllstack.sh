@@ -607,8 +607,12 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
    ! ( is_minimum_version $VERSION_GTK2     2.16.0 ||
        autogen_component gtk+       $VERSION_GTK2   \
          "libtoolize aclocal automake autoconf" )                 ||
-   ! build_component   gtk+       $VERSION_GTK2                   \
+   ! build_component_full gtk2 gtk+ $VERSION_GTK2                 \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
+   ! unpack_component gtk3        $VERSION_GTK3                   ||
+   ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
+   ! patch_src gtk+-$VERSION_GTK3 gtk3_marshalers                 ||
+   ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG
 then
