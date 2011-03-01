@@ -2,7 +2,7 @@
 
 # crosser.sh: Generic toolchain builder.
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -538,6 +538,24 @@ prepare_gcc_src() {
   fi
 }
 
+# Basic preparation of libgcrypt source tree
+#
+prepare_libgcrypt_src() {
+  if ! unpack_component libgcrypt $VERSION_LIBGCRYPT
+  then
+    log_error "Libgcrypt unpacking failed"
+    exit 1
+  fi
+
+  if ! patch_src libgcrypt-$VERSION_LIBGCRYPT gcrypt_gpgerr ||
+     ! autogen_component libgcrypt $VERSION_LIBGCRYPT       \
+       "aclocal automake autoconf"
+  then
+    log_error "Failed to prepare libgcrypt sources"
+    exit 1
+  fi
+}
+
 # Create link to intermediate build program to intermediate hostbin directory
 #
 # $1 - Program to link
@@ -643,7 +661,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   glib       glib-$VERSION_GLIB             ||
      ! unpack_component          libgpg-error $VERSION_GPGERROR     ||
      ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
-     ! unpack_component          libgcrypt $VERSION_LIBGCRYPT       ||
+     ! prepare_libgcrypt_src                                        ||
      ! build_for_host   libgcrypt libgcrypt-$VERSION_LIBGCRYPT      \
          "--disable-asm"                                            ||
      ! unpack_component libxslt    $VERSION_LIBXSLT               ||
@@ -963,7 +981,7 @@ then
     if test "x$STEP_NATIVE" != "xyes"
     then
       if ! unpack_component libgpg-error $VERSION_GPGERROR ||
-         ! unpack_component libgcrypt $VERSION_LIBGCRYPT   ||
+         ! prepare_libgcrypt_src                           ||
          ! unpack_component libxslt $VERSION_LIBXSLT
       then
         crosser_error "Unpacking of baselib source packages failed"
