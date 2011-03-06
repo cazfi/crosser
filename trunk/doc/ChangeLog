@@ -3,9 +3,11 @@
 	- Updated gtk2 to version 2.24.0
 	- Updated glib to version 2.28.0
 	- Updated linux kernel to version 2.6.37.2
-	- Updated eglibc to version 2.11.2-12
+	- Updated eglibc to version 2.11.2-13
 	- Updated mpc to version 0.9
 	- Updated python to version 3.2
+	- Updated glibc to version 2.13
+	- Updated glibc-ports to version 2.13
 
 0.6.5
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
