@@ -9,7 +9,7 @@
 	- Updated glibc to version 2.13
 	- Updated glibc-ports to version 2.13
 
-0.6.5
+0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
 	- Build date saved to crosser.hierarchy file
 	- Tag <DATE> now expands to form "dd.mm.yy"
