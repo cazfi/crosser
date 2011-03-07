@@ -478,6 +478,7 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! unpack_component  bzip2      $VERSION_BZIP2                     ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_unhardcodecc               ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_incpathsep                 ||
+   ! patch_src bzip2-$VERSION_BZIP2 bzip2_winapi                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! unpack_component  curl       $VERSION_CURL                      ||
    ! build_component   curl       $VERSION_CURL                      ||
