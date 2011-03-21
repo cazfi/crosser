@@ -11,6 +11,8 @@
 	- Updated glibc-ports to version 2.13
 	- Updated curl to version 7.21.4
 	- Stable: Updated libpng to version 1.2.44
+	- Stable: Updated gdk-pixbuf to version 2.22.1
+	- Stable: Updated atk to version 1.32.0
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
