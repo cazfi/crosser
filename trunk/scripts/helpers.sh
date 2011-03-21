@@ -195,7 +195,7 @@ upstream_patch() {
 # Unpack component package to source directory
 #
 # $1   - Package name
-# $2   - Package version
+# $2   - Package version, "0" to indicate that there is no package after all
 # [$3] - Subdir in source hierarchy
 # [$4] - Package file name base in case it's not 'name-version'
 # [$5] - Number of patches
@@ -205,6 +205,11 @@ unpack_component() {
     BNAME="gtk+"
   else
     BNAME="$1"
+  fi
+
+  if test "x$2" = "x0"
+  then
+    return 0
   fi
 
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
