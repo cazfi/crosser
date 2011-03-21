@@ -91,13 +91,18 @@ build_component_host()
 
 # $1 - Build dir
 # $2 - Component
-# $3 - Version
+# $3 - Version, "0" to indicate that there isn't package to build after all
 # $4 - Extra configure options
 # $5 - Overwrite libtool ('overwrite')
 # $6 - Native ('native')
 build_component_full()
 {
   log_packet "$1"
+
+  if test "x$3" = "x0"
+  then
+    return 0
+  fi
 
   SUBDIR="$(src_subdir $2 $3)"
 
@@ -612,7 +617,8 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
-   ! patch_src gtk+-$VERSION_GTK3 gtk3_marshalers                 ||
+   ! ( is_smaller_version "$VERSION_GTK3" 3.0.0 ||
+       patch_src gtk+-$VERSION_GTK3 gtk3_marshalers )             ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG
