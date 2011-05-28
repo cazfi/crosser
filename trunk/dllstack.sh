@@ -82,11 +82,21 @@ build_component()
 # $3 - Extra configure options
 build_component_host()
 {
-  build_component_full "host-$1" "$1" "$2" "$3" "" "native"
+  if ! build_component_full "host-$1" "$1" "$2" "$3" "" "native"
+  then
+    BERR=true
+  else
+    BERR=false
+  fi
 
   # Reset command hash in case it already contained old version of the
   # just built tool
-  hash -r 
+  hash -r
+
+  if test "x$BERR" = "xtrue"
+  then
+    return 1
+  fi
 }
 
 # $1 - Build dir
