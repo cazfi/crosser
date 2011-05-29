@@ -541,7 +541,10 @@ then
   exit 1
 fi
 
-if ! patch_src tiff-$VERSION_TIFF tiff_config_headers
+if ! ( is_minimum_version $VERSION_TIFF 3.9.5 ||
+       patch_src tiff-$VERSION_TIFF tiff_config_headers ) ||
+   ! ( is_smaller_version $VERSION_TIFF 3.9.5 ||
+       patch_src tiff-$VERSION_TIFF tiff_config_headers_395 )
 then
   log_error "Tiff patching failed"
   exit 1
