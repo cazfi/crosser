@@ -2,7 +2,7 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -13,10 +13,11 @@ STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step)
 STEP_xorg_PACKETS=$(cat $CROSSER_MAINDIR/steps/xorg.step)
 STEP_gtk_PACKETS=$(cat $CROSSER_MAINDIR/steps/gtk.step)
 STEP_sdl_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl.step)
+STEP_comp_PACKETS=$(cat $CROSSER_MAINDIR/steps/comp.step)
 STEP_test_PACKETS=""
 
 # Steps array
-STEPLIST=("native" "chain" "baselib" "xorg" "gtk" "sdl" "test" "win")
+STEPLIST=("native" "chain" "baselib" "xorg" "gtk" "sdl" "comp" "test" "win")
 
 # Check if packet belongs to step
 #
