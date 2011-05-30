@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -95,7 +95,7 @@ log_error() {
 # $1 - Error message
 crosser_error() {
   log_error "$1"
-  if test "x$DEBUG_CROSSER" = "xyes"
+  if test "x$CROSSER_DEBUG" = "xyes"
   then
      ( echo "** Env dump begins **"
        /usr/bin/env
