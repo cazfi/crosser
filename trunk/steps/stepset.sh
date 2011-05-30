@@ -2,7 +2,7 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -23,6 +23,8 @@ do
       STEP_GTK=yes ;;
     sdl)
       STEP_SDL=yes ;;
+    comp)
+      STEP_COMP=yes ;;
     test)
       STEP_TEST=yes ;;
     *)

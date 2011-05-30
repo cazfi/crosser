@@ -103,7 +103,7 @@ else
     fi
   fi
   log_write 1 "No build steps defined, building everything"
-  STEPPARAM="native:sdl"
+  STEPPARAM="native:comp"
 fi
 
 . "$CROSSER_MAINDIR/steps/stepfuncs.sh"
@@ -1208,6 +1208,31 @@ then
       crosser_error "sdl stack build failed"
       exit 1
     fi
+  fi
+fi
+
+if test "x$STEP_COMP" = "xyes"
+then
+  STEP="comp"
+  STEPADD="     "
+
+  # If native or chain step already executed, these preparations are done.
+  if test "x$STEP_NATIVE" != "xyes" && test "x$STEP_CHAIN" != "xyes"
+  then
+    if ! prepare_binutils_src ||
+       ! prepare_gcc_src
+    then
+      exit 1
+    fi
+  fi
+
+  if ! build_with_cross_compiler binutils binutils-$VERSION_BINUTILS \
+       "--with-tls --enable-stage1-languages=all"                    ||
+     ! build_with_cross_compiler gcc gcc-$VERSION_GCC                \
+       "--disable-multilib --enable-languages=c --with-tls --enable-threads"
+  then
+    crosser_error "Target compiler build failed"
+    exit 1
   fi
 fi
 
