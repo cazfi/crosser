@@ -44,6 +44,7 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
             This step is not available on arm-elf target
   sdl     - sdl dependencies and sdl library itself
             This step is not available on arm architecture targets
+  comp    - native compiler to target
 
   Third parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
