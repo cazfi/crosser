@@ -108,7 +108,7 @@ CROSSER_LOGDIR
  ; Directory where logfiles will be written.
  ; Default is $HOME/.crosser/log
  ; Logfiles stdout.log and stderr are created anew for each build,
- ; main.log is rotated once it reaches 150000 bytes.
+ ; main.log is rotated once it reaches 250000 bytes.
 
 PACKETDIR
  ; Directory for storing source packets.
