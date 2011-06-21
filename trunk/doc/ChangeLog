@@ -7,7 +7,7 @@
 	- Renamed DEBUG_CROSSER configuration variable as CROSSER_DEBUG
 	- Updated gtk2 to version 2.24.4
 	- Updated glib to version 2.28.8
-	- Updated linux kernel to version 2.6.39
+	- Updated linux kernel to version 2.6.39.1
 	- Updated eglibc to version 2.13-4
 	- Updated mpc to version 0.9
 	- Updated python to version 3.2
@@ -15,7 +15,7 @@
 	- Updated glibc-ports to version 2.13
 	- Updated curl to version 7.21.4
 	- Updated pango to version 1.28.4
-	- Updated atk to version 2.0.0
+	- Updated atk to version 2.0.1
 	- Updated gcc to version 4.5.3
 	- Updated gmp to version 5.0.2
 	- Updated mpfr to version 3.0.1
@@ -24,6 +24,7 @@
 	- Updated tiff to version 3.9.5
 	- Stable: Updated libpng to version 1.2.44
 	- Stable: Updated gdk-pixbuf to version 2.22.1
+	- Stable: Updated python to version 3.1.4
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
