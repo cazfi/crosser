@@ -687,13 +687,13 @@ write_crosser_env() {
   fi
 }
 
-# Prints configure variables for component
+# Prints configure variables for component with possible extra space in end
 #
 # $1 - Component
 #
 # 0 - Success
 # 1 - Failure
-read_configure_vars() {
+read_configure_vars_sub() {
   CONF_FILE="$CROSSER_MAINDIR/setups/cachevars/$1.vars"
 
   if test -f "$CONF_FILE"
@@ -713,6 +713,23 @@ read_configure_vars() {
   fi
 
   return 0
+}
+
+# Prints configure variables for component
+#
+# $1 - Component
+#
+# 0 - Success
+# 1 - Failure
+read_configure_vars() {
+  FULLTEXT="$(read_configure_vars_sub "$1")"
+
+  if test "$?" = "1"
+  then
+    return 1
+  fi
+
+  echo "$FULLTEXT" | sed 's/ $//' 
 }
 
 # Check if packet directory exist and possibly create one
