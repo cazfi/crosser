@@ -1,4 +1,8 @@
-0.6.6
+winfix-0.6.5.101
+	- Removed gtk3 compilation
+	- Downgraded gtk2 to version 2.20.1
+
+0.6.5.101
 	- Added step 'comp' for building native compiler to target
 	- dllstack builds both gtk2 and gtk3 (3.0.11, not for stable versionset)
 	- Package selection can be versionset specific
