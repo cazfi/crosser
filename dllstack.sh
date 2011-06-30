@@ -640,11 +640,20 @@ then
   exit 1
 fi
 
+if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
+then
+  GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+else
+  GDKPBL="etc/gtk-2.0/gdk-pixbuf.loaders"
+fi
+
+WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
+
 if test "x$AUTOWINE" = "xyes" ; then
   log_write 1 "Creating configuration files"
   if ! mkdir -p $DLLSPREFIX/etc/pango ||
      ! $DLLSPREFIX/bin/pango-querymodules.exe > $DLLSPREFIX/etc/pango/pango.modules ||
-     ! $DLLSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $DLLSPREFIX/etc/gtk-2.0/gdk-pixbuf.loaders
+     ! $DLLSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $DLLSPREFIX/$GDKPBL
   then
     log_error "Failed to create configuration files in wine."
     exit 1
@@ -654,7 +663,7 @@ log_write 1 "Creating setup.bat"
 (
   echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
   echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
-  echo -n -e "bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders\r\n"
+  echo -n -e "bin\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
 ) > "$DLLSPREFIX/setup.bat"
 log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
 
