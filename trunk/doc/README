@@ -82,3 +82,21 @@ It just removes those packets that are most likely obsolete. It determines
 this by checking last time that source package was used by crosser. Those
 packets which are not used in a long time are removed. Currently 
 trim_packetdir.sh removes all but 200 most recently used files from packetdir.
+
+------
+
+ It takes some effort to setup crosser to handle multiple simultaneous
+builds. Obviously one run should not delete directories that the other one
+is using. All the solutions to this boil down to having different
+configurations for different builds, namely doing them in separate directories.
+You can simply define multiple configuration files that use different
+directories for anything that may affect the other build and then set
+$CROSSER_CONF to point to correct file before each build. But probably more
+clever way is to write your configuration file to dynamically adjust. You
+can for example place all the other directories relative to $CROSSER_TMPDIR
+and to just set different $CROSSER_TMPDIR for each build. Note that with
+default setting $CROSSER_SRCDIR and $CROSSER_BUILDDIR are already relative to
+$CROSSER_TMPDIR meaning there is problem with $CROSSER_LOGDIR only.
+If you don't like the idea of logs being under tmpdir, you can even define
+your own toplevel environment variable and to make both $CROSSER_TMPDIR and
+$CROSSER_LOGDIR relative to it.
