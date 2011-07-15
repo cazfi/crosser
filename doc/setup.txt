@@ -3,11 +3,14 @@ Configuring Crosser.sh & dllstack.sh
 
 Both dllstack.sh and crosser.sh can be configured with file named
 local_setup.conf in main crosser directory (same directory
-where dllstack.sh and crosser.sh scripts are) or .crosser.conf under home
-directory. First they look for local_setup.conf, and if it's missing
-load ~/.crosser.conf instead.
+where dllstack.sh and crosser.sh scripts are), .crosser.conf under home
+directory or by file specified by environment variable CROSSER_CONF.
+If CROSSER_CONF environment variable is defined, crosser.sh and dllstack.sh
+try to read it and fail if they cannot. If environment variable is not defined,
+they first look for local_setup.conf, and if it's missing load ~/.crosser.conf
+instead.
 
-This file lists some of the variables one can place to local_setup.conf
+This file lists some of the variables one can place to configuration file
 
 Entries are of form:
 VARIABLE=VALUE
