@@ -15,14 +15,14 @@
 	- Updated python to version 3.2
 	- Updated glibc to version 2.13
 	- Updated glibc-ports to version 2.13
-	- Updated curl to version 7.21.4
+	- Updated curl to version 7.21.7
 	- Updated pango to version 1.28.4
 	- Updated atk to version 2.0.1
 	- Updated gcc to version 4.5.3
 	- Updated gmp to version 5.0.2
 	- Updated mpfr to version 3.0.1
 	- Updated eglibc to version 2.13-2
-	- Updated pixman to version 0.22.0
+	- Updated pixman to version 0.22.2
 	- Updated tiff to version 3.9.5
 	- Updated libpng to version 1.4.8
 	- Stable: Updated gdk-pixbuf to version 2.22.1
