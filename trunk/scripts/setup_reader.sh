@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -11,7 +11,14 @@ then
   CROSSER_TMPDIR="/tmp/crosser"
 fi
 
-if test -e $CROSSER_MAINDIR/local_setup.conf ; then
+if test "x$CROSSER_CONF" != "x" ; then
+  if test -e "$CROSSER_CONF" ; then
+    . "$CROSSER_CONF"
+  else
+    echo "Error: Can't find specified configuration file \"$CROSSER_CONF\"" >&2
+    exit 1
+  fi
+elif test -e $CROSSER_MAINDIR/local_setup.conf ; then
   . $CROSSER_MAINDIR/local_setup.conf
 elif test -e $HOME/.crosser.conf ; then
   . $HOME/.crosser.conf
