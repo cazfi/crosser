@@ -38,7 +38,7 @@ download_file() {
     # Creating new filelist
     if test "x$CROSSER_GROUP" != "x" ; then
       touch filelist.txt
-      if ! chown ":$CROSSER_GROUP" filelist.txt
+      if ! chown ":$CROSSER_GROUP" filelist.txt ; then
         echo "Cannot set owner group for filelist.txt" >&2
         return 1
       fi
@@ -63,7 +63,7 @@ download_file() {
   fi
 
   if test "x$CROSSER_GROUP" != "x" ; then
-    if ! chown ":$CROSSER_GROUP" "$2"
+    if ! chown ":$CROSSER_GROUP" "$2" ; then
       echo "Cannot set owner group for \"$2\"" >&2
       return 1
     fi
