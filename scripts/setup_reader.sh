@@ -11,6 +11,18 @@ then
   CROSSER_TMPDIR="/tmp/crosser"
 fi
 
+if test "x$CROSSER_GLOBAL_CONF" = "x" && test -e "/etc/crosser.conf" ; then
+  CROSSER_GLOBAL_CONF="/etc/crosser.conf"
+fi
+
+if test "x$CROSSER_GLOBAL_CONF" != "x" ; then
+  if ! test -e "$CROSSER_GLOBAL_CONF" ; then
+    echo "Error: Can't find global configuration file \"$CROSSER_GLOBAL_CONF\"" >&2
+    exit 1
+  fi
+  . "$CROSSER_GLOBAL_CONF"
+fi
+
 if test "x$CROSSER_CONF" != "x" ; then
   if test -e "$CROSSER_CONF" ; then
     . "$CROSSER_CONF"
@@ -22,8 +34,8 @@ elif test -e $CROSSER_MAINDIR/local_setup.conf ; then
   . $CROSSER_MAINDIR/local_setup.conf
 elif test -e $HOME/.crosser.conf ; then
   . $HOME/.crosser.conf
-else
-  echo "Warning: No local configuration found. Trying to build with default values." >&2
+elif test "x$CROSSER_GLOBAL_CONF" = "x" ; then
+  echo "Warning: No configuration found. Trying to build with default values." >&2
   echo "         Read doc/setup.txt for configuration instructions." >&2
 fi
 
