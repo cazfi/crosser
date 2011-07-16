@@ -35,6 +35,14 @@ download_file() {
       APPEND=yes
     fi
   else
+    # Creating new filelist
+    if test "x$CROSSER_GROUP" != "x" ; then
+      touch filelist.txt
+      if ! chown ":$CROSSER_GROUP" filelist.txt
+        echo "Cannot set owner group for filelist.txt" >&2
+        return 1
+      fi
+    fi
     APPEND=yes
   fi
 
@@ -52,6 +60,13 @@ download_file() {
   if ! ( cd "$DLDIR" && wget -T 180 -t 2 "$1$2" ) ; then
     echo "Download of $2 failed" >&2
     return 1
+  fi
+
+  if test "x$CROSSER_GROUP" != "x" ; then
+    if ! chown ":$CROSSER_GROUP" "$2"
+      echo "Cannot set owner group for \"$2\"" >&2
+      return 1
+    fi
   fi
 
   echo "Downloaded $2"

@@ -1,5 +1,6 @@
 0.6.6
 	- Added support for defining configuration file location in CROSSER_CONF
+	- Added configuration variable CROSSER_GROUP
 	- Added step 'comp' for building native compiler to target
 	- dllstack builds both gtk2 and gtk3 (3.0.11, not for stable versionset)
 	- Fixed setup.bat to handle gdk-pixbuf packets independent from gtk+
