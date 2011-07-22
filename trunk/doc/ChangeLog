@@ -1,4 +1,5 @@
 0.6.6
+	- Fixed native compiler build in latest Debian and derivatives testing versions
 	- Added support for defining configuration file location in CROSSER_CONF
 	- Added configuration variable CROSSER_GROUP
 	- Added support for global configuration in /etc/crosser.conf
