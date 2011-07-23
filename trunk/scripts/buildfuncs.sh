@@ -2,7 +2,7 @@
 
 # buildfuncs.sh: Build functions for Crosser
 #
-# (c) 2008-2010 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -106,7 +106,7 @@ build_with_native_compiler() {
   export CPPFLAGS=""
   export LDFLAGS=""
 
-  if ! build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
+  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
   then
     return 1
   fi

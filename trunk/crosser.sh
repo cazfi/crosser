@@ -336,7 +336,7 @@ kernel_setup() {
 
     log_write 3 "  Make params: $MAKEPARAMS"
 
-    if ! make $MAKEPARAMS \
+    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" make $MAKEPARAMS \
 	           2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       log_error "Kernel prepare failed"
@@ -353,7 +353,7 @@ kernel_setup() {
     MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$SYSPREFIX/usr INSTALL_MOD_PATH=$SYSPREFIX $MAKETARGETS"
 
     log_write 3 "  Make params: $MAKEPARAMS"
-    if ! make $MAKEPARAMS \
+    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" make $MAKEPARAMS \
                 2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       if test "x$1" = "xfull"
@@ -630,6 +630,15 @@ then
   fi
 fi
 
+# Workaround for debian (and derivatives) multiarch linker paths
+NO_VEND=$(. $CROSSER_MAINDIR/setups/native.sh ; echo $TMP_ARCH-$TMP_OS)
+if test "x$LIBRARY_PATH" = "x"
+then
+  CROSSER_NAT_LIBP="/usr/lib/$NO_VEND"
+else
+  CROSSER_NAT_LIBP="$LIBRARY_PATH:/usr/lib/$NO_VEND"
+fi
+
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD="   "
@@ -638,14 +647,6 @@ if test "x$STEP_NATIVE" = "xyes" ; then
 
   # Build of latter tools uses earlier tools
   export PATH=$NATIVE_PREFIX/bin:$PATH
-  # Workaround for debian (and derivatives) multiarch linker paths
-  NO_VEND=$(. $CROSSER_MAINDIR/setups/native.sh ; echo $TMP_ARCH-$TMP_OS)
-  if test "x$LIBRARY_PATH" = "x"
-  then
-    CROSSER_LIBP_TEMP="/usr/lib/$NO_VEND"
-  else
-    CROSSER_LIBP_TEMP="$LIBRARY_PATH:/usr/lib/$NO_VEND"
-  fi
 
   if ! create_host_dirs     ||
      ! unpack_component libtool  $VERSION_LIBTOOL             ||
@@ -679,7 +680,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      "--with-tls --enable-stage1-languages=all"               ||
      ! prepare_gcc_src                                        ||
      ! log_write 1 "-Building native gcc can take hours!-"    ||
-     ! LIBRARY_PATH="$CROSSER_LIBP_TEMP" build_for_host gcc gcc-$VERSION_GCC                    \
+     ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_for_host gcc gcc-$VERSION_GCC                    \
      "--enable-languages=c,c++ --disable-multilib --with-tls"
   then
      crosser_error "Failed to build native compiler for host"
