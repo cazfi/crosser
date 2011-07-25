@@ -1001,7 +1001,7 @@ then
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
          "--prefix=$CROSSER_IM_PFX" "" "/"
-       ! build_with_cross_compiler libgpg-error \
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
@@ -1023,7 +1023,7 @@ then
     STEPADD="  "
 
     if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
-       ! build_with_cross_compiler libgpg-error \
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
@@ -1110,7 +1110,7 @@ then
     if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
-       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=$CROSSER_IM_PFX" "" "/" ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
@@ -1120,7 +1120,7 @@ then
          "--prefix=$CROSSER_IM_PFX" "" "/" ||
        ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
-       ! build_with_cross_compiler fontconfig                                            \
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=$CROSSER_IM_PFX --with-freetype-config=$CROSSER_IM_PFX/bin/freetype-config --with-arch=$TARGET" \
           "install" "/"
@@ -1133,11 +1133,11 @@ then
     STEPADD=" "
     if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=/usr $GLIB_VARS" ||
-       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
          "--prefix=/usr --disable-gtk" ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
-       ! build_with_cross_compiler fontconfig                                            \
+       ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=/usr --with-freetype-config=$CROSSER_IM_PFX/bin/freetype-config --with-arch=$TARGET" \
           "install"
