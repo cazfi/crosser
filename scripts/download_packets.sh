@@ -469,6 +469,8 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
+KERNEL_DIR="v$(echo $VERSION_KERNEL | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  $LIBTOOL_PACK
 
 RET="$?"  
@@ -492,7 +494,7 @@ download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC_PORTS" "ta
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/e/eglibc/"       "eglibc"     "$VERSION_EGLIBC_DEB" "dsc"
 RET="$RET $?"
-download_needed "$MIRROR_KERNEL/pub/linux/kernel/v2.6/" "linux" "$VERSION_KERNEL"  "tar.bz2"
+download_needed "$MIRROR_KERNEL/pub/linux/kernel/$KERNEL_DIR/" "linux" "$VERSION_KERNEL"  "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLIB" "tar.gz"
 RET="$RET $?"
