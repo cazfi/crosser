@@ -4,7 +4,7 @@
 	- Added configuration variable CROSSER_GROUP
 	- Added support for global configuration in /etc/crosser.conf
 	- Added step 'comp' for building native compiler to target
-	- dllstack builds both gtk2 and gtk3 (3.0.11, not for stable versionset)
+	- dllstack builds both gtk2 and gtk3 (3.0.12, not for stable versionset)
 	- Fixed setup.bat to handle gdk-pixbuf packets independent from gtk+
 	  correctly
 	- Package selection can be versionset specific
