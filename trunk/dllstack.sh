@@ -456,6 +456,7 @@ export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
+GETTEXT_VARS="$(read_configure_vars gettext)"
 
 # glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
@@ -502,10 +503,17 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! autogen_component libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
+   ! ( is_max_version $VERSION_GETTEXT 0.17 ||
+       patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools)         ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
        ( patch_src gettext-$VERSION_GETTEXT gettext_bash &&
          patch_src gettext-$VERSION_GETTEXT gettext_no_rpl_optarg )) ||
-   ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT) ||
+   ! (cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
+      libtoolize)                                                    ||
+   ! (cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
+      ./autogen.sh --quick --skip-gnulib)                            ||
+   ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
+                               "$GETTEXT_VARS --enable-relocatable" ) ||
    ! build_component   glib       $VERSION_GLIB             \
        "$GLIB_VARS"
 then
