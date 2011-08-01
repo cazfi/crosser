@@ -452,7 +452,7 @@ then
   fi
 fi
 
-export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="$NATIVE_PREFIX/lib/pkgconfig"
 
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
@@ -465,21 +465,23 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
-   ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
-   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
-      patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
-   ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
         ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
           patch_src glib-$VERSION_GLIB glib_acsizeof &&
           autogen_component glib       $VERSION_GLIB \
            "libtoolize aclocal automake autoconf" ))        ||
-   ! build_component_host glib $VERSION_GLIB
+   ! build_component_host glib $VERSION_GLIB                ||
+   ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
+   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
+      patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
+   ! build_component_host pkg-config $VERSION_PKG_CONFIG
 then
   log_error "Native build failed"
   exit 1
 fi
+
+export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
 if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! build_component   libtool    $BASEVER_LIBTOOL                   ||
