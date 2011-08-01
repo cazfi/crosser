@@ -662,12 +662,12 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
        "--disable-scrollkeeper"                                   ||
+     ! unpack_component glib       $VERSION_GLIB                  ||
+     ! build_for_host   glib       glib-$VERSION_GLIB             ||
      ! unpack_component pkg-config $VERSION_PKG_CONFIG            ||
      ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
         patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
-     ! unpack_component glib       $VERSION_GLIB                  ||
-     ! build_for_host   glib       glib-$VERSION_GLIB             ||
      ! unpack_component          libgpg-error $VERSION_GPGERROR     ||
      ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
      ! prepare_libgcrypt_src                                        ||

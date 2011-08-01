@@ -31,6 +31,7 @@
 	- Updated binutils to version 2.21.1
 	- Updated gawk to version 4.0.0
 	- Updated gettext to version 0.18.1.1
+	- Updated pkg-config to version 0.26
 	- Stable: Updated gdk-pixbuf to version 2.22.1
 
 0.6.5 (01-Feb-11)
