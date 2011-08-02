@@ -13,7 +13,7 @@
 	- Renamed DEBUG_CROSSER configuration variable as CROSSER_DEBUG
 	- Updated gtk2 to version 2.24.4
 	- Updated glib to version 2.28.8
-	- Updated linux kernel to version 2.6.39.3
+	- Updated linux kernel to version 3.0
 	- Updated eglibc to version 2.13-4
 	- Updated mpc to version 0.9
 	- Updated python to version 3.2.1
