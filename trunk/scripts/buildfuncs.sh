@@ -198,15 +198,23 @@ build_svgalib() {
     DESTDIR="$4"
   fi
 
+  KERN_THIRD="$(echo $VERSION_KERNEL | sed 's/./ /g' | ( read V1 V2 VREST ; echo $VREST ))"
+  if test "x$KERN_THIRD" = "x"
+  then
+     KERN_FVER="${VERSION_KERNEL}.0"
+  else
+     KERN_FVER="${VERSION_KERNEL}"
+  fi
+
   MFCFG="$CROSSER_SRCDIR/$2/Makefile.cfg"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
-      -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
+      -e "s,<KERNELVER>,$KERN_FVER,g" \
       -e "s,<ARCH>,$KERN_ARCH,g" \
       "$MFCFG" > "$MFCFG.tmp"
   mv "$MFCFG.tmp" "$MFCFG"
   MFCFG="$CROSSER_SRCDIR/$2/kernel/svgalib_helper/Makefile"
   sed -e "s,<TOPDIR>,$DESTDIR,g" \
-      -e "s,<KERNELVER>,$VERSION_KERNEL,g" \
+      -e "s,<KERNELVER>,$KERN_FVER,g" \
       -e "s,<ARCH>,$KERN_ARCH,g" \
       -e "s,<TARGET>,$TARGET,g" \
       "$MFCFG" > "$MFCFG.tmp"
