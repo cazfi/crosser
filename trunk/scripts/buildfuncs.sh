@@ -146,7 +146,7 @@ build_with_cross_compiler() {
     DESTDIR="$5"
   fi
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
+  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
   then
     return 1
   fi
