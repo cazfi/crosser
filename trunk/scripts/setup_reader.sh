@@ -8,7 +8,7 @@
 
 if test "x$CROSSER_TMPDIR" = "x"
 then
-  CROSSER_TMPDIR="/tmp/crosser"
+  CROSSER_TMPDIR="/tmp/crosser-$(whoami)"
 fi
 
 if test "x$CROSSER_GLOBAL_CONF" = "x" && test -e "/etc/crosser.conf" ; then
