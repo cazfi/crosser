@@ -207,7 +207,7 @@ build_glibc() {
   export CPPFLAGS=""
   export LDFLAGS=""
 
-  if ! build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$SYSPREFIX"
+  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_generic "tgt-$1" "$2" "$CONFOPTIONS" "$4 install_root=$SYSPREFIX"
   then
     return 1
   fi
