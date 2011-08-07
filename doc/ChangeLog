@@ -32,6 +32,7 @@
 	- Updated gawk to version 4.0.0
 	- Updated gettext to version 0.18.1.1
 	- Updated pkg-config to version 0.26
+	- Updated libiconv to version 1.14
 	- Stable: Updated gdk-pixbuf to version 2.22.1
 
 0.6.5 (01-Feb-11)
