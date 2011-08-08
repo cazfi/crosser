@@ -505,15 +505,14 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
    ! autogen_component libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
-   ! ( is_max_version $VERSION_GETTEXT 0.17 ||
-       patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools)         ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
        ( patch_src gettext-$VERSION_GETTEXT gettext_bash &&
          patch_src gettext-$VERSION_GETTEXT gettext_no_rpl_optarg )) ||
-   ! (cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
-      libtoolize)                                                    ||
-   ! (cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
-      ./autogen.sh --quick --skip-gnulib)                            ||
+   ! ( is_max_version $VERSION_GETTEXT 0.17 ||
+       ( patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools &&
+   !     ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
+           libtoolize &&
+           ./autogen.sh --quick --skip-gnulib )))                     ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
                                "$GETTEXT_VARS --enable-relocatable" ) ||
    ! build_component   glib       $VERSION_GLIB             \
