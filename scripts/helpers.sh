@@ -273,6 +273,64 @@ unpack_component() {
   fi
 }
 
+# Free components temporary directories
+#
+# $1 -   Package
+# $2 -   Version
+# $3 -   Builddir
+free_component() {
+  free_src "$1" "$2"
+  free_build "$3"
+}
+
+# Free components temporary source directory
+#
+# $1 -   Package
+# $2 -   Version
+free_src() {
+  if test "x$CROSSER_TMPFREE" != "xyes"
+  then
+    return 0
+  fi
+
+  log_write 2 "Free source for $1 version $2"
+
+  SRCSUBDIR=$(src_subdir $1 $2)
+  if test "x$SRCSUBDIR" = "x"
+  then
+    echo "Cannot find srcdir of $1 version $2 to remove" >&2
+    return 1
+  fi
+
+  rm -Rf "$CROSSER_SRCDIR/$SRCSUBDIR"
+}
+
+# Free components temporary build directory
+#
+# $1 -   Builddir
+free_build() {
+  if test "x$CROSSER_TMPFREE" != "xyes" 
+  then
+    return 0
+  fi
+
+  if test "x$1" = "x"
+  then
+    echo "No builddir given for free_build()" >&2
+    return 1
+  fi
+
+  log_write 2 "Free builddir $1"
+
+  if ! test -d "$CROSSER_BUILDDIR/$1"
+  then
+    echo "Cannot find builddir \"$CROSSER_BUILDDIR/$1\" to remove" >&2
+    return 1
+  fi
+
+  rm -Rf "$CROSSER_BUILDDIR/$1"
+}
+
 # Output subdir under source hierarchy where component lives
 #
 # $1 -   Package

@@ -127,6 +127,8 @@ build_component_full()
     log_error "Failed to create directory $BUILDDIR"
     return 1
   fi
+
+  (
   cd "$BUILDDIR"
   SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
@@ -168,6 +170,7 @@ build_component_full()
     log_error "Install for $1 failed"
     return 1
   fi
+  )
 }
 
 # Build zlib
@@ -192,6 +195,7 @@ build_zlib()
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
+  (
   if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
     log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
@@ -237,6 +241,7 @@ build_zlib()
     log_error "Failed to move libz dll:s to correct directory"
     return 1
   fi
+  )
 }
 
 # Build bzip2
@@ -256,6 +261,7 @@ build_bzip2()
     return 1
   fi
 
+  (
   if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
     log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
@@ -285,6 +291,7 @@ build_bzip2()
     log_error "Install for $1 failed"
     return 1
   fi
+  )
 }
 
 # Update one autotools auxiliary file for component
@@ -448,10 +455,13 @@ GETTEXT_VARS="$(read_configure_vars gettext)"
 # glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
+   ! free_component       autoconf   $VERSION_AUTOCONF "host-autoconf" ||
    ! unpack_component     automake   $VERSION_AUTOMAKE      ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
+   ! free_component       automake   $VERSION_AUTOMAKE "host-automake" ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
+   ! free_build           "host-libtool"                    ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
         ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
@@ -459,10 +469,12 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
           autogen_component glib       $VERSION_GLIB \
            "libtoolize aclocal automake autoconf" ))        ||
    ! build_component_host glib $VERSION_GLIB                ||
+   ! free_build           "host-glib"                       ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
       patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
-   ! build_component_host pkg-config $VERSION_PKG_CONFIG
+   ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
+   ! free_component       pkg-config $VERSION_PKG_CONFIG "host-pkg-config"
 then
   log_error "Native build failed"
   exit 1
@@ -470,27 +482,32 @@ fi
 
 export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
-if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
-   ! build_component   libtool    $BASEVER_LIBTOOL                   ||
+if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
+   ! free_component    libtool    $BASEVER_LIBTOOL "libtool"         ||
    ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component   libiconv   $VERSION_ICONV                     ||
+   ! free_component    libiconv   $VERSION_ICONV "libiconv"          ||
    ! unpack_component  zlib       $VERSION_ZLIB                      ||
    ! patch_src zlib               zlib_cctest                        ||
    ! patch_src zlib               zlib_seeko                         ||
    ! patch_src zlib               zlib_nolibc                        ||
    ! patch_src zlib               zlib_dllext                        ||
-   ! build_zlib        zlib                                          ||
+   ! build_zlib        zlib       $VERSION_ZLIB                      ||
+   ! free_src          zlib       $VERSION_ZLIB                      ||
    ! unpack_component  bzip2      $VERSION_BZIP2                     ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_unhardcodecc               ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_incpathsep                 ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_winapi                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
+   ! free_src          bzip2      $VERSION_BZIP2                     ||
    ! unpack_component  curl       $VERSION_CURL                      ||
    ! build_component   curl       $VERSION_CURL                      ||
+   ! free_component    curl       $VERSION_CURL "curl"               ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! patch_src libpng-$VERSION_PNG png_symbol_prefix                 ||
    ! autogen_component libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
+   ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
        ( patch_src gettext-$VERSION_GETTEXT gettext_bash &&
@@ -504,8 +521,10 @@ if ! unpack_component  libtool    $VERSION_LIBTOOL                   ||
      ))                                                               ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
                                "$GETTEXT_VARS --enable-relocatable" ) ||
+   ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
    ! build_component   glib       $VERSION_GLIB             \
-       "$GLIB_VARS"
+       "$GLIB_VARS"                                                   ||
+   ! free_component    glib       $VERSION_GLIB "glib"
 then
   log_error "Build failed"
   exit 1
@@ -513,12 +532,9 @@ fi
 
 if test "x$CROSSER_OPTION_JPEG" = "xon"
 then
-  if ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}"
-  then
-    log_error "Libjpeg download failed"
-    exit 1
-  fi
-  if ! build_component jpeg $VERSION_JPEG "--enable-shared"
+  if ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
+     ! build_component jpeg $VERSION_JPEG "--enable-shared"              ||
+     ! free_component jpeg $VERSION_JPEG "jpeg"
   then
     log_error "Libjpeg build failed"
     exit 1
@@ -562,8 +578,10 @@ if ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
       autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
      tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF"                    ||
+   ! free_component    tiff       $VERSION_TIFF "tiff"            ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||
-   ! build_component   expat      $VERSION_EXPAT
+   ! build_component   expat      $VERSION_EXPAT                  ||
+   ! free_component    expat      $VERSION_EXPAT "expat"
 then
   log_error "Build failed"
   exit 1
@@ -574,7 +592,8 @@ if ! unpack_component  freetype   $VERSION_FREETYPE               ||
        patch_src freetype-$VERSION_FREETYPE freetype_dll )        ||
    ! ( is_minimum_version $VERSION_FREETYPE 2.3.6                 ||
        autogen_component freetype   $VERSION_FREETYPE )           ||
-   ! build_component   freetype   $VERSION_FREETYPE
+   ! build_component   freetype   $VERSION_FREETYPE               ||
+   ! free_component    freetype   $VERSION_FREETYPE "freetype"
 then
   log_error "Freetype build failed"
   exit 1
@@ -588,23 +607,28 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
      "libtoolize aclocal automake autoconf"                             ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
+   ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                 ||
    ! build_component   pixman     $VERSION_PIXMAN                 \
      "--disable-gtk"                                              ||
+   ! free_component    pixman     $VERSION_PIXMAN "pixman"        ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo-$VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
+   ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
+   ! free_component    pango      $VERSION_PANGO "pango"          ||
    ! unpack_component  atk        $VERSION_ATK                    ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
        patch_src          atk-$VERSION_ATK atk_def    )           ||
    ! autogen_component atk        $VERSION_ATK                    \
      "libtoolize aclocal automake autoconf"                       ||
-   ! build_component   atk        $VERSION_ATK
+   ! build_component   atk        $VERSION_ATK                    ||
+   ! free_component    atk        $VERSION_ATK "atk"
 then
   log_error "Build failed"
   exit 1
@@ -612,7 +636,8 @@ fi
 
 if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
-         build_component gdk-pixbuf $VERSION_GDK_PIXBUF ))        ||
+         build_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
+         free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf")) ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
    ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
        patch_src gtk+-$VERSION_GTK2         gtk_blddir )          ||
@@ -626,13 +651,16 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
          "libtoolize aclocal automake autoconf" )                 ||
    ! build_component_full gtk2 gtk+ $VERSION_GTK2                 \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
+   ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
    ! ( is_smaller_version "$VERSION_GTK3" 3.0.0 ||
        patch_src gtk+-$VERSION_GTK3 gtk3_marshalers )             ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
+   ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
-   ! build_component  gtk-engines $VERSION_GTK_ENG
+   ! build_component  gtk-engines $VERSION_GTK_ENG                ||
+   ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"
 then
   log_error "gtk+ stack build failed"
   exit 1
@@ -667,11 +695,14 @@ log_write 1 "IMPORTANT: Remember to create configuration files when installing t
 
 if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL        $VERSION_SDL          ||
+   ! free_component    SDL        $VERSION_SDL "SDL"    ||
    ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
+   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image" ||
    ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER    ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER    \
-     "--disable-music-mp3 --disable-smpegtest"
+     "--disable-music-mp3 --disable-smpegtest"          ||
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
 then
   log_error "SDL stack build failed"
   exit 1
