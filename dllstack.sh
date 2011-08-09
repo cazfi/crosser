@@ -82,7 +82,7 @@ build_component()
 # $3 - Extra configure options
 build_component_host()
 {
-  if ! build_component_full "host-$1" "$1" "$2" "$3" "" "native"
+  if ! build_component_full "host-$1" "$1" "$2" "$3" "native"
   then
     BERR=true
   else
@@ -103,8 +103,7 @@ build_component_host()
 # $2 - Component
 # $3 - Version, "0" to indicate that there isn't package to build after all
 # $4 - Extra configure options
-# $5 - Overwrite libtool ('overwrite')
-# $6 - Native ('native')
+# $5 - Native ('native')
 build_component_full()
 {
   log_packet "$1"
@@ -131,7 +130,7 @@ build_component_full()
   cd "$BUILDDIR"
   SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
-  if test "x$6" != "xnative"
+  if test "x$5" != "xnative"
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
@@ -153,18 +152,6 @@ build_component_full()
       log_error "Configure for $1 failed"
       return 1
     fi
-  fi
-
-  if test "x$5" = "xoverwrite" ; then
-    log_write 2 "Copying working libtool to $1"
-    if ! cp "$CROSSER_BUILDDIR/libtool/libtool" .
-    then
-      log_error "Failed to copy libtool"
-      return 1
-    fi
-  elif test "x$5" != "x" ; then
-    log_error "Illegal libtool overwrite parameter $6"
-    return 1
   fi
 
   log_write 1 "Building $1"
@@ -574,7 +561,7 @@ fi
 if ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
       autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
-     tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF" "overwrite"        ||
+     tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF"                    ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||
    ! build_component   expat      $VERSION_EXPAT
 then
