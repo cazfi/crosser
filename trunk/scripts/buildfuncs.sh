@@ -198,7 +198,7 @@ build_svgalib() {
     DESTDIR="$4"
   fi
 
-  KERN_THIRD="$(echo $VERSION_KERNEL | sed 's/./ /g' | ( read V1 V2 VREST ; echo $VREST ))"
+  KERN_THIRD="$(echo $VERSION_KERNEL | sed 's/\./ /g' | ( read V1 V2 VREST ; echo $VREST ))"
   if test "x$KERN_THIRD" = "x"
   then
      KERN_FVER="${VERSION_KERNEL}.0"
