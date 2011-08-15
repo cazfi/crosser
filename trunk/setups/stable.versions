@@ -12,7 +12,7 @@
 # 4.4 series until gcc 4.6.0 is released, at which point latest 4.5.x
 # release is added here.
 
-VERSION_BINUTILS=2.20.1
+VERSION_BINUTILS=2.21.1
 VERSION_GAWK=3.1.8
 VERSION_AUTOCONF=2.65
 VERSION_AUTOMAKE=1.11.1
