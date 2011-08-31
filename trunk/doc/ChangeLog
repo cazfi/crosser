@@ -12,7 +12,7 @@
 	- Fixed libbz2 so programs can be actually linked against it
 	- Fixed dllstack to properly fail out when build of native tool fails
 	- Renamed DEBUG_CROSSER configuration variable as CROSSER_DEBUG
-	- Updated gtk2 to version 2.24.4
+	- Updated gtk2 to version 2.24.6
 	- Updated glib to version 2.28.8
 	- Updated linux kernel to version 3.0
 	- Updated eglibc to version 2.13-13
@@ -34,7 +34,7 @@
 	- Updated gettext to version 0.18.1.1
 	- Updated pkg-config to version 0.26
 	- Updated libiconv to version 1.14
-	- Stable: Updated gdk-pixbuf to version 2.22.1
+	- Updated gdk-pixbuf to version 2.22.0
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
