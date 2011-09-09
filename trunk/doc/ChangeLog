@@ -34,7 +34,7 @@
 	- Updated gettext to version 0.18.1.1
 	- Updated pkg-config to version 0.26
 	- Updated libiconv to version 1.14
-	- Updated gdk-pixbuf to version 2.22.0
+	- Updated gdk-pixbuf to version 2.24.0
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
