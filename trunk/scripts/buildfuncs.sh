@@ -163,6 +163,8 @@ build_for_host() {
 
   export CFLAGS="-march=native -O2"
   export CPPFLAGS=""
+  export C_INCLUDE_PATH="${CROSSER_NAT_INCP}"
+  export CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}"
   export LDFLAGS="-Wl,-rpath,$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
 
   if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"

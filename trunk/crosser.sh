@@ -638,6 +638,7 @@ then
 else
   CROSSER_NAT_LIBP="$LIBRARY_PATH:/usr/lib/$NO_VEND"
 fi
+CROSSER_NAT_INCP="/usr/include/$NO_VEND"
 
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
