@@ -15,12 +15,12 @@
 	- Updated gtk2 to version 2.24.6
 	- Updated glib to version 2.28.8
 	- Updated linux kernel to version 3.0
-	- Updated eglibc to version 2.13-13
+	- Updated eglibc to version 2.13-21
 	- Updated mpc to version 0.9
-	- Updated python to version 3.2.1
+	- Updated python to version 3.2.2
 	- Updated glibc to version 2.13
 	- Updated glibc-ports to version 2.13
-	- Updated curl to version 7.21.7
+	- Updated curl to version 7.22.0
 	- Updated pango to version 1.28.4
 	- Updated atk to version 2.0.1
 	- Updated gcc to version 4.5.3
@@ -35,6 +35,9 @@
 	- Updated pkg-config to version 0.26
 	- Updated libiconv to version 1.14
 	- Updated gdk-pixbuf to version 2.24.0
+	- Updated gtk-doc to version 1.18
+	- Updated jpeg to version 8c
+	- Updated libgcrypt to version 1.5.0
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
