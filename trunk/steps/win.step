@@ -13,6 +13,7 @@ tiff
 expat
 freetype
 fontconfig
+libffi
 pixman
 cairo
 pango
