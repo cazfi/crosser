@@ -106,7 +106,8 @@ build_with_native_compiler() {
   export CPPFLAGS=""
   export LDFLAGS=""
 
-  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
+  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" C_INCLUDE_PATH="${CROSSER_NAT_INCP}" CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}" \
+       build_generic "cross-$1" "$2" "$CONFOPTIONS" "$4"
   then
     return 1
   fi
@@ -146,7 +147,8 @@ build_with_cross_compiler() {
     DESTDIR="$5"
   fi
 
-  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
+  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" C_INCLUDE_PATH="${SYSPREFIX}/usr/include" CPLUS_INCLUDE_PATH="${SYSPREFIX}/usr/include" \
+     build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
   then
     return 1
   fi
@@ -163,11 +165,10 @@ build_for_host() {
 
   export CFLAGS="-march=native -O2"
   export CPPFLAGS=""
-  export C_INCLUDE_PATH="${CROSSER_NAT_INCP}"
-  export CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}"
   export LDFLAGS="-Wl,-rpath,$NATIVE_PREFIX/lib -L$NATIVE_PREFIX/lib"
 
-  if ! build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
+  if ! C_INCLUDE_PATH="${CROSSER_NAT_INCP}" CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}" \
+       build_generic "host-$1" "$2" "$CONFOPTIONS" "$4"
   then
     return 1
   fi
