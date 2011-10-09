@@ -462,6 +462,9 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
    ! free_build           "host-libtool"                    ||
+   ! unpack_component     libffi     $VERSION_FFI           ||
+   ! build_component_host libffi     $VERSION_FFI           ||
+   ! free_component       "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
         ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
@@ -522,6 +525,8 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
                                "$GETTEXT_VARS --enable-relocatable" ) ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
+   ! build_component   libffi     $VERSION_FFI                        ||
+   ! free_component    libffi     $VERSION_FFI    "libffi"            ||
    ! build_component   glib       $VERSION_GLIB             \
        "$GLIB_VARS"                                                   ||
    ! free_component    glib       $VERSION_GLIB "glib"
