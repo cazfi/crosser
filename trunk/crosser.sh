@@ -336,8 +336,8 @@ kernel_setup() {
 
     log_write 3 "  Make params: $MAKEPARAMS"
 
-    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" make $MAKEPARAMS \
-	           2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
+    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" C_INCLUDE_PATH="${CROSSER_NAT_INCP}" CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}" \
+         make $MAKEPARAMS 2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       log_error "Kernel prepare failed"
       return 1
@@ -353,8 +353,8 @@ kernel_setup() {
     MAKEPARAMS="$CROSSPARAM $KERN_PARAM INSTALL_HDR_PATH=$SYSPREFIX/usr INSTALL_MOD_PATH=$SYSPREFIX $MAKETARGETS"
 
     log_write 3 "  Make params: $MAKEPARAMS"
-    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" make $MAKEPARAMS \
-                2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
+    if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" C_INCLUDE_PATH="${CROSSER_NAT_INCP}" CPLUS_INCLUDE_PATH="${CROSSER_NAT_INCP}" \
+         make $MAKEPARAMS 2>> "$CROSSER_LOGDIR/stderr.log" >> "$CROSSER_LOGDIR/stdout.log"
     then
       if test "x$1" = "xfull"
       then
