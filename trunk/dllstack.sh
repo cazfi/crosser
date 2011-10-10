@@ -464,7 +464,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_build           "host-libtool"                    ||
    ! unpack_component     libffi     $VERSION_FFI           ||
    ! build_component_host libffi     $VERSION_FFI           ||
-   ! free_component       "host-libffi"                     ||
+   ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
         ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
