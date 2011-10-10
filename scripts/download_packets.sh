@@ -407,6 +407,7 @@ then
     xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
     libXau)      VERSION_XORG_LIBXAU=$VERSION_SELECTED ;;
     libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
+    linux)       VERSION_KERNEL=$VERSION_SELECTED ;;
   esac
 fi
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
