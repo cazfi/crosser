@@ -6,6 +6,7 @@
 	- Added configuration variable CROSSER_TMPFREE used by dllstack.sh only
 	- Added step 'comp' for building native compiler to target
 	- dllstack builds both gtk2 and gtk3 (3.0.12)
+	- Both python2 (2.7.2) and python3 built at native step.
 	- Fixed setup.bat to handle gdk-pixbuf packets independent from gtk+
 	  correctly
 	- Package selection can be versionset specific
@@ -18,7 +19,7 @@
 	- Updated linux kernel to version 3.0
 	- Updated eglibc to version 2.13-21
 	- Updated mpc to version 0.9
-	- Updated python to version 3.2.2
+	- Updated python3 to version 3.2.2
 	- Updated glibc to version 2.13
 	- Updated glibc-ports to version 2.13
 	- Updated curl to version 7.22.0

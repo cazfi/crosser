@@ -658,8 +658,10 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   autoconf autoconf-$VERSION_AUTOCONF   ||
      ! unpack_component automake $VERSION_AUTOMAKE            ||
      ! build_for_host   automake automake-$VERSION_AUTOMAKE   ||
-     ! unpack_component Python   $VERSION_PYTHON              ||
-     ! build_for_host   Python   Python-$VERSION_PYTHON       ||
+     ! unpack_component Python3  $VERSION_PYTHON3             ||
+     ! build_for_host   Python3  Python-$VERSION_PYTHON3      ||
+     ! unpack_component Python2  $VERSION_PYTHON2             ||
+     ! build_for_host   Python2  Python-$VERSION_PYTHON2      ||
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
        "--disable-scrollkeeper"                                   ||
@@ -946,10 +948,10 @@ export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
 export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
-PYTHON_SUBDIR="python$(echo $VERSION_PYTHON | sed 's/\./ /g' |
+PYTHON3_SUBDIR="python$(echo $VERSION_PYTHON3 | sed 's/\./ /g' |
 ( read MAJ MIN PATCH ; echo $MAJ.$MIN ))"
 
-export PYTHONPATH="$CROSSER_IM_PFX/lib/$PYTHON_SUBDIR/site-packages:$CROSSER_IM_PFX/lib/$PYTHON_SUBDIR/site-packages/xcbgen"
+export PYTHON_PATH="$CROSSER_IM_PFX/lib/$PYTHON3_SUBDIR/site-packages:$CROSSER_IM_PFX/lib/$PYTHON3_SUBDIR/site-packages/xcbgen"
 
 if test "x$STEP_BASELIB" = "xyes"
 then
