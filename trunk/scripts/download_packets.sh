@@ -80,6 +80,8 @@ download_packet() {
 
   if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
     BFNAME="gtk+"
+  elif test "x$2" = "xPython3" || test "x$2" = "xPython2" ; then
+    BFNAME="Python"
   else
     BFNAME="$2"
   fi
@@ -400,7 +402,8 @@ then
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     mpfr)        VERSION_MPFR=$VERSION_SELECTED ;;
-    Python)      VERSION_PYTHON=$VERSION_SELECTED ;;
+    Python3)     VERSION_PYTHON3=$VERSION_SELECTED ;;
+    Python2)     VERSION_PYTHON2=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
     xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
@@ -483,7 +486,9 @@ download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
 RET="$RET $?"
-download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON/" "Python" "$VERSION_PYTHON" "tgz"
+download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON3/" "Python3" "$VERSION_PYTHON3" "tgz"
+RET="$RET $?"
+download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON2/" "Python2" "$VERSION_PYTHON2" "tgz"
 RET="$RET $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
 RET="$RET $?"

@@ -1,7 +1,8 @@
 libtool
 autoconf
 automake
-Python
+Python2
+Python3
 gtk-doc
 binutils
 gawk
