@@ -1003,7 +1003,7 @@ then
 
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
-         "--prefix=$CROSSER_IM_PFX" "" "/"
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
