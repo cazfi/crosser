@@ -1,0 +1,25 @@
+diff -Nurd glibc-2.7/Makeconfig glibc-2.7/Makeconfig
+--- glibc-2.7/Makeconfig	2008-08-20 19:38:24.000000000 +0300
++++ glibc-2.7/Makeconfig	2008-08-20 19:37:59.000000000 +0300
+@@ -911,7 +911,7 @@
+ all-subdirs = csu assert ctype locale intl catgets math setjmp signal	    \
+ 	      stdlib stdio-common libio malloc string wcsmbs time dirent    \
+ 	      grp pwd posix io termios resource misc socket sysvipc gmon    \
+-	      gnulib iconv iconvdata wctype manual shadow po argp	    \
++	      gnulib iconv iconvdata wctype shadow po argp		    \
+ 	      crypt nss localedata timezone rt conform debug		    \
+ 	      $(add-on-subdirs) $(dlfcn) $(binfmt-subdir)
+ 
+diff -Nurd glibc-2.7/sysdeps/gnu/Makefile glibc-2.7/sysdeps/gnu/Makefile
+--- glibc-2.7/sysdeps/gnu/Makefile	2006-02-28 09:05:45.000000000 +0200
++++ glibc-2.7/sysdeps/gnu/Makefile	2008-08-20 19:39:43.000000000 +0300
+@@ -20,8 +20,7 @@
+ # Generate the list of strings for errno codes from the section of the
+ # manual which documents the codes.
+ 
+-$(..)sysdeps/gnu/errlist.c: $(..)sysdeps/gnu/errlist.awk \
+-			    $(..)manual/errno.texi
++$(..)sysdeps/gnu/errlist.c: $(..)sysdeps/gnu/errlist.awk
+ 	$(AWK) -f $^ > $@-tmp
+ # Make it unwritable so noone will edit it by mistake.
+ 	-chmod a-w $@-tmp
