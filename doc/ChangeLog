@@ -1,4 +1,4 @@
-0.6.6
+0.7
 	- Fixed native compiler build in latest Debian and derivatives testing versions
 	- Added support for defining configuration file location in CROSSER_CONF
 	- Added configuration variable CROSSER_GROUP
