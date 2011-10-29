@@ -1,7 +1,6 @@
 libtool
 autoconf
 automake
-Python2
 Python3
 gtk-doc
 binutils
