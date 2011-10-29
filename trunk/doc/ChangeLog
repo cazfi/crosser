@@ -1,3 +1,6 @@
+0.8
+	- Both python2 and python3 built at native step
+
 0.7
 	- Fixed native compiler build in latest Debian and derivatives testing versions
 	- Added support for defining configuration file location in CROSSER_CONF
@@ -6,7 +9,7 @@
 	- Added configuration variable CROSSER_TMPFREE used by dllstack.sh only
 	- Added step 'comp' for building native compiler to target
 	- dllstack builds both gtk2 and gtk3 (3.0.12)
-	- Both python2 (2.7.2) and python3 built at native step.
+	- Support for downloading python2 added to download_packets.sh
 	- Fixed setup.bat to handle gdk-pixbuf packets independent from gtk+
 	  correctly
 	- Package selection can be versionset specific
