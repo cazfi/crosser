@@ -1111,7 +1111,8 @@ then
     STEP="gtk(im)"
     STEPADD="  "
     if ! unpack_component          libffi        $VERSION_FFI                            ||
-       ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     ||
+       ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     \
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                               ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
@@ -1136,7 +1137,8 @@ then
 
     STEP="gtk(tgt)"
     STEPADD=" "
-    if ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
+    if ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     ||
+       ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=/usr $GLIB_VARS" ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
