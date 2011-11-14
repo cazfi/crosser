@@ -11,7 +11,7 @@
 	  correctly
 	- Package selection can be versionset specific
 	- Fixed libbz2 so programs can be actually linked against it
-        - Added libffi build to dllstack and crosser.sh gtk-step.
+        - Added libffi build to dllstack and crosser.sh native and gtk steps.
 	- Fixed dllstack to properly fail out when build of native tool fails
 	- Renamed DEBUG_CROSSER configuration variable as CROSSER_DEBUG
 	- Updated gtk2 to version 2.24.7

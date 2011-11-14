@@ -630,6 +630,8 @@ then
   fi
 fi
 
+export PKG_CONFIG_PATH=$NATIVE_PREFIX/lib/pkgconfig
+
 # Workaround for debian (and derivatives) multiarch linker paths
 NO_VEND=$(. $CROSSER_MAINDIR/setups/native.sh ; echo $TMP_ARCH-$TMP_OS)
 if test "x$LIBRARY_PATH" = "x"
@@ -663,6 +665,8 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
        "--disable-scrollkeeper"                                   ||
+     ! unpack_component libffi     $VERSION_FFI                   ||
+     ! build_for_host   libffi     libffi-$VERSION_FFI            ||
      ! unpack_component glib       $VERSION_GLIB                  ||
      ! build_for_host   glib       glib-$VERSION_GLIB             ||
      ! unpack_component pkg-config $VERSION_PKG_CONFIG            ||
@@ -944,6 +948,7 @@ fi   # STEP_CHAIN
 
 export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
+unset PKG_CONFIG_PATH
 export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 PYTHON3_SUBDIR="python$(echo $VERSION_PYTHON3 | sed 's/\./ /g' |
@@ -1096,20 +1101,20 @@ then
     GLIB_VARS="$(read_configure_vars glib)"
     log_write 4 "Glib variables: $GLIB_VARS"
 
-    # If native step already executed, glib already unpacked
+    # If native step already executed, libffi and glib already unpacked
     if test "x$STEP_NATIVE" != "xyes"
     then
-      if ! unpack_component          glib          $VERSION_GLIB
+      if ! unpack_component          libffi        $VERSION_FFI  ||
+         ! unpack_component          glib          $VERSION_GLIB
       then
-        crosser_error "Glib unpacking failed"
+        crosser_error "Unpacking failed"
         exit 1
       fi
     fi
 
     STEP="gtk(im)"
     STEPADD="  "
-    if ! unpack_component          libffi        $VERSION_FFI                            ||
-       ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     \
+    if ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                               ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
