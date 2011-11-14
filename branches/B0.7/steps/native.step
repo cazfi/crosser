@@ -13,3 +13,5 @@ pkg-config
 libgpg-error
 libgcrypt
 libxslt
+libffi
+glib
