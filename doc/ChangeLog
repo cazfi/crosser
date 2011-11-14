@@ -17,7 +17,7 @@
         - Added libffi build to dllstack and crosser.sh native and gtk steps.
 	- Fixed dllstack to properly fail out when build of native tool fails
 	- Renamed DEBUG_CROSSER configuration variable as CROSSER_DEBUG
-	- Updated gtk2 to version 2.24.7
+	- Updated gtk2 to version 2.24.8
 	- Updated glib to version 2.30.1
 	- Updated linux kernel to version 3.0
 	- Updated eglibc to version 2.13-21
@@ -31,10 +31,10 @@
 	- Updated gcc to version 4.5.3
 	- Updated gmp to version 5.0.2
 	- Updated mpfr to version 3.0.1
-	- Updated pixman to version 0.22.2
+	- Updated pixman to version 0.24.0
 	- Updated tiff to version 3.9.5
 	- Updated libpng to version 1.4.8
-	- Updated binutils to version 2.21.1
+	- Updated binutils to version 2.21.1a
 	- Updated gawk to version 4.0.0
 	- Updated gettext to version 0.18.1.1
 	- Updated pkg-config to version 0.26
@@ -43,6 +43,7 @@
 	- Updated gtk-doc to version 1.18
 	- Updated jpeg to version 8c
 	- Updated libgcrypt to version 1.5.0
+	- Updated libtool to version 2.4.2
 
 0.6.5 (01-Feb-11)
 	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
