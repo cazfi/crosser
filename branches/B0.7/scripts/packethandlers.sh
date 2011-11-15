@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2009 Marko Lindqvist
+# (c) 2008-2011 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -40,3 +40,11 @@ basever_libtool() {
     echo $1
   fi
 }
+
+# Echo base version of binutils version string
+#
+# $1 - Full version
+basever_binutils() {
+  echo $1 | sed 's/[a-z]//g'
+}
+
