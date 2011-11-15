@@ -495,13 +495,13 @@ dummy_glibc_objects() {
 prepare_binutils_src() {
   if ! unpack_component binutils     $VERSION_BINUTILS              ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
-        (  patch_src binutils-$VERSION_BINUTILS binutils_makeinfo &&
-           cd "$CROSSER_SRCDIR/binutils-$VERSION_BINUTILS" && autoconf )) ||
+        (  patch_src binutils-$BASEVER_BINUTILS binutils_makeinfo &&
+           cd "$CROSSER_SRCDIR/binutils-$BASEVER_BINUTILS" && autoconf )) ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
-        (  patch_src binutils-$VERSION_BINUTILS binutils_printffix &&
-	   patch_src binutils-$VERSION_BINUTILS binutils_ignret ))  ||
+        (  patch_src binutils-$BASEVER_BINUTILS binutils_printffix &&
+	   patch_src binutils-$BASEVER_BINUTILS binutils_ignret ))  ||
      ! ( ! cmp_versions $VERSION_BINUTILS 2.20 ||
-         patch_src binutils-$VERSION_BINUTILS binutils_arm_empty_body )
+         patch_src binutils-$BASEVER_BINUTILS binutils_arm_empty_body )
   then
     log_error "Binutils setup failed"
     return 1
@@ -642,6 +642,8 @@ else
 fi
 CROSSER_NAT_INCP="/usr/include/$NO_VEND"
 
+BASEVER_BINUTILS="$(basever_binutils $VERSION_BINUTILS)"
+
 if test "x$STEP_NATIVE" = "xyes" ; then
   STEP="native"
   STEPADD="   "
@@ -681,7 +683,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! unpack_component libxslt    $VERSION_LIBXSLT               ||
      ! build_for_host   libxslt    libxslt-$VERSION_LIBXSLT       ||
      ! prepare_binutils_src                                   ||
-     ! build_for_host binutils binutils-$VERSION_BINUTILS     \
+     ! build_for_host binutils binutils-$BASEVER_BINUTILS     \
      "--with-tls --enable-stage1-languages=all"               ||
      ! prepare_gcc_src                                        ||
      ! log_write 1 "-Building native gcc can take hours!-"    ||
@@ -758,7 +760,7 @@ then
   export PATH="$PATH_CROSS"
   hash -r
 
-  if ! build_with_native_compiler binutils binutils-$VERSION_BINUTILS \
+  if ! build_with_native_compiler binutils binutils-$BASEVER_BINUTILS \
         "--with-sysroot=$SYSPREFIX --with-tls --enable-stage1-languages=all"
   then
     crosser_error "Binutils build failed"
@@ -1245,7 +1247,7 @@ then
     fi
   fi
 
-  if ! build_with_cross_compiler binutils binutils-$VERSION_BINUTILS \
+  if ! build_with_cross_compiler binutils binutils-$BASEVER_BINUTILS \
        "--with-tls --enable-stage1-languages=all"                    ||
      ! build_with_cross_compiler gcc gcc-$VERSION_GCC                \
        "--disable-multilib --enable-languages=c --with-tls --enable-threads"
