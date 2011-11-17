@@ -664,8 +664,6 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   automake automake-$VERSION_AUTOMAKE   ||
      ! unpack_component Python3  $VERSION_PYTHON3             ||
      ! build_for_host   Python3  Python-$VERSION_PYTHON3      ||
-     ! unpack_component Python2  $VERSION_PYTHON2             ||
-     ! build_for_host   Python2  Python-$VERSION_PYTHON2      ||
      ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
      ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
        "--disable-scrollkeeper"                                   ||

@@ -629,7 +629,6 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
    ! unpack_component  atk        $VERSION_ATK                    ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
-       is_minimum_version $VERSION_ATK     2.2.0   ||
        patch_src          atk-$VERSION_ATK atk_def    )           ||
    ! autogen_component atk        $VERSION_ATK                    \
      "libtoolize aclocal automake autoconf"                       ||
@@ -662,7 +661,7 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
-   ! ( is_minimum_version "$VERSION_GTK3" 3.2.0 ||
+   ! ( is_smaller_version "$VERSION_GTK3" 3.0.0 ||
        patch_src gtk+-$VERSION_GTK3 gtk3_marshalers )             ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
