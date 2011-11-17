@@ -1,0 +1,17 @@
+libtool
+autoconf
+automake
+Python3
+gtk-doc
+binutils
+gawk
+gcc
+gmp
+mpfr
+mpc
+pkg-config
+libgpg-error
+libgcrypt
+libxslt
+libffi
+glib
