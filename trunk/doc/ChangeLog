@@ -3,7 +3,7 @@
         - Updated glib to version 2.30.2
 	- Updated atk to version 2.2.0
 
-0.7
+0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
 	- Added support for defining configuration file location in CROSSER_CONF
 	- Added configuration variable CROSSER_GROUP
