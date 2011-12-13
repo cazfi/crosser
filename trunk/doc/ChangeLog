@@ -1,5 +1,6 @@
 0.8
 	- Both python2 and python3 built at native step
+	- Fixed downloading of linux kernel versions greater than 3.0.x
         - Updated glib to version 2.30.2
 	- Updated atk to version 2.2.0
 
