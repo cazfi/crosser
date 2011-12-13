@@ -473,7 +473,12 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
-KERNEL_DIR="v$(echo $VERSION_KERNEL | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+if is_minimum_version $VERSION_KERNEL 3.0
+then
+  KERNEL_DIR="v3.0"
+else
+  KERNEL_DIR="v$(echo $VERSION_KERNEL | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  $LIBTOOL_PACK
 
