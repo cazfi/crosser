@@ -886,7 +886,9 @@ then
           patch_src $LIBCDIR/ports glibc_ports_arm_pageh_inc)    ||
        ! patch_src $LIBCDIR/ports glibc_ports_arm_tlsinc         ||
        ! (! cmp_versions $LIBCVER 2.9 ||
-          patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp)
+          patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp) ||
+       ! (is_smaller_version $LIBCVER 2.14 ||
+          patch_src $LIBCDIR glibc_cpuidh)
     then
       crosser_error "$LIBCNAME patching failed"
       exit 1
