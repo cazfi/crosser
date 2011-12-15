@@ -1,5 +1,6 @@
 0.8
 	- Fixed building of gettext when /bin/sh is not bash
+	- Use vercmp for version number comparisons if it's available
 	- Both python2 and python3 built at native step
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Updated glib to version 2.30.2
