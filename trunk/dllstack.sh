@@ -460,6 +460,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
    ! free_component       automake   $VERSION_AUTOMAKE "host-automake" ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
+   ! patch_src libtool-$VERSION_LIBTOOL libtool_bash        ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
    ! free_build           "host-libtool"                    ||
    ! unpack_component     libffi     $VERSION_FFI           ||
