@@ -29,8 +29,8 @@ if test "x$LOGLEVEL_FILE" = "x" ; then
   LOGLEVEL_FILE=4
 fi
 
-if which vercmp >/dev/null 2>&1 ; then
-  CROSSER_VERCMP=yes
+if which cvercmp >/dev/null 2>&1 ; then
+  CROSSER_CVERCMP=yes
 fi
 
 # Start new logfiles
@@ -482,13 +482,13 @@ tokenize_version() {
 # 1  - $1 is greater than $2
 # 2  - $2 is greater than $1
 cmp_versions() {
-  if test "x$CROSSER_VERCMP" = "xyes"
+  if test "x$CROSSER_CVERCMP" = "xyes"
   then
-    if vercmp "$1" equal "$2" > /dev/null
+    if cvercmp "$1" equal "$2" > /dev/null
     then
       return 0
     fi
-    if vercmp "$1" greater "$2" > /dev/null
+    if cvercmp "$1" greater "$2" > /dev/null
     then
       return 1
     fi
@@ -592,9 +592,9 @@ cmp_versions() {
 # $1 - Version number
 # $2 - Comparison version
 is_minimum_version() {
-  if test "x$CROSSER_VERCMP" = "xyes"
+  if test "x$CROSSER_CVERCMP" = "xyes"
   then
-    vercmp "$1" min "$2" > /dev/null
+    cvercmp "$1" min "$2" > /dev/null
     return $?
   fi
 
@@ -611,9 +611,9 @@ is_minimum_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_max_version() {
-  if test "x$CROSSER_VERCMP" = "xyes"
+  if test "x$CROSSER_CVERCMP" = "xyes"
   then
-    vercmp "$1" max "$2" > /dev/null
+    cvercmp "$1" max "$2" > /dev/null
     return $?
   fi
 
@@ -630,9 +630,9 @@ is_max_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_smaller_version() {
-  if test "x$CROSSER_VERCMP" = "xyes"
+  if test "x$CROSSER_CVERCMP" = "xyes"
   then
-    vercmp "$1" lesser "$2" > /dev/null
+    cvercmp "$1" lesser "$2" > /dev/null
     return $?
   fi
 
@@ -649,9 +649,9 @@ is_smaller_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_greater_version() {
-  if test "x$CROSSER_VERCMP" = "xyes"
+  if test "x$CROSSER_CVERCMP" = "xyes"
   then
-    vercmp "$1" greater "$2" > /dev/null
+    cvercmp "$1" greater "$2" > /dev/null
     return $?
   fi
 
