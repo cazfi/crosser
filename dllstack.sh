@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -645,6 +645,7 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          ( is_smaller_version $VERSION_GTK2 2.24.0 ||
            patch_src gdk-pixbuf-$VERSION_GDK_PIXBUF gdkpixbuf_gdiplusdef ) &&
+         autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          build_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf")) ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
