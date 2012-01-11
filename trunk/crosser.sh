@@ -1012,7 +1012,7 @@ then
 
     if ! unpack_component libxml2 $VERSION_LIBXML2                        ||
        ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
-         "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
+         "--prefix=$CROSSER_IM_PFX --without-python" "" "/"               ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                ||
@@ -1021,7 +1021,7 @@ then
          "" "/" ||
        ! link_im_host_prog libgcrypt-config ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
-         "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX"  \
+         "--prefix=$CROSSER_IM_PFX --with-libxml-prefix=$CROSSER_IM_PFX --without-python" \
          "" "/" ||
        ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
        ! build_with_cross_compiler jpeg      jpeg-$VERSION_JPEG           \
@@ -1034,13 +1034,14 @@ then
     STEP="bl(tgt)"
     STEPADD="  "
 
-    if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       ||
+    if ! build_with_cross_compiler libxml2 libxml2-$VERSION_LIBXML2       \
+         "--without-python"                                               ||
        ! build_with_cross_compiler libgpg-error \
          libgpg-error-$VERSION_GPGERROR                                   ||
        ! build_with_cross_compiler libgcrypt libgcrypt-$VERSION_LIBGCRYPT \
          "--with-gpg-error-prefix=$CROSSER_IM_PFX --disable-asm"          ||
        ! build_with_cross_compiler libxslt   libxslt-$VERSION_LIBXSLT     \
-         "--with-libxml-prefix=$CROSSER_IM_PFX"                           ||
+         "--with-libxml-prefix=$CROSSER_IM_PFX --without-python"          ||
        ! build_with_cross_compiler jpeg      jpeg-$VERSION_JPEG
     then
       crosser_error "Baselib target build failed"
