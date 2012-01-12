@@ -6,13 +6,15 @@
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Updated glib to version 2.30.2
 	- Updated atk to version 2.2.0
-	- Updated linux kernel to version 3.1.6
+	- Updated linux kernel to version 3.1.8
 	- Updated glibc to version 2.14
 	- Updated glibc-ports to version 2.14.1
 	- Updated automake to version 1.11.2
 	- Updated newlib to version 1.20.0
 	- Updated curl to version 7.23.1
 	- Updated tiff to version 4.0.0
+	- Updated binutils to version 2.22
+	- Updated eglibc to version 2.13-24
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
