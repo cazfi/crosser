@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -250,6 +250,12 @@ unpack_component() {
     if ! tar xzf "$PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
+      return 1
+    fi
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.xz" ; then
+    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$3"
+    then
+      log_error "Unpacking $NAME_BASE.tar.xz failed"
       return 1
     fi
   elif test -e "$PACKETDIR/$NAME_BASE.tgz" ; then
