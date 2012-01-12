@@ -644,7 +644,10 @@ fi
 if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          ( is_smaller_version $VERSION_GTK2 2.24.0 ||
+           is_greater_version $VERSION_GDK_PIXBUF 2.24.0 ||
            patch_src gdk-pixbuf-$VERSION_GDK_PIXBUF gdkpixbuf_gdiplusdef ) &&
+         ( ! cmp_versions $VERSION_GDK_PIXBUF 2.24.1 ||
+           patch_src gdk-pixbuf-$VERSION_GDK_PIXBUF gdkpixbuf_animiterinit) &&
          autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          build_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf")) ||

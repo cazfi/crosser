@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -473,6 +473,13 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_GDK_PIXBUF 2.24.0
+then
+  GDK_PB_PACK="tar.xz"
+else
+  GDK_PB_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_KERNEL 3.0
 then
   KERNEL_DIR="v3.0"
@@ -559,7 +566,7 @@ download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_A
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "tar.bz2" 
+download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "$GDK_PB_PACK" 
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "tar.bz2"
 RET="$RET $?"
