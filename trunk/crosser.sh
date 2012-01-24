@@ -2,7 +2,7 @@
 
 # crosser.sh: Generic toolchain builder.
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -226,6 +226,13 @@ build_glibc() {
     if ! touch "$SYSPREFIX/usr/include/gnu/stubs.h"
     then
       log_error "Failed to create dummy stubs.h"
+      return 1
+    fi
+
+    if ! cp "$CROSSER_MAINDIR/scripts/dummypthread.h" \
+            "$SYSPREFIX/usr/include/pthread.h"
+    then
+      log_error "Failed to copy dummy pthread.h"
       return 1
     fi
   fi
