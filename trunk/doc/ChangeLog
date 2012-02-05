@@ -17,6 +17,7 @@
 	- Updated binutils to version 2.22
 	- Updated eglibc to version 2.13-24
 	- Updated gdk-pixbuf to version 2.24.1
+	- Updated gtk2 to version 2.24.9
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions

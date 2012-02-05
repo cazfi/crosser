@@ -473,6 +473,13 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_GTK2 2.24.9
+then
+  GTK2_PACK="tar.xz"
+else
+  GTK2_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_GDK_PIXBUF 2.24.0
 then
   GDK_PB_PACK="tar.xz"
@@ -568,7 +575,7 @@ download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSIO
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "$GDK_PB_PACK" 
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "$GTK2_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.bz2"
 RET="$RET $?"
