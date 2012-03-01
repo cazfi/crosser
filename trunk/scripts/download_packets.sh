@@ -459,11 +459,11 @@ case "x$VERSION_XORG_LIBX11" in
   x1.4.0) VERSION_XORG=X11R7.6 ;;
 esac
 
-if is_minimum_version $VERSION_AUTOMAKE 1.6.1
+if is_minimum_version $VERSION_AUTOMAKE 1.11.3
 then
-  AUTOMAKE_PACK="tar.bz2"
+  AUTOMAKE_PACK="tar.xz"
 else
-  AUTOMAKE_PACK="tar.gz"
+  AUTOMAKE_PACK="tar.bz2"
 fi
 
 if is_minimum_version $VERSION_LIBTOOL 2.2.6a
