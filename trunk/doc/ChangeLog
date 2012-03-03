@@ -18,6 +18,8 @@
 	- Updated eglibc to version 2.13-24
 	- Updated gdk-pixbuf to version 2.24.1
 	- Updated gtk2 to version 2.24.9
+	- Updated gtk3 to version 3.2.3
+	- Updated pango to version 1.29.4
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions

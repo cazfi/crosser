@@ -480,6 +480,13 @@ else
   GTK2_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_GTK3 3.2.0
+then
+  GTK3_PACK="tar.xz"
+else
+  GTK3_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_GDK_PIXBUF 2.24.0
 then
   GDK_PB_PACK="tar.xz"
@@ -577,7 +584,7 @@ download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$V
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "$GTK2_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "$GTK3_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
