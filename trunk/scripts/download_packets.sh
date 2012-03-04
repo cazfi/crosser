@@ -473,6 +473,17 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
+# While there's earlier .xz packaged glib version available,
+# earlier crosser versions fetched them as .bz2. In case such
+# an .bz2 package already exist, we don't want to download .xz
+# of the same version.
+if is_minimum_version $VERSION_GLIB 2.30.3
+then
+  GLIB_PACK="tar.xz"
+else
+  GLIB_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_GTK2 2.24.9
 then
   GTK2_PACK="tar.xz"
@@ -554,7 +565,7 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "$GLIB_PACK"
 RET="$RET $?"
 download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="$RET $?"
