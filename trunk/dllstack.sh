@@ -492,9 +492,8 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! build_component   libiconv   $VERSION_ICONV                     ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"          ||
    ! unpack_component  zlib       $VERSION_ZLIB                      ||
-   ! patch_src zlib               zlib_cctest                        ||
-   ! patch_src zlib               zlib_seeko                         ||
-   ! patch_src zlib               zlib_nolibc                        ||
+   ! patch_src zlib               zlib_seeko-1.2.6-2                 ||
+   ! patch_src zlib               zlib_nolibc-1.2.6-2                ||
    ! patch_src zlib               zlib_dllext                        ||
    ! build_zlib        zlib       $VERSION_ZLIB                      ||
    ! free_src          zlib       $VERSION_ZLIB                      ||
