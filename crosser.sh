@@ -982,9 +982,8 @@ then
   fi
 
   # Some patches work only when compiling for Windows target and
-  # thus are used in libstack.sh only
-  if ! patch_src zlib               zlib_cctest               ||
-     ! patch_src zlib               zlib_seeko
+  # thus are used in dllstack.sh only
+  if ! patch_src zlib               zlib_seeko-1.2.6-2
   then
     crosser_error "Baselib patching failed"
     exit 1
