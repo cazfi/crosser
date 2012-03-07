@@ -925,7 +925,7 @@ then
     STEP="chain(2)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$SYSPREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap"
+          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$SYSPREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap --disable-libquadmath"
     then
       crosser_error "Failed to build phase 2 cross-compiler"
       exit 1
