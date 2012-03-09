@@ -7,7 +7,7 @@
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Updated glib to version 2.30.2
 	- Updated atk to version 2.2.0
-	- Updated linux kernel to version 3.1.8
+	- Updated linux kernel to version 3.2.9
 	- Updated glibc to version 2.14.1
 	- Updated glibc-ports to version 2.14.1
 	- Updated automake to version 1.11.3
@@ -15,7 +15,7 @@
 	- Updated curl to version 7.23.1
 	- Updated tiff to version 4.0.0
 	- Updated binutils to version 2.22
-	- Updated eglibc to version 2.13-24
+	- Updated eglibc to version 2.13-27
 	- Updated gdk-pixbuf to version 2.24.1
 	- Updated gtk2 to version 2.24.10
 	- Updated gtk3 to version 3.2.3
@@ -23,6 +23,8 @@
 	- Updated zlib to version 1.2.6.dfsg-2
 	- Updated gcc to version 4.6.3
 	- Updated SDL_image to version 1.2.12
+	- Updated gmp to version 5.0.4
+	- Updated mpfr to version 3.1.0
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions

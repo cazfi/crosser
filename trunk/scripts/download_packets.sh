@@ -473,6 +473,20 @@ else
   LIBTOOL_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_AUTOCONF 2.68b
+then
+  AUTOCONF_PACK="tar.xz"
+else
+  AUTOCONF_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_MPFR 3.1.0
+then
+  MPFR_PACK="tar.xz"
+else
+  MPFR_PACK="tar.bz2"
+fi
+
 # While there's earlier .xz packaged glib version available,
 # earlier crosser versions fetched them as .bz2. In case such
 # an .bz2 package already exist, we don't want to download .xz
@@ -512,14 +526,13 @@ else
   KERNEL_DIR="v$(echo $VERSION_KERNEL | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 fi
 
-download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  $LIBTOOL_PACK
-
-RET="$?"  
+download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
+RET="$?"
 download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gawk/"     "gawk"     "$VERSION_GAWK"     "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.bz2"
+download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
 RET="$RET $?"
@@ -543,7 +556,7 @@ download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLI
 RET="$RET $?"
 download_needed "http://ftp.sunet.se/pub/gnu/gmp/"      "gmp"    "$VERSION_GMP"    "tar.bz2"
 RET="$RET $?"
-download_needed "http://www.mpfr.org/mpfr-$VERSION_MPFR/" "mpfr"   "$VERSION_MPFR"   "tar.bz2"
+download_needed "http://www.mpfr.org/mpfr-$VERSION_MPFR/" "mpfr"   "$VERSION_MPFR"   "$MPFR_PACK"
 RET="$RET $?"
 download_needed "http://www.multiprecision.org/mpc/download/" "mpc" "$VERSION_MPC"   "tar.gz"
 RET="$RET $?"

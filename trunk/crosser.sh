@@ -529,7 +529,9 @@ prepare_gcc_src() {
   fi
 
   if ! (! cmp_versions $VERSION_GCC 4.3.1 ||
-        patch_src gcc-$VERSION_GCC gcc_cldconf )
+        patch_src gcc-$VERSION_GCC gcc_cldconf ) ||
+     ! (is_smaller_version $VERSION_MPFR 3.1.0 ||
+        patch_src gcc-$VERSION_GCC gcc_mpfr310_mpc )
   then
     log_error "GCC patching failed"
     exit 1
