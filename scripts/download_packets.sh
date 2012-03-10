@@ -400,6 +400,7 @@ then
     cups)        VERSION_CUPS=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
+    autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     mpfr)        VERSION_MPFR=$VERSION_SELECTED ;;
@@ -412,8 +413,10 @@ then
     libXau)      VERSION_XORG_LIBXAU=$VERSION_SELECTED ;;
     libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
     linux)       VERSION_KERNEL=$VERSION_SELECTED ;;
+    sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
   esac
 fi
+
 GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -459,6 +462,11 @@ case "x$VERSION_XORG_LIBX11" in
   x1.3.2) VERSION_XORG=X11R7.5 ;;
   x1.4.0) VERSION_XORG=X11R7.6 ;;
 esac
+
+if cmp_versions $VERSION_SQLITE 3.7.10
+then
+  SQL_VERSTR="3071000"
+fi
 
 if is_minimum_version $VERSION_AUTOMAKE 1.11.3
 then
@@ -644,6 +652,8 @@ RET="$RET $?"
 download_needed "ftp://ftp.gnupg.org/gcrypt/libgpg-error/"   "libgpg-error" "$VERSION_GPGERROR" "tar.bz2"
 RET="$RET $?"
 download_needed "ftp://ftp.gnupg.org/gcrypt/libgcrypt/"      "libgcrypt" "$VERSION_LIBGCRYPT"   "tar.bz2"
+RET="$RET $?"
+download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 
 for VALUE in $RET
