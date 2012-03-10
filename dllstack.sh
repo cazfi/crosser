@@ -713,7 +713,7 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image" ||
    ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER    ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER    \
-     "--disable-music-mp3 --disable-smpegtest"          ||
+     "--disable-music-mp3 --disable-smpegtest --disable-music-mod" ||
    ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
 then
   log_error "SDL stack build failed"
