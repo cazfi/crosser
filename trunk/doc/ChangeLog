@@ -5,6 +5,7 @@
 	- Added support for tar.xz source packages
 	- Both python2 and python3 built at native step
 	- Fixed downloading of linux kernel versions greater than 3.0.x
+	- Mention step "comp" in download_packets.sh --help
 	- Updated glib to version 2.30.2
 	- Updated atk to version 2.2.0
 	- Updated linux kernel to version 3.2.9
