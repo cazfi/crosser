@@ -6,6 +6,7 @@ libpng
 zlib
 bzip2
 curl
+sqlite
 gettext
 glib
 libjpeg
