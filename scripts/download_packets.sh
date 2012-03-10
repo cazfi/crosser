@@ -267,6 +267,7 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "  - xorg"
   echo "  - gtk"
   echo "  - sdl"
+  echo "  - comp"
   echo "  - win"
 
   exit $HELP_RETURN
