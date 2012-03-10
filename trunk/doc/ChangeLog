@@ -26,6 +26,7 @@
 	- Updated gmp to version 5.0.4
 	- Updated mpfr to version 3.1.0
 	- Updated libpng to version 1.5.9
+	- Updated SDL_mixer to version 1.2.12
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
