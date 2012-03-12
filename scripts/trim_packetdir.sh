@@ -2,11 +2,13 @@
 
 # trim_packetdir.sh: Delete old source packets
 #
-# (c) 2009-2010 Marko Lindqvist
+# (c) 2009-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
-export FILELIMIT=200
+declare -i FILELIMIT
+
+FILELIMIT=200
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
@@ -33,8 +35,16 @@ then
   exit 0
 fi
 
+if test "x$2" != "x" ; then
+  FILELIMIT=$2
+  if test $FILELIMIT -eq 0 ; then
+    echo "Illegal filecount parameter \"$2\"" >&2
+    exit 1
+  fi
+fi
+
 if test "x$HELP_RETURN" != "x" ; then
-  echo "Usage: $(basename "$0") <packetdir>"
+  echo "Usage: $(basename "$0") <packetdir> [files left=200]"
   exit $HELP_RETURN
 fi
 
