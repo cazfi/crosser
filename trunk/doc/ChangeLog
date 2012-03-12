@@ -1,5 +1,6 @@
 0.8
 	- Fixed building of gettext when /bin/sh is not bash
+	- trim_packetdir.sh accepts optional parameter to tell how many files it should leave
 	- Use cvercmp for version number comparisons if it's available
 	- Added debian packaging of crosser itself
 	- Added support for tar.xz source packages
