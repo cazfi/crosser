@@ -693,11 +693,11 @@ if test "x$STEP_NATIVE" = "xyes" ; then
          "--disable-asm"                                            ||
      ! unpack_component libxslt    $VERSION_LIBXSLT               ||
      ! build_for_host   libxslt    libxslt-$VERSION_LIBXSLT       ||
-     ! prepare_binutils_src                                   ||
-     ! build_for_host binutils binutils-$BASEVER_BINUTILS     \
-     "--with-tls --enable-stage1-languages=all"               ||
-     ! prepare_gcc_src                                        ||
-     ! log_write 1 "-Building native gcc can take hours!-"    ||
+     ! prepare_binutils_src                                         ||
+     ! build_for_host binutils binutils-$BASEVER_BINUTILS           \
+     "--with-tls --enable-stage1-languages=all --with-sysroot"      ||
+     ! prepare_gcc_src                                              ||
+     ! log_write 1 "-Building native gcc can take hours!-"          ||
      ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_for_host gcc gcc-$VERSION_GCC                    \
      "--enable-languages=c,c++ --disable-multilib --with-tls"
   then
