@@ -9,7 +9,7 @@
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Mention step "comp" in download_packets.sh --help
 	- Added sqlite (version 3.7.10) build to dllstack
-	- Updated glib to version 2.30.2
+	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
 	- Updated linux kernel to version 3.2.9
 	- Updated glibc to version 2.14.1
@@ -17,12 +17,12 @@
 	- Updated automake to version 1.11.3
 	- Updated newlib to version 1.20.0
 	- Updated curl to version 7.23.1
-	- Updated tiff to version 4.0.0
+	- Updated tiff to version 4.0.1
 	- Updated binutils to version 2.22
 	- Updated eglibc to version 2.13-27
 	- Updated gdk-pixbuf to version 2.24.1
 	- Updated gtk2 to version 2.24.10
-	- Updated gtk3 to version 3.2.3
+	- Updated gtk3 to version 3.2.4
 	- Updated pango to version 1.29.4
 	- Updated zlib to version 1.2.6.dfsg-2
 	- Updated gcc to version 4.6.3
@@ -32,6 +32,7 @@
 	- Updated libpng to version 1.5.9
 	- Updated SDL_mixer to version 1.2.12
 	- Updated pixman to version 0.24.4
+	- Updated xcb-proto to version 1.7
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
