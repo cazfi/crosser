@@ -1175,7 +1175,7 @@ then
     STEPADD="     "
     if ! unpack_component          atk           $VERSION_ATK                            ||
        ! build_with_cross_compiler atk           atk-$VERSION_ATK                        \
-         "--disable-glibtest" ||
+         "--prefix=/usr --disable-glibtest" ||
        ! unpack_component          tiff          $VERSION_TIFF                           ||
        ! build_with_cross_compiler tiff          tiff-$VERSION_TIFF
     then
