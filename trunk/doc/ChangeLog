@@ -9,6 +9,7 @@
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Mention step "comp" in download_packets.sh --help
 	- Added sqlite (version 3.7.10) build to dllstack
+	- Added xz to hostbin
 	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
 	- Updated linux kernel to version 3.2.9
