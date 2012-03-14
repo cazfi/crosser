@@ -12,6 +12,7 @@
 	- Added Requirements.txt document
 	- Added libxml2 build to native step
 	- Added gdk-pixbuf build to gtk-step
+	- Added cairo build to gtk-step
 	- Added xz to hostbin
 	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
