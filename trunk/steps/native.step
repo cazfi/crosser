@@ -13,6 +13,7 @@ mpc
 pkg-config
 libgpg-error
 libgcrypt
+libxml2
 libxslt
 libffi
 glib
