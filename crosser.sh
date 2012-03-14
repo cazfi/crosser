@@ -1188,7 +1188,9 @@ then
        ! build_with_cross_compiler tiff          tiff-$VERSION_TIFF                      ||
        ! unpack_component          gdk-pixbuf    $VERSION_GDK_PIXBUF                     ||
        ! build_with_cross_compiler gdk-pixbuf    gdk-pixbuf-$VERSION_GDK_PIXBUF          \
-         "$GDK_PB_VARS"
+         "$GDK_PB_VARS"                                                                  ||
+       ! unpack_component cairo $VERSION_CAIRO                                           ||
+       ! build_with_cross_compiler cairo cairo-$VERSION_CAIRO
     then
       crosser_error "gtk+ chain build failed"
       exit 1
