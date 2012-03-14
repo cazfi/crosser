@@ -1116,6 +1116,9 @@ then
     GLIB_VARS="$(read_configure_vars glib)"
     log_write 4 "Glib variables: $GLIB_VARS"
 
+    GDK_PB_VARS="$(read_configure_vars gdk-pixbuf)"
+    log_write 4 "Gdk-pixbuf variables: $GDK_PB_VARS"
+
     # If native step already executed, libffi and glib already unpacked
     if test "x$STEP_NATIVE" != "xyes"
     then
@@ -1177,7 +1180,10 @@ then
        ! build_with_cross_compiler atk           atk-$VERSION_ATK                        \
          "--prefix=/usr --disable-glibtest" ||
        ! unpack_component          tiff          $VERSION_TIFF                           ||
-       ! build_with_cross_compiler tiff          tiff-$VERSION_TIFF
+       ! build_with_cross_compiler tiff          tiff-$VERSION_TIFF                      ||
+       ! unpack_component          gdk-pixbuf    $VERSION_GDK_PIXBUF                     ||
+       ! build_with_cross_compiler gdk-pixbuf    gdk-pixbuf-$VERSION_GDK_PIXBUF          \
+         "$GDK_PB_VARS"
     then
       crosser_error "gtk+ chain build failed"
       exit 1
