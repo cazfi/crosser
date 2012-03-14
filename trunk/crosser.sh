@@ -675,9 +675,20 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   Python3  Python-$VERSION_PYTHON3      ||
      ! unpack_component Python2  $VERSION_PYTHON2             ||
      ! build_for_host   Python2  Python-$VERSION_PYTHON2      ||
-     ! unpack_component gtk-doc  $VERSION_GTK_DOC             ||
-     ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC         \
-       "--disable-scrollkeeper"                                   ||
+     ! unpack_component libgpg-error $VERSION_GPGERROR              ||
+     ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
+     ! prepare_libgcrypt_src                                        ||
+     ! build_for_host   libgcrypt libgcrypt-$VERSION_LIBGCRYPT      \
+         "--disable-asm"                                            ||
+     ! unpack_component libxml2 $VERSION_LIBXML2                    ||
+     ! build_for_host   libxml2 libxml2-$VERSION_LIBXML2            \
+       "--without-python"                                           ||
+     ! unpack_component libxslt    $VERSION_LIBXSLT                 ||
+     ! build_for_host   libxslt    libxslt-$VERSION_LIBXSLT         \
+       "--without-python"                                           ||
+     ! unpack_component gtk-doc  $VERSION_GTK_DOC                   ||
+     ! build_for_host   gtk-doc  gtk-doc-$VERSION_GTK_DOC           \
+       "--disable-scrollkeeper"                                     ||
      ! unpack_component libffi     $VERSION_FFI                   ||
      ! build_for_host   libffi     libffi-$VERSION_FFI            ||
      ! unpack_component glib       $VERSION_GLIB                  ||
@@ -687,12 +698,6 @@ if test "x$STEP_NATIVE" = "xyes" ; then
         patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
      ! unpack_component          libgpg-error $VERSION_GPGERROR     ||
-     ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
-     ! prepare_libgcrypt_src                                        ||
-     ! build_for_host   libgcrypt libgcrypt-$VERSION_LIBGCRYPT      \
-         "--disable-asm"                                            ||
-     ! unpack_component libxslt    $VERSION_LIBXSLT               ||
-     ! build_for_host   libxslt    libxslt-$VERSION_LIBXSLT       ||
      ! prepare_binutils_src                                         ||
      ! build_for_host binutils binutils-$BASEVER_BINUTILS           \
      "--with-tls --enable-stage1-languages=all --with-sysroot"      ||
