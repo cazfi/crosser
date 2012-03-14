@@ -14,6 +14,7 @@
 	- Added gdk-pixbuf build to gtk-step
 	- Added cairo build to gtk-step
 	- Added xz to hostbin
+	- Removed cups download support
 	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
 	- Updated linux kernel to version 3.2.9

@@ -372,10 +372,6 @@ if test "x$MIRROR_DEB" = "x" ; then
   MIRROR_DEB="http://ftp.debian.org/debian"
 fi
 
-if test "x$MIRROR_CUPS" = "x" ; then
-  MIRROR_CUPS="http://ftp.easysw.com/pub"
-fi
-
 if test "x$MIRROR_XORG" = "x" ; then
   MIRROR_XORG="http://xorg.freedesktop.org/releases"
 fi
@@ -397,7 +393,6 @@ then
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     gcc)         VERSION_GCC=$VERSION_SELECTED ;;
-    cups)        VERSION_CUPS=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
@@ -620,8 +615,6 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "$GTK3_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
-RET="$RET $?"
-download_needed "$MIRROR_CUPS/cups/$VERSION_CUPS/"     "cups"       "cups-$VERSION_CUPS-source.tar.bz2"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
 RET="$RET $?"
