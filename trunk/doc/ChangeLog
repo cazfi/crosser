@@ -10,6 +10,7 @@
 	- Mention step "comp" in download_packets.sh --help
 	- Added sqlite (version 3.7.10) build to dllstack
 	- Added Requirements.txt document
+	- Added libxcb build to xorg step
 	- Added libxml2 build to native step
 	- Added gdk-pixbuf build to gtk-step
 	- Added cairo build to gtk-step

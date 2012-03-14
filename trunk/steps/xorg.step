@@ -3,4 +3,5 @@ xproto
 xextproto
 xtrans
 xcb-proto
+libxcb
 libXau
