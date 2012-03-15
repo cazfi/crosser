@@ -1079,8 +1079,6 @@ then
        ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO            ||
        ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                      ||
        ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO   ||
-       ! unpack_component xtrans $VERSION_XORG_XTRANS                            ||
-       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS            ||
        ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS                ||
        ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS ||
        ! unpack_component libXau    $VERSION_XORG_LIBXAU                         ||
@@ -1093,7 +1091,10 @@ then
     STEP="xorg(im)"
     STEPADD=" "
 
-    if ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
+    if ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
+       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          \
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                     ||
+       ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
        ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      \
          "--prefix=$CROSSER_IM_PFX" "" "/"
     then
@@ -1104,7 +1105,8 @@ then
     STEP="xorg(tgt)"
     STEPADD=""
 
-    if ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      ||
+    if ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS            ||
+       ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      ||
        ! unpack_component libxcb $VERSION_LIBXCB                               ||
        ! build_with_cross_compiler libxcb libxcb-$VERSION_LIBXCB
     then
