@@ -12,6 +12,7 @@
 	- Added Requirements.txt document
 	- Added util-macros build to xorg step
 	- Added kbproto build to xorg step
+	- Added inputproto build to xorg step
 	- Added libxcb build to xorg step
 	- Added libxml2 build to native step
 	- Added gdk-pixbuf build to gtk-step
