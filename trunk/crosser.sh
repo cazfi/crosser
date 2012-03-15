@@ -969,7 +969,7 @@ fi   # STEP_CHAIN
 export CCACHE_DIR="$CROSSER_DST_PFX/.ccache"
 
 unset PKG_CONFIG_PATH
-export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="$CROSSER_IM_PFX/lib/pkgconfig:$CROSSER_IM_PFX/share/pkgconfig:$SYSPREFIX/lib/pkgconfig:$SYSPREFIX/usr/lib/pkgconfig"
 
 PYTHON3_SUBDIR="python$(echo $VERSION_PYTHON3 | sed 's/\./ /g' |
 ( read MAJ MIN PATCH ; echo $MAJ.$MIN ))"
@@ -1072,15 +1072,18 @@ then
   then
     log_write 1 "Step xorg not available for $LIBC_MODE based builds, skipping"
   else
-    if ! unpack_component xproto $VERSION_XORG_XPROTO                          ||
-       ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO          ||
-       ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                    ||
-       ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO ||
-       ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
-       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          ||
-       ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS              ||
+    if ! unpack_component util-macros $VERSION_XORG_UMACROS                      ||
+       ! build_with_cross_compiler util-macros util-macros-$VERSION_XORG_UMACROS \
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                       ||
+       ! unpack_component xproto $VERSION_XORG_XPROTO                            ||
+       ! build_with_cross_compiler xproto xproto-$VERSION_XORG_XPROTO            ||
+       ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                      ||
+       ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO   ||
+       ! unpack_component xtrans $VERSION_XORG_XTRANS                            ||
+       ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS            ||
+       ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS                ||
        ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS ||
-       ! unpack_component libXau    $VERSION_XORG_LIBXAU                            ||
+       ! unpack_component libXau    $VERSION_XORG_LIBXAU                         ||
        ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU
     then
       crosser_error "Xorg build failed"
