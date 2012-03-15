@@ -1,4 +1,5 @@
 libpthread-stubs
+util-macros
 xproto
 xextproto
 xtrans

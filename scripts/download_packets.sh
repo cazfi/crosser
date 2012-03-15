@@ -402,6 +402,7 @@ then
     Python3)     VERSION_PYTHON3=$VERSION_SELECTED ;;
     Python2)     VERSION_PYTHON2=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
+    util-macros) VERSION_XORG_UMACROS=$VERSION_SELECTED ;;
     xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
     xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
     xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
@@ -422,6 +423,11 @@ GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
+
+case "x$VERSION_XORG_UMACROS" in
+  x1.3.0)  VERSION_XORG=X11R7.5 ;;
+  x1.11.0) VERSION_XORG=X11R7.6 ;;
+esac
 
 case "x$VERSION_XORG_XPROTO" in
   x) ;;
@@ -631,6 +637,8 @@ RET="$RET $?"
 download_needed "http://xcb.freedesktop.org/dist/"           "xcb-proto" "$VERSION_XCB_PROTO"      "tar.bz2"
 RET="$RET $?"
 download_needed "http://xcb.freedesktop.org/dist/"           "libxcb"    "$VERSION_LIBXCB"         "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "util-macros"    "$VERSION_XORG_UMACROS"    "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xproto"    "$VERSION_XORG_XPROTO"    "tar.bz2"
 RET="$RET $?"
