@@ -1105,10 +1105,12 @@ then
     STEP="xorg(tgt)"
     STEPADD=""
 
-    if ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS            ||
+    if ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          ||
        ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      ||
        ! unpack_component libxcb $VERSION_LIBXCB                               ||
-       ! build_with_cross_compiler libxcb libxcb-$VERSION_LIBXCB
+       ! build_with_cross_compiler libxcb libxcb-$VERSION_LIBXCB               ||
+       ! unpack_component kbproto $VERSION_XORG_KBPROTO                        ||
+       ! build_with_cross_compiler kbproto kbproto-$VERSION_XORG_KBPROTO
     then
       crosser_error "Xorg build failed"
       exit 1

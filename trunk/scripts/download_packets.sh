@@ -406,6 +406,7 @@ then
     xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
     xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
     xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
+    kbproto)     VERSION_XORG_KBPROTO=$VERSION_SELECTED ;;
     libXau)      VERSION_XORG_LIBXAU=$VERSION_SELECTED ;;
     libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
     linux)       VERSION_KERNEL=$VERSION_SELECTED ;;
@@ -448,6 +449,12 @@ case "x$VERSION_XORG_XTRANS" in
   x1.2.1) VERSION_XORG=X11R7.4 ;;
   x1.2.5) VERSION_XORG=X11R7.5 ;;
   x1.2.6) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_KBPROTO" in
+  x) ;;
+  x1.0.4) VERSION_XORG=X11R7.5 ;;
+  x1.0.5) VERSION_XORG=X11R7.6 ;;
 esac
 
 case "x$VERSION_XORG_LIBXAU" in
@@ -645,6 +652,8 @@ RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xextproto" "$VERSION_XORG_XEXTPROTO" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xtrans"    "$VERSION_XORG_XTRANS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "kbproto"   "$VERSION_XORG_KBPROTO" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXau"    "$VERSION_XORG_LIBXAU" "tar.bz2"
 RET="$RET $?"
