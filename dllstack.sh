@@ -602,11 +602,8 @@ then
 fi
 
 if ! unpack_component  freetype   $VERSION_FREETYPE               ||
-   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6 ||
-       patch_src freetype-$VERSION_FREETYPE freetype_dll )        ||
-   ! ( is_minimum_version $VERSION_FREETYPE 2.3.6                 ||
-       autogen_component freetype   $VERSION_FREETYPE )           ||
-   ! build_component   freetype   $VERSION_FREETYPE               ||
+   ! build_component   freetype   $VERSION_FREETYPE               \
+     "--without-bzip2"                                            ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"
 then
   log_error "Freetype build failed"

@@ -1160,7 +1160,7 @@ then
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
-         "--prefix=$CROSSER_IM_PFX" "" "/" ||
+         "--prefix=$CROSSER_IM_PFX --without-bzip2" "" "/"                               ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
          "--prefix=$CROSSER_IM_PFX --disable-gtk" "" "/" ||
@@ -1182,10 +1182,11 @@ then
     STEPADD=" "
     if ! build_with_cross_compiler libffi        libffi-$VERSION_FFI                     ||
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
-         "--prefix=/usr $GLIB_VARS" ||
-       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              ||
+         "--prefix=/usr $GLIB_VARS"                                                      ||
+       ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
+         "--without-bzip2"                                                               ||
        ! build_with_cross_compiler pixman        pixman-$VERSION_PIXMAN                  \
-         "--prefix=/usr --disable-gtk" ||
+         "--prefix=/usr --disable-gtk"                                                   ||
        ! build_with_cross_compiler expat         expat-$VERSION_EXPAT                    ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
