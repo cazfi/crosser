@@ -1080,9 +1080,7 @@ then
        ! unpack_component xextproto $VERSION_XORG_XEXTPROTO                      ||
        ! build_with_cross_compiler xextproto xextproto-$VERSION_XORG_XEXTPROTO   ||
        ! unpack_component libpthread-stubs $VERSION_PTHREAD_STUBS                ||
-       ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS ||
-       ! unpack_component libXau    $VERSION_XORG_LIBXAU                         ||
-       ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU
+       ! build_with_cross_compiler libpthread-stubs libpthread-stubs-$VERSION_PTHREAD_STUBS
     then
       crosser_error "Xorg build failed"
       exit 1
@@ -1091,11 +1089,17 @@ then
     STEP="xorg(im)"
     STEPADD=" "
 
-    if ! unpack_component xtrans $VERSION_XORG_XTRANS                          ||
+    if ! unpack_component          xtrans $VERSION_XORG_XTRANS                 ||
        ! build_with_cross_compiler xtrans xtrans-$VERSION_XORG_XTRANS          \
          "--prefix=$CROSSER_IM_PFX" "" "/"                                     ||
-       ! unpack_component xcb-proto $VERSION_XCB_PROTO                         ||
+       ! unpack_component          libXau $VERSION_XORG_LIBXAU                 ||
+       ! build_with_cross_compiler libXau libXau-$VERSION_XORG_LIBXAU          \
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                     ||
+       ! unpack_component          xcb-proto $VERSION_XCB_PROTO                ||
        ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO      \
+         "--prefix=$CROSSER_IM_PFX" "" "/"                                     ||
+       ! unpack_component          libxcb    $VERSION_LIBXCB                   ||
+       ! build_with_cross_compiler libxcb    libxcb-$VERSION_LIBXCB            \
          "--prefix=$CROSSER_IM_PFX" "" "/"
     then
       crosser_error "Xorg intermediate part build failed"
@@ -1107,12 +1111,14 @@ then
 
     if ! build_with_cross_compiler xtrans    xtrans-$VERSION_XORG_XTRANS          ||
        ! build_with_cross_compiler xcb-proto xcb-proto-$VERSION_XCB_PROTO         ||
-       ! unpack_component          libxcb    $VERSION_LIBXCB                      ||
+       ! build_with_cross_compiler libXau    libXau-$VERSION_XORG_LIBXAU          ||
        ! build_with_cross_compiler libxcb    libxcb-$VERSION_LIBXCB               ||
        ! unpack_component          kbproto   $VERSION_XORG_KBPROTO                ||
        ! build_with_cross_compiler kbproto   kbproto-$VERSION_XORG_KBPROTO        ||
        ! unpack_component          inputproto $VERSION_XORG_INPUTPROTO            ||
-       ! build_with_cross_compiler inputproto inputproto-$VERSION_XORG_INPUTPROTO
+       ! build_with_cross_compiler inputproto inputproto-$VERSION_XORG_INPUTPROTO ||
+       ! unpack_component          libX11     $VERSION_XORG_LIBX11                ||
+       ! build_with_cross_compiler libX11     libX11-$VERSION_XORG_LIBX11
     then
       crosser_error "Xorg build failed"
       exit 1
