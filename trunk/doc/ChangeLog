@@ -22,12 +22,12 @@
 	- Removed cups download support
 	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
-	- Updated linux kernel to version 3.2.9
+	- Updated linux kernel to version 3.2.11
 	- Updated glibc to version 2.14.1
 	- Updated glibc-ports to version 2.14.1
 	- Updated automake to version 1.11.3
 	- Updated newlib to version 1.20.0
-	- Updated curl to version 7.23.1
+	- Updated curl to version 7.24.0
 	- Updated tiff to version 4.0.1
 	- Updated binutils to version 2.22
 	- Updated eglibc to version 2.13-27
@@ -44,6 +44,7 @@
 	- Updated SDL_mixer to version 1.2.12
 	- Updated pixman to version 0.24.4
 	- Updated xcb-proto to version 1.7
+	- Updated freetype to version 2.4.9
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
