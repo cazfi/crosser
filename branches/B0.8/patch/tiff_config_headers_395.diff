@@ -1,0 +1,21 @@
+diff -Nurd tiff-3.9.5/configure.ac tiff-3.9.5/configure.ac
+--- tiff-3.9.5/configure.ac	2011-04-09 22:59:15.000000000 +0300
++++ tiff-3.9.5/configure.ac	2011-05-28 21:09:48.000000000 +0300
+@@ -30,6 +30,8 @@
+ AC_CONFIG_MACRO_DIR(m4)
+ AC_LANG(C)
+ 
++AC_CONFIG_HEADERS([libtiff/tif_config.h libtiff/tiffconf.h])
++
+ dnl Compute the canonical host (run-time) system type variable
+ AC_CANONICAL_HOST
+ 
+@@ -638,8 +640,6 @@
+ 
+ AC_SUBST(LIBDIR)
+ 
+-AC_CONFIG_HEADERS([libtiff/tif_config.h libtiff/tiffconf.h])
+-
+ AC_CONFIG_FILES([Makefile \
+ 		 build/Makefile \
+ 		 contrib/Makefile \
