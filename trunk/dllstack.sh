@@ -103,7 +103,7 @@ build_component_host()
 # $2 - Component
 # $3 - Version, "0" to indicate that there isn't package to build after all
 # $4 - Extra configure options
-# $5 - Native ('native')
+# $5 - Build type ('native' | 'windres')
 build_component_full()
 {
   log_packet "$1"
@@ -132,15 +132,20 @@ build_component_full()
   cd "$BUILDDIR"
   SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
-  if test "x$5" != "xnative"
+  if test "x$5" = "xnative"
   then
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
-    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
-    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
-  else
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $4"
     unset CPPFLAGS
     unset LDFLAGS
+  elif test "x$5" = "xwindres"
+  then
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
+    unset CPPFLAGS
+    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+  else
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -508,6 +513,9 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! patch_src bzip2-$VERSION_BZIP2 bzip2_winapi                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! free_src          bzip2      $VERSION_BZIP2                     ||
+   ! unpack_component  xz         $VERSION_XZ                        ||
+   ! build_component_full xz xz   $VERSION_XZ "" "windres"           ||
+   ! free_component    xz         $VERSION_XZ "xz"                   ||
    ! unpack_component  curl       $VERSION_CURL                      ||
    ! build_component   curl       $VERSION_CURL                      ||
    ! free_component    curl       $VERSION_CURL "curl"               ||
