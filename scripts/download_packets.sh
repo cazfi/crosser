@@ -594,6 +594,8 @@ download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_Z
 RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
+download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \

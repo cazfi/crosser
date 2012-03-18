@@ -5,16 +5,17 @@
 	- Use cvercmp for version number comparisons if it's available
 	- Added debian packaging of crosser itself
 	- Added support for tar.xz source packages
-	- Both python2 and python3 built at native step
+	- Both python2 (version 2.7.2) and python3 built at native step
 	- Fixed downloading of linux kernel versions greater than 3.0.x
 	- Mention step "comp" in download_packets.sh --help
 	- Added sqlite (version 3.7.10) build to dllstack
+	- Added xz (version 5.0.3) build to dllstack
 	- Added Requirements.txt document
-	- Added util-macros build to xorg step
-	- Added kbproto build to xorg step
-	- Added inputproto build to xorg step
-	- Added libxcb build to xorg step
-	- Added libX11 build to xorg step
+	- Added util-macros (version 1.11.0) build to xorg step
+	- Added kbproto (version 1.0.5) build to xorg step
+	- Added inputproto (version 2.0.1) build to xorg step
+	- Added libxcb (version 1.8.1) build to xorg step
+	- Added libX11 (version 1.4.0) build to xorg step
 	- Added libxml2 build to native step
 	- Added gdk-pixbuf build to gtk-step
 	- Added cairo build to gtk-step

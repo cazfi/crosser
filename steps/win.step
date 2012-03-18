@@ -5,6 +5,7 @@ libiconv
 libpng
 zlib
 bzip2
+xz
 curl
 sqlite
 gettext
