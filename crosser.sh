@@ -1118,7 +1118,9 @@ then
        ! unpack_component          inputproto $VERSION_XORG_INPUTPROTO            ||
        ! build_with_cross_compiler inputproto inputproto-$VERSION_XORG_INPUTPROTO ||
        ! unpack_component          libX11     $VERSION_XORG_LIBX11                ||
-       ! build_with_cross_compiler libX11     libX11-$VERSION_XORG_LIBX11
+       ! build_with_cross_compiler libX11     libX11-$VERSION_XORG_LIBX11         ||
+       ! unpack_component          libXext    $VERSION_XORG_LIBXEXT               ||
+       ! build_with_cross_compiler libXext    libXext-$VERSION_XORG_LIBXEXT
     then
       crosser_error "Xorg build failed"
       exit 1
