@@ -9,3 +9,4 @@ inputproto
 libxcb
 libXau
 libX11
+libXext

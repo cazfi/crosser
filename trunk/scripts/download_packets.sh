@@ -410,6 +410,7 @@ then
     inputproto)  VERSION_XORG_INPUTPROTO=$VERSION_SELECTED ;;
     libXau)      VERSION_XORG_LIBXAU=$VERSION_SELECTED ;;
     libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
+    libXext)     VERSION_XORG_LIBXEXT=$VERSION_SELECTED ;;
     linux)       VERSION_KERNEL=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
   esac
@@ -476,6 +477,12 @@ case "x$VERSION_XORG_LIBX11" in
   x1.1.5) VERSION_XORG=X11R7.4 ;;
   x1.3.2) VERSION_XORG=X11R7.5 ;;
   x1.4.0) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_LIBXEXT" in
+  x) ;;
+  x1.1.1) VERSION_XORG=X11R7.5 ;;
+  x1.2.0) VERSION_XORG=X11R7.6 ;;
 esac
 
 if cmp_versions $VERSION_SQLITE 3.7.10
@@ -669,6 +676,8 @@ RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXau"    "$VERSION_XORG_LIBXAU" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libX11"    "$VERSION_XORG_LIBX11" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXext"   "$VERSION_XORG_LIBXEXT" "tar.bz2"
 RET="$RET $?"
 download_needed "ftp://ftp.gnupg.org/gcrypt/libgpg-error/"   "libgpg-error" "$VERSION_GPGERROR" "tar.bz2"
 RET="$RET $?"
