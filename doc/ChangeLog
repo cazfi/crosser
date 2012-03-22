@@ -45,6 +45,7 @@
 	- Updated pixman to version 0.24.4
 	- Updated xcb-proto to version 1.7
 	- Updated freetype to version 2.4.9
+	- Updated jpeg to version 8d
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
