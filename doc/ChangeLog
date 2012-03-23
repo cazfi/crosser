@@ -1,6 +1,7 @@
 0.9
 	- Updated pango to version 1.29.4
 	- Updated gtk3 to version 3.2.4
+	- Updated gcc to version 4.7.0
 
 0.8
 	- Fixed building of gettext when /bin/sh is not bash

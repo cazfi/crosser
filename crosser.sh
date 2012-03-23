@@ -704,7 +704,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! prepare_gcc_src                                              ||
      ! log_write 1 "-Building native gcc can take hours!-"          ||
      ! LIBRARY_PATH="$CROSSER_NAT_LIBP" build_for_host gcc gcc-$VERSION_GCC                    \
-     "--enable-languages=c,c++ --disable-multilib --with-tls"
+     "--enable-languages=c,c++ --disable-multilib"
   then
      crosser_error "Failed to build native compiler for host"
      exit 1
@@ -816,7 +816,7 @@ then
     fi
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$SYSPREFIX --disable-multilib --enable-threads --disable-decimal-float" \
+          "--enable-languages=c,c++ --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=$SYSPREFIX --disable-multilib --enable-threads --disable-decimal-float" \
           "all-gcc install-gcc all-target-zlib install-target-zlib all-target-newlib install-target-newlib all-target-libgloss install-target-libgloss all-target-libgcc install-target-libgcc"
     then
       crosser_error "Build of cross-compiler failed"
@@ -830,7 +830,7 @@ then
     # Initial cross-compiler
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-        "--enable-languages=c --with-gnu-as --with-gnu-ld --with-tls --with-sysroot=$SYSPREFIX --disable-multilib" \
+        "--enable-languages=c --with-gnu-as --with-gnu-ld --with-sysroot=$SYSPREFIX --disable-multilib" \
         "all-gcc install-gcc"
     then
       crosser_error "Build of initial cross-compiler failed"
@@ -932,7 +932,7 @@ then
     STEP="chain(2)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c --with-tls --with-sysroot=$SYSPREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap --disable-libquadmath"
+          "--disable-multilib --enable-languages=c --with-sysroot=$SYSPREFIX --disable-threads --disable-libssp --disable-libgomp --disable-libmudflap --disable-libquadmath"
     then
       crosser_error "Failed to build phase 2 cross-compiler"
       exit 1
@@ -949,7 +949,7 @@ then
     STEP="chain(3)"
 
     if ! build_with_native_compiler gcc gcc-$VERSION_GCC \
-          "--disable-multilib --enable-languages=c,c++ --with-tls --with-sysroot=$SYSPREFIX --enable-threads"
+          "--disable-multilib --enable-languages=c,c++ --with-sysroot=$SYSPREFIX --enable-threads"
     then
       crosser_error "Failed to build final cross-compiler"
       exit 1
@@ -1296,7 +1296,7 @@ then
   if ! build_with_cross_compiler binutils binutils-$BASEVER_BINUTILS \
        "--with-tls --enable-stage1-languages=all"                    ||
      ! build_with_cross_compiler gcc gcc-$VERSION_GCC                \
-       "--disable-multilib --enable-languages=c --with-tls --enable-threads"
+       "--disable-multilib --enable-languages=c --enable-threads"
   then
     crosser_error "Target compiler build failed"
     exit 1
