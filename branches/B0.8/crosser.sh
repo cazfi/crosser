@@ -418,7 +418,7 @@ link_host_command() {
 # 1 - Failure
 setup_host_commands() {
   # Absolutely required commands
-  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 xz flex makeinfo install whoami depmod wget pod2man msgfmt sh glib-genmarshal hostname dnsdomainname mktemp"
+  HOST_COMMANDS_REQ="mkdir touch true false chmod rm which tee sed grep expr cat echo sort mv cp ln cmp test comm ls rmdir tr date uniq sleep diff basename dirname tail head env uname cut readlink od egrep fgrep wc make find pwd tar m4 awk getconf expand perl bison bzip2 xz flex makeinfo install whoami depmod wget pod2man msgfmt sh hostname dnsdomainname mktemp"
   # Usefull commands
   HOST_COMMANDS_TRY="dpkg-source md5sum gpg gpgv sha1sum sha256sum gzip gunzip patch quilt bash getopt"
 
