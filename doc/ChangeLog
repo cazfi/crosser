@@ -53,6 +53,7 @@
 	- Updated xcb-proto to version 1.7
 	- Updated freetype to version 2.4.9
 	- Updated jpeg to version 8d
+	- Stable versionset: Updated libxml2 to version 2.7.8
 
 0.7 (17-Nov-11)
 	- Fixed native compiler build in latest Debian and derivatives testing versions
