@@ -25,7 +25,9 @@
 	- Added libxml2 build to native step
 	- Added gdk-pixbuf build to gtk-step
 	- Added cairo build to gtk-step
+	- Added tee to hostbin
 	- Added xz to hostbin
+	- glib-genmarshal removed from hostbin
 	- Removed cups download support
 	- Updated glib to version 2.30.3
 	- Updated atk to version 2.2.0
