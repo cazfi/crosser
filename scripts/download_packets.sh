@@ -529,6 +529,20 @@ else
   GLIB_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_ATK 2.4.0
+then
+  ATK_PACK="tar.xz"
+else
+  ATK_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_PANGO 1.30.0
+then
+  PANGO_PACK="tar.xz"
+else
+  PANGO_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_GTK2 2.24.9
 then
   GTK2_PACK="tar.xz"
@@ -631,9 +645,9 @@ download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_P
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.bz2"
+download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "$ATK_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.bz2"
 RET="$RET $?"
