@@ -2,7 +2,7 @@
 
 # buildfuncs.sh: Build functions for Crosser
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -147,8 +147,8 @@ build_with_cross_compiler() {
     DESTDIR="$5"
   fi
 
-  if ! LIBRARY_PATH="$CROSSER_NAT_LIBP" C_INCLUDE_PATH="${SYSPREFIX}/usr/include" CPLUS_INCLUDE_PATH="${SYSPREFIX}/usr/include" \
-     build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
+  if ! LIBRARY_PATH="$SYSPREFIX/usr/lib" \
+       build_generic "tgt-$1" "$2" "$CONFOPTIONS" "DESTDIR=$DESTDIR $MAKETARGETS"
   then
     return 1
   fi

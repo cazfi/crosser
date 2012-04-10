@@ -547,6 +547,24 @@ prepare_gcc_src() {
   fi
 }
 
+# Basic preparation of libgpg-error source tree
+#
+prepare_gpg_error_src() {
+  if ! unpack_component libgpg-error $VERSION_GPGERROR
+  then
+    log_error "Libgcpg-error unpacking failed"
+    exit 1
+  fi
+
+  if ! patch_src libgpg-error-$VERSION_GPGERROR gpgerror_LIBP_for_build ||
+     ! autogen_component libgpg-error $VERSION_GPGERROR                 \
+       "aclocal automake autoconf"
+  then
+    log_error "Failed to prepare libgpg-error sources"
+    exit 1
+  fi
+}
+
 # Basic preparation of libgcrypt source tree
 #
 prepare_libgcrypt_src() {
@@ -645,9 +663,9 @@ export PKG_CONFIG_PATH=$NATIVE_PREFIX/lib/pkgconfig
 NO_VEND=$(. $CROSSER_MAINDIR/setups/native.sh ; echo $TMP_ARCH-$TMP_OS)
 if test "x$LIBRARY_PATH" = "x"
 then
-  CROSSER_NAT_LIBP="/usr/lib/$NO_VEND"
+  export CROSSER_NAT_LIBP="/usr/lib/$NO_VEND"
 else
-  CROSSER_NAT_LIBP="$LIBRARY_PATH:/usr/lib/$NO_VEND"
+  export CROSSER_NAT_LIBP="$LIBRARY_PATH:/usr/lib/$NO_VEND"
 fi
 CROSSER_NAT_INCP="/usr/include/$NO_VEND"
 
@@ -675,7 +693,7 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! build_for_host   Python3  Python-$VERSION_PYTHON3      ||
      ! unpack_component Python2  $VERSION_PYTHON2             ||
      ! build_for_host   Python2  Python-$VERSION_PYTHON2      ||
-     ! unpack_component libgpg-error $VERSION_GPGERROR              ||
+     ! prepare_gpg_error_src                                        ||
      ! build_for_host   libgpg-error libgpg-error-$VERSION_GPGERROR ||
      ! prepare_libgcrypt_src                                        ||
      ! build_for_host   libgcrypt libgcrypt-$VERSION_LIBGCRYPT      \
@@ -697,7 +715,6 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
         patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
-     ! unpack_component          libgpg-error $VERSION_GPGERROR     ||
      ! prepare_binutils_src                                         ||
      ! build_for_host binutils binutils-$BASEVER_BINUTILS           \
      "--with-tls --enable-stage1-languages=all --with-sysroot"      ||
@@ -1014,8 +1031,8 @@ then
     # If native step already executed, libxslt already unpacked
     if test "x$STEP_NATIVE" != "xyes"
     then
-      if ! unpack_component libgpg-error $VERSION_GPGERROR ||
-         ! prepare_libgcrypt_src                           ||
+      if ! prepare_gpg_error_src                     ||
+         ! prepare_libgcrypt_src                     ||
          ! unpack_component libxslt $VERSION_LIBXSLT
       then
         crosser_error "Unpacking of baselib source packages failed"
