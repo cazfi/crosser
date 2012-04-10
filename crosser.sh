@@ -902,6 +902,7 @@ then
        ! (! cmp_versions $LIBCVER 2.9 ||
           patch_src $LIBCDIR/ports glibc_upstream_arm_sigsetjmp) ||
        ! (is_smaller_version $LIBCVER 2.14 ||
+          is_minimum_version $LIBCVER 2.15 ||
           patch_src $LIBCDIR glibc_cpuidh)
     then
       crosser_error "$LIBCNAME patching failed"
