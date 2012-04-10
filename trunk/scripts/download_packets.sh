@@ -511,6 +511,13 @@ else
   AUTOCONF_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_GLIBC 2.15
+then
+  GLIBC_PACK="tar.xz"
+else
+  GLIBC_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_MPFR 3.1.0
 then
   MPFR_PACK="tar.xz"
@@ -589,9 +596,9 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/"    "glibc"    "$VERSION_GLIBC"    "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc"       "$VERSION_GLIBC"       "$GLIBC_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC_PORTS" "tar.bz2"
+download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC_PORTS" "$GLIBC_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/e/eglibc/"       "eglibc"     "$VERSION_EGLIBC_DEB" "dsc"
 RET="$RET $?"
