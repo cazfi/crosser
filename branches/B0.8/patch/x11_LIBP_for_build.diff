@@ -1,0 +1,12 @@
+diff -Nurd libX11-1.4.0/src/util/Makefile.am libX11-1.4.0/src/util/Makefile.am
+--- libX11-1.4.0/src/util/Makefile.am	2012-04-12 01:44:38.000000000 +0300
++++ libX11-1.4.0/src/util/Makefile.am	2012-04-12 01:44:58.000000000 +0300
+@@ -5,7 +5,7 @@
+ 	$(X11_CFLAGS) \
+ 	$(CWARNFLAGS)
+ 
+-CC = @CC_FOR_BUILD@
++CC = LIBRARY_PATH=$(CROSSER_NAT_LIBP) @CC_FOR_BUILD@
+ CPPFLAGS = @CPPFLAGS_FOR_BUILD@
+ CFLAGS = @CFLAGS_FOR_BUILD@
+ LDFLAGS = @LDFLAGS_FOR_BUILD@
