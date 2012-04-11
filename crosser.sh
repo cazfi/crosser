@@ -715,6 +715,10 @@ if test "x$STEP_NATIVE" = "xyes" ; then
      ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
         patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
      ! build_for_host   pkg-config pkg-config-$VERSION_PKG_CONFIG ||
+     ! unpack_component util-macros $VERSION_XORG_UMACROS             ||
+     ! build_for_host   util-macros util-macros-$VERSION_XORG_UMACROS ||
+     ! unpack_component xtrans      $VERSION_XORG_XTRANS              ||
+     ! build_for_host   xtrans      xtrans-$VERSION_XORG_XTRANS       ||
      ! prepare_binutils_src                                         ||
      ! build_for_host binutils binutils-$BASEVER_BINUTILS           \
      "--with-tls --enable-stage1-languages=all --with-sysroot"      ||
