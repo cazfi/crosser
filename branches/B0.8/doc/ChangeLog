@@ -18,6 +18,8 @@
 	- Added libX11 (version 1.4.0) build to xorg step
 	- Added libXext (version 1.2.0) build to xorg step
 	- Added libxml2 build to native step
+	- Added util-macros build to native step
+	- Added xtrans build to native step
 	- Added gdk-pixbuf build to gtk-step
 	- Added cairo build to gtk-step
 	- Added tee to hostbin
