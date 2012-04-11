@@ -17,3 +17,5 @@ libxml2
 libxslt
 libffi
 glib
+util-macros
+xtrans
