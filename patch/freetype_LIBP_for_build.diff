@@ -1,0 +1,24 @@
+diff -Nurd freetype-2.4.9/builds/unix/configure.raw freetype-2.4.9/builds/unix/configure.raw
+--- freetype-2.4.9/builds/unix/configure.raw	2012-04-12 14:09:43.000000000 +0300
++++ freetype-2.4.9/builds/unix/configure.raw	2012-04-16 11:13:30.000000000 +0300
+@@ -46,7 +46,7 @@
+   AC_MSG_CHECKING([for suffix of native executables])
+   rm -f a.* b.* a_out.exe conftest.*
+   echo > conftest.c "int main() { return 0;}"
+-  ${CC_BUILD} conftest.c || AC_MSG_ERROR([native C compiler is not working])
++  LIBRARY_PATH=${CROSSER_NAT_LIBP} ${CC_BUILD} conftest.c || AC_MSG_ERROR([native C compiler is not working])
+   rm -f conftest.c
+   if test -x a.out -o -x b.out -o -x conftest; then
+     EXEEXT_BUILD=""
+diff -Nurd freetype-2.4.9/builds/unix/unix-cc.in freetype-2.4.9/builds/unix/unix-cc.in
+--- freetype-2.4.9/builds/unix/unix-cc.in	2010-08-31 14:04:28.000000000 +0300
++++ freetype-2.4.9/builds/unix/unix-cc.in	2012-04-16 11:14:07.000000000 +0300
+@@ -101,7 +101,7 @@
+ CCraw_build  := @CC_BUILD@	# native CC of building system
+ E_BUILD      := @EXEEXT_BUILD@	# extension for exexutable on building system
+ EXPORTS_LIST := $(OBJ_DIR)/ftexport.sym
+-CCexe        := $(CCraw_build)	# used to compile `apinames' only
++CCexe        := LIBRARY_PATH=$(CROSSER_NAT_LIBP) $(CCraw_build)	# used to compile `apinames' only
+ 
+ 
+ # Library linking

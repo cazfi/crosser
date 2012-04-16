@@ -1186,6 +1186,8 @@ then
        ! build_with_cross_compiler glib          glib-$VERSION_GLIB                      \
          "--prefix=$CROSSER_IM_PFX $GLIB_VARS" "" "/"                                    ||
        ! unpack_component          freetype      $VERSION_FREETYPE                       ||
+       ! patch_src freetype-$VERSION_FREETYPE freetype_LIBP_for_build                    ||
+       ! autogen_component         freetype      $VERSION_FREETYPE                       ||
        ! build_with_cross_compiler freetype      freetype-$VERSION_FREETYPE              \
          "--prefix=$CROSSER_IM_PFX --without-bzip2" "" "/"                               ||
        ! unpack_component          pixman        $VERSION_PIXMAN                         ||
