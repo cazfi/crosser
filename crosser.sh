@@ -501,6 +501,7 @@ dummy_glibc_objects() {
 #
 prepare_binutils_src() {
   if ! unpack_component binutils     $VERSION_BINUTILS              ||
+     ! patch_src binutils-$BASEVER_BINUTILS binutils_LIBP_for_build ||
      ! ( is_greater_version $VERSION_BINUTILS 2.18     ||
         (  patch_src binutils-$BASEVER_BINUTILS binutils_makeinfo &&
            cd "$CROSSER_SRCDIR/binutils-$BASEVER_BINUTILS" && autoconf )) ||
