@@ -1198,6 +1198,9 @@ then
          "--prefix=$CROSSER_IM_PFX" "" "/" ||
        ! unpack_component          fontconfig    $VERSION_FONTCONFIG                     ||
        ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_cross                       ||
+       ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_LIBP_for_build              ||
+       ! autogen_component         fontconfig    $VERSION_FONTCONFIG                     \
+         "libtoolize aclocal automake autoconf"                                          ||
        ! build_with_cross_compiler fontconfig                                            \
           fontconfig-$VERSION_FONTCONFIG                                                 \
           "--prefix=$CROSSER_IM_PFX --with-freetype-config=$CROSSER_IM_PFX/bin/freetype-config --with-arch=$TARGET" \
