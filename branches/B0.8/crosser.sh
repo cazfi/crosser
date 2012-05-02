@@ -1251,7 +1251,7 @@ fi
 if test "x$STEP_SDL" = "xyes"
 then
   STEP="sdl"
-  STEPADD="     "
+  STEPADD="      "
 
   if test "x$E_GLIBC" != "xyes"
   then
@@ -1281,7 +1281,7 @@ then
     fi
 
     STEP="sdl(im)"
-    STEPADD=" "
+    STEPADD="  "
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL             \
          "--prefix=$CROSSER_IM_PFX" "" "/"
     then
@@ -1290,7 +1290,7 @@ then
     fi
 
     STEP="sdl(tgt)"
-    STEPADD=""
+    STEPADD=" "
     if ! build_with_cross_compiler SDL       SDL-$VERSION_SDL
     then
       crosser_error "Target SDL build failed"
@@ -1298,7 +1298,7 @@ then
     fi
 
     STEP="sdl"
-    STEPADD="     "
+    STEPADD="      "
     if ! unpack_component          SDL_image $VERSION_SDL_IMAGE           ||
        ! build_with_cross_compiler SDL_image SDL_image-$VERSION_SDL_IMAGE
     then
