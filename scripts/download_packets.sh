@@ -490,6 +490,13 @@ then
   SQL_VERSTR="3071000"
 fi
 
+if is_minimum_version $VERSION_CAIRO 1.12.2
+then
+  CAIRO_PACK="tar.xz"
+else
+  CAIRO_PACK="tar.gz"
+fi
+
 if is_minimum_version $VERSION_AUTOMAKE 1.11.3
 then
   AUTOMAKE_PACK="tar.xz"
@@ -643,7 +650,7 @@ download_needed "ftp://sourceware.org/pub/libffi/"      "libffi"     "$VERSION_F
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.gz"
+download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "$CAIRO_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
 RET="$RET $?"
