@@ -10,7 +10,7 @@
 # About donwloading versions listed as experimental for Crosser:
 #   These packets are often not even releases.
 #   They may not be downloadable from the same place as real releases.
-#   Do not expect dowload_packets.sh to find all of these - it's
+#   Do not expect download_packets.sh to find all of these - it's
 #   tool for downloading officially supported packets.
 
 VERSION_BINUTILS=2.22
@@ -23,9 +23,9 @@ VERSION_GCC=4.7.0
 VERSION_GLIBC=2.15
 VERSION_GLIBC_PORTS=2.15
 VERSION_EGLIBC=2.13
-VERSION_EGLIBC_DEB=$VERSION_EGLIBC-27
+VERSION_EGLIBC_DEB=$VERSION_EGLIBC-32
 VERSION_GMP=5.0.4
-VERSION_KERNEL=3.2.13
+VERSION_KERNEL=3.3.4
 VERSION_LIBTOOL=2.4.2
 VERSION_MPFR=3.1.0
 VERSION_MPC=0.9
@@ -51,7 +51,7 @@ VERSION_FREETYPE=2.4.9
 VERSION_FONTCONFIG=2.8.0
 VERSION_FFI=3.0.10
 VERSION_PIXMAN=0.24.4
-VERSION_CAIRO=1.12.0
+VERSION_CAIRO=1.12.2
 VERSION_PANGO=1.30.0
 VERSION_ATK=2.4.0
 VERSION_GDK_PIXBUF=2.26.0
