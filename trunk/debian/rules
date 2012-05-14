@@ -2,7 +2,7 @@
 
 # Makefile for building crosser deb
 #
-# (c) 2011 Marko Lindqvist
+# (c) 2011-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -17,7 +17,7 @@ install:
 	mkdir -p $(PWD)/debian/tmp/usr/share/crosser
 	mkdir -p $(PWD)/debian/tmp/usr/share/doc
 	mkdir -p $(PWD)/debian/tmp/usr/bin
-	cp dllstack.sh crosser.sh $(PWD)/debian/tmp/usr/bin/
+	cp dllstack.sh $(PWD)/debian/tmp/usr/bin/
 	cp -R CrosserVersion scripts patch setups steps mirrors $(PWD)/debian/tmp/usr/share/crosser/
 	cp -R doc $(PWD)/debian/tmp/usr/share/doc/crosser
 	dh_install -X.svn

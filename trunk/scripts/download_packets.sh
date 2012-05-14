@@ -261,13 +261,6 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
-  echo "  - native"
-  echo "  - chain"
-  echo "  - baselib"
-  echo "  - xorg"
-  echo "  - gtk"
-  echo "  - sdl"
-  echo "  - comp"
   echo "  - win"
 
   exit $HELP_RETURN

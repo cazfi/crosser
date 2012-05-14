@@ -7,4 +7,4 @@ Package: crosser
 Section: dev
 Architecture: all
 Depends: ${misc:Depends}
-Description: Cross-compiler builder
+Description: Windows dllstack builder
