@@ -1,14 +1,14 @@
 Configuring Crosser.sh & dllstack.sh
 =====================================
 
-Both dllstack.sh and crosser.sh can be configured with files named
-/etc/crosser.conf, local_setup.conf in main crosser directory (same directory
+dllstack.sh can be configured with files named /etc/crosser.conf,
+local_setup.conf in main crosser directory (same directory
 where dllstack.sh and crosser.sh scripts are), .crosser.conf under home
 directory or by file specified by environment variable CROSSER_CONF.
 First it reads global configuration from /etc/crosser.conf if present.
 In addition to that it tries to read one local configuration file in
 following order:
-If CROSSER_CONF environment variable is defined, crosser.sh and dllstack.sh
+If CROSSER_CONF environment variable is defined, dllstack.sh
 try to read it and fail if they cannot. If environment variable is not defined,
 they first look for local_setup.conf, and if it's missing load ~/.crosser.conf
 instead.
@@ -56,12 +56,6 @@ CROSSER_DST_PFX
  ;      $HOME/.crosser/<VERSION>/<VERSIONSET>/<TARGET>-<CLIB>
  ;   crosser.sh, native chain:
  ;      $HOME/.crosser/<VERSION>/<VERSIONSET>/native
-
-NATIVE_PREFIX
- ; Directory hierarchy where native environment generated in native-step
- ; will be installed. This affects only crosser.sh, not libtstack.sh at all.
- ; Path parsing is similar to that of PREFIX.
- ; Default is $HOME/.crosser/<VERSION>/<VERSIONSET>/host
 
 DLLSPREFIX
  ; Directory hierarchy where generated dllstack environment will be installed.
@@ -141,34 +135,6 @@ CROSSER_DOWNLOAD
  ;                     Fail if not.
  ; Options other than "demand" have advantage that time is not wasted
  ; on compiling earlier packets in case some packet cannot be downloaded.
-
-CROSSER_CCACHE
- ; Path to directory containing links to ccache. If this varaible is set,
- ; crosser will always put that directory first in its PATH so ccache
- ; will be used. Crosser will not use user's normal ccache dir, but
- ; will create new one depending on what step is being built. This avoids
- ; trashing user's main cache by possibly results specific to certain
- ; crosser build, which may be very temporary.
- ;
- ; Example setup of ccache path directory:
- ;   > mkdir /usr/local/ccache
- ;   > cd /usr/local/ccache
- ;   > ln -s /usr/bin/ccache gcc
- ;   > ln -s /usr/bin/ccache g++
- ;   > ln -s /usr/bin/ccache cc
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-gcc
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-g++
- ;   > ln -s /usr/bin/ccache i586-mingw32msvc-cc
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache x86_64-linux-gnu-cc
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache i386-linux-gnu-cc
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-gcc
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-g++
- ;   > ln -s /usr/bin/ccache arm-linux-gnu-cc
- ;   > export CROSSER_CCACHE="/usr/local/ccache"
 
 CROSSER_GROUP
  ; If set, some files crosser produces are set owned by that user group.

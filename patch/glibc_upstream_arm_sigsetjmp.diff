@@ -1,9 +1,0 @@
-diff -Nurd ports/sysdeps/arm/fpu/setjmp.S ports/sysdeps/arm/fpu/setjmp.S
---- ports/sysdeps/arm/fpu/setjmp.S	2001-07-06 07:55:48.000000000 +0300
-+++ ports/sysdeps/arm/fpu/setjmp.S	2009-02-23 17:12:18.000000000 +0200
-@@ -33,3 +33,5 @@
- 	/* Make a tail call to __sigjmp_save; it takes the same args.  */
- 	B	PLTJMP(C_SYMBOL_NAME(__sigjmp_save))
- END (__sigsetjmp)
-+
-+hidden_def (__sigsetjmp)
