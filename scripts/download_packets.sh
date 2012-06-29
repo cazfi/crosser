@@ -261,6 +261,13 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
+  echo "  - native"
+  echo "  - chain"
+  echo "  - baselib"
+  echo "  - xorg"
+  echo "  - gtk"
+  echo "  - sdl"
+  echo "  - comp"
   echo "  - win"
 
   exit $HELP_RETURN
@@ -349,8 +356,24 @@ if test "x$MIRROR_GNU" = "x" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
 fi
 
+if test "x$MIRROR_GCC" = "x" ; then
+  MIRROR_GCC="$MIRROR_GNU/gcc"
+fi
+
+if test "x$MIRROR_KERNEL" = "x" ; then
+  MIRROR_KERNEL="http://www.all.kernel.org"
+fi
+
+if test "x$MIRROR_SOURCEWARE" = "x" ; then
+  MIRROR_SOURCEWARE="ftp://sources.redhat.com"
+fi
+
 if test "x$MIRROR_DEB" = "x" ; then
   MIRROR_DEB="http://ftp.debian.org/debian"
+fi
+
+if test "x$MIRROR_XORG" = "x" ; then
+  MIRROR_XORG="http://xorg.freedesktop.org/releases"
 fi
 
 MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
@@ -369,12 +392,26 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
+    gcc)         VERSION_GCC=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
+    mpfr)        VERSION_MPFR=$VERSION_SELECTED ;;
+    Python3)     VERSION_PYTHON3=$VERSION_SELECTED ;;
+    Python2)     VERSION_PYTHON2=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
+    util-macros) VERSION_XORG_UMACROS=$VERSION_SELECTED ;;
+    xproto)      VERSION_XORG_XPROTO=$VERSION_SELECTED ;;
+    xextproto)   VERSION_XORG_XEXTPROTO=$VERSION_SELECTED ;;
+    xtrans)      VERSION_XORG_XTRANS=$VERSION_SELECTED ;;
+    kbproto)     VERSION_XORG_KBPROTO=$VERSION_SELECTED ;;
+    inputproto)  VERSION_XORG_INPUTPROTO=$VERSION_SELECTED ;;
+    libXau)      VERSION_XORG_LIBXAU=$VERSION_SELECTED ;;
+    libX11)      VERSION_XORG_LIBX11=$VERSION_SELECTED ;;
+    libXext)     VERSION_XORG_LIBXEXT=$VERSION_SELECTED ;;
+    linux)       VERSION_KERNEL=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
   esac
 fi
@@ -389,6 +426,64 @@ GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
+
+case "x$VERSION_XORG_UMACROS" in
+  x1.3.0)  VERSION_XORG=X11R7.5 ;;
+  x1.11.0) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_XPROTO" in
+  x) ;;
+  x7.0.13) VERSION_XORG=X11R7.4 ;;
+  x7.0.16) VERSION_XORG=X11R7.5 ;;
+  x7.0.20) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_XEXTPROTO" in
+  x) ;;
+  x7.0.3) VERSION_XORG=X11R7.4 ;;
+  x7.1.1) VERSION_XORG=X11R7.5 ;;
+  x7.1.2) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_XTRANS" in
+  x) ;;
+  x1.2.1) VERSION_XORG=X11R7.4 ;;
+  x1.2.5) VERSION_XORG=X11R7.5 ;;
+  x1.2.6) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_KBPROTO" in
+  x) ;;
+  x1.0.4) VERSION_XORG=X11R7.5 ;;
+  x1.0.5) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_INPUTPROTO" in
+  x) ;;
+  x2.0)   VERSION_XORG=X11R7.5 ;;
+  x2.0.1) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_LIBXAU" in
+  x) ;;
+  x1.0.4) VERSION_XORG=X11R7.4 ;;
+  x1.0.5) VERSION_XORG=X11R7.5 ;;
+  x1.0.6) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_LIBX11" in
+  x) ;;
+  x1.1.5) VERSION_XORG=X11R7.4 ;;
+  x1.3.2) VERSION_XORG=X11R7.5 ;;
+  x1.4.0) VERSION_XORG=X11R7.6 ;;
+esac
+
+case "x$VERSION_XORG_LIBXEXT" in
+  x) ;;
+  x1.1.1) VERSION_XORG=X11R7.5 ;;
+  x1.2.0) VERSION_XORG=X11R7.6 ;;
+esac
 
 if cmp_versions $VERSION_SQLITE 3.7.10
 then
@@ -421,6 +516,13 @@ then
   AUTOCONF_PACK="tar.xz"
 else
   AUTOCONF_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_MPFR 3.1.0
+then
+  MPFR_PACK="tar.xz"
+else
+  MPFR_PACK="tar.bz2"
 fi
 
 # While there's earlier .xz packaged glib version available,
@@ -469,17 +571,52 @@ else
   GDK_PB_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_KERNEL 3.0
+then
+  KERNEL_DIR="v3.0"
+else
+  KERNEL_DIR="v$(echo $VERSION_KERNEL | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+fi
+
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
 RET="$?"
+download_needed "$MIRROR_GNU/binutils/" "binutils" "$VERSION_BINUTILS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNU/gawk/"     "gawk"     "$VERSION_GAWK"     "tar.bz2"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
 RET="$RET $?"
+download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON3/" "Python3" "$VERSION_PYTHON3" "tgz"
+RET="$RET $?"
+download_needed "http://www.python.org/ftp/python/$VERSION_PYTHON2/" "Python2" "$VERSION_PYTHON2" "tgz"
+RET="$RET $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_GCC/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNU/glibc/"    "glibc"    "$VERSION_GLIBC"    "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_GNU/glibc/"    "glibc-ports" "$VERSION_GLIBC_PORTS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_DEB/pool/main/e/eglibc/"       "eglibc"     "$VERSION_EGLIBC_DEB" "dsc"
+RET="$RET $?"
+download_needed "$MIRROR_KERNEL/pub/linux/kernel/$KERNEL_DIR/" "linux" "$VERSION_KERNEL"  "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_SOURCEWARE/pub/newlib/"        "newlib" "$VERSION_NEWLIB" "tar.gz"
+RET="$RET $?"
+download_needed "http://ftp.sunet.se/pub/gnu/gmp/"      "gmp"    "$VERSION_GMP"    "tar.bz2"
+RET="$RET $?"
+download_needed "http://www.mpfr.org/mpfr-$VERSION_MPFR/" "mpfr"   "$VERSION_MPFR"   "$MPFR_PACK"
+RET="$RET $?"
+download_needed "http://www.multiprecision.org/mpc/download/" "mpc" "$VERSION_MPC"   "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "tar.bz2"
+RET="$RET $?"
+download_needed "http://my.arava.co.il/~matan/svgalib/" "svgalib"    "$VERSION_SVGALIB"   "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
 RET="$RET $?"
@@ -534,6 +671,38 @@ RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
+RET="$RET $?"
+download_needed "ftp://xmlsoft.org/libxml2/"                 "libxml2"   "$VERSION_LIBXML2"        "tar.gz"
+RET="$RET $?"
+download_needed "ftp://xmlsoft.org/libxslt/"                 "libxslt"   "$VERSION_LIBXSLT"        "tar.gz"
+RET="$RET $?"
+download_needed "http://xcb.freedesktop.org/dist/"           "libpthread-stubs" "$VERSION_PTHREAD_STUBS" "tar.bz2"
+RET="$RET $?"
+download_needed "http://xcb.freedesktop.org/dist/"           "xcb-proto" "$VERSION_XCB_PROTO"      "tar.bz2"
+RET="$RET $?"
+download_needed "http://xcb.freedesktop.org/dist/"           "libxcb"    "$VERSION_LIBXCB"         "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "util-macros"    "$VERSION_XORG_UMACROS"    "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xproto"    "$VERSION_XORG_XPROTO"    "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xextproto" "$VERSION_XORG_XEXTPROTO" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "xtrans"    "$VERSION_XORG_XTRANS" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "kbproto"   "$VERSION_XORG_KBPROTO" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "inputproto" "$VERSION_XORG_INPUTPROTO" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXau"    "$VERSION_XORG_LIBXAU" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libX11"    "$VERSION_XORG_LIBX11" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_XORG/$VERSION_XORG/src/everything/" "libXext"   "$VERSION_XORG_LIBXEXT" "tar.bz2"
+RET="$RET $?"
+download_needed "ftp://ftp.gnupg.org/gcrypt/libgpg-error/"   "libgpg-error" "$VERSION_GPGERROR" "tar.bz2"
+RET="$RET $?"
+download_needed "ftp://ftp.gnupg.org/gcrypt/libgcrypt/"      "libgcrypt" "$VERSION_LIBGCRYPT"   "tar.bz2"
 RET="$RET $?"
 download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"

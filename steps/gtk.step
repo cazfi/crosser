@@ -1,0 +1,10 @@
+libffi
+glib
+freetype
+expat
+pixman
+fontconfig
+cairo
+atk
+tiff
+gdk-pixbuf

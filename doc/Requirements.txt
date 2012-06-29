@@ -1,3 +1,29 @@
+While crosser builds many native tools itself in native-step, it still
+requires many tools to be present initially, to make it possible to build
+those tools used in later steps.
+
+crosser.sh
+==========
+
+- dpkg-source - for unpacking debian source packages automatically.
+                Basically this requires Debian based distribution.
+- gcc (native compiler)
+- makeinfo    - usually you get this by installing <I>texinfo</I> packet
+                with packet management system of your distribution.
+- m4
+- wget        - for fetching source packages
+- tar         - for unpacking source packages
+- gzip        - for unpacking source packages
+- bzip2       - for unpacking source packages
+- xz          - for unpacking source packages
+- patch       - for applying patches to source packages
+- flex
+- perl
+- bison
+- docbook-xsl stylesheets
+- zlib development headers and libraries
+- gettext
+
 
 dllstack.sh
 ===========

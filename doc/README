@@ -1,7 +1,7 @@
-This is Crosser release 0.9
+This is Crosser release 0.8
 
 This release contains dll stack builder (dllstack.sh) for building
-windows library stack.
+windows library stack and toolchain builder (crosser.sh).
 
 ------
 
@@ -20,14 +20,32 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
 
 ------
 
- Dllstack.sh is used to create set of Windows dlls.
+ Crosser.sh is used to create toolchains.
 
  Example:
- > ./dllstack.sh /usr/local/dllstack
+ > ./crosser.sh arm-elf native:baselib
 
- First parameter is prefix for installation directory hierarchy.
+  First parameter is target configuration to use. Currently supported target
+ configurations are i686-linux, x86_64-linux, arm-linux, arm-eglibc,
+ i686-eglibc and arm-elf.
 
- Second parameter is versionset to use. Default is "current". Versionsets
+  Second parameter is definition of steps to execute. You can provide comma
+ separated list of steps, or range with start and end separated by semicolon,
+ or any combination of these.
+  Examples: "native" "native,chain" "native:baselib" "native:chain,baselib"
+  Steps relevant for crosser.sh are:
+  native  - This step builds native tools used in later steps. You can use
+            same native environment for all your different target chains.
+  chain   - Actual cross-compilers
+  baselib - A couple of basic libraries for target
+  xorg    - Some X libraries
+  gtk     - A couple of gtk+ dependency libraries, but not yet gtk+ itself
+            This step is not available on arm-elf target
+  sdl     - sdl dependencies and sdl library itself
+            This step is not available on arm architecture targets
+  comp    - native compiler to target
+
+  Third parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
   Currently there is three versionsets:
@@ -38,6 +56,18 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
                  previous release series of the software.
   experimental - Experimental versions for crosser.sh. This list
                  does not necessarily even work out-of-the-box.
+
+------
+
+ Dllstack.sh is used to create set of Windows dlls.
+
+ Example:
+ > ./dllstack.sh /usr/local/dllstack
+
+ First parameter is prefix for installation directory hierarchy.
+
+ Second parameter is versionset to use. See crosser.sh documentation above
+ for list of possible versionsets.
 
 ------
 
