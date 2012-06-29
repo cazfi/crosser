@@ -1,0 +1,23 @@
+diff -Nurd zlib/configure zlib/configure
+--- zlib/configure	2010-06-21 17:05:44.000000000 +0300
++++ zlib/configure	2010-06-21 17:07:45.000000000 +0300
+@@ -45,7 +45,6 @@
+     NM=${NM-"nm"}
+ fi
+ LDCONFIG=${LDCONFIG-"ldconfig"}
+-LDSHAREDLIBC="${LDSHAREDLIBC--lc}"
+ prefix=${prefix-/usr/local}
+ exec_prefix=${exec_prefix-'${prefix}'}
+ libdir=${libdir-'${exec_prefix}/lib'}
+diff -Nurd zlib/Makefile.in zlib/Makefile.in
+--- zlib/Makefile.in	2010-04-20 07:12:21.000000000 +0300
++++ zlib/Makefile.in	2010-06-21 17:07:52.000000000 +0300
+@@ -39,7 +39,7 @@
+ AR=ar rc
+ RANLIB=ranlib
+ LDCONFIG=ldconfig
+-LDSHAREDLIBC=-lc
++LDSHAREDLIBC=
+ TAR=tar
+ SHELL=/bin/sh
+ EXE=

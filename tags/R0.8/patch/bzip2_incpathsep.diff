@@ -1,0 +1,12 @@
+diff -Nurd bzip2-1.0.5/bzip2.c bzip2-1.0.5/bzip2.c
+--- bzip2-1.0.5/bzip2.c	2010-07-25 12:29:11.000000000 +0300
++++ bzip2-1.0.5/bzip2.c	2010-07-25 12:29:53.000000000 +0300
+@@ -128,7 +128,7 @@
+ #if BZ_LCCWIN32
+ #   include <io.h>
+ #   include <fcntl.h>
+-#   include <sys\stat.h>
++#   include <sys/stat.h>
+ 
+ #   define NORETURN       /**/
+ #   define PATH_SEP       '\\'

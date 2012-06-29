@@ -1,0 +1,12 @@
+libpthread-stubs
+util-macros
+xproto
+xextproto
+xtrans
+xcb-proto
+kbproto
+inputproto
+libxcb
+libXau
+libX11
+libXext
