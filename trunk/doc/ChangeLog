@@ -3,7 +3,7 @@
 	- Updated pango to version 1.29.4
 	- Updated gtk3 to version 3.2.4
 
-0.8
+0.8 (29-Jun-12)
 	- Fixed building of gettext when /bin/sh is not bash
 	- trim_packetdir.sh accepts optional parameter that tells how many files it should leave
 	- Fixed native compiler build in latest Debian and derivatives testing versions
