@@ -491,7 +491,10 @@ fi
 
 export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
-if cmp_versions $VERSION_SQLITE 3.7.10
+if cmp_versions $VERSION_SQLITE 3.7.13
+then
+  SQL_VERSTR="3071300"
+elif cmp_versions $VERSION_SQLITE 3.7.10
 then
   SQL_VERSTR="3071000"
 fi
@@ -524,8 +527,6 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
-   ! patch_src libpng-$VERSION_PNG png_symbol_prefix                 ||
-   ! autogen_component libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
