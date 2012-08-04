@@ -456,6 +456,7 @@ export PKG_CONFIG_LIBDIR="$NATIVE_PREFIX/lib/pkgconfig"
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
+IM_VARS="$(read_configure_vars imagemagick)"
 
 # glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
@@ -526,6 +527,8 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
+   ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
+   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagic" ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||

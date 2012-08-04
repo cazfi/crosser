@@ -8,6 +8,7 @@ bzip2
 xz
 curl
 sqlite
+ImageMagick
 gettext
 glib
 libjpeg
