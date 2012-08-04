@@ -623,11 +623,10 @@ then
 fi
 
 if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
-   ! patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags ||
-   ! (! cmp_versions $VERSION_FONTCONFIG 2.7.0 ||
-      patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_fcstatfix)    ||
-   ! autogen_component fontconfig $VERSION_FONTCONFIG                   \
-     "libtoolize aclocal automake autoconf"                             ||
+   ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
+       (patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags &&
+        autogen_component fontconfig $VERSION_FONTCONFIG \
+        "libtoolize aclocal automake autoconf" ))                   ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
