@@ -353,6 +353,10 @@ if test "x$MIRROR_DEB" = "x" ; then
   MIRROR_DEB="http://ftp.debian.org/debian"
 fi
 
+if test "x$MIRROR_IM" = "x" ; then
+  MIRROR_IM="http://imagemagick.mirrorcatalogs.com"
+fi
+
 MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
@@ -539,6 +543,8 @@ RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
 RET="$RET $?"
 download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET
