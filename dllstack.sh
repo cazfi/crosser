@@ -636,6 +636,7 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"        ||
    ! unpack_component  cairo      $VERSION_CAIRO                  ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
+   ! patch_src         cairo-$VERSION_CAIRO cairo_epsilon         ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo-$VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
@@ -727,11 +728,7 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! free_component    SDL        $VERSION_SDL "SDL"    ||
    ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
-   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image" ||
-   ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER    ||
-   ! build_component   SDL_mixer  $VERSION_SDL_MIXER    \
-     "--disable-music-mp3 --disable-smpegtest --disable-music-mod" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
+   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"
 then
   log_error "SDL stack build failed"
   exit 1

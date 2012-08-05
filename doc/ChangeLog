@@ -1,6 +1,8 @@
 0.9
 	- Removed cross-compiler side crosser.sh from project
+	- Switched to use i686-w64-mingw32 toolchain
 	- Added ImageMagick (version 6.7.8-7)
+	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.29.4
 	- Updated gtk3 to version 3.2.4
 	- Updated automake to version 1.12.2
@@ -15,6 +17,7 @@
 	- Updated pkg-config to version 0.27
 	- Updated fontconfig to version 2.10.1
 	- Updated pixman to version 0.26.2
+	- Updated SDL to version 1.2.15
 
 0.8 (29-Jun-12)
 	- Fixed building of gettext when /bin/sh is not bash
