@@ -18,6 +18,7 @@
 	- Updated fontconfig to version 2.10.1
 	- Updated pixman to version 0.26.2
 	- Updated SDL to version 1.2.15
+	- Updated glib to version 2.32.4
 
 0.8 (29-Jun-12)
 	- Fixed building of gettext when /bin/sh is not bash
