@@ -473,11 +473,10 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host libffi     $VERSION_FFI           ||
    ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
-   ! (! cmp_versions $VERSION_GLIB 2.18.0 ||
-        ( patch_src glib-$VERSION_GLIB glib_gmoddef  &&
-          patch_src glib-$VERSION_GLIB glib_acsizeof &&
-          autogen_component glib       $VERSION_GLIB \
-           "libtoolize aclocal automake autoconf" ))        ||
+   ! patch_src glib-$VERSION_GLIB glib_uncond_check_hdr     ||
+   ! patch_src glib-$VERSION_GLIB glib_unknown_mime         ||
+   ! autogen_component glib       $VERSION_GLIB             \
+     "autoconf"                                             ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "host-glib"                       ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
