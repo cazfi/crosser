@@ -4,7 +4,7 @@
 	- Added ImageMagick (version 6.7.8-7)
 	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.30.1
-	- Updated gtk3 to version 3.2.4
+	- Updated gtk3 to version 3.4.4
 	- Updated automake to version 1.12.2
 	- Updated libpng to version 1.5.12
 	- Updated xz to version 5.0.4
