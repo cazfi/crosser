@@ -14,7 +14,7 @@
 	- Updated freetype to version 2.4.10
 	- Updated ffi to version 3.0.11
 	- Updated gtk2 to version 2.24.11
-	- Updated pkg-config to version 0.27
+	- Updated pkg-config to version 0.27.1
 	- Updated fontconfig to version 2.10.1
 	- Updated pixman to version 0.26.2
 	- Updated SDL to version 1.2.15
