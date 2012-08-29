@@ -1,6 +1,7 @@
 0.9
 	- Removed cross-compiler side crosser.sh from project
 	- Switched to use i686-w64-mingw32 toolchain
+	- Added support for giving target system setup in commandline
 	- Added ImageMagick (version 6.7.8-7)
 	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.30.1
