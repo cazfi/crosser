@@ -39,6 +39,9 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
   experimental - Experimental versions for crosser.sh. This list
                  does not necessarily even work out-of-the-box.
 
+  Third parameter is description of system dllstack is built for.
+  Default, and only one currently working, is "win32".
+
 ------
 
  Script scripts/trim_packetdir.sh can be used to clean up obsolete source

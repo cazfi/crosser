@@ -18,7 +18,7 @@ export CROSSER_OPTION_JPEG=on
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
-  echo "Usage: $(basename "$0") [[-h|--help]|[-v|--version]|[install prefix]] [versionset]"
+  echo "Usage: $(basename "$0") [[-h|--help]|[-v|--version]|[install prefix]] [versionset] [setup]"
   exit 0
 fi
 
@@ -50,6 +50,13 @@ if test "x$1" = "x-v" || test "x$1" = "x--version"
 then
   echo "Windows library stack builder for Crosser $CROSSER_VERSION"
   exit 0
+fi
+
+if test "x$3" = "x"
+then
+  SETUP="win32"
+else
+  SETUP="$3"
 fi
 
 if ! log_init
@@ -144,7 +151,7 @@ build_component_full()
     export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
-    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
     export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   fi
 
@@ -277,7 +284,7 @@ build_bzip2()
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
   export PREFIX=$DLLSPREFIX
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $TGT_MARCH $USER_CPPFLAGS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
   export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
 
   log_write 1 "Building $1"
@@ -351,8 +358,6 @@ NATIVE_ARCH="$TMP_ARCH"
 NATIVE_OS="$TMP_OS"
 BUILD="$NATIVE_ARCH-$NATIVE_OS"
 
-SETUP="win32"
-
 if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
   exit 1
@@ -376,8 +381,6 @@ if test -d "/usr/$TARGET/include"
 then
   export TGT_HEADERS="/usr/$TARGET/include"
 fi
-
-TGT_MARCH="-march=$TARGET_ARCH"
 
 export LIBC_MODE="none"
 
