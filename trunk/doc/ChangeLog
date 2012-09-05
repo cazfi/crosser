@@ -1,5 +1,6 @@
 0.9
 	- Removed cross-compiler side crosser.sh from project
+	- Removed debian packaging
 	- Switched to use i686-w64-mingw32 toolchain
 	- Added support for giving target system setup in commandline
 	- Added ImageMagick (version 6.7.9-3)
