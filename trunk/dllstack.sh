@@ -703,6 +703,7 @@ fi
 if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL        $VERSION_SDL          ||
    ! free_component    SDL        $VERSION_SDL "SDL"    ||
+   ! rm "$DLLSPREFIX/lib/libSDLmain.la"                 ||
    ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
    ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"
