@@ -494,12 +494,12 @@ fi
 
 export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
-if cmp_versions $VERSION_SQLITE 3.7.13
+if cmp_versions $VERSION_SQLITE 3.7.14
+then
+  SQL_VERSTR="3071400"
+elif cmp_versions $VERSION_SQLITE 3.7.13
 then
   SQL_VERSTR="3071300"
-elif cmp_versions $VERSION_SQLITE 3.7.10
-then
-  SQL_VERSTR="3071000"
 fi
 
 if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
