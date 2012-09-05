@@ -700,6 +700,17 @@ then
   exit 1
 fi
 
+if ! unpack_component  SDL        $VERSION_SDL          ||
+   ! build_component   SDL        $VERSION_SDL          ||
+   ! free_component    SDL        $VERSION_SDL "SDL"    ||
+   ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
+   ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
+   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"
+then
+  log_error "SDL stack build failed"
+  exit 1
+fi
+
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
 then
   GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
@@ -725,17 +736,6 @@ log_write 1 "Creating setup.bat"
   echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
   echo -n -e "bin\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
 ) > "$DLLSPREFIX/setup.bat"
-log_write 1 "IMPORTANT: Remember to create configuration files when installing to target"
-
-if ! unpack_component  SDL        $VERSION_SDL          ||
-   ! build_component   SDL        $VERSION_SDL          ||
-   ! free_component    SDL        $VERSION_SDL "SDL"    ||
-   ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
-   ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
-   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"
-then
-  log_error "SDL stack build failed"
-  exit 1
-fi
+log_write 1 "IMPORTANT: Remember to run setup.bat when installing to target"
 
 log_write 1 "SUCCESS"
