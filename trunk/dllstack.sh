@@ -530,6 +530,8 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
+   ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
+     "--without-bzlib"                                               ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagic" ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
