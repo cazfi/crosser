@@ -2,15 +2,15 @@
 	- Removed cross-compiler side crosser.sh from project
 	- Switched to use i686-w64-mingw32 toolchain
 	- Added support for giving target system setup in commandline
-	- Added ImageMagick (version 6.7.8-7)
+	- Added ImageMagick (version 6.7.9-3)
 	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.30.1
 	- Updated gtk3 to version 3.4.4
-	- Updated automake to version 1.12.2
+	- Updated automake to version 1.12.3
 	- Updated libpng to version 1.5.12
 	- Updated xz to version 5.0.4
 	- Updated curl to version 7.27.0
-	- Updated sqlite to version 3.7.13
+	- Updated sqlite to version 3.7.14
 	- Updated tiff to version 4.0.2
 	- Updated freetype to version 2.4.10
 	- Updated ffi to version 3.0.11
