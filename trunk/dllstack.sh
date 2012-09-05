@@ -532,7 +532,7 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib"                                               ||
-   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagic" ||
+   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
