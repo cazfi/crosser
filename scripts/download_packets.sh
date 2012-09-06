@@ -380,6 +380,7 @@ then
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
+    cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
   esac
 fi
 
