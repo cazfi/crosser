@@ -109,18 +109,23 @@ log_flags() {
 # $1 - Subdir in source hierarchy to patch
 # $2 - Patch name
 patch_src() {
-  log_write 2 "Patching $1: $2.diff"
+  log_write 2 "Patching $1: $2.patch"
 
-  if ! test -r "$CROSSER_MAINDIR/patch/$2.diff"
+  if test -r "$CROSSER_MAINDIR/patch/$2.patch"
   then
-    log_error "Patch file $2.diff not found."
+    PATCH_NAME="$2.patch"
+  elif test -r "$CROSSER_MAINDIR/patch/$2.diff"
+  then
+    PATCH_NAME="$2.diff"
+  else
+    log_error "No patch file $2.patch or $2.diff found."
     return 1
   fi
 
-  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$1" < "$CROSSER_MAINDIR/patch/$2.diff" \
+  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$1" < "$CROSSER_MAINDIR/patch/$PATCH_NAME" \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
-    log_error "Patching $1 with $2.diff failed"
+    log_error "Patching $1 with $PATCH_NAME failed"
     return 1
   fi
 }
