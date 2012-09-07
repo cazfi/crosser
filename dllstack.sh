@@ -538,16 +538,12 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
-   ! ( is_minimum_version $VERSION_GETTEXT 0.18 ||
-       ( patch_src gettext-$VERSION_GETTEXT gettext_bash &&
-         patch_src gettext-$VERSION_GETTEXT gettext_no_rpl_optarg )) ||
-   ! ( is_max_version $VERSION_GETTEXT 0.17 ||
-       ( patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools &&
-         ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
-           libtoolize &&
-           ./autogen.sh --quick --skip-gnulib ) \
-           >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-     ))                                                               ||
+   ! ( patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools &&
+       ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
+         libtoolize &&
+         ./autogen.sh --quick --skip-gnulib ) \
+         >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+     )                                                               ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
                                "$GETTEXT_VARS --enable-relocatable" ) ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
