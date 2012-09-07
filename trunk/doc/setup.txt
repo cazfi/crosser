@@ -1,9 +1,9 @@
-Configuring Crosser.sh & dllstack.sh
-=====================================
+Configuring dllstack.sh
+=======================
 
 dllstack.sh can be configured with files named /etc/crosser.conf,
 local_setup.conf in main crosser directory (same directory
-where dllstack.sh and crosser.sh scripts are), .crosser.conf under home
+where dllstack.sh script is), .crosser.conf under home
 directory or by file specified by environment variable CROSSER_CONF.
 First it reads global configuration from /etc/crosser.conf if present.
 In addition to that it tries to read one local configuration file in
@@ -139,11 +139,6 @@ CROSSER_DOWNLOAD
 CROSSER_GROUP
  ; If set, some files crosser produces are set owned by that user group.
  ; Currently this applies to downloaded source packets.
-
-CROSSER_DEBUG
- ; If set to 'yes', support for logging crosser internal errors and
- ; generating reports about crosser behavior is enabled. This is usefull
- ; only when developing crosser itself.
 
 =======================================================================
 
