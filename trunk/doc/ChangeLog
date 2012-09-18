@@ -3,7 +3,7 @@
 	- Removed debian packaging
 	- Switched to use i686-w64-mingw32 toolchain
 	- Added support for giving target system setup in commandline
-	- Added ImageMagick (version 6.7.9-3)
+	- Added ImageMagick (version 6.7.9-6)
 	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.30.1
 	- Updated gtk3 to version 3.4.4
