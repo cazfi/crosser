@@ -477,6 +477,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.32.0 ||
+      is_minimum_version $VERSION_GLIB 2.34.0 ||
       (patch_src glib-$VERSION_GLIB glib_unknown_mime     &&   
        patch_src glib-$VERSION_GLIB glib_uncond_check_hdr &&
        autogen_component glib       $VERSION_GLIB \
@@ -688,6 +689,7 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
    ! ( is_minimum_version $VERSION_GTK3 3.2.0 ||
        patch_src gtk+-$VERSION_GTK3 gtk3_marshalers )             ||
    ! ( is_smaller_version $VERSION_GTK3 3.4.0 ||
+       is_minimum_version $VERSION_GTK3 3.6.0 ||
        patch_src gtk+-$VERSION_GTK3 gtk3_isinf )                  ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
