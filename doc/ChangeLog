@@ -15,14 +15,14 @@
 	- Updated tiff to version 4.0.3
 	- Updated freetype to version 2.4.10
 	- Updated ffi to version 3.0.11
-	- Updated gtk2 to version 2.24.12
+	- Updated gtk2 to version 2.24.13
 	- Updated pkg-config to version 0.27.1
 	- Updated fontconfig to version 2.10.1
 	- Updated pixman to version 0.26.2
 	- Updated SDL to version 1.2.15
 	- Updated glib to version 2.32.4
-	- Updated atk to version 2.4.0
-	- Updated gdk-pixbuf to version 2.26.3
+	- Updated atk to version 2.6.0
+	- Updated gdk-pixbuf to version 2.26.4
 
 0.8 (29-Jun-12)
 	- Fixed building of gettext when /bin/sh is not bash
