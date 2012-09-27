@@ -7,7 +7,7 @@
 	- Dropped broken SDL-mixer build
 	- Updated pango to version 1.30.1
 	- Updated gtk3 to version 3.4.4
-	- Updated automake to version 1.12.3
+	- Updated automake to version 1.12.4
 	- Updated libpng to version 1.5.12
 	- Updated xz to version 5.0.4
 	- Updated curl to version 7.27.0
