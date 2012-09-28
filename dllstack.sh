@@ -306,48 +306,6 @@ build_bzip2()
   )
 }
 
-# Update one autotools auxiliary file for component
-#
-# $1 - Source directory in source hierarchy
-# $2 - Aux file
-update_aux_file()
-{
-  # Update only those files that already exist in target directory
-  if test -e "$CROSSER_SRCDIR/$1/$2" ; then
-    log_write 2 "Updating $2"
-    if ! cp "$CROSSER_MAINDIR/scripts/aux/$2" "$CROSSER_SRCDIR/$1/"
-    then
-      return 1
-    fi
-  fi
-}
-
-# Update autotools auxiliary files for component
-#
-# $1 - Component
-# $2 - Version
-update_aux_files() {
-
-  log_write 1 "Updating auxiliary files for $1"
-
-  SUBDIR="$(src_subdir $1 $2)"
-
-  if test "x$SUBDIR" = "x"
-  then
-    log_error "Cannot find srcdir for $1 version $2"
-    return 1
-  fi
-
-  if ! update_aux_file "$SUBDIR" config.guess ||
-     ! update_aux_file "$SUBDIR" config.sub   ||
-     ! update_aux_file "$SUBDIR" install-sh   ||
-     ! update_aux_file "$SUBDIR" ltmain.sh
-  then
-    log_error "Failed to update auxiliary files in directory $SUBDIR"
-    return 1
-  fi
-}
-
 cd $(dirname $0)
 
 if ! . "$CROSSER_MAINDIR/setups/native.sh" ; then
