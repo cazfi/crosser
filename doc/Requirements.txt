@@ -4,7 +4,7 @@ dllstack.sh
 
 - dpkg-source - for unpacking debian source packages automatically.
                 Basically this requires Debian based distribution.
-- MinGW cross-compiler
+- MinGW cross-toolchain (i686-wc64-mingw32-gcc etc)
 - gcc (native compiler)
 - wget        - for fetching source packages
 - tar         - for unpacking source packages
