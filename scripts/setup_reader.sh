@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2011 Marko Lindqvist
+# (c) 2008-2012 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -68,6 +68,16 @@ if test "x$CROSSER_LOGDIR" = "x" ; then
 fi
 if test "x$CROSSER_DOWNLOAD" = "x" ; then
   CROSSER_DOWNLOAD="demand"
+fi
+if test "x$CROSSER_CORES" != "x" ; then
+  declare -i CTMP="$CROSSER_CORES"
+  if test $CTMP -lt 1 ; then
+    echo "Illegal CROSSER_CORES configure option value \"$CROSSER_CORES\"" >&2
+    exit 1
+  fi
+  CROSSER_MAKEOPTIONS="-j $CROSSER_CORES"
+else
+  CROSSER_MAKEOPTIONS=""
 fi
 if test "x$CROSSER_DST_PFX" = "x" && test "x$PREFIX" != "x" ; then
   echo "Configuration variable PREFIX is deprecated. Please use CROSSER_DST_PFX." >&2

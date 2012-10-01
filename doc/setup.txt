@@ -136,6 +136,9 @@ CROSSER_DOWNLOAD
  ; Options other than "demand" have advantage that time is not wasted
  ; on compiling earlier packets in case some packet cannot be downloaded.
 
+CROSSER_CORES
+ ; Hint of number of CPU cores to use when parallel execution possible.
+
 CROSSER_GROUP
  ; If set, some files crosser produces are set owned by that user group.
  ; Currently this applies to downloaded source packets.
