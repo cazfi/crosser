@@ -170,14 +170,15 @@ build_component_full()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
 
-  if ! make  >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -234,14 +235,15 @@ build_zlib()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
 
-  if ! make >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -289,16 +291,17 @@ build_bzip2()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: libbz2.a bzip2 bzip2recover & install"
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
   log_flags
 
-  if ! make libbz2.a bzip2 bzip2recover \
+  if ! make $CROSSER_MAKEOPTIONS libbz2.a bzip2 bzip2recover \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1

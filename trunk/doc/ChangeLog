@@ -1,3 +1,6 @@
+0.10
+	- Improved usage of multicore build machines
+
 0.9 (30-Sep-12)
 	- Removed cross-compiler side crosser.sh from project
 	- Removed debian packaging
