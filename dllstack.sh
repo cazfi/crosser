@@ -655,6 +655,8 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
    ! ( is_smaller_version $VERSION_GTK3 3.4.0 ||
        is_minimum_version $VERSION_GTK3 3.6.0 ||
        patch_src gtk+-$VERSION_GTK3 gtk3_isinf )                  ||
+   ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
+       patch_src gtk+-$VERSION_GTK3 gtk_nolaunch )                ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
