@@ -1,6 +1,7 @@
 0.10
 	- Improved usage of multicore build machines
 	- Updated cairo to version 1.12.8
+	- Updated automake to version 1.12.5
 
 0.9 (30-Sep-12)
 	- Removed cross-compiler side crosser.sh from project
