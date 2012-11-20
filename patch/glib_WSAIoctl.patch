@@ -1,0 +1,12 @@
+diff -Nurd glib-2.34.2/gio/gsocket.c glib-2.34.2/gio/gsocket.c
+--- glib-2.34.2/gio/gsocket.c	2012-11-10 05:27:29.000000000 +0200
++++ glib-2.34.2/gio/gsocket.c	2012-11-20 17:47:38.710662369 +0200
+@@ -2391,7 +2391,7 @@
+   g_return_val_if_fail (G_IS_SOCKET (socket), -1);
+ 
+ #if defined(G_OS_WIN32)
+-  if (WSAIoctl (socket->priv->fd, FIONREAD, NULL, 0, &avail, sizeof (avail), 0, 0) == SOCKET_ERROR)
++  if (WSAIoctl (socket->priv->fd, FIONREAD, NULL, 0, &avail, sizeof (avail), NULL, 0, 0) == SOCKET_ERROR)
+     return -1;
+ #elif defined(SO_NREAD)
+   if (getsockopt (socket->priv->fd, SOL_SOCKET, SO_NREAD, &avail, &avail_len) < 0)

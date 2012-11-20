@@ -437,6 +437,9 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host libffi     $VERSION_FFI           ||
    ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
+   ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
+      (patch_src glib-$VERSION_GLIB glib_WSAIoctl &&
+       patch_src glib-$VERSION_GLIB glib_nokill ))          ||
    ! (is_smaller_version $VERSION_GLIB 2.32.0 ||
       is_minimum_version $VERSION_GLIB 2.34.0 ||
       (patch_src glib-$VERSION_GLIB glib_unknown_mime     &&   
