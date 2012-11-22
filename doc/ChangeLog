@@ -8,7 +8,8 @@
 	- Updated gtk3 to version 3.6.2
 	- Updated ImageMagick 6.8.0-4
 	- Updated curl to version 7.28.1
-	- Update sqlite3 to version 3.7.14.1
+	- Updated sqlite3 to version 3.7.14.1
+	- Updated libpng to version 1.5.13
 
 0.9 (30-Sep-12)
 	- Removed cross-compiler side crosser.sh from project
