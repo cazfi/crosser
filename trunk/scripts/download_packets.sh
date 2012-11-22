@@ -395,7 +395,10 @@ ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
-if cmp_versions $VERSION_SQLITE 3.7.14
+if cmp_versions $VERSION_SQLITE 3.7.14.1
+then
+  SQL_VERSTR="3071401"
+elif cmp_versions $VERSION_SQLITE 3.7.14
 then
   SQL_VERSTR="3071400"
 elif cmp_versions $VERSION_SQLITE 3.7.13
