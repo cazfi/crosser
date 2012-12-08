@@ -3,13 +3,14 @@
 	- Updated cairo to version 1.12.8
 	- Updated automake to version 1.12.5
 	- Update glib to version 2.34.3
-	- Updated pango to version 1.32.3
+	- Updated pango to version 1.32.4
 	- Updated gdk-pixbuf to version 2.26.5
 	- Updated gtk3 to version 3.6.2
 	- Updated ImageMagick 6.8.0-4
 	- Updated curl to version 7.28.1
 	- Updated sqlite3 to version 3.7.14.1
 	- Updated libpng to version 1.5.13
+	- Updated gtk2 to version 2.24.14
 
 0.9 (30-Sep-12)
 	- Removed cross-compiler side crosser.sh from project
