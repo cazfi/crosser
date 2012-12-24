@@ -422,7 +422,6 @@ GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 
-# glib_acsizeof -patch is required only when running autogen for glib
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
    ! free_component       autoconf   $VERSION_AUTOCONF "host-autoconf" ||
