@@ -438,12 +438,6 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       patch_src glib-$VERSION_GLIB glib_nokill )            ||
-   ! (is_smaller_version $VERSION_GLIB 2.32.0 ||
-      is_minimum_version $VERSION_GLIB 2.34.0 ||
-      (patch_src glib-$VERSION_GLIB glib_unknown_mime     &&   
-       patch_src glib-$VERSION_GLIB glib_uncond_check_hdr &&
-       autogen_component glib       $VERSION_GLIB \
-          "autoconf" ))                                     ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "host-glib"                       ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
@@ -598,7 +592,8 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                      ||
-   ! patch_src         pixman-$VERSION_PIXMAN pixman_epsilon           ||
+   ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
+      patch_src          pixman-$VERSION_PIXMAN pixman_epsilon )       ||
    ! build_component   pixman     $VERSION_PIXMAN                      \
      "--disable-gtk"                                                   ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"             ||
