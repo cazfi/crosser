@@ -598,11 +598,12 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
-   ! unpack_component  pixman     $VERSION_PIXMAN                 ||
-   ! build_component   pixman     $VERSION_PIXMAN                 \
-     "--disable-gtk"                                              ||
-   ! free_component    pixman     $VERSION_PIXMAN "pixman"        ||
-   ! unpack_component  cairo      $VERSION_CAIRO                  ||
+   ! unpack_component  pixman     $VERSION_PIXMAN                      ||
+   ! patch_src         pixman-$VERSION_PIXMAN pixman_epsilon           ||
+   ! build_component   pixman     $VERSION_PIXMAN                      \
+     "--disable-gtk"                                                   ||
+   ! free_component    pixman     $VERSION_PIXMAN "pixman"             ||
+   ! unpack_component  cairo      $VERSION_CAIRO                       ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
    ! patch_src         cairo-$VERSION_CAIRO cairo_epsilon         ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
