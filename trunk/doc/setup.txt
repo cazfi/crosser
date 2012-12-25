@@ -38,27 +38,17 @@ AUTOWINE
  ; These configuration programs must be run when doing actual install to
  ; Windows machine.
 
-CROSSER_DST_PFX
- ; Directory hierarchy where generated environment will be installed.
- ; For dllstack this can be overridden by DLLSPREFIX. 
- ; This directory will be completely removed in the beginning of build.
+DLLSPREFIX
+ ; Directory hierarchy where generated dllstack environment will be installed.
  ; This path is parsed:
  ;   - <TARGET>     -> Target architecture
  ;   - <DATE>       -> Build start date. Note that build may take long time and
- ;                     often start date is not same as current date of some build
- ;                     action.
- ;   - <CLIB>       -> libc to use
- ;   - <VERSION>    -> crosser version
- ;   - <VERSIONSET> -> Versionset used 
- ; Either enclose value inside quotes or escape tags like \<TARGET\>
- ; Default is:
- ;   crosser.sh, cross-compiling environment:
- ;      $HOME/.crosser/<VERSION>/<VERSIONSET>/<TARGET>-<CLIB>
- ;   crosser.sh, native chain:
- ;      $HOME/.crosser/<VERSION>/<VERSIONSET>/native
-
-DLLSPREFIX
- ; Directory hierarchy where generated dllstack environment will be installed.
+ ;                     often start date is not the same as current date of some
+ ;                     build action.
+ ;   - <VERSION>    -> Crosser version
+ ;   - <VERSIONSET> -> Versionset used
+ ; Either exclose value inside quotes or escape like \<TARGET\>
+ ;
  ; Default is PREFIX, if it's set.
  ; Otherwise $HOME/.crosser/<VERSION>/<VERSIONSET>/winstack
  ;
