@@ -684,62 +684,6 @@ remove_dir() {
   fi
 }
 
-# Prints error message if given directory is not root of proper
-# crosser hierarchy
-#
-# $1 - Directory to check
-# $2 - Required hierarchy type
-check_crosser_env() {
-  if ! test -f "$1/crosser/crosser.hierarchy"
-  then
-    echo "There's no $2 compiler environment present."
-    return 1
-  fi
-
-  VER=$(grep '^Version:' "$1/crosser/crosser.hierarchy" | sed 's/Version: //')
-
-  if test "x$VER" != "x$CROSSER_VERSION"
-  then
-    echo "$2 compiler environment is not for this crosser version."
-    return 1
-  fi
-
-  SET=$(grep '^VSet:' "$1/crosser/crosser.hierarchy" | sed 's/VSet: *//')
-
-  if test "x$SET" != "x$VERSIONSET"
-  then
-    echo "$2 compiler environment is not for this versionset."
-    return 1
-  fi
-
-  return 0
-}
-
-# Creates crosser.hierarchy file
-#
-# $1 - Hierarchy root
-# $2 - Setup name
-#
-# 0 - Success
-# 1 - Failure
-write_crosser_env() {
-  if ! mkdir -p "$1/crosser"
-  then
-    log_error "Cannot create crosser env directory $1/crosser"
-    return 1
-  fi
-  if ! (
-      echo "Setup:   $2"
-      echo "Version: $CROSSER_VERSION"
-      echo "VSet:    $VERSIONSET"
-      echo "Built:   $BUILD_DATE"
-    ) > "$1/crosser/crosser.hierarchy"
-  then
-    log_error "Cannot write crosser env file $1/crosser/crosser.hierarchy"
-    return 1
-  fi
-}
-
 # Prints configure variables for component with possible extra space in end
 #
 # $1 - Component
