@@ -1,5 +1,6 @@
 autoconf
 automake
+libtool
 pkg-config
 libiconv
 libpng
@@ -27,4 +28,4 @@ gtk3
 gtk-engines
 SDL
 SDL_image
-SDL_mixer
+
