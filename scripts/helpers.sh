@@ -393,7 +393,6 @@ autogen_component()
 setup_prefix() {
   echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
                 -e "s/<DATE>/$BUILD_DATE/g" \
-                -e "s/<CLIB>/$LIBC_MODE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
                 -e "s/<VERSIONSET>/$VERSIONSET/g"
 }
