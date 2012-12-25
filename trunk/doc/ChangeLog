@@ -2,7 +2,7 @@
 	- Improved usage of multicore build machines
 	- Updated cairo to version 1.12.8
 	- Updated automake to version 1.12.5
-	- Update glib to version 2.34.3
+	- Updated glib to version 2.34.3
 	- Updated pango to version 1.32.5
 	- Updated gdk-pixbuf to version 2.26.5
 	- Updated gtk3 to version 3.6.2
