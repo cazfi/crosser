@@ -80,8 +80,6 @@ download_packet() {
 
   if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
     BFNAME="gtk+"
-  elif test "x$2" = "xPython3" || test "x$2" = "xPython2" ; then
-    BFNAME="Python"
   else
     BFNAME="$2"
   fi

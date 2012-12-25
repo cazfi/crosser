@@ -156,9 +156,6 @@ unpack_component() {
   if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
   then
     BNAME="gtk+"
-  elif test "x$1" = "xPython3" || test "x$1" = "xPython2"
-  then
-    BNAME="Python"
   else
     BNAME="$1"
   fi
