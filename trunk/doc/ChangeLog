@@ -6,9 +6,9 @@
 	- Updated pango to version 1.32.5
 	- Updated gdk-pixbuf to version 2.26.5
 	- Updated gtk3 to version 3.6.2
-	- Updated ImageMagick 6.8.0-4
+	- Updated ImageMagick 6.8.1-3
 	- Updated curl to version 7.28.1
-	- Updated sqlite3 to version 3.7.15
+	- Updated sqlite3 to version 3.7.15.1
 	- Updated libpng to version 1.5.13
 	- Updated gtk2 to version 2.24.14
 	- Updated fontconfig to version 2.10.2

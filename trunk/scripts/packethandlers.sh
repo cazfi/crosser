@@ -41,3 +41,20 @@ basever_libtool() {
   fi
 }
 
+# Echo sqlite version string
+#
+# $1 - Version number in dotted format
+sqlite_verstr() {
+  if cmp_versions $1 3.7.15.1
+  then
+    echo "3071501"
+  elif cmp_versions $1 3.7.14.1
+  then
+    echo "3071401"
+  elif cmp_versions $1 3.7.15
+  then
+    echo "3071500"
+  else
+    echo "0000000"
+  fi
+}

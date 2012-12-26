@@ -244,7 +244,13 @@ fi
 
 if ! . "$CROSSER_MAINDIR/scripts/helpers.sh"
 then
-  echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
+  echo "Failed to read \"$CROSSER_MAINDIR/scripts/helpers.sh\"" >&2
+  exit 1
+fi
+
+if ! . "$CROSSER_MAINDIR/scripts/packethandlers.sh"
+then
+  echo "Failed to read \"$CROSSER_MAINDIR/scripts/packethandlers.sh\"" >&2
   exit 1
 fi
 
@@ -393,16 +399,7 @@ ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
-if cmp_versions $VERSION_SQLITE 3.7.15
-then
-  SQL_VERSTR="3071500"
-elif cmp_versions $VERSION_SQLITE 3.7.14.1
-then
-  SQL_VERSTR="3071401"
-elif cmp_versions $VERSION_SQLITE 3.7.14
-then
-  SQL_VERSTR="3071400"
-fi
+SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
 if is_minimum_version $VERSION_CAIRO 1.12.2
 then
