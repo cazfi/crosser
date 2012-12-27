@@ -1,4 +1,5 @@
 0.10
+	- Default DLLSPREFIX has <SETUP> subdir
 	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
 	- Updated cairo to version 1.12.8
