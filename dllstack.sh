@@ -429,7 +429,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
    ! free_component       automake   $VERSION_AUTOMAKE "host-automake" ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
-   ! patch_src libtool-$VERSION_LIBTOOL libtool_bash        ||
+   ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
    ! free_build           "host-libtool"                    ||
    ! unpack_component     libffi     $VERSION_FFI           ||
@@ -437,12 +437,12 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
-      patch_src glib-$VERSION_GLIB glib_nokill )            ||
+      patch_src glib $VERSION_GLIB glib_nokill )            ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "host-glib"                       ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
-      patch_src pkg-config-$VERSION_PKG_CONFIG pkgconfig_ac266) ||
+      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266) ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "host-pkg-config"
 then
@@ -460,15 +460,15 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! build_component   libiconv   $VERSION_ICONV                     ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"          ||
    ! unpack_component  zlib       $VERSION_ZLIB                      ||
-   ! patch_src zlib               zlib_seeko-1.2.6-2                 ||
-   ! patch_src zlib               zlib_nolibc-1.2.6-2                ||
-   ! patch_src zlib               zlib_dllext                        ||
+   ! patch_src zlib $VERSION_ZLIB zlib_seeko-1.2.6-2                 ||
+   ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                ||
+   ! patch_src zlib $VERSION_ZLIB zlib_dllext                        ||
    ! build_zlib        zlib       $VERSION_ZLIB                      ||
    ! free_src          zlib       $VERSION_ZLIB                      ||
    ! unpack_component  bzip2      $VERSION_BZIP2                     ||
-   ! patch_src bzip2-$VERSION_BZIP2 bzip2_unhardcodecc               ||
-   ! patch_src bzip2-$VERSION_BZIP2 bzip2_incpathsep                 ||
-   ! patch_src bzip2-$VERSION_BZIP2 bzip2_winapi                     ||
+   ! patch_src bzip2 $VERSION_BZIP2 bzip2_unhardcodecc               ||
+   ! patch_src bzip2 $VERSION_BZIP2 bzip2_incpathsep                 ||
+   ! patch_src bzip2 $VERSION_BZIP2 bzip2_winapi                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! free_src          bzip2      $VERSION_BZIP2                     ||
    ! unpack_component  xz         $VERSION_XZ                        ||
@@ -490,7 +490,7 @@ if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18.2 ||
-       ( patch_src gettext-$VERSION_GETTEXT gettext_cxx_tools &&
+       ( patch_src gettext $VERSION_GETTEXT gettext_cxx_tools &&
          ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
            libtoolize &&
            ./autogen.sh --quick --skip-gnulib ) \
@@ -534,7 +534,7 @@ then
   exit 1
 fi
 
-if ! patch_src tiff-$VERSION_TIFF tiff_config_headers_395
+if ! patch_src tiff $VERSION_TIFF tiff_config_headers_395
 then
   log_error "Tiff patching failed"
   exit 1
@@ -574,7 +574,7 @@ fi
 
 if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
-       (patch_src fontconfig-$VERSION_FONTCONFIG fontconfig_buildsys_flags &&
+       (patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags &&
         autogen_component fontconfig $VERSION_FONTCONFIG \
         "libtoolize aclocal automake autoconf" ))                   ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                   \
@@ -582,15 +582,15 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                      ||
    ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
-      patch_src          pixman-$VERSION_PIXMAN pixman_epsilon )       ||
+      patch_src          pixman $VERSION_PIXMAN pixman_epsilon )       ||
    ! build_component   pixman     $VERSION_PIXMAN                      \
      "--disable-gtk"                                                   ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"             ||
    ! unpack_component  cairo      $VERSION_CAIRO                       ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
-   ! patch_src         cairo-$VERSION_CAIRO cairo_epsilon         ||
+   ! patch_src         cairo $VERSION_CAIRO cairo_epsilon         ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
-       patch_src         cairo-$VERSION_CAIRO cairo_ffs )         ||
+       patch_src         cairo $VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
@@ -600,7 +600,7 @@ if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
    ! unpack_component  atk        $VERSION_ATK                    ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
        is_minimum_version $VERSION_ATK     2.2.0   ||
-       patch_src          atk-$VERSION_ATK atk_def    )           ||
+       patch_src          atk $VERSION_ATK atk_def    )           ||
    ! autogen_component atk        $VERSION_ATK                    \
      "libtoolize aclocal automake autoconf"                       ||
    ! build_component   atk        $VERSION_ATK                    ||
@@ -614,20 +614,20 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
        ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          ( is_smaller_version $VERSION_GTK2 2.24.0 ||
            is_greater_version $VERSION_GDK_PIXBUF 2.24.0 ||
-           patch_src gdk-pixbuf-$VERSION_GDK_PIXBUF gdkpixbuf_gdiplusdef ) &&
+           patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdkpixbuf_gdiplusdef ) &&
          ( ! cmp_versions $VERSION_GDK_PIXBUF 2.24.1 ||
-           patch_src gdk-pixbuf-$VERSION_GDK_PIXBUF gdkpixbuf_animiterinit) &&
+           patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdkpixbuf_animiterinit) &&
          autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          build_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
          free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf")) ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
    ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
-       patch_src gtk+-$VERSION_GTK2         gtk_blddir )          ||
+       patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
    ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
-       patch_src gtk+-$VERSION_GTK2         gtk_check_cxx )       ||
+       patch_src gtk+ $VERSION_GTK2         gtk_check_cxx )       ||
    ! ( is_smaller_version $VERSION_GTK2     2.14.0 ||
        is_minimum_version $VERSION_GTK2     2.16.0 ||
-       patch_src gtk+-$VERSION_GTK2         gtk_gailutildef )     ||
+       patch_src gtk+ $VERSION_GTK2         gtk_gailutildef )     ||
    ! ( is_minimum_version $VERSION_GTK2     2.16.0 ||
        autogen_component gtk+       $VERSION_GTK2   \
          "libtoolize aclocal automake autoconf" )                 ||
@@ -637,12 +637,12 @@ if ! ( is_smaller_version $VERSION_GTK2 2.22.0 ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
    ! ( is_minimum_version $VERSION_GTK3 3.2.0 ||
-       patch_src gtk+-$VERSION_GTK3 gtk3_marshalers )             ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_marshalers )             ||
    ! ( is_smaller_version $VERSION_GTK3 3.4.0 ||
        is_minimum_version $VERSION_GTK3 3.6.0 ||
-       patch_src gtk+-$VERSION_GTK3 gtk3_isinf )                  ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_isinf )                  ||
    ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
-       patch_src gtk+-$VERSION_GTK3 gtk_nolaunch )                ||
+       patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                ||
    ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
