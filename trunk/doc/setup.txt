@@ -47,6 +47,7 @@ DLLSPREFIX
  ;                     build action.
  ;   - <VERSION>    -> Crosser version
  ;   - <VERSIONSET> -> Versionset used
+ ;   - <SETUP>      -> Setup name
  ; Either exclose value inside quotes or escape like \<TARGET\>
  ;
  ; Default is PREFIX, if it's set.

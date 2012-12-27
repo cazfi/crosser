@@ -1,4 +1,5 @@
 0.10
+	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
 	- Updated cairo to version 1.12.8
 	- Updated automake to version 1.12.5
