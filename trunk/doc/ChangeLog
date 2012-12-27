@@ -14,6 +14,7 @@
 	- Updated fontconfig to version 2.10.2
 	- Updated freetype to version 2.4.11
 	- Updated pixman to version 0.28.2
+	- Updated gettext to version 0.18.2
 
 0.9 (30-Sep-12)
 	- Removed cross-compiler side crosser.sh from project
