@@ -1,4 +1,5 @@
 0.10
+	- Bugfix: Do not try to patch disabled components
 	- Default DLLSPREFIX has <SETUP> subdir
 	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
