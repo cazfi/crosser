@@ -557,27 +557,20 @@ if ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
    ! free_component    tiff       $VERSION_TIFF "tiff"            ||
    ! unpack_component  expat      $VERSION_EXPAT                  ||
    ! build_component   expat      $VERSION_EXPAT                  ||
-   ! free_component    expat      $VERSION_EXPAT "expat"
-then
-  log_error "Build failed"
-  exit 1
-fi
-
-if ! unpack_component  freetype   $VERSION_FREETYPE               ||
-   ! build_component   freetype   $VERSION_FREETYPE               \
-     "--without-bzip2"                                            ||
-   ! free_component    freetype   $VERSION_FREETYPE "freetype"
-then
-  log_error "Freetype build failed"
-  exit 1
-fi
-
-if ! unpack_component  fontconfig $VERSION_FONTCONFIG               ||
+   ! free_component    expat      $VERSION_EXPAT "expat"               ||
+   ! unpack_component  freetype   $VERSION_FREETYPE                    ||
+   ! build_component   freetype   $VERSION_FREETYPE                    \
+     "--without-bzip2"                                                 ||
+   ! free_component    freetype   $VERSION_FREETYPE "freetype"         ||
+   ! unpack_component  harfbuzz   $VERSION_HARFBUZZ                    ||
+   ! build_component   harfbuzz   $VERSION_HARFBUZZ                    ||
+   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"         ||
+   ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
        (patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags &&
         autogen_component fontconfig $VERSION_FONTCONFIG \
-        "libtoolize aclocal automake autoconf" ))                   ||
-   ! build_component   fontconfig $VERSION_FONTCONFIG                   \
+        "libtoolize aclocal automake autoconf" ))                      ||
+   ! build_component   fontconfig $VERSION_FONTCONFIG                  \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
    ! unpack_component  pixman     $VERSION_PIXMAN                      ||

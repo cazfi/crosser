@@ -509,6 +509,8 @@ download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_T
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/expat/"            "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
+download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
+RET="$RET $?"
 download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "tar.bz2"
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"

@@ -17,6 +17,7 @@ tiff
 expat
 freetype
 fontconfig
+harfbuzz
 libffi
 pixman
 cairo
