@@ -5,6 +5,7 @@
 	- Default DLLSPREFIX has <SETUP> subdir
 	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
+	- Added harfbuzz (0.9.9) to build
 	- Updated cairo to version 1.12.8
 	- Updated automake to version 1.12.6
 	- Updated glib to version 2.34.3
