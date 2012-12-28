@@ -40,7 +40,8 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
                  does not necessarily even work out-of-the-box.
 
   Third parameter is description of system dllstack is built for.
-  Default, and only one currently working, is "win32".
+  win32 - Default one
+  win64 - Experimental and only partial one. It doesn't build gtk2 or gtk-engines
 
 ------
 
