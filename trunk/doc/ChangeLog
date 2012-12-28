@@ -1,4 +1,5 @@
 0.10
+	- Partial win64 setup available
 	- Bugfix: Do not try to patch disabled components
 	- Bugfix: Do not try to recreate buildsys for disabled components
 	- Default DLLSPREFIX has <SETUP> subdir
