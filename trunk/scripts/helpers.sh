@@ -322,6 +322,11 @@ src_subdir() {
 # [$4] - Subdir under srcdir
 autogen_component()
 {
+  if test "x$2" = "x0"
+  then
+    return 0
+  fi
+
   log_packet "autogen $1"
 
   SUBDIR="$(src_subdir $1 $2)"

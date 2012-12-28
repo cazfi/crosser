@@ -1,5 +1,6 @@
 0.10
 	- Bugfix: Do not try to patch disabled components
+	- Bugfix: Do not try to recreate buildsys for disabled components
 	- Default DLLSPREFIX has <SETUP> subdir
 	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
