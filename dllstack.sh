@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2012 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -13,8 +13,6 @@ if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
-
-export CROSSER_OPTION_JPEG=on
 
 if test "x$1" = "x-h" || test "x$1" = "x--help"
 then
@@ -510,48 +508,18 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_OPTION_JPEG" = "xon"
+if ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
+   ! build_component jpeg $VERSION_JPEG "--enable-shared"              ||
+   ! free_component jpeg $VERSION_JPEG "jpeg"
 then
-  if ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
-     ! build_component jpeg $VERSION_JPEG "--enable-shared"              ||
-     ! free_component jpeg $VERSION_JPEG "jpeg"
-  then
-    log_error "Libjpeg build failed"
-    exit 1
-  fi
-else
-  CONF_JPEG_TIFF="--disable-jpeg"
-  CONF_JPEG_GTK="--without-libjpeg"
-fi
-
-if is_minimum_version $VERSION_GTK2 2.13.0
-then
-  CONF_JPEG_GTK="$CONF_JPEG_GTK --without-libjasper"
-fi
-
-if ! unpack_component tiff       $VERSION_TIFF
-then
-  log_error "Tiff unpacking failed"
+  log_error "Libjpeg build failed"
   exit 1
 fi
+CONF_JPEG_GTK="--without-libjasper"
 
-if ! patch_src tiff $VERSION_TIFF tiff_config_headers_395
-then
-  log_error "Tiff patching failed"
-  exit 1
-fi
-
-if is_smaller_version $VERSION_TIFF 3.9.0
-then
-  log_write 1 "Removing upstream libtiff config"
-  if ! rm "$CROSSER_SRCDIR/tiff-$VERSION_TIFF/libtiff/tiffconf.h"
-  then
-    log_error "Failed to remove old tiffconf.h"
-    exit 1
-  fi
-fi
-
-if ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
+if ! unpack_component tiff       $VERSION_TIFF                         ||
+   ! patch_src tiff $VERSION_TIFF tiff_config_headers_395              ||
+   ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
       autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
      tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF"                    ||
