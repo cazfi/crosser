@@ -7,7 +7,7 @@
 	- Improved usage of multicore build machines
 	- Added harfbuzz (0.9.9) to build
 	- Updated cairo to version 1.12.8
-	- Updated automake to version 1.13
+	- Updated automake to version 1.13.1
 	- Updated glib to version 2.34.3
 	- Updated pango to version 1.32.5
 	- Updated gdk-pixbuf to version 2.26.5
