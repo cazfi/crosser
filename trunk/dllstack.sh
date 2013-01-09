@@ -531,9 +531,6 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   freetype   $VERSION_FREETYPE                    \
      "--without-bzip2"                                                 ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"         ||
-   ! unpack_component  harfbuzz   $VERSION_HARFBUZZ                    ||
-   ! build_component   harfbuzz   $VERSION_HARFBUZZ                    ||
-   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"         ||
    ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
        (patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags &&
@@ -556,6 +553,9 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
+   ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
+   ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
+   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
