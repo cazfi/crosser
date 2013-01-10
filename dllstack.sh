@@ -430,7 +430,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
    ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
-   ! free_build           "host-libtool"                    ||
+   ! free_component       libtool    $BASEVER_LIBTOOL "host-libtool"   ||
    ! unpack_component     libffi     $VERSION_FFI           ||
    ! build_component_host libffi     $VERSION_FFI           ||
    ! free_build           "host-libffi"                     ||
@@ -453,9 +453,7 @@ export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if ! build_component   libtool    $BASEVER_LIBTOOL                   ||
-   ! free_component    libtool    $BASEVER_LIBTOOL "libtool"         ||
-   ! unpack_component  libiconv   $VERSION_ICONV                     ||
+if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component   libiconv   $VERSION_ICONV                     ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"          ||
    ! unpack_component  zlib       $VERSION_ZLIB                      ||
