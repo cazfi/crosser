@@ -309,10 +309,6 @@ build_bzip2()
 
 cd $(dirname $0)
 
-if ! . "$CROSSER_MAINDIR/setups/native.sh" ; then
-  log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
-  exit 1
-fi
 BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 
 if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
