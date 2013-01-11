@@ -487,7 +487,7 @@ download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_I
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "tar.bz2"
 RET="$RET $?"
-download_needed "$MIRROR_DEB/pool/main/z/zlib/"         "zlib"       "$VERSION_ZLIB"       "dsc"
+download_needed "$MIRROR_SOURCEFORGE/libpng/"           "zlib"       "$VERSION_ZLIB"       "tar.bz2"
 RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
