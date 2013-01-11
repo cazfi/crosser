@@ -313,9 +313,7 @@ if ! . "$CROSSER_MAINDIR/setups/native.sh" ; then
   log_error "Failed to read $CROSSER_MAINDIR/setups/native.sh"
   exit 1
 fi
-NATIVE_ARCH="$TMP_ARCH"
-NATIVE_OS="$TMP_OS"
-BUILD="$NATIVE_ARCH-$NATIVE_OS"
+BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 
 if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
   log_error "Can't find setup \"$SETUP.conf\""
