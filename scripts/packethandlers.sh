@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2012 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -45,7 +45,10 @@ basever_libtool() {
 #
 # $1 - Version number in dotted format
 sqlite_verstr() {
-  if cmp_versions $1 3.7.15.1
+  if cmp_versions $1 3.7.15.2
+  then
+    echo "3071502"
+  elif cmp_versions $1 3.7.15.1
   then
     echo "3071501"
   elif cmp_versions $1 3.7.14.1
