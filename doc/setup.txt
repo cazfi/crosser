@@ -113,10 +113,8 @@ PACKETDIR
 CROSSER_DOWNLOAD
  ; This defines packet download model. Packets are ever downloaded only
  ; if they are missing, but time their existence is checked depends on
- ; this setting. Actual implementation is not yet too sophisticated.
- ; Even with "on demand" setting quite a lot of stuff is downloaded
- ; in the beginning. Default is "demand".
- ;   "yes"           - crosser.sh / dllstack.sh download all required
+ ; this setting. Default is "demand".
+ ;   "yes"           - dllstack.sh downloads all the required
  ;                     packets in the beginning.
  ;   "demand"        - On demand; download just when packet is really
  ;                     needed. This setting has advantage that not time
