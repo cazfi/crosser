@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2012 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -351,10 +351,6 @@ fi
 
 if test "x$MIRROR_GNU" = "x" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
-fi
-
-if test "x$MIRROR_DEB" = "x" ; then
-  MIRROR_DEB="http://ftp.debian.org/debian"
 fi
 
 if test "x$MIRROR_IM" = "x" ; then
