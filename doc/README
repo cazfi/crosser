@@ -30,14 +30,12 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
  Second parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
-  Currently there is three versionsets:
+  Currently there is two versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist.
   stable       - This versionset contains a bit more mature versions.
                  Typically those are final (most mature) versions from
                  previous release series of the software.
-  experimental - Experimental versions for crosser.sh. This list
-                 does not necessarily even work out-of-the-box.
 
   Third parameter is description of system dllstack is built for.
   win32 - Default one
