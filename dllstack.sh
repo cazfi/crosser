@@ -539,7 +539,10 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"             ||
    ! unpack_component  cairo      $VERSION_CAIRO                       ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
-   ! patch_src         cairo $VERSION_CAIRO cairo_epsilon         ||
+   ! ( is_smaller_version $VERSION_CAIRO 1.12.10 ||
+       patch_src       cairo $VERSION_CAIRO cairo-1.12.10_epsilon )    ||
+   ! ( is_minimum_version $VERSION_CAIRO 1.12.10 ||
+       patch_src         cairo $VERSION_CAIRO cairo_epsilon )          ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo $VERSION_CAIRO cairo_ffs )         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
