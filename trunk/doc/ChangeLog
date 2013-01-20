@@ -7,8 +7,8 @@
 	- Added support for <SETUP> tag in prefix parsing
 	- Improved usage of multicore build machines
 	- Removed experimental versionset
-	- Added harfbuzz (0.9.11) to build
-	- Updated cairo to version 1.12.8
+	- Added harfbuzz (0.9.12) to build
+	- Updated cairo to version 1.12.10
 	- Updated automake to version 1.13.1
 	- Updated glib to version 2.34.3
 	- Updated pango to version 1.32.6
