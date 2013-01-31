@@ -1,3 +1,6 @@
+0.10.1 (31-Jan-13)
+	- Added missing cairo-1.12.10_epsilon.patch
+
 0.10 (31-Jan-13)
 	- Partial win64 setup available
 	- No package is downloaded as debian source package
