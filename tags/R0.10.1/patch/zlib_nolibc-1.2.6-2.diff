@@ -1,0 +1,23 @@
+diff -Nurd zlib-1.2.6.dfsg/configure zlib-1.2.6.dfsg/configure
+--- zlib-1.2.6.dfsg/configure	2012-03-04 19:52:00.000000000 +0200
++++ zlib-1.2.6.dfsg/configure	2012-03-04 19:54:55.000000000 +0200
+@@ -48,7 +48,6 @@
+     NM=${NM-"nm"}
+ fi
+ LDCONFIG=${LDCONFIG-"ldconfig"}
+-LDSHAREDLIBC="${LDSHAREDLIBC--lc}"
+ ARCHS=
+ prefix=${prefix-/usr/local}
+ exec_prefix=${exec_prefix-'${prefix}'}
+diff -Nurd zlib-1.2.6.dfsg/Makefile.in zlib-1.2.6.dfsg/Makefile.in
+--- zlib-1.2.6.dfsg/Makefile.in	2012-01-29 00:48:50.000000000 +0200
++++ zlib-1.2.6.dfsg/Makefile.in	2012-03-04 19:54:03.000000000 +0200
+@@ -40,7 +40,7 @@
+ ARFLAGS=rc
+ RANLIB=ranlib
+ LDCONFIG=ldconfig
+-LDSHAREDLIBC=-lc
++LDSHAREDLIBC=
+ TAR=tar
+ SHELL=/bin/sh
+ EXE=

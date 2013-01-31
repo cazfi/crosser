@@ -1,0 +1,88 @@
+diff -Nurd gtk+-3.6.2/gtk/Makefile.am gtk+-3.6.2/gtk/Makefile.am
+--- gtk+-3.6.2/gtk/Makefile.am	2012-11-21 00:46:18.714221228 +0200
++++ gtk+-3.6.2/gtk/Makefile.am	2012-11-21 00:46:03.250221567 +0200
+@@ -1295,8 +1295,7 @@
+ # Installed tools
+ #
+ bin_PROGRAMS = \
+-	gtk-query-immodules-3.0	\
+-	gtk-launch
++	gtk-query-immodules-3.0
+ 
+ if BUILD_ICON_CACHE
+ bin_PROGRAMS += gtk-update-icon-cache
+@@ -1343,9 +1342,6 @@
+ gtk_update_icon_cache_SOURCES = updateiconcache.c
+ endif
+ 
+-gtk_launch_LDADD = $(LDADDS)
+-gtk_launch_SOURCES = gtk-launch.c
+-
+ .PHONY: files test test-debug
+ 
+ files:
+diff -Nurd gtk+-3.6.2/gtk/Makefile.in gtk+-3.6.2/gtk/Makefile.in
+--- gtk+-3.6.2/gtk/Makefile.in	2012-11-21 00:01:03.834280793 +0200
++++ gtk+-3.6.2/gtk/Makefile.in	2012-11-21 00:48:10.846218767 +0200
+@@ -94,8 +94,7 @@
+ @HAVE_INTROSPECTION_TRUE@@USE_X11_TRUE@am__append_20 = xlib-2.0
+ @HAVE_INTROSPECTION_TRUE@am__append_21 = Gtk-3.0.gir
+ @HAVE_INTROSPECTION_TRUE@am__append_22 = $(gir_DATA) $(typelibs_DATA)
+-bin_PROGRAMS = gtk-query-immodules-3.0$(EXEEXT) gtk-launch$(EXEEXT) \
+-	$(am__EXEEXT_1)
++bin_PROGRAMS = gtk-query-immodules-3.0$(EXEEXT) $(am__EXEEXT_1)
+ @BUILD_ICON_CACHE_TRUE@am__append_23 = gtk-update-icon-cache
+ subdir = gtk
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+@@ -521,11 +520,6 @@
+ 	$(CFLAGS) $(libgtk_3_la_LDFLAGS) $(LDFLAGS) -o $@
+ @BUILD_ICON_CACHE_TRUE@am__EXEEXT_1 = gtk-update-icon-cache$(EXEEXT)
+ PROGRAMS = $(bin_PROGRAMS)
+-am_gtk_launch_OBJECTS = gtk-launch.$(OBJEXT)
+-gtk_launch_OBJECTS = $(am_gtk_launch_OBJECTS)
+-am__DEPENDENCIES_4 = libgtk-3.la $(top_builddir)/gdk/libgdk-3.la \
+-	$(am__DEPENDENCIES_1)
+-gtk_launch_DEPENDENCIES = $(am__DEPENDENCIES_4)
+ am_gtk_query_immodules_3_0_OBJECTS = queryimmodules.$(OBJEXT)
+ gtk_query_immodules_3_0_OBJECTS =  \
+ 	$(am_gtk_query_immodules_3_0_OBJECTS)
+@@ -570,10 +564,10 @@
+ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+ am__v_CCLD_0 = @echo "  CCLD    " $@;
+ am__v_CCLD_1 = 
+-SOURCES = $(libgtk_3_la_SOURCES) $(gtk_launch_SOURCES) \
++SOURCES = $(libgtk_3_la_SOURCES) \
+ 	$(gtk_query_immodules_3_0_SOURCES) \
+ 	$(gtk_update_icon_cache_SOURCES)
+-DIST_SOURCES = $(am__libgtk_3_la_SOURCES_DIST) $(gtk_launch_SOURCES) \
++DIST_SOURCES = $(am__libgtk_3_la_SOURCES_DIST) \
+ 	$(gtk_query_immodules_3_0_SOURCES) \
+ 	$(am__gtk_update_icon_cache_SOURCES_DIST)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+@@ -1855,8 +1849,6 @@
+ gtk_query_immodules_3_0_SOURCES = queryimmodules.c
+ @BUILD_ICON_CACHE_TRUE@gtk_update_icon_cache_LDADD = $(GDK_PIXBUF_LIBS)
+ @BUILD_ICON_CACHE_TRUE@gtk_update_icon_cache_SOURCES = updateiconcache.c
+-gtk_launch_LDADD = $(LDADDS)
+-gtk_launch_SOURCES = gtk-launch.c
+ STOCK_ICONS = \
+ 	stock-icons/16/document-open-recent.png		\
+ 	stock-icons/16/help-about.png 			\
+@@ -2234,9 +2226,6 @@
+ 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
+ 	echo " rm -f" $$list; \
+ 	rm -f $$list
+-gtk-launch$(EXEEXT): $(gtk_launch_OBJECTS) $(gtk_launch_DEPENDENCIES) $(EXTRA_gtk_launch_DEPENDENCIES) 
+-	@rm -f gtk-launch$(EXEEXT)
+-	$(AM_V_CCLD)$(LINK) $(gtk_launch_OBJECTS) $(gtk_launch_LDADD) $(LIBS)
+ gtk-query-immodules-3.0$(EXEEXT): $(gtk_query_immodules_3_0_OBJECTS) $(gtk_query_immodules_3_0_DEPENDENCIES) $(EXTRA_gtk_query_immodules_3_0_DEPENDENCIES) 
+ 	@rm -f gtk-query-immodules-3.0$(EXEEXT)
+ 	$(AM_V_CCLD)$(LINK) $(gtk_query_immodules_3_0_OBJECTS) $(gtk_query_immodules_3_0_LDADD) $(LIBS)
+@@ -2285,7 +2274,6 @@
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gtk-launch.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgtk_3_la-fnmatch.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgtk_3_la-gactionmuxer.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgtk_3_la-gactionobservable.Plo@am__quote@
