@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2012 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -246,6 +246,11 @@ unpack_component() {
 # $2 -   Version
 # $3 -   Builddir
 free_component() {
+  if test x$2 = x0
+  then
+    # Directories were not created in the first place
+    return 0
+  fi
   free_src "$1" "$2"
   free_build "$3"
 }
