@@ -1,5 +1,6 @@
 0.11
 	- Bugfix: Do not try to free directories of disabled components
+	- Updated cairo to version 1.12.12
 
 0.10.1 (31-Jan-13)
 	- Added missing cairo-1.12.10_epsilon.patch
