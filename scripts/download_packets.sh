@@ -397,6 +397,13 @@ READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
+if is_minimum_version $VERSION_PNG 1.6.0
+then
+  PNG_PACK="tar.xz"
+else
+  PNG_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_CAIRO 1.12.2
 then
   CAIRO_PACK="tar.xz"
@@ -481,7 +488,7 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "tar.bz2"
+download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "$PNG_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/libpng/"           "zlib"       "$VERSION_ZLIB"       "tar.bz2"
 RET="$RET $?"
