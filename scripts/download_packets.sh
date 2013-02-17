@@ -381,6 +381,7 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
+    qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -549,6 +550,8 @@ RET="$RET $?"
 download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
+RET="$RET $?"
+download_needed "http://releases.qt-project.org/qt5/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET
