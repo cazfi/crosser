@@ -430,6 +430,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_build           "host-libffi"                     ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
+      is_minimum_version $VERSION_GLIB 2.36.0 ||
       patch_src glib $VERSION_GLIB glib_nokill )            ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "host-glib"                       ||
