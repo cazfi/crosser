@@ -104,11 +104,12 @@ build_component_host()
   fi
 }
 
-# $1 - Build dir
-# $2 - Component
-# $3 - Version, "0" to indicate that there isn't package to build after all
-# $4 - Extra configure options
-# $5 - Build type ('native' | 'windres')
+# $1   - Build dir
+# $2   - Component
+# $3   - Version, "0" to indicate that there isn't package to build after all
+# $4   - Extra configure options
+# [$5] - Build type ('native' | 'windres')
+# [$6] - Src subdir 
 build_component_full()
 {
   log_packet "$1"
@@ -118,12 +119,21 @@ build_component_full()
     return 0
   fi
 
-  SUBDIR="$(src_subdir $2 $3)"
-
-  if test "x$SUBDIR" = "x"
+  if test "x$6" != "x"
   then
-    log_error "Cannot find srcdir for $2 version $3"
-    return 1
+    SUBDIR="$6"
+    if ! test -d "$CROSSER_SRCDIR/$SUBDIR"
+    then
+      log_error "$2 srcdir \"$6\" doesn't exist"
+      return 1
+    fi
+  else
+    SUBDIR="$(src_subdir $2 $3)"
+    if test "x$SUBDIR" = "x"
+    then
+      log_error "Cannot find srcdir for $2 version $3"
+      return 1
+    fi
   fi
 
   BUILDDIR="$CROSSER_BUILDDIR/$1"
@@ -414,6 +424,7 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
+ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
@@ -439,6 +450,9 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
       patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266) ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "host-pkg-config"
+   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src" ||
+   ! build_component_full host-icu4c icu4c $VERSION_ICU                    \
+     "" "native" "icu/source"
 then
   log_error "Native build failed"
   exit 1
@@ -473,6 +487,9 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
+   ! build_component_full icu4c icu4c $VERSION_ICU                   \
+     "--with-cross-build=$CROSSER_BUILDDIR/host-icu4c" "" "icu/source" ||
+   ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib"                                               ||
@@ -550,6 +567,7 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
+   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    || 
    ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||

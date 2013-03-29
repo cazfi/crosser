@@ -61,3 +61,10 @@ sqlite_verstr() {
     echo "0000000"
   fi
 }
+
+# Echo version number part of icu archive filename
+#
+# ÂÂ$1 - icu version
+icu_filever() {
+  echo "$1" | sed 's/\./_/g'
+}
