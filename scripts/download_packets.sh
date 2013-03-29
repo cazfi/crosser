@@ -383,6 +383,7 @@ then
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
     qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
+    icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -395,6 +396,7 @@ GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH 
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR ; echo -n $MAJOR.$MINOR ))"
 GOBJ_INTROS_DIR="$(echo $VERSION_GOBJ_INTROS | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
@@ -554,6 +556,8 @@ RET="$RET $?"
 download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
+RET="$RET $?"
+download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
 download_needed "http://releases.qt-project.org/qt5/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
