@@ -5,7 +5,7 @@
 	- Updated gtk2 to version 2.24.17
 	- Updated ffi -> 3.0.12
 	- Updated curl -> 7.29.0
-	- Updated libpng -> 1.6.0
+	- Updated libpng -> 1.6.1
 	- Updated harfbuzz -> 0.9.13
 	- Updated gettext -> 0.18.2.1
 	- Updated glib -> 2.36.0
