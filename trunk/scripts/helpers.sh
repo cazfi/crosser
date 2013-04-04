@@ -333,6 +333,7 @@ autogen_component()
   fi
 
   log_packet "autogen $1"
+  log_write 1 "autogen $1"
 
   SUBDIR="$(src_subdir $1 $2)"
 
