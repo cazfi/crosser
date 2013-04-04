@@ -82,12 +82,19 @@ build_component()
   build_component_full "$1" "$1" "$2" "$3"
 }
 
-# $1 - Component
-# $2 - Version
-# $3 - Extra configure options
+# $1   - Component
+# $2   - Version
+# $3   - Extra configure options
+# [$4] - "native" or "cross"
 build_component_host()
 {
-  if ! build_component_full "host-$1" "$1" "$2" "$3" "native"
+  if test "x$4" != "x"
+  then
+    BTYPE="$4"
+  else
+    BTYPE="native"
+  fi
+  if ! build_component_full "$BTYPE-$1" "$1" "$2" "$3" "$BTYPE"
   then
     BERR=true
   else
@@ -108,7 +115,7 @@ build_component_host()
 # $2   - Component
 # $3   - Version, "0" to indicate that there isn't package to build after all
 # $4   - Extra configure options
-# [$5] - Build type ('native' | 'windres')
+# [$5] - Build type ('native' | 'windres' | 'cross')
 # [$6] - Src subdir 
 build_component_full()
 {
@@ -150,6 +157,13 @@ build_component_full()
   if test "x$5" = "xnative"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $4"
+    unset CPPFLAGS
+    unset LDFLAGS
+  elif test "x$5" = "xcross"
+  then
+    # FIXME: As pkg-config build is the only one using this, this is adjusted to work just with it, i.e.,
+    #        --build, --host, and --target are not set as that broke it.
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$TARGET- $4"
     unset CPPFLAGS
     unset LDFLAGS
   elif test "x$5" = "xwindres"
@@ -418,8 +432,6 @@ then
   fi
 fi
 
-export PKG_CONFIG_LIBDIR="$NATIVE_PREFIX/lib/pkgconfig"
-
 BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
@@ -445,20 +457,22 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
       patch_src glib $VERSION_GLIB glib_nokill )            ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "host-glib"                       ||
-   ! unpack_component     pkg-config $VERSION_PKG_CONFIG    ||
+   ! unpack_component     pkg-config $VERSION_PKG_CONFIG                    ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
-      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266) ||
-   ! build_component_host pkg-config $VERSION_PKG_CONFIG    ||
-   ! free_component       pkg-config $VERSION_PKG_CONFIG "host-pkg-config"
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src" ||
-   ! build_component_full host-icu4c icu4c $VERSION_ICU                    \
+      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
+   ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
+     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig"                          ||
+   ! free_build           "host-pkg-config"                                 ||
+   ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
+     "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
+   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
+   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
+   ! build_component_full host-icu4c icu4c $VERSION_ICU                     \
      "" "native" "icu/source"
 then
   log_error "Native build failed"
   exit 1
 fi
-
-export PKG_CONFIG_LIBDIR="$DLLSPREFIX/lib/pkgconfig"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
@@ -543,9 +557,10 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"         ||
    ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
-       (patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags &&
-        autogen_component fontconfig $VERSION_FONTCONFIG \
-        "libtoolize aclocal automake autoconf" ))                      ||
+       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags) ||
+   ! patch_src fontconfig $VERSION_FONTCONFIG fontconfig_cross             ||
+   ! autogen_component fontconfig $VERSION_FONTCONFIG                      \
+      "libtoolize aclocal automake autoconf"                               ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                  \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
