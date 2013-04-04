@@ -1,5 +1,6 @@
 0.11
 	- Bugfix: Do not try to free directories of disabled components
+	- Build separate host pkg-config and cross-pkg-config
 	- Added icu (version 51.1)
 	- Updated cairo to version 1.12.14
 	- Updated gtk2 to version 2.24.17
