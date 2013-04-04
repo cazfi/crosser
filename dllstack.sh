@@ -577,8 +577,9 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
        is_minimum_version $VERSION_ATK     2.2.0   ||
        patch_src          atk $VERSION_ATK atk_def    )           ||
-   ! autogen_component atk        $VERSION_ATK                    \
-     "libtoolize aclocal automake autoconf"                       ||
+   ! ( is_minimum_version $VERSION_ATK     2.8.0   ||
+       autogen_component atk        $VERSION_ATK   \
+         "libtoolize aclocal automake autoconf" )                 ||
    ! build_component   atk        $VERSION_ATK                    ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
