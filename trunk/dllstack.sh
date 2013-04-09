@@ -438,6 +438,8 @@ GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
+export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
+
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
    ! free_component       autoconf   $VERSION_AUTOCONF "host-autoconf" ||
@@ -468,7 +470,10 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
    ! build_component_full host-icu4c icu4c $VERSION_ICU                     \
-     "" "native" "icu/source"
+     "" "native" "icu/source"                                               ||
+   ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
+   ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
+   ! free_build           "host-gdk-pixbuf"
 then
   log_error "Native build failed"
   exit 1
@@ -558,7 +563,6 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
        patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags) ||
-   ! patch_src fontconfig $VERSION_FONTCONFIG fontconfig_cross             ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG                      \
       "libtoolize aclocal automake autoconf"                               ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                  \
@@ -602,14 +606,8 @@ then
   exit 1
 fi
 
-if ! ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
-       ( is_greater_version $VERSION_GDK_PIXBUF 2.24.0 ||
-         patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdkpixbuf_gdiplusdef ) &&
-       ( ! cmp_versions $VERSION_GDK_PIXBUF 2.24.1 ||
-         patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdkpixbuf_animiterinit) &&
-       autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
-       build_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
-       free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf") ||
+if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
+   ! free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"  ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
    ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
        patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
@@ -632,8 +630,12 @@ if ! ( unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF &&
        is_minimum_version $VERSION_GTK3 3.6.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_isinf )                  ||
    ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
+       is_minimum_version $VERSION_GTK3 3.8.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                ||
-   ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
+   ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic )              ||
+   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
+     build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG                ||
