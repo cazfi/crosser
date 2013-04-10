@@ -45,7 +45,10 @@ basever_libtool() {
 #
 # $1 - Version number in dotted format
 sqlite_verstr() {
-  if cmp_versions $1 3.7.15.2
+  if cmp_versions $1 3.7.16.1
+  then
+    echo "3071601"
+  elif cmp_versions $1 3.7.15.2
   then
     echo "3071502"
   elif cmp_versions $1 3.7.15.1
@@ -64,7 +67,7 @@ sqlite_verstr() {
 
 # Echo version number part of icu archive filename
 #
-# ÂÂ$1 - icu version
+# $1 - icu version
 icu_filever() {
   echo "$1" | sed 's/\./_/g'
 }
