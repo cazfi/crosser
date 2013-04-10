@@ -402,6 +402,13 @@ READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
+if is_minimum_version $VERSION_SQLITE 3.7.Â16.1
+then
+   SQL_SUBDIR="2013/"
+else
+   SQL_SUBDIR=""
+fi
+
 if is_minimum_version $VERSION_PNG 1.6.0
 then
   PNG_PACK="tar.xz"
@@ -553,7 +560,7 @@ download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image" 
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
 RET="$RET $?"
-download_needed "http://www.sqlite.com/" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
+download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
