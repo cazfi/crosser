@@ -8,7 +8,7 @@
 	- Updated ffi to version 3.0.13
 	- Updated curl to version 7.29.0
 	- Updated libpng to version 1.6.1
-	- Updated harfbuzz to version 0.9.13
+	- Updated harfbuzz to version 0.9.15
 	- Updated gettext to version 0.18.2.1
 	- Updated glib to version 2.36.0
 	- Updated gdk-pixbuf to version 2.28.0

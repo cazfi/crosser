@@ -586,7 +586,9 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
-   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    || 
+   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    ||
+   ! autogen_component harfbuzz   $VERSION_HARFBUZZ               \
+     "aclocal automake autoconf"                                  || 
    ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
