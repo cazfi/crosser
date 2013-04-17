@@ -635,7 +635,8 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
        is_minimum_version $VERSION_GTK3 3.8.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                ||
    ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic )              ||
+       ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
+         patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))        ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
      build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
