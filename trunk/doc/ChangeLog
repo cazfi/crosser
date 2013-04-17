@@ -6,7 +6,7 @@
 	- Updated cairo to version 1.12.14
 	- Updated gtk2 to version 2.24.17
 	- Updated ffi to version 3.0.13
-	- Updated curl to version 7.29.0
+	- Updated curl to version 7.30.0
 	- Updated libpng to version 1.6.1
 	- Updated harfbuzz to version 0.9.15
 	- Updated gettext to version 0.18.2.1
