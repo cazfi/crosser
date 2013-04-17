@@ -15,6 +15,7 @@
 	- Updated pangoto version 1.34.0
 	- Updated atk to version 2.8.0
 	- Updated sqlite to version 3.7.16.1
+	- Updated gtk3 to version 3.8.1
 
 0.10.1 (31-Jan-13)
 	- Added missing cairo-1.12.10_epsilon.patch
