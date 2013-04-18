@@ -19,7 +19,7 @@ sqlite
 ImageMagick
 gettext
 glib
-libjpeg
+jpeg
 tiff
 expat
 freetype
