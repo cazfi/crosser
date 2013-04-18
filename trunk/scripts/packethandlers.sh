@@ -45,24 +45,17 @@ basever_libtool() {
 #
 # $1 - Version number in dotted format
 sqlite_verstr() {
-  if cmp_versions $1 3.7.16.1
-  then
-    echo "3071601"
-  elif cmp_versions $1 3.7.15.2
-  then
-    echo "3071502"
-  elif cmp_versions $1 3.7.15.1
-  then
-    echo "3071501"
-  elif cmp_versions $1 3.7.14.1
-  then
-    echo "3071401"
-  elif cmp_versions $1 3.7.15
-  then
-    echo "3071500"
-  else
-    echo "0000000"
-  fi
+  echo $1 | sed 's/\./ /g' | (read part1 rest
+    echo -n $part1
+    for part in $rest
+    do
+      if test $part -lt 10
+      then
+        echo -n "0"
+      fi
+      echo -n $part
+    done
+  )
 }
 
 # Echo version number part of icu archive filename
