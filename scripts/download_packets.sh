@@ -371,7 +371,6 @@ then
     gtk2)        VERSION_GTK2=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
-    gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     gobject-introspection) VERSION_GOBJ_INTROS=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
@@ -543,8 +542,6 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gobject-introspection/${GOBJ_INTROS_DIR}/" "gobject-introspection" "${VERSION_GOBJ_INTROS}" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "$ATK_PACK"
-RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "$GDK_PB_PACK" 
 RET="$RET $?"
