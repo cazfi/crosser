@@ -1,6 +1,6 @@
 # stable.versions: Package versions
 #
-# (c) 2009-2012 Marko Lindqvist
+# (c) 2009-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -8,8 +8,8 @@
 # current versionset. This started up as copy of current versionset in
 # November 2009.
 # Typically these versions are final releases from previous release
-# series of the software. For example; this contains gcc version from
-# 4.4 series until gcc 4.6.0 is released, at which point latest 4.5.x
+# series of the software. For example; this contains glib version from
+# 2.34 series until glib 2.38.0 is released, at which point latest 2.36
 # release is added here.
 
 VERSION_AUTOCONF=2.68
