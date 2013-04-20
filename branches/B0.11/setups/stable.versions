@@ -1,0 +1,56 @@
+# stable.versions: Package versions
+#
+# (c) 2009-2012 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+#
+# This versionset has a bit more mature versions of the software than
+# current versionset. This started up as copy of current versionset in
+# November 2009.
+# Typically these versions are final releases from previous release
+# series of the software. For example; this contains gcc version from
+# 4.4 series until gcc 4.6.0 is released, at which point latest 4.5.x
+# release is added here.
+
+VERSION_AUTOCONF=2.68
+VERSION_AUTOMAKE=1.12.6
+VERSION_LIBTOOL=2.2.10
+
+VERSION_ICONV=1.13.1
+VERSION_PNG=1.5.15
+VERSION_ZLIB=1.2.7
+VERSION_BZIP2=1.0.6
+VERSION_XZ=5.0.4
+VERSION_CURL=7.29.0
+VERSION_SQLITE=3.7.15.2
+VERSION_GETTEXT=0.18.2.1
+VERSION_PKG_CONFIG=0.27.1
+VERSION_READLINE=5.2
+PATCHES_READLINE=13
+VERSION_GLIB=2.34.3
+VERSION_JPEG=8d
+VERSION_TIFF=3.9.5
+VERSION_EXPAT=2.0.1
+VERSION_FREETYPE=2.3.12
+VERSION_FONTCONFIG=2.8.0
+VERSION_HARFBUZZ=0.9.16
+VERSION_FFI=3.0.13
+VERSION_PIXMAN=0.26.2
+VERSION_CAIRO=1.12.14
+VERSION_PANGO=1.32.6
+VERSION_GOBJ_INTROS=1.36.0
+VERSION_ATK=2.6.0
+VERSION_GDK_PIXBUF=2.26.5
+VERSION_GTK2=2.24.17
+VERSION_GTK3=3.6.4
+VERSION_GTK_ENG=2.18.5
+
+VERSION_SDL=1.2.15
+VERSION_SDL_IMAGE=1.2.12
+VERSION_SDL_MIXER=1.2.12
+
+VERSION_ICU=51.1
+
+VERSION_QT=5.0.1
+
+VERSION_IMAGEMAGICK=6.8.1-3
