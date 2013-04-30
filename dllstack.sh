@@ -595,9 +595,6 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
    ! unpack_component  atk        $VERSION_ATK                    ||
-   ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
-       is_minimum_version $VERSION_ATK     2.2.0   ||
-       patch_src          atk $VERSION_ATK atk_def    )           ||
    ! ( is_minimum_version $VERSION_ATK     2.8.0   ||
        autogen_component atk        $VERSION_ATK   \
          "libtoolize aclocal automake autoconf" )                 ||
