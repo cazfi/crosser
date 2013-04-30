@@ -6,6 +6,7 @@
 	- Bugfix: Do not try to free directories of disabled components
 	- Build separate host pkg-config and cross-pkg-config
 	- Build native version of gdk-pixbuf
+	- Fixed downloads from sourceforge
 	- Added icu (version 51.1)
 	- Removed gtk-doc download support
 	- Updated cairo to version 1.12.14
