@@ -357,13 +357,14 @@ if test "x$MIRROR_IM" = "x" ; then
   MIRROR_IM="http://imagemagick.mirrorcatalogs.com"
 fi
 
-MIRROR_SOURCEFORGE="http://downloads.sourceforge.net"
+MIRROR_SOURCEFORGE="http://sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 
 if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
+    zlib)        VERSION_ZLIB=$VERSION_SELECTED ;;
     bzip2)       VERSION_BZIP2=$VERSION_SELECTED ;;
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
@@ -406,6 +407,13 @@ then
    SQL_SUBDIR="2013/"
 else
    SQL_SUBDIR=""
+fi
+
+if is_minimum_version $VERSION_ZLIB 1.2.8
+then
+  ZLIB_PACK="tar.xz"
+else
+  ZLIB_PACK="tar.bz2"
 fi
 
 if is_minimum_version $VERSION_PNG 1.6.0
@@ -499,9 +507,9 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/libpng/"           "libpng"     "$VERSION_PNG"        "$PNG_PACK"
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/libpng/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/libpng/"           "zlib"       "$VERSION_ZLIB"       "tar.bz2"
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
@@ -521,7 +529,7 @@ download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v$
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/expat/"            "expat"      "$VERSION_EXPAT"      "tar.gz"
+download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
 RET="$RET $?"
