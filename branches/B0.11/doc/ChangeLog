@@ -18,6 +18,7 @@
 	- Updated atk to version 2.8.0
 	- Updated sqlite to version 3.7.16.2
 	- Updated ImageMagick to version 6.8.4-10
+	- Updated zlib to version 1.2.8
 
 0.10.1 (31-Jan-13)
 	- Added missing cairo-1.12.10_epsilon.patch
