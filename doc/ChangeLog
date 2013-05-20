@@ -1,5 +1,6 @@
 0.12
 	- Updated gtk3 to version 3.8.2
+	- Updated sqlite to version 3.7.17
 
 0.11
 	- Bugfix: Do not try to free directories of disabled components
