@@ -45,9 +45,13 @@ basever_libtool() {
 #
 # $1 - Version number in dotted format
 sqlite_verstr() {
-  echo $1 | sed 's/\./ /g' | (read part1 rest
+  echo $1 | sed 's/\./ /g' | (read part1 part2 part3 part4
     echo -n $part1
-    for part in $rest
+    if test "x$part4" = "x"
+    then
+      part4="0"
+    fi
+    for part in $part2 $part3 $part4
     do
       if test $part -lt 10
       then
