@@ -6,15 +6,15 @@
 	- Added icu (version 51.1)
 	- Removed gtk-doc download support
 	- Updated cairo to version 1.12.14
-	- Updated gtk2 to version 2.24.17
+	- Updated gtk2 to version 2.24.18
 	- Updated ffi to version 3.0.13
 	- Updated curl to version 7.30.0
 	- Updated libpng to version 1.6.2
 	- Updated harfbuzz to version 0.9.16
 	- Updated gettext to version 0.18.2.1
-	- Updated glib to version 2.36.1
+	- Updated glib to version 2.36.2
 	- Updated gdk-pixbuf to version 2.28.1
-	- Updated pango to version 1.34.0
+	- Updated pango to version 1.34.1
 	- Updated atk to version 2.8.0
 	- Updated sqlite to version 3.7.16.2
 	- Updated ImageMagick to version 6.8.4-10
