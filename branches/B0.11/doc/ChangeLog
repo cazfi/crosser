@@ -3,7 +3,7 @@
 	- Build separate host pkg-config and cross-pkg-config
 	- Build native version of gdk-pixbuf
 	- Fixed downloads from sourceforge
-	- Added icu (version 51.1)
+	- Added icu (version 51.2)
 	- Removed gtk-doc download support
 	- Updated cairo to version 1.12.14
 	- Updated gtk2 to version 2.24.18
