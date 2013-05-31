@@ -586,10 +586,12 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
-   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    ||
-   ! autogen_component harfbuzz   $VERSION_HARFBUZZ               \
-     "aclocal automake autoconf"                                  || 
-   ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
+   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
+      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
+        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
+          "aclocal automake autoconf" ))                          || 
+   ! build_component   harfbuzz   $VERSION_HARFBUZZ               \
+     "--without-icu"                                              ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
