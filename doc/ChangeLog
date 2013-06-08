@@ -26,6 +26,7 @@
 	- Updated zlib to version 1.2.8
 	- Updated freetype to version 2.4.12
 	- Updated pixman to version 0.30.0
+	- Updated automake to version 1.13.3
 
 0.10.1 (31-Jan-13)
 	- Added missing cairo-1.12.10_epsilon.patch
