@@ -457,7 +457,8 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
       patch_src glib $VERSION_GLIB glib_nokill )            ||
-   ! (! cmp_versions $VERSION_GLIB 2.36.2 ||
+   ! (is_smaller_version $VERSION_GLIB 2.36.0 ||
+      is_minimum_version $VERSION_GLIB 2.38.0 ||
       ( touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/glib/Makefile.in &&
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gobject/Makefile.in &&
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/Makefile.in &&
