@@ -35,6 +35,7 @@ gtk2
 gtk3
 gtk-engines
 libogg
+libvorbis
 SDL
 SDL_image
 qtbase-opensource-src
