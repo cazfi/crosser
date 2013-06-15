@@ -34,6 +34,7 @@ gdk-pixbuf
 gtk2
 gtk3
 gtk-engines
+libogg
 SDL
 SDL_image
 qtbase-opensource-src

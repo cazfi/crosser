@@ -561,6 +561,8 @@ download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_G
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
+download_needed "http://downloads.xiph.org/releases/ogg/" "libogg"   "$VERSION_OGG"        "tar.xz"
+RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
