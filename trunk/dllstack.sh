@@ -653,6 +653,14 @@ then
   exit 1
 fi
 
+if ! unpack_component  libogg     $VERSION_OGG          ||
+   ! build_component   libogg     $VERSION_OGG          ||
+   ! free_component    libogg     $VERSION_OGG "libogg"
+then
+  log_error "Audio stack build failed"
+  exit 1
+fi
+
 if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL        $VERSION_SDL          ||
    ! free_component    SDL        $VERSION_SDL "SDL"    ||
