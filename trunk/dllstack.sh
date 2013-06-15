@@ -655,7 +655,10 @@ fi
 
 if ! unpack_component  libogg     $VERSION_OGG          ||
    ! build_component   libogg     $VERSION_OGG          ||
-   ! free_component    libogg     $VERSION_OGG "libogg"
+   ! free_component    libogg     $VERSION_OGG "libogg" ||
+   ! unpack_component  libvorbis  $VERSION_VORBIS      ||
+   ! build_component   libvorbis  $VERSION_VORBIS       ||
+   ! free_component    libvorbis  $VERSION_VORBIS "libvorbis"
 then
   log_error "Audio stack build failed"
   exit 1
