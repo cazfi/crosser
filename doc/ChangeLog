@@ -3,6 +3,8 @@
 	- Updated gtk3 to version 3.8.2
 	- Updated sqlite to version 3.7.17
 	- Updated harfbuzz to version 0.9.17
+	- Updated gtk2 to version 2.24.19
+	- Updated curl to version 7.31.0
 
 0.11
 	- Bugfix: Do not try to free directories of disabled components
