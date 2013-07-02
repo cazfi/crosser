@@ -1,0 +1,17 @@
+diff -Nurd SDL_mixer-1.2.12/configure.in SDL_mixer-1.2.12-newbie/configure.in
+--- SDL_mixer-1.2.12/configure.in	2013-06-29 10:06:06.638801349 +0300
++++ SDL_mixer-1.2.12-newbie/configure.in	2013-06-29 10:06:49.958800398 +0300
+@@ -644,10 +644,10 @@
+ 
+ VERSION_OBJECTS=`echo $VERSION_SOURCES`
+ VERSION_DEPENDS=`echo $VERSION_SOURCES`
+-VERSION_OBJECTS=`echo "$VERSION_OBJECTS" | sed 's,[[^ ]]*/\([[^ ]]*\)\.rc,$(objects)/\1.o,g'`
++VERSION_OBJECTS=`echo "$VERSION_OBJECTS" | sed 's,[[^ ]]*/\([[^ ]]*\)\.rc,$(objects)/\1.lo,g'`
+ VERSION_DEPENDS=`echo "$VERSION_DEPENDS" | sed 's,\([[^ ]]*\)/\([[^ ]]*\)\.rc,\\
+-$(objects)/\2.o: \1/\2.rc\\
+-	\$(WINDRES) \$< \$@,g'`
++$(objects)/\2.lo: \1/\2.rc\\
++	\$(LIBTOOL) --mode=compile \$(WINDRES) -i \$< -o \$@,g'`
+ VERSION_DEPENDS=`echo "$VERSION_DEPENDS" | sed 's,\\$,\\\\$,g'`
+ 
+ PLAYWAVE_SOURCES="$srcdir/playwave.c"
