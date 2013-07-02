@@ -379,6 +379,9 @@ autogen_component()
         if test -d m4
         then
           TOOLPARAM=" -I m4"
+        elif test -d acinclude
+        then
+          TOOLPARAM=" -I acinclude"
         else
           TOOLPARAM=""
         fi
