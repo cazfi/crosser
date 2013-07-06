@@ -436,7 +436,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -474,9 +473,6 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
-   ! build_component_full host-icu4c icu4c $VERSION_ICU                     \
-     "" "native" "icu/source"                                               ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
    ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
    ! free_build           "host-gdk-pixbuf"
@@ -512,9 +508,6 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
-   ! build_component_full icu4c icu4c $VERSION_ICU                   \
-     "--with-cross-build=$CROSSER_BUILDDIR/host-icu4c" "" "icu/source" ||
-   ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib"                                               ||
@@ -592,17 +585,18 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
-      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
-        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
-          "aclocal automake autoconf" ))                          || 
-   ! build_component   harfbuzz   $VERSION_HARFBUZZ               \
-     "--without-icu"                                              ||
+   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    ||
+   ! autogen_component harfbuzz   $VERSION_HARFBUZZ               \
+     "aclocal automake autoconf"                                  || 
+   ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
    ! unpack_component  atk        $VERSION_ATK                    ||
+   ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
+       is_minimum_version $VERSION_ATK     2.2.0   ||
+       patch_src          atk $VERSION_ATK atk_def    )           ||
    ! ( is_minimum_version $VERSION_ATK     2.8.0   ||
        autogen_component atk        $VERSION_ATK   \
          "libtoolize aclocal automake autoconf" )                 ||
@@ -642,8 +636,7 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
    ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
          patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))        ||
-   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
-     build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
+   ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG                ||
