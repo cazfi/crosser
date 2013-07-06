@@ -3,7 +3,6 @@
 	- Build separate host pkg-config and cross-pkg-config
 	- Build native version of gdk-pixbuf
 	- Fixed downloads from sourceforge
-	- Added icu (version 51.2)
 	- Added libogg (version 1.3.1)
 	- Added vorbis (1.3.3)
 	- Build SDL-mixer
