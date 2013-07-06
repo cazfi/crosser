@@ -436,7 +436,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -474,9 +473,6 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
-   ! build_component_full host-icu4c icu4c $VERSION_ICU                     \
-     "" "native" "icu/source"                                               ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
    ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
    ! free_build           "host-gdk-pixbuf"
@@ -512,9 +508,6 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
-   ! build_component_full icu4c icu4c $VERSION_ICU                   \
-     "--with-cross-build=$CROSSER_BUILDDIR/host-icu4c" "" "icu/source" ||
-   ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib"                                               ||
