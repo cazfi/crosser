@@ -6,6 +6,9 @@
 	- Updated harfbuzz to version 0.9.17
 	- Updated curl to version 7.31.0
 
+0.11.1
+	- Fixed gettext build with newer MinGW
+
 0.11 (06-Jul-13)
 	- Bugfix: Do not try to free directories of disabled components
 	- Build separate host pkg-config and cross-pkg-config
