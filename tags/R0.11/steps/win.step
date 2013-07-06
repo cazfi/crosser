@@ -1,0 +1,40 @@
+# win.step: Packages in windows dllstack build step
+#
+# (c) 2008-2013 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+#
+autoconf
+automake
+libtool
+pkg-config
+libiconv
+libpng
+zlib
+bzip2
+xz
+curl
+sqlite
+ImageMagick
+gettext
+glib
+jpeg
+tiff
+expat
+freetype
+fontconfig
+harfbuzz
+libffi
+pixman
+cairo
+pango
+atk
+gdk-pixbuf
+gtk2
+gtk3
+gtk-engines
+libogg
+libvorbis
+SDL
+SDL_image
+qtbase-opensource-src
