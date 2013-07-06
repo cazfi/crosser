@@ -1,3 +1,6 @@
+0.11.1
+	- Fixed gettext build with newer MinGW
+
 0.11 (06-Jul-13)
 	- Bugfix: Do not try to free directories of disabled components
 	- Build separate host pkg-config and cross-pkg-config
