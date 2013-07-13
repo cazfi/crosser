@@ -537,7 +537,7 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component   libffi     $VERSION_FFI                        ||
    ! free_component    libffi     $VERSION_FFI    "libffi"            ||
    ! build_component   glib       $VERSION_GLIB             \
-       "$GLIB_VARS"                                                   ||
+       "$GLIB_VARS --with-threads=win32"                              ||
    ! free_component    glib       $VERSION_GLIB "glib"
 then
   log_error "Build failed"
