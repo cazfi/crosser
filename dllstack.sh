@@ -499,18 +499,20 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! free_src          bzip2      $VERSION_BZIP2                     ||
    ! unpack_component  xz         $VERSION_XZ                        ||
-   ! build_component_full xz xz   $VERSION_XZ "" "windres"           ||
+   ! build_component_full xz xz   $VERSION_XZ                        \
+     "--disable-threads" "windres"                                   ||
    ! free_component    xz         $VERSION_XZ "xz"                   ||
    ! unpack_component  curl       $VERSION_CURL                      ||
    ! build_component   curl       $VERSION_CURL                      ||
    ! free_component    curl       $VERSION_CURL "curl"               ||
    ! unpack_component  sqlite     $VERSION_SQLITE                    \
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
-   ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         ||
+   ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         \
+     "--disable-threadsafe"                                          ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
-     "--without-bzlib"                                               ||
+     "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! unpack_component  libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
@@ -525,7 +527,7 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
            >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
      ))                                                               ||
    ! (export LIBS="-liconv" && build_component gettext  $VERSION_GETTEXT \
-                               "$GETTEXT_VARS --enable-relocatable" ) ||
+      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows" )    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
    ! build_component   libffi     $VERSION_FFI                        ||
    ! free_component    libffi     $VERSION_FFI    "libffi"            ||
