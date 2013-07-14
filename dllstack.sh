@@ -511,6 +511,7 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
      "--disable-threadsafe"                                          ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"         ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
