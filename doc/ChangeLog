@@ -8,7 +8,7 @@
 
 0.11.1
 	- Fixed gettext build with newer MinGW
-	- Glib is built to use win32 thread implementation
+	- All components are explicitly configured to use win32 thread implementation
 
 0.11 (06-Jul-13)
 	- Bugfix: Do not try to free directories of disabled components
