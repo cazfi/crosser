@@ -518,6 +518,7 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
      "--with-cross-build=$CROSSER_BUILDDIR/host-icu4c" "" "icu/source" ||
    ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"         ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
