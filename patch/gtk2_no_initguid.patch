@@ -1,0 +1,12 @@
+diff -Nurd gtk+-2.24.20/gdk/win32/gdkdnd-win32.c gtk+-2.24.20/gdk/win32/gdkdnd-win32.c
+--- gtk+-2.24.20/gdk/win32/gdkdnd-win32.c	2011-10-01 18:29:06.000000000 +0300
++++ gtk+-2.24.20/gdk/win32/gdkdnd-win32.c	2013-07-07 00:18:55.543749331 +0300
+@@ -69,8 +69,6 @@
+  * the current Windows code page. See gdkim-win32.c for more info on that.
+  *
+  */
+- 
+-#define INITGUID
+ 
+ #include "gdkdnd.h"
+ #include "gdkproperty.h"

@@ -8,6 +8,7 @@
 
 0.11.1
 	- Fixed gettext build with newer MinGW
+	- Fixed gtk2 & gtk3 build with newer MinGW
 	- All components are explicitly configured to use win32 thread implementation
 
 0.11 (06-Jul-13)
