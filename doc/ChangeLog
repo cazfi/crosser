@@ -6,7 +6,7 @@
 	- Updated harfbuzz to version 0.9.17
 	- Updated curl to version 7.31.0
 
-0.11.1
+0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
 	- Fixed gtk2 & gtk3 build with newer MinGW
 	- All components are explicitly configured to use win32 thread implementation
