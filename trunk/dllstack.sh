@@ -620,6 +620,7 @@ fi
 if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
    ! free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"  ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
+   ! patch_src         gtk+     $VERSION_GTK2 gtk2_no_initguid    ||
    ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
        patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
    ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
@@ -634,6 +635,7 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
+   ! patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid    ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
    ! ( is_minimum_version $VERSION_GTK3 3.2.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_marshalers )             ||
