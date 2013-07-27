@@ -686,7 +686,17 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
      "libtoolize aclocal autoconf"                                  ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER                \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"           ||
+   ! unpack_component SDL2        $VERSION_SDL2                            ||
+   ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                           ||
+   ! build_component  SDL2        $VERSION_SDL2                            ||
+   ! free_component   SDL2        $VERSION_SDL2 "SDL2"                     ||
+   ! unpack_component SDL2_image  $VERSION_SDL2_IMAGE                      ||
+   ! build_component  SDL2_image  $VERSION_SDL2_IMAGE                      ||
+   ! free_component   SDL2_image  $VERSION_SDL2_IMAGE "SDL2_image"         ||
+   ! unpack_component SDL2_mixer  $VERSION_SDL2_MIXER                      ||
+   ! build_component  SDL2_mixer  $VERSION_SDL2_MIXER                      ||
+   ! free_component   SDL2_mixer  Â$VERSION_SDL2_MIXER"SDL2_mixer"
 then
   log_error "SDL stack build failed"
   exit 1
