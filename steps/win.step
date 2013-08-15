@@ -42,4 +42,4 @@ SDL_mixer
 SDL2
 SDL2_image
 SDL2_mixer
-qtbase-opensource-src
+qt-everywhere-opensource-src
