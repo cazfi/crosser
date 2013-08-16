@@ -226,11 +226,11 @@ build_zlib()
     return 1
   fi
 
+  (
   export CC=$TARGET-gcc
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
-  (
   if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
     log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
