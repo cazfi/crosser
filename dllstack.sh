@@ -115,7 +115,7 @@ build_component_host()
 # $2   - Component
 # $3   - Version, "0" to indicate that there isn't package to build after all
 # $4   - Extra configure options
-# [$5] - Build type ('native' | 'windres' | 'cross')
+# [$5] - Build type ('native' | 'windres' | 'cross' | 'qt')
 # [$6] - Src subdir 
 build_component_full()
 {
@@ -171,6 +171,13 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+  elif test "x$5" = "xqt"
+  then
+    CONFOPTIONS="-prefix $DLLSPREFIX $4"
+    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $USER_CPPFLAGS"
+    export CFLAGS="${CPPFLAGS}"
+    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
+    export LDFLAGS="-L${DLLSPREFIX}/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
@@ -191,7 +198,12 @@ build_component_full()
   fi
 
   log_write 1 "Building $1"
-  log_write 3 "  Make targets: [default] install"
+  if test "x$5" = "xqt"
+  then
+    log_write 3 "  Make targets: [default]"
+  else
+    log_write 3 "  Make targets: [default] install"
+  fi
   log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
 
   if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
@@ -200,7 +212,8 @@ build_component_full()
     return 1
   fi
 
-  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if test "x$5" != "xqt" &&
+     ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -700,6 +713,17 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! free_component   SDL2_mixer  Â$VERSION_SDL2_MIXER"SDL2_mixer"
 then
   log_error "SDL stack build failed"
+  exit 1
+fi
+
+if ! unpack_component qt-everywhere-opensource-src $VERSION_QT    ||
+   ! build_component_full  qt-everywhere-opensource-src           \
+     qt-everywhere-opensource-src $VERSION_QT                     \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib" \
+     "qt"                       ||
+   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
+then
+  log_error "QT stack build failed"
   exit 1
 fi
 
