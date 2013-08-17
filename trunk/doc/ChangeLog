@@ -1,6 +1,7 @@
 0.12
 	- Downgradet automake to version 1.13.1
 	- Added SDL2, SDL2_image, SDL2_mixer to build
+	- Added qt-everywhere to build
 	- Added icu (version 51.2)
 	- Updated gtk3 to version 3.8.2
 	- Updated sqlite to version 3.7.17
