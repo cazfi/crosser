@@ -6,11 +6,13 @@
 	- Updated gtk3 to version 3.8.2
 	- Updated sqlite to version 3.7.17
 	- Updated harfbuzz to version 0.9.19
-	- Updated curl to version 7.31.0
+	- Updated curl to version 7.32.0
 	- Updated gtk2 to version 2.24.20
 	- Updated libpng to version 1.6.3
 	- Updated xz to version 5.0.5
 	- Updated gettext to version 0.18.3
+	- Updated glib to version 2.36.4
+	- Updated pixman to version 0.30.2
 
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
