@@ -117,6 +117,7 @@ build_component_host()
 # $4   - Extra configure options
 # [$5] - Build type ('native' | 'windres' | 'cross' | 'qt')
 # [$6] - Src subdir 
+# [$7] - Make options
 build_component_full()
 {
   log_packet "$1"
@@ -204,16 +205,25 @@ build_component_full()
   else
     log_write 3 "  Make targets: [default] install"
   fi
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
+  if test "x$7" = "xno"
+  then
+    MAKEOPTIONS=""
+  elif test "x$7" != "x"
+  then
+    MAKEOPTIONS="$7"
+  else
+    MAKEOPTIONS="$CROSSER_MAKEOPTIONS"
+  fi
+  log_write 4 "  Options: \"$MAKEOPTIONS\""
 
-  if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
   if test "x$5" != "xqt" &&
-     ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+     ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -720,7 +730,7 @@ if ! unpack_component qt-everywhere-opensource-src $VERSION_QT    ||
    ! build_component_full  qt-everywhere-opensource-src           \
      qt-everywhere-opensource-src $VERSION_QT                     \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib" \
-     "qt"                       ||
+     "qt" "" "no"                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then
   log_error "QT stack build failed"
