@@ -729,7 +729,7 @@ fi
 if ! unpack_component qt-everywhere-opensource-src $VERSION_QT    ||
    ! build_component_full  qt-everywhere-opensource-src           \
      qt-everywhere-opensource-src $VERSION_QT                     \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib" \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples" \
      "qt" "" "no"                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then
