@@ -12,6 +12,7 @@
 	- Updated gettext to version 0.18.3.1
 	- Updated glib to version 2.36.4
 	- Updated pixman to version 0.30.2
+	- Updated cairo to version 1.12.16
 
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
