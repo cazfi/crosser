@@ -115,9 +115,8 @@ build_component_host()
 # $2   - Component
 # $3   - Version, "0" to indicate that there isn't package to build after all
 # $4   - Extra configure options
-# [$5] - Build type ('native' | 'windres' | 'cross' | 'qt')
+# [$5] - Build type ('native' | 'windres' | 'cross')
 # [$6] - Src subdir 
-# [$7] - Make options
 build_component_full()
 {
   log_packet "$1"
@@ -172,13 +171,6 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
-  elif test "x$5" = "xqt"
-  then
-    CONFOPTIONS="-prefix $DLLSPREFIX $4"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $USER_CPPFLAGS"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
@@ -199,31 +191,16 @@ build_component_full()
   fi
 
   log_write 1 "Building $1"
-  if test "x$5" = "xqt"
-  then
-    log_write 3 "  Make targets: [default]"
-  else
-    log_write 3 "  Make targets: [default] install"
-  fi
-  if test "x$7" = "xno"
-  then
-    MAKEOPTIONS=""
-  elif test "x$7" != "x"
-  then
-    MAKEOPTIONS="$7"
-  else
-    MAKEOPTIONS="$CROSSER_MAKEOPTIONS"
-  fi
-  log_write 4 "  Options: \"$MAKEOPTIONS\""
+  log_write 3 "  Make targets: [default] install"
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
 
-  if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if test "x$5" != "xqt" &&
-     ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -249,11 +226,11 @@ build_zlib()
     return 1
   fi
 
-  (
   export CC=$TARGET-gcc
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
+  (
   if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
     log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
@@ -459,7 +436,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -475,7 +451,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! free_component       libtool    $BASEVER_LIBTOOL "native-libtool"   ||
    ! unpack_component     libffi     $VERSION_FFI           ||
    ! build_component_host libffi     $VERSION_FFI           ||
-   ! free_build           "native-libffi"                     ||
+   ! free_build           "native-libffi"                   ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -487,19 +463,16 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/Makefile.in &&
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib $VERSION_GLIB                ||
-   ! free_build           "native-glib"                       ||
+   ! free_build           "native-glib"                     ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG                    ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
       patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig"                          ||
-   ! free_build           "native-pkg-config"                                 ||
+   ! free_build           "native-pkg-config"                               ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
-   ! build_component_full native-icu4c icu4c $VERSION_ICU                     \
-     "" "native" "icu/source"                                               ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
    ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
    ! free_build           "native-gdk-pixbuf"
@@ -537,9 +510,6 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         \
      "--disable-threadsafe"                                          ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
-   ! build_component_full icu4c icu4c $VERSION_ICU                   \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"         ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
@@ -549,8 +519,7 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
-   ! ( is_minimum_version $VERSION_GETTEXT 0.18.3 ||
-       patch_src         gettext    $VERSION_GETTEXT gettext_cdecl ) ||
+   ! patch_src         gettext    $VERSION_GETTEXT gettext_cdecl     ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18.2 ||
        ( patch_src gettext $VERSION_GETTEXT gettext_cxx_tools &&
          ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
@@ -620,17 +589,18 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
    ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
-      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
-        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
-          "aclocal automake autoconf" ))                          || 
-   ! build_component   harfbuzz   $VERSION_HARFBUZZ               \
-     "--without-icu"                                              ||
+   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable    ||
+   ! autogen_component harfbuzz   $VERSION_HARFBUZZ               \
+     "aclocal automake autoconf"                                  || 
+   ! build_component   harfbuzz   $VERSION_HARFBUZZ               ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
    ! unpack_component  pango      $VERSION_PANGO                  ||
    ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
    ! unpack_component  atk        $VERSION_ATK                    ||
+   ! ( is_smaller_version $VERSION_ATK     1.24.0  ||
+       is_minimum_version $VERSION_ATK     2.2.0   ||
+       patch_src          atk $VERSION_ATK atk_def    )           ||
    ! ( is_minimum_version $VERSION_ATK     2.8.0   ||
        autogen_component atk        $VERSION_ATK   \
          "libtoolize aclocal automake autoconf" )                 ||
@@ -672,8 +642,7 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
    ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
          patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))        ||
-   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
-     build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
+   ! build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG                ||
@@ -710,30 +679,9 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
      "libtoolize aclocal autoconf"                                  ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER                \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"           ||
-   ! unpack_component SDL2        $VERSION_SDL2                            ||
-   ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                           ||
-   ! build_component  SDL2        $VERSION_SDL2                            ||
-   ! free_component   SDL2        $VERSION_SDL2 "SDL2"                     ||
-   ! unpack_component SDL2_image  $VERSION_SDL2_IMAGE                      ||
-   ! build_component  SDL2_image  $VERSION_SDL2_IMAGE                      ||
-   ! free_component   SDL2_image  $VERSION_SDL2_IMAGE "SDL2_image"         ||
-   ! unpack_component SDL2_mixer  $VERSION_SDL2_MIXER                      ||
-   ! build_component  SDL2_mixer  $VERSION_SDL2_MIXER                      ||
-   ! free_component   SDL2_mixer  Â$VERSION_SDL2_MIXER"SDL2_mixer"
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
 then
   log_error "SDL stack build failed"
-  exit 1
-fi
-
-if ! unpack_component qt-everywhere-opensource-src $VERSION_QT    ||
-   ! build_component_full  qt-everywhere-opensource-src           \
-     qt-everywhere-opensource-src $VERSION_QT                     \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config" \
-     "qt" "" "no"                                                 ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
-then
-  log_error "QT stack build failed"
   exit 1
 fi
 

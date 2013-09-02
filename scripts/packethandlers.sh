@@ -45,13 +45,9 @@ basever_libtool() {
 #
 # $1 - Version number in dotted format
 sqlite_verstr() {
-  echo $1 | sed 's/\./ /g' | (read part1 part2 part3 part4
+  echo $1 | sed 's/\./ /g' | (read part1 rest
     echo -n $part1
-    if test "x$part4" = "x"
-    then
-      part4="0"
-    fi
-    for part in $part2 $part3 $part4
+    for part in $rest
     do
       if test $part -lt 10
       then
@@ -60,11 +56,4 @@ sqlite_verstr() {
       echo -n $part
     done
   )
-}
-
-# Echo version number part of icu archive filename
-#
-# $1 - icu version
-icu_filever() {
-  echo "$1" | sed 's/\./_/g'
 }

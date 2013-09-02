@@ -1,19 +1,5 @@
-0.12
-	- Fixed freeing of native build directories
-	- Added SDL2, SDL2_image, SDL2_mixer to build
-	- Added qt-everywhere to build
-	- Added icu (version 51.2)
-	- Updated gtk3 to version 3.8.4
-	- Updated sqlite to version 3.8.0.1
-	- Updated harfbuzz to version 0.9.19
-	- Updated curl to version 7.32.0
-	- Updated gtk2 to version 2.24.20
-	- Updated libpng to version 1.6.3
-	- Updated xz to version 5.0.5
-	- Updated gettext to version 0.18.3.1
-	- Updated glib to version 2.36.4
-	- Updated pixman to version 0.30.2
-	- Updated cairo to version 1.12.16
+0.11.2 (03-Sep-13)
+	- Fixed freeing of builddirs of native components
 
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW

@@ -8,7 +8,7 @@
 
 if test "x$CROSSER_MAINDIR" = "x"
 then
-  echo "helpers.sh: Mandatory environment variables missing! Have you sourced proper settings already?" >&2
+  echo "helpers.sh: Mandatory environments variables missing! Have you sourced proper settings already?" >&2
   exit 1
 fi
 
