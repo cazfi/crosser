@@ -1,3 +1,6 @@
+0.11.2 (03-Sep-13)
+	- Fixed freeing of builddirs of native components
+
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
 	- Fixed gtk2 & gtk3 build with newer MinGW

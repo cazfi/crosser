@@ -441,17 +441,17 @@ export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
 if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
-   ! free_component       autoconf   $VERSION_AUTOCONF "host-autoconf" ||
+   ! free_component       autoconf   $VERSION_AUTOCONF "native-autoconf" ||
    ! unpack_component     automake   $VERSION_AUTOMAKE      ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
-   ! free_component       automake   $VERSION_AUTOMAKE "host-automake" ||
+   ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
    ! unpack_component     libtool    $VERSION_LIBTOOL       ||
    ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
-   ! free_component       libtool    $BASEVER_LIBTOOL "host-libtool"   ||
+   ! free_component       libtool    $BASEVER_LIBTOOL "native-libtool"   ||
    ! unpack_component     libffi     $VERSION_FFI           ||
    ! build_component_host libffi     $VERSION_FFI           ||
-   ! free_build           "host-libffi"                     ||
+   ! free_build           "native-libffi"                   ||
    ! unpack_component     glib       $VERSION_GLIB          ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -463,19 +463,19 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/Makefile.in &&
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib $VERSION_GLIB                ||
-   ! free_build           "host-glib"                       ||
+   ! free_build           "native-glib"                     ||
    ! unpack_component     pkg-config $VERSION_PKG_CONFIG                    ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
       patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig"                          ||
-   ! free_build           "host-pkg-config"                                 ||
+   ! free_build           "native-pkg-config"                               ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
    ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
-   ! free_build           "host-gdk-pixbuf"
+   ! free_build           "native-gdk-pixbuf"
 then
   log_error "Native build failed"
   exit 1
