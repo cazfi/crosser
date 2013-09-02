@@ -1,4 +1,5 @@
 0.12
+	- Fixed freeing of native build directories
 	- Added SDL2, SDL2_image, SDL2_mixer to build
 	- Added qt-everywhere to build
 	- Added icu (version 51.2)
