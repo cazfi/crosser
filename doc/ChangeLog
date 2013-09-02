@@ -4,7 +4,7 @@
 	- Added qt-everywhere to build
 	- Added icu (version 51.2)
 	- Updated gtk3 to version 3.8.2
-	- Updated sqlite to version 3.7.17
+	- Updated sqlite to version 3.8.0.1
 	- Updated harfbuzz to version 0.9.19
 	- Updated curl to version 7.32.0
 	- Updated gtk2 to version 2.24.20
