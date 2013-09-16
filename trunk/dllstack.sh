@@ -726,12 +726,13 @@ then
   exit 1
 fi
 
-if ! unpack_component qt-everywhere-opensource-src $VERSION_QT         ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig" ||
-   ! build_component_full  qt-everywhere-opensource-src                \
-     qt-everywhere-opensource-src $VERSION_QT                          \
+if ! unpack_component qt-everywhere-opensource-src $VERSION_QT             ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"     ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" ||
+   ! build_component_full  qt-everywhere-opensource-src                    \
+     qt-everywhere-opensource-src $VERSION_QT                              \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle" \
-     "qt" "" "no"                                                      ||
+     "qt" "" "no"                                                          ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then
   log_error "QT stack build failed"
