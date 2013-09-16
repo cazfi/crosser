@@ -709,7 +709,7 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! autogen_component SDL_mixer  $VERSION_SDL_MIXER                \
      "libtoolize aclocal autoconf"                                  ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER                \
-     "--disable-music-mod --disable-music-ogg-shared --disable-music-midi" ||
+     "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
    ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"           ||
    ! unpack_component  SDL2       $VERSION_SDL2                            ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                           ||
