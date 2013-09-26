@@ -13,7 +13,6 @@ libpng
 zlib
 bzip2
 xz
-icu4c
 curl
 sqlite
 ImageMagick
@@ -38,8 +37,4 @@ libogg
 libvorbis
 SDL
 SDL_image
-SDL_mixer
-SDL2
-SDL2_image
-SDL2_mixer
-qt-everywhere-opensource-src
+qtbase-opensource-src
