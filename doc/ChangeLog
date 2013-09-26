@@ -1,3 +1,6 @@
+0.11.3 (27-Sep-13)
+	- Updated libpng download URL
+
 0.11.2 (03-Sep-13)
 	- Fixed freeing of builddirs of native components
 
