@@ -644,7 +644,6 @@ fi
 if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
    ! free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"  ||
    ! unpack_component  gtk2       $VERSION_GTK2                   ||
-   ! patch_src         gtk+     $VERSION_GTK2 gtk2_no_initguid    ||
    ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
        patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
    ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
