@@ -501,6 +501,8 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_full native-icu4c icu4c $VERSION_ICU                     \
      "" "native" "icu/source"                                               ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
+   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
+      patch_src gdk-pixbuf $VERSION_GDK_PIXBUF "gdkpixbuf_randmod_disable") ||
    ! build_component_host gdk-pixbuf $VERSION_GDK_PIXBUF                    ||
    ! free_build           "native-gdk-pixbuf"
 then
