@@ -662,11 +662,6 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
    ! patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid    ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
-   ! ( is_minimum_version $VERSION_GTK3 3.2.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_marshalers )             ||
-   ! ( is_smaller_version $VERSION_GTK3 3.4.0 ||
-       is_minimum_version $VERSION_GTK3 3.6.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_isinf )                  ||
    ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
        is_minimum_version $VERSION_GTK3 3.8.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                ||
