@@ -660,12 +660,14 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
    ! unpack_component gtk3        $VERSION_GTK3                   ||
-   ! patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid    ||
+   ! ( is_minimum_version $VERSION_GTK3 3.10.0 ||
+       patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid ) ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
    ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
        is_minimum_version $VERSION_GTK3 3.8.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                ||
    ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
+       is_minimum_version $VERSION_GTK3 3.10.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
          patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))        ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
