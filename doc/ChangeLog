@@ -5,7 +5,7 @@
 	- Added icu (version 51.2)
 	- Updated gtk3 to version 3.8.4
 	- Updated sqlite to version 3.8.0.2
-	- Updated harfbuzz to version 0.9.21
+	- Updated harfbuzz to version 0.9.22
 	- Updated curl to version 7.32.0
 	- Updated gtk2 to version 2.24.21
 	- Updated libpng to version 1.6.6
