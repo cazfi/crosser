@@ -725,6 +725,8 @@ then
   exit 1
 fi
 
+if test "x$BUILD_QT" = "xyes"
+then
 if ! unpack_component qt-everywhere-opensource-src $VERSION_QT             ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"     ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" ||
@@ -736,6 +738,7 @@ if ! unpack_component qt-everywhere-opensource-src $VERSION_QT             ||
 then
   log_error "QT stack build failed"
   exit 1
+fi
 fi
 
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
