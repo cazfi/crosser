@@ -16,6 +16,7 @@
 	- Updated cairo to version 1.12.16
 	- Updated atk to version 2.10.0
 	- Updated gdk-pixbuf to version 2.30.0
+	- Updated pango to version 1.36.0
 
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
