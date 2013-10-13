@@ -671,8 +671,12 @@ if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
        is_minimum_version $VERSION_GTK3 3.10.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
          patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))        ||
+   ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
+       ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
+         patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))            ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                   \
-     build_component_full gtk3 gtk+ $VERSION_GTK3                 ||
+     build_component_full gtk3 gtk+ $VERSION_GTK3                 \
+     "--enable-gtk2-dependency"                                   ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
    ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
    ! build_component  gtk-engines $VERSION_GTK_ENG                ||
