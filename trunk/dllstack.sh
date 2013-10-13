@@ -601,8 +601,10 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
        patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags) ||
-   ! ( is_smaller_version fontconfig $VERSION_FONTCONFIG 2.10 ||
+   ! ( is_smaller_version $VERSION_FONTCONFIG 2.10 ||
        patch_src fontconfig $VERSION_FONTCONFIG fontconfig_cross )         ||
+   ! ( is_smaller_version $VERSION_FONTCONFIG 2.11 ||
+       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_disable_test )  ||
    ! autogen_component fontconfig $VERSION_FONTCONFIG                      \
       "libtoolize aclocal automake autoconf"                               ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                  \
