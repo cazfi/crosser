@@ -19,6 +19,7 @@
 	- Updated pango to version 1.36.0
 	- Updated automake to version 1.14
 	- Updated ImageMagick to version 6.8.7-0
+	- Updated fontconfig to version 2.11.0
 
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
