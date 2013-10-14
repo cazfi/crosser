@@ -38,6 +38,7 @@ libogg
 libvorbis
 SDL
 SDL_image
+SDL_gfx
 SDL_mixer
 SDL2
 SDL2_image

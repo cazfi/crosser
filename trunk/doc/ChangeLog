@@ -1,6 +1,7 @@
 0.12
 	- Fixed freeing of native build directories
 	- Added SDL2, SDL2_image, SDL2_mixer to build
+	- Added SDL_gfx (version 2.0.24)
 	- Added qt-everywhere to build
 	- Added icu (version 51.2)
 	- Updated gtk3 to version 3.10.1
