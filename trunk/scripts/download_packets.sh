@@ -581,6 +581,8 @@ download_needed "http://www.ferzkopp.net/Software/SDL_gfx-2.0/" "SDL_gfx" "$VERS
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL_ttf" "$VERSION_SDL_TTF" "tar.gz"
 RET="$RET $?"
+download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
+RET="$RET $?"
 download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
