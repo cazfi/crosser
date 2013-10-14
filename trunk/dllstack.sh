@@ -712,6 +712,9 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! unpack_component  SDL_gfx    $VERSION_SDL_GFX                  ||
    ! build_component   SDL_gfx    $VERSION_SDL_GFX                  ||
    ! free_component    SDL_gfx    $VERSION_SDL_GFX   "SDL_gfx"      ||
+   ! unpack_component  SDL_ttf    $VERSION_SDL_TTF                  ||
+   ! build_component   SDL_ttf    $VERSION_SDL_TTF                  ||
+   ! free_component    SDL_ttf    $VERSION_SDL_TTF   "SDL_ttf"      ||
    ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER                ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_configmacrodir ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_host           ||
