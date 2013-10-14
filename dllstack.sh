@@ -708,8 +708,11 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! rm "$DLLSPREFIX/lib/libSDLmain.la"                 ||
    ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
-   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"
-   ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER    ||
+   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"    ||
+   ! unpack_component  SDL_gfx    $VERSION_SDL_GFX                  ||
+   ! build_component   SDL_gfx    $VERSION_SDL_GFX                  ||
+   ! free_component    SDL_gfx    $VERSION_SDL_GFX   "SDL_gfx"      ||
+   ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER                ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_configmacrodir ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_host           ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_libwindres     ||
