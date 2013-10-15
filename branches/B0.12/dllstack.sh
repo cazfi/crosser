@@ -115,7 +115,7 @@ build_component_host()
 # $2   - Component
 # $3   - Version, "0" to indicate that there isn't package to build after all
 # $4   - Extra configure options
-# [$5] - Build type ('native' | 'windres' | 'cross' | 'qt')
+# [$5] - Build type ('native' | 'windres' | 'cross')
 # [$6] - Src subdir 
 # [$7] - Make options
 build_component_full()
@@ -172,13 +172,6 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
-  elif test "x$5" = "xqt"
-  then
-    CONFOPTIONS="-prefix $DLLSPREFIX $4"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $USER_CPPFLAGS"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
@@ -199,12 +192,8 @@ build_component_full()
   fi
 
   log_write 1 "Building $1"
-  if test "x$5" = "xqt"
-  then
-    log_write 3 "  Make targets: [default]"
-  else
-    log_write 3 "  Make targets: [default] install"
-  fi
+  log_write 3 "  Make targets: [default] install"
+
   if test "x$7" = "xno"
   then
     MAKEOPTIONS=""
@@ -222,8 +211,7 @@ build_component_full()
     return 1
   fi
 
-  if test "x$5" != "xqt" &&
-     ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -734,22 +722,6 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
 then
   log_error "SDL stack build failed"
   exit 1
-fi
-
-if test "x$BUILD_QT" = "xyes"
-then
-if ! unpack_component qt-everywhere-opensource-src $VERSION_QT             ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"     ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" ||
-   ! build_component_full  qt-everywhere-opensource-src                    \
-     qt-everywhere-opensource-src $VERSION_QT                              \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle" \
-     "qt" "" "no"                                                          ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
-then
-  log_error "QT stack build failed"
-  exit 1
-fi
 fi
 
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
