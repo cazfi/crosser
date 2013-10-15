@@ -1,0 +1,20 @@
+diff -Nurd ImageMagick-6.8.4-10/configure ImageMagick-6.8.4-10/configure
+--- ImageMagick-6.8.4-10/configure	2013-07-14 11:09:52.156607608 +0300
++++ ImageMagick-6.8.4-10/configure	2013-07-14 11:15:27.244682256 +0300
+@@ -9595,6 +9595,7 @@
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
++if test $with_threads != no ; then
+ ax_pthread_ok=no
+ 
+ # We used to check for pthread.h first, but this fails if pthread.h
+@@ -9996,7 +9997,7 @@
+ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
++fi
+ 
+ 
+ # Check whether --enable-opencl was given.

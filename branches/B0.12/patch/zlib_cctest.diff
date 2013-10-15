@@ -1,0 +1,113 @@
+diff -Nurd zlib/configure zlib/configure
+--- zlib/configure	2010-04-20 07:15:19.000000000 +0300
++++ zlib/configure	2010-06-11 17:52:50.000000000 +0300
+@@ -232,8 +232,8 @@
+ if test $shared -eq 1; then
+   echo Checking for shared library support...
+   # we must test in two steps (cc then ld), required at least on SunOS 4.x
+-  if test "`($CC -w -c $SFLAGS $test.c) 2>&1`" = "" &&
+-     test "`($LDSHARED $SFLAGS -o $test$shared_ext $test.o) 2>&1`" = ""; then
++  if $CC -w -c $SFLAGS $test.c >/dev/null 2>&1 &&
++     $LDSHARED $SFLAGS -o $test$shared_ext $test.o >/dev/null 2>&1 ; then
+     echo Building shared library $SHAREDLIBV with $CC.
+   elif test -z "$old_cc" -a -z "$old_cflags"; then
+     echo No shared library support.
+@@ -264,7 +264,7 @@
+ #include <sys/types.h>
+ off64_t dummy = 0;
+ EOF
+-if test "`($CC -c $CFLAGS -D_LARGEFILE64_SOURCE=1 $test.c) 2>&1`" = ""; then
++if $CC -c $CFLAGS -D_LARGEFILE64_SOURCE=1 $test.c >/dev/null 2>&1 ; then
+   CFLAGS="${CFLAGS} -D_LARGEFILE64_SOURCE=1"
+   SFLAGS="${SFLAGS} -D_LARGEFILE64_SOURCE=1"
+   ALL="${ALL} all64"
+@@ -280,7 +280,7 @@
+   return 0;
+ }
+ EOF
+-  if test "`($CC $CFLAGS -o $test $test.c) 2>&1`" = ""; then
++  if $CC $CFLAGS -o $test $test.c >/dev/null 2>&1 ; then
+     echo "Checking for fseeko... Yes."
+   else
+     CFLAGS="${CFLAGS} -DNO_FSEEKO"
+@@ -295,7 +295,7 @@
+ #include <unistd.h>
+ int main() { return 0; }
+ EOF
+-if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+   sed < zconf.h "/^#ifdef HAVE_UNISTD_H.* may be/s/def HAVE_UNISTD_H\(.*\) may be/ 1\1 was/" > zconf.temp.h
+   mv zconf.temp.h zconf.h
+   echo "Checking for unistd.h... Yes."
+@@ -324,7 +324,7 @@
+ }
+ EOF
+ 
+-if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+   echo "Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf()."
+ 
+   cat > $test.c <<EOF
+@@ -348,7 +348,7 @@
+ }
+ EOF
+ 
+-  if test "`($CC $CFLAGS -o $test $test.c) 2>&1`" = ""; then
++  if $CC $CFLAGS -o $test $test.c >/dev/null 2>&1 ; then
+     echo "Checking for vsnprintf() in stdio.h... Yes."
+ 
+     cat >$test.c <<EOF
+@@ -373,7 +373,7 @@
+ }
+ EOF
+ 
+-    if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++    if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+       echo "Checking for return value of vsnprintf()... Yes."
+     else
+       CFLAGS="$CFLAGS -DHAS_vsnprintf_void"
+@@ -413,7 +413,7 @@
+ }
+ EOF
+ 
+-    if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++    if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+       echo "Checking for return value of vsprintf()... Yes."
+     else
+       CFLAGS="$CFLAGS -DHAS_vsprintf_void"
+@@ -444,7 +444,7 @@
+ }
+ EOF
+ 
+-  if test "`($CC $CFLAGS -o $test $test.c) 2>&1`" = ""; then
++  if $CC $CFLAGS -o $test $test.c >/dev/null 2>&1 ; then
+     echo "Checking for snprintf() in stdio.h... Yes."
+ 
+     cat >$test.c <<EOF
+@@ -463,7 +463,7 @@
+ }
+ EOF
+ 
+-    if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++    if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+       echo "Checking for return value of snprintf()... Yes."
+     else
+       CFLAGS="$CFLAGS -DHAS_snprintf_void"
+@@ -497,7 +497,7 @@
+ }
+ EOF
+ 
+-    if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++    if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+       echo "Checking for return value of sprintf()... Yes."
+     else
+       CFLAGS="$CFLAGS -DHAS_sprintf_void"
+@@ -523,7 +523,7 @@
+   return 0;
+ }
+ EOF
+-  if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++  if $CC -c $CFLAGS $test.c >/dev/null 2>&1 ; then
+     echo "Checking for attribute(visibility) support... Yes."
+   else
+     CFLAGS="$CFLAGS -DNO_VIZ"

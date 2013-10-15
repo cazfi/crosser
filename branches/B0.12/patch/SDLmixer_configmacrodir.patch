@@ -1,0 +1,12 @@
+diff -Nurd SDL_mixer-1.2.12/configure.in SDL_mixer-1.2.12/configure.in
+--- SDL_mixer-1.2.12/configure.in	2012-01-16 00:01:05.000000000 +0200
++++ SDL_mixer-1.2.12/configure.in	2013-06-16 00:34:33.379658457 +0300
+@@ -26,6 +26,8 @@
+ AC_SUBST(BINARY_AGE)
+ AC_SUBST(VERSION)
+ 
++AC_CONFIG_MACRO_DIR([acinclude])
++
+ # libtool versioning
+ LT_INIT([win32-dll])
+ 
