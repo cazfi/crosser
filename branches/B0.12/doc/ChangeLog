@@ -3,7 +3,6 @@
 	- Added SDL2, SDL2_image, SDL2_mixer, SDL2_ttf to build
 	- Added SDL_gfx (version 2.0.24), SDL_ttf (2.0.11)
 	- Added qt-everywhere to build
-	- Added icu (version 51.2)
 	- Updated gtk3 to version 3.10.1
 	- Updated sqlite to version 3.8.0.2
 	- Updated harfbuzz to version 0.9.22
