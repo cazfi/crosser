@@ -171,18 +171,18 @@ build_component_full()
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+    export LDFLAGS="-L$DLLSPREFIX/lib"
   elif test "x$5" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $4"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $USER_CPPFLAGS"
+    export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib $USER_LDFLAGS"
+    export LDFLAGS="-L${DLLSPREFIX}/lib"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
-    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
-    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+    export LDFLAGS="-L$DLLSPREFIX/lib"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -260,8 +260,8 @@ build_zlib()
     return 1
   fi
 
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
-  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+  export LDFLAGS="-L$DLLSPREFIX/lib"
 
   CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
 
@@ -331,8 +331,8 @@ build_bzip2()
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
   export PREFIX=$DLLSPREFIX
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
-  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+  export LDFLAGS="-L$DLLSPREFIX/lib"
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: libbz2.a bzip2 bzip2recover & install"
@@ -392,11 +392,6 @@ fi
 export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "$DLLSPREFIX")
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
-
-export USER_CPPFLGS="$CPPFLAGS"
-export USER_LDFLAGS="$LDFLAGS"
-export USER_CFLAGS="$CFLAGS"
-export USER_CXXFLAGS="$CXXFLAGS"
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
