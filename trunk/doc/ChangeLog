@@ -1,4 +1,5 @@
 0.13
+	- Removed broken USER_ -flags
 	- Added qt-everywhere (version 5.0.2) to build
 	- Added icu (version 51.2)
 
