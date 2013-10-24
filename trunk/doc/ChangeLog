@@ -9,7 +9,7 @@
 	- Fixed freeing of native build directories
 	- Added SDL2, SDL2_image, SDL2_mixer, SDL2_ttf to build
 	- Added SDL_gfx (version 2.0.24), SDL_ttf (2.0.11)
-	- Updated gtk3 to version 3.10.1
+	- Updated gtk3 to version 3.10.2
 	- Updated sqlite to version 3.8.0.2
 	- Updated harfbuzz to version 0.9.22
 	- Updated curl to version 7.32.0
@@ -17,7 +17,7 @@
 	- Updated libpng to version 1.6.6
 	- Updated xz to version 5.0.5
 	- Updated gettext to version 0.18.3.1
-	- Updated glib to version 2.38.0
+	- Updated glib to version 2.38.1
 	- Updated pixman to version 0.30.2
 	- Updated cairo to version 1.12.16
 	- Updated atk to version 2.10.0
