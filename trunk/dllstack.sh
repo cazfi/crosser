@@ -644,19 +644,9 @@ then
   exit 1
 fi
 
-if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
-   ! free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"  ||
-   ! unpack_component  gtk2       $VERSION_GTK2                   ||
-   ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
-       patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
-   ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
-       patch_src gtk+ $VERSION_GTK2         gtk_check_cxx )       ||
-   ! ( is_smaller_version $VERSION_GTK2     2.14.0 ||
-       is_minimum_version $VERSION_GTK2     2.16.0 ||
-       patch_src gtk+ $VERSION_GTK2         gtk_gailutildef )     ||
-   ! ( is_minimum_version $VERSION_GTK2     2.16.0 ||
-       autogen_component gtk+       $VERSION_GTK2   \
-         "libtoolize aclocal automake autoconf" )                 ||
+if ! build_component  gdk-pixbuf $VERSION_GDK_PIXBUF              ||
+   ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf" ||
+   ! unpack_component gtk2       $VERSION_GTK2                    ||
    ! build_component_full gtk2 gtk+ $VERSION_GTK2                 \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
