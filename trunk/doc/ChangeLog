@@ -5,6 +5,7 @@
 	- Updated sqlite to version 3.8.1
 	- Updated curl to version 7.33.0
 	- Updated fontconfig to version 2.11.0
+	- Updated harfbuzz to version 0.9.23
 
 0.12
 	- Fixed freeing of native build directories
