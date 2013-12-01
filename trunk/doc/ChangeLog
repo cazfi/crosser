@@ -6,6 +6,11 @@
 	- Updated curl to version 7.33.0
 	- Updated fontconfig to version 2.11.0
 	- Updated harfbuzz to version 0.9.23
+	- Updated gtk3 to version 3.10.5
+	- Update glib to version 2.38.2
+	- Updated pixman to version 0.32.4
+	- Updated gdk-pixbuf to version 2.30.1
+	- Updated pango to version 1.36.1
 
 0.12
 	- Fixed freeing of native build directories
