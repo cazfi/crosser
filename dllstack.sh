@@ -544,7 +544,9 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
-   ! unpack_component  libpng     $VERSION_PNG                       ||
+   ! unpack_component  libpng     $VERSION_PNG                        ||
+   ! ( is_smaller_version $VERSION_PNG 1.6.7 ||
+       patch_src       libpng     $VERSION_PNG "png_epsilon" )        ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
