@@ -11,6 +11,7 @@
 	- Updated pixman to version 0.32.4
 	- Updated gdk-pixbuf to version 2.30.1
 	- Updated pango to version 1.36.1
+	- Updated gtk2 to version 2.24.22
 
 0.12
 	- Fixed freeing of native build directories
@@ -20,7 +21,7 @@
 	- Updated sqlite to version 3.8.0.2
 	- Updated harfbuzz to version 0.9.22
 	- Updated curl to version 7.32.0
-	- Updated gtk2 to version 2.24.22
+	- Updated gtk2 to version 2.24.20
 	- Updated libpng to version 1.6.6
 	- Updated xz to version 5.0.5
 	- Updated gettext to version 0.18.3.1
