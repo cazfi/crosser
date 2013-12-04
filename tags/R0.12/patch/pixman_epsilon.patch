@@ -1,0 +1,14 @@
+diff -Nurd pixman-0.28.2/pixman/pixman-combine-float.c pixman-0.28.2/pixman/pixman-combine-float.c
+--- pixman-0.28.2/pixman/pixman-combine-float.c	2012-12-10 13:34:13.000000000 +0200
++++ pixman-0.28.2/pixman/pixman-combine-float.c	2012-12-24 01:51:42.798443841 +0200
+@@ -42,6 +42,10 @@
+ #define force_inline __inline__
+ #endif
+ 
++#ifndef FLT_EPSILON
++#define FLT_EPSILON __FLT_EPSILON__
++#endif
++
+ typedef float (* combine_channel_t) (float sa, float s, float da, float d);
+ 
+ static force_inline void
