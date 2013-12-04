@@ -115,7 +115,7 @@ build_component_host()
 # $2   - Component
 # $3   - Version, "0" to indicate that there isn't package to build after all
 # $4   - Extra configure options
-# [$5] - Build type ('native' | 'windres' | 'cross' | 'qt')
+# [$5] - Build type ('native' | 'windres' | 'cross')
 # [$6] - Src subdir 
 # [$7] - Make options
 build_component_full()
@@ -171,18 +171,11 @@ build_component_full()
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib"
-  elif test "x$5" = "xqt"
-  then
-    CONFOPTIONS="-prefix $DLLSPREFIX $4"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib"
+    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $4"
-    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-    export LDFLAGS="-L$DLLSPREFIX/lib"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
+    export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -199,12 +192,8 @@ build_component_full()
   fi
 
   log_write 1 "Building $1"
-  if test "x$5" = "xqt"
-  then
-    log_write 3 "  Make targets: [default]"
-  else
-    log_write 3 "  Make targets: [default] install"
-  fi
+  log_write 3 "  Make targets: [default] install"
+
   if test "x$7" = "xno"
   then
     MAKEOPTIONS=""
@@ -222,8 +211,7 @@ build_component_full()
     return 1
   fi
 
-  if test "x$5" != "xqt" &&
-     ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -260,8 +248,8 @@ build_zlib()
     return 1
   fi
 
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-  export LDFLAGS="-L$DLLSPREFIX/lib"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
+  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
 
   CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
 
@@ -331,8 +319,8 @@ build_bzip2()
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
   export PREFIX=$DLLSPREFIX
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-  export LDFLAGS="-L$DLLSPREFIX/lib"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $USER_CPPFLAGS"
+  export LDFLAGS="-L$DLLSPREFIX/lib $USER_LDFLAGS"
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: libbz2.a bzip2 bzip2recover & install"
@@ -392,6 +380,11 @@ fi
 export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "$DLLSPREFIX")
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
+
+export USER_CPPFLGS="$CPPFLAGS"
+export USER_LDFLAGS="$LDFLAGS"
+export USER_CFLAGS="$CFLAGS"
+export USER_CXXFLAGS="$CXXFLAGS"
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
@@ -454,7 +447,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -492,9 +484,6 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
-   ! build_component_full native-icu4c icu4c $VERSION_ICU                     \
-     "" "native" "icu/source"                                               ||
    ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF "gdkpixbuf_randmod_disable" &&
@@ -536,17 +525,12 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         \
      "--disable-threadsafe"                                          ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"          ||
-   ! build_component_full icu4c icu4c $VERSION_ICU                   \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
    ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"         ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
-   ! unpack_component  libpng     $VERSION_PNG                        ||
-   ! ( is_smaller_version $VERSION_PNG 1.6.7 ||
-       patch_src       libpng     $VERSION_PNG "png_epsilon" )        ||
+   ! unpack_component  libpng     $VERSION_PNG                       ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
    ! unpack_component  gettext    $VERSION_GETTEXT                   ||
@@ -646,9 +630,19 @@ then
   exit 1
 fi
 
-if ! build_component  gdk-pixbuf $VERSION_GDK_PIXBUF              ||
-   ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf" ||
-   ! unpack_component gtk2       $VERSION_GTK2                    ||
+if ! build_component gdk-pixbuf $VERSION_GDK_PIXBUF               ||
+   ! free_component  gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"  ||
+   ! unpack_component  gtk2       $VERSION_GTK2                   ||
+   ! ( is_minimum_version $VERSION_GTK2     2.12.10 ||
+       patch_src gtk+ $VERSION_GTK2         gtk_blddir )          ||
+   ! ( is_minimum_version $VERSION_GTK2     2.13.2 ||
+       patch_src gtk+ $VERSION_GTK2         gtk_check_cxx )       ||
+   ! ( is_smaller_version $VERSION_GTK2     2.14.0 ||
+       is_minimum_version $VERSION_GTK2     2.16.0 ||
+       patch_src gtk+ $VERSION_GTK2         gtk_gailutildef )     ||
+   ! ( is_minimum_version $VERSION_GTK2     2.16.0 ||
+       autogen_component gtk+       $VERSION_GTK2   \
+         "libtoolize aclocal automake autoconf" )                 ||
    ! build_component_full gtk2 gtk+ $VERSION_GTK2                 \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
@@ -728,22 +722,6 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
 then
   log_error "SDL stack build failed"
   exit 1
-fi
-
-if test "x$BUILD_QT" = "xyes"
-then
-if ! unpack_component qt-everywhere-opensource-src $VERSION_QT             ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"     ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" ||
-   ! build_component_full  qt-everywhere-opensource-src                    \
-     qt-everywhere-opensource-src $VERSION_QT                              \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle" \
-     "qt" "" "no"                                                          ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
-then
-  log_error "QT stack build failed"
-  exit 1
-fi
 fi
 
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0

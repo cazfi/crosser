@@ -13,7 +13,6 @@ libpng
 zlib
 bzip2
 xz
-icu4c
 curl
 sqlite
 ImageMagick
@@ -45,4 +44,3 @@ SDL2
 SDL2_image
 SDL2_ttf
 SDL2_mixer
-qt-everywhere-opensource-src
