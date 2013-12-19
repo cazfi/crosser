@@ -2,7 +2,7 @@
 	- Removed broken USER_ -flags
 	- Added qt-everywhere (version 5.1.1) to build
 	- Added icu (version 51.2)
-	- Updated sqlite to version 3.8.1
+	- Updated sqlite to version 3.8.2
 	- Updated curl to version 7.33.0
 	- Updated fontconfig to version 2.11.0
 	- Updated harfbuzz to version 0.9.24
@@ -10,6 +10,8 @@
 	- Updated gtk2 to version 2.24.22
 	- Updated libpng to version 1.6.7
 	- Updated freetype to version 2.5.1
+	- Updated gdk-pixbuf to version 2.30.2
+	- Updated gtk3 to version 3.10.6
 
 0.12 (04-Dec-13)
 	- Fixed freeing of native build directories
