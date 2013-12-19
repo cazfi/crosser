@@ -9,6 +9,7 @@
 	- Updated pixman to version 0.32.4
 	- Updated gtk2 to version 2.24.22
 	- Updated libpng to version 1.6.7
+	- Updated freetype to version 2.5.1
 
 0.12 (04-Dec-13)
 	- Fixed freeing of native build directories
