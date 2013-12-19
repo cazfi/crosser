@@ -592,6 +592,9 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   expat      $VERSION_EXPAT                  ||
    ! free_component    expat      $VERSION_EXPAT "expat"               ||
    ! unpack_component  freetype   $VERSION_FREETYPE                    ||
+   ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
+       (patch_src freetype $VERSION_FREETYPE freetype_pngcheck &&
+        autogen_component freetype $VERSION_FREETYPE ))                ||
    ! build_component   freetype   $VERSION_FREETYPE                    \
      "--without-bzip2"                                                 ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"         ||
@@ -700,7 +703,9 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL_gfx    $VERSION_SDL_GFX                  ||
    ! free_component    SDL_gfx    $VERSION_SDL_GFX   "SDL_gfx"      ||
    ! unpack_component  SDL_ttf    $VERSION_SDL_TTF                  ||
-   ! build_component   SDL_ttf    $VERSION_SDL_TTF                  ||
+   ! patch_src SDL_ttf $VERSION_SDL_TTF "sdlttf_fttool"             ||
+   ! FREETYPE_CONFIG="$DLLSPREFIX/bin/freetype-config"              \
+     build_component   SDL_ttf    $VERSION_SDL_TTF                  ||
    ! free_component    SDL_ttf    $VERSION_SDL_TTF   "SDL_ttf"      ||
    ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER                ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_configmacrodir ||
