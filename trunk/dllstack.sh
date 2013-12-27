@@ -199,12 +199,7 @@ build_component_full()
   fi
 
   log_write 1 "Building $1"
-  if test "x$5" = "xqt"
-  then
-    log_write 3 "  Make targets: [default]"
-  else
-    log_write 3 "  Make targets: [default] install"
-  fi
+  log_write 3 "  Make targets: [default] install"
   if test "x$7" = "xno"
   then
     MAKEOPTIONS=""
@@ -222,8 +217,7 @@ build_component_full()
     return 1
   fi
 
-  if test "x$5" != "xqt" &&
-     ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
