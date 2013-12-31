@@ -720,6 +720,9 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! unpack_component  SDL2_image $VERSION_SDL2_IMAGE                      ||
    ! build_component   SDL2_image $VERSION_SDL2_IMAGE                      ||
    ! free_component    SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"         ||
+   ! unpack_component  SDL2_gfx   $VERSION_SDL2_GFX                        ||
+   ! build_component   SDL2_gfx   $VERSION_SDL2_GFX                        ||
+   ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"           ||
    ! unpack_component  SDL2_ttf   $VERSION_SDL2_TTF                        ||
    ! build_component   SDL2_ttf   $VERSION_SDL2_TTF                        ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"           ||
