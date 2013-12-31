@@ -1,6 +1,7 @@
 0.13
 	- Removed broken USER_ -flags
 	- Added qt-everywhere (version 5.2.0) to build
+	- Added SDL2_gfx (version 1.0.0) to build
 	- Added icu (version 51.2)
 	- Updated sqlite to version 3.8.2
 	- Updated curl to version 7.34.0
