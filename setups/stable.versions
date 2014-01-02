@@ -1,6 +1,6 @@
 # stable.versions: Package versions
 #
-# (c) 2009-2013 Marko Lindqvist
+# (c) 2009-2014 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -25,8 +25,8 @@ VERSION_CURL=7.33.0
 VERSION_SQLITE=3.8.0.2
 VERSION_GETTEXT=0.18.2.1
 VERSION_PKG_CONFIG=0.27.1
-VERSION_READLINE=5.2
-PATCHES_READLINE=13
+VERSION_READLINE=6.2
+PATCHES_READLINE=5
 VERSION_GLIB=2.36.4
 VERSION_JPEG=8d
 VERSION_TIFF=3.9.5
