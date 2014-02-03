@@ -1,4 +1,5 @@
 0.13
+	- Added test versionset
 	- Removed broken USER_ -flags
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.0) to build
