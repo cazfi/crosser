@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2013 Marko Lindqvist
+# (c) 2008-2014 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -452,20 +452,20 @@ ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
-if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
+if ! unpack_component     autoconf                          ||
    ! build_component_host autoconf   $VERSION_AUTOCONF      ||
    ! free_component       autoconf   $VERSION_AUTOCONF "native-autoconf" ||
-   ! unpack_component     automake   $VERSION_AUTOMAKE      ||
+   ! unpack_component     automake                          ||
    ! build_component_host automake   $VERSION_AUTOMAKE      ||
    ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
-   ! unpack_component     libtool    $VERSION_LIBTOOL       ||
+   ! unpack_component     libtool                           ||
    ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_host libtool    $BASEVER_LIBTOOL       ||
    ! free_component       libtool    $BASEVER_LIBTOOL "native-libtool"   ||
-   ! unpack_component     libffi     $VERSION_FFI           ||
+   ! unpack_component     libffi                            ||
    ! build_component_host libffi     $VERSION_FFI           ||
-   ! free_build           "native-libffi"                     ||
-   ! unpack_component     glib       $VERSION_GLIB          ||
+   ! free_build           "native-libffi"                   ||
+   ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
       patch_src glib $VERSION_GLIB glib_nokill )            ||
@@ -477,7 +477,7 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib $VERSION_GLIB                ||
    ! free_build           "native-glib"                       ||
-   ! unpack_component     pkg-config $VERSION_PKG_CONFIG                    ||
+   ! unpack_component     pkg-config                                        ||
    ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
       patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
@@ -486,10 +486,10 @@ if ! unpack_component     autoconf   $VERSION_AUTOCONF      ||
    ! build_component_host pkg-config $VERSION_PKG_CONFIG                    \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c      $VERSION_ICU "" "icu4c-$ICU_FILEVER-src"  ||
+   ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! build_component_full native-icu4c icu4c $VERSION_ICU                     \
      "" "native" "icu/source"                                               ||
-   ! unpack_component gdk-pixbuf $VERSION_GDK_PIXBUF                        ||
+   ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
       ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF "gdkpixbuf_randmod_disable" &&
@@ -504,29 +504,29 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if ! unpack_component  libiconv   $VERSION_ICONV                     ||
+if ! unpack_component  libiconv                                      ||
    ! build_component   libiconv   $VERSION_ICONV                     ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"          ||
-   ! unpack_component  zlib       $VERSION_ZLIB                      ||
+   ! unpack_component  zlib                                          ||
    ! patch_src zlib $VERSION_ZLIB zlib_seeko-1.2.6-2                 ||
    ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                ||
    ! patch_src zlib $VERSION_ZLIB zlib_dllext                        ||
    ! build_zlib        zlib       $VERSION_ZLIB                      ||
    ! free_src          zlib       $VERSION_ZLIB                      ||
-   ! unpack_component  bzip2      $VERSION_BZIP2                     ||
+   ! unpack_component  bzip2                                         ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_unhardcodecc               ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_incpathsep                 ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_winapi                     ||
    ! build_bzip2       bzip2      $VERSION_BZIP2                     ||
    ! free_src          bzip2      $VERSION_BZIP2                     ||
-   ! unpack_component  xz         $VERSION_XZ                        ||
+   ! unpack_component  xz                                            ||
    ! build_component_full xz xz   $VERSION_XZ                        \
      "--disable-threads" "windres"                                   ||
    ! free_component    xz         $VERSION_XZ "xz"                   ||
-   ! unpack_component  curl       $VERSION_CURL                      ||
+   ! unpack_component  curl                                          ||
    ! build_component   curl       $VERSION_CURL                      ||
    ! free_component    curl       $VERSION_CURL "curl"               ||
-   ! unpack_component  sqlite     $VERSION_SQLITE                    \
+   ! unpack_component  sqlite                                        \
      "" "sqlite-autoconf-${SQL_VERSTR}"                              ||
    ! build_component_full sqlite sqlite-autoconf $SQL_VERSTR         \
      "--disable-threadsafe"                                          ||
@@ -534,19 +534,19 @@ if ! unpack_component  libiconv   $VERSION_ICONV                     ||
    ! build_component_full icu4c icu4c $VERSION_ICU                   \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_component    icu4c      $VERSION_ICU "icu4c"               ||
-   ! unpack_component  ImageMagick $VERSION_IMAGEMAGICK              ||
+   ! unpack_component  ImageMagick                                   ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"         ||
    ! build_component   ImageMagick $VERSION_IMAGEMAGICK              \
      "--without-bzlib --without-threads"                              ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
-   ! unpack_component  libpng     $VERSION_PNG                        ||
+   ! unpack_component  libpng                                         ||
    ! ( ! cmp_versions  $VERSION_PNG 1.6.7 ||
        patch_src       libpng     $VERSION_PNG "png_epsilon" )        ||
    ! ( is_smaller_version $VERSION_PNG 1.6.8 ||
        patch_src       libpng     $VERSION_PNG "png_epsilon-1.6.8" )  ||
    ! build_component   libpng     $VERSION_PNG                       ||
    ! free_component    libpng     $VERSION_PNG "libpng"              ||
-   ! unpack_component  gettext    $VERSION_GETTEXT                   ||
+   ! unpack_component  gettext                                        ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18.3 ||
        patch_src         gettext    $VERSION_GETTEXT gettext_cdecl ) ||
    ! ( is_minimum_version $VERSION_GETTEXT 0.18.2 ||
@@ -569,7 +569,7 @@ then
   exit 1
 fi
 
-if ! unpack_component jpeg $VERSION_JPEG "" "jpegsrc.v${VERSION_JPEG}" ||
+if ! unpack_component jpeg  "" "jpegsrc.v${VERSION_JPEG}"              ||
    ! build_component jpeg $VERSION_JPEG "--enable-shared"              ||
    ! free_component jpeg $VERSION_JPEG "jpeg"
 then
@@ -578,24 +578,24 @@ then
 fi
 CONF_JPEG_GTK="--without-libjasper"
 
-if ! unpack_component tiff       $VERSION_TIFF                         ||
+if ! unpack_component tiff                                                  ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395              ||
    ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
       autogen_component tiff       $VERSION_TIFF )                ||
    ! build_component_full                                         \
      tiff tiff $VERSION_TIFF "$CONF_JPEG_TIFF"                    ||
    ! free_component    tiff       $VERSION_TIFF "tiff"            ||
-   ! unpack_component  expat      $VERSION_EXPAT                  ||
+   ! unpack_component  expat                                                ||
    ! build_component   expat      $VERSION_EXPAT                  ||
    ! free_component    expat      $VERSION_EXPAT "expat"               ||
-   ! unpack_component  freetype   $VERSION_FREETYPE                    ||
+   ! unpack_component  freetype                                        ||
    ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
        (patch_src freetype $VERSION_FREETYPE freetype_pngcheck &&
         autogen_component freetype $VERSION_FREETYPE ))                ||
    ! build_component   freetype   $VERSION_FREETYPE                    \
      "--without-bzip2"                                                 ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"         ||
-   ! unpack_component  fontconfig $VERSION_FONTCONFIG                  ||
+   ! unpack_component  fontconfig                                          ||
    ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
        patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags) ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.10 ||
@@ -607,13 +607,13 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   fontconfig $VERSION_FONTCONFIG                  \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig" ||
-   ! unpack_component  pixman     $VERSION_PIXMAN                      ||
+   ! unpack_component  pixman                                              ||
    ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
       patch_src          pixman $VERSION_PIXMAN pixman_epsilon )       ||
    ! build_component   pixman     $VERSION_PIXMAN                      \
      "--disable-gtk"                                                   ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"             ||
-   ! unpack_component  cairo      $VERSION_CAIRO                       ||
+   ! unpack_component  cairo                                               ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h" ||
    ! ( is_smaller_version $VERSION_CAIRO 1.12.10 ||
        patch_src       cairo $VERSION_CAIRO cairo-1.12.10_epsilon )    ||
@@ -624,7 +624,7 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   cairo      $VERSION_CAIRO                  \
      "--disable-xlib --enable-win32"                              ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"          ||
-   ! unpack_component  harfbuzz   $VERSION_HARFBUZZ               ||
+   ! unpack_component  harfbuzz                                        ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
       ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
         autogen_component harfbuzz   $VERSION_HARFBUZZ            \
@@ -632,10 +632,10 @@ if ! unpack_component tiff       $VERSION_TIFF                         ||
    ! build_component   harfbuzz   $VERSION_HARFBUZZ               \
      "--without-icu"                                              ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"    ||
-   ! unpack_component  pango      $VERSION_PANGO                  ||
-   ! CXX="$TARGET-g++" build_component   pango      $VERSION_PANGO                  ||
+   ! unpack_component  pango                                          ||
+   ! CXX="$TARGET-g++" build_component pango $VERSION_PANGO           ||
    ! free_component    pango      $VERSION_PANGO "pango"          ||
-   ! unpack_component  atk        $VERSION_ATK                    ||
+   ! unpack_component  atk                                            ||
    ! ( is_minimum_version $VERSION_ATK     2.8.0   ||
        autogen_component atk        $VERSION_ATK   \
          "libtoolize aclocal automake autoconf" )                 ||
@@ -648,11 +648,11 @@ fi
 
 if ! build_component  gdk-pixbuf $VERSION_GDK_PIXBUF              ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf" ||
-   ! unpack_component gtk2       $VERSION_GTK2                    ||
+   ! unpack_component gtk2                                            ||
    ! build_component_full gtk2 gtk+ $VERSION_GTK2                 \
      "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"            ||
-   ! unpack_component gtk3        $VERSION_GTK3                   ||
+   ! unpack_component gtk3                                            ||
    ! ( is_minimum_version $VERSION_GTK3 3.10.0 ||
        patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid ) ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h     ||
@@ -670,7 +670,7 @@ if ! build_component  gdk-pixbuf $VERSION_GDK_PIXBUF              ||
      build_component_full gtk3 gtk+ $VERSION_GTK3                 \
      "--enable-gtk2-dependency"                                   ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"            ||
-   ! unpack_component gtk-engines $VERSION_GTK_ENG                ||
+   ! unpack_component gtk-engines                                    ||
    ! build_component  gtk-engines $VERSION_GTK_ENG                ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"
 then
@@ -678,10 +678,10 @@ then
   exit 1
 fi
 
-if ! unpack_component  libogg     $VERSION_OGG          ||
+if ! unpack_component  libogg                                        ||
    ! build_component   libogg     $VERSION_OGG          ||
    ! free_component    libogg     $VERSION_OGG "libogg" ||
-   ! unpack_component  libvorbis  $VERSION_VORBIS      ||
+   ! unpack_component  libvorbis                                     ||
    ! build_component   libvorbis  $VERSION_VORBIS       ||
    ! free_component    libvorbis  $VERSION_VORBIS "libvorbis"
 then
@@ -689,22 +689,22 @@ then
   exit 1
 fi
 
-if ! unpack_component  SDL        $VERSION_SDL          ||
+if ! unpack_component  SDL                                           ||
    ! build_component   SDL        $VERSION_SDL          ||
    ! free_component    SDL        $VERSION_SDL "SDL"    ||
    ! rm "$DLLSPREFIX/lib/libSDLmain.la"                 ||
-   ! unpack_component  SDL_image  $VERSION_SDL_IMAGE    ||
+   ! unpack_component  SDL_image                                     ||
    ! build_component   SDL_image  $VERSION_SDL_IMAGE    ||
    ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"    ||
-   ! unpack_component  SDL_gfx    $VERSION_SDL_GFX                  ||
+   ! unpack_component  SDL_gfx                                       ||
    ! build_component   SDL_gfx    $VERSION_SDL_GFX                  ||
    ! free_component    SDL_gfx    $VERSION_SDL_GFX   "SDL_gfx"      ||
-   ! unpack_component  SDL_ttf    $VERSION_SDL_TTF                  ||
+   ! unpack_component  SDL_ttf                                       ||
    ! patch_src SDL_ttf $VERSION_SDL_TTF "sdlttf_fttool"             ||
    ! FREETYPE_CONFIG="$DLLSPREFIX/bin/freetype-config"              \
      build_component   SDL_ttf    $VERSION_SDL_TTF                  ||
    ! free_component    SDL_ttf    $VERSION_SDL_TTF   "SDL_ttf"      ||
-   ! unpack_component  SDL_mixer  $VERSION_SDL_MIXER                ||
+   ! unpack_component  SDL_mixer                                     ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_configmacrodir ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_host           ||
    ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_libwindres     ||
@@ -714,20 +714,20 @@ if ! unpack_component  SDL        $VERSION_SDL          ||
    ! build_component   SDL_mixer  $VERSION_SDL_MIXER                \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
    ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"           ||
-   ! unpack_component  SDL2       $VERSION_SDL2                            ||
+   ! unpack_component  SDL2                                                ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                           ||
    ! build_component   SDL2       $VERSION_SDL2                            ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                     ||
-   ! unpack_component  SDL2_image $VERSION_SDL2_IMAGE                      ||
+   ! unpack_component  SDL2_image                                          ||
    ! build_component   SDL2_image $VERSION_SDL2_IMAGE                      ||
    ! free_component    SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"         ||
-   ! unpack_component  SDL2_gfx   $VERSION_SDL2_GFX                        ||
+   ! unpack_component  SDL2_gfx                                            ||
    ! build_component   SDL2_gfx   $VERSION_SDL2_GFX                        ||
    ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"           ||
-   ! unpack_component  SDL2_ttf   $VERSION_SDL2_TTF                        ||
+   ! unpack_component  SDL2_ttf                                            ||
    ! build_component   SDL2_ttf   $VERSION_SDL2_TTF                        ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"           ||
-   ! unpack_component  SDL2_mixer $VERSION_SDL2_MIXER                      ||
+   ! unpack_component  SDL2_mixer                                          ||
    ! build_component   SDL2_mixer $VERSION_SDL2_MIXER                      ||
    ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
 then
@@ -737,7 +737,7 @@ fi
 
 if test "x$CROSSER_QT" != "xno"
 then
-if ! unpack_component qt-everywhere-opensource-src $VERSION_QT                  ||
+if ! unpack_component qt-everywhere-opensource-src                              ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
