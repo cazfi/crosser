@@ -4,11 +4,11 @@
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.0) to build
 	- Added icu (version 51.2)
-	- Updated sqlite to version 3.8.2
-	- Updated curl to version 7.34.0
-	- Updated harfbuzz to version 0.9.25
+	- Updated sqlite to version 3.8.3
+	- Updated curl to version 7.35.0
+	- Updated harfbuzz to version 0.9.26
 	- Updated pixman to version 0.32.4
-	- Updated libpng to version 1.6.8
+	- Updated libpng to version 1.6.9
 	- Updated freetype to version 2.5.2
 	- Updated gdk-pixbuf to version 2.30.3
 	- Updated gtk3 to version 3.10.7
