@@ -454,7 +454,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" )
+  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" "$VERSIONSET" )
   then
     log_error "Downloading packets failed"
     exit 1
