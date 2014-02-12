@@ -519,6 +519,16 @@ then
   exit 1
 fi
 
+if test "x$CROSSER_CHAIN" = "xyes" ; then
+if ! unpack_component   gmp   ||
+   ! build_component_host gmp ||
+   ! free_build "native-gmp"
+then
+  log_error "Toolchain build failed"
+  exit 1
+fi
+fi
+
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
 if ! unpack_component  libiconv                                       ||
