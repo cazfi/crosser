@@ -512,6 +512,8 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gmp/"      "gmp"      "$VERSION_GMP"      "tar.xz"
 RET="$RET $?"
+download_needed "http://www.mpfr.org/mpfr-current/"     "mpfr"       "$VERSION_MPFR"       "tar.xz"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
 # download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK"
