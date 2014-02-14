@@ -520,9 +520,13 @@ then
 fi
 
 if test "x$CROSSER_CHAIN" = "xyes" ; then
-if ! unpack_component   gmp   ||
-   ! build_component_host gmp ||
-   ! free_build "native-gmp"
+if ! unpack_component   gmp      ||
+   ! build_component_host gmp    ||
+   ! free_build "native-gmp"     ||
+   ! unpack_component  mpfr      ||
+   ! build_component_host mpfr   \
+     "--with-gmp=$NATIVE_PREFIX" ||
+   ! free_build "native-mpfr"
 then
   log_error "Toolchain build failed"
   exit 1
