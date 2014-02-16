@@ -1,3 +1,6 @@
+0.12.1 (16-Feb-14)
+	- Fixed downloading versionsets other than "current" in the beginning
+
 0.12 (04-Dec-13)
 	- Fixed freeing of native build directories
 	- Added SDL2, SDL2_image, SDL2_mixer, SDL2_ttf to build
