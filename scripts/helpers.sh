@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -156,9 +156,10 @@ upstream_patch() {
 # Unpack component package to source directory
 #
 # $1   - Package name
-# [$2] - Subdir in source hierarchy
-# [$3] - Package file name base in case it's not 'name-version'
-# [$4] - Number of patches
+# $2   - Package version, "0" to indicate that there is no package after all
+# [$3] - Subdir in source hierarchy
+# [$4] - Package file name base in case it's not 'name-version'
+# [$5] - Number of patches
 unpack_component() {
   if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
   then
@@ -167,82 +168,74 @@ unpack_component() {
     BNAME="$1"
   fi
 
-  BVER=$(component_version $1)
-
-  if test "x$BVER" = "x"
-  then
-    log_error "No version defined for $1"
-    return 1
-  fi
-
-  if test "x$BVER" = "x0"
+  if test "x$2" = "x0"
   then
     return 0
   fi
 
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
   then
-    log_write 1 "Fetching $BNAME version $BVER"
-    if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$4" \
+    log_write 1 "Fetching $BNAME version $2"
+    if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$2" "$5" \
          >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
     then
-      log_error "Failed to download $BNAME version $BVER"
+      log_error "Failed to download $BNAME version $2"
       return 1
     fi
   fi
 
-  log_write 1 "Unpacking $BNAME version $BVER"
+  log_write 1 "Unpacking $BNAME version $2"
 
-  if test "x$3" != "x"
+  if test "x$4" != "x"
   then
     # Custom file name format
-    NAME_BASE="$3"
+    NAME_BASE="$4"
   else
-    NAME_BASE="$BNAME-$BVER"
+    NAME_BASE="$BNAME-$2"
   fi
 
   if test -e "$PACKETDIR/$NAME_BASE.tar.bz2" ; then
-    if ! tar xjf "$PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$2"
+    if ! tar xjf "$PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
   elif test -e "$PACKETDIR/$NAME_BASE.tar.gz" ; then
-    if ! tar xzf "$PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$2"
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
   elif test -e "$PACKETDIR/$NAME_BASE.tar.xz" ; then
-    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
+    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tar.xz failed"
       return 1
     fi
   elif test -e "$PACKETDIR/$NAME_BASE.tgz" ; then
-    if ! tar xzf "$PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$2"
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$3"
     then
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e "$PACKETDIR/${BNAME}_${BVER}.dsc" ; then
+  elif test -e "$PACKETDIR/${BNAME}_${2}.dsc" ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
       return 1
     fi
-    if test "x$2" = "x" ; then
+    if test "x$3" = "x" ; then
       SRCDIR="$BNAME"
     else
-      SRCDIR="$2"
+      SRCDIR="$3"
     fi
-    if ! dpkg-source -x "$PACKETDIR/${BNAME}_${BVER}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
+    if ! dpkg-source -x "$PACKETDIR/${BNAME}_${2}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
                      >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
-      log_error "Unpacking $BNAME_$BVER.dsc failed"
+      log_error "Unpacking $BNAME_$2.dsc failed"
       return 1
     fi
   else
-    log_error "Can't find $BNAME version $BVER package to unpack."
+    log_error "Can't find $BNAME version $2 package to unpack."
     return 1
   fi
 }
@@ -788,18 +781,4 @@ packetdir_check() {
   fi
 
   return 0
-}
-
-# Prints version of the component
-#
-# $1 - Component name
-component_version()
-{
-  VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/win.step | sed 's/.*[ \t]//')
-
-  if test "x$VARNAME" = "x" ; then
-    return 1
-  fi
-
-  echo $(eval echo \$VERSION_$VARNAME)
 }

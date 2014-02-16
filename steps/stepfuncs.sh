@@ -2,11 +2,11 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
-STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step | grep -v "^#" | sed 's/[ \t].*//')
+STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step | grep -v "^#")
 
 # Steps array
 STEPLIST=("win")

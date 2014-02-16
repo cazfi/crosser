@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -382,8 +382,6 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
-    icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
   esac
 fi
@@ -397,17 +395,12 @@ GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH 
 GOBJ_INTROS_DIR="$(echo $VERSION_GOBJ_INTROS | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
-QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.8.3
-then
-   SQL_SUBDIR="2014/"
-elif is_minimum_version $VERSION_SQLITE 3.7.16.1
+if is_minimum_version $VERSION_SQLITE 3.7.Â16.1
 then
    SQL_SUBDIR="2013/"
 else
@@ -510,16 +503,9 @@ download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAK
 RET="$RET $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/gmp/"      "gmp"      "$VERSION_GMP"      "tar.xz"
-RET="$RET $?"
-download_needed "http://www.mpfr.org/mpfr-current/"     "mpfr"       "$VERSION_MPFR"       "tar.xz"
-RET="$RET $?"
-download_needed "http://static.paratools.com/mpc/tar/"  "MPC"        "MPC_${VERSION_MPC}.tar.gz"
-RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-# download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
@@ -589,8 +575,6 @@ download_needed "http://www.libsdl.org/projects/SDL_mixer/release/"      "SDL2_m
 RET="$RET $?"
 download_needed "http://www.ferzkopp.net/Software/SDL_gfx-2.0/" "SDL_gfx" "$VERSION_SDL_GFX" "tar.gz"
 RET="$RET $?"
-download_needed "http://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "$VERSION_SDL2_GFX" "tar.gz"
-RET="$RET $?" 
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL_ttf" "$VERSION_SDL_TTF" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
@@ -598,10 +582,6 @@ RET="$RET $?"
 download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
-RET="$RET $?"
-download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
-RET="$RET $?"
-download_needed "http://download.qt-project.org/official_releases/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET
