@@ -1,0 +1,24 @@
+diff -Nurd SDL2-2.0.0/configure SDL2-2.0.0/configure
+--- SDL2-2.0.0/configure	2013-07-26 18:59:50.000000000 +0300
++++ SDL2-2.0.0/configure	2013-07-28 01:24:38.869612360 +0300
+@@ -10797,7 +10797,7 @@
+   sys_lib_dlsearch_path_spec="$lt_cv_sys_lib_dlsearch_path_spec"
+ fi
+ 
+-
++$as_echo "#define DBL_EPSILON (1e-7)" >> confdefs.h
+ 
+ 
+ 
+diff -Nurd SDL2-2.0.0/include/SDL_config.h.in SDL2-2.0.0/include/SDL_config.h.in
+--- SDL2-2.0.0/include/SDL_config.h.in	2013-07-26 18:59:50.000000000 +0300
++++ SDL2-2.0.0/include/SDL_config.h.in	2013-07-28 01:22:12.173615578 +0300
+@@ -36,6 +36,8 @@
+ #error You should run hg revert SDL_config.h 
+ #endif
+ 
++#undef DBL_EPSILON
++
+ /* C language features */
+ #undef const
+ #undef inline
