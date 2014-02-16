@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2013 Marko Lindqvist
+# (c) 2008-2014 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -436,7 +436,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" )
+  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" "$VERSIONSET" )
   then
     log_error "Downloading packets failed"
     exit 1
