@@ -4,9 +4,10 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 #
-MPC             MPC
 gmp             GMP
 mpfr            MPFR
+MPC             MPC
+gcc             GCC
 autoconf        AUTOCONF
 automake        AUTOMAKE
 libtool         LIBTOOL

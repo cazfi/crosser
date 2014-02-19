@@ -353,6 +353,10 @@ if test "x$MIRROR_GNU" = "x" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
 fi
 
+if test "x$MIRROR_GCC" = "x"; then
+  MIRROR_GCC="http://gcc.cybermirror.org"
+fi
+
 if test "x$MIRROR_IM" = "x" ; then
   MIRROR_IM="http://imagemagick.mirrorcatalogs.com"
 fi
@@ -515,6 +519,8 @@ RET="$RET $?"
 download_needed "http://www.mpfr.org/mpfr-current/"     "mpfr"       "$VERSION_MPFR"       "tar.xz"
 RET="$RET $?"
 download_needed "http://static.paratools.com/mpc/tar/"  "MPC"        "MPC_${VERSION_MPC}.tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_GCC/releases/gcc-$VERSION_GCC/" "gcc" "$VERSION_GCC" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
