@@ -1,7 +1,6 @@
 0.13
 	- Added test versionset
 	- Removed broken USER_ -flags
-	- Fixed downloading versionsets other than "current" at the beginning
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.0) to build
 	- Added icu (version 51.2)
@@ -17,6 +16,9 @@
 	- Updated automake to version 1.14.1
 	- Updated gettext to version 0.18.3.2
 	- Updated jpeg to version 9a
+
+0.12.1 (16-Feb-14)
+	- Fixed downloading versionsets other than "current" in the beginning
 
 0.12 (04-Dec-13)
 	- Fixed freeing of native build directories
