@@ -112,7 +112,7 @@ build_component_host()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt')
+# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config')
 # [$5] - Src subdir 
 # [$6] - Make options
 # [$7] - Version
@@ -179,8 +179,11 @@ build_component_full()
     unset LDFLAGS
   elif test "x$4" = "xcross"
   then
-    # FIXME: As pkg-config build is the only one using this, this is adjusted to work just with it, i.e.,
-    #        --build, --host, and --target are not set as that broke it.
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$BUILD --host=$BUILD --target=$TARGET $3"
+    unset CPPFLAGS
+    unset LDFLAGS
+  elif test "x$4" = "xpkg-config"
+  then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
@@ -502,7 +505,7 @@ if ! unpack_component     autoconf                          ||
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig"                          ||
    ! free_build           "native-pkg-config"                               ||
    ! build_component_host pkg-config                                        \
-     "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "cross" ||
+     "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! build_component_full native-icu4c icu4c "" "native" "icu/source"       ||
@@ -529,7 +532,7 @@ if ! unpack_component   gmp                                           ||
    ! free_build "native-mpfr"                                         ||
    ! unpack_component MPC "" "MPC_${VERSION_MPC}"                     ||
    ! build_component_full "native-mpc" "MPC"                          \
-     "--with-gmp=$NATIVE_PREFIX --disable-mpc-gcc --disable-mpc-gdb"  \
+     "--with-gmp=$NATIVE_PREFIX --disable-mpc-gcc --disable-mpc-gdb  --disable-mpc-binutils" \
      "native" "MPC_${VERSION_MPC}"                                    ||
    ! free_build "native-MPC"
 then
