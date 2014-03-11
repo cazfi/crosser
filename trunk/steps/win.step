@@ -6,7 +6,7 @@
 #
 gmp             GMP
 mpfr            MPFR
-MPC             MPC
+mpc             MPC
 gcc             GCC
 autoconf        AUTOCONF
 automake        AUTOMAKE
