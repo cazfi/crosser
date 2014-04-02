@@ -508,7 +508,8 @@ if ! unpack_component     autoconf                          ||
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
-   ! build_component_full native-icu4c icu4c "" "native" "icu/source"       ||
+   ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
+   ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
@@ -569,7 +570,7 @@ if ! unpack_component  libiconv                                       ||
    ! build_component_full sqlite sqlite-autoconf                      \
      "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
-   ! build_component_full icu4c icu4c                                 \
+   ! CXX="$TARGET-g++" build_component_full icu4c icu4c               \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_component    icu4c      $VERSION_ICU "icu4c"                ||
    ! unpack_component  ImageMagick                                    ||

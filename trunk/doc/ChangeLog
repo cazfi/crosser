@@ -3,7 +3,7 @@
 	- Removed broken USER_ -flags
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.0) to build
-	- Added icu (version 51.2)
+	- Added icu (version 52.1)
 	- Updated sqlite to version 3.8.3
 	- Updated curl to version 7.35.0
 	- Updated harfbuzz to version 0.9.26
