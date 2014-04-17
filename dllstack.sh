@@ -575,8 +575,9 @@ if ! unpack_component  libiconv                                       ||
    ! free_component    icu4c      $VERSION_ICU "icu4c"                ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
    ! build_component   ImageMagick                                    \
-     "--without-bzlib --without-threads"                              ||
+     "--without-bzlib --without-threads --without-magick-plus-plus"   ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! unpack_component  libpng                                         ||
    ! ( ! cmp_versions  $VERSION_PNG 1.6.7 ||
