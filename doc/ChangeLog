@@ -4,18 +4,22 @@
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.0) to build
 	- Added icu (version 52.1)
-	- Updated sqlite to version 3.8.3
-	- Updated curl to version 7.35.0
-	- Updated harfbuzz to version 0.9.26
+	- Updated sqlite to version 3.8.4.3
+	- Updated curl to version 7.36.0
+	- Updated harfbuzz to version 0.9.27
 	- Updated pixman to version 0.32.4
 	- Updated libpng to version 1.6.9
 	- Updated freetype to version 2.5.2
-	- Updated gdk-pixbuf to version 2.30.3
-	- Updated gtk3 to version 3.10.7
+	- Updated gdk-pixbuf to version 2.30.7
+	- Updated gtk3 to version 3.12.1
 	- Updated SDL_gfx to version 2.0.25
 	- Updated automake to version 1.14.1
 	- Updated gettext to version 0.18.3.2
 	- Updated jpeg to version 9a
+	- Updated glib to version 2.40.0
+	- Updated pango to version 1.36.3
+	- Updated atk to version 2.12.0
+	- Updated ImageMagick to version 6.8.9-0
 
 0.12.1 (16-Feb-14)
 	- Fixed downloading versionsets other than "current" in the beginning
