@@ -628,6 +628,7 @@ if ! unpack_component tiff                                                  ||
    ! free_component    expat      $VERSION_EXPAT "expat"                    ||
    ! unpack_component  freetype                                             ||
    ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
+      is_greater_version $VERSION_FREETYPE 2.5.2 ||
        (patch_src freetype $VERSION_FREETYPE freetype_pngcheck &&
         autogen_component freetype $VERSION_FREETYPE ))                     ||
    ! build_component   freetype   "--without-bzip2"                         ||
