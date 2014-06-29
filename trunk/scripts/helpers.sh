@@ -219,6 +219,12 @@ unpack_component() {
       log_error "Unpacking $NAME_BASE.tar.xz failed"
       return 1
     fi
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.lzma" ; then
+    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.lzma" -C "$CROSSER_SRCDIR/$2"
+    then
+      log_error "Unpacking $NAME_BASE.tar.lzma failed"
+      return 1
+    fi
   elif test -e "$PACKETDIR/$NAME_BASE.tgz" ; then
     if ! tar xzf "$PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$2"
     then
