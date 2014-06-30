@@ -376,7 +376,6 @@ then
     gtk2)        VERSION_GTK2=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
-    gobject-introspection) VERSION_GOBJ_INTROS=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
@@ -398,7 +397,6 @@ GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATC
 GTK2_DIR="$(echo $VERSION_GTK2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GOBJ_INTROS_DIR="$(echo $VERSION_GOBJ_INTROS | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
@@ -556,8 +554,6 @@ RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "$CAIRO_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
-RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gobject-introspection/${GOBJ_INTROS_DIR}/" "gobject-introspection" "${VERSION_GOBJ_INTROS}" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "$ATK_PACK"
 RET="$RET $?"
