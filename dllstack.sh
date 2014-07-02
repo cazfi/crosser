@@ -607,6 +607,9 @@ if ! unpack_component tiff                                                  ||
    ! unpack_component  expat                                                ||
    ! build_component   expat                                                ||
    ! free_component    expat      $VERSION_EXPAT "expat"                    ||
+   ! unpack_component  libxml2                                              ||
+   ! build_component   libxml2    "--without-python"                        ||
+   ! free_component    libxml2    $VERSION_XML2 "libxml"                    ||
    ! unpack_component  freetype                                             ||
    ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
       is_greater_version $VERSION_FREETYPE 2.5.2 ||
