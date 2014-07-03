@@ -561,10 +561,7 @@ if ! unpack_component  libiconv                                       ||
      "--without-bzlib --without-threads --without-magick-plus-plus"   ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! unpack_component  libpng                                         ||
-   ! ( ! cmp_versions  $VERSION_PNG 1.6.7 ||
-       patch_src       libpng     $VERSION_PNG "png_epsilon" )        ||
-   ! ( is_smaller_version $VERSION_PNG 1.6.8 ||
-       patch_src       libpng     $VERSION_PNG "png_epsilon-1.6.8" )  ||
+   ! patch_src         libpng     $VERSION_PNG "png_epsilon-1.6.8"    ||
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
