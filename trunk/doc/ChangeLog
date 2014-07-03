@@ -5,6 +5,7 @@
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added SDL2_gfx (version 1.0.1) to build
 	- Added libxml2 (version 2.9.1) to build
+	- Create crosser.txt info to dllstack root
 	- Added icu (version 52.1)
 	- Updated sqlite to version 3.8.5
 	- Updated curl to version 7.37.0

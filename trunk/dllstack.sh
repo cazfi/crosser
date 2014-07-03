@@ -792,6 +792,17 @@ if test "x$AUTOWINE" = "xyes" ; then
     exit 1
   fi
 fi
+
+log_write 1 "Creating crosser.txt"
+(
+  echo "Dllstack"
+  echo "========"
+  echo "Version=\"$CROSSER_VERSION\""
+  echo "Setup=\"$SETUP\""
+  echo "Set=\"$VERSIONSET\""
+  echo "Built=\"$(date +"%d.%m.%Y")\""
+) > "$DLLSPREFIX/crosser.txt"
+
 log_write 1 "Creating setup.bat"
 (
   echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
