@@ -4,7 +4,7 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 #
-# This version sets has version number bumps that have not yet been
+# This version set has version number bumps that have not yet been
 # fully tested. Oftentimes we have to leave 'current' versionset
 # to older working version while development continues with these
 # versions that have some problems with them.
