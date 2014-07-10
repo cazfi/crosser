@@ -1,8 +1,4 @@
-0.14
-	- Added qt-everywhere (version 5.2.0) to build
-	- Added icu (version 52.1) to build
-
-0.13
+0.13 (11-Jul-14)
 	- Added test versionset
 	- Removed broken USER_ -flags
 	- Added support for tar.lzma source archives
