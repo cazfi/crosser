@@ -1,0 +1,29 @@
+diff -Nurd harfbuzz-0.9.15/configure.ac harfbuzz-0.9.15/configure.ac
+--- harfbuzz-0.9.15/configure.ac	2013-04-11 10:52:14.255650455 +0300
++++ harfbuzz-0.9.15/configure.ac	2013-04-11 10:53:15.727649105 +0300
+@@ -166,9 +166,10 @@
+ 
+ dnl ==========================================================================
+ 
+-PKG_CHECK_MODULES(ICU, icu-uc, have_icu=true, have_icu=false)
++dnl PKG_CHECK_MODULES(ICU, icu-uc, have_icu=true, have_icu=false)
++have_icu=false
+ dnl Fallback to icu-config if ICU pkg-config files could not be found
+-if test "$have_icu" != "true"; then
++if test "$have_icu" = "notdisabled"; then
+ 	AC_CHECK_TOOL(ICU_CONFIG, icu-config, no)
+ 	AC_MSG_CHECKING([for ICU by using icu-config fallback])
+ 	if test "$ICU_CONFIG" != "no" && "$ICU_CONFIG" --version >/dev/null; then
+@@ -194,9 +195,10 @@
+ 
+ dnl ==========================================================================
+ 
+-PKG_CHECK_MODULES(ICU_LE, icu-le icu-uc, have_icu_le=true, have_icu_le=false)
++dnl PKG_CHECK_MODULES(ICU_LE, icu-le icu-uc, have_icu_le=true, have_icu_le=false)
++have_icu_le=false
+ dnl Fallback to icu-config if ICU pkg-config files could not be found
+-if test "$have_icu_le" != "true"; then
++if test "$have_icu_le" = "notdisabled"; then
+ 	AC_CHECK_TOOL(ICU_CONFIG, icu-config, no)
+ 	AC_MSG_CHECKING([for ICU_LE by using icu-config fallback])
+ 	if test "$ICU_CONFIG" != "no" && "$ICU_CONFIG" --version >/dev/null; then
