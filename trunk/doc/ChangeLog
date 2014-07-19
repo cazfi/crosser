@@ -1,6 +1,7 @@
 0.14
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added icu (version 52.1) to build
+	- Updated fontconfig to version 2.11.1
 
 0.13 (11-Jul-14)
 	- Added test versionset
