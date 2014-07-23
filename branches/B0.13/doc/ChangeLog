@@ -1,5 +1,8 @@
-0.13.1
-	- Fixed build of SDL2 in Debian Wheezy
+0.13.1 (23-Jul-14)
+	- Fixed build of SDL2, SDL2_gfx, and SDL2_ttf in Debian Wheezy
+	- Updated gettext to version 0.19.2
+	- Updated curl to version 7.37.1
+	- Updated pixman to version 0.32.6
 
 0.13 (11-Jul-14)
 	- Added test versionset
