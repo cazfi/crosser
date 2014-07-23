@@ -1,3 +1,6 @@
+0.13.1
+	- Fixed build of SDL2 in Debian Wheezy
+
 0.13 (11-Jul-14)
 	- Added test versionset
 	- Removed broken USER_ -flags

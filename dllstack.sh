@@ -718,6 +718,7 @@ if ! unpack_component  SDL                                            ||
    ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"      ||
    ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
+   ! patch_src SDL2 $VERSION_SDL2 "sdl2_winapifamily"                 ||
    ! build_component   SDL2                                           ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
