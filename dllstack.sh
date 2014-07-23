@@ -739,6 +739,8 @@ if ! unpack_component  SDL                                            ||
    ! build_component   SDL2_image                                     ||
    ! free_component    SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"    ||
    ! unpack_component  SDL2_gfx                                       ||
+   ! autogen_component SDL2_gfx   $VERSION_SDL2_GFX \
+        "aclocal automake autoconf"                                   ||
    ! build_component   SDL2_gfx                                       ||
    ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
    ! unpack_component  SDL2_ttf                                       ||
