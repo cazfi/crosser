@@ -3,6 +3,7 @@
 	- Added icu (version 52.1) to build
 	- Updated fontconfig to version 2.11.1
 	- Updated harfbuzz to version 0.9.32
+	- Updated ImageMagick to version 6.8.9-5
 
 0.13.1 (23-Jul-14)
 	- Fixed build of SDL2, SDL2_gfx, and SDL2_ttf in Debian Wheezy
