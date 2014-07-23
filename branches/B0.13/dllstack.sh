@@ -730,7 +730,8 @@ if ! unpack_component  SDL                                            ||
    ! build_component   SDL2_gfx                                       ||
    ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
    ! unpack_component  SDL2_ttf                                       ||
-   ! build_component   SDL2_ttf                                       ||
+   ! build_component   SDL2_ttf                                       \
+     "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
    ! unpack_component  SDL2_mixer                                     ||
    ! build_component   SDL2_mixer                                     ||
