@@ -489,7 +489,7 @@ if ! unpack_component     autoconf                          ||
    ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$BASEVER_LIBTOOL"                   ||
-   ! free_component       libtool    $BASEVER_LIBTOOL "native-libtool"   ||
+   ! free_build           "native-libtool"                               ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
@@ -532,7 +532,10 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if ! unpack_component  libiconv                                       ||
+if ! build_component_full libtool libtool "" "" "" ""                 \
+     "${BASEVER_LIBTOOL}"                                             ||
+   ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
+   ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||
    ! unpack_component  zlib                                           ||
