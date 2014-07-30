@@ -83,16 +83,23 @@ build_component()
 
 # $1   - Component
 # $2   - Extra configure options
-# [$3] - "native" or "cross"
+# [$3] - "native", "cross", or "pkg-config"
 build_component_host()
 {
-  if test "x$3" != "x"
+  if test "x$3" = "xpkg-config"
   then
     BTYPE="$3"
+    BDTYPE="cross"
   else
-    BTYPE="native"
+    if test "x$3" != "x"
+    then
+      BTYPE="$3"
+    else
+      BTYPE="native"
+    fi
+    BDTYPE="$BTYPE"
   fi
-  if ! build_component_full "$BTYPE-$1" "$1" "$2" "$BTYPE"
+  if ! build_component_full "$BDTYPE-$1" "$1" "$2" "$BTYPE"
   then
     BERR=true
   else
