@@ -1,5 +1,6 @@
 0.13.2
 	- Fixed freeing of cross pkg-config builddir
+	- Fixed freeing of libxml2 builddir
 
 0.13.1 (23-Jul-14)
 	- Fixed build of SDL2, SDL2_gfx, and SDL2_ttf in Debian Wheezy
