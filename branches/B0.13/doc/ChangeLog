@@ -1,6 +1,7 @@
-0.13.2
+0.13.2 (02-Aug-14)
 	- Fixed freeing of cross pkg-config builddir
 	- Fixed freeing of libxml2 builddir
+	- Build native pkg-config before glib, using internal glib
 
 0.13.1 (23-Jul-14)
 	- Fixed build of SDL2, SDL2_gfx, and SDL2_ttf in Debian Wheezy

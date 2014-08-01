@@ -485,6 +485,12 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
+   ! unpack_component     pkg-config                                        ||
+   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
+      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
+   ! build_component_host pkg-config                                        \
+     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
+   ! free_build           "native-pkg-config"                               ||
    ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -497,12 +503,6 @@ if ! unpack_component     autoconf                          ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib                                              ||
    ! free_build           "native-glib"                                     ||
-   ! unpack_component     pkg-config                                        ||
-   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
-      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
-   ! build_component_host pkg-config                                        \
-     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig"                          ||
-   ! free_build           "native-pkg-config"                               ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
