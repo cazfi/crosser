@@ -765,7 +765,7 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_QT" != "xno"
+if test "x$CROSSER_QT" = "xyes"
 then
 if ! unpack_component qt-everywhere-opensource-src                              ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
