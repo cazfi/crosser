@@ -2,6 +2,7 @@
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added icu (version 53.1) to build
 	- Fixed freeing of cross pkg-config builddir
+	- Build native-pkg-config before native-glib using internal glib
 	- Build libtool to target too
 	- Updated harfbuzz to version 0.9.32
 	- Updated ImageMagick to version 6.8.9-5
