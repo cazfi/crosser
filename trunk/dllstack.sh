@@ -517,6 +517,7 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
    ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
+   ! free_build           "native-icu4c"                                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
@@ -563,7 +564,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
    ! CXX="$TARGET-g++" build_component_full icu4c icu4c               \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_component    icu4c      $VERSION_ICU "icu4c"                ||
+   ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
@@ -616,7 +617,7 @@ if ! unpack_component tiff                                                  ||
    ! free_component    expat      $VERSION_EXPAT "expat"                    ||
    ! unpack_component  libxml2                                              ||
    ! build_component   libxml2    "--without-python"                        ||
-   ! free_component    libxml2    $VERSION_XML2 "libxml"                    ||
+   ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
    ! unpack_component  freetype                                             ||
    ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
       is_greater_version $VERSION_FREETYPE 2.5.2 ||
