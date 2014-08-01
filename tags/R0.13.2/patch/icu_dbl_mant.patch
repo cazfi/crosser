@@ -1,0 +1,12 @@
+diff -Nurd icu/source/common/putil.cpp icu/source/common/putil.cpp
+--- icu/source/common/putil.cpp	2013-10-04 23:49:20.000000000 +0300
++++ icu/source/common/putil.cpp	2014-04-02 02:17:09.191423848 +0300
+@@ -570,7 +570,7 @@
+ U_CAPI double U_EXPORT2
+ uprv_maxMantissa(void)
+ {
+-    return pow(2.0, DBL_MANT_DIG + 1.0) - 1.0;
++    return pow(2.0, __DBL_MANT_DIG__ + 1.0) - 1.0;
+ }
+ 
+ U_CAPI double U_EXPORT2
