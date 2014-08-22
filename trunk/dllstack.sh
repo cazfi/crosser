@@ -198,18 +198,18 @@ build_component_full()
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
     export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib"
+    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc -static-libstdc++"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-    export LDFLAGS="-L$DLLSPREFIX/lib"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
   fi
 
   if test -x "$SRCDIR/configure"
