@@ -6,6 +6,7 @@
 	- Updated ImageMagick to version 6.8.9-5
 	- Updated pango to version 1.36.6
 	- Updated libpng to version 1.6.13
+	- Updated sqlite to version 3.8.6
 
 0.13.2 (02-Aug-14)
         - Fixed freeing of cross pkg-config builddir
