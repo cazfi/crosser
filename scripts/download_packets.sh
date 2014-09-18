@@ -504,6 +504,13 @@ else
   GDK_PB_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_GETTEXT 0.19.1
+then
+  GETTEXT_PACK="tar.xz"
+else
+  GETTEXT_PACK="tar.gz"
+fi
+
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
 RET="$?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
@@ -529,7 +536,7 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
                  "readline"            "readline${READLINE_SHORT}-" \
                  "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
+download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "$GLIB_PACK"
 RET="$RET $?"
