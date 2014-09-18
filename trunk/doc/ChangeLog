@@ -7,6 +7,8 @@
 	- Updated pango to version 1.36.7
 	- Updated libpng to version 1.6.13
 	- Updated sqlite to version 3.8.6
+	- Updated curl to version 7.38.0
+	- Updated xz to version 5.0.6
 
 0.13.2 (02-Aug-14)
         - Fixed freeing of cross pkg-config builddir
