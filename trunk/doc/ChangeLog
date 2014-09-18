@@ -2,6 +2,7 @@
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added icu (version 53.1) to build
 	- Build libtool to target too
+	- Fetch gettext as xz-compressed package
 	- Updated harfbuzz to version 0.9.35
 	- Updated ImageMagick to version 6.8.9-5
 	- Updated pango to version 1.36.7
