@@ -13,3 +13,7 @@ dllstack.sh
 - gtk-doc     - in debian system relevant parts are in gtk-doc-tools
 - gdk-pixbuf-csource - package libgtk2.0-dev in debian based distributions
 - intltool-update
+- zlib development files
+- gettext
+- libtiff development files
+- libpng development files
