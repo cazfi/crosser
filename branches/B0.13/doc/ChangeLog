@@ -1,3 +1,6 @@
+0.13.3
+	- Fixed downloading of libpng
+
 0.13.2 (02-Aug-14)
 	- Fixed freeing of cross pkg-config builddir
 	- Fixed freeing of libxml2 builddir
