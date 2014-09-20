@@ -385,8 +385,6 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
-    icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
   esac
 fi
@@ -399,8 +397,6 @@ GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
-QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
@@ -504,13 +500,6 @@ else
   GDK_PB_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_GETTEXT 0.19.1
-then
-  GETTEXT_PACK="tar.xz"
-else
-  GETTEXT_PACK="tar.gz"
-fi
-
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
 RET="$?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
@@ -521,8 +510,8 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-# download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK"
+#download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
@@ -536,7 +525,7 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
                  "readline"            "readline${READLINE_SHORT}-" \
                  "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
+download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "$GLIB_PACK"
 RET="$RET $?"
@@ -601,10 +590,6 @@ RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
 download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
-RET="$RET $?"
-download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
-RET="$RET $?"
-download_needed "http://download.qt-project.org/official_releases/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET

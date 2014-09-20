@@ -119,7 +119,7 @@ build_component_host()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config')
+# [$4] - Build type ('native' | 'windres' | 'cross' | 'pkg-config')
 # [$5] - Src subdir 
 # [$6] - Make options
 # [$7] - Version
@@ -198,18 +198,11 @@ build_component_full()
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
-  elif test "x$4" = "xqt"
-  then
-    CONFOPTIONS="-prefix $DLLSPREFIX $3"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc -static-libstdc++"
+    export LDFLAGS="-L$DLLSPREFIX/lib"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
+    export LDFLAGS="-L$DLLSPREFIX/lib"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -475,7 +468,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -489,7 +481,7 @@ if ! unpack_component     autoconf                          ||
    ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$BASEVER_LIBTOOL"                   ||
-   ! free_build           "native-libtool"                               ||
+   ! free_component       libtool    $BASEVER_LIBTOOL "native-libtool"   ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
@@ -498,7 +490,7 @@ if ! unpack_component     autoconf                          ||
       patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
-   ! free_component       "native-pkg-config"                               ||
+   ! free_build           "native-pkg-config"                               ||
    ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -514,10 +506,6 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
-   ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
-   ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
-   ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
-   ! free_build           "native-icu4c"                                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
@@ -533,10 +521,7 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if ! build_component_full libtool libtool "" "" "" ""                 \
-     "${BASEVER_LIBTOOL}"                                             ||
-   ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
-   ! unpack_component  libiconv                                       ||
+if ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||
    ! unpack_component  zlib                                           ||
@@ -562,9 +547,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full sqlite sqlite-autoconf                      \
      "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
-   ! CXX="$TARGET-g++" build_component_full icu4c icu4c               \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
@@ -764,25 +746,6 @@ if ! unpack_component  SDL                                            ||
 then
   log_error "SDL stack build failed"
   exit 1
-fi
-
-if test "x$CROSSER_QT" = "xyes"
-then
-if ! unpack_component qt-everywhere-opensource-src                              ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
-   ! build_component_full  qt-everywhere-opensource-src                         \
-     qt-everywhere-opensource-src                                               \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle" \
-     "qt" "" "no"                                                               ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
-then
-  log_error "QT stack build failed"
-  exit 1
-fi
 fi
 
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
