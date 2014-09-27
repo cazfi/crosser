@@ -692,6 +692,7 @@ if ! build_component  gdk-pixbuf                                      ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
          patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))            ||
    ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
+       is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
