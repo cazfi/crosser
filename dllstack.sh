@@ -678,7 +678,7 @@ if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
    ! unpack_component gtk2                                            ||
    ! build_component  gtk2                                            \
-     "--disable-cups --disable-explicit-deps $CONF_JPEG_GTK"          ||
+     "--disable-cups --disable-explicit-deps --with-included-immodules $CONF_JPEG_GTK" ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
    ! ( is_minimum_version $VERSION_GTK3 3.10.0 ||
@@ -696,7 +696,8 @@ if ! build_component  gdk-pixbuf                                      ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
-     build_component  gtk3        "--enable-gtk2-dependency"          ||
+     build_component  gtk3                                            \
+     "--enable-gtk2-dependency --with-included-immodules"             ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
