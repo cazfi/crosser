@@ -34,6 +34,7 @@ gdk-pixbuf      GDK_PIXBUF
 gtk2            GTK2
 gtk3            GTK3
 gtk-engines     GTK_ENG
+gnome-icon-theme GNOME_ICONS
 libogg          OGG
 libvorbis       VORBIS
 SDL             SDL

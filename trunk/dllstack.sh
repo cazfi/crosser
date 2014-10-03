@@ -701,7 +701,10 @@ if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
-   ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"
+   ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
+   ! unpack_component gnome-icon-theme                                ||
+   ! build_component  gnome-icon-theme "--disable-icon-mapping"       ||
+   ! free_component   gnome-icon-theme $VERSION_GNOME_ICONS "gnome-icon-theme"
 then
   log_error "gtk+ stack build failed"
   exit 1

@@ -1,5 +1,6 @@
 0.14
 	- Build gtk2 and gtk3 with input method modules
+	- Added gnome-icon-theme (version 3.12.0) to build
 	- Added qt-everywhere (version 5.2.0) to build
 	- Added icu (version 53.1) to build
 	- Build libtool to target too
