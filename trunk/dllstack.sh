@@ -514,6 +514,11 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
+   ! unpack_component  icon-naming-utils                                    ||
+   ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
+   ! build_component_host icon-naming-utils                                 ||
+   ! free_component    icon-naming-utils $VERSION_ICON_NUTILS               \
+     "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
    ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
@@ -703,7 +708,10 @@ if ! build_component  gdk-pixbuf                                      ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
    ! unpack_component gnome-icon-theme                                ||
-   ! build_component  gnome-icon-theme "--disable-icon-mapping"       ||
+   ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
+     "gnomeitheme-build-pkgconfig"                                    ||
+   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)" \
+     build_component  gnome-icon-theme                                ||
    ! free_component   gnome-icon-theme $VERSION_GNOME_ICONS "gnome-icon-theme"
 then
   log_error "gtk+ stack build failed"
