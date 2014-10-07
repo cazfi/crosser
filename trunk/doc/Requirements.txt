@@ -17,3 +17,4 @@ dllstack.sh
 - gettext
 - libtiff development files
 - libpng development files
+- XML::Simple perl module - package libxml-simple-perl in debian system
