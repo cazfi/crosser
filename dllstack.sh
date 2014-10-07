@@ -828,6 +828,18 @@ log_write 1 "Creating crosser.txt"
   echo "Built=\"$(date +"%d.%m.%Y")\""
 ) > "$DLLSPREFIX/crosser.txt"
 
+log_write 1 "Creating configuration files"
+mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
+(
+  echo -n -e "[Settings]\r\n"
+  echo -n -e "gtk-icon-theme-name = gnome\r\n"
+) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
+
+mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
+(
+  echo -n -e "gtk-icon-theme-name = gnome\r\n"
+) > "$DLLSPREFIX/etc/gtk-2.0/gtkrc"
+
 log_write 1 "Creating setup.bat"
 (
   echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
