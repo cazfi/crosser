@@ -659,6 +659,7 @@ if ! unpack_component tiff                                                  ||
    ! build_component   cairo "--disable-xlib --enable-win32"                ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  harfbuzz                                             ||
+   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
       ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
         autogen_component harfbuzz   $VERSION_HARFBUZZ            \
