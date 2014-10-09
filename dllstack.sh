@@ -690,9 +690,6 @@ if ! build_component  gdk-pixbuf                                      ||
    ! ( is_minimum_version $VERSION_GTK3 3.10.0 ||
        patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid )    ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
-   ! ( is_smaller_version $VERSION_GTK3 3.6.0 ||
-       is_minimum_version $VERSION_GTK3 3.8.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk_nolaunch )                    ||
    ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
        is_minimum_version $VERSION_GTK3 3.10.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
@@ -701,6 +698,8 @@ if ! build_component  gdk-pixbuf                                      ||
        is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
+   ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
