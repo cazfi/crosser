@@ -30,6 +30,7 @@ libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
+libcroco          CROCO
 atk               ATK
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
