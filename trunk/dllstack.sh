@@ -704,6 +704,9 @@ if ! build_component  gdk-pixbuf                                      ||
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
+   ! unpack_component libcroco                                        ||
+   ! build_component  libcroco                                        ||
+   ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
