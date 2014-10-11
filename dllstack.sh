@@ -198,18 +198,18 @@ build_component_full()
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
     export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc -static-libstdc++"
+    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc -static-libstdc++"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -425,6 +425,8 @@ log_write 2 "Setup:      \"$SETUP\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 log_write 2 "cross-gcc:  $TARGET_GCC_VER"
 log_write 2 "cross-g++:  $TARGET_GXX_VER"
+
+CROSSER_STDCXX="-static-libstdc++"
 
 if ! remove_dir "$CROSSER_SRCDIR"    ||
    ! remove_dir "$CROSSER_BUILDDIR"  ||
@@ -678,7 +680,8 @@ if ! unpack_component tiff                                                  ||
       ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
         autogen_component harfbuzz   $VERSION_HARFBUZZ            \
           "aclocal automake autoconf" ))                                    || 
-   ! build_component   harfbuzz   "--without-icu"                           ||
+   ! CROSSER_STDCXX="-static -lstdc++ -dynamic"                             \
+     build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  pango                                                ||
    ! CXX="$TARGET-g++" build_component pango                                ||
