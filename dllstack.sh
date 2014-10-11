@@ -414,12 +414,17 @@ export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
 
+TARGET_GCC_VER=$($TARGET-gcc -dumpversion | sed 's/-.*//')
+TARGET_GXX_VER=$($TARGET-g++ -dumpversion | sed 's/-.*//')
+
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
 log_write 2 "Log:        \"$CROSSER_LOGDIR\""
 log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
 log_write 2 "Setup:      \"$SETUP\""
 log_write 2 "Versionset: \"$VERSIONSET\""
+log_write 2 "cross-gcc:  $TARGET_GCC_VER"
+log_write 2 "cross-g++:  $TARGET_GXX_VER"
 
 if ! remove_dir "$CROSSER_SRCDIR"    ||
    ! remove_dir "$CROSSER_BUILDDIR"  ||
