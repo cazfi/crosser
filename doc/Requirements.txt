@@ -21,3 +21,6 @@ dllstack.sh
 - flex
 - bison
 - itstool
+- xsltproc
+- DocBook XSL Stylesheets
+- Python development files
