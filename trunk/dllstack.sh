@@ -516,6 +516,15 @@ if ! unpack_component     autoconf                          ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib                                              ||
    ! free_build           "native-glib"                                     ||
+   ! unpack_component     gtk-doc                                           ||
+   ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
+   ! build_component_host gtk-doc                                           ||
+   ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
+     "gtk-doc"                                                              ||
+   ! unpack_component     gobject-introspection                             ||
+   ! build_component_host gobject-introspection                             ||
+   ! free_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
+     "gobject-introspection"                                                ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
