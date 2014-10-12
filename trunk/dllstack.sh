@@ -724,6 +724,11 @@ if ! build_component  gdk-pixbuf                                      ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
    ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
+   ! unpack_component librsvg                                         ||
+   ! patch_src librsvg $VERSION_RSVG "rsvg_giowin"                    ||
+   ! patch_src librsvg $VERSION_RSVG "rsvg_realpath"                  ||
+   ! build_component  librsvg     "--disable-introspection"           ||
+   ! free_component   librsvg     $VERSION_RSVG    "librsvg"          ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||

@@ -33,6 +33,7 @@ pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
 libcroco          CROCO
+librsvg           RSVG
 atk               ATK
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
