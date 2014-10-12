@@ -745,7 +745,11 @@ if ! build_component  gdk-pixbuf                                      ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)" \
      build_component  gnome-icon-theme-extras                         ||
    ! free_component   gnome-icon-theme-extras $VERSION_GNOME_ICONE    \
-     "gnome-icon-theme-extras"
+     "gnome-icon-theme-extras"                                        ||
+   ! unpack_component gnome-themes-standard                           ||
+   ! build_component  gnome-themes-standard                           ||
+   ! free_component   gnome-themes-standard $VERSION_GNOME_THEME_STD  \
+     "gnome-themes-standard"
 then
   log_error "gtk+ stack build failed"
   exit 1

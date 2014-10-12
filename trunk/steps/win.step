@@ -41,6 +41,7 @@ gtk3              GTK3
 gtk-engines       GTK_ENG
 gnome-icon-theme  GNOME_ICONS
 gnome-icon-theme-extras GNOME_ICONE
+gnome-themes-standard GNOME_THEME_STD
 libogg            OGG
 libvorbis         VORBIS
 SDL               SDL
