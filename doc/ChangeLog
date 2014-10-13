@@ -3,6 +3,7 @@
 	- Build gtk2 and gtk3 with input method modules
 	- Added icon-naming-utils (version 0.8.90) to build
 	- Added hicolor-icon-theme (version 0.13) to build
+	- Added adwaita-icon-theme (version 3.14.0) to build
 	- Added gnome-icon-theme (version 3.12.0) to build
 	- Added gnome-icon-theme-extras (version 3.12.0) to build
 	- Added libcroco (version 0.6.8) to build

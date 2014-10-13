@@ -736,6 +736,9 @@ if ! build_component  gdk-pixbuf                                      ||
    ! patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir"   ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             ||
+   ! unpack_component adwaita-icon-theme                              ||
+   ! build_component  adwaita-icon-theme                              ||
+   ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        ||
    ! unpack_component gnome-icon-theme                                ||
    ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
      "gnomeitheme-build-pkgconfig"                                    ||
