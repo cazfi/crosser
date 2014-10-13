@@ -589,6 +589,8 @@ download_needed "$MIRROR_GNOME/sources/librsvg/$RSVG_DIR/" "librsvg" "$VERSION_R
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
+download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gnome-icon-theme/$GNOME_ICON_DIR/" "gnome-icon-theme" "$VERSION_GNOME_ICONS" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gnome-icon-theme-extras/$GNOME_ICONE_DIR/" "gnome-icon-theme-extras" "$VERSION_GNOME_ICONE" "tar.xz"

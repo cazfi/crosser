@@ -732,6 +732,10 @@ if ! build_component  gdk-pixbuf                                      ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
+   ! unpack_component hicolor-icon-theme                              ||
+   ! patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir"   ||
+   ! build_component  hicolor-icon-theme                              ||
+   ! free_component   hicolor-icon-theme $VERSION_HICOLOR             ||
    ! unpack_component gnome-icon-theme                                ||
    ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
      "gnomeitheme-build-pkgconfig"                                    ||

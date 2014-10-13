@@ -39,6 +39,7 @@ gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
 gtk3              GTK3
 gtk-engines       GTK_ENG
+hicolor-icon-theme HICOLOR
 gnome-icon-theme  GNOME_ICONS
 gnome-icon-theme-extras GNOME_ICONE
 gnome-themes-standard GNOME_THEME_STD
