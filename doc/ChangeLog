@@ -1,3 +1,7 @@
+0.15
+	- Added qt-everywhere (version 5.3.2) to build
+	- Added icu (version 54.1) to build
+
 0.14
 	- Added requirements installer for Debian systems
 	- Build gtk2 and gtk3 with input method modules
@@ -10,8 +14,6 @@
 	- Added librsvg (version 2.40.5) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build
-	- Added qt-everywhere (version 5.3.2) to build
-	- Added icu (version 54.1) to build
 	- Build libtool to target too
 	- Fetch gettext as xz-compressed package
 	- Updated harfbuzz to version 0.9.35
