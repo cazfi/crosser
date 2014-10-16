@@ -3,6 +3,7 @@
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build
+	- Updated gettext to version 0.19.3
 
 0.14
 	- Added requirements installer for Debian systems
