@@ -19,8 +19,6 @@ sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
 gettext           GETTEXT
 glib              GLIB
-gtk-doc           GTK_DOC
-gobject-introspection GOBJ_INTRO
 jpeg              JPEG
 tiff              TIFF
 expat             EXPAT
