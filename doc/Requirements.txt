@@ -18,9 +18,3 @@ dllstack.sh
 - libtiff development files
 - libpng development files
 - XML::Simple perl module - package libxml-simple-perl in debian system
-- flex
-- bison
-- itstool
-- xsltproc
-- DocBook XSL Stylesheets
-- Python development files

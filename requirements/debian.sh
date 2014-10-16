@@ -20,11 +20,6 @@ PACKAGES="\
  libxml-simple-perl \
  libtiff5-dev \
  xsltproc \
- itstool \
- flex \
- bison \
- docbook-xsl \
- python-dev \
  intltool \
 "
 
