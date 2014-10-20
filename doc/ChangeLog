@@ -11,7 +11,6 @@
 	- Dropped Harfbuzz from build
 	- Build libtool to target too
 	- Fetch gettext as xz-compressed package
-	- Updated harfbuzz to version 0.9.35
 	- Updated ImageMagick to version 6.8.9-8
 	- Updated pango to version 1.36.8
 	- Updated libpng to version 1.6.13
