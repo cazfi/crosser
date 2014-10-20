@@ -236,6 +236,18 @@ download_patches() {
   return 2
 }
 
+# $1 - Version number
+major.minor_from_version()
+{
+  if test "x$1" = "x" ; then
+    DIRVER=$VERSION_SELECTED
+  else
+    DIRVER=$1
+  fi
+
+  echo $DIRVER | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "$MAJOR.$MINOR")
+}
+
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
@@ -396,12 +408,12 @@ GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATC
 GTK2_DIR="$(echo $VERSION_GTK2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-ADWAITA_ICON_DIR="$(echo $VERSION_ADWAITA_ICON | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GNOME_ICON_DIR="$(echo $VERSION_GNOME_ICONS | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GNOME_ICONE_DIR="$(echo $VERSION_GNOME_ICONE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GNOME_THEME_STD_DIR="$(echo $VERSION_GNOME_THEME_STD | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-CROCO_DIR="$(echo $VERSION_CROCO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-RSVG_DIR="$(echo $VERSION_RSVG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
+GNOME_ICON_DIR="$(major.minor_from_version $VERSION_GNOME_ICONS)"
+GNOME_ICONE_DIR="$(major.minor_from_version $VERSION_GNOME_ICONE)"
+GNOME_THEME_STD_DIR="$(major.minor_from_version $VERSION_GNOME_THEME_STD)"
+CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
+RSVG_DIR="$(major.minor_from_version $VERSION_RSVG)"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 
