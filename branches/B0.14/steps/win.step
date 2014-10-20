@@ -24,7 +24,6 @@ tiff              TIFF
 expat             EXPAT
 freetype          FREETYPE
 fontconfig        FONTCONFIG
-harfbuzz          HARFBUZZ
 libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO

@@ -650,15 +650,6 @@ if ! unpack_component tiff                                                  ||
        patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
    ! build_component   cairo "--disable-xlib --enable-win32"                ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
-   ! unpack_component  harfbuzz                                             ||
-   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
-      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
-        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
-          "aclocal automake autoconf" ))                                    || 
-   ! CROSSER_STDCXX="-static -lstdc++ -dynamic"                             \
-     build_component   harfbuzz   "--without-icu"                           ||
-   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  pango                                                ||
    ! CXX="$TARGET-g++" build_component pango                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
