@@ -3,6 +3,8 @@
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build
+	- Restored harfbuzz (version 0.9.35) to build
+	- Downgraded fontconfig to 2.10.2
 	- Updated gettext to version 0.19.3
 
 0.14
@@ -15,9 +17,9 @@
 	- Added gnome-icon-theme-extras (version 3.12.0) to build
 	- Added libcroco (version 0.6.8) to build
 	- Added librsvg (version 2.40.5) to build
+	- Dropped Harfbuzz from build
 	- Build libtool to target too
 	- Fetch gettext as xz-compressed package
-	- Updated harfbuzz to version 0.9.35
 	- Updated ImageMagick to version 6.8.9-8
 	- Updated pango to version 1.36.8
 	- Updated libpng to version 1.6.13
@@ -27,6 +29,7 @@
 	- Updated glib to version 2.42.0
 	- Updated atk to version 2.14.0
 	- Updated gtk3 to version 3.14.3
+	- Updated fontconfig to version 2.11.1
 
 0.13.3 (21-Sep-14)
 	- Fixed downloading of libpng
