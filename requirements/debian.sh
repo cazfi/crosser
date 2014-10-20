@@ -21,6 +21,7 @@ PACKAGES="\
  libtiff5-dev \
  xsltproc \
  intltool \
+ libtiff5-dev \
 "
 
 if test "$UID" != "0" ; then
