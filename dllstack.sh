@@ -826,6 +826,7 @@ mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
   echo -n -e "[Settings]\r\n"
   echo -n -e "gtk-fallback-icon-theme = gnome\r\n"
   echo -n -e "gtk-button-images = true\r\n"
+  echo -n -e "gtk-menu-images = true\r\n"
 ) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
 
 mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
