@@ -647,14 +647,6 @@ if ! unpack_component tiff                                                  ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  fontconfig                                           ||
-   ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
-       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags)  ||
-   ! ( is_smaller_version $VERSION_FONTCONFIG 2.10 ||
-       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_cross )          ||
-   ! ( ! cmp_versions $VERSION_FONTCONFIG 2.11 ||
-       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_disable_test )   ||
-   ! autogen_component fontconfig $VERSION_FONTCONFIG                       \
-      "libtoolize aclocal automake autoconf"                                ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
