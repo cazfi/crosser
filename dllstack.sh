@@ -597,15 +597,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
-   ! ( is_minimum_version $VERSION_GETTEXT 0.18.3 ||
-       patch_src         gettext    $VERSION_GETTEXT gettext_cdecl )  ||
-   ! ( is_minimum_version $VERSION_GETTEXT 0.18.2 ||
-       ( patch_src gettext $VERSION_GETTEXT gettext_cxx_tools &&
-         ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
-           libtoolize &&
-           ./autogen.sh --quick --skip-gnulib ) \
-           >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-     ))                                                               ||
    ! (export LIBS="-liconv" && build_component gettext                \
       "$GETTEXT_VARS --enable-relocatable --enable-threads=windows" ) ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
