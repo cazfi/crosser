@@ -5,7 +5,6 @@
 	- Added host gobject-introspection (version 1.42.0) to build
 	- Restored harfbuzz (version 0.9.35) to build
 	- Downgraded fontconfig to 2.10.2
-	- Updated gettext to version 0.19.3
 	- Updated cairo to version 1.14.0
 	- Updated sqlite to version 3.8.7
 
@@ -32,6 +31,7 @@
 	- Updated atk to version 2.14.0
 	- Updated gtk3 to version 3.14.4
 	- Updated fontconfig to version 2.11.1
+	- Updated gettext to version 0.19.3
 
 0.13.3 (21-Sep-14)
 	- Fixed downloading of libpng
