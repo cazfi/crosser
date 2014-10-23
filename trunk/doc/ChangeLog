@@ -7,6 +7,7 @@
 	- Downgraded fontconfig to 2.10.2
 	- Updated gettext to version 0.19.3
 	- Updated cairo to version 1.14.0
+	- Updated sqlite to version 3.8.7
 
 0.14
 	- Added requirements installer for Debian systems
