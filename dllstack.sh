@@ -482,6 +482,7 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
+CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
@@ -655,7 +656,7 @@ if ! unpack_component tiff                                                  ||
        patch_src         cairo $VERSION_CAIRO cairo_epsilon )               ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
-   ! build_component   cairo "--disable-xlib --enable-win32"                ||
+   ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  harfbuzz                                             ||
    ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||

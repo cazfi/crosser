@@ -6,6 +6,7 @@
 	- Restored harfbuzz (version 0.9.35) to build
 	- Downgraded fontconfig to 2.10.2
 	- Updated gettext to version 0.19.3
+	- Updated cairo to version 1.14.0
 
 0.14
 	- Added requirements installer for Debian systems
