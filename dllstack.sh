@@ -494,7 +494,8 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host automake                          ||
    ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
    ! unpack_component     libtool                           ||
-   ! patch_src libtool $VERSION_LIBTOOL libtool_bash        ||
+   ! ( is_minimum_version $VERSION_LIBTOOL 2.4.3 ||
+       patch_src libtool $VERSION_LIBTOOL libtool_bash )    ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$BASEVER_LIBTOOL"                   ||
    ! free_build           "native-libtool"                               ||
