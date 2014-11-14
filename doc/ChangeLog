@@ -8,6 +8,7 @@
 	- Updated cairo to version 1.14.0
 	- Updated libtool to version 2.4.3
 	- Updated libpng to version 1.6.14
+	- Updated gtk3 to version 3.14.5
 
 0.14
 	- Added requirements installer for Debian systems
