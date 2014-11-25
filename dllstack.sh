@@ -882,6 +882,12 @@ log_write 1 "Creating setup.bat"
   echo -n -e "bin\gtk-update-icon-cache.exe share\icons\gnome\r\n"
   echo -n -e "bin\gtk-update-icon-cache.exe share\icons\hicolor\r\n"
 ) > "$DLLSPREFIX/setup.bat"
+
+log_write 1 "Creating launch.bat"
+(
+  echo -n -e "set PATH=%~dp0\\\bin;%PATH%\r\n"
+) > "$DLLSPREFIX/launch.bat"
+
 log_write 1 "IMPORTANT: Remember to run setup.bat when installing to target"
 
 log_write 1 "SUCCESS"
