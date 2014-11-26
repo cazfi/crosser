@@ -1,4 +1,5 @@
 0.14
+	- Create launch.bat to dllstack root
 	- Added requirements installer for Debian systems
 	- Build gtk2 and gtk3 with input method modules
 	- Added icon-naming-utils (version 0.8.90) to build
