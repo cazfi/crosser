@@ -119,7 +119,7 @@ build_component_host()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config')
+# [$4] - Build type ('native' | 'windres' | 'cross' | 'pkg-config')
 # [$5] - Src subdir 
 # [$6] - Make options
 # [$7] - Version
@@ -199,13 +199,6 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-  elif test "x$4" = "xqt"
-  then
-    CONFOPTIONS="-prefix $DLLSPREFIX $3"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
@@ -482,8 +475,6 @@ BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
-CAIRO_VARS="$(read_configure_vars cairo)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
@@ -520,15 +511,6 @@ if ! unpack_component     autoconf                          ||
         touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib                                              ||
    ! free_build           "native-glib"                                     ||
-   ! unpack_component     gtk-doc                                           ||
-   ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
-   ! build_component_host gtk-doc                                           ||
-   ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
-     "gtk-doc"                                                              ||
-   ! unpack_component     gobject-introspection                             ||
-   ! build_component_host gobject-introspection                             ||
-   ! free_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
-     "gobject-introspection"                                                ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
@@ -537,10 +519,6 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host icon-naming-utils                                 ||
    ! free_component    icon-naming-utils $VERSION_ICON_NUTILS               \
      "native-icon-naming-utils"                                             ||
-   ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
-   ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
-   ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
-   ! free_build           "native-icu4c"                                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
@@ -585,9 +563,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full sqlite sqlite-autoconf                      \
      "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
-   ! CXX="$TARGET-g++" build_component_full icu4c icu4c               \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
@@ -599,8 +574,17 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
-   ! LIBS="-liconv" build_component gettext                           \
-     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows"    ||
+   ! ( is_minimum_version $VERSION_GETTEXT 0.18.3 ||
+       patch_src         gettext    $VERSION_GETTEXT gettext_cdecl )  ||
+   ! ( is_minimum_version $VERSION_GETTEXT 0.18.2 ||
+       ( patch_src gettext $VERSION_GETTEXT gettext_cxx_tools &&
+         ( cd "$CROSSER_SRCDIR/gettext-$VERSION_GETTEXT" &&
+           libtoolize &&
+           ./autogen.sh --quick --skip-gnulib ) \
+           >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+     ))                                                               ||
+   ! (export LIBS="-liconv" && build_component gettext                \
+      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows" ) ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI    "libffi"            ||
@@ -640,6 +624,14 @@ if ! unpack_component tiff                                                  ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  fontconfig                                           ||
+   ! ( is_minimum_version $VERSION_FONTCONFIG 2.10 ||
+       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_buildsys_flags)  ||
+   ! ( is_smaller_version $VERSION_FONTCONFIG 2.10 ||
+       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_cross )          ||
+   ! ( ! cmp_versions $VERSION_FONTCONFIG 2.11 ||
+       patch_src fontconfig $VERSION_FONTCONFIG fontconfig_disable_test )   ||
+   ! autogen_component fontconfig $VERSION_FONTCONFIG                       \
+      "libtoolize aclocal automake autoconf"                                ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
@@ -657,17 +649,8 @@ if ! unpack_component tiff                                                  ||
        patch_src         cairo $VERSION_CAIRO cairo_epsilon )               ||
    ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
        patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
-   ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
+   ! build_component   cairo "--disable-xlib --enable-win32"                ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
-   ! unpack_component  harfbuzz                                             ||
-   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
-      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
-        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
-          "aclocal automake autoconf" ))                                    || 
-   ! CROSSER_STDCXX="-static -lstdc++ -dynamic"                             \
-     build_component   harfbuzz   "--without-icu"                           ||
-   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  pango                                                ||
    ! CXX="$TARGET-g++" build_component pango                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
@@ -702,8 +685,6 @@ if ! build_component  gdk-pixbuf                                      ||
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
-   ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
-      patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
@@ -808,25 +789,6 @@ if ! unpack_component  SDL                                            ||
 then
   log_error "SDL stack build failed"
   exit 1
-fi
-
-if test "x$CROSSER_QT" = "xyes"
-then
-if ! unpack_component qt-everywhere-opensource-src                              ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
-   ! build_component_full  qt-everywhere-opensource-src                         \
-     qt-everywhere-opensource-src                                               \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle -no-opengl" \
-     "qt" "" "no"                                                               ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
-then
-  log_error "QT stack build failed"
-  exit 1
-fi
 fi
 
 if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
