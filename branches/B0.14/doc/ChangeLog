@@ -1,4 +1,4 @@
-0.14
+0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
 	- Added requirements installer for Debian systems
 	- Build gtk2 and gtk3 with input method modules
