@@ -1,0 +1,19 @@
+diff -Nurd gdk-pixbuf-2.30.0/tests/Makefile.am gdk-pixbuf-2.30.0/tests/Makefile.am
+--- gdk-pixbuf-2.30.0/tests/Makefile.am	2013-06-24 03:19:49.000000000 +0300
++++ gdk-pixbuf-2.30.0/tests/Makefile.am	2013-09-27 13:22:15.325812840 +0300
+@@ -20,7 +20,6 @@
+ 	animation			\
+ 	pixbuf-read			\
+ 	pixbuf-lowmem			\
+-	pixbuf-randomly-modified	\
+ 	pixbuf-random			\
+ 	pixbuf-threads			\
+ 	pixbuf-icon-serialize		\
+@@ -29,7 +28,6 @@
+ test_programs = 			\
+ 	animation			\
+ 	pixbuf-icon-serialize 		\
+-	pixbuf-randomly-modified	\
+ 	pixbuf-threads			\
+ 	$(NULL)
+ 

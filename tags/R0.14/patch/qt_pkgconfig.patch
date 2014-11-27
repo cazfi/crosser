@@ -1,0 +1,13 @@
+diff -Nurd qt-everywhere-opensource-src-5.1.0/qtbase/configure qt-everywhere-opensource-src-5.1.0/qtbase/configure
+--- qt-everywhere-opensource-src-5.1.0/qtbase/configure	2013-08-26 02:26:43.562749060 +0300
++++ qt-everywhere-opensource-src-5.1.0/qtbase/configure	2013-08-26 12:03:52.355914547 +0300
+@@ -4105,6 +4105,9 @@
+     # See if PKG_CONFIG is set in the mkspec:
+     PKG_CONFIG="`"$outpath/bin/qmake" -E -nocache -spec "$XQMAKESPEC" "CONFIG=" $DEV_NULL 2>&1 | sed -n -e 's,^PKG_CONFIG = \(.*\),\1,p'`"
+ fi
++if [ -z "$PKG_CONFIG" ] && [ "$QT_CROSS_COMPILE" = "yes" ]; then
++    PKG_CONFIG=`"$WHICH" ${CROSS_COMPILE}pkg-config 2>/dev/null`
++fi
+ if [ -z "$PKG_CONFIG" ]; then
+     PKG_CONFIG=`"$WHICH" pkg-config 2>/dev/null`
+ fi

@@ -1,0 +1,15 @@
+diff -Nurd gdk-pixbuf-2.24.1/gdk-pixbuf/io-gdip-animation.c gdk-pixbuf-2.24.1/gdk-pixbuf/io-gdip-animation.c
+--- gdk-pixbuf-2.24.1/gdk-pixbuf/io-gdip-animation.c	2011-12-16 23:43:53.000000000 +0200
++++ gdk-pixbuf-2.24.1/gdk-pixbuf/io-gdip-animation.c	2012-01-12 17:30:32.135991434 +0200
+@@ -162,6 +162,11 @@
+ static gboolean   gdk_pixbuf_gdip_anim_iter_advance                    (GdkPixbufAnimationIter *iter,
+                                                                        const GTimeVal         *current_time);
+ 
++static void
++gdk_pixbuf_gdip_anim_iter_init (GdkPixbufGdipAnimIter *iter)
++{
++}
++
+ G_DEFINE_TYPE (GdkPixbufGdipAnimIter, gdk_pixbuf_gdip_anim_iter, GDK_TYPE_PIXBUF_ANIMATION_ITER);
+ 
+ static void
