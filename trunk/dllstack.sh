@@ -888,6 +888,11 @@ log_write 1 "Creating launch.bat"
   echo -n -e "set PATH=%~dp0\\\bin;%PATH%\r\n"
 ) > "$DLLSPREFIX/launch.bat"
 
+if test "x$CROSSER_QT" = "xyes"
+then
+    echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\plugins\r\n" >> "$DLLSPREFIX/launch.bat"
+fi
+
 log_write 1 "IMPORTANT: Remember to run setup.bat when installing to target"
 
 log_write 1 "SUCCESS"
