@@ -3,12 +3,14 @@
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build
-	- Restored harfbuzz (version 0.9.35) to build
+	- Restored harfbuzz (version 0.9.36) to build
 	- Downgraded fontconfig to 2.10.2
 	- Updated cairo to version 1.14.0
-	- Updated libtool to version 2.4.3
-	- Updated libpng to version 1.6.14
+	- Updated libtool to version 2.4.4
+	- Updated libpng to version 1.6.15
 	- Updated gtk3 to version 3.14.5
+	- Updated ffi to version 3.2.1
+	- Updated gnome-themes-standard to version 3.14.2.3
 
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
