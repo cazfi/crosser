@@ -1,3 +1,6 @@
+0.14.1
+	- Removed mention of not-yet-supported CROSSER_QT from setup.txt
+
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
 	- Added requirements installer for Debian systems
