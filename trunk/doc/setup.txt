@@ -133,7 +133,7 @@ CROSSER_GROUP
  ; Currently this applies to downloaded source packets.
 
 CROSSER_QT
- ; If set to value "no", Qt will not be built as part of crosser
+ ; If set to value "yes", Qt will be built as part of crosser
 
 =======================================================================
 
