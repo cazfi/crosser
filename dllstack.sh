@@ -857,6 +857,7 @@ log_write 1 "Creating crosser.txt"
   echo "Setup=\"$SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
+  echo "CROSSER_QT=\"$CROSSER_QT\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"

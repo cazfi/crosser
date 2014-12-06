@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2012 Marko Lindqvist
+# (c) 2008-2014 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -90,4 +90,11 @@ fi
 if test "x$DLLSPREFIX" = "x" && test "x$PREFIX" != "x" ; then
   echo "Configuration variable PREFIX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$PREFIX"
+fi
+if test "x$CROSSER_QT" = "x" ; then
+    CROSSER_QT="no"
+fi
+if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
+    echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
+    exit 1
 fi
