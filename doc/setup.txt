@@ -132,9 +132,6 @@ CROSSER_GROUP
  ; If set, some files crosser produces are set owned by that user group.
  ; Currently this applies to downloaded source packets.
 
-CROSSER_QT
- ; If set to value "no", Qt will not be built as part of crosser
-
 =======================================================================
 
 local_setup.conf is actually shell script fragment. Here are some things
