@@ -712,8 +712,9 @@ if ! build_component  gdk-pixbuf                                      ||
    ! build_component  libcroco                                        ||
    ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
    ! unpack_component librsvg                                         ||
-   ! patch_src librsvg $VERSION_RSVG "rsvg_giowin"                    ||
-   ! patch_src librsvg $VERSION_RSVG "rsvg_realpath"                  ||
+   ! (is_minimum_version  $VERSION_RSVG 2.40.6 ||
+       (patch_src librsvg $VERSION_RSVG "rsvg_giowin" &&
+        patch_src librsvg $VERSION_RSVG "rsvg_realpath"))             ||
    ! build_component  librsvg     "--disable-introspection"           ||
    ! free_component   librsvg     $VERSION_RSVG    "librsvg"          ||
    ! unpack_component gtk-engines                                     ||
