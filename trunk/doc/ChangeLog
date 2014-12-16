@@ -8,11 +8,12 @@
 	- Updated cairo to version 1.14.0
 	- Updated libtool to version 2.4.4
 	- Updated libpng to version 1.6.15
-	- Updated gtk3 to version 3.14.5
+	- Updated gtk3 to version 3.14.6
 	- Updated ffi to version 3.2.1
 	- Updated gnome-themes-standard to version 3.14.2.3
 	- Updated librsvg to version 2.40.6
 	- Updated freetype to version 2.5.4
+	- Updated sqlite to version 3.8.7.4
 
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
