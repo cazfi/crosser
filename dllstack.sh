@@ -600,7 +600,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
    ! LIBS="-liconv" build_component gettext                           \
-     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows"    ||
+     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI    "libffi"            ||
