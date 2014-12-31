@@ -14,6 +14,7 @@
 	- Updated librsvg to version 2.40.6
 	- Updated freetype to version 2.5.4
 	- Updated sqlite to version 3.8.7.4
+	- Updated xz to version 5.2.0
 
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
