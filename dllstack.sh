@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -662,10 +662,6 @@ if ! unpack_component tiff                                                  ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  harfbuzz                                             ||
    ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 0.9.18 ||
-      ( patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_icu_disable &&
-        autogen_component harfbuzz   $VERSION_HARFBUZZ            \
-          "aclocal automake autoconf" ))                                    || 
    ! CROSSER_STDCXX="-static -lstdc++ -dynamic"                             \
      build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
