@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -401,6 +401,7 @@ then
     qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
+    hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -532,6 +533,13 @@ else
   GETTEXT_PACK="tar.gz"
 fi
 
+if is_minimum_version $VERSION_HICOLOR 0.14
+then
+  HICOLOR_PACK="tar.xz"
+else
+  HICOLOR_PACK="tar.gz"
+fi
+
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
 RET="$?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
@@ -602,7 +610,7 @@ download_needed "$MIRROR_GNOME/sources/librsvg/$RSVG_DIR/" "librsvg" "$VERSION_R
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
-download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.gz"
+download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "$HICOLOR_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/adwaita-icon-theme/$ADWAITA_ICON_DIR/" "adwaita-icon-theme" "$VERSION_ADWAITA_ICON" "tar.xz"
 RET="$RET $?"

@@ -718,7 +718,8 @@ if ! build_component  gdk-pixbuf                                      ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
    ! unpack_component hicolor-icon-theme                              ||
-   ! patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir"   ||
+   ! (is_minimum_version $VERSION_HICOLOR 0.14 ||
+      patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir") ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             ||
    ! unpack_component adwaita-icon-theme                              ||
