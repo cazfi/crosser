@@ -1,5 +1,6 @@
 0.15
 	- Optionally added qt-everywhere (version 5.3.2) to build
+	- Fixed download phase not to fail when component disabled
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build

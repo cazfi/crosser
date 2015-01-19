@@ -171,6 +171,10 @@ download_needed() {
   else
     PACKVER="$VERSION_SELECTED"
   fi
+  if test "x$PACKVER" = "x0" ; then
+    echo "$2 disabled, not downloading."
+    return 2
+  fi
 
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
