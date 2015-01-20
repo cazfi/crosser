@@ -432,12 +432,12 @@ READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.8.3
+if is_minimum_version $VERSION_SQLITE 3.8.8
+then
+   SQL_SUBDIR="2015/"
+elif is_minimum_version $VERSION_SQLITE 3.8.3
 then
    SQL_SUBDIR="2014/"
-elif is_minimum_version $VERSION_SQLITE 3.7.16.1
-then
-   SQL_SUBDIR="2013/"
 else
    SQL_SUBDIR=""
 fi
