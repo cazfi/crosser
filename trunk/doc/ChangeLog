@@ -7,7 +7,7 @@
 	- Restored harfbuzz (version 0.9.37) to build
 	- Downgraded fontconfig to 2.10.2
 	- Updated cairo to version 1.14.0
-	- Updated libtool to version 2.4.4
+	- Updated libtool to version 2.4.5
 	- Updated libpng to version 1.6.16
 	- Updated gtk3 to version 3.14.7
 	- Updated ffi to version 3.2.1
