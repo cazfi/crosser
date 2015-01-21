@@ -470,13 +470,6 @@ else
   AUTOMAKE_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_LIBTOOL 2.2.6a
-then
-  LIBTOOL_PACK="tar.gz"
-else
-  LIBTOOL_PACK="tar.bz2"
-fi
-
 if is_minimum_version $VERSION_AUTOCONF 2.68b
 then
   AUTOCONF_PACK="tar.xz"
@@ -544,7 +537,7 @@ else
   HICOLOR_PACK="tar.gz"
 fi
 
-download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "$LIBTOOL_PACK"
+download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
 RET="$RET $?"
