@@ -19,6 +19,7 @@
 	- Updated gettext to version 0.19.4
 	- Updated hicolor-icon-theme to version 0.14
 	- Updated curl to version 7.40.0
+	- Updated gtk2 to version 2.24.25
 
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
