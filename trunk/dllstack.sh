@@ -682,6 +682,8 @@ fi
 if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
    ! unpack_component gtk2                                            ||
+   ! ( is_max_version $VERSION_GTK2 2.24.20 ||
+       patch_src gtk+ $VERSION_GTK2 gtk2_revert_695636 )              ||
    ! build_component  gtk2                                            \
      "--disable-cups --disable-explicit-deps --with-included-immodules $CONF_JPEG_GTK" ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
