@@ -20,6 +20,7 @@
 	- Updated hicolor-icon-theme to version 0.14
 	- Updated curl to version 7.40.0
 	- Updated gtk2 to version 2.24.25
+	- Updated libxml2 to version 2.9.2
 
 0.14 (27-Nov-14)
 	- Create launch.bat to dllstack root
