@@ -9,17 +9,17 @@
 	- Updated cairo to version 1.14.0
 	- Updated libtool to version 2.4.5
 	- Updated libpng to version 1.6.16
-	- Updated gtk3 to version 3.14.7
+	- Updated gtk3 to version 3.14.8
 	- Updated ffi to version 3.2.1
 	- Updated gnome-themes-standard to version 3.14.2.3
-	- Updated librsvg to version 2.40.6
+	- Updated librsvg to version 2.40.7
 	- Updated freetype to version 2.5.5
-	- Updated sqlite to version 3.8.8.1
+	- Updated sqlite to version 3.8.8.2
 	- Updated xz to version 5.2.0
 	- Updated gettext to version 0.19.4
 	- Updated hicolor-icon-theme to version 0.14
 	- Updated curl to version 7.40.0
-	- Updated gtk2 to version 2.24.25
+	- Updated gtk2 to version 2.24.26
 	- Updated libxml2 to version 2.9.2
 
 0.14 (27-Nov-14)
