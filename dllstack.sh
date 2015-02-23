@@ -199,6 +199,7 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+    export CC="$TARGET-gcc -static-libgcc"
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
@@ -206,10 +207,12 @@ build_component_full()
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
+    export CC="$TARGET-gcc -static-libgcc"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+    export CC="$TARGET-gcc -static-libgcc"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -271,7 +274,7 @@ build_zlib()
   fi
 
   (
-  export CC=$TARGET-gcc
+  export CC="$TARGET-gcc -static-libgcc"
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
 
@@ -348,7 +351,7 @@ build_bzip2()
     return 1
   fi
 
-  export CC=$TARGET-gcc
+  export CC="$TARGET-gcc -static-libgcc"
   export RANLIB=$TARGET-ranlib
   export AR=$TARGET-ar
   export PREFIX=$DLLSPREFIX
