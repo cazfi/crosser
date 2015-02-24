@@ -1,5 +1,6 @@
 0.15
 	- Optionally added qt-everywhere (version 5.3.2) to build
+	- Force static linking of libgcc and libstdc++
 	- Fixed download phase not to fail when component disabled
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
