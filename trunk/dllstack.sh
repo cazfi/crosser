@@ -690,13 +690,7 @@ if ! build_component  gdk-pixbuf                                      ||
      "--disable-cups --disable-explicit-deps --with-included-immodules $CONF_JPEG_GTK" ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
-   ! ( is_minimum_version $VERSION_GTK3 3.10.0 ||
-       patch_src        gtk+      $VERSION_GTK3 gtk2_no_initguid )    ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
-   ! ( is_smaller_version $VERSION_GTK3 3.8.0 ||
-       is_minimum_version $VERSION_GTK3 3.10.0 ||
-       ( patch_src gtk+ $VERSION_GTK3 gtk3_nativeuic &&
-         patch_src gtk+ $VERSION_GTK3 gtk3_no_buildintl ))            ||
    ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
        is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
