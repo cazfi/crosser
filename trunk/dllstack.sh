@@ -200,6 +200,7 @@ build_component_full()
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$TARGET-gcc -static-libgcc"
+    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
@@ -208,11 +209,13 @@ build_component_full()
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$TARGET-gcc -static-libgcc"
+    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$TARGET-gcc -static-libgcc"
+    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -588,7 +591,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full sqlite sqlite-autoconf                      \
      "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
-   ! CXX="$TARGET-g++" build_component_full icu4c icu4c               \
+   ! build_component_full icu4c icu4c                                    \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  ImageMagick                                    ||
@@ -670,7 +673,7 @@ if ! unpack_component tiff                                                  ||
      build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  pango                                                ||
-   ! CXX="$TARGET-g++" build_component pango                                ||
+   ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
    ! ( is_minimum_version $VERSION_ATK     2.8.0  ||
