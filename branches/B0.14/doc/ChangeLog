@@ -1,4 +1,5 @@
 0.14.1
+	- Updated expat download URL
 	- Removed mention of not-yet-supported CROSSER_QT from setup.txt
 
 0.14 (27-Nov-14)
