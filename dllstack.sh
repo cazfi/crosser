@@ -208,8 +208,6 @@ build_component_full()
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$TARGET-gcc -static-libgcc"
-    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
