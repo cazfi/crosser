@@ -1,0 +1,8 @@
+diff -Nurd qt-everywhere-opensource-src-5.3.1/qtactiveqt/src/src.pro qt-everywhere-opensource-src-5.3.1/qtactiveqt/src/src.pro
+--- qt-everywhere-opensource-src-5.3.1/qtactiveqt/src/src.pro	2014-06-19 13:07:53.000000000 +0300
++++ qt-everywhere-opensource-src-5.3.1/qtactiveqt/src/src.pro	2014-08-23 11:35:12.718486972 +0300
+@@ -1,4 +1,3 @@
+ TEMPLATE = subdirs
+ SUBDIRS = activeqt
+-win32:!winrt: SUBDIRS += tools
+ CONFIG += ordered
