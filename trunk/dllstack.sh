@@ -509,8 +509,6 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
    ! unpack_component     pkg-config                                        ||
-   ! (! cmp_versions $VERSION_PKG_CONFIG 0.25 ||
-      patch_src pkg-config $VERSION_PKG_CONFIG pkgconfig_ac266)             ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
    ! free_component       "native-pkg-config"                               ||
