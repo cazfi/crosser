@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -20,7 +20,7 @@ then
 fi
 
 CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
-BUILD_DATE=$(date +"%d.%m.%y")
+CROSSER_BUILD_DATE=$(date +"%d.%m.%y")
 
 if test "x$LOGLEVEL_STDOUT" = "x" ; then
   LOGLEVEL_STDOUT=2
@@ -424,7 +424,7 @@ autogen_component()
 # $1   - Prefix to parse
 setup_prefix() {
   echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
-                -e "s/<DATE>/$BUILD_DATE/g" \
+                -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
                 -e "s/<VERSIONSET>/$VERSIONSET/g" \
                 -e "s/<SETUP>/$SETUP/g"
