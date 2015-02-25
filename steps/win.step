@@ -14,20 +14,16 @@ libpng            PNG
 zlib              ZLIB
 bzip2             BZIP2
 xz                XZ
-icu4c             ICU
 curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
 gettext           GETTEXT
 glib              GLIB
-gtk-doc           GTK_DOC
-gobject-introspection GOBJ_INTRO
 jpeg              JPEG
 tiff              TIFF
 expat             EXPAT
 freetype          FREETYPE
 fontconfig        FONTCONFIG
-harfbuzz          HARFBUZZ
 libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO
@@ -57,4 +53,4 @@ SDL2_gfx          SDL2_GFX
 SDL2_ttf          SDL2_TTF
 SDL2_mixer        SDL2_MIXER
 libxml2           XML2
-qt-everywhere-opensource-src    QT
+
