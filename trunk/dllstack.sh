@@ -645,6 +645,9 @@ if ! unpack_component tiff                                                  ||
         autogen_component freetype $VERSION_FREETYPE ))                     ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
+   ! unpack_component  harfbuzz                                             ||
+   ! build_component   harfbuzz   "--without-icu"                           ||
+   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
@@ -665,11 +668,6 @@ if ! unpack_component tiff                                                  ||
        patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
-   ! unpack_component  harfbuzz                                             ||
-   ! patch_src harfbuzz $VERSION_HARFBUZZ harfbuzz_cxx_link                 ||
-   ! CROSSER_STDCXX="-static -lstdc++ -dynamic"                             \
-     build_component   harfbuzz   "--without-icu"                           ||
-   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  pango                                                ||
    ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
