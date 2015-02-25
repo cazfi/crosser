@@ -575,7 +575,7 @@ download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v$
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
+download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/expat/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
 RET="$RET $?"
