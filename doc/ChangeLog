@@ -22,7 +22,7 @@
 	- Updated gtk2 to version 2.24.26
 	- Updated libxml2 to version 2.9.2
 
-0.14.1
+0.14.1 (25-Feb-15)
 	- Updated expat download URL
 	- Removed mention of not-yet-supported CROSSER_QT from setup.txt
 
