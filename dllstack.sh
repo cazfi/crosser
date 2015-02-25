@@ -500,8 +500,6 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host automake                          ||
    ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
    ! unpack_component     libtool                           ||
-   ! ( is_minimum_version $VERSION_LIBTOOL 2.4.3 ||
-       patch_src libtool $VERSION_LIBTOOL libtool_bash )    ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$BASEVER_LIBTOOL"                   ||
    ! free_build           "native-libtool"                               ||
@@ -603,7 +601,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
-   ! patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc" ||
+   ! (is_smaller_version $VERSION_GETTEXT 0.19 ||
+      patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc") ||
    ! LIBS="-liconv" build_component gettext                           \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
