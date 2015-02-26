@@ -21,6 +21,7 @@
 	- Updated curl to version 7.41.0
 	- Updated gtk2 to version 2.24.26
 	- Updated libxml2 to version 2.9.2
+	- Updated ImageMagick to version 6.9.0-7
 
 0.14.1 (25-Feb-15)
 	- Updated expat download URL
