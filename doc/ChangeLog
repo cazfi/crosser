@@ -9,7 +9,7 @@
 	- Updated cairo to version 1.14.0
 	- Updated libtool to version 2.4.6
 	- Updated libpng to version 1.6.16
-	- Updated gtk3 to version 3.14.8
+	- Updated gtk3 to version 3.14.9
 	- Updated ffi to version 3.2.1
 	- Updated gnome-themes-standard to version 3.14.2.3
 	- Updated librsvg to version 2.40.7
@@ -22,6 +22,8 @@
 	- Updated gtk2 to version 2.24.26
 	- Updated libxml2 to version 2.9.2
 	- Updated ImageMagick to version 6.9.0-7
+	- Updated glib to version 2.42.2
+	- Updated automake to version 1.15
 
 0.14.1 (25-Feb-15)
 	- Updated expat download URL
