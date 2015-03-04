@@ -475,7 +475,12 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-  if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "win" "$VERSIONSET" )
+    if test "x$CROSSER_QT" = "xyes" ; then
+        steplist="win,full"
+    else
+        steplist="win"
+    fi
+    if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
   then
     log_error "Downloading packets failed"
     exit 1
