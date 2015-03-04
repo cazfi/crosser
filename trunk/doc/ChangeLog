@@ -12,10 +12,10 @@
 	- Updated gtk3 to version 3.14.9
 	- Updated ffi to version 3.2.1
 	- Updated gnome-themes-standard to version 3.14.2.3
-	- Updated librsvg to version 2.40.7
+	- Updated librsvg to version 2.40.8
 	- Updated freetype to version 2.5.5
 	- Updated sqlite to version 3.8.8.3
-	- Updated xz to version 5.2.0
+	- Updated xz to version 5.2.1
 	- Updated gettext to version 0.19.4
 	- Updated hicolor-icon-theme to version 0.14
 	- Updated curl to version 7.41.0
