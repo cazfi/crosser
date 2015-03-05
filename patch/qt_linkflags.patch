@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-opensource-src-5.4.1/qtbase/mkspecs/win32-g++/qmake.conf qt-everywhere-opensource-src-5.4.1/qtbase/mkspecs/win32-g++/qmake.conf
+--- qt-everywhere-opensource-src-5.4.1/qtbase/mkspecs/win32-g++/qmake.conf	2015-02-17 06:56:54.000000000 +0200
++++ qt-everywhere-opensource-src-5.4.1/qtbase/mkspecs/win32-g++/qmake.conf	2015-03-05 04:48:02.510120008 +0200
+@@ -67,7 +67,7 @@
+ 
+ QMAKE_LINK              = $${CROSS_COMPILE}g++
+ QMAKE_LINK_C            = $${CROSS_COMPILE}gcc
+-QMAKE_LFLAGS            =
++QMAKE_LFLAGS            = -static-libgcc -static-libstdc++
+ QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads
+ QMAKE_LFLAGS_EXCEPTIONS_OFF =
+ QMAKE_LFLAGS_RELEASE    = -Wl,-s
