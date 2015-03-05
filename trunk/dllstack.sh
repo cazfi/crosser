@@ -816,6 +816,7 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
    ! build_component_full  qt-everywhere-opensource-src                         \
      qt-everywhere-opensource-src                                               \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle -no-opengl" \
