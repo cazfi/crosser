@@ -697,6 +697,7 @@ if ! build_component  gdk-pixbuf                                      ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
+       is_minimum_version $VERSION_GTK3 3.16.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
    ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
       patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
