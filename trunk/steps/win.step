@@ -35,6 +35,8 @@ pango             PANGO
 libcroco          CROCO
 librsvg           RSVG
 atk               ATK
+util-macros       UTIL_MACROS
+epoxy             EPOXY
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
 gtk3              GTK3

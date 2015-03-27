@@ -5,6 +5,8 @@
 	- Added icu (version 54.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.42.0) to build
+	- Added util-macros (version 1.17.1) to build
+	- Added epoxy (version 1.2) to build
 	- Restored harfbuzz (version 0.9.40) to build
 	- Updated cairo to version 1.14.2
 	- Updated libtool to version 2.4.6

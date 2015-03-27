@@ -348,21 +348,26 @@ autogen_component()
   log_packet "autogen $1"
   log_write 1 "autogen $1"
 
-  SUBDIR="$(src_subdir $1 $2)"
-
-  if test "x$SUBDIR" = "x"
+  if test "x$4" = "x"
   then
-    log_error "Cannot find srcdir for $1 version $2"
+      SUBDIR="$(src_subdir $1 $2)"
+
+      if test "x$SUBDIR" = "x"
+      then
+	  log_error "Cannot find srcdir for $1 version $2"
+	  return 1
+      fi
+  else
+      SUBDIR="$4"
+  fi
+
+  if ! test -d "$CROSSER_SRCDIR/$SUBDIR"
+  then
+    log_error "No directory $SUBDIR for $1 version $2 src"
     return 1
   fi
 
-  if ! test -d "$CROSSER_SRCDIR/$SUBDIR/$4"
-  then
-    log_error "No subdirectory $4 in $1 version $2 src directory"
-    return 1
-  fi
-
-  cd "$CROSSER_SRCDIR/$SUBDIR/$4"
+  cd "$CROSSER_SRCDIR/$SUBDIR"
 
   if test "x$3" = "x" && test -f autogen.sh ; then
     if ! test -x autogen.sh ; then
