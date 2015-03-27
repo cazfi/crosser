@@ -553,7 +553,10 @@ if ! unpack_component     autoconf                          ||
         autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF \
         "aclocal automake autoconf" ))                                      ||
    ! build_component_host gdk-pixbuf                                        ||
-   ! free_build           "native-gdk-pixbuf"
+   ! free_build           "native-gdk-pixbuf"                               ||
+   ! unpack_component     util-macros                                       ||
+   ! build_component_host util-macros                                       ||
+   ! free_component       util-macros $VERSION_UTIL_MACROS "util-macros"
 then
   log_error "Native build failed"
   exit 1
@@ -654,6 +657,10 @@ if ! unpack_component tiff                                                  ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
+   ! unpack_component  epoxy "" "v${VERSION_EPOXY}"                         ||
+   ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
+   ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
+   ! free_component    libepoxy $VERSION_EPOXY "libepoxy"                   ||
    ! unpack_component  pixman                                               ||
    ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
       patch_src          pixman $VERSION_PIXMAN pixman_epsilon )            ||
