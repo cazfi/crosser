@@ -2,7 +2,7 @@
 	- Optionally added qt-everywhere (version 5.4.1) to build
 	- Force static linking of libgcc and libstdc++
 	- Fixed download phase not to fail when component disabled
-	- Added icu (version 54.1) to build
+	- Added icu (version 55.1) to build
 	- Added host gtk-doc (version 1.20) to build
 	- Added host gobject-introspection (version 1.44.0) to build
 	- Added util-macros (version 1.17.1) to build
