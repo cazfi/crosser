@@ -23,7 +23,7 @@
 	- Updated curl to version 7.41.0
 	- Updated gtk2 to version 2.24.27
 	- Updated libxml2 to version 2.9.2
-	- Updated ImageMagick to version 6.9.0-7
+	- Updated ImageMagick to version 6.9.1-1
 	- Updated glib to version 2.44.0
 	- Updated automake to version 1.15
 	- Updated vorbis to version 1.3.5
