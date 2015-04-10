@@ -1,6 +1,7 @@
 0.15
 	- Optionally added qt-everywhere (version 5.4.1) to build
 	- Force static linking of libgcc and libstdc++
+	- launch.bat includes crosser lib-directory to PATH
 	- Fixed download phase not to fail when component disabled
 	- Added icu (version 55.1) to build
 	- Added host gtk-doc (version 1.20) to build
