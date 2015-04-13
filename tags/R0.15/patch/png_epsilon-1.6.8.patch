@@ -1,0 +1,12 @@
+diff -Nurd libpng-1.6.8/contrib/libtests/pngvalid.c libpng-1.6.8/contrib/libtests/pngvalid.c
+--- libpng-1.6.8/contrib/libtests/pngvalid.c	2013-12-19 17:04:52.000000000 +0200
++++ libpng-1.6.8/contrib/libtests/pngvalid.c	2013-12-30 04:55:03.459379646 +0200
+@@ -43,6 +43,8 @@
+ #  include "../../png.h"
+ #endif
+ 
++#define DBL_EPSILON (1e-7)
++
+ /* pngvalid requires write support and one of the fixed or floating point APIs.
+  */
+ #if defined(PNG_WRITE_SUPPORTED) &&\
