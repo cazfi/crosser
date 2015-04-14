@@ -1,7 +1,8 @@
 0.16
 	- Updated sqlite to version 3.8.9
+	- Updated gtk3 to version 3.16.2
 
-0.15
+0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
 	- Force static linking of libgcc and libstdc++
 	- launch.bat includes crosser lib-directory to PATH
