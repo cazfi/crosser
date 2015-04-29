@@ -475,10 +475,13 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-    if test "x$CROSSER_QT" = "xyes" ; then
-        steplist="win,full"
+    if test "x$CROSSER_SDL" = "xyes" ; then
+        steplist="win,sdl"
     else
         steplist="win"
+    fi
+    if test "x$CROSSER_QT" = "xyes" ; then
+        steplist="${steplist},full"
     fi
     if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
   then
@@ -766,6 +769,7 @@ then
   exit 1
 fi
 
+if test "x$CROSSER_SDL" = "xyes" ; then
 if ! unpack_component  SDL                                            ||
    ! build_component   SDL                                            ||
    ! free_component    SDL        $VERSION_SDL "SDL"                  ||
@@ -790,8 +794,14 @@ if ! unpack_component  SDL                                            ||
      "libtoolize aclocal autoconf"                                    ||
    ! build_component   SDL_mixer                                      \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"      ||
-   ! unpack_component  SDL2                                           ||
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
+then
+    log_error "SDL stack build failed"
+    exit 1
+fi
+fi
+
+if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_winapifamily"                 ||
    ! build_component   SDL2                                           ||
@@ -812,7 +822,7 @@ if ! unpack_component  SDL                                            ||
    ! build_component   SDL2_mixer                                     ||
    ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
 then
-  log_error "SDL stack build failed"
+  log_error "SDL2 stack build failed"
   exit 1
 fi
 
@@ -865,6 +875,7 @@ log_write 1 "Creating crosser.txt"
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
   echo "CROSSER_QT=\"$CROSSER_QT\""
+  echo "CROSSER_SDL=\"$CROSSER_SDL\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
