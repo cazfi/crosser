@@ -7,10 +7,11 @@
 # This program is licensed under Gnu General Public License version 2.
 
 STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step | grep -v "^#" | sed 's/[ \t].*//')
+STEP_sdl_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_full_PACKETS=$(cat $CROSSER_MAINDIR/steps/full.step | grep -v "^#" | sed 's/[ \t].*//')
 
 # Steps array
-STEPLIST=("win" "full")
+STEPLIST=("win" "sdl" "full")
 
 # Check if packet belongs to step
 #

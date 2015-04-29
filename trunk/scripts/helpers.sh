@@ -811,7 +811,10 @@ component_version()
   if test "x$VARNAME" = "x" ; then
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
       if test "x$VARNAME" = "x" ; then
-          return 1
+          VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
+          if test "x$VARNAME" = "x" ; then
+              return 1
+          fi
       fi
   fi
 

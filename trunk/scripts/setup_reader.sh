@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2014 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -96,5 +96,12 @@ if test "x$CROSSER_QT" = "x" ; then
 fi
 if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
     echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
+    exit 1
+fi
+if test "x$CROSSER_SDL" = "x" ; then
+    CROSSER_SDL="yes"
+fi
+if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
+    echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
