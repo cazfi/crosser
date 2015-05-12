@@ -2,7 +2,7 @@
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
 	- Updated sqlite to version 3.8.10.1
-	- Updated gtk3 to version 3.16.2
+	- Updated gtk3 to version 3.16.3
 	- Updated curl to version 7.42.1
 	- Updated gtk-doc to version 1.22
 	- Updated hicolor-icon-theme to version 0.15
