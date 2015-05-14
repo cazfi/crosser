@@ -9,6 +9,7 @@
 	- Updated glib to version 2.44.1
 	- Updated adwaita-icon-theme to version 3.16.2.1
 	- Updated gnome-themes-standard to version 3.16.2
+	- Updated gtk2 to version 2.24.28
 
 0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
