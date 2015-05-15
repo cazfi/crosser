@@ -137,6 +137,10 @@ CROSSER_QT
  ; Currently such an build will have dynamic dependency to some dlls
  ; not part of crosser environment, if built with gcc-4.8 or newer.
 
+CROSSER_PKGCONF
+ ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
+ ; and 'pkgconf'
+
 =======================================================================
 
 local_setup.conf is actually shell script fragment. Here are some things

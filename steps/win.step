@@ -8,6 +8,7 @@ autoconf          AUTOCONF
 automake          AUTOMAKE
 libtool           LIBTOOL
 pkg-config        PKG_CONFIG
+pkgconf           PKGCONF
 icon-naming-utils ICON_NUTILS
 libiconv          ICONV
 libpng            PNG
