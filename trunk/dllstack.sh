@@ -512,6 +512,12 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
+   ! unpack_component     pkgconf                                           ||
+   ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
+   ! autogen_component pkgconf $VERSION_PKGCONF                             || 
+   ! build_component_host pkgconf                                           \
+     "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
+   ! free_component       "native-pkgconf"                                  ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
@@ -539,7 +545,9 @@ if ! unpack_component     autoconf                          ||
      "gobject-introspection"                                                ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
-   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
+   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
+   ! mv $NATIVE_PREFIX/bin/pkg-config $NATIVE_PREFIX/bin/pkg-config.real         ||
+   ! ln -s $CROSSER_PKGCONF $NATIVE_PREFIX/bin/pkg-config                        ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||

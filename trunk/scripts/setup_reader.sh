@@ -105,3 +105,14 @@ if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
     echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
+if test "x$CROSSER_PKGCONF" = "x" ; then
+    CROSSER_PKGCONF="pkg-config"
+fi
+if test "x$CROSSER_PKGCONF" != "xpkg-config" && "x$CROSSER_PKGCONF" != "xpkgconf" ; then
+    echo "Uknowns value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
+    exit 1
+fi
+if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
+    # Use real pkg-config, not recursively the link we create
+    CROSSER_PKGCONF="pkg-config.real"
+fi
