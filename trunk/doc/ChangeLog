@@ -2,7 +2,7 @@
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
 	- Added pkgconf (version 0.9.10) to build, optionally use it instead of pkg-config
-	- Updated sqlite to version 3.8.10.1
+	- Updated sqlite to version 3.8.10.2
 	- Updated gtk3 to version 3.16.3
 	- Updated curl to version 7.42.1
 	- Updated gtk-doc to version 1.24
@@ -11,6 +11,7 @@
 	- Updated adwaita-icon-theme to version 3.16.2.1
 	- Updated gnome-themes-standard to version 3.16.2
 	- Updated gtk2 to version 2.24.28
+	- Updated freetype to version 2.6
 
 0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
