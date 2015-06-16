@@ -841,7 +841,10 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
+   ! (( is_minimum_version $VERSION_QT 5.4.2 &&
+	patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2" ) ||
+      ( is_max_version $VERSION_QT 5.4.1 &&
+        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc" ))   ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
    ! build_component_full  qt-everywhere-opensource-src                         \
      qt-everywhere-opensource-src                                               \
