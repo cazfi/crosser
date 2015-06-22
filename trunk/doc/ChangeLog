@@ -4,7 +4,7 @@
 	- Added pkgconf (version 0.9.11) to build, optionally use it instead of pkg-config
 	- Updated sqlite to version 3.8.10.2
 	- Updated gtk3 to version 3.16.4
-	- Updated curl to version 7.42.1
+	- Updated curl to version 7.43.0
 	- Updated gtk-doc to version 1.24
 	- Updated hicolor-icon-theme to version 0.15
 	- Updated glib to version 2.44.1
@@ -13,6 +13,7 @@
 	- Updated gtk2 to version 2.24.28
 	- Updated freetype to version 2.6
 	- Updated qt to version 5.4.2
+	- Updated harfbuzz to version 0.9.41
 
 0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
