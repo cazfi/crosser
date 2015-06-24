@@ -560,6 +560,8 @@ download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_B
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
 RET="$RET $?"
+download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
