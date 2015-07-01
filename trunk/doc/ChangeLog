@@ -16,6 +16,9 @@
 	- Updated harfbuzz to version 0.9.41
 	- Updated tiff to version 4.0.4
 
+0.15.1
+	- Fixed downloading of all projects on "Demand" mode
+
 0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
 	- Force static linking of libgcc and libstdc++
