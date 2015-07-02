@@ -2,6 +2,7 @@
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
 	- Added pkgconf (version 0.9.11) to build, optionally use it instead of pkg-config
+	- Obsoleted PREFIX configuration variable
 	- Updated sqlite to version 3.8.10.2
 	- Updated gtk3 to version 3.16.4
 	- Updated curl to version 7.43.0
