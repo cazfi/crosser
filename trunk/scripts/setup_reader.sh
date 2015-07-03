@@ -87,10 +87,6 @@ if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
   echo "Configuration variable CROSSER_DST_PFX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$CROSSER_DST_PFX"
 fi
-if test "x$DLLSPREFIX" = "x" && test "x$PREFIX" != "x" ; then
-  echo "Configuration variable PREFIX is deprecated. Please use DLLSPREFIX." >&2
-  DLLSPREFIX="$PREFIX"
-fi
 if test "x$CROSSER_QT" = "x" ; then
     CROSSER_QT="no"
 fi
