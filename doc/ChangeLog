@@ -1,5 +1,6 @@
 0.15.1
 	- Fixed downloading of all projects on "Demand" mode
+	- Show correct error message when downloading single package fails
 
 0.15 (14-Apr-15)
 	- Optionally added qt-everywhere (version 5.4.1) to build
