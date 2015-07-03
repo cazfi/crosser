@@ -674,7 +674,8 @@ do
   fi
 done
 
-if test "x$DOWNLOAD_PACKET" != "x" && test "x$DOWNLOADED" != "xtrue" ; then
+if test "x$DOWNLOAD_PACKET" != "x" && test "x$DOWNLOADED" != "xtrue" &&
+   test "x$FAILED" != "xtrue" ; then
   echo "Download instructions for $DOWNLOAD_PACKET not found." >&2
   exit 1
 fi
