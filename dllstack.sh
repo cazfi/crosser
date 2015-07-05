@@ -512,7 +512,7 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
-   ! free_component       "native-pkg-config"                               ||
+   ! free_build           "native-pkg-config"                               ||
    ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -529,11 +529,11 @@ if ! unpack_component     autoconf                          ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
    ! build_component_host gtk-doc                                           ||
    ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
-     "gtk-doc"                                                              ||
+     "native-gtk-doc"                                                       ||
    ! unpack_component     gobject-introspection                             ||
    ! build_component_host gobject-introspection                             ||
    ! free_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
-     "gobject-introspection"                                                ||
+     "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
@@ -545,7 +545,6 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
    ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
-   ! free_build           "native-icu4c"                                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
@@ -556,7 +555,8 @@ if ! unpack_component     autoconf                          ||
    ! free_build           "native-gdk-pixbuf"                               ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
-   ! free_component       util-macros $VERSION_UTIL_MACROS "util-macros"
+   ! free_component       util-macros $VERSION_UTIL_MACROS                  \
+     "native-util-macros"
 then
   log_error "Native build failed"
   exit 1
@@ -595,6 +595,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
    ! build_component_full icu4c icu4c                                    \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
+   ! free_build           "native-icu4c"                                 ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
@@ -660,7 +661,7 @@ if ! unpack_component tiff                                                  ||
    ! unpack_component  epoxy "" "v${VERSION_EPOXY}"                         ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
-   ! free_component    libepoxy $VERSION_EPOXY "libepoxy"                   ||
+   ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||
    ! unpack_component  pixman                                               ||
    ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
       patch_src          pixman $VERSION_PIXMAN pixman_epsilon )            ||
@@ -728,10 +729,12 @@ if ! build_component  gdk-pixbuf                                      ||
    ! (is_minimum_version $VERSION_HICOLOR 0.14 ||
       patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir") ||
    ! build_component  hicolor-icon-theme                              ||
-   ! free_component   hicolor-icon-theme $VERSION_HICOLOR             ||
+   ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \
+     "hicolor-icon-theme"                                             ||
    ! unpack_component adwaita-icon-theme                              ||
    ! build_component  adwaita-icon-theme                              ||
-   ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        ||
+   ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
+     "adwaita-icon-theme"                                             ||
    ! unpack_component gnome-icon-theme                                ||
    ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
      "gnomeitheme-build-pkgconfig"                                    ||
