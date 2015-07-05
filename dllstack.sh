@@ -475,13 +475,10 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-    if test "x$CROSSER_SDL" = "xyes" ; then
-        steplist="win,sdl"
+    if test "x$CROSSER_QT" = "xyes" ; then
+        steplist="win,full"
     else
         steplist="win"
-    fi
-    if test "x$CROSSER_QT" = "xyes" ; then
-        steplist="${steplist},full"
     fi
     if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
   then
@@ -512,12 +509,6 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
-   ! unpack_component     pkgconf                                           ||
-   ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
-   ! autogen_component pkgconf $VERSION_PKGCONF                             || 
-   ! build_component_host pkgconf                                           \
-     "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
-   ! free_component       pkgconf $VERSION_PKGCONF native-pkgconf           ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
@@ -545,9 +536,7 @@ if ! unpack_component     autoconf                          ||
      "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
-   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
-   ! mv $NATIVE_PREFIX/bin/pkg-config $NATIVE_PREFIX/bin/pkg-config.real         ||
-   ! ln -s $CROSSER_PKGCONF $NATIVE_PREFIX/bin/pkg-config                        ||
+   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||
@@ -711,7 +700,6 @@ if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
-   ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
    ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
        is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
@@ -721,8 +709,6 @@ if ! build_component  gdk-pixbuf                                      ||
        patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
    ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
       patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
-   ! ( is_smaller_version $VERSION_GTK3 3.16.4 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
    ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
@@ -783,7 +769,6 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_SDL" = "xyes" ; then
 if ! unpack_component  SDL                                            ||
    ! build_component   SDL                                            ||
    ! free_component    SDL        $VERSION_SDL "SDL"                  ||
@@ -808,14 +793,8 @@ if ! unpack_component  SDL                                            ||
      "libtoolize aclocal autoconf"                                    ||
    ! build_component   SDL_mixer                                      \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
-then
-    log_error "SDL stack build failed"
-    exit 1
-fi
-fi
-
-if ! unpack_component  SDL2                                           ||
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"      ||
+   ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_winapifamily"                 ||
    ! build_component   SDL2                                           ||
@@ -836,7 +815,7 @@ if ! unpack_component  SDL2                                           ||
    ! build_component   SDL2_mixer                                     ||
    ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
 then
-  log_error "SDL2 stack build failed"
+  log_error "SDL stack build failed"
   exit 1
 fi
 
@@ -847,10 +826,7 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! (( is_minimum_version $VERSION_QT 5.4.2 &&
-	patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2" ) ||
-      ( is_max_version $VERSION_QT 5.4.1 &&
-        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc" ))   ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
    ! build_component_full  qt-everywhere-opensource-src                         \
      qt-everywhere-opensource-src                                               \
@@ -891,11 +867,7 @@ log_write 1 "Creating crosser.txt"
   echo "Setup=\"$SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
-  echo "CROSSER_GTK2=\"yes\""
-  echo "CROSSER_GTK3=\"yes\""
   echo "CROSSER_QT=\"$CROSSER_QT\""
-  echo "CROSSER_SDL=\"$CROSSER_SDL\""
-  echo "CROSSER_SDL2=\"yes\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
