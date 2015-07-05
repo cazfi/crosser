@@ -1,4 +1,4 @@
-0.15.1
+0.15.1 (05-Jul-15)
 	- Fixed downloading of all projects on "Demand" mode
 	- Show correct error message when downloading single package fails
 	- Fixed build with CROSSER_TMPFREE enabled
