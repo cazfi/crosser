@@ -264,8 +264,11 @@ free_component() {
     # Directories were not created in the first place
     return 0
   fi
-  free_src "$1" "$2"
-  free_build "$3"
+  if ! free_src "$1" "$2" ||
+     ! free_build "$3"
+  then
+      return 1
+  fi
 }
 
 # Free components temporary source directory
