@@ -16,6 +16,7 @@ zlib              ZLIB
 bzip2             BZIP2
 xz                XZ
 icu4c             ICU
+PDCurses          PDCURSES
 curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
