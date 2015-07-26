@@ -1,0 +1,98 @@
+diff -Nurd PDCurses-3.4/configure PDCurses-3.4/configure
+--- PDCurses-3.4/configure	2015-07-06 11:30:23.554650604 +0300
++++ PDCurses-3.4/configure	2015-07-06 11:32:08.290648022 +0300
+@@ -4655,79 +4655,6 @@
+ echo "${ECHO_T}libraries $x_libraries, headers $x_includes" >&6; }
+ fi
+ 
+-
+-mh_x11_dir=""
+-mh_x11_xaw_dir=""
+-
+-mh_inc_dirs="$ac_x_header_dirs"
+-
+-
+-if test "x$x_includes" != xNONE ; then
+-	mh_inc_dirs="$x_includes $mh_inc_dirs"
+-fi
+-
+-
+-for ac_dir in $mh_inc_dirs ; do
+-  if test -r $ac_dir/Intrinsic.h; then
+-    mh_x11_dir=$ac_dir
+-    break
+-  fi
+-  if test -r $ac_dir/X11/Intrinsic.h; then
+-    mh_x11_dir="$ac_dir/X11"
+-    break
+-  fi
+-done
+-
+-
+-if test "$with_xaw3d" = yes; then
+-	mh_xaw_dir="Xaw3d"
+-else
+-	if test "$with_nextaw" = yes; then
+-		mh_xaw_dir="neXtaw"
+-	else
+-		mh_xaw_dir="Xaw"
+-	fi
+-fi
+-for ac_dir in $mh_inc_dirs ; do
+-  if test -r $ac_dir/$mh_xaw_dir/Box.h; then
+-    mh_x11_xaw_dir=$ac_dir
+-    break
+-  fi
+-  if test -r $ac_dir/X11/$mh_xaw_dir/Box.h; then
+-    mh_x11_xaw_dir="$ac_dir/X11"
+-    break
+-  fi
+-done
+-
+-if test "x$mh_x11_dir" != "x" ; then
+-	mh_x11_dir_no_x11=`echo $mh_x11_dir | sed 's/\/X11$//'`
+-
+-	if test "$mh_x11_dir_no_x11" != "$mh_x11_dir" ; then
+-		MH_XINC_DIR="-I$mh_x11_dir -I$mh_x11_dir_no_x11"
+-	else
+-		MH_XINC_DIR="-I$mh_x11_dir"
+-	fi
+-else
+-	{ { echo "$as_me:$LINENO: error: Cannot find required header file Intrinsic.h; PDCurses cannot be configured" >&5
+-echo "$as_me: error: Cannot find required header file Intrinsic.h; PDCurses cannot be configured" >&2;}
+-   { (exit 1); exit 1; }; }
+-fi
+-
+-if test "x$mh_x11_xaw_dir" != "x"; then
+-	if test "$mh_x11_xaw_dir" != "$mh_x11_dir" ; then
+-		MH_XINC_DIR="-I$mh_x11_xaw_dir $MH_XINC_DIR"
+-	fi
+-else
+-	{ { echo "$as_me:$LINENO: error: Cannot find required Xaw header file Box.h; PDCurses cannot be configured" >&5
+-echo "$as_me: error: Cannot find required Xaw header file Box.h; PDCurses cannot be configured" >&2;}
+-   { (exit 1); exit 1; }; }
+-fi
+-
+-
+-
+-
+-
+-
+ mh_solaris_flag=no
+ mh_hpux9_flag=no
+ 
+@@ -4776,13 +4703,7 @@
+ 	done
+ done
+ 
+-if test "$mh_x11r6" = yes ; then
+-	mh_libs="$MH_X11_LIBS $MH_X11R6_LIBS"
+-else
+-	mh_libs="$MH_X11_LIBS $extra_x_libs"
+-fi
+-
+-
++mh_libs=""
+ 
+ mh_prev_dir=""
+ mh_where_found=""
