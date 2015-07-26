@@ -30,14 +30,6 @@ before configuration is read, so it can be used in setting other
 variables.
 
 =======================================================================
-
-AUTOWINE
- ; If this has value "yes", dllstack.sh uses wine to run some
- ; gtk+ configuration programs. Do not define this if wine is not available
- ; and automatically usable.
- ; These configuration programs must be run when doing actual install to
- ; Windows machine.
-
 DLLSPREFIX
  ; Directory hierarchy where generated dllstack environment will be installed.
  ; This path is parsed:
