@@ -527,6 +527,8 @@ if ! unpack_component     autoconf                          ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
+   ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_configheaders"              ||
+   ! autogen_component    gtk-doc $VERSION_GTK_DOC                          ||
    ! build_component_host gtk-doc                                           ||
    ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
      "native-gtk-doc"                                                       ||
