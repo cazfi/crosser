@@ -527,7 +527,7 @@ then
     if test "x$CROSSER_QT" = "xyes" ; then
         steplist="${steplist},full"
     fi
-    if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
+    if ! (cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
   then
     log_error "Downloading packets failed"
     exit 1

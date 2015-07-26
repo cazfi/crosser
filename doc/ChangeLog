@@ -5,6 +5,7 @@
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
 	- Obsoleted PREFIX configuration variable
+	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Updated sqlite to version 3.8.10.2
 	- Updated gtk3 to version 3.16.6
 	- Updated curl to version 7.43.0
