@@ -937,17 +937,6 @@ fi
 
 WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 
-if test "x$AUTOWINE" = "xyes" ; then
-  log_write 1 "Creating configuration files"
-  if ! mkdir -p $DLLSPREFIX/etc/pango ||
-     ! $DLLSPREFIX/bin/pango-querymodules.exe > $DLLSPREFIX/etc/pango/pango.modules ||
-     ! $DLLSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $DLLSPREFIX/$GDKPBL
-  then
-    log_error "Failed to create configuration files in wine."
-    exit 1
-  fi
-fi
-
 log_write 1 "Creating crosser.txt"
 (
   echo "Dllstack"
