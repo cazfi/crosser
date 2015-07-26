@@ -383,7 +383,6 @@ build_bzip2()
 #
 # $1 - Package name
 # $2 - Version
-# $3 - Configure options
 #
 build_pdcurses()
 {
@@ -412,6 +411,12 @@ build_pdcurses()
   then
     log_error "Make for $1 failed"
     return 1
+  fi
+
+  if ! cp pdcurses.a "$DLLSPREFIX/bin/"
+  then
+      log_error "pdcurses.a copy failed"
+      return 1
   fi
   )
 }
