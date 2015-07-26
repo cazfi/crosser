@@ -17,6 +17,7 @@ bzip2             BZIP2
 xz                XZ
 icu4c             ICU
 PDCurses          PDCURSES
+readline          READLINE
 curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
