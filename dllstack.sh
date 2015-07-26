@@ -660,7 +660,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_xconf"               ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
-   ! free_component    PDCurses $VERSION_PDCURSES "PDCurses"             ||
+   ! free_src          PDCurses $VERSION_PDCURSES                        ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
