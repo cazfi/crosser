@@ -39,8 +39,12 @@ elif test "x$CROSSER_GLOBAL_CONF" = "x" ; then
   echo "         Read doc/setup.txt for configuration instructions." >&2
 fi
 
-if test "x$PACKETDIR" = "x" ; then
-  PACKETDIR="$HOME/.crosser/packets"
+if test "x$CROSSER_PACKETDIR" = "x" && test "x$PACKETDIR" != "x" ; then
+    echo "Configuration variable PACKETDIR is deprecated. Please use CROSSER_PACKETDIR" >&2
+    CROSSER_PACKETDIR="$PACKETDIR"
+fi
+if test "x$CROSSER_PACKETDIR" = "x" ; then
+    CROSSER_PACKETDIR="$HOME/.crosser/packets"
 fi
 if test "x$CROSSER_BUILDDIR" = "x" && test "x$MAINBUILDDIR" != "x"
 then
