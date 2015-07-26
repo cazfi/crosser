@@ -1,0 +1,11 @@
+diff -Nurd gtk-doc-1.24/configure.ac gtk-doc-1.24/configure.ac
+--- gtk-doc-1.24/configure.ac	2015-05-29 22:42:58.000000000 +0300
++++ gtk-doc-1.24/configure.ac	2015-07-26 15:21:33.124278342 +0300
+@@ -12,6 +12,7 @@
+ AC_CONFIG_MACRO_DIR([m4])
+ AC_CONFIG_SRCDIR([gtkdoc-common.pl.in])
+ AC_CONFIG_AUX_DIR([build-aux])
++AC_CONFIG_HEADERS([config.h])
+ 
+ AM_INIT_AUTOMAKE([1.11 check-news std-options -Wno-portability tar-ustar no-dist-gzip dist-xz])
+ AM_MAINTAINER_MODE([enable])
