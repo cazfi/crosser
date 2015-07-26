@@ -17,6 +17,7 @@
 	- Updated qt to version 5.5.0
 	- Updated harfbuzz to version 0.9.41
 	- Updated tiff to version 4.0.4
+	- Updated gettext to version 0.19.5.1
 
 0.15.2
 	- Fixed building of gtk-doc when automake in system is not version 1.14
