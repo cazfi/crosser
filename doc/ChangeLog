@@ -1,7 +1,7 @@
 0.16
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
-	- Added pkgconf (version 0.9.11) to build, optionally use it instead of pkg-config
+	- Added pkgconf (version 0.9.12) to build, optionally use it instead of pkg-config
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
 	- Obsoleted PREFIX configuration variable
@@ -19,6 +19,7 @@
 	- Updated harfbuzz to version 0.9.41
 	- Updated tiff to version 4.0.4
 	- Updated gettext to version 0.19.5.1
+	- Updated ImageMagick to version 6.9.1-10
 
 0.15.2
 	- Fixed building of gtk-doc when automake in system is not version 1.14
