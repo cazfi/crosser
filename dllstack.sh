@@ -719,10 +719,6 @@ if ! unpack_component tiff                                                  ||
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
    ! unpack_component  freetype                                             ||
-   ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
-      is_greater_version $VERSION_FREETYPE 2.5.2 ||
-       (patch_src freetype $VERSION_FREETYPE freetype_pngcheck &&
-        autogen_component freetype $VERSION_FREETYPE ))                     ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  harfbuzz                                             ||
