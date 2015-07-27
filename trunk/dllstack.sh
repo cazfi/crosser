@@ -707,8 +707,6 @@ CONF_JPEG_GTK="--without-libjasper"
 
 if ! unpack_component tiff                                                  ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
-   ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
-      autogen_component tiff       $VERSION_TIFF )                          ||
    ! build_component_full tiff tiff "$CONF_JPEG_TIFF"                       ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
    ! unpack_component  expat                                                ||
@@ -733,28 +731,20 @@ if ! unpack_component tiff                                                  ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
    ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||
    ! unpack_component  pixman                                               ||
-   ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
-      patch_src          pixman $VERSION_PIXMAN pixman_epsilon )            ||
+   ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
    ! build_component   pixman                                               \
      "--disable-gtk"                                                        ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"                  ||
    ! unpack_component  cairo                                                ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
-   ! ( is_smaller_version $VERSION_CAIRO 1.12.10 ||
-       patch_src       cairo $VERSION_CAIRO cairo-1.12.10_epsilon )         ||
-   ! ( is_minimum_version $VERSION_CAIRO 1.12.10 ||
-       patch_src         cairo $VERSION_CAIRO cairo_epsilon )               ||
-   ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
-       patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
+   ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
+   ! patch_src         cairo $VERSION_CAIRO cairo_ffs                       ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
    ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
-   ! ( is_minimum_version $VERSION_ATK     2.8.0  ||
-       autogen_component atk        $VERSION_ATK  \
-         "libtoolize aclocal automake autoconf" )                           ||
    ! build_component   atk                                                  ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
@@ -771,8 +761,7 @@ if ! build_component  gdk-pixbuf                                      ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
-   ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
-       is_minimum_version $VERSION_GTK3 3.14.0 ||
+   ! ( is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
