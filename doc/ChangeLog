@@ -7,7 +7,7 @@
 	- Obsoleted PREFIX configuration variable
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Removed broken AUTOWINE support
-	- Updated sqlite to version 3.8.10.2
+	- Updated sqlite to version 3.8.11
 	- Updated gtk3 to version 3.16.6
 	- Updated curl to version 7.43.0
 	- Updated gtk-doc to version 1.24
@@ -18,7 +18,7 @@
 	- Updated gtk2 to version 2.24.28
 	- Updated freetype to version 2.6
 	- Updated qt to version 5.5.0
-	- Updated harfbuzz to version 0.9.41
+	- Updated harfbuzz to version 1.0.1
 	- Updated tiff to version 4.0.4
 	- Updated gettext to version 0.19.5.1
 	- Updated ImageMagick to version 6.9.1-10
