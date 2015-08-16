@@ -108,7 +108,7 @@ fi
 if test "x$CROSSER_PKGCONF" = "x" ; then
     CROSSER_PKGCONF="pkg-config"
 fi
-if test "x$CROSSER_PKGCONF" != "xpkg-config" && "x$CROSSER_PKGCONF" != "xpkgconf" ; then
+if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpkgconf" ; then
     echo "Uknowns value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
     exit 1
 fi
