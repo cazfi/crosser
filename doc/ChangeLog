@@ -4,6 +4,7 @@
 	- Added pkgconf (version 0.9.12) to build, optionally use it instead of pkg-config
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
+	- launch.bat sets WINSTACK_ROOT
 	- Obsoleted PREFIX configuration variable
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Removed broken AUTOWINE support

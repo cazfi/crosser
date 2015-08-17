@@ -963,6 +963,7 @@ log_write 1 "Creating setup.bat"
 
 log_write 1 "Creating launch.bat"
 (
+  echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
 ) > "$DLLSPREFIX/launch.bat"
 
