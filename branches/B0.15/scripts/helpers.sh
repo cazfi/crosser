@@ -820,3 +820,13 @@ component_version()
 
   echo $(eval echo \$VERSION_$VARNAME)
 }
+
+# Prints path to build system pkg-config
+#
+host_pkg_config()
+{
+    # Make sure we don't run 'which' in a removed directory
+    # cd to safe directory
+    cd $CROSSER_MAINDIR
+    which pkg-config
+}
