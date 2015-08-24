@@ -771,7 +771,7 @@ if ! build_component  gdk-pixbuf                                      ||
       patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
    ! ( is_smaller_version $VERSION_GTK3 3.16.4 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
-   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)"                       \
+   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
@@ -800,14 +800,14 @@ if ! build_component  gdk-pixbuf                                      ||
    ! unpack_component gnome-icon-theme                                ||
    ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
      "gnomeitheme-build-pkgconfig"                                    ||
-   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)" \
+   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gnome-icon-theme                                ||
    ! free_component   gnome-icon-theme $VERSION_GNOME_ICONS           \
      "gnome-icon-theme"                                               ||
    ! unpack_component gnome-icon-theme-extras                         ||
    ! patch_src gnome-icon-theme-extras $VERSION_GNOME_ICONE \
      "gnomeitheme-build-pkgconfig"                                    ||
-   ! PKG_CONFIG_FOR_BUILD="$(which pkg-config)" \
+   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gnome-icon-theme-extras                         ||
    ! free_component   gnome-icon-theme-extras $VERSION_GNOME_ICONE    \
      "gnome-icon-theme-extras"                                        ||
