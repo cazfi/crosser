@@ -1,5 +1,6 @@
 0.15.2
 	- Fixed building of gtk-doc when automake in system is not version 1.14
+	- Fixed getcwd() failure warnings
 
 0.15.1 (05-Jul-15)
 	- Fixed downloading of all projects on "Demand" mode
