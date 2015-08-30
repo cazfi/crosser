@@ -866,6 +866,8 @@ fi
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_winapifamily"                 ||
+   ! patch_src SDL2 $VERSION_SDL2 "sdl2_writeopen_FUNC_"              ||
+   ! patch_src SDL2 $VERSION_SDL2 "sdl2_iiddefs"                      ||
    ! build_component   SDL2                                           ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
