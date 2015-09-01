@@ -27,7 +27,7 @@
 	- Updated libpng to version 1.6.18
 	- Updated librsvg to version 2.40.10
 
-0.15.2
+0.15.2 (01-Sep-15)
 	- Fixed building of gtk-doc when automake in system is not version 1.14
 	- Fixed getcwd() failure warnings
 
