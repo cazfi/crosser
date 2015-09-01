@@ -1,0 +1,26 @@
+
+dllstack.sh
+===========
+
+- MinGW cross-toolchain (i686-wc64-mingw32-gcc or x86_64-wc64-mingw32-gcc etc)
+- gcc (native compiler)
+- wget        - for fetching source packages
+- tar         - for unpacking source packages
+- gzip        - for unpacking source packages
+- bzip2       - for unpacking source packages
+- xz          - for unpacking source packages
+- patch       - for applying patches to source packages
+- gtk-doc     - in debian system relevant parts are in gtk-doc-tools
+- gdk-pixbuf-csource - package libgtk2.0-dev in debian based distributions
+- intltool-update
+- zlib development files
+- gettext
+- libtiff development files
+- libpng development files
+- XML::Simple perl module - package libxml-simple-perl in debian system
+- flex
+- bison
+- itstool
+- xsltproc
+- DocBook XSL Stylesheets
+- Python development files
