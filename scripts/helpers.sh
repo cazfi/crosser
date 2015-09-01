@@ -145,7 +145,7 @@ patch_src() {
 upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
-  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < "$CROSSER_PACKETDIR/patch/$2" \
+  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < "$PACKETDIR/patch/$2" \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Patching $1 with $2 failed"
@@ -183,7 +183,7 @@ unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
   then
     log_write 1 "Fetching $BNAME version $BVER"
-    if ! ( cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$4" \
+    if ! ( cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$4" \
          >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
     then
       log_error "Failed to download $BNAME version $BVER"
@@ -201,37 +201,37 @@ unpack_component() {
     NAME_BASE="$BNAME-$BVER"
   fi
 
-  if test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" ; then
-    if ! tar xjf "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$2"
+  if test -e "$PACKETDIR/$NAME_BASE.tar.bz2" ; then
+    if ! tar xjf "$PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.gz" ; then
-    if ! tar xzf "$CROSSER_PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.gz" ; then
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" ; then
-    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.xz" ; then
+    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.xz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.lzma" ; then
-    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.lzma" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "$PACKETDIR/$NAME_BASE.tar.lzma" ; then
+    if ! tar xJf "$PACKETDIR/$NAME_BASE.tar.lzma" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.lzma failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tgz" ; then
-    if ! tar xzf "$CROSSER_PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "$PACKETDIR/$NAME_BASE.tgz" ; then
+    if ! tar xzf "$PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/${BNAME}_${BVER}.dsc" ; then
+  elif test -e "$PACKETDIR/${BNAME}_${BVER}.dsc" ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
       return 1
@@ -241,7 +241,7 @@ unpack_component() {
     else
       SRCDIR="$2"
     fi
-    if ! dpkg-source -x "$CROSSER_PACKETDIR/${BNAME}_${BVER}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
+    if ! dpkg-source -x "$PACKETDIR/${BNAME}_${BVER}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
                      >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
       log_error "Unpacking $BNAME_$BVER.dsc failed"
@@ -778,7 +778,7 @@ read_configure_vars() {
 # 0 - Packetdir exist
 # 1 - Packetdir missing
 packetdir_check() {
-  if ! test -d "$CROSSER_PACKETDIR/patch"
+  if ! test -d "$PACKETDIR/patch"
   then
     if test "x$CROSSER_FORCE" = "xno"
     then
@@ -788,15 +788,15 @@ packetdir_check() {
     if test "x$CROSSER_FORCE" != "xyes"
     then
 
-      if ! ask_yes_no "Packet directory $CROSSER_PACKETDIR, or some subdirectory, missing. Create one?"
+      if ! ask_yes_no "Packet directory $PACKETDIR, or some subdirectory, missing. Create one?"
       then
         return 1
       fi
     fi
 
-    if ! mkdir -p "$CROSSER_PACKETDIR/patch"
+    if ! mkdir -p "$PACKETDIR/patch"
     then
-      echo "Failed to create packet directory $CROSSER_PACKETDIR"
+      echo "Failed to create packet directory $PACKETDIR"
       return 1
     fi
   fi
@@ -814,10 +814,7 @@ component_version()
   if test "x$VARNAME" = "x" ; then
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
       if test "x$VARNAME" = "x" ; then
-          VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
-          if test "x$VARNAME" = "x" ; then
-              return 1
-          fi
+          return 1
       fi
   fi
 

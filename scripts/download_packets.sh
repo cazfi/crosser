@@ -217,11 +217,6 @@ download_patches() {
     PACKVER="$VERSION_SELECTED"
   fi
 
-  if test "x$PACKVER" = "x0"
-  then
-      return 2
-  fi
-
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
       download_patches_internal "$1" "$2" "$3" "$5"
@@ -401,7 +396,6 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
@@ -555,8 +549,6 @@ download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAK
 RET="$RET $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
 RET="$RET $?"
-download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSION_PKGCONF" "tar.gz"
-RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
@@ -569,8 +561,6 @@ RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
