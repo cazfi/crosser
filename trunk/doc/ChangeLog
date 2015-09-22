@@ -29,6 +29,7 @@
 	- Updated pango to version 1.38.0
 	- Updated atk to version 2.18.0
 	- Updated gdk-pixbuf to version 2.32.0
+	- Updated pixman to version 0.32.8
 
 0.15.2 (01-Sep-15)
 	- Fixed building of gtk-doc when automake in system is not version 1.14
