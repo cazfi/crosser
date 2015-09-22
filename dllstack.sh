@@ -771,6 +771,7 @@ if ! build_component  gdk-pixbuf                                      ||
    ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
       patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
    ! ( is_smaller_version $VERSION_GTK3 3.16.4 ||
+       is_minimum_version $VERSION_GTK3 3.18.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
