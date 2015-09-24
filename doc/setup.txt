@@ -50,8 +50,8 @@ DLLSHOST_PREFIX
  ; Path parsing is similar to that of DLLSPREFIX.
  ; Default is $HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost
 
-LOGLEVEL_STDOUT
-LOGLEVEL_FILE
+CROSSER_LOGLVL_STDOUT
+CROSSER_LOGLVL_FILE
  ; Level of logging to screen and to file. Values can be from
  ; 1 (Fatal errors only) to 5 (debug logging).
  ; Defaults are 2 for screen and 4 for file.

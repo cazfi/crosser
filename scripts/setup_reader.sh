@@ -67,6 +67,16 @@ then
   echo "Configuration variable LOGDIR is deprecated. Please use CROSSER_LOGDIR" >&2
   CROSSER_LOGDIR="$LOGDIR"
 fi
+if test "x$LOGLEVEL_FILE" != "x" && test "x$CROSSER_LOGLVL_FILE" = "x"
+then
+    echo "Configuration variable LOGLEVEL_FILE is deprecated. Please use CROSSER_LOGLVL_FILE" >&2
+    CROSSER_LOGLVL_FILE="$LOGLEVEL_FILE"
+fi
+if test "x$LOGLEVEL_STDOUT" != "x" && test "x$CROSSER_LOGLVL_STDOUT" = "x"
+then
+    echo "Configuration variable LOGLEVEL_STDOUT is deprecated. Please use CROSSER_LOGLVL_STDOUT" >&2
+    CROSSER_LOGLVL_STDOUT="$LOGLEVEL_STDOUT"
+fi
 if test "x$CROSSER_LOGDIR" = "x" ; then
   CROSSER_LOGDIR="$HOME/.crosser/log"
 fi

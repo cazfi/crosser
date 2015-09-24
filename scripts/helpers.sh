@@ -22,11 +22,11 @@ fi
 CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
 CROSSER_BUILD_DATE=$(date +"%d.%m.%y")
 
-if test "x$LOGLEVEL_STDOUT" = "x" ; then
-  LOGLEVEL_STDOUT=2
+if test "x$CROSSER_LOGLVL_STDOUT" = "x" ; then
+  CROSSER_LOGLVL_STDOUT=2
 fi
-if test "x$LOGLEVEL_FILE" = "x" ; then
-  LOGLEVEL_FILE=4
+if test "x$CROSSER_LOGLVL_FILE" = "x" ; then
+  CROSSER_LOGLVL_FILE=4
 fi
 
 if which cvercmp >/dev/null 2>&1 ; then
@@ -68,7 +68,7 @@ log_write() {
     log_write 1 "==========================================="
   fi
 
-  if test $1 -le $LOGLEVEL_FILE
+  if test $1 -le $CROSSER_LOGLVL_FILE
   then
     if test -f "$CROSSER_LOGDIR/main.log"
     then
@@ -81,7 +81,7 @@ log_write() {
     echo -e "$DSTAMP $STEP:$STEPADD $2" >> "$CROSSER_LOGDIR/main.log"
   fi
 
-  if test $1 -le $LOGLEVEL_STDOUT ; then
+  if test $1 -le $CROSSER_LOGLVL_STDOUT ; then
     echo -e "$DSTAMP $STEP:$STEPADD $2"
   fi
 }
