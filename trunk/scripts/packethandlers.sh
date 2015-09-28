@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2013 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -66,5 +66,5 @@ sqlite_verstr() {
 #
 # $1 - icu version
 icu_filever() {
-  echo "$1" | sed 's/\./_/g'
+    echo "$1" | sed -e 's/\./_/g' -e 's/rc/_rc/g'
 }
