@@ -46,6 +46,7 @@ gtk3              GTK3
 gtk-engines       GTK_ENG
 hicolor-icon-theme HICOLOR
 adwaita-icon-theme ADWAITA_ICON
+tango-icon-theme  TANGO_ICONS
 gnome-icon-theme  GNOME_ICONS
 gnome-icon-theme-extras GNOME_ICONE
 gnome-themes-standard GNOME_THEME_STD
