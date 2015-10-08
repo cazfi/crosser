@@ -34,6 +34,7 @@
 	- Updated gobject-introspection to version 1.46.0
 	- Updated pkg-config to version 0.29
 	- Updated xz to version 5.2.2
+	- Updated icu to version 56.1
 
 0.15.2 (01-Sep-15)
 	- Fixed building of gtk-doc when automake in system is not version 1.14
