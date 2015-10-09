@@ -795,6 +795,13 @@ if ! build_component  gdk-pixbuf                                      ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \
      "hicolor-icon-theme"                                             ||
+   ! unpack_component tango-icon-theme                                ||
+   ! patch_src tango-icon-theme $VERSION_TANGO_ICONS                  \
+     "tango_pkg_config_host"                                          ||
+   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
+     build_component  tango-icon-theme   $VERSION_TANGO_ICONS         ||
+   ! free_component   tango-icon-theme   $VERSION_TANGO_ICONS         \
+     "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
    ! build_component  adwaita-icon-theme                              ||
    ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
