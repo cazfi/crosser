@@ -10,6 +10,8 @@
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
+# Apply all patches to readline source tree
+#
 patch_readline() {
   declare -i DLNUM=1
   declare -i DLTOTAL=$PATCHES_READLINE
