@@ -1,0 +1,12 @@
+diff -Nurd readline-6.3/configure readline-6.3/configure
+--- readline-6.3/configure	2015-10-10 18:35:54.881805492 +0300
++++ readline-6.3/configure	2015-10-11 22:58:21.662592030 +0300
+@@ -3712,7 +3712,7 @@
+   $as_echo "#define _TANDEM_SOURCE 1" >>confdefs.h
+ 
+ 
+-
++$as_echo "#define __MSDOS__ 1" >>confdefs.h
+ 
+ # If we're using gcc and the user hasn't specified CFLAGS, add -O to CFLAGS.
+ test -n "$GCC" && test -n "$auto_cflags" && CFLAGS="$CFLAGS -O"
