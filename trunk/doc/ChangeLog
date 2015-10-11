@@ -9,6 +9,7 @@
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Configuration variables CROSSER_LOGLVL_FILE and CROSSER_LOGLVL_STDOUT replace LOGLEVEL_FILE and LOGLEVEL_STDOUT
 	- Removed broken AUTOWINE support
+	- trim_packetdir.sh cleans all nonexistend files from the filelist
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Updated sqlite to version 3.8.11.1
 	- Updated gtk3 to version 3.16.7
