@@ -1,4 +1,8 @@
 
+The 'requirements' directory contains scripts to automatically install crosser requirements
+for some systems. See if there's one suitable for you.
+
+
 dllstack.sh
 ===========
 
