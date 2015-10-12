@@ -658,7 +658,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  PDCurses                                          ||
    ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
    ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_ipch"                ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_xconf"               ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
    ! free_src          PDCurses $VERSION_PDCURSES                        ||
