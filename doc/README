@@ -30,12 +30,17 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
  Second parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
-  Currently there is two versionsets:
+  Currently there is three versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist.
   stable       - This versionset contains a bit more mature versions.
                  Typically those are final (most mature) versions from
                  previous release series of the software.
+  test         - Versionset used to test development packages before
+                 the stable package is released to current versionset.
+                 This versionset is likely to be broken any given time,
+                 and it may try to fetch snapshot builds that have been
+                 available for a short time only.
 
   Third parameter is description of system dllstack is built for.
   win32 - Default one
