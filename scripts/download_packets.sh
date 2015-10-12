@@ -77,6 +77,7 @@ download_file() {
 # $2 - Base name, usually base filename
 # $3 - Version      - or nonstandard filename (See $4)
 # $4 - Package type - empty means nonstandard naming (See $3)
+# $5 - Alternative Base URL
 download_packet() {
 
   if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
@@ -90,8 +91,11 @@ download_packet() {
 
     if ! download_file "$1" "$DLFILENAME"
     then
-      echo "Download of $BFNAME version $3 dsc file failed" >&2
-      return 1
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
+      then
+        echo "Download of $BFNAME version $3 dsc file failed" >&2
+        return 1
+      fi
     fi
 
     FILELIST_SECTION=no
@@ -106,8 +110,11 @@ download_packet() {
           else
             if ! download_file "$1" "$PART3"
             then
-              echo "Download of $BFNAME version $3 file $PART3 failed" >&2
-              return 1
+              if test "x$5" = "x" || ! download_file "$5" "$PART3"
+              then
+                echo "Download of $BFNAME version $3 file $PART3 failed" >&2
+                return 1
+              fi
             fi
           fi
         elif test "x$PART1" = "xFiles:"
@@ -124,8 +131,11 @@ download_packet() {
     fi
     if ! download_file "$1" "$DLFILENAME"
     then
-       echo "Download of $BFNAME version $3 failed" >&2
-       return 1
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
+      then           
+        echo "Download of $BFNAME version $3 failed" >&2
+        return 1
+      fi
     fi
   fi
 }
@@ -160,6 +170,7 @@ download_patches_internal() {
 # $2 - Base filename
 # $3 - Version
 # $4 - Package type
+# $5 - Alt Base URL
 # Return:
 # 0 - Downloaded
 # 1 - Failure
@@ -178,20 +189,20 @@ download_needed() {
 
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
-      download_packet "$1" "$2" "$PACKVER" "$4"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
       return $?
     fi
     return 2
   fi
   if test "x$STEPLIST" = "x" ; then
-    download_packet "$1" "$2" "$PACKVER" "$4"
+    download_packet "$1" "$2" "$PACKVER" "$4" "$5"
     return $?
   fi
   for STEP in $STEPLIST
   do
     BASENAME=$2
     if belongs_to_step $BASENAME $STEP ; then
-      download_packet "$1" "$2" "$PACKVER" "$4"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
       return $?
     fi
   done
@@ -553,8 +564,8 @@ download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$V
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-# download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng"     "$VERSION_PNG"        "$PNG_PACK"
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK" \
+                "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
