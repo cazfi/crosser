@@ -657,7 +657,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
    ! unpack_component  PDCurses                                          ||
    ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_ipch"                ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
    ! free_src          PDCurses $VERSION_PDCURSES                        ||
