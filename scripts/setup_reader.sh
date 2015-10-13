@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2014 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -39,12 +39,8 @@ elif test "x$CROSSER_GLOBAL_CONF" = "x" ; then
   echo "         Read doc/setup.txt for configuration instructions." >&2
 fi
 
-if test "x$CROSSER_PACKETDIR" = "x" && test "x$PACKETDIR" != "x" ; then
-    echo "Configuration variable PACKETDIR is deprecated. Please use CROSSER_PACKETDIR" >&2
-    CROSSER_PACKETDIR="$PACKETDIR"
-fi
-if test "x$CROSSER_PACKETDIR" = "x" ; then
-    CROSSER_PACKETDIR="$HOME/.crosser/packets"
+if test "x$PACKETDIR" = "x" ; then
+  PACKETDIR="$HOME/.crosser/packets"
 fi
 if test "x$CROSSER_BUILDDIR" = "x" && test "x$MAINBUILDDIR" != "x"
 then
@@ -66,16 +62,6 @@ if test "x$CROSSER_LOGDIR" = "x" && test "x$LOGDIR" != "x"
 then
   echo "Configuration variable LOGDIR is deprecated. Please use CROSSER_LOGDIR" >&2
   CROSSER_LOGDIR="$LOGDIR"
-fi
-if test "x$LOGLEVEL_FILE" != "x" && test "x$CROSSER_LOGLVL_FILE" = "x"
-then
-    echo "Configuration variable LOGLEVEL_FILE is deprecated. Please use CROSSER_LOGLVL_FILE" >&2
-    CROSSER_LOGLVL_FILE="$LOGLEVEL_FILE"
-fi
-if test "x$LOGLEVEL_STDOUT" != "x" && test "x$CROSSER_LOGLVL_STDOUT" = "x"
-then
-    echo "Configuration variable LOGLEVEL_STDOUT is deprecated. Please use CROSSER_LOGLVL_STDOUT" >&2
-    CROSSER_LOGLVL_STDOUT="$LOGLEVEL_STDOUT"
 fi
 if test "x$CROSSER_LOGDIR" = "x" ; then
   CROSSER_LOGDIR="$HOME/.crosser/log"
@@ -101,28 +87,14 @@ if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
   echo "Configuration variable CROSSER_DST_PFX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$CROSSER_DST_PFX"
 fi
+if test "x$DLLSPREFIX" = "x" && test "x$PREFIX" != "x" ; then
+  echo "Configuration variable PREFIX is deprecated. Please use DLLSPREFIX." >&2
+  DLLSPREFIX="$PREFIX"
+fi
 if test "x$CROSSER_QT" = "x" ; then
     CROSSER_QT="no"
 fi
 if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
     echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
     exit 1
-fi
-if test "x$CROSSER_SDL" = "x" ; then
-    CROSSER_SDL="yes"
-fi
-if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
-    echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
-if test "x$CROSSER_PKGCONF" = "x" ; then
-    CROSSER_PKGCONF="pkg-config"
-fi
-if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpkgconf" ; then
-    echo "Uknowns value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
-    exit 1
-fi
-if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
-    # Use real pkg-config, not recursively the link we create
-    CROSSER_PKGCONF="pkg-config.real"
 fi

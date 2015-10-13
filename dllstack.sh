@@ -379,48 +379,6 @@ build_bzip2()
   )
 }
 
-# Build PDCurses
-#
-# $1 - Package name
-# $2 - Version
-#
-build_pdcurses()
-{
-  log_packet "$1"
-
-  SUBDIR="$(src_subdir $1 $2)"
-
-  if test "x$SUBDIR" = "x"
-  then
-    log_error "Cannot find srcdir for $1 version $2"
-    return 1
-  fi
-
-  (
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR/win32"
-  then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR/win32"
-    return 1
-  fi
-
-  log_write 1 "Building $1"
-  log_write 3 "  Make targets: [default]"
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
-
-  if ! make -f mingwin32.mak $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-  then
-    log_error "Make for $1 failed"
-    return 1
-  fi
-
-  if ! cp pdcurses.a "$DLLSPREFIX/lib/libpdcurses.a"
-  then
-      log_error "pdcurses.a copy failed"
-      return 1
-  fi
-  )
-}
-
 cd $(dirname $0)
 
 BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
@@ -443,8 +401,6 @@ then
 else
   TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
-
-export CROSSER_TARGET="$TARGET"
 
 if test -d "/usr/$TARGET/include"
 then
@@ -519,15 +475,12 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-    if test "x$CROSSER_SDL" = "xyes" ; then
-        steplist="win,sdl"
+    if test "x$CROSSER_QT" = "xyes" ; then
+        steplist="win,full"
     else
         steplist="win"
     fi
-    if test "x$CROSSER_QT" = "xyes" ; then
-        steplist="${steplist},full"
-    fi
-    if ! (cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
+    if ! (cd "$PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
   then
     log_error "Downloading packets failed"
     exit 1
@@ -539,7 +492,6 @@ GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
-READLINE_VARS="$(read_configure_vars readline)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
@@ -557,12 +509,6 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! free_build           "native-libffi"                   ||
-   ! unpack_component     pkgconf                                           ||
-   ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
-   ! autogen_component pkgconf $VERSION_PKGCONF                             || 
-   ! build_component_host pkgconf                                           \
-     "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
-   ! free_component       pkgconf $VERSION_PKGCONF native-pkgconf           ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
@@ -592,9 +538,7 @@ if ! unpack_component     autoconf                          ||
      "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
-   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
-   ! mv $NATIVE_PREFIX/bin/pkg-config $NATIVE_PREFIX/bin/pkg-config.real         ||
-   ! ln -s $CROSSER_PKGCONF $NATIVE_PREFIX/bin/pkg-config                        ||
+   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config" ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||
@@ -655,20 +599,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_build           "native-icu4c"                                 ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
-   ! unpack_component  PDCurses                                          ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
-   ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
-     "--without-x"                                                       ||
-   ! free_src          PDCurses $VERSION_PDCURSES                        ||
-   ! unpack_component  readline                                          ||
-   ! patch_readline                                                      ||
-   ! patch_src readline $VERSION_READLINE "readline_msdos"               ||
-   ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
-   ! patch_src readline $VERSION_READLINE "readline_statf"               ||
-   ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
-   ! build_component   readline                                          \
-     "$READLINE_VARS --with-curses"                                      ||
-   ! free_component    readline   $VERSION_READLINE "readline"           ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
@@ -682,8 +612,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  gettext                                        ||
    ! (is_smaller_version $VERSION_GETTEXT 0.19 ||
       patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc") ||
-   ! (is_smaller_version $VERSION_GETTEXT 0.19.5 ||
-      patch_src         gettext    $VERSION_GETTEXT "gettext_installdir" ) ||
    ! LIBS="-liconv" build_component gettext                           \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
@@ -707,6 +635,8 @@ CONF_JPEG_GTK="--without-libjasper"
 
 if ! unpack_component tiff                                                  ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
+   ! ( is_minimum_version $VERSION_TIFF 3.9.0 ||
+      autogen_component tiff       $VERSION_TIFF )                          ||
    ! build_component_full tiff tiff "$CONF_JPEG_TIFF"                       ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
    ! unpack_component  expat                                                ||
@@ -717,6 +647,10 @@ if ! unpack_component tiff                                                  ||
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
    ! unpack_component  freetype                                             ||
+   ! (is_smaller_version $VERSION_FREETYPE 2.5.1 ||
+      is_greater_version $VERSION_FREETYPE 2.5.2 ||
+       (patch_src freetype $VERSION_FREETYPE freetype_pngcheck &&
+        autogen_component freetype $VERSION_FREETYPE ))                     ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  harfbuzz                                             ||
@@ -731,20 +665,28 @@ if ! unpack_component tiff                                                  ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
    ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||
    ! unpack_component  pixman                                               ||
-   ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
+   ! (is_smaller_version $VERSION_PIXMAN 0.28.0 ||
+      patch_src          pixman $VERSION_PIXMAN pixman_epsilon )            ||
    ! build_component   pixman                                               \
      "--disable-gtk"                                                        ||
    ! free_component    pixman     $VERSION_PIXMAN "pixman"                  ||
    ! unpack_component  cairo                                                ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
-   ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
-   ! patch_src         cairo $VERSION_CAIRO cairo_ffs                       ||
+   ! ( is_smaller_version $VERSION_CAIRO 1.12.10 ||
+       patch_src       cairo $VERSION_CAIRO cairo-1.12.10_epsilon )         ||
+   ! ( is_minimum_version $VERSION_CAIRO 1.12.10 ||
+       patch_src         cairo $VERSION_CAIRO cairo_epsilon )               ||
+   ! ( is_smaller_version $VERSION_CAIRO 1.10.0 ||
+       patch_src         cairo $VERSION_CAIRO cairo_ffs )                   ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
    ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
+   ! ( is_minimum_version $VERSION_ATK     2.8.0  ||
+       autogen_component atk        $VERSION_ATK  \
+         "libtoolize aclocal automake autoconf" )                           ||
    ! build_component   atk                                                  ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
@@ -760,9 +702,8 @@ if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
-   ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
-       rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml ) ||
-   ! ( is_minimum_version $VERSION_GTK3 3.14.0 ||
+   ! ( is_smaller_version $VERSION_GTK3 3.10.0 ||
+       is_minimum_version $VERSION_GTK3 3.14.0 ||
        ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
          patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
    ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
@@ -770,9 +711,6 @@ if ! build_component  gdk-pixbuf                                      ||
        patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
    ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
       patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
-   ! ( is_smaller_version $VERSION_GTK3 3.16.4 ||
-       is_minimum_version $VERSION_GTK3 3.18.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
@@ -795,13 +733,6 @@ if ! build_component  gdk-pixbuf                                      ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \
      "hicolor-icon-theme"                                             ||
-   ! unpack_component tango-icon-theme                                ||
-   ! patch_src tango-icon-theme $VERSION_TANGO_ICONS                  \
-     "tango_pkg_config_host"                                          ||
-   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
-     build_component  tango-icon-theme   $VERSION_TANGO_ICONS         ||
-   ! free_component   tango-icon-theme   $VERSION_TANGO_ICONS         \
-     "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
    ! build_component  adwaita-icon-theme                              ||
    ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
@@ -840,7 +771,6 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_SDL" = "xyes" ; then
 if ! unpack_component  SDL                                            ||
    ! build_component   SDL                                            ||
    ! free_component    SDL        $VERSION_SDL "SDL"                  ||
@@ -865,18 +795,10 @@ if ! unpack_component  SDL                                            ||
      "libtoolize aclocal autoconf"                                    ||
    ! build_component   SDL_mixer                                      \
      "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
-then
-    log_error "SDL stack build failed"
-    exit 1
-fi
-fi
-
-if ! unpack_component  SDL2                                           ||
+   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"      ||
+   ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_winapifamily"                 ||
-   ! patch_src SDL2 $VERSION_SDL2 "sdl2_writeopen_FUNC_"              ||
-   ! patch_src SDL2 $VERSION_SDL2 "sdl2_iiddefs"                      ||
    ! build_component   SDL2                                           ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
@@ -895,7 +817,7 @@ if ! unpack_component  SDL2                                           ||
    ! build_component   SDL2_mixer                                     ||
    ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
 then
-  log_error "SDL2 stack build failed"
+  log_error "SDL stack build failed"
   exit 1
 fi
 
@@ -906,13 +828,8 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! (( is_minimum_version $VERSION_QT 5.4.2 &&
-	patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2" ) ||
-      ( is_max_version $VERSION_QT 5.4.1 &&
-        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc" ))   ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc"         ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
-   ! ( ! cmp_versions $VERSION_QT 5.5.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )             ||
    ! build_component_full  qt-everywhere-opensource-src                         \
      qt-everywhere-opensource-src                                               \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle -no-opengl" \
@@ -933,6 +850,17 @@ fi
 
 WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 
+if test "x$AUTOWINE" = "xyes" ; then
+  log_write 1 "Creating configuration files"
+  if ! mkdir -p $DLLSPREFIX/etc/pango ||
+     ! $DLLSPREFIX/bin/pango-querymodules.exe > $DLLSPREFIX/etc/pango/pango.modules ||
+     ! $DLLSPREFIX/bin/gdk-pixbuf-query-loaders.exe > $DLLSPREFIX/$GDKPBL
+  then
+    log_error "Failed to create configuration files in wine."
+    exit 1
+  fi
+fi
+
 log_write 1 "Creating crosser.txt"
 (
   echo "Dllstack"
@@ -941,11 +869,7 @@ log_write 1 "Creating crosser.txt"
   echo "Setup=\"$SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
-  echo "CROSSER_GTK2=\"yes\""
-  echo "CROSSER_GTK3=\"yes\""
   echo "CROSSER_QT=\"$CROSSER_QT\""
-  echo "CROSSER_SDL=\"$CROSSER_SDL\""
-  echo "CROSSER_SDL2=\"yes\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
@@ -974,7 +898,6 @@ log_write 1 "Creating setup.bat"
 
 log_write 1 "Creating launch.bat"
 (
-  echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
 ) > "$DLLSPREFIX/launch.bat"
 

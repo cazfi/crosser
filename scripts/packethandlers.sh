@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2013 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -10,13 +10,7 @@
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
-# Apply all patches to readline source tree
-#
 patch_readline() {
-  if test "x$VERSION_READLINE" = "x0" ; then
-    return 0
-  fi
-
   declare -i DLNUM=1
   declare -i DLTOTAL=$PATCHES_READLINE
 
@@ -72,5 +66,5 @@ sqlite_verstr() {
 #
 # $1 - icu version
 icu_filever() {
-    echo "$1" | sed -e 's/\./_/g' -e 's/rc/_rc/g'
+  echo "$1" | sed 's/\./_/g'
 }

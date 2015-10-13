@@ -228,11 +228,6 @@ download_patches() {
     PACKVER="$VERSION_SELECTED"
   fi
 
-  if test "x$PACKVER" = "x0"
-  then
-      return 2
-  fi
-
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
       download_patches_internal "$1" "$2" "$3" "$5"
@@ -412,7 +407,6 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
@@ -484,6 +478,13 @@ else
   CAIRO_PACK="tar.gz"
 fi
 
+if is_minimum_version $VERSION_AUTOMAKE 1.11.3
+then
+  AUTOMAKE_PACK="tar.xz"
+else
+  AUTOMAKE_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_AUTOCONF 2.68b
 then
   AUTOCONF_PACK="tar.xz"
@@ -491,11 +492,50 @@ else
   AUTOCONF_PACK="tar.bz2"
 fi
 
+# While there's earlier .xz packaged glib version available,
+# earlier crosser versions fetched them as .bz2. In case such
+# an .bz2 package already exist, we don't want to download .xz
+# of the same version.
+if is_minimum_version $VERSION_GLIB 2.30.3
+then
+  GLIB_PACK="tar.xz"
+else
+  GLIB_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_ATK 2.4.0
+then
+  ATK_PACK="tar.xz"
+else
+  ATK_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_PANGO 1.30.0
 then
   PANGO_PACK="tar.xz"
 else
   PANGO_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_GTK2 2.24.9
+then
+  GTK2_PACK="tar.xz"
+else
+  GTK2_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_GTK3 3.2.0
+then
+  GTK3_PACK="tar.xz"
+else
+  GTK3_PACK="tar.bz2"
+fi
+
+if is_minimum_version $VERSION_GDK_PIXBUF 2.24.0
+then
+  GDK_PB_PACK="tar.xz"
+else
+  GDK_PB_PACK="tar.bz2"
 fi
 
 if is_minimum_version $VERSION_GETTEXT 0.19.1
@@ -512,26 +552,15 @@ else
   HICOLOR_PACK="tar.gz"
 fi
 
-if echo $VERSION_QT | grep alpha >/dev/null
-then
-    QT_RELEASEDIR="development_releases"
-else
-    QT_RELEASEDIR="official_releases"
-fi
-
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
 download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
+download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "$AUTOMAKE_PACK"
 RET="$RET $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
 RET="$RET $?"
-download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSION_PKGCONF" "tar.gz"
-RET="$RET $?"
-download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
-RET="$RET $?"
-download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
+download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
@@ -544,8 +573,6 @@ download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_B
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
-RET="$RET $?"
 download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
@@ -554,7 +581,7 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "tar.xz"
+download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "$GLIB_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.xz"
 RET="$RET $?"
@@ -586,13 +613,13 @@ download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-ma
 RET="$RET $?"
 download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" ""
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
+download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "$ATK_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "tar.xz" 
+download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "$GDK_PB_PACK" 
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "tar.xz"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "$GTK2_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.xz"
+download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "$GTK3_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
 RET="$RET $?"
@@ -642,7 +669,7 @@ download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
 RET="$RET $?"
 download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
-download_needed "http://download.qt-project.org/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
+download_needed "http://download.qt-project.org/official_releases/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET

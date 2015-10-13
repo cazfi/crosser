@@ -8,7 +8,6 @@ autoconf          AUTOCONF
 automake          AUTOMAKE
 libtool           LIBTOOL
 pkg-config        PKG_CONFIG
-pkgconf           PKGCONF
 icon-naming-utils ICON_NUTILS
 libiconv          ICONV
 libpng            PNG
@@ -16,8 +15,6 @@ zlib              ZLIB
 bzip2             BZIP2
 xz                XZ
 icu4c             ICU
-PDCurses          PDCURSES
-readline          READLINE
 curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
@@ -46,12 +43,16 @@ gtk3              GTK3
 gtk-engines       GTK_ENG
 hicolor-icon-theme HICOLOR
 adwaita-icon-theme ADWAITA_ICON
-tango-icon-theme  TANGO_ICONS
 gnome-icon-theme  GNOME_ICONS
 gnome-icon-theme-extras GNOME_ICONE
 gnome-themes-standard GNOME_THEME_STD
 libogg            OGG
 libvorbis         VORBIS
+SDL               SDL
+SDL_image         SDL_IMAGE
+SDL_gfx           SDL_GFX
+SDL_ttf           SDL_TTF
+SDL_mixer         SDL_MIXER
 SDL2              SDL2
 SDL2_image        SDL2_IMAGE
 SDL2_gfx          SDL2_GFX
