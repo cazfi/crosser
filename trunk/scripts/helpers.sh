@@ -158,7 +158,6 @@ upstream_patch() {
 # $1   - Package name
 # [$2] - Subdir in source hierarchy
 # [$3] - Package file name base in case it's not 'name-version'
-# [$4] - Number of patches
 unpack_component() {
   if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
   then
@@ -168,6 +167,7 @@ unpack_component() {
   fi
 
   BVER=$(component_version $1)
+  BPTCH=$(component_patches $1)
 
   if test "x$BVER" = "x"
   then
@@ -183,7 +183,7 @@ unpack_component() {
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
   then
     log_write 1 "Fetching $BNAME version $BVER"
-    if ! ( cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$4" \
+    if ! ( cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$BPTCH" \
          >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
     then
       log_error "Failed to download $BNAME version $BVER"
@@ -804,10 +804,10 @@ packetdir_check() {
   return 0
 }
 
-# Prints version of the component
+# Prints variable name part of component
 #
 # $1 - Component name
-component_version()
+component_varname()
 {
   VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/win.step | sed 's/.*[ \t]//')
 
@@ -821,7 +821,31 @@ component_version()
       fi
   fi
 
-  echo $(eval echo \$VERSION_$VARNAME)
+  echo $VARNAME
+}
+
+# Prints version of the component
+#
+# $1 - Component name
+component_version()
+{
+  VARNAME="$(component_varname $1)"
+
+  if test "x$VARNAME" != "x" ; then
+    echo $(eval echo \$VERSION_$VARNAME)
+  fi  
+}
+
+# Prints number of patches for component
+#
+# $1 - Component name
+component_patches()
+{
+  VARNAME="$(component_varname $1)"
+
+  if test "x$VARNAME" != "x" ; then
+    echo $(eval echo \$PATCHES_$VARNAME)
+  fi  
 }
 
 # Prints path to build system pkg-config

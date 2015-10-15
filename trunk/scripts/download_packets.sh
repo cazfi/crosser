@@ -7,7 +7,6 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-
 # $1 - Base URL
 # $2 - Filename
 # $3 - Download directory
@@ -145,7 +144,6 @@ download_packet() {
 # $3 - Base filename
 # $4 - Number of patches
 download_patches_internal() {
-
   declare -i DLNUM=1
   declare -i DLTOTAL=$4
 
