@@ -1,0 +1,22 @@
+# custom.versions: Example of custom versionset
+#
+# (c) 2015 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+#
+# WARNING!
+# Crosser is not even supposed to work with just any arbitrary set
+# of component versions. The only supported versionsets are the
+# supplied 'current' and 'stable'. Use customized versionsets
+# only if you know what you are doing. If it breaks your build,
+# you're the one who needs to fix it.
+
+# To use specific versionset, give its name excluding
+# the '.versions' suffix as second parameter to dllstack.sh
+# > ./dllstack /path/to/buildto/ custom
+
+# Read 'current' versionset as a base to make our changes to
+source setups/current.versions
+
+# Disable build of libicu
+VERSION_ICU=0
