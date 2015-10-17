@@ -9,6 +9,7 @@
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Configuration variables CROSSER_LOGLVL_FILE and CROSSER_LOGLVL_STDOUT replace LOGLEVEL_FILE and LOGLEVEL_STDOUT
 	- Removed broken AUTOWINE support
+	- Added custom versionset example 'custom.versions'
 	- trim_packetdir.sh cleans all nonexistend files from the filelist
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Updated auxiliary config.guess and config.sub to '2015-08-20' version

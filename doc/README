@@ -11,9 +11,13 @@ Crosser homepage is http://www.cazfi.net/crosser/
 
 Script scripts/download_packets.sh downloads toolchain related source packages.
 
-- It can be used to download single package, predefined set of packages, or all packages
+- It can be used to download single package, predefined set of packages,
+  or all packages.
 - Versions to download are read from setups/<VERSIONSET>.versions, where
   default versionset is 'current'. Other sets can be selected from commandline.
+  There is also an example of an custom versionset named 'custom.versions',
+  but be aware that customized versionsets are not supported functionality
+  of crosser, so proceed on your own risk.
 - You can define mirrors to be used in file called .crosser.mirrors in your
   home directory or mirrors.conf in crosser root directory.
   There's example file suitable for Finland in mirrors-directory.
@@ -30,7 +34,7 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
  Second parameter is versionset to use. Default is "current". Versionsets
  are defined in setups/<versionset>.versions files, one per file. By listing
  these files you can list supported versionsets.
-  Currently there is three versionsets:
+  Currently there is four versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist.
   stable       - This versionset contains a bit more mature versions.
@@ -41,6 +45,10 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
                  This versionset is likely to be broken any given time,
                  and it may try to fetch snapshot builds that have been
                  available for a short time only.
+  custom       - Example of an custom versionset. See comments on the
+                 setups/custom.versions about the fact that using
+                 arbitrary versionsets is not support, but you must
+                 know suitable version combinations yourself.
 
   Third parameter is description of system dllstack is built for.
   win32 - Default one
@@ -58,7 +66,8 @@ than the one that originally downloaded packet.
 It just removes those packets that are most likely obsolete. It determines
 this by checking last time that source package was used by crosser. Those
 packets which are not used in a long time are removed. Current default of 
-trim_packetdir.sh is to remove all but 200 most recently used files from packetdir.
+trim_packetdir.sh is to remove all but 200 most recently used files from
+packetdir.
 
 ------
 
