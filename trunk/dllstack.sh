@@ -925,13 +925,7 @@ then
 fi
 fi
 
-if is_minimum_version $VERSION_GDK_PIXBUF 2.22.0
-then
-  GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-else
-  GDKPBL="etc/gtk-2.0/gdk-pixbuf.loaders"
-fi
-
+GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
 WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 
 log_write 1 "Creating crosser.txt"
