@@ -913,7 +913,9 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"   ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
    ! ( ! cmp_versions $VERSION_QT 5.5.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )             ||
+         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )           ||
+   ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
+         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_host_shell" )   ||
    ! build_component_full  qt-everywhere-opensource-src                         \
      qt-everywhere-opensource-src                                               \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${TARGET}- -system-zlib -nomake examples -force-pkg-config -no-gtkstyle -no-opengl" \
