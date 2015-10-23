@@ -933,16 +933,31 @@ WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 log_write 1 "Creating crosser.txt"
 (
   echo "Dllstack"
-  echo "========"
+  echo "===================="
   echo "Version=\"$CROSSER_VERSION\""
   echo "Setup=\"$SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
-  echo "CROSSER_GTK2=\"yes\""
-  echo "CROSSER_GTK3=\"yes\""
+  if test "x$VERSION_GTK2" != "x0"
+  then
+    echo "CROSSER_GTK2=\"yes\""
+  else
+    echo "CROSSER_GTK2=\"no\""
+  fi
+  if test "x$VERSION_GTK3" != "x0"
+  then
+    echo "CROSSER_GTK3=\"yes\""
+  else
+    echo "CROSSER_GTK3=\"no\""
+  fi
   echo "CROSSER_QT=\"$CROSSER_QT\""
   echo "CROSSER_SDL=\"$CROSSER_SDL\""
-  echo "CROSSER_SDL2=\"yes\""
+  if test "x$VERSION_SDL2" != "x0"
+  then
+    echo "CROSSER_SDL2=\"yes\""
+  else
+    echo "CROSSER_SDL2=\"no\""
+  fi
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
