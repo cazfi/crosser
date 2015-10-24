@@ -539,7 +539,6 @@ GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
-READLINE_VARS="$(read_configure_vars readline)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
@@ -660,15 +659,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
    ! free_src          PDCurses $VERSION_PDCURSES                        ||
-   ! unpack_component  readline                                          ||
-   ! patch_readline                                                      ||
-   ! patch_src readline $VERSION_READLINE "readline_msdos"               ||
-   ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
-   ! patch_src readline $VERSION_READLINE "readline_statf"               ||
-   ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
-   ! build_component   readline                                          \
-     "$READLINE_VARS --with-curses"                                      ||
-   ! free_component    readline   $VERSION_READLINE "readline"           ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
