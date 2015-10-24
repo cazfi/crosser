@@ -411,8 +411,6 @@ then
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
-    readline)    VERSION_READLINE=$VERSION_SELECTED
-                 PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
@@ -446,8 +444,6 @@ ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
-
-READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
@@ -541,12 +537,6 @@ RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
-RET="$RET $?"
-download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
-RET="$RET $?"
-download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
-                 "readline"            "readline${READLINE_SHORT}-" \
-                 "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
