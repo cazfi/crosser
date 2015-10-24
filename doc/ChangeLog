@@ -1,4 +1,7 @@
-0.16
+1.1
+	- Added tango-icon-theme (version 0.8.90) to build
+
+1.0
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
 	- Added pkgconf (version 0.9.12) to build, optionally use it instead of pkg-config
@@ -11,7 +14,6 @@
 	- Removed broken AUTOWINE support
 	- Added custom versionset example 'custom.versions'
 	- trim_packetdir.sh cleans all nonexistend files from the filelist
-	- Added tango-icon-theme (version 0.8.90) to build
 	- Updated auxiliary config.guess and config.sub to '2015-08-20' version
 	- Updated sqlite to version 3.9.1
 	- Updated gtk3 to version 3.16.7
