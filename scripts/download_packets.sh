@@ -529,8 +529,6 @@ download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSIO
 RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="$RET $?"
-download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
-RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK" \
