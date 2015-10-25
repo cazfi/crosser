@@ -379,48 +379,6 @@ build_bzip2()
   )
 }
 
-# Build PDCurses
-#
-# $1 - Package name
-# $2 - Version
-#
-build_pdcurses()
-{
-  log_packet "$1"
-
-  SUBDIR="$(src_subdir $1 $2)"
-
-  if test "x$SUBDIR" = "x"
-  then
-    log_error "Cannot find srcdir for $1 version $2"
-    return 1
-  fi
-
-  (
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR/win32"
-  then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR/win32"
-    return 1
-  fi
-
-  log_write 1 "Building $1"
-  log_write 3 "  Make targets: [default]"
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
-
-  if ! make -f mingwin32.mak $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-  then
-    log_error "Make for $1 failed"
-    return 1
-  fi
-
-  if ! cp pdcurses.a "$DLLSPREFIX/lib/libpdcurses.a"
-  then
-      log_error "pdcurses.a copy failed"
-      return 1
-  fi
-  )
-}
-
 cd $(dirname $0)
 
 BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
@@ -654,11 +612,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_build           "native-icu4c"                                 ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
-   ! unpack_component  PDCurses                                          ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
-   ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
-     "--without-x"                                                       ||
-   ! free_src          PDCurses $VERSION_PDCURSES                        ||
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
