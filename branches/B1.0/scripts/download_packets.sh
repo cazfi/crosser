@@ -410,7 +410,6 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
@@ -535,8 +534,6 @@ RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
