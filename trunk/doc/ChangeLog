@@ -2,6 +2,7 @@
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
+	- Updated gtk3 to version 3.18.2
 
 1.0
 	- Made sdl-chain build optional

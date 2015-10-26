@@ -1,0 +1,28 @@
+diff -Nurd gtk+-3.18.2/gdk/win32/gdkdisplay-win32.c gtk+-3.18.2/gdk/win32/gdkdisplay-win32.c
+--- gtk+-3.18.2/gdk/win32/gdkdisplay-win32.c	2015-10-26 22:40:03.046705181 +0200
++++ gtk+-3.18.2/gdk/win32/gdkdisplay-win32.c	2015-10-26 22:39:32.766705904 +0200
+@@ -407,7 +407,9 @@
+ 
+         return 0;
+       }
++#ifdef WM_CLIPBOARDUPDATE
+     case WM_CLIPBOARDUPDATE:
++#endif
+     case WM_DRAWCLIPBOARD:
+       {
+         int success;
+diff -Nurd gtk+-3.18.2/gdk/win32/gdkevents-win32.c gtk+-3.18.2/gdk/win32/gdkevents-win32.c
+--- gtk+-3.18.2/gdk/win32/gdkevents-win32.c	2015-09-18 13:54:51.000000000 +0300
++++ gtk+-3.18.2/gdk/win32/gdkevents-win32.c	2015-10-26 22:40:59.838703825 +0200
+@@ -3206,9 +3206,11 @@
+       handle_display_change ();
+       break;
+ 
++#ifdef WM_DWMCOMPOSITIONCHANGED
+     case WM_DWMCOMPOSITIONCHANGED:
+       _gdk_win32_window_enable_transparency (window);
+       break;
++#endif
+ 
+     case WM_DESTROYCLIPBOARD:
+       if (!_ignore_destroy_clipboard)

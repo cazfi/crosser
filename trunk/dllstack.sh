@@ -739,8 +739,7 @@ if ! unpack_component tiff                                                  ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
    ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
    ! patch_src         cairo $VERSION_CAIRO cairo_ffs                       ||
-   ! ( test "x$VERSIONSET" != "xtest" ||
-       patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
+   ! patch_src         cairo $VERSION_CAIRO cairo_1.14.2+                   ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
@@ -777,6 +776,8 @@ if ! build_component  gdk-pixbuf                                      ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
    ! ( is_smaller_version $VERSION_GTK3 3.18.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.18 )              ||
+   ! ( is_smaller_version $VERSION_GTK3 3.18.0 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros )                  ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
      "--enable-gtk2-dependency --with-included-immodules"             ||
