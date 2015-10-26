@@ -16,7 +16,7 @@
 # > ./dllstack /path/to/buildto/ custom
 
 # Read 'current' versionset as a base to make our changes to
-source setups/current.versions
+source $CROSSER_MAINDIR/setups/current.versions
 
 # Disable build of libicu
 VERSION_ICU=0
