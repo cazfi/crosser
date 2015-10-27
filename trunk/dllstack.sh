@@ -386,6 +386,11 @@ build_bzip2()
 #
 build_pdcurses()
 {
+  if test "x$2" = "x0"
+  then
+    return 0
+  fi
+
   log_packet "$1"
 
   SUBDIR="$(src_subdir $1 $2)"
