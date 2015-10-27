@@ -619,7 +619,12 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
    ! free_component       util-macros $VERSION_UTIL_MACROS                  \
-     "native-util-macros"
+     "native-util-macros"                                                   ||
+   ! unpack_component     ImageMagick                                       ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"                  ||
+   ! build_component_host ImageMagick                                       ||
+   ! free_build           "native-ImageMagick"
 then
   log_error "Native build failed"
   exit 1
@@ -674,9 +679,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   readline                                          \
      "$READLINE_VARS --with-curses"                                      ||
    ! free_component    readline   $VERSION_READLINE "readline"           ||
-   ! unpack_component  ImageMagick                                    ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
    ! build_component   ImageMagick                                    \
      "--without-bzlib --without-threads --without-magick-plus-plus"   ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
