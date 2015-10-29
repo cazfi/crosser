@@ -423,7 +423,6 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
-    expat)       VERSION_EXPAT=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
   esac
 fi
@@ -561,8 +560,6 @@ RET="$RET $?"
 download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/expat/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
 RET="$RET $?"
