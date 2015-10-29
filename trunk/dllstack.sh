@@ -716,9 +716,6 @@ if ! unpack_component tiff                                                  ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
    ! build_component_full tiff tiff "$CONF_JPEG_TIFF"                       ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
-   ! unpack_component  expat                                                ||
-   ! build_component   expat                                                ||
-   ! free_component    expat      $VERSION_EXPAT "expat"                    ||
    ! unpack_component  libxml2                                              ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
@@ -731,7 +728,7 @@ if ! unpack_component tiff                                                  ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! build_component   fontconfig                                           \
-     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET" ||
+     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
    ! unpack_component  epoxy "" "v${VERSION_EPOXY}"                         ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
