@@ -682,8 +682,7 @@ if ! unpack_component tiff                                                  ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
    ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
    ! patch_src         cairo $VERSION_CAIRO cairo_ffs                       ||
-   ! ( test "x$VERSIONSET" != "xtest" ||
-       patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
+   ! patch_src       cairo $VERSION_CAIRO cairo_1.14.2+                     ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
