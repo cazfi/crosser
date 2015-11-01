@@ -765,16 +765,9 @@ if ! build_component  gdk-pixbuf                                      ||
    ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
-   ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
-       rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml ) ||
-   ! ( is_minimum_version $VERSION_GTK3 3.14.0 ||
-       ( patch_src gtk+ $VERSION_GTK3 gtk3_nogdkdef &&
-         patch_src gtk+ $VERSION_GTK3 gtk3_nogtkdef ))                ||
-   ! ( is_smaller_version $VERSION_GTK3 3.14.0 ||
-       is_minimum_version $VERSION_GTK3 3.16.0 ||
+   ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
+   ! ( is_minimum_version $VERSION_GTK3 3.16.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_extstring_cross)             ||
-   ! (! cmp_versions $VERSION_GTK3 3.14.5 ||
-      patch_src gtk+ $VERSION_GTK3 gtk3_noplug )                      ||
    ! ( is_smaller_version $VERSION_GTK3 3.16.4 ||
        is_minimum_version $VERSION_GTK3 3.18.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless )                   ||
