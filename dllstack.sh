@@ -720,6 +720,9 @@ if ! unpack_component tiff                                                  ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
+   ! unpack_component  jansson                                              ||
+   ! build_component   jansson                                              ||
+   ! free_component    jansson    $VERSION_JANSSON "jansson"                ||
    ! unpack_component  freetype                                             ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
