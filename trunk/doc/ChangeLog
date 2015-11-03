@@ -1,4 +1,5 @@
 1.1
+	- Added jansson (version 2.7) to build
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
