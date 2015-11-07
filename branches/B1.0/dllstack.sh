@@ -916,8 +916,11 @@ mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
 
 log_write 1 "Creating setup.bat"
 (
-  echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"
-  echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
+  if is_smaller_version $VERSION_PANGO 1.37.0
+  then
+      echo -n -e "if not exist etc\pango mkdir etc\pango\r\n"  
+      echo -n -e "bin\pango-querymodules.exe > etc\pango\pango.modules\r\n"
+  fi
   echo -n -e "bin\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
   echo -n -e "bin\gtk-update-icon-cache.exe share\icons\Adwaita\r\n"
   echo -n -e "bin\gtk-update-icon-cache.exe share\icons\gnome\r\n"
