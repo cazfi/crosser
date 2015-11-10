@@ -19,7 +19,7 @@
 	- trim_packetdir.sh cleans all nonexistend files from the filelist
 	- Updated auxiliary config.guess and config.sub to '2015-08-20' version
 	- Updated sqlite to version 3.9.2
-	- Updated gtk3 to version 3.18.2
+	- Updated gtk3 to version 3.18.3
 	- Updated curl to version 7.45.0
 	- Updated gtk-doc to version 1.24
 	- Updated hicolor-icon-theme to version 0.15
@@ -38,7 +38,7 @@
 	- Updated librsvg to version 2.40.11
 	- Updated pango to version 1.38.1
 	- Updated atk to version 2.18.0
-	- Updated gdk-pixbuf to version 2.32.1
+	- Updated gdk-pixbuf to version 2.32.2
 	- Updated pixman to version 0.32.8
 	- Updated gobject-introspection to version 1.46.0
 	- Updated pkg-config to version 0.29
