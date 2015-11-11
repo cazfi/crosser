@@ -696,7 +696,7 @@ then
   exit 1
 fi
 
-if ! build_component  gdk-pixbuf                                      ||
+if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
    ! unpack_component gtk2                                            ||
    ! build_component  gtk2                                            \
