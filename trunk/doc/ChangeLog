@@ -19,7 +19,7 @@
 	- trim_packetdir.sh cleans all nonexistend files from the filelist
 	- Updated auxiliary config.guess and config.sub to '2015-08-20' version
 	- Updated sqlite to version 3.9.2
-	- Updated gtk3 to version 3.18.4
+	- Updated gtk3 to version 3.18.5
 	- Updated curl to version 7.45.0
 	- Updated gtk-doc to version 1.24
 	- Updated hicolor-icon-theme to version 0.15
