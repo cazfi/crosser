@@ -19,7 +19,7 @@
 	- Updated adwaita-icon-theme to version 3.18.0
 	- Updated gnome-themes-standard to version 3.18.0
 	- Updated gtk2 to version 2.24.28
-	- Updated freetype to version 2.6.1
+	- Updated freetype to version 2.6.2
 	- Updated qt to version 5.5.1
 	- Updated harfbuzz to version 1.0.6
 	- Updated tiff to version 4.0.6
@@ -38,6 +38,7 @@
 	- Updated icu to version 56.1
 	- Updated cairo to version 1.14.4
 	- Updated libcroco to version 0.9.6
+	- Updated libxml2 to version 2.9.3
 
 0.15.3 (13-Oct-15)
 	- Support backup download URL for source packets
