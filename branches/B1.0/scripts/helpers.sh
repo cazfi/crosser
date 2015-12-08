@@ -698,7 +698,8 @@ ask_yes_no() {
 # $1 - Directory path
 #
 # 0  - Directory no longer exist
-# 1  - Directory still exist
+# 1  - Directory still exist, user request
+# 2  - Directory still exist, error
 remove_dir() {
   if ! test -d "$1"
   then
@@ -724,7 +725,7 @@ remove_dir() {
 
   if ! rm -Rf "$1"
   then
-    return 1
+    return 2
   fi
 }
 
