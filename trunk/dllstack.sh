@@ -481,13 +481,15 @@ log_write 2 "cross-g++:  $TARGET_GXX_VER"
 
 CROSSER_STDCXX="-static-libstdc++"
 
-if ! remove_dir "$CROSSER_SRCDIR"    ||
-   ! remove_dir "$CROSSER_BUILDDIR"  ||
-   ! remove_dir "$DLLSPREFIX"        ||
-   ! remove_dir "$NATIVE_PREFIX"
-then
-  log_error "Failed to remove old directories"
-  exit 1
+remove_dir "$CROSSER_SRCDIR" && remove_dir "$CROSSER_BUILDDIR" && remove_dir "$DLLSPREFIX" && remove_dir "$NATIVE_PREFIX"
+RDRET=$?
+
+if test "x$RDRET" = "x1" ; then
+    log_error "Old directories not removed"
+    exit 1
+elif test "x$RDRET" != "x0" ; then
+    log_error "Failed to remove old directories"
+    exit 1
 fi
 
 if ! mkdir -p "$CROSSER_SRCDIR"
