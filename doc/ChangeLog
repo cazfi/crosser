@@ -6,6 +6,7 @@
 	- Obsoleted PREFIX configuration variable
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
 	- Configuration variables CROSSER_LOGLVL_FILE and CROSSER_LOGLVL_STDOUT replace LOGLEVEL_FILE and LOGLEVEL_STDOUT
+	- Reduced namespace pollution by giving prefix CROSSER_ for some internal variables
 	- Removed broken AUTOWINE support
 	- Added custom versionset example 'custom.versions'
 	- trim_packetdir.sh cleans all nonexistend files from the filelist

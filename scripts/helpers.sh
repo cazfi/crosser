@@ -435,7 +435,7 @@ setup_prefix() {
                 -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
                 -e "s/<VERSIONSET>/$VERSIONSET/g" \
-                -e "s/<SETUP>/$SETUP/g"
+                -e "s/<SETUP>/$CROSSER_SETUP/g"
 }
 
 # Outputs one parsed prefix. Can take one or two parameters and decides
