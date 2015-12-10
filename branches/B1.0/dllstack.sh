@@ -52,9 +52,9 @@ fi
 
 if test "x$3" = "x"
 then
-  SETUP="win32"
+  CROSSER_SETUP="win32"
 else
-  SETUP="$3"
+  CROSSER_SETUP="$3"
 fi
 
 if ! log_init
@@ -383,15 +383,15 @@ cd $(dirname $0)
 
 BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 
-if ! test -e "$CROSSER_MAINDIR/setups/$SETUP.conf" ; then
-  log_error "Can't find setup \"$SETUP.conf\""
+if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
+  log_error "Can't find setup \"$CROSSER_SETUP.conf\""
   exit 1
 fi
-. "$CROSSER_MAINDIR/setups/$SETUP.conf"
+. "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf"
 
 if test "x$DLLSTACK" = "xno"
 then
-  log_error "dllstack.sh cannot be used with configuration \"$SETUP\"."
+  log_error "dllstack.sh cannot be used with configuration \"$CROSSER_SETUP\"."
   exit 1
 fi
 
@@ -427,7 +427,7 @@ log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
 log_write 2 "Log:        \"$CROSSER_LOGDIR\""
 log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
-log_write 2 "Setup:      \"$SETUP\""
+log_write 2 "Setup:      \"$CROSSER_SETUP\""
 log_write 2 "Versionset: \"$VERSIONSET\""
 log_write 2 "cross-gcc:  $TARGET_GCC_VER"
 log_write 2 "cross-g++:  $TARGET_GXX_VER"
@@ -877,7 +877,7 @@ log_write 1 "Creating crosser.txt"
   echo "Dllstack"
   echo "===================="
   echo "Version=\"$CROSSER_VERSION\""
-  echo "Setup=\"$SETUP\""
+  echo "Setup=\"$CROSSER_SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
   if test "x$VERSION_GTK2" != "x0"
