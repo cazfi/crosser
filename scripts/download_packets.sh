@@ -416,6 +416,7 @@ then
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
+    gettext)     VERSION_GETTEXT=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
@@ -465,13 +466,6 @@ then
   ZLIB_PACK="tar.xz"
 else
   ZLIB_PACK="tar.bz2"
-fi
-
-if is_minimum_version $VERSION_PNG 1.6.0
-then
-  PNG_PACK="tar.xz"
-else
-  PNG_PACK="tar.bz2"
 fi
 
 if is_minimum_version $VERSION_CAIRO 1.12.2
@@ -532,7 +526,7 @@ download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VE
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "$PNG_PACK" \
+download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
