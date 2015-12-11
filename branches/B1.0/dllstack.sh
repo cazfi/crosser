@@ -186,7 +186,7 @@ build_component_full()
     unset LDFLAGS
   elif test "x$4" = "xcross"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$BUILD --host=$BUILD --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$TARGET $3"
     unset CPPFLAGS
     unset LDFLAGS
   elif test "x$4" = "xpkg-config"
@@ -196,7 +196,7 @@ build_component_full()
     unset LDFLAGS
   elif test "x$4" = "xwindres"
   then
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$TARGET --target=$TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$TARGET-gcc -static-libgcc"
@@ -209,7 +209,7 @@ build_component_full()
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$BUILD --host=$TARGET --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$TARGET --target=$TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$TARGET-gcc -static-libgcc"
@@ -381,7 +381,7 @@ build_bzip2()
 
 cd $(dirname $0)
 
-BUILD="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
+CROSSER_BUILD_ARCH="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 
 if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
   log_error "Can't find setup \"$CROSSER_SETUP.conf\""
