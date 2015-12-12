@@ -456,8 +456,6 @@ then
   export TGT_HEADERS="/usr/$TARGET/include"
 fi
 
-export LIBC_MODE="none"
-
 if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
   echo "Configuration variable LSHOST_PREFIX is deprecated. Please use DLLSHOST_PREFIX." >&2
   DLLSHOST_PREFIX="$LSHOST_PREFIX"
