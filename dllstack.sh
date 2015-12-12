@@ -622,6 +622,10 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host util-macros                                       ||
    ! free_component       util-macros $VERSION_UTIL_MACROS                  \
      "native-util-macros"                                                   ||
+   ! unpack_component     libpng                                            ||
+   ! patch_src            libpng      $VERSION_PNG "png_epsilon-1.6.8"      ||
+   ! build_component_host libpng                                            ||
+   ! free_build           "native-libpng"                                   ||
    ! unpack_component     ImageMagick                                       ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"                  ||
@@ -684,8 +688,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   ImageMagick                                    \
      "--without-bzlib --without-threads --without-magick-plus-plus"   ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
-   ! unpack_component  libpng                                         ||
-   ! patch_src         libpng     $VERSION_PNG "png_epsilon-1.6.8"    ||
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
    ! unpack_component  gettext                                        ||
