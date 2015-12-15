@@ -32,7 +32,7 @@
 	- Updated librsvg to version 2.40.12
 	- Updated pango to version 1.38.1
 	- Updated atk to version 2.18.0
-	- Updated gdk-pixbuf to version 2.32.2
+	- Updated gdk-pixbuf to version 2.32.3
 	- Updated pixman to version 0.32.8
 	- Updated gobject-introspection to version 1.46.0
 	- Updated pkg-config to version 0.29
