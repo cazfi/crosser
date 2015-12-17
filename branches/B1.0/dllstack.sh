@@ -36,7 +36,7 @@ else
   # resulting environment would just be unusable for building.
   # We are not going to build anything, but just issuing error message - and for
   # that we read log_error from helpers.sh
-  ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
+  CROSSER_ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
 fi
 
 . "$CROSSER_MAINDIR/scripts/setup_reader.sh"
@@ -63,9 +63,9 @@ then
   exit 1
 fi
 
-if test "x$ERR_MSG" != "x"
+if test "x$CROSSER_ERR_MSG" != "x"
 then
-  log_error "$ERR_MSG"
+  log_error "$CROSSER_ERR_MSG"
   exit 1
 fi
 
