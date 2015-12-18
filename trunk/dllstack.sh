@@ -967,18 +967,25 @@ log_write 1 "Creating crosser.txt"
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
-mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
-(
-  echo -n -e "[Settings]\r\n"
-  echo -n -e "gtk-fallback-icon-theme = gnome\r\n"
-  echo -n -e "gtk-button-images = true\r\n"
-  echo -n -e "gtk-menu-images = true\r\n"
-) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
 
-mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
-(
-  echo -n -e "gtk-icon-theme-name = gnome\r\n"
-) > "$DLLSPREFIX/etc/gtk-2.0/gtkrc"
+if test "x$VERSION_GTK3" != "x0"
+then
+  mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
+  (
+    echo -n -e "[Settings]\r\n"
+    echo -n -e "gtk-fallback-icon-theme = gnome\r\n"
+    echo -n -e "gtk-button-images = true\r\n"
+    echo -n -e "gtk-menu-images = true\r\n"
+  ) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
+fi
+
+if test "x$VERSION_GTK2" != "x0"
+then
+  mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
+  (
+    echo -n -e "gtk-icon-theme-name = gnome\r\n"
+  ) > "$DLLSPREFIX/etc/gtk-2.0/gtkrc"
+fi
 
 log_write 1 "Creating setup.bat"
 (
