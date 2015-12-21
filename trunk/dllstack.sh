@@ -186,21 +186,21 @@ build_component_full()
     unset LDFLAGS
   elif test "x$4" = "xcross"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     unset LDFLAGS
   elif test "x$4" = "xpkg-config"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$TARGET- $3"
+    CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
   elif test "x$4" = "xwindres"
   then
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$TARGET --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$TARGET-gcc -static-libgcc"
-    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
+    export CC="$CROSSER_TARGET-gcc -static-libgcc"
+    export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
@@ -209,11 +209,11 @@ build_component_full()
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$TARGET --target=$TARGET $3"
+    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$TARGET-gcc -static-libgcc"
-    export CXX="$TARGET-g++ $CROSSER_STDCXX -static-libgcc"
+    export CC="$CROSSER_TARGET-gcc -static-libgcc"
+    export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
   fi
 
   if test -x "$SRCDIR/configure"
@@ -275,9 +275,9 @@ build_zlib()
   fi
 
   (
-  export CC="$TARGET-gcc -static-libgcc"
-  export RANLIB=$TARGET-ranlib
-  export AR=$TARGET-ar
+  export CC="$CROSSER_TARGET-gcc -static-libgcc"
+  export RANLIB="$CROSSER_TARGET-ranlib"
+  export AR="$CROSSER_TARGET-ar"
 
   if ! cd "$CROSSER_SRCDIR/$SUBDIR"
   then
@@ -352,9 +352,9 @@ build_bzip2()
     return 1
   fi
 
-  export CC="$TARGET-gcc -static-libgcc"
-  export RANLIB=$TARGET-ranlib
-  export AR=$TARGET-ar
+  export CC="$CROSSER_TARGET-gcc -static-libgcc"
+  export RANLIB="$CROSSER_TARGET-ranlib"
+  export AR="$CROSSER_TARGET-ar"
   export PREFIX=$DLLSPREFIX
   export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
   export LDFLAGS="-L$DLLSPREFIX/lib"
@@ -444,16 +444,17 @@ fi
 
 if test "x$TARGET_VENDOR" = "x"
 then
-  TARGET="$TARGET_ARCH-$TARGET_OS"
+  export CROSSER_TARGET="$TARGET_ARCH-$TARGET_OS"
 else
-  TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
+  export CROSSER_TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-export CROSSER_TARGET="$TARGET"
+# Temporary backward compatibility
+TARGET="$CROSSER_TARGET"
 
-if test -d "/usr/$TARGET/include"
+if test -d "/usr/$CROSSER_TARGET/include"
 then
-  export TGT_HEADERS="/usr/$TARGET/include"
+  export TGT_HEADERS="/usr/$CROSSER_TARGET/include"
 fi
 
 if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
@@ -465,8 +466,8 @@ export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
 
-TARGET_GCC_VER=$($TARGET-gcc -dumpversion | sed 's/-.*//')
-TARGET_GXX_VER=$($TARGET-g++ -dumpversion | sed 's/-.*//')
+TARGET_GCC_VER=$($CROSSER_TARGET-gcc -dumpversion | sed 's/-.*//')
+TARGET_GXX_VER=$($CROSSER_TARGET-g++ -dumpversion | sed 's/-.*//')
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""
@@ -733,7 +734,7 @@ if ! unpack_component tiff                                                  ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! build_component   fontconfig                                           \
-     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$TARGET --enable-libxml2" ||
+     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
    ! unpack_component  epoxy "" "v${VERSION_EPOXY}"                         ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||

@@ -431,7 +431,7 @@ autogen_component()
 #
 # $1   - Prefix to parse
 setup_prefix() {
-  echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
+  echo $1 | sed -e "s/<TARGET>/$CROSSER_TARGET/g" \
                 -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
                 -e "s/<VERSIONSET>/$VERSIONSET/g" \
@@ -747,7 +747,7 @@ read_configure_vars_sub() {
           log_error "Error in format of $CONF_FILE"
           return 1
         fi
-        if echo "$TARGET" | grep $CONDITION > /dev/null
+        if echo "$CROSSER_TARGET" | grep $CONDITION > /dev/null
         then
           echo -n "$REST "
         fi
