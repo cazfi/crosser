@@ -7,6 +7,7 @@
 	- Removed expat from the build
 	- Build native version of ImageMagick
 	- Build native version of libpng
+	- Updated ImageMagick to version 6.9.2-10
 
 1.0
 	- Made sdl-chain build optional
