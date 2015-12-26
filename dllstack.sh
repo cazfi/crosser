@@ -628,6 +628,8 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     ImageMagick                                       ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"                  ||
+   ! (is_smaller_varsion $VERSION_IMAGEMAGICK 6.9.2 ||
+      patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not" )         ||
    ! build_component_host ImageMagick                                       ||
    ! free_build           "native-ImageMagick"
 then
