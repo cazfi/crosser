@@ -1,6 +1,6 @@
 # current.versions: Package versions
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -21,7 +21,7 @@ VERSION_BZIP2=1.0.6
 VERSION_XZ=5.2.2
 VERSION_CURL=7.46.0
 VERSION_SQLITE=3.9.2
-VERSION_GETTEXT=0.19.6
+VERSION_GETTEXT=0.19.7
 VERSION_PKG_CONFIG=0.29
 VERSION_PKGCONF=0.9.12
 VERSION_ICON_NUTILS=0.8.90
