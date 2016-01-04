@@ -9,6 +9,9 @@
 	- Build native version of libpng
 	- Updated ImageMagick to version 6.9.2-10
 	- Updated gettext to version 0.19.7
+	- Updated SDL2_image to version 2.0.1
+	- Updated SDL2_mixer to version 2.0.1
+	- Updated SDL2_ttf to version 2.0.13
 
 1.0
 	- Made sdl-chain build optional
