@@ -945,17 +945,12 @@ WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 log_write 1 "Creating crosser.txt"
 (
   echo "Dllstack"
-  echo "===================="
+  echo "========================="
   echo "Version=\"$CROSSER_VERSION\""
   echo "Setup=\"$CROSSER_SETUP\""
   echo "Set=\"$VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
-  if test "x$VERSION_GTK2" != "x0"
-  then
-    echo "CROSSER_GTK2=\"yes\""
-  else
-    echo "CROSSER_GTK2=\"no\""
-  fi
+  echo "-------------------------"
   if test "x$VERSION_GTK3" != "x0"
   then
     echo "CROSSER_GTK3=\"yes\""
@@ -963,12 +958,27 @@ log_write 1 "Creating crosser.txt"
     echo "CROSSER_GTK3=\"no\""
   fi
   echo "CROSSER_QT=\"$CROSSER_QT\""
-  echo "CROSSER_SDL=\"$CROSSER_SDL\""
   if test "x$VERSION_SDL2" != "x0"
   then
     echo "CROSSER_SDL2=\"yes\""
   else
     echo "CROSSER_SDL2=\"no\""
+  fi
+  echo
+  echo "; Scheduled for complete removal"
+  echo "-------------------------"
+  if test "x$VERSION_EXPAT" != "x0"
+  then
+    echo "CROSSER_EXPAT=\"yes\""
+  else
+    echo "CROSSER_EXPAT=\"no\""
+  fi
+  echo "CROSSER_SDL=\"$CROSSER_SDL\""
+  if test "x$VERSION_GTK2" != "x0"
+  then
+    echo "CROSSER_GTK2=\"yes\""
+  else
+    echo "CROSSER_GTK2=\"no\""
   fi
 ) > "$DLLSPREFIX/crosser.txt"
 
