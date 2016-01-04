@@ -615,9 +615,11 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  ImageMagick                                    ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"          ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"            ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid"        ||
-   ! build_component   ImageMagick                                       \
-     "--without-bzlib --without-threads --without-magick-plus-plus"      ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid"                    ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment"             ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2"                        ||
+   ! build_component   ImageMagick                                                   \
+     "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp" ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! unpack_component  libpng                                         ||
    ! patch_src         libpng     $VERSION_PNG "png_epsilon-1.6.8"    ||
