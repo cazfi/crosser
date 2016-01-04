@@ -687,8 +687,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   readline                                          \
      "$READLINE_VARS --with-curses"                                      ||
    ! free_component    readline   $VERSION_READLINE "readline"           ||
-   ! build_component   ImageMagick                                    \
-     "--without-bzlib --without-threads --without-magick-plus-plus"   ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment"             ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2"                        ||
+   ! build_component   ImageMagick                                                   \
+     "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp" ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
    ! build_component   libpng                                         ||
    ! free_component    libpng     $VERSION_PNG "libpng"               ||
