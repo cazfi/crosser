@@ -1,0 +1,24 @@
+diff -Nurd ImageMagick-6.9.1-10/magick/random.c ImageMagick-6.9.1-10/magick/random.c
+--- ImageMagick-6.9.1-10/magick/random.c	2015-05-21 03:10:39.000000000 +0300
++++ ImageMagick-6.9.1-10/magick/random.c	2016-01-04 03:33:01.284708412 +0200
+@@ -449,7 +449,7 @@
+   SetStringInfoLength(chaos,sizeof(nanoseconds));
+   SetStringInfoDatum(chaos,(unsigned char *) &nanoseconds);
+   ConcatenateStringInfo(entropy,chaos);
+-#if defined(MAGICKCORE_HAVE_MKSTEMP)
++#if defined(MAGICKCORE_HAVE_MKSTEMP) && defined(MAGICKCORE_HAVE_FCHMOD)
+   {
+     char
+       path[MaxTextExtent];
+diff -Nurd ImageMagick-6.9.1-10/magick/resource.c ImageMagick-6.9.1-10/magick/resource.c
+--- ImageMagick-6.9.1-10/magick/resource.c	2016-01-04 03:32:02.540818065 +0200
++++ ImageMagick-6.9.1-10/magick/resource.c	2016-01-04 03:32:36.204755337 +0200
+@@ -522,7 +522,7 @@
+       *p++=portable_filename[c];
+     }
+     key=DestroyStringInfo(key);
+-#if defined(MAGICKCORE_HAVE_MKSTEMP)
++#if defined(MAGICKCORE_HAVE_MKSTEMP) && defined(MAGICKCORE_HAVE_FCHMOD)
+     file=mkstemp(path);
+     if (file != -1)
+       {
