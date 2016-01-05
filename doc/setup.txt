@@ -122,9 +122,14 @@ CROSSER_GROUP
  ; Currently this applies to downloaded source packets.
 
 CROSSER_QT
- ; If set to value "yes", Qt will be built as part of crosser
+ ; If set to value "yes", Qt will be built as part of crosser.
  ; Currently such an build will have dynamic dependency to some dlls
  ; not part of crosser environment, if built with gcc-4.8 or newer.
+
+CROSSER_SDL
+ ; Whether SDL-chain should be built as part of crosser.
+ ; Current default is 'yes'.
+ ; Future releases are going to drop SDL-chain support completely.
 
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
