@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# requirements/debian.sh: Crosser requirements installer for Debian system
+# requirements/debian.sh: Crosser requirements installer for
+#                         Debian system and derivatives
 #
-# (c) 2014-2015 Marko Lindqvist
+# (c) 2014-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
