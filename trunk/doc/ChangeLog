@@ -26,7 +26,7 @@
 	- Reduced namespace pollution by giving prefix CROSSER_ for some internal variables
 	- Removed broken AUTOWINE support
 	- Added custom versionset example 'custom.versions'
-	- trim_packetdir.sh cleans all nonexistend files from the filelist
+	- trim_packetdir.sh cleans all nonexistent files from the filelist
 	- Do not treat user request to not delete old directories as an error
 	- Updated auxiliary config.guess and config.sub to '2015-08-20' version
 	- Updated sqlite to version 3.9.2
