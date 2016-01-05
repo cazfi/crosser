@@ -967,12 +967,6 @@ log_write 1 "Creating crosser.txt"
   echo
   echo "; Scheduled for complete removal"
   echo "-------------------------"
-  if test "x$VERSION_EXPAT" != "x0"
-  then
-    echo "CROSSER_EXPAT=\"yes\""
-  else
-    echo "CROSSER_EXPAT=\"no\""
-  fi
   echo "CROSSER_SDL=\"$CROSSER_SDL\""
   if test "x$VERSION_GTK2" != "x0"
   then
@@ -980,6 +974,10 @@ log_write 1 "Creating crosser.txt"
   else
     echo "CROSSER_GTK2=\"no\""
   fi
+  echo
+  echo "; Already removed"
+  echo "-------------------------"
+  echo "CROSSER_EXPAT=\"no\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Creating configuration files"
