@@ -18,6 +18,7 @@
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
 	- Added pkgconf (version 0.9.12) to build, optionally use it instead of pkg-config
 	- launch.bat sets WINSTACK_ROOT
+	- win64 setup no longer considered experimental
 	- Fixed build of ImageMagick dlls
 	- Obsoleted PREFIX configuration variable
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
