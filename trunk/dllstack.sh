@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1026,12 +1026,11 @@ log_write 1 "Creating launch.bat"
 (
   echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
+  if test "x$CROSSER_QT" = "xyes"
+  then
+      echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\plugins\r\n"
+  fi
 ) > "$DLLSPREFIX/launch.bat"
-
-if test "x$CROSSER_QT" = "xyes"
-then
-    echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\plugins\r\n" >> "$DLLSPREFIX/launch.bat"
-fi
 
 log_write 1 "IMPORTANT: Remember to run setup.bat when installing to target"
 
