@@ -14,6 +14,7 @@
 	- Updated SDL2_ttf to version 2.0.13
 	- Updated sqlite to version 3.10.0
 	- Updated SDL2 to version 2.0.4
+	- Updated librsvg to version 2.40.13
 
 1.0
 	- Made sdl-chain build optional
