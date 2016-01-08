@@ -788,7 +788,7 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
        patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros )                  ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
-     "--enable-gtk2-dependency --with-included-immodules"             ||
+     "--with-included-immodules"                                      ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
