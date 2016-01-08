@@ -131,6 +131,17 @@ CROSSER_SDL
  ; Current default is 'yes'.
  ; Future releases are going to drop SDL-chain support completely.
 
+CROSSER_GTK
+ ; If set to 'no', gtk-chain is not built. This implies lack of both of
+ ; gtk2 and gtk3 from the build, and values of CROSSER_GTK2 or CROSSER_GTK3
+ ; have no effect.
+
+CROSSER_GTK2
+ ; Whether gtk2 parts of gtk-chain should be built. Current default is 'yes'.
+
+CROSSER_GTK3
+ ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
+
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
  ; and 'pkgconf'
