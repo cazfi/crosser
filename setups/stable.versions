@@ -1,6 +1,6 @@
 # stable.versions: Package versions
 #
-# (c) 2009-2015 Marko Lindqvist
+# (c) 2009-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -43,7 +43,7 @@ VERSION_PIXMAN=0.30.2
 VERSION_CAIRO=1.14.4
 VERSION_PANGO=1.36.8
 VERSION_CROCO=0.6.8
-VERSION_RSVG=2.40.11
+VERSION_RSVG=2.40.12
 VERSION_UTIL_MACROS=1.19.0
 VERSION_EPOXY=1.2
 VERSION_ATK=2.16.0
