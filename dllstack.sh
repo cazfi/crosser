@@ -7,6 +7,11 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
+#############################################################################################
+#
+# Preparations
+#
+
 CROSSER_MAINDIR="$(cd "$(dirname "$0")" ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
@@ -73,6 +78,11 @@ if test "x$1" != "x"
 then
   DLLSPREFIX="$1"
 fi
+
+################################################################################################
+#
+# Functions
+#
 
 # $1 - Component
 # $2 - Extra configure options
@@ -425,6 +435,11 @@ build_pdcurses()
   fi
   )
 }
+
+#######################################################################################################
+#
+# Main
+#
 
 cd $(dirname $0)
 
