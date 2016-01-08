@@ -4,6 +4,7 @@
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
+	- Made gtk-chain build optional, as a whole or gtk2 or gtk3 parts only
 	- Removed expat from the build
 	- Build native version of ImageMagick
 	- Build native version of libpng

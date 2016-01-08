@@ -768,6 +768,21 @@ then
   exit 1
 fi
 
+if test "x$CROSSER_GTK2" = "xno" ; then
+    if test "x$CROSSER_GTK3" = "xno" ; then
+        CROSSER_GTK=no
+    else
+        VERSION_GTK2=0
+        VERSION_GTK_ENG=0
+        VERSION_GNOME_THEME_STD=0
+    fi
+else
+    if test "x$CROSSER_GTK3" = "xno" ; then
+        VERSION_GTK3=no
+    fi
+fi
+
+if test "x$CROSSER_GTK" != "xno" ; then
 if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
    ! unpack_component gtk2                                            ||
@@ -840,6 +855,7 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
 then
   log_error "gtk+ stack build failed"
   exit 1
+fi
 fi
 
 if ! unpack_component  libogg                                         ||
