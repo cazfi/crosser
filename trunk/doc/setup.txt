@@ -50,6 +50,13 @@ DLLSHOST_PREFIX
  ; Path parsing is similar to that of DLLSPREFIX.
  ; Default is $HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost
 
+CROSSER_WINVER
+ ; Minimum Windows version we should support. Use numerival version
+ ; numbers, not symbolic ones, e.g., Win7 should be given as '0x0601'
+ ; and not as '_WIN32_WINNT_WIN7'
+ ; THIS FEATURE IS EXPERIMENTAL
+ ; Current default is '0x0502' meaning Windows Server 2003.
+
 CROSSER_LOGLVL_STDOUT
 CROSSER_LOGLVL_FILE
  ; Level of logging to screen and to file. Values can be from

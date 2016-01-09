@@ -214,13 +214,13 @@ build_component_full()
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include"
+    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $CROSSER_WINVER_FLAG"
     export CFLAGS="${CPPFLAGS}"
     export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
-    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+    export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$CROSSER_TARGET-gcc -static-libgcc"
     export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
@@ -295,7 +295,7 @@ build_zlib()
     return 1
   fi
 
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
   export LDFLAGS="-L$DLLSPREFIX/lib"
 
   CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
@@ -366,7 +366,7 @@ build_bzip2()
   export RANLIB="$CROSSER_TARGET-ranlib"
   export AR="$CROSSER_TARGET-ar"
   export PREFIX=$DLLSPREFIX
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS"
+  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
   export LDFLAGS="-L$DLLSPREFIX/lib"
 
   log_write 1 "Building $1"
@@ -483,6 +483,8 @@ export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSE
 
 TARGET_GCC_VER=$($CROSSER_TARGET-gcc -dumpversion | sed 's/-.*//')
 TARGET_GXX_VER=$($CROSSER_TARGET-g++ -dumpversion | sed 's/-.*//')
+
+CROSSER_WINVER_FLAG="-D_WIN32_WINNT=${CROSSER_WINVER}"
 
 log_write 2 "Install:    \"$DLLSPREFIX\""
 log_write 2 "Src:        \"$CROSSER_SRCDIR\""

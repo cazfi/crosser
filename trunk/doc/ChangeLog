@@ -1,4 +1,5 @@
 1.1
+	- Made minimum Windows version to support configurable
 	- Further reduced namespace pollution by renaming internal variables
 	- Added jansson (version 2.7) to build
 	- Added tango-icon-theme (version 0.8.90) to build
