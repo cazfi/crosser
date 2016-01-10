@@ -679,6 +679,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
    ! free_component    xz         $VERSION_XZ "xz"                    ||
    ! unpack_component  curl                                           ||
+   ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
    ! build_component   curl                                           ||
    ! free_component    curl       $VERSION_CURL "curl"                ||
    ! unpack_component  sqlite                                         \
