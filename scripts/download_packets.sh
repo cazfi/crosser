@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -410,9 +410,6 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
-    readline)    VERSION_READLINE=$VERSION_SELECTED
-                 PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
@@ -424,6 +421,7 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
+    expat)       VERSION_EXPAT=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
   esac
 fi
@@ -447,16 +445,14 @@ PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
-
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.10.0
-then
-    SQL_SUBDIR="2016/"
-elif is_minimum_version $VERSION_SQLITE 3.8.8
+if is_minimum_version $VERSION_SQLITE 3.8.8
 then
    SQL_SUBDIR="2015/"
+elif is_minimum_version $VERSION_SQLITE 3.8.3
+then
+   SQL_SUBDIR="2014/"
 else
    SQL_SUBDIR=""
 fi
@@ -522,8 +518,6 @@ download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSIO
 RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="$RET $?"
-download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
-RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
@@ -534,14 +528,6 @@ RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
-RET="$RET $?"
-download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
-RET="$RET $?"
-download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
-                 "readline"            "readline${READLINE_SHORT}-" \
-                 "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
@@ -554,6 +540,8 @@ RET="$RET $?"
 download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/expat/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
 RET="$RET $?"
@@ -628,8 +616,6 @@ RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
 download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
-RET="$RET $?"
-download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
 download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"

@@ -50,13 +50,6 @@ DLLSHOST_PREFIX
  ; Path parsing is similar to that of DLLSPREFIX.
  ; Default is $HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost
 
-CROSSER_WINVER
- ; Minimum Windows version we should support. Use numerival version
- ; numbers, not symbolic ones, e.g., Win7 should be given as '0x0601'
- ; and not as '_WIN32_WINNT_WIN7'
- ; THIS FEATURE IS EXPERIMENTAL
- ; Current default is '0x0502' meaning Windows Server 2003.
-
 CROSSER_LOGLVL_STDOUT
 CROSSER_LOGLVL_FILE
  ; Level of logging to screen and to file. Values can be from
@@ -137,17 +130,6 @@ CROSSER_SDL
  ; Whether SDL-chain should be built as part of crosser.
  ; Current default is 'yes'.
  ; Future releases are going to drop SDL-chain support completely.
-
-CROSSER_GTK
- ; If set to 'no', gtk-chain is not built. This implies lack of both of
- ; gtk2 and gtk3 from the build, and values of CROSSER_GTK2 or CROSSER_GTK3
- ; have no effect.
-
-CROSSER_GTK2
- ; Whether gtk2 parts of gtk-chain should be built. Current default is 'yes'.
-
-CROSSER_GTK3
- ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
 
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
