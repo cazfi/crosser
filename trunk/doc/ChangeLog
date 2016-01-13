@@ -17,6 +17,7 @@
 	- Updated sqlite to version 3.10.0
 	- Updated SDL2 to version 2.0.4
 	- Updated librsvg to version 2.40.13
+	- Updated harfbuzz to version 1.1.3
 
 1.0 (12-Jan-16)
 	- Made sdl-chain build optional
