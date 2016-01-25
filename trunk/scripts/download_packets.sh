@@ -503,7 +503,8 @@ else
   HICOLOR_PACK="tar.gz"
 fi
 
-if echo $VERSION_QT | grep alpha >/dev/null
+if echo $VERSION_QT | grep alpha >/dev/null ||
+   echo $VERSION_QT | grep beta >/dev/null
 then
     QT_RELEASEDIR="development_releases"
 else
