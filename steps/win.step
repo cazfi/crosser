@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -51,10 +51,5 @@ gnome-icon-theme-extras GNOME_ICONE
 gnome-themes-standard GNOME_THEME_STD
 libogg            OGG
 libvorbis         VORBIS
-SDL2              SDL2
-SDL2_image        SDL2_IMAGE
-SDL2_gfx          SDL2_GFX
-SDL2_ttf          SDL2_TTF
-SDL2_mixer        SDL2_MIXER
 libxml2           XML2
 jansson           JANSSON

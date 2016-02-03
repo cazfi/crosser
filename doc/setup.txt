@@ -138,6 +138,10 @@ CROSSER_SDL
  ; Current default is 'yes'.
  ; Future releases are going to drop SDL-chain support completely.
 
+CROSSER_SDL2
+ ; Whether SDL2-chain should be built as part of crosser.
+ ; Current default is 'yes'.
+
 CROSSER_GTK
  ; If set to 'no', gtk-chain is not built. This implies lack of both of
  ; gtk2 and gtk3 from the build, and values of CROSSER_GTK2 or CROSSER_GTK3

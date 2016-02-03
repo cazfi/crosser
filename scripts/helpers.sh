@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -814,12 +814,15 @@ component_varname()
 
   if test "x$VARNAME" = "x" ; then
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
-      if test "x$VARNAME" = "x" ; then
-          VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
-          if test "x$VARNAME" = "x" ; then
-              return 1
-          fi
-      fi
+  fi
+  if test "x$VARNAME" = "x" ; then
+      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
+  fi
+  if test "x$VARNAME" = "x" ; then
+      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl2.step | sed 's/.*[ \t]//')
+  fi
+  if test "x$VARNAME" = "x" ; then
+      return 1
   fi
 
   echo $VARNAME

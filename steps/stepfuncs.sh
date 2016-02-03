@@ -2,16 +2,17 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
 STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_sdl_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl.step | grep -v "^#" | sed 's/[ \t].*//')
+STEP_sdl2_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl2.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_full_PACKETS=$(cat $CROSSER_MAINDIR/steps/full.step | grep -v "^#" | sed 's/[ \t].*//')
 
 # Steps array
-STEPLIST=("win" "sdl" "full")
+STEPLIST=("win" "sdl" "sdl2" "full")
 
 # Check if packet belongs to step
 #
