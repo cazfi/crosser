@@ -547,6 +547,9 @@ then
     else
         steplist="win"
     fi
+    if test "x$CROSSER_SDL2" = "xyes" ; then
+        steplist="${steplist},sdl2"
+    fi
     if test "x$CROSSER_QT" = "xyes" ; then
         steplist="${steplist},full"
     fi
@@ -919,6 +922,7 @@ then
 fi
 fi
 
+if test "x$CROSSER_SDL2" = "xyes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! ( is_minimum_version $VERSION_SDL2 2.0.4 ||
@@ -948,6 +952,7 @@ if ! unpack_component  SDL2                                           ||
 then
   log_error "SDL2 stack build failed"
   exit 1
+fi
 fi
 
 if test "x$CROSSER_QT" = "xyes"
@@ -996,12 +1001,7 @@ log_write 1 "Creating crosser.txt"
     echo "CROSSER_GTK3=\"no\""
   fi
   echo "CROSSER_QT=\"$CROSSER_QT\""
-  if test "x$VERSION_SDL2" != "x0"
-  then
-    echo "CROSSER_SDL2=\"yes\""
-  else
-    echo "CROSSER_SDL2=\"no\""
-  fi
+  echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
   echo
   echo "; Scheduled for complete removal"
   echo "-------------------------"

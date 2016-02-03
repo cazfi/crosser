@@ -115,6 +115,13 @@ if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
     echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
+if test "x$CROSSER_SDL2" = "x" ; then
+    CROSSER_SDL2="yes"
+fi
+if test "x$CROSSER_SDL2" != "xyes" && test "x$CROSSER_SDL2" != "xno" ; then
+    echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
+    exit 1
+fi
 if test "x$CROSSER_PKGCONF" = "x" ; then
     CROSSER_PKGCONF="pkg-config"
 fi
