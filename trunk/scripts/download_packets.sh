@@ -323,25 +323,25 @@ then
       export PATCHES_SELECTED="0"
     fi
   else
-    VERSIONSET="current"
+    CROSSER_VERSIONSET="current"
   fi
 elif test "x$1" != "x--packet" && test "x$2" != "x"
 then
-  VERSIONSET="$2"
+  CROSSER_VERSIONSET="$2"
 else
-  VERSIONSET="current"
+  CROSSER_VERSIONSET="current"
 fi
 
-if test "x$VERSIONSET" != "x"
+if test "x$CROSSER_VERSIONSET" != "x"
 then
-  if ! test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
+  if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
   then
-    echo "Versionset $VERSIONSET.versions not found" >&2
+    echo "Versionset ${CROSSER_VERSIONSET}.versions not found" >&2
     exit 1
   fi
 
-  if ! . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions" ; then
-    echo "Failed to read list of package versions ($VERSIONSET.versions)" >&2
+  if ! . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions" ; then
+    echo "Failed to read list of package versions (${CROSSER_VERSIONSET}.versions)" >&2
     exit 1
   fi
 fi
