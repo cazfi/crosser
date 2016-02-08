@@ -29,19 +29,19 @@ fi
 # we have to load versionset before setup_reader.sh
 # helpers.sh requires environment to be set up by setup_reader.sh.
 if test "x$2" != "x" ; then
-  VERSIONSET="$2"
+  CROSSER_VERSIONSET="$2"
 else
-  VERSIONSET="current"
+  CROSSER_VERSIONSET="current"
 fi
-if test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
+if test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
 then
-  . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
+  . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
 else
   # Versions being unset do not prevent loading of setup_reader.sh and helper.sh,
   # resulting environment would just be unusable for building.
   # We are not going to build anything, but just issuing error message - and for
   # that we read log_error from helpers.sh
-  CROSSER_ERR_MSG="Cannot find versionset \"$VERSIONSET.versions\""
+  CROSSER_ERR_MSG="Cannot find versionset \"${CROSSER_VERSIONSET}.versions\""
 fi
 
 . "$CROSSER_MAINDIR/scripts/setup_reader.sh"
@@ -491,7 +491,7 @@ log_write 2 "Src:        \"$CROSSER_SRCDIR\""
 log_write 2 "Log:        \"$CROSSER_LOGDIR\""
 log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
 log_write 2 "Setup:      \"$CROSSER_SETUP\""
-log_write 2 "Versionset: \"$VERSIONSET\""
+log_write 2 "Versionset: \"$CROSSER_VERSIONSET\""
 log_write 2 "cross-gcc:  $TARGET_GCC_VER"
 log_write 2 "cross-g++:  $TARGET_GXX_VER"
 
@@ -553,7 +553,8 @@ then
     if test "x$CROSSER_QT" = "xyes" ; then
         steplist="${steplist},full"
     fi
-    if ! (cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$VERSIONSET")
+    if ! (cd "$CROSSER_PACKETDIR" &&
+          "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$CROSSER_VERSIONSET")
   then
     log_error "Downloading packets failed"
     exit 1
@@ -991,7 +992,7 @@ log_write 1 "Creating crosser.txt"
   echo "========================="
   echo "Version=\"$CROSSER_VERSION\""
   echo "Setup=\"$CROSSER_SETUP\""
-  echo "Set=\"$VERSIONSET\""
+  echo "Set=\"$CROSSER_VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
   echo "-------------------------"
   if test "x$VERSION_GTK3" != "x0"

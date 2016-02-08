@@ -434,7 +434,7 @@ setup_prefix() {
   echo $1 | sed -e "s/<TARGET>/$CROSSER_TARGET/g" \
                 -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
-                -e "s/<VERSIONSET>/$VERSIONSET/g" \
+                -e "s/<VERSIONSET>/$CROSSER_VERSIONSET/g" \
                 -e "s/<SETUP>/$CROSSER_SETUP/g"
 }
 
