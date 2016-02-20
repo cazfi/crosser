@@ -22,6 +22,7 @@ curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
 gettext           GETTEXT
+pcre              PCRE
 glib              GLIB
 gtk-doc           GTK_DOC
 gobject-introspection GOBJ_INTRO
