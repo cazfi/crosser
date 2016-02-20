@@ -594,6 +594,11 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
    ! free_build           "native-pkg-config"                               ||
+   ! unpack_component     pcre                                              ||
+   ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                       ||
+   ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                       ||
+   ! build_component_host pcre                                              ||
+   ! free_build           "native-pcre"                                     ||
    ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
       is_minimum_version $VERSION_GLIB 2.36.0 ||
@@ -724,10 +729,13 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! LIBS="-liconv" build_component gettext                           \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
+   ! build_component   pcre                                           \
+     "--disable-cpp"                                                  ||
+   ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
    ! build_component   libffi                                         ||
-   ! free_component    libffi     $VERSION_FFI    "libffi"            ||
+   ! free_component    libffi     $VERSION_FFI     "libffi"           ||
    ! build_component   glib       "$GLIB_VARS --with-threads=win32"   ||
-   ! free_component    glib       $VERSION_GLIB "glib"
+   ! free_component    glib       $VERSION_GLIB    "glib"
 then
   log_error "Build failed"
   exit 1
