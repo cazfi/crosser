@@ -597,7 +597,8 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     pcre                                              ||
    ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                       ||
    ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                       ||
-   ! build_component_host pcre                                              ||
+   ! build_component_host pcre                                              \
+     "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre"                                     ||
    ! unpack_component     glib                              ||
    ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
@@ -730,7 +731,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
    ! build_component   pcre                                           \
-     "--disable-cpp"                                                  ||
+     "--disable-cpp --enable-unicode-properties"                      ||
    ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
