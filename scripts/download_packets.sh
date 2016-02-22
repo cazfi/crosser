@@ -527,6 +527,8 @@ download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VE
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
+download_needed "https://github.com/win-iconv/win-iconv/archive/" "win-iconv" "v$VERSION_WIN_ICONV.tar.gz" ""
+RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
