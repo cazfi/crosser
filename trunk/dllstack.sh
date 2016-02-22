@@ -338,12 +338,12 @@ build_zlib()
   )
 }
 
-# Build bzip2
+# Build bzip2/win-iconv
 #
 # $1 - Package name
 # $2 - Version
 #
-build_bzip2()
+build_simple_make()
 {
   log_packet "$1"
 
@@ -365,16 +365,24 @@ build_bzip2()
   export CC="$CROSSER_TARGET-gcc -static-libgcc"
   export RANLIB="$CROSSER_TARGET-ranlib"
   export AR="$CROSSER_TARGET-ar"
+  export DLLTOOL="$CROSSER_TARGET-dlltool"
   export PREFIX=$DLLSPREFIX
   export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
   export LDFLAGS="-L$DLLSPREFIX/lib"
 
   log_write 1 "Building $1"
-  log_write 3 "  Make targets: libbz2.a bzip2 bzip2recover & install"
+  if test "x$1" = "xbzip2"
+  then
+      MKTARGETS="libbz2.a bzip2 bzip2recover"
+  elif test "x$1" = "xwin-iconv"
+  then
+      MKTARGETS="all"
+  fi
+  log_write 3 " Make targets: $MKTARGETS & install"
   log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
   log_flags
 
-  if ! make $CROSSER_MAKEOPTIONS libbz2.a bzip2 bzip2recover \
+  if ! make $CROSSER_MAKEOPTIONS $MKTARGETS \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
@@ -670,6 +678,9 @@ SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${BASEVER_LIBTOOL}"                                             ||
    ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
+   ! unpack_component  win-iconv  "" "v${VERSION_WIN_ICONV}"          ||
+   ! build_simple_make win-iconv  $VERSION_WIN_ICONV                  ||
+   ! free_component    win-iconv  $VERSION_WIN_ICONV "win-iconv"      ||
    ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||
@@ -683,7 +694,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_unhardcodecc                ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_incpathsep                  ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_winapi                      ||
-   ! build_bzip2       bzip2      $VERSION_BZIP2                      ||
+   ! build_simple_make bzip2      $VERSION_BZIP2                      ||
    ! free_src          bzip2      $VERSION_BZIP2                      ||
    ! unpack_component  xz                                             ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||

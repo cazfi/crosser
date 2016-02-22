@@ -11,6 +11,7 @@ pkg-config        PKG_CONFIG
 pkgconf           PKGCONF
 icon-naming-utils ICON_NUTILS
 libiconv          ICONV
+win-iconv         WIN_ICONV
 libpng            PNG
 zlib              ZLIB
 bzip2             BZIP2

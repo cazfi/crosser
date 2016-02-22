@@ -6,6 +6,7 @@
 	- Added PDCurses (version 3.4) to build
 	- Added readline (version 6.3-008) to build
 	- Added pcre (version 8.38) to build
+	- Added win-iconv (version 0.0.8) to build
 	- Made gtk-chain build optional, as a whole or gtk2 or gtk3 parts only
 	- Made sdl2-chain build optional
 	- Removed expat from the build
