@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-opensource-src-5.6.0-beta/qtmultimedia/src/plugins/common/evr/evrdefs.h qt-everywhere-opensource-src-5.6.0-beta/qtmultimedia/src/plugins/common/evr/evrdefs.h
+--- qt-everywhere-opensource-src-5.6.0-beta/qtmultimedia/src/plugins/common/evr/evrdefs.h	2015-12-11 16:53:16.000000000 +0200
++++ qt-everywhere-opensource-src-5.6.0-beta/qtmultimedia/src/plugins/common/evr/evrdefs.h	2016-02-21 22:25:23.813533115 +0200
+@@ -35,7 +35,7 @@
+ #define EVRDEFS_H
+ 
+ #include <d3d9.h>
+-#include <Evr9.h>
++#include <evr9.h>
+ #include <dxva2api.h>
+ 
+ // The following is required to compile with MinGW
