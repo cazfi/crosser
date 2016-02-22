@@ -755,7 +755,7 @@ CONF_JPEG_GTK="--without-libjasper"
 
 if ! unpack_component tiff                                                  ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
-   ! build_component_full tiff tiff "$CONF_JPEG_TIFF"                       ||
+   ! build_component   tiff                                                 ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
    ! unpack_component  libxml2                                              ||
    ! build_component   libxml2                                              \
