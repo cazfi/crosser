@@ -609,15 +609,6 @@ if ! unpack_component     autoconf                          ||
      "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre"                                     ||
    ! unpack_component     glib                              ||
-   ! (is_smaller_version $VERSION_GLIB 2.34.0 ||
-      is_minimum_version $VERSION_GLIB 2.36.0 ||
-      patch_src glib $VERSION_GLIB glib_nokill )            ||
-   ! (is_smaller_version $VERSION_GLIB 2.36.0 ||
-      is_minimum_version $VERSION_GLIB 2.38.0 ||
-      ( touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/glib/Makefile.in &&
-        touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gobject/Makefile.in &&
-        touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/Makefile.in &&
-        touch $CROSSER_SRCDIR/glib-$VERSION_GLIB/docs/reference/gio/gdbus-object-manager-example/Makefile.in )) ||
    ! build_component_host glib                                              ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
