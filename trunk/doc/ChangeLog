@@ -20,11 +20,11 @@
 	- Updated sqlite to version 3.11.0
 	- Updated SDL2 to version 2.0.4
 	- Updated librsvg to version 2.40.13
-	- Updated harfbuzz to version 1.2.0
+	- Updated harfbuzz to version 1.2.1
 	- Updated jpeg to version 9b
 	- Updated libpng to version 1.6.21
 	- Updated curl to version 7.47.1
-	- Updated gtk3 to version 3.18.7
+	- Updated gtk3 to version 3.18.8
 	- Updated pixman to version 0.34.0
 	- Updated freetype to version 2.6.3
 
