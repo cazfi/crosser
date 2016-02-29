@@ -1,3 +1,6 @@
+1.0.1
+	- Corrected error message shown when package download fails, in case of packages with unusual naming
+
 1.0 (12-Jan-16)
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
