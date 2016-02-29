@@ -131,8 +131,13 @@ download_packet() {
     if ! download_file "$1" "$DLFILENAME"
     then
       if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
-      then           
-        echo "Download of $BFNAME version $3 failed" >&2
+      then
+          if test "x$4" != "x"
+          then
+              echo "Download of $BFNAME version $3 failed" >&2
+          else
+              echo "Download of $3 failed" >&2
+          fi
         return 1
       fi
     fi
