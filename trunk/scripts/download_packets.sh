@@ -18,6 +18,11 @@ download_file() {
   if test "x$3" != "x"
   then
     DLDIR="$3"
+    if ! mkdir -p "$DLDIR"
+    then
+      echo "Failed to create packet subdirectory \"$DLDIR\"" >&2
+      return 1
+    fi
   else
     DLDIR="."
   fi
@@ -53,7 +58,12 @@ download_file() {
 
   if test -f "$DLDIR/$2"
   then
-    echo "Already has $2, skipping"
+    if test "x$DLDIR" != "x."
+    then
+      echo "Already has $DLDIR/$2, skipping"
+    else
+      echo "Already has $2, skipping"
+    fi
     return 0
   fi
 
@@ -77,6 +87,7 @@ download_file() {
 # $3 - Version      - or nonstandard filename (See $4)
 # $4 - Package type - empty means nonstandard naming (See $3)
 # $5 - Alternative Base URL
+# $6 - Subdirectory to download to
 download_packet() {
 
   if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
@@ -88,9 +99,9 @@ download_packet() {
   if test "x$4" = "xdsc" ; then
     DLFILENAME="${BFNAME}_$3.$4"
 
-    if ! download_file "$1" "$DLFILENAME"
+    if ! download_file "$1" "$DLFILENAME" "$6"
     then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
       then
         echo "Download of $BFNAME version $3 dsc file failed" >&2
         return 1
@@ -107,9 +118,9 @@ download_packet() {
           then
             FILELIST_SECTION=no
           else
-            if ! download_file "$1" "$PART3"
+            if ! download_file "$1" "$PART3" "$6"
             then
-              if test "x$5" = "x" || ! download_file "$5" "$PART3"
+              if test "x$5" = "x" || ! download_file "$5" "$PART3" "$6"
               then
                 echo "Download of $BFNAME version $3 file $PART3 failed" >&2
                 return 1
@@ -128,16 +139,16 @@ download_packet() {
     else
       DLFILENAME="$BFNAME-$3.$4"
     fi
-    if ! download_file "$1" "$DLFILENAME"
+    if ! download_file "$1" "$DLFILENAME" "$6"
     then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
       then
-          if test "x$4" != "x"
-          then
-              echo "Download of $BFNAME version $3 failed" >&2
-          else
-              echo "Download of $3 failed" >&2
-          fi
+        if test "x$4" != "x"
+        then
+          echo "Download of $BFNAME version $3 failed" >&2
+        else
+          echo "Download of $3 failed" >&2
+        fi
         return 1
       fi
     fi
@@ -174,6 +185,7 @@ download_patches_internal() {
 # $3 - Version
 # $4 - Package type
 # $5 - Alt Base URL
+# $6 - Subdirectory to download to
 # Return:
 # 0 - Downloaded
 # 1 - Failure
@@ -192,20 +204,20 @@ download_needed() {
 
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
       return $?
     fi
     return 2
   fi
   if test "x$STEPLIST" = "x" ; then
-    download_packet "$1" "$2" "$PACKVER" "$4" "$5"
+    download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
     return $?
   fi
   for STEP in $STEPLIST
   do
     BASENAME=$2
     if belongs_to_step $BASENAME $STEP ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
       return $?
     fi
   done
@@ -532,7 +544,7 @@ download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VE
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "https://github.com/win-iconv/win-iconv/archive/" "win-iconv" "v$VERSION_WIN_ICONV.tar.gz" ""
+download_needed "https://github.com/win-iconv/win-iconv/archive/" "win-iconv" "v$VERSION_WIN_ICONV.tar.gz" "" "" "win-iconv"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
@@ -583,7 +595,7 @@ download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_P
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
-download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" ""
+download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
 RET="$RET $?"
