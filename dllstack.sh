@@ -669,7 +669,7 @@ SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${BASEVER_LIBTOOL}"                                             ||
    ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
-   ! unpack_component  win-iconv  "" "v${VERSION_WIN_ICONV}"          ||
+   ! unpack_component  win-iconv  "" "win-iconv/v${VERSION_WIN_ICONV}" ||
    ! build_simple_make win-iconv  $VERSION_WIN_ICONV                  ||
    ! free_component    win-iconv  $VERSION_WIN_ICONV "win-iconv"      ||
    ! unpack_component  libiconv                                       ||
@@ -773,7 +773,7 @@ if ! unpack_component tiff                                                  ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
-   ! unpack_component  epoxy "" "v${VERSION_EPOXY}"                         ||
+   ! unpack_component  epoxy "" "epoxy/v${VERSION_EPOXY}"                   ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
    ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||

@@ -795,7 +795,7 @@ packetdir_check() {
       fi
     fi
 
-    if ! mkdir -p "$CROSSER_PACKETDIR/patch"
+    if ! mkdir -p "$CROSSER_PACKETDIR"
     then
       echo "Failed to create packet directory $CROSSER_PACKETDIR"
       return 1
