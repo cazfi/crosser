@@ -25,10 +25,11 @@
 	- Updated jpeg to version 9b
 	- Updated libpng to version 1.6.21
 	- Updated curl to version 7.47.1
-	- Updated gtk3 to version 3.18.8
+	- Updated gtk3 to version 3.20.0
 	- Updated pixman to version 0.34.0
 	- Updated freetype to version 2.6.3
 	- Updated gtk2 to version 2.24.30
+	- Updated atk to version 2.20.0
 
 1.0.1
 	- Corrected error message shown when package download fails, in case of packages with unusual naming
