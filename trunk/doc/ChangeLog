@@ -25,11 +25,16 @@
 	- Updated jpeg to version 9b
 	- Updated libpng to version 1.6.21
 	- Updated curl to version 7.47.1
-	- Updated gtk3 to version 3.20.0
+	- Updated gtk3 to version 3.20.1
 	- Updated pixman to version 0.34.0
 	- Updated freetype to version 2.6.3
 	- Updated gtk2 to version 2.24.30
 	- Updated atk to version 2.20.0
+	- Updated glib to version 2.48.0
+	- Updated gobject-introspection to version 1.48.0
+	- Updated gdk-pixbuf to version 2.34.0
+	- Updated adwaita-icon-theme to version 3.20
+	- Updated gnome-themes-standard to version 3.20
 
 1.0.1
 	- Corrected error message shown when package download fails, in case of packages with unusual naming
