@@ -982,7 +982,7 @@ if ! unpack_component qt-everywhere-opensource-src                              
          patch_src qt-everywhere-opensource-src $VERSION_QT "qt_host_shell" )   ||
    ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
          patch_src qt-everywhere-opensource-src $VERSION_QT "qt_buildroot_generator_external_path" ) ||
-   ! ( is_smaller_version $VERSION_QT 5.6.0-beta ||
+   ! ( is_smaller_version $VERSION_QT 5.6.0 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )     ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
