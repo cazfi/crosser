@@ -442,6 +442,8 @@ then
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
+    pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
+    win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
   esac
 fi
 
