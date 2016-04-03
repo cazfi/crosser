@@ -153,6 +153,9 @@ CROSSER_GTK2
 CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
 
+CROSSER_READLINE
+ ; If set to value "yes", readline will be built as part of crosser.
+
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
  ; and 'pkgconf'
