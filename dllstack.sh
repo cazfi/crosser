@@ -574,7 +574,6 @@ GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
-READLINE_VARS="$(read_configure_vars readline)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
@@ -665,6 +664,7 @@ then
 fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
+READLINE_VARS="$(read_configure_vars readline)"
 
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${BASEVER_LIBTOOL}"                                             ||
@@ -703,19 +703,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_build           "native-icu4c"                                 ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
-   ! unpack_component  PDCurses                                          ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
-   ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
-     "--without-x"                                                       ||
-   ! free_src          PDCurses $VERSION_PDCURSES                        ||
-   ! unpack_component  readline                                          ||
-   ! patch_readline                                                      ||
-   ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
-   ! patch_src readline $VERSION_READLINE "readline_statf"               ||
-   ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
-   ! build_component   readline                                          \
-     "$READLINE_VARS --with-curses"                                      ||
-   ! free_component    readline   $VERSION_READLINE "readline"           ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment"             ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2"                        ||
    ! build_component   ImageMagick                                                   \
@@ -741,6 +728,26 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
 then
   log_error "Build failed"
   exit 1
+fi
+
+if test "x$CROSSER_READLINE" = "xyes" ; then
+if ! unpack_component  PDCurses                                          ||
+   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
+   ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
+     "--without-x"                                                       ||
+   ! free_src          PDCurses $VERSION_PDCURSES                        ||
+   ! unpack_component  readline                                          ||
+   ! patch_readline                                                      ||
+   ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
+   ! patch_src readline $VERSION_READLINE "readline_statf"               ||
+   ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
+   ! build_component   readline                                          \
+     "$READLINE_VARS --with-curses"                                      ||
+   ! free_component    readline   $VERSION_READLINE "readline"
+then
+  log_error "Readline build failed"
+  exit 1
+fi
 fi
 
 if ! unpack_component jpeg  "" "jpegsrc.v${VERSION_JPEG}"             ||
@@ -1016,6 +1023,7 @@ log_write 1 "Creating crosser.txt"
   fi
   echo "CROSSER_QT=\"$CROSSER_QT\""
   echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
+  echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
   echo
   echo "; Scheduled for complete removal"
   echo "-------------------------"
