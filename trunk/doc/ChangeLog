@@ -40,7 +40,7 @@
 	- Updated icu to version 57.1
 	- Updated pango to version 1.40.0
 
-1.0.1
+1.0.1 (06-Apr-16)
 	- Corrected error message shown when package download fails, in case of packages with unusual naming
 
 1.0 (12-Jan-16)
