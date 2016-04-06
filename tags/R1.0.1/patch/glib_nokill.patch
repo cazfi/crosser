@@ -1,0 +1,24 @@
+diff -Nurd glib-2.34.2/gio/gtestdbus.c glib-2.34.2/gio/gtestdbus.c
+--- glib-2.34.2/gio/gtestdbus.c	2012-11-20 22:45:21.190380460 +0200
++++ glib-2.34.2/gio/gtestdbus.c	2012-11-20 22:45:01.026380902 +0200
+@@ -183,7 +183,7 @@
+             {
+               pid = g_array_index (pids_to_kill, guint, n);
+               g_print ("cleaning up pid %d\n", pid);
+-              kill (pid, SIGTERM);
++              /* kill (pid, SIGTERM); */
+             }
+ 
+           g_array_unref (pids_to_kill);
+diff -Nurd glib-2.34.2/gio/tests/gdbus-proxy.c glib-2.34.2/gio/tests/gdbus-proxy.c
+--- glib-2.34.2/gio/tests/gdbus-proxy.c	2012-11-10 05:24:06.000000000 +0200
++++ glib-2.34.2/gio/tests/gdbus-proxy.c	2012-11-20 22:45:49.898379830 +0200
+@@ -753,7 +753,7 @@
+                                      &error);
+   g_variant_get (ret, "(u)", &pid);
+   g_variant_unref (ret);
+-  kill (pid, SIGTERM);
++  /* kill (pid, SIGTERM); */
+ }
+ 
+ static void
