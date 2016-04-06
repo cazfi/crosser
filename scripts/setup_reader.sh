@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -115,20 +115,6 @@ if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
     echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
-if test "x$CROSSER_SDL2" = "x" ; then
-    CROSSER_SDL2="yes"
-fi
-if test "x$CROSSER_SDL2" != "xyes" && test "x$CROSSER_SDL2" != "xno" ; then
-    echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
-if test "x$CROSSER_READLINE" = "x" ; then
-    CROSSER_READLINE="no"
-fi
-if test "x$CROSSER_READLINE" != "xyes" && test "x$CROSSER_READLINE" != "xno" ; then
-    echo "Unknown value \"$CROSSER_READLINE\" for CROSSER_READLINE. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
 if test "x$CROSSER_PKGCONF" = "x" ; then
     CROSSER_PKGCONF="pkg-config"
 fi
@@ -139,8 +125,4 @@ fi
 if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
     # Use real pkg-config, not recursively the link we create
     CROSSER_PKGCONF="pkg-config.real"
-fi
-if test "x$CROSSER_WINVER" = "x" ; then
-    # Default minimum version is Windows Server 2003
-    CROSSER_WINVER=0x0502
 fi

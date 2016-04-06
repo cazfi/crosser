@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -18,11 +18,6 @@ download_file() {
   if test "x$3" != "x"
   then
     DLDIR="$3"
-    if ! mkdir -p "$DLDIR"
-    then
-      echo "Failed to create packet subdirectory \"$DLDIR\"" >&2
-      return 1
-    fi
   else
     DLDIR="."
   fi
@@ -58,12 +53,7 @@ download_file() {
 
   if test -f "$DLDIR/$2"
   then
-    if test "x$DLDIR" != "x."
-    then
-      echo "Already has $DLDIR/$2, skipping"
-    else
-      echo "Already has $2, skipping"
-    fi
+    echo "Already has $2, skipping"
     return 0
   fi
 
@@ -87,7 +77,6 @@ download_file() {
 # $3 - Version      - or nonstandard filename (See $4)
 # $4 - Package type - empty means nonstandard naming (See $3)
 # $5 - Alternative Base URL
-# $6 - Subdirectory to download to
 download_packet() {
 
   if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
@@ -99,9 +88,9 @@ download_packet() {
   if test "x$4" = "xdsc" ; then
     DLFILENAME="${BFNAME}_$3.$4"
 
-    if ! download_file "$1" "$DLFILENAME" "$6"
+    if ! download_file "$1" "$DLFILENAME"
     then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
       then
         echo "Download of $BFNAME version $3 dsc file failed" >&2
         return 1
@@ -118,9 +107,9 @@ download_packet() {
           then
             FILELIST_SECTION=no
           else
-            if ! download_file "$1" "$PART3" "$6"
+            if ! download_file "$1" "$PART3"
             then
-              if test "x$5" = "x" || ! download_file "$5" "$PART3" "$6"
+              if test "x$5" = "x" || ! download_file "$5" "$PART3"
               then
                 echo "Download of $BFNAME version $3 file $PART3 failed" >&2
                 return 1
@@ -139,16 +128,16 @@ download_packet() {
     else
       DLFILENAME="$BFNAME-$3.$4"
     fi
-    if ! download_file "$1" "$DLFILENAME" "$6"
+    if ! download_file "$1" "$DLFILENAME"
     then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
+      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME"
       then
-        if test "x$4" != "x"
-        then
-          echo "Download of $BFNAME version $3 failed" >&2
-        else
-          echo "Download of $3 failed" >&2
-        fi
+          if test "x$4" != "x"
+          then
+              echo "Download of $BFNAME version $3 failed" >&2
+          else
+              echo "Download of $3 failed" >&2
+          fi
         return 1
       fi
     fi
@@ -185,7 +174,6 @@ download_patches_internal() {
 # $3 - Version
 # $4 - Package type
 # $5 - Alt Base URL
-# $6 - Subdirectory to download to
 # Return:
 # 0 - Downloaded
 # 1 - Failure
@@ -204,20 +192,20 @@ download_needed() {
 
   if test "x$DOWNLOAD_PACKET" != "x" ; then
     if test "x$DOWNLOAD_PACKET" = "x$2" ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
       return $?
     fi
     return 2
   fi
   if test "x$STEPLIST" = "x" ; then
-    download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+    download_packet "$1" "$2" "$PACKVER" "$4" "$5"
     return $?
   fi
   for STEP in $STEPLIST
   do
     BASENAME=$2
     if belongs_to_step $BASENAME $STEP ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+      download_packet "$1" "$2" "$PACKVER" "$4" "$5"
       return $?
     fi
   done
@@ -340,25 +328,25 @@ then
       export PATCHES_SELECTED="0"
     fi
   else
-    CROSSER_VERSIONSET="current"
+    VERSIONSET="current"
   fi
 elif test "x$1" != "x--packet" && test "x$2" != "x"
 then
-  CROSSER_VERSIONSET="$2"
+  VERSIONSET="$2"
 else
-  CROSSER_VERSIONSET="current"
+  VERSIONSET="current"
 fi
 
-if test "x$CROSSER_VERSIONSET" != "x"
+if test "x$VERSIONSET" != "x"
 then
-  if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
+  if ! test -e "$CROSSER_MAINDIR/setups/$VERSIONSET.versions"
   then
-    echo "Versionset ${CROSSER_VERSIONSET}.versions not found" >&2
+    echo "Versionset $VERSIONSET.versions not found" >&2
     exit 1
   fi
 
-  if ! . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions" ; then
-    echo "Failed to read list of package versions (${CROSSER_VERSIONSET}.versions)" >&2
+  if ! . "$CROSSER_MAINDIR/setups/$VERSIONSET.versions" ; then
+    echo "Failed to read list of package versions ($VERSIONSET.versions)" >&2
     exit 1
   fi
 fi
@@ -427,9 +415,6 @@ then
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
-    readline)    VERSION_READLINE=$VERSION_SELECTED
-                 PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
@@ -441,9 +426,8 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
+    expat)       VERSION_EXPAT=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
-    pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
-    win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -466,16 +450,14 @@ PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
-
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.10.0
-then
-    SQL_SUBDIR="2016/"
-elif is_minimum_version $VERSION_SQLITE 3.8.8
+if is_minimum_version $VERSION_SQLITE 3.8.8
 then
    SQL_SUBDIR="2015/"
+elif is_minimum_version $VERSION_SQLITE 3.8.3
+then
+   SQL_SUBDIR="2014/"
 else
    SQL_SUBDIR=""
 fi
@@ -522,8 +504,7 @@ else
   HICOLOR_PACK="tar.gz"
 fi
 
-if echo $VERSION_QT | grep alpha >/dev/null ||
-   echo $VERSION_QT | grep beta >/dev/null
+if echo $VERSION_QT | grep alpha >/dev/null
 then
     QT_RELEASEDIR="development_releases"
 else
@@ -542,30 +523,16 @@ download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSIO
 RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="$RET $?"
-download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
-RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
-RET="$RET $?"
-download_needed "https://github.com/win-iconv/win-iconv/archive/" "win-iconv" "v$VERSION_WIN_ICONV.tar.gz" "" "" "win-iconv"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre/$VERSION_PCRE/" "pcre" "$VERSION_PCRE" "tar.bz2"
-RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
-RET="$RET $?"
-download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
-RET="$RET $?"
-download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
-                 "readline"            "readline${READLINE_SHORT}-" \
-                 "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
@@ -578,6 +545,8 @@ RET="$RET $?"
 download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="$RET $?"
 download_needed "ftp://ftp.remotesensing.org/pub/libtiff/" "tiff"    "$VERSION_TIFF"       "tar.gz"
+RET="$RET $?"
+download_needed "$MIRROR_SOURCEFORGE/projects/expat/files/expat/$VERSION_EXPAT/" "expat"      "$VERSION_EXPAT"      "tar.gz"
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
 RET="$RET $?"
@@ -597,7 +566,7 @@ download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_P
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
-download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
+download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" ""
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
 RET="$RET $?"
@@ -652,8 +621,6 @@ RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
 download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
-RET="$RET $?"
-download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
 download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"

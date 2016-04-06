@@ -1,0 +1,69 @@
+diff -Nurd gtk+-3.14.2/aclocal.m4 gtk+-3.14.2/aclocal.m4
+--- gtk+-3.14.2/aclocal.m4	2014-10-09 07:08:30.876651229 +0300
++++ gtk+-3.14.2/aclocal.m4	2014-10-09 07:08:23.008652252 +0300
+@@ -1484,7 +1484,7 @@
+     GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
+     GOBJECT_QUERY=`$PKG_CONFIG --variable=gobject_query glib-2.0`
+     GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+-    GLIB_COMPILE_RESOURCES=`$PKG_CONFIG --variable=glib_compile_resources gio-2.0`
++    GLIB_COMPILE_RESOURCES=`$PKG_CONFIG_FOR_BUILD --variable=glib_compile_resources gio-2.0`
+ 
+     GLIB_CFLAGS=`$PKG_CONFIG --cflags $pkg_config_args`
+     GLIB_LIBS=`$PKG_CONFIG --libs $pkg_config_args`
+diff -Nurd gtk+-3.14.2/gtk/inspector/Makefile.am gtk+-3.14.2/gtk/inspector/Makefile.am
+--- gtk+-3.14.2/gtk/inspector/Makefile.am	2014-09-04 21:11:33.000000000 +0300
++++ gtk+-3.14.2/gtk/inspector/Makefile.am	2014-10-09 07:09:45.684655140 +0300
+@@ -114,7 +114,7 @@
+ template_headers = $(templates:.ui=.ui.h)
+ 
+ %.ui.h : %.ui 
+-	$(AM_V_GEN) $(top_builddir)/util/extract-strings$(EXEEXT) $< > $@
++	$(AM_V_GEN) $(top_builddir)/util/extract-strings$(BUILD_EXEEXT) $< > $@
+ 
+ EXTRA_DIST += 				\
+ 	inspector.gresource.xml 	\
+diff -Nurd gtk+-3.14.2/gtk/Makefile.am gtk+-3.14.2/gtk/Makefile.am
+--- gtk+-3.14.2/gtk/Makefile.am	2014-10-09 07:08:30.876651229 +0300
++++ gtk+-3.14.2/gtk/Makefile.am	2014-10-09 07:12:22.400655583 +0300
+@@ -1330,7 +1330,7 @@
+ 
+ %.ui.h: %.ui
+ 	$(AM_V_GEN) mkdir -p $(dir $@) \
+-	&& $(top_builddir)/util/extract-strings$(EXEEXT) $< > $@
++	&& $(top_builddir)/util/extract-strings$(BUILD_EXEEXT) $< > $@
+ 
+ #
+ # rules to generate built sources
+@@ -1441,7 +1441,7 @@
+ Raleigh_sources = \
+ 	resources/theme/Raleigh/gtk-default.css
+ 
+-resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/resources --generate-dependencies $(builddir)/gtk.gresource.xml)
++resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/resources --generate-dependencies $(srcdir)/gtk.gresource.xml)
+ 
+ gtkresources.h: gtk.gresource.xml
+ 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< \
+diff -Nurd gtk+-3.14.2/util/Makefile.am gtk+-3.14.2/util/Makefile.am
+--- gtk+-3.14.2/util/Makefile.am	2014-10-09 07:08:30.876651229 +0300
++++ gtk+-3.14.2/util/Makefile.am	2014-10-09 07:08:22.140652177 +0300
+@@ -1,9 +1,16 @@
+ # The extract_strings tool is a build utility that runs on the build system.
+ 
+-noinst_PROGRAMS = extract-strings
++CC = @CC_FOR_BUILD@
++AM_CFLAGS = @CFLAGS_FOR_BUILD@
++CPP = @CPP_FOR_BUILD@
++AM_CPPFLAGS = @CPPFLAGS_FOR_BUILD@
++AM_LDFLAGS = @LDFLAGS_FOR_BUILD@
+ 
+-extract_strings_SOURCES = extract-strings.c
+-extract_strings_CFLAGS = $(GLIB_CFLAGS_FOR_BUILD)
+-extract_strings_LDADD = $(GLIB_LIBS_FOR_BUILD)
++all-local: extract-strings$(BUILD_EXEEXT)
++
++extract-strings$(BUILD_EXEEXT): $(srcdir)/extract-strings.c
++	$(AM_V_CCLD)$(CC_FOR_BUILD) $(CPPFLAGS_FOR_BUILD) -I. -I$(srcdir)/../.. $(GLIB_CFLAGS_FOR_BUILD) $(CFLAGS_FOR_BUILD) $^ $(LDFLAGS_FOR_BUILD) $(GLIB_LIBS_FOR_BUILD) $(LIBS_FOR_BUILD) -o $@
++
++EXTRA_DIST = extract-strings.c
+ 
+ -include $(top_srcdir)/git.mk
