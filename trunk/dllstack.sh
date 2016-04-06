@@ -389,7 +389,7 @@ build_simple_make()
     return 1
   fi
 
-  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS prefix="$DLLSPREFIX" install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
