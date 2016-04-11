@@ -1,3 +1,6 @@
+1.0.2
+	- Updated ImageMagick download locations
+
 1.0.1 (06-Apr-16)
 	- Corrected error message shown when package download fails, in case of packages with unusual naming
 
