@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2015 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -394,7 +394,7 @@ if test "x$MIRROR_GCC" = "x"; then
 fi
 
 if test "x$MIRROR_IM" = "x" ; then
-  MIRROR_IM="http://imagemagick.mirrorcatalogs.com"
+  MIRROR_IM="http://www.imagemagick.org/download/releases"
 fi
 
 MIRROR_SOURCEFORGE="http://sourceforge.net"
