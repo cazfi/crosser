@@ -472,9 +472,6 @@ else
   export CROSSER_TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
 fi
 
-# Temporary backward compatibility
-TARGET="$CROSSER_TARGET"
-
 if test -d "/usr/$CROSSER_TARGET/include"
 then
   export TGT_HEADERS="/usr/$CROSSER_TARGET/include"
