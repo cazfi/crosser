@@ -406,7 +406,7 @@ if test "x$MIRROR_GCC" = "x"; then
 fi
 
 if test "x$MIRROR_IM" = "x" ; then
-  MIRROR_IM="http://imagemagick.mirrorcatalogs.com"
+  MIRROR_IM="http://www.imagemagick.org/download/releases"
 fi
 
 MIRROR_SOURCEFORGE="http://sourceforge.net"
