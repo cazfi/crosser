@@ -1,0 +1,9 @@
+diff -Nurd qt-everywhere-opensource-src-5.1.1/qtbase/config.tests/unix/freetype/freetype.pri qt-everywhere-opensource-src-5.1.1/qtbase/config.tests/unix/freetype/freetype.pri
+--- qt-everywhere-opensource-src-5.1.1/qtbase/config.tests/unix/freetype/freetype.pri	2013-08-25 21:03:46.000000000 +0300
++++ qt-everywhere-opensource-src-5.1.1/qtbase/config.tests/unix/freetype/freetype.pri	2013-09-16 01:42:55.231888810 +0300
+@@ -11,4 +11,5 @@
+    # configure detected font-config & freetype,  stored in these variables.
+    QMAKE_CFLAGS += $$QMAKE_CFLAGS_FONTCONFIG
+    QMAKE_CXXFLAGS += $$QMAKE_CFLAGS_FONTCONFIG
++   QMAKE_LIBS += $$QMAKE_LIBS_FONTCONFIG
+ }
