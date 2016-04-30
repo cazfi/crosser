@@ -266,6 +266,11 @@ build_zlib()
 {
   log_packet "$1"
 
+  if test "x$2" = "x0"
+  then
+    return 0
+  fi
+
   SUBDIR="$(src_subdir $1 $2)"
 
   if test "x$SUBDIR" = "x"
@@ -336,6 +341,11 @@ build_zlib()
 build_bzip2()
 {
   log_packet "$1"
+
+  if test "x$2" = "x0"
+  then
+    return 0
+  fi
 
   SUBDIR="$(src_subdir $1 $2)"
 
