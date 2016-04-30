@@ -5,3 +5,4 @@ These changes are coming in future versions:
 - Use win-iconv by default, drop libiconv
 - Drop gtk2
 - Drop sdl
+- Disable bzip2 build -> later drop completely
