@@ -347,6 +347,11 @@ build_simple_make()
 {
   log_packet "$1"
 
+  if test "x$2" = "x0"
+  then
+    return 0
+  fi
+
   SUBDIR="$(src_subdir $1 $2)"
 
   if test "x$SUBDIR" = "x"
