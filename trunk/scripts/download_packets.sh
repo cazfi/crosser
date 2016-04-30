@@ -467,6 +467,12 @@ QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n 
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
+if echo "$VERSION_READLINE" | grep "\-rc" >/dev/null
+then
+    RL_SUBDIR="bash"
+else
+    RL_SUBDIR="readline"
+fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
@@ -561,7 +567,7 @@ download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_X
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/readline/"                 "readline"   "$VERSION_READLINE"   "tar.gz"
+download_needed "$MIRROR_GNU/${RL_SUBDIR}/"             "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
                  "readline"            "readline${READLINE_SHORT}-" \
