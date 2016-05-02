@@ -1,0 +1,24 @@
+diff -Nurd readline-7.0-rc1/input.c readline-7.0-rc1/input.c
+--- readline-7.0-rc1/input.c	2015-08-24 20:56:01.000000000 +0300
++++ readline-7.0-rc1/input.c	2016-05-02 03:27:06.009094800 +0300
+@@ -29,6 +29,8 @@
+ #  include <config.h>
+ #endif
+ 
++#define _POSIX
++
+ #include <sys/types.h>
+ #include <fcntl.h>
+ #if defined (HAVE_SYS_FILE_H)
+diff -Nurd readline-7.0-rc1/signals.c readline-7.0-rc1/signals.c
+--- readline-7.0-rc1/signals.c	2016-05-02 03:26:34.869168734 +0300
++++ readline-7.0-rc1/signals.c	2016-05-02 03:26:21.601200251 +0300
+@@ -25,6 +25,8 @@
+ #  include <config.h>
+ #endif
+ 
++#define _POSIX
++
+ #include <stdio.h>		/* Just for NULL.  Yuck. */
+ #include <sys/types.h>
+ #include <signal.h>
