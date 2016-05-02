@@ -740,6 +740,7 @@ if ! unpack_component  PDCurses                                          ||
    ! free_src          PDCurses $VERSION_PDCURSES                        ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
+   ! patch_src readline $VERSION_READLINE "readline_posix"               ||
    ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
    ! patch_src readline $VERSION_READLINE "readline_statf"               ||
    ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
