@@ -1,0 +1,81 @@
+diff -Nurd gtk+-3.10.0/gtk/Makefile.am gtk+-3.10.0/gtk/Makefile.am
+--- gtk+-3.10.0/gtk/Makefile.am	2013-08-30 17:31:21.000000000 +0300
++++ gtk+-3.10.0/gtk/Makefile.am	2013-10-13 02:52:18.336170168 +0300
+@@ -61,29 +61,19 @@
+ endif
+ 
+ if OS_WIN32
+-gtk_def = gtk.def
+-gtk_win32_symbols = -export-symbols $(srcdir)/gtk.def
+-
+ gtk_win32_res = gtk-win32-res.o
+ gtk_win32_res_ldflag = -Wl,gtk-win32-res.o
+ 
+ gtk-win32-res.o : gtk-win32.rc
+ 	$(WINDRES) gtk-win32.rc $@
+ 
+-install-def-file: gtk.def
+-	$(INSTALL) $(srcdir)/gtk.def $(DESTDIR)$(libdir)/gtk-win32-3.0.def
+-uninstall-def-file:
+-	-rm $(DESTDIR)$(libdir)/gtk-win32-3.0.def
+-else
+-install-def-file:
+-uninstall-def-file:
+ endif
+ 
+ if MS_LIB_AVAILABLE
+ noinst_DATA = gtk-win32-$(GTK_API_VERSION).lib
+ 
+-gtk-win32-$(GTK_API_VERSION).lib: libgtk-win32-$(GTK_API_VERSION).la gtk.def
+-	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgtk-win32-$(GTK_API_VERSION)-@LT_CURRENT_MINUS_AGE@.dll -def:gtk.def -out:$@
++gtk-win32-$(GTK_API_VERSION).lib: libgtk-win32-$(GTK_API_VERSION).la
++	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgtk-win32-$(GTK_API_VERSION)-@LT_CURRENT_MINUS_AGE@.dll -out:$@
+ 
+ install-ms-lib:
+ 	$(INSTALL) gtk-win32-$(GTK_API_VERSION).lib $(DESTDIR)$(libdir)
+diff -Nurd gtk+-3.10.0/gtk/Makefile.in gtk+-3.10.0/gtk/Makefile.in
+--- gtk+-3.10.0/gtk/Makefile.in	2013-09-23 20:48:07.000000000 +0300
++++ gtk+-3.10.0/gtk/Makefile.in	2013-10-13 02:52:57.256169314 +0300
+@@ -1046,8 +1046,6 @@
+ 	$(INCLUDED_IMMODULE_DEFINE)
+ 
+ @PLATFORM_WIN32_TRUE@no_undefined = -no-undefined
+-@OS_WIN32_TRUE@gtk_def = gtk.def
+-@OS_WIN32_TRUE@gtk_win32_symbols = -export-symbols $(srcdir)/gtk.def
+ @OS_WIN32_TRUE@gtk_win32_res = gtk-win32-res.o
+ @OS_WIN32_TRUE@gtk_win32_res_ldflag = -Wl,gtk-win32-res.o
+ @MS_LIB_AVAILABLE_TRUE@noinst_DATA = gtk-win32-$(GTK_API_VERSION).lib
+@@ -5907,15 +5905,8 @@
+ @OS_WIN32_TRUE@gtk-win32-res.o : gtk-win32.rc
+ @OS_WIN32_TRUE@	$(WINDRES) gtk-win32.rc $@
+ 
+-@OS_WIN32_TRUE@install-def-file: gtk.def
+-@OS_WIN32_TRUE@	$(INSTALL) $(srcdir)/gtk.def $(DESTDIR)$(libdir)/gtk-win32-3.0.def
+-@OS_WIN32_TRUE@uninstall-def-file:
+-@OS_WIN32_TRUE@	-rm $(DESTDIR)$(libdir)/gtk-win32-3.0.def
+-@OS_WIN32_FALSE@install-def-file:
+-@OS_WIN32_FALSE@uninstall-def-file:
+-
+-@MS_LIB_AVAILABLE_TRUE@gtk-win32-$(GTK_API_VERSION).lib: libgtk-win32-$(GTK_API_VERSION).la gtk.def
+-@MS_LIB_AVAILABLE_TRUE@	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgtk-win32-$(GTK_API_VERSION)-@LT_CURRENT_MINUS_AGE@.dll -def:gtk.def -out:$@
++@MS_LIB_AVAILABLE_TRUE@gtk-win32-$(GTK_API_VERSION).lib: libgtk-win32-$(GTK_API_VERSION).la
++@MS_LIB_AVAILABLE_TRUE@	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgtk-win32-$(GTK_API_VERSION)-@LT_CURRENT_MINUS_AGE@.dll -out:$@
+ 
+ @MS_LIB_AVAILABLE_TRUE@install-ms-lib:
+ @MS_LIB_AVAILABLE_TRUE@	$(INSTALL) gtk-win32-$(GTK_API_VERSION).lib $(DESTDIR)$(libdir)
+@@ -6050,13 +6041,13 @@
+ 	rm libgtk.vs10.sourcefiles.filters
+ 
+ # Install a RC file for the default GTK+ theme, and key themes
+-install-data-local: install-ms-lib install-def-file install-mac-key-theme
++install-data-local: install-ms-lib install-mac-key-theme
+ 	$(MKDIR_P) $(DESTDIR)$(datadir)/themes/Default/gtk-3.0
+ 	$(INSTALL_DATA) $(srcdir)/gtk-keys.css.default $(DESTDIR)$(datadir)/themes/Default/gtk-3.0/gtk-keys.css
+ 	$(MKDIR_P) $(DESTDIR)$(datadir)/themes/Emacs/gtk-3.0
+ 	$(INSTALL_DATA) $(srcdir)/gtk-keys.css.emacs $(DESTDIR)$(datadir)/themes/Emacs/gtk-3.0/gtk-keys.css
+ 
+-uninstall-local: uninstall-ms-lib uninstall-def-file uninstall-mac-key-theme
++uninstall-local: uninstall-ms-lib uninstall-mac-key-theme
+ 	rm -f $(DESTDIR)$(datadir)/themes/Raleigh/gtk-3.0/gtk.css
+ 	rm -f $(DESTDIR)$(datadir)/themes/Default/gtk-3.0/gtk-keys.css
+ 	rm -f $(DESTDIR)$(datadir)/themes/Emacs/gtk-3.0/gtk-keys.css
