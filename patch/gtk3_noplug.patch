@@ -1,0 +1,14 @@
+diff -Nurd gtk+-3.14.5/gtk/gtkplug.h gtk+-3.14.5/gtk/gtkplug.h
+--- gtk+-3.14.5/gtk/gtkplug.h	2014-11-14 00:50:07.161536545 +0200
++++ gtk+-3.14.5/gtk/gtkplug.h	2014-11-14 00:50:46.757537492 +0200
+@@ -98,6 +98,10 @@
+ 
+ G_END_DECLS
+ 
++#else  /* GDK_WINDOWING_X11 */
++
++#define GTK_IS_PLUG(obj) 0
++
+ #endif /* GDK_WINDOWING_X11 */
+ 
+ #endif /* __GTK_PLUG_H__ */
