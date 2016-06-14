@@ -654,10 +654,11 @@ if ! unpack_component     autoconf                          ||
    ! free_build           "native-libpng"                                   ||
    ! unpack_component     ImageMagick                                       ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin"                  ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid"           ||
-   ! (is_smaller_version $VERSION_IMAGEMAGICK 6.9.2 ||
-      patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not" )         ||
+   ! (( is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 &&
+        patch_src ImageMagick $VERSION_IMAGEMAGICK "in_intsafe_not_7" ) ||
+      ( patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin" &&
+        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid" &&
+        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not" ))      ||
    ! build_component_host ImageMagick                                       ||
    ! free_build           "native-ImageMagick"
 then
@@ -705,8 +706,9 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
    ! free_build           "native-icu4c"                                 ||
    ! free_component    icu        $VERSION_ICU "icu4c"                   ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment"             ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2"                        ||
+   ! (is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 ||
+       (patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment" &&
+        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2" ))                  ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp" ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
