@@ -702,26 +702,28 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full sqlite sqlite-autoconf                      \
      "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
-   ! build_component_full icu4c icu4c                                    \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" ||
-   ! free_build           "native-icu4c"                                 ||
-   ! free_component    icu        $VERSION_ICU "icu4c"                   ||
-   ! (is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 ||
-       (patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment" &&
-        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2" ))                  ||
+   ! build_component_full icu4c icu4c                                                \
+     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source"             ||
+   ! free_build           "native-icu4c"                                             ||
+   ! free_component    icu        $VERSION_ICU "icu4c"                               ||
+   ! ((is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 &&
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment_7" &&
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7" ) ||
+      (patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment" &&
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2" ))                   ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp" ||
-   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick" ||
-   ! build_component   libpng                                         ||
-   ! free_component    libpng     $VERSION_PNG "libpng"               ||
-   ! unpack_component  gettext                                        ||
+   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
+   ! build_component   libpng                                                        ||
+   ! free_component    libpng     $VERSION_PNG "libpng"                              ||
+   ! unpack_component  gettext                                                       ||
    ! (is_smaller_version $VERSION_GETTEXT 0.19 ||
-      patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc") ||
+      patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc")         ||
    ! (is_smaller_version $VERSION_GETTEXT 0.19.5 ||
-      patch_src         gettext    $VERSION_GETTEXT "gettext_installdir" ) ||
-   ! LIBS="-liconv" build_component gettext                           \
+      patch_src         gettext    $VERSION_GETTEXT "gettext_installdir" )           ||
+   ! LIBS="-liconv" build_component gettext                                          \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
-   ! free_component    gettext    $VERSION_GETTEXT "gettext"          ||
+   ! free_component    gettext    $VERSION_GETTEXT "gettext"                         ||
    ! build_component   pcre                                           \
      "--disable-cpp --enable-unicode-properties"                      ||
    ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
