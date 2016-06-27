@@ -994,6 +994,7 @@ then
   else
     CROSSER_QT_EXTRA_CONF=""
   fi
+  VERSION_QT=$(echo $VERSION_QT | sed 's/-.*//')
 if ! unpack_component qt-everywhere-opensource-src                              ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
