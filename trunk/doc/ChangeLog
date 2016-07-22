@@ -7,7 +7,7 @@
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Added PDCurses (version 3.4) to build when readline parts enabled
 	- Added readline (version 6.3-008) to build when readline parts enabled
-	- Added pcre (version 8.38) to build
+	- Added pcre (version 8.39) to build
 	- Added win-iconv (version 0.0.8) to build
 	- Made gtk-chain build optional, as a whole or gtk2 or gtk3 parts only
 	- Made sdl2-chain build optional
