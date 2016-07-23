@@ -24,6 +24,7 @@ sqlite            SQLITE
 ImageMagick       IMAGEMAGICK
 gettext           GETTEXT
 pcre              PCRE
+pcre2             PCRE2
 glib              GLIB
 gtk-doc           GTK_DOC
 gobject-introspection GOBJ_INTRO
