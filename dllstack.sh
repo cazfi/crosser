@@ -609,7 +609,11 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host pcre                                              \
      "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre"                                     ||
-   ! unpack_component     glib                              ||
+   ! unpack_component     pcre2                                             ||
+   ! build_component_host pcre2                                             \
+     "--enable-unicode-properties"                                          ||
+   ! free_build           "native-pcre2"                                    ||
+   ! unpack_component     glib                                              ||
    ! build_component_host glib                                              ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
@@ -728,6 +732,9 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   pcre                                           \
      "--disable-cpp --enable-unicode-properties"                      ||
    ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
+   ! build_component   pcre2                                          \
+     "--disable-cpp --enable-unicode-properties"                      ||
+   ! free_component    pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
    ! build_component   glib       "$GLIB_VARS --with-threads=win32"   ||

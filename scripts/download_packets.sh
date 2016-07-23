@@ -443,6 +443,7 @@ then
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
+    pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
   esac
 fi
@@ -560,6 +561,8 @@ RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre/$VERSION_PCRE/" "pcre" "$VERSION_PCRE" "tar.bz2"
+RET="$RET $?"
+download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre2/$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2"
 RET="$RET $?"
 download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
