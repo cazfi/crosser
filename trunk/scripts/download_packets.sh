@@ -445,6 +445,7 @@ then
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
+    SFML)        VERSION_SFML=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -655,6 +656,8 @@ RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL_ttf" "$VERSION_SDL_TTF" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
+RET="$RET $?"
+download_needed "http://www.sfml-dev.org/files/" "sfml" "SFML-$VERSION_SFML-sources.zip"
 RET="$RET $?"
 download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
