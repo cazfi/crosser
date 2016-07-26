@@ -3,6 +3,7 @@
 	- Made minimum Windows version to support configurable
 	- Download files with unspecific names to specific subdirs
 	- Further reduced namespace pollution by renaming internal variables
+	- Support unpacking zip source archives
 	- Added jansson (version 2.7) to build
 	- Added tango-icon-theme (version 0.8.90) to build
 	- Added PDCurses (version 3.4) to build when readline parts enabled
