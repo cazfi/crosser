@@ -122,13 +122,6 @@ if test "x$CROSSER_SDL2" != "xyes" && test "x$CROSSER_SDL2" != "xno" ; then
     echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
-if test "x$CROSSER_SFML" = "x" ; then
-    CROSSER_SFML="no"
-fi
-if test "x$CROSSER_SFML" != "xyes" && test "x$CROSSER_SFML" != "xno" ; then
-    echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
 if test "x$CROSSER_READLINE" = "x" ; then
     CROSSER_READLINE="no"
 fi

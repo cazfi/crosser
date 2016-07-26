@@ -15,7 +15,6 @@ PACKAGES="\
  gzip \
  bzip2 \
  xz-utils \
- unzip \
  patch \
  libgtk2.0-dev \
  gettext \

@@ -9,11 +9,10 @@
 STEP_win_PACKETS=$(cat $CROSSER_MAINDIR/steps/win.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_sdl_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_sdl2_PACKETS=$(cat $CROSSER_MAINDIR/steps/sdl2.step | grep -v "^#" | sed 's/[ \t].*//')
-STEP_sfml_PACKETS=$(cat $CROSSER_MAINDIR/steps/sfml.step | grep -v "^#" | sed 's/[ \t].*//')
 STEP_full_PACKETS=$(cat $CROSSER_MAINDIR/steps/full.step | grep -v "^#" | sed 's/[ \t].*//')
 
 # Steps array
-STEPLIST=("win" "sdl" "sdl2" "sfml" "full")
+STEPLIST=("win" "sdl" "sdl2" "full")
 
 # Check if packet belongs to step
 #
