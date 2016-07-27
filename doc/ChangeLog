@@ -1,5 +1,6 @@
 1.2
 	- Support unpacking zip source archives
+	- Added optional sfml-chain, defaulting off
 
 1.1
 	- Added Future.txt document
