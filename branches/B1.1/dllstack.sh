@@ -639,7 +639,8 @@ if ! unpack_component     autoconf                          ||
      "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
-   ! CXX="g++" build_component_full native-icu4c icu4c "" "native" "icu/source"  ||
+   ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
+     "native" "icu/source"                                                  ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
