@@ -135,7 +135,7 @@ CROSSER_QT
 
 CROSSER_SDL
  ; Whether SDL-chain should be built as part of crosser.
- ; Current default is 'yes'.
+ ; Current default is 'no'.
  ; Future releases are going to drop SDL-chain support completely.
 
 CROSSER_SDL2

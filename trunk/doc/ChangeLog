@@ -1,5 +1,6 @@
 1.2
 	- Support unpacking zip source archives
+	- sdl-chain is not built by default
 	- Added optional sfml-chain, defaulting off
 
 1.1

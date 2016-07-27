@@ -109,7 +109,7 @@ if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
     exit 1
 fi
 if test "x$CROSSER_SDL" = "x" ; then
-    CROSSER_SDL="yes"
+    CROSSER_SDL="no"
 fi
 if test "x$CROSSER_SDL" != "xyes" && test "x$CROSSER_SDL" != "xno" ; then
     echo "Unknown value \"$CROSSER_SDL\" for CROSSER_SDL. Valid values are \"yes\" and \"no\"" >&2
