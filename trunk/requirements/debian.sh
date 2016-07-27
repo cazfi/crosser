@@ -28,6 +28,7 @@ PACKAGES="\
  docbook-xsl \
  python-dev \
  intltool \
+ cmake \
 "
 
 if test "$UID" != "0" ; then

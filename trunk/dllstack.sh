@@ -237,6 +237,9 @@ build_component_full()
       log_error "Configure for $1 failed"
       return 1
     fi
+  elif test -f "$SRCDIR/CMakeLists.txt"
+  then
+    cmake "$SRCDIR"
   fi
 
   log_write 1 "Building $1"
@@ -559,6 +562,9 @@ then
     fi
     if test "x$CROSSER_SDL2" = "xyes" ; then
         steplist="${steplist},sdl2"
+    fi
+    if test "x$CROSSER_SFML" = "xyes" ; then
+        steplist="${steplist},sfml"
     fi
     if test "x$CROSSER_QT" = "xyes" ; then
         steplist="${steplist},full"
@@ -990,6 +996,16 @@ if ! unpack_component  SDL2                                           ||
 then
   log_error "SDL2 stack build failed"
   exit 1
+fi
+fi
+
+if test "x$CROSSER_SFML" = "xyes" ; then
+if ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"      ||
+   ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"      ||
+   ! free_component       sfml $VERSION_SFML "sfml"
+then
+    log_error "SFML stack build failed"
+    exit 1
 fi
 fi
 
