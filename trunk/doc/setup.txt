@@ -153,6 +153,10 @@ CROSSER_GTK2
 CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
 
+CROSSER_SFML
+ ; Whether sfml-chain should be built as part of crosser.
+ ; Current default is 'no'.
+
 CROSSER_READLINE
  ; If set to value "yes", readline will be built as part of crosser.
 
