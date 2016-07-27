@@ -43,7 +43,7 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
   test         - Versionset used to test development packages before
                  the stable package is released to current versionset.
                  This versionset is likely to be broken any given time,
-                 and it may try to fetch snapshot builds that have been
+                 and it may try to fetch snapshots that have been
                  available for a short time only.
   custom       - Example of an custom versionset. See comments on the
                  setups/custom.versions about the fact that using
