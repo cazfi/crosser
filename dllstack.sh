@@ -680,7 +680,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
    ! unpack_component  win-iconv  "" "win-iconv/v${VERSION_WIN_ICONV}" ||
    ! build_simple_make win-iconv  $VERSION_WIN_ICONV                  ||
-   ! free_component    win-iconv  $VERSION_WIN_ICONV "win-iconv"      ||
+   ! free_src          win-iconv  $VERSION_WIN_ICONV                  ||
    ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||
