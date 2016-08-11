@@ -2,6 +2,7 @@
 	- Support unpacking zip source archives
 	- sdl-chain is not built by default
 	- Added optional sfml-chain, defaulting off
+	- Updated sqlite to version 3.14.0
 
 1.1
 	- Added Future.txt document
@@ -46,7 +47,7 @@
 	- Updated icu to version 57.1
 	- Updated pango to version 1.40.1
 	- Updated libxml to version 2.9.4
-	- Updated fontconfig to version 2.12.0
+	- Updated fontconfig to version 2.12.1
 
 1.0.3 (13-May-16)
 	- Fixed disabling of some packages that use custom build-flow
