@@ -607,7 +607,7 @@ if ! unpack_component     autoconf                          ||
    ! free_component       pkgconf $VERSION_PKGCONF native-pkgconf           ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
-     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib"     ||
+     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib --disable-compile-warnings"    ||
    ! free_build           "native-pkg-config"                               ||
    ! unpack_component     pcre                                              ||
    ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                       ||
