@@ -2,7 +2,7 @@
 	- Support unpacking zip source archives
 	- sdl-chain is not built by default
 	- Added optional sfml-chain, defaulting off
-	- Updated sqlite to version 3.14.0
+	- Updated sqlite to version 3.14.1
 
 1.1
 	- Added Future.txt document
