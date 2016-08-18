@@ -33,12 +33,12 @@
 	- Updated jpeg to version 9b
 	- Updated libpng to version 1.6.24
 	- Updated curl to version 7.50.1
-	- Updated gtk3 to version 3.20.8
+	- Updated gtk3 to version 3.20.9
 	- Updated pixman to version 0.34.0
 	- Updated freetype to version 2.6.5
 	- Updated gtk2 to version 2.24.30
 	- Updated atk to version 2.20.0
-	- Updated glib to version 2.48.1
+	- Updated glib to version 2.48.2
 	- Updated gobject-introspection to version 1.48.0
 	- Updated gdk-pixbuf to version 2.34.0
 	- Updated adwaita-icon-theme to version 3.20
