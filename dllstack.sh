@@ -666,7 +666,8 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     ImageMagick                                       ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
    ! (( is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 &&
-        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not_7" &&
+        ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.2 ||
+          patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not_7" ) &&
         patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin_7" ) ||
       ( patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin" &&
         patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid" &&
