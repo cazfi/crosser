@@ -6,6 +6,7 @@
 	- Updated pcre to version 10.22
 	- Updated pkgconf to version 1.0.1
 	- Updated ImageMagick to version 7.0.2-10
+	- Updated jansson to version 2.8
 
 1.1
 	- Added Future.txt document
