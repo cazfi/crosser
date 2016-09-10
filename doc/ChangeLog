@@ -39,7 +39,7 @@
 	- Updated gtk3 to version 3.20.9
 	- Updated pixman to version 0.34.0
 	- Updated freetype to version 2.6.5
-	- Updated gtk2 to version 2.24.30
+	- Updated gtk2 to version 2.24.31
 	- Updated atk to version 2.20.0
 	- Updated glib to version 2.48.2
 	- Updated gobject-introspection to version 1.48.0
