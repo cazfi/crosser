@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2015 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -231,13 +231,6 @@ unpack_component() {
       log_error "Unpacking $NAME_BASE.tgz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.zip" ; then
-    if ! unzip "$CROSSER_PACKETDIR/$NAME_BASE.zip" -d "$CROSSER_SRCDIR/$2" \
-         >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-    then
-      log_error "Unpacking $NAME_BASE.zip failed"
-      return 1  
-    fi
   elif test -e "$CROSSER_PACKETDIR/${BNAME}_${BVER}.dsc" ; then
     if ! which dpkg-source >/dev/null ; then
       log_error "No way to unpack debian source packages"
@@ -438,10 +431,10 @@ autogen_component()
 #
 # $1   - Prefix to parse
 setup_prefix() {
-  echo $1 | sed -e "s/<TARGET>/$CROSSER_TARGET/g" \
+  echo $1 | sed -e "s/<TARGET>/$TARGET/g" \
                 -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
                 -e "s/<VERSION>/$CROSSER_VERSION/g" \
-                -e "s/<VERSIONSET>/$CROSSER_VERSIONSET/g" \
+                -e "s/<VERSIONSET>/$VERSIONSET/g" \
                 -e "s/<SETUP>/$CROSSER_SETUP/g"
 }
 
@@ -754,7 +747,7 @@ read_configure_vars_sub() {
           log_error "Error in format of $CONF_FILE"
           return 1
         fi
-        if echo "$CROSSER_TARGET" | grep $CONDITION > /dev/null
+        if echo "$TARGET" | grep $CONDITION > /dev/null
         then
           echo -n "$REST "
         fi
@@ -802,7 +795,7 @@ packetdir_check() {
       fi
     fi
 
-    if ! mkdir -p "$CROSSER_PACKETDIR"
+    if ! mkdir -p "$CROSSER_PACKETDIR/patch"
     then
       echo "Failed to create packet directory $CROSSER_PACKETDIR"
       return 1
@@ -821,18 +814,12 @@ component_varname()
 
   if test "x$VARNAME" = "x" ; then
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
-  fi
-  if test "x$VARNAME" = "x" ; then
-      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
-  fi
-  if test "x$VARNAME" = "x" ; then
-      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl2.step | sed 's/.*[ \t]//')
-  fi
-  if test "x$VARNAME" = "x" ; then
-      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sfml.step | sed 's/.*[ \t]//')
-  fi
-  if test "x$VARNAME" = "x" ; then
-      return 1
+      if test "x$VARNAME" = "x" ; then
+          VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
+          if test "x$VARNAME" = "x" ; then
+              return 1
+          fi
+      fi
   fi
 
   echo $VARNAME
@@ -847,7 +834,7 @@ component_version()
 
   if test "x$VARNAME" != "x" ; then
     echo $(eval echo \$VERSION_$VARNAME)
-  fi
+  fi  
 }
 
 # Prints number of patches for component
@@ -859,7 +846,7 @@ component_patches()
 
   if test "x$VARNAME" != "x" ; then
     echo $(eval echo \$PATCHES_$VARNAME)
-  fi
+  fi  
 }
 
 # Prints path to build system pkg-config

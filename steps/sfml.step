@@ -1,7 +1,0 @@
-# sfml.step: Packages in SFML build step
-#
-# (c) 2016 Marko Lindqvist
-#
-# This program is licensed under Gnu General Public License version 2.
-#
-sfml              SFML

@@ -15,7 +15,6 @@ PACKAGES="\
  gzip \
  bzip2 \
  xz-utils \
- unzip \
  patch \
  libgtk2.0-dev \
  gettext \
@@ -28,7 +27,6 @@ PACKAGES="\
  docbook-xsl \
  python-dev \
  intltool \
- cmake \
 "
 
 if test "$UID" != "0" ; then
