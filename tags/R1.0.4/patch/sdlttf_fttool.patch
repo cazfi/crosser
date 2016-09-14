@@ -1,0 +1,14 @@
+diff -Nurd SDL_ttf-2.0.11/configure.in SDL_ttf-2.0.11/configure.in
+--- SDL_ttf-2.0.11/configure.in	2013-12-19 17:54:53.239198016 +0200
++++ SDL_ttf-2.0.11/configure.in	2013-12-19 17:56:27.362959506 +0200
+@@ -113,7 +113,9 @@
+         FREETYPE_CONFIG=$freetype_prefix/bin/freetype-config
+      fi
+ fi
+-AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, no)
++if test "x$FREETYPE_CONFIG" = "x" ; then
++  AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, no)
++fi
+ no_freetype=""
+ if test "$FREETYPE_CONFIG" = "no" ; then
+     AC_MSG_ERROR([

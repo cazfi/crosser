@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-opensource-src-5.5.1/qtwebkit/Source/WebCore/bindings/scripts/CodeGenerator.pm qt-everywhere-opensource-src-5.5.1/qtwebkit/Source/WebCore/bindings/scripts/CodeGenerator.pm
+--- qt-everywhere-opensource-src-5.5.1/qtwebkit/Source/WebCore/bindings/scripts/CodeGenerator.pm	2015-11-06 07:19:46.017429415 +0200
++++ qt-everywhere-opensource-src-5.5.1/qtwebkit/Source/WebCore/bindings/scripts/CodeGenerator.pm	2015-11-06 07:21:08.721245414 +0200
+@@ -219,7 +219,7 @@
+     my $interfaceName = shift;
+ 
+     unless ($idlFiles) {
+-        my $sourceRoot = $ENV{SOURCE_ROOT};
++        my $sourceRoot = $ENV{SOURCE_ROOT_CROSSER_HACK};
+         my @directories = map { $_ = "$sourceRoot/$_" if $sourceRoot && -d "$sourceRoot/$_"; $_ } @$useDirectories;
+         push(@directories, ".");
+ 

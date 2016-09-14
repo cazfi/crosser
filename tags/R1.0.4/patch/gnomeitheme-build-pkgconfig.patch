@@ -1,0 +1,24 @@
+diff -Nurd gnome-icon-theme-3.12.0/configure gnome-icon-theme-3.12.0/configure
+--- gnome-icon-theme-3.12.0/configure	2014-03-25 06:36:59.000000000 +0200
++++ gnome-icon-theme-3.12.0/configure	2014-10-04 22:48:44.269817174 +0300
+@@ -4463,9 +4463,9 @@
+ 
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking icon-naming-utils >= $UTILS_REQUIRED" >&5
+ $as_echo_n "checking icon-naming-utils >= $UTILS_REQUIRED... " >&6; }
+-   if test -n "$PKG_CONFIG" && \
++   if test -n "$PKG_CONFIG_FOR_BUILD" && \
+     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"icon-naming-utils >= \$UTILS_REQUIRED\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "icon-naming-utils >= $UTILS_REQUIRED") 2>&5
++  ($PKG_CONFIG_FOR_BUILD --exists --print-errors "icon-naming-utils >= $UTILS_REQUIRED") 2>&5
+   ac_status=$?
+   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+   test $ac_status = 0; }; then
+@@ -4474,7 +4474,7 @@
+   have_utils=no
+ fi
+    if test "x$have_utils" = "xyes"; then
+-      UTILS_PATH="`$PKG_CONFIG --variable=program_path icon-naming-utils`"
++      UTILS_PATH="`$PKG_CONFIG_FOR_BUILD --variable=program_path icon-naming-utils`"
+       ICONMAP="$UTILS_PATH/icon-name-mapping"
+       { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }

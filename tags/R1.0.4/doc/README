@@ -1,0 +1,88 @@
+This is Crosser release 1.0
+
+This release contains dll stack builder (dllstack.sh) for building
+windows library stack.
+
+------
+
+Crosser homepage is http://www.cazfi.net/crosser/
+
+------
+
+Script scripts/download_packets.sh downloads toolchain related source packages.
+
+- It can be used to download single package, predefined set of packages,
+  or all packages.
+- Versions to download are read from setups/<VERSIONSET>.versions, where
+  default versionset is 'current'. Other sets can be selected from commandline.
+  There is also an example of an custom versionset named 'custom.versions',
+  but be aware that customized versionsets are not supported functionality
+  of crosser, so proceed on your own risk.
+- You can define mirrors to be used in file called .crosser.mirrors in your
+  home directory or mirrors.conf in crosser root directory.
+  There's example file suitable for Finland in mirrors-directory.
+
+------
+
+ Dllstack.sh is used to create set of Windows dlls.
+
+ Example:
+ > ./dllstack.sh /usr/local/dllstack
+
+ First parameter is prefix for installation directory hierarchy.
+
+ Second parameter is versionset to use. Default is "current". Versionsets
+ are defined in setups/<versionset>.versions files, one per file. By listing
+ these files you can list supported versionsets.
+  Currently there is four versionsets:
+  current      - This versionset will always contain currently best supported
+                 versionlist.
+  stable       - This versionset contains a bit more mature versions.
+                 Typically those are final (most mature) versions from
+                 previous release series of the software.
+  test         - Versionset used to test development packages before
+                 the stable package is released to current versionset.
+                 This versionset is likely to be broken any given time,
+                 and it may try to fetch snapshots that have been
+                 available for a short time only.
+  custom       - Example of an custom versionset. See comments on the
+                 setups/custom.versions about the fact that using
+                 arbitrary versionsets is not support, but you must
+                 know suitable version combinations yourself.
+
+  Third parameter is description of system dllstack is built for.
+  win32 - Default one
+  win64 - 64bit compilation. This set doesn't build gtk2,
+          gtk-engines, or gnome-themes-standard
+
+------
+
+ Script scripts/trim_packetdir.sh can be used to clean up obsolete source
+packets from packetdir. Usually source packet gets obsolete because
+newer version is used by all the versionsets in newer crosser version
+than the one that originally downloaded packet.
+
+ It does not really know which packets are obsolete and which ones are not.
+It just removes those packets that are most likely obsolete. It determines
+this by checking last time that source package was used by crosser. Those
+packets which are not used in a long time are removed. Current default of 
+trim_packetdir.sh is to remove all but 200 most recently used files from
+packetdir.
+
+------
+
+ It takes some effort to setup crosser to handle multiple simultaneous
+builds. Obviously one run should not delete directories that the other one
+is using. All the solutions to this boil down to having different
+configurations for different builds, namely doing them in separate directories.
+You can simply define multiple configuration files that use different
+directories for anything that may affect the other build and then set
+$CROSSER_CONF to point to correct file before each build. But probably more
+clever way is to write your configuration file to dynamically adjust. You
+can for example place all the other directories relative to $CROSSER_TMPDIR
+and to just set different $CROSSER_TMPDIR for each build. Note that with
+default setting $CROSSER_SRCDIR and $CROSSER_BUILDDIR are already relative to
+$CROSSER_TMPDIR meaning there is problem with $CROSSER_LOGDIR only.
+If you don't like the idea of logs being under tmpdir, you can even define
+your own toplevel environment variable and to make both $CROSSER_TMPDIR and
+$CROSSER_LOGDIR relative to it.
