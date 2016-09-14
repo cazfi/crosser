@@ -43,6 +43,9 @@
 	- Updated libxml to version 2.9.4
 	- Updated fontconfig to version 2.12.1
 
+1.0.4 (14-Sep-16)
+	- Updated libtiff download URL
+
 1.0.3 (13-May-16)
 	- Fixed disabling of some packages that use custom build-flow
 
