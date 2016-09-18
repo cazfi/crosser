@@ -4,5 +4,5 @@ These changes are coming in future versions:
 - Enable readline build by default (-> part of the ready-made build)
 - Use win-iconv by default, drop libiconv
 - Drop gtk2
-- Drop sdl build completely
+- Drop sdl
 - Disable bzip2 build -> later drop completely

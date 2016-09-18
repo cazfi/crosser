@@ -135,7 +135,7 @@ CROSSER_QT
 
 CROSSER_SDL
  ; Whether SDL-chain should be built as part of crosser.
- ; Current default is 'no'.
+ ; Current default is 'yes'.
  ; Future releases are going to drop SDL-chain support completely.
 
 CROSSER_SDL2
@@ -152,10 +152,6 @@ CROSSER_GTK2
 
 CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
-
-CROSSER_SFML
- ; Whether sfml-chain should be built as part of crosser.
- ; Current default is 'no'.
 
 CROSSER_READLINE
  ; If set to value "yes", readline will be built as part of crosser.
