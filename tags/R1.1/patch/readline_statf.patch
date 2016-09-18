@@ -1,0 +1,31 @@
+diff -Nurd readline-6.3/posixstat.h readline-6.3/posixstat.h
+--- readline-6.3/posixstat.h	2015-10-10 00:10:42.874484065 +0300
++++ readline-6.3/posixstat.h	2015-10-10 00:12:27.358256781 +0300
+@@ -135,8 +135,27 @@
+ #endif /* !S_IRWXU */
+ 
+ /* These are non-standard, but are used in builtins.c$symbolic_umask() */
++#ifdef WIN32
++
++#define S_ISUID         (0)
++#define S_ISGID         (0)
++#ifndef S_IWOTH
++#define S_IWOTH         (0)
++#endif  /* S_IWOTH */
++#define S_IRUGO		(S_IRUSR)
++#define S_IWUGO		(S_IWUSR)
++#define S_IXUGO		(S_IXUSR)
++#else
+ #define S_IRUGO		(S_IRUSR | S_IRGRP | S_IROTH)
+ #define S_IWUGO		(S_IWUSR | S_IWGRP | S_IWOTH)
+ #define S_IXUGO		(S_IXUSR | S_IXGRP | S_IXOTH)
++#endif
++
++#ifndef S_ISLNK
++#define S_ISLNK(x)      (0)
++#endif
++#ifndef S_ISSOCK
++#define S_ISSOCK(x)     (0)
++#endif
+ 
+ #endif /* _POSIXSTAT_H_ */

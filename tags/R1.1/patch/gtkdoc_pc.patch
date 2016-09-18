@@ -1,0 +1,12 @@
+diff -Nurd gtk-doc-1.20/Makefile.am gtk-doc-1.20/Makefile.am
+--- gtk-doc-1.20/Makefile.am	2014-02-04 22:36:54.000000000 +0200
++++ gtk-doc-1.20/Makefile.am	2014-10-11 03:46:05.855947977 +0300
+@@ -43,7 +43,7 @@
+ 	style/up-insensitive.png		\
+ 	style/style.css
+ 
+-pkgconfigdir = $(datadir)/pkgconfig
++pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = gtk-doc.pc
+ 
+ aclocaldir = $(datadir)/aclocal

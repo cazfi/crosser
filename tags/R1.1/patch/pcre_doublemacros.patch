@@ -1,0 +1,17 @@
+diff -Nurd pcre-8.38/pcreposix.c pcre-8.38/pcreposix.c
+--- pcre-8.38/pcreposix.c	2014-09-15 16:48:59.000000000 +0300
++++ pcre-8.38/pcreposix.c	2016-02-20 16:14:40.058687807 +0200
+@@ -53,9 +53,13 @@
+ previously been set. */
+ 
+ #if defined(_WIN32) && !defined(PCRE_STATIC)
++#ifndef PCREPOSIX_EXP_DECL
+ #  define PCREPOSIX_EXP_DECL extern __declspec(dllexport)
++#endif
++#ifndef PCREPOSIX_EXP_DEFN
+ #  define PCREPOSIX_EXP_DEFN __declspec(dllexport)
+ #endif
++#endif
+ 
+ /* We include pcre.h before pcre_internal.h so that the PCRE library functions
+ are declared as "import" for Windows by defining PCRE_EXP_DECL as "import".

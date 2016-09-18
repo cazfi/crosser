@@ -1,0 +1,24 @@
+diff -Nurd icon-naming-utils-0.8.90/Makefile.am icon-naming-utils-0.8.90/Makefile.am
+--- icon-naming-utils-0.8.90/Makefile.am	2007-08-18 15:24:39.000000000 +0300
++++ icon-naming-utils-0.8.90/Makefile.am	2014-10-03 09:13:01.968736350 +0300
+@@ -8,7 +8,7 @@
+ 
+ pkgconfig_in_files =				\
+ 	icon-naming-utils.pc.in
+-pkgconfigdir = $(datadir)/pkgconfig
++pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
+ 
+ dtddir = $(datadir)/dtds
+diff -Nurd icon-naming-utils-0.8.90/Makefile.in icon-naming-utils-0.8.90/Makefile.in
+--- icon-naming-utils-0.8.90/Makefile.in	2009-02-21 05:40:00.000000000 +0200
++++ icon-naming-utils-0.8.90/Makefile.in	2014-10-03 09:13:26.268736859 +0300
+@@ -149,7 +149,7 @@
+ pkgconfig_in_files = \
+ 	icon-naming-utils.pc.in
+ 
+-pkgconfigdir = $(datadir)/pkgconfig
++pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
+ dtddir = $(datadir)/dtds
+ dtd_DATA = legacy-icon-mapping.dtd

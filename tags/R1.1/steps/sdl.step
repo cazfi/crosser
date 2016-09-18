@@ -1,0 +1,11 @@
+# sdl.step: Packages in old sdl build step
+#
+# (c) 2015 Marko Lindqvist
+#
+# This program is licensed under Gnu General Public License version 2.
+#
+SDL               SDL
+SDL_image         SDL_IMAGE
+SDL_gfx           SDL_GFX
+SDL_ttf           SDL_TTF
+SDL_mixer         SDL_MIXER
