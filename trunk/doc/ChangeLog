@@ -8,6 +8,7 @@
 	- Updated ImageMagick to version 7.0.2-10
 	- Updated jansson to version 2.8
 	- Updated freetype to version 2.7
+	- Updated readline to version 7.0
 
 1.1 (18-Sep-16)
 	- Added Future.txt document
