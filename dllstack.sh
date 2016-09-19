@@ -761,7 +761,9 @@ if ! unpack_component  PDCurses                                          ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
    ! patch_src readline $VERSION_READLINE "readline_posix"               ||
-   ! patch_src readline $VERSION_READLINE "readline_sighup"              ||
+   ! ((is_minimum_version $VERSION_READLINE 7.0 &&
+       patch_src readline $VERSION_READLINE "readline_chown" ) ||
+      patch_src readline $VERSION_READLINE "readline_sighup" )           ||
    ! patch_src readline $VERSION_READLINE "readline_statf"               ||
    ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
    ! build_component   readline                                          \
