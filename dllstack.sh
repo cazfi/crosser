@@ -620,7 +620,8 @@ if ! unpack_component     autoconf                          ||
      "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
-   ! build_component_host glib                                              ||
+   ! build_component_host glib                                              \
+     "--disable-libmount"                                                   ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
