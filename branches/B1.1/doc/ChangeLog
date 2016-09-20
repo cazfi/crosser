@@ -1,3 +1,6 @@
+1.1.1
+	- Really create patch-directory after asking permission from user
+
 1.1 (18-Sep-16)
 	- Added Future.txt document
 	- Made minimum Windows version to support configurable
