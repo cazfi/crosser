@@ -14,6 +14,9 @@
 	- Updated gdk-pixbuf to version 2.36.0
 	- Updated gtk3 to version 3.22.0
 
+1.1.1
+	- Really create patch-directory after asking permission from user
+
 1.1 (18-Sep-16)
 	- Added Future.txt document
 	- Made minimum Windows version to support configurable
