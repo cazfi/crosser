@@ -13,6 +13,7 @@
 	- Updated atk to version 2.22.0
 	- Updated gdk-pixbuf to version 2.36.0
 	- Updated gtk3 to version 3.22.0
+	- Updated gobject-introspection to version 1.50.0
 
 1.1.1
 	- Really create patch-directory after asking permission from user
