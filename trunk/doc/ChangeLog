@@ -16,6 +16,7 @@
 	- Updated gobject-introspection to version 1.50.0
 	- Updated adwaita-icon-theme to version 3.22.0
 	- Updated harfbuzz to version 1.3.2
+	- Updated gnome-themes-standard to version 3.22.2
 
 1.1.1
 	- Really create patch-directory after asking permission from user
