@@ -646,6 +646,7 @@ if ! unpack_component     autoconf                          ||
      "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
+   ! patch_src icu $VERSION_ICU icu_locale                                  ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component gdk-pixbuf                                            ||
