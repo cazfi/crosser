@@ -20,6 +20,7 @@ then
 fi
 
 CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
+CROSSER_FEATURE_VERSION=$(echo $CROSSER_VERSION | sed 's/\./ /g' | (read CR_MAJOR CR_MINOR CR_PATCH ; echo "$CR_MAJOR.$CR_MINOR"))
 CROSSER_BUILD_DATE=$(date +"%d.%m.%y")
 
 if test "x$CROSSER_LOGLVL_STDOUT" = "x" ; then
