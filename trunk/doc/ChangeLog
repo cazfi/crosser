@@ -22,6 +22,7 @@
 	- Updated libpng to version 1.6.26
 	- Updated icu to version 58.1
 	- Updated SDL2 to version 2.0.5
+	- Updated curl to version 7.51.0
 
 1.1.1
 	- Really create patch-directory after asking permission from user
