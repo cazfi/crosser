@@ -1,4 +1,5 @@
 1.1.1
+	- Fixed icu build with gcc-6
 	- Really create patch-directory after asking permission from user
 
 1.1 (18-Sep-16)
