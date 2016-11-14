@@ -239,7 +239,7 @@ build_component_full()
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
   then
-    cmake "$SRCDIR"
+    cmake -DCMAKE_SYSTEM_NAME="Windows" "$SRCDIR"
   fi
 
   log_write 1 "Building $1"
