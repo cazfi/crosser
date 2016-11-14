@@ -4,5 +4,6 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 #
+ffmpeg            FFMPEG
 openal-soft       OPENAL
 sfml              SFML
