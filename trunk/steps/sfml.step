@@ -4,4 +4,5 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 #
+openal-soft       OPENAL
 sfml              SFML
