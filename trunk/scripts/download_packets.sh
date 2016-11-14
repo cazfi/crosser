@@ -447,7 +447,6 @@ then
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
     sfml)        VERSION_SFML=$VERSION_SELECTED ;;
-    openal-soft) VERSION_OPENAL=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -665,6 +664,8 @@ RET="$RET $?"
 download_needed "http://www.sfml-dev.org/files/" "sfml" "SFML-$VERSION_SFML-sources.zip"
 RET="$RET $?"
 download_needed "http://kcat.strangesoft.net/openal-releases/" "openal-soft" "$VERSION_OPENAL" "tar.bz2"
+RET="$RET $?"
+download_needed "http://www.ffmpeg.org/releases/" "ffmpeg" "$VERSION_FFMPEG" "tar.xz"
 RET="$RET $?"
 download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
