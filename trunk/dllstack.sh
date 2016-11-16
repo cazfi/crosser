@@ -129,7 +129,7 @@ build_component_host()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config')
+# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config' | 'custom')
 # [$5] - Src subdir 
 # [$6] - Make options
 # [$7] - Version
@@ -204,6 +204,11 @@ build_component_full()
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
+  elif test "x$4" = "xcustom"
+  then
+    CONFOPTIONS="--prefix=${DLLSPREFIX} $3"
+    unset CPPFLAGS
+    unset LDFLAGS
   elif test "x$4" = "xwindres"
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
@@ -239,7 +244,7 @@ build_component_full()
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
   then
-    cmake -DCMAKE_SYSTEM_NAME="Windows" "$SRCDIR"
+    cmake -DCMAKE_SYSTEM_NAME="Windows" -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   fi
 
   log_write 1 "Building $1"
@@ -1010,8 +1015,16 @@ fi
 fi
 
 if test "x$CROSSER_SFML" = "xyes" ; then
-if ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"      ||
-   ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"      ||
+if ! unpack_component     ffmpeg                                                ||
+   ! build_component_full ffmpeg ffmpeg                                         \
+     "--cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
+     "custom"                                                                   ||
+   ! free_component       ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||     
+   ! unpack_component     openal-soft                                           ||
+   ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
+   ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||     
+   ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
+   ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"                ||
    ! free_component       sfml $VERSION_SFML "sfml"
 then
     log_error "SFML stack build failed"
