@@ -57,7 +57,7 @@ fi
 
 if test "x$3" = "x"
 then
-  CROSSER_SETUP="win32"
+  CROSSER_SETUP="$CROSSER_DEFAULT_SETUP"
 else
   CROSSER_SETUP="$3"
 fi

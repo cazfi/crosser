@@ -143,6 +143,9 @@ if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpk
     echo "Uknowns value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
     exit 1
 fi
+if test "x$CROSSER_DEFAULT_SETUP" = "x" ; then
+    CROSSER_DEFAULT_SETUP="win32"
+fi
 if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
     # Use real pkg-config, not recursively the link we create
     CROSSER_PKGCONF="pkg-config.real"
