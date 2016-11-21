@@ -57,6 +57,10 @@ CROSSER_WINVER
  ; THIS FEATURE IS EXPERIMENTAL
  ; Current default is '0x0502' meaning Windows Server 2003.
 
+CROSSER_DEFAULT_SETUP
+ ; Setup to use when one has not been given at commandline.
+ ; Current default is "win32"
+
 CROSSER_LOGLVL_STDOUT
 CROSSER_LOGLVL_FILE
  ; Level of logging to screen and to file. Values can be from

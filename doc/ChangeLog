@@ -1,5 +1,6 @@
 1.2
 	- Added "FeatureVersion" information to crosser.txt
+	- Default build setup is configurable
 	- Support unpacking zip source archives
 	- sdl-chain is not built by default
 	- Added optional sfml-chain, defaulting off
