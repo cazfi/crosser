@@ -160,7 +160,7 @@ upstream_patch() {
 # [$2] - Subdir in source hierarchy
 # [$3] - Package file name base in case it's not 'name-version'
 unpack_component() {
-  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
+  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3" || test "x$1" = "xgtk4"
   then
     BNAME="gtk+"
   else
