@@ -3,6 +3,7 @@
 	- Default build setup is configurable
 	- Support unpacking zip source archives
 	- sdl-chain is not built by default
+	- Updated auxiliary config.guess and config.sub to '2016-10-02' version
 	- Added optional sfml-chain, defaulting off
 	- Added gaphene (version 1.4) to build
 	- Updated sqlite to version 3.15.2
