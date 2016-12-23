@@ -126,16 +126,16 @@ build_component_host()
   fi
 }
 
-# $1   - Build dir
+# $1   - Build dir or 'src'
 # $2   - Component
 # $3   - Extra configure options
 # [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config' | 'custom')
-# [$5] - Src subdir 
+# [$5] - Src subdir
 # [$6] - Make options
 # [$7] - Version
 build_component_full()
 {
-  log_packet "$1"
+  log_packet "$2"
 
   if test "x$7" != "x"
   then
@@ -178,16 +178,22 @@ build_component_full()
     fi
   fi
 
-  BUILDDIR="$CROSSER_BUILDDIR/$1"
-  if ! mkdir -p "$BUILDDIR"
+  if test "x$1" != "xsrc"
   then
-    log_error "Failed to create directory $BUILDDIR"
-    return 1
+    BUILDDIR="$CROSSER_BUILDDIR/$1"
+    if ! mkdir -p "$BUILDDIR"
+    then
+      log_error "Failed to create directory $BUILDDIR"
+      return 1
+    fi
+    SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+  else
+    BUILDDIR="$CROSSER_SRCDIR/$SUBDIR"
+    SRCDIR="."  
   fi
 
   (
   cd "$BUILDDIR"
-  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
   if test "x$4" = "xnative"
   then
@@ -233,13 +239,13 @@ build_component_full()
 
   if test -x "$SRCDIR/configure"
   then
-    log_write 1 "Configuring $1"
+    log_write 1 "Configuring $2"
     log_write 3 "  Options: \"$CONFOPTIONS\""
     log_flags
 
     if ! "$SRCDIR/configure" $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
-      log_error "Configure for $1 failed"
+      log_error "Configure for $2 failed"
       return 1
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
@@ -247,7 +253,7 @@ build_component_full()
     cmake -DCMAKE_SYSTEM_NAME="Windows" -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   fi
 
-  log_write 1 "Building $1"
+  log_write 1 "Building $2"
   log_write 3 "  Make targets: [default] install"
   if test "x$6" = "xno"
   then
@@ -262,13 +268,13 @@ build_component_full()
 
   if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
-    log_error "Make for $1 failed"
+    log_error "Make for $2 failed"
     return 1
   fi
 
   if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
-    log_error "Install for $1 failed"
+    log_error "Install for $2 failed"
     return 1
   fi
   )
