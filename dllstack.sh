@@ -897,8 +897,6 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
    ! unpack_component hicolor-icon-theme                              ||
-   ! (is_minimum_version $VERSION_HICOLOR 0.14 ||
-      patch_src hicolor-icon-theme $VERSION_HICOLOR "hicolor_blddir") ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \
      "hicolor-icon-theme"                                             ||
