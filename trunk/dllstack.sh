@@ -662,11 +662,6 @@ if ! unpack_component     autoconf                          ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component gdk-pixbuf                                            ||
-   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.30.0 ||
-      is_minimum_version $VERSION_GDK_PIXBUF 2.30.3 ||
-      ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF "gdkpixbuf_randmod_disable" &&
-        autogen_component gdk-pixbuf $VERSION_GDK_PIXBUF \
-        "aclocal automake autoconf" ))                                      ||
    ! build_component_host gdk-pixbuf                                        ||
    ! free_build           "native-gdk-pixbuf"                               ||
    ! unpack_component     util-macros                                       ||
