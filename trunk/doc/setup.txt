@@ -55,7 +55,7 @@ CROSSER_WINVER
  ; not symbolic ones, e.g., Win7 should be given as '0x0601'
  ; and not as '_WIN32_WINNT_WIN7'
  ; THIS FEATURE IS EXPERIMENTAL
- ; Current default is '0x0502' meaning Windows Server 2003.
+ ; Current default is '0x0601' meaning Windows 7.
 
 CROSSER_DEFAULT_SETUP
  ; Setup to use when one has not been given at commandline.
