@@ -1,0 +1,25 @@
+diff -Nurd readline-7.0/histfile.c readline-7.0/histfile.c
+--- readline-7.0/histfile.c	2016-01-25 17:34:03.000000000 +0200
++++ readline-7.0/histfile.c	2016-09-19 14:52:18.130679754 +0300
+@@ -610,8 +610,10 @@
+      user is running this, it's a no-op.  If the shell is running after sudo
+      with a shared history file, we don't want to leave the history file
+      owned by root. */
++#ifndef WIN32
+   if (rv == 0 && exists)
+     r = chown (filename, finfo.st_uid, finfo.st_gid);
++#endif
+ 
+   xfree (filename);
+   FREE (tempname);
+@@ -757,8 +759,10 @@
+      user is running this, it's a no-op.  If the shell is running after sudo
+      with a shared history file, we don't want to leave the history file
+      owned by root. */
++#ifndef WIN32
+   if (rv == 0 && exists)
+     mode = chown (histname, finfo.st_uid, finfo.st_gid);
++#endif
+ 
+   FREE (histname);
+   FREE (tempname);
