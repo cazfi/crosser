@@ -151,6 +151,6 @@ if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
     CROSSER_PKGCONF="pkg-config.real"
 fi
 if test "x$CROSSER_WINVER" = "x" ; then
-    # Default minimum version is Windows Server 2003
-    CROSSER_WINVER=0x0502
+    # Default minimum version is Windows 7
+    CROSSER_WINVER=0x0601
 fi

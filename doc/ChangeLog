@@ -1,3 +1,6 @@
+1.3
+	- Minimum requirement for created dllstack is Windows 7
+
 1.2
 	- Added "FeatureVersion" information to crosser.txt
 	- Default build setup is configurable
