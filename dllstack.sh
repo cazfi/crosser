@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -154,7 +154,7 @@ build_component_full()
     return 0
   fi
 
-  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" || test "x$2" = "xgtk4"
+  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3"
   then
     BNAME="gtk+"
   else
@@ -928,17 +928,6 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
      "gnome-themes-standard"
 then
   log_error "gtk+ stack build failed"
-  exit 1
-fi
-fi
-
-if test "x$CROSSER_GTK4" = "xyes" ; then
-if ! unpack_component  gtk4                                           ||
-   ! build_component   gtk4                                           \
-     "--with-included-immodules"                                      ||
-   ! free_component    gtk+       $VERSION_GTK4 "gtk4"
-then
-  log_error "gtk4 build failed"
   exit 1
 fi
 fi

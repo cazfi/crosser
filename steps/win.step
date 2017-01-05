@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -46,7 +46,6 @@ epoxy             EPOXY
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
 gtk3              GTK3
-gtk4              GTK4
 gtk-engines       GTK_ENG
 hicolor-icon-theme HICOLOR
 adwaita-icon-theme ADWAITA_ICON
