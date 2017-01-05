@@ -1,6 +1,6 @@
 # stable.versions: Package versions
 #
-# (c) 2009-2016 Marko Lindqvist
+# (c) 2009-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -54,7 +54,6 @@ VERSION_ATK=2.20.0
 VERSION_GDK_PIXBUF=2.34.0
 VERSION_GTK2=2.24.31
 VERSION_GTK3=3.20.9
-VERSION_GTK4=0
 VERSION_GTK_ENG=2.20.2
 VERSION_HICOLOR=0.14
 VERSION_ADWAITA_ICON=3.20
