@@ -2,6 +2,7 @@
 	- Minimum requirement for created dllstack is Windows 7
 	- Updated harfbuzz to version 1.4.0
 	- Updated sqlite to version 3.16.1
+	- Updated gettext to version 0.19.8.1
 
 1.2
 	- Added "FeatureVersion" information to crosser.txt
