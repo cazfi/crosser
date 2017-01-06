@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1062,6 +1062,8 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! ( is_smaller_version $VERSION_QT 5.6.0 ||
        is_minimum_version $VERSION_QT 5.6.1 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )     ||
+   ! ( is_smaller_version $VERSION_QT 5.7.0 ||
+       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )      ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \

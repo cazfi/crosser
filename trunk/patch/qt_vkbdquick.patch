@@ -1,0 +1,17 @@
+diff -Nurd qt-everywhere-opensource-src-5.7.1/qtvirtualkeyboard/src/src.pro qt-everywhere-opensource-src-5.7.1-newbie/qtvirtualkeyboard/src/src.pro
+--- qt-everywhere-opensource-src-5.7.1/qtvirtualkeyboard/src/src.pro	2016-09-17 23:55:40.000000000 +0300
++++ qt-everywhere-opensource-src-5.7.1-newbie/qtvirtualkeyboard/src/src.pro	2017-01-06 14:54:47.850149538 +0200
+@@ -32,7 +32,9 @@
+     virtualkeyboard.depends += virtualkeyboard/3rdparty/t9write
+ }
+ 
+-SUBDIRS += \
+-    virtualkeyboard \
+-    virtualkeyboard/import \
+-    virtualkeyboard/styles
++qtHaveModule(quick) {
++    SUBDIRS += \
++      virtualkeyboard \
++      virtualkeyboard/import \
++      virtualkeyboard/styles
++}
