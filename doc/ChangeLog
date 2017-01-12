@@ -4,6 +4,7 @@
 	- Updated sqlite to version 3.16.2
 	- Updated gettext to version 0.19.8.1
 	- Updated qt to version 5.7.1
+	- Updated xz to version 5.2.3
 
 1.2
 	- Added "FeatureVersion" information to crosser.txt
