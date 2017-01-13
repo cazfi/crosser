@@ -28,6 +28,7 @@
 	- Updated curl to version 7.52.1
 	- Updated tiff to version 4.0.7
 	- Updated cairo to version 1.14.8
+	- Updated xz to version 5.2.3
 
 1.1.1
 	- Fixed icu build with gcc-6
