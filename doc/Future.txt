@@ -1,6 +1,5 @@
 These changes are coming in future versions:
 
-- Make 'win64' the default target system
 - Enable readline build by default (-> part of the ready-made build)
 - Use win-iconv by default, drop libiconv
 - Drop gtk2

@@ -59,7 +59,7 @@ CROSSER_WINVER
 
 CROSSER_DEFAULT_SETUP
  ; Setup to use when one has not been given at commandline.
- ; Current default is "win32"
+ ; Current default is "win64"
 
 CROSSER_LOGLVL_STDOUT
 CROSSER_LOGLVL_FILE
