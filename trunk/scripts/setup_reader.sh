@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -144,7 +144,7 @@ if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpk
     exit 1
 fi
 if test "x$CROSSER_DEFAULT_SETUP" = "x" ; then
-    CROSSER_DEFAULT_SETUP="win32"
+    CROSSER_DEFAULT_SETUP="win64"
 fi
 if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
     # Use real pkg-config, not recursively the link we create
