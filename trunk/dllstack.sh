@@ -180,6 +180,7 @@ build_component_full()
 
   if test "x$1" != "xsrc"
   then
+    DISPLAY_NAME="$1"
     BUILDDIR="$CROSSER_BUILDDIR/$1"
     if ! mkdir -p "$BUILDDIR"
     then
@@ -188,6 +189,7 @@ build_component_full()
     fi
     SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
   else
+    DISPLAY_NAME="$2"
     BUILDDIR="$CROSSER_SRCDIR/$SUBDIR"
     SRCDIR="."  
   fi
@@ -239,13 +241,13 @@ build_component_full()
 
   if test -x "$SRCDIR/configure"
   then
-    log_write 1 "Configuring $2"
+    log_write 1 "Configuring $DISPLAY_NAME"
     log_write 3 "  Options: \"$CONFOPTIONS\""
     log_flags
 
     if ! "$SRCDIR/configure" $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
-      log_error "Configure for $2 failed"
+      log_error "Configure for $DISPLAY_NAME failed"
       return 1
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
@@ -253,7 +255,7 @@ build_component_full()
     cmake -DCMAKE_SYSTEM_NAME="Windows" -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
   fi
 
-  log_write 1 "Building $2"
+  log_write 1 "Building $DISPLAY_NAME"
   log_write 3 "  Make targets: [default] install"
   if test "x$6" = "xno"
   then
@@ -268,13 +270,13 @@ build_component_full()
 
   if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
-    log_error "Make for $2 failed"
+    log_error "Make for $DISPLAY_NAME failed"
     return 1
   fi
 
   if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
-    log_error "Install for $2 failed"
+    log_error "Install for $DISPLAY_NAME failed"
     return 1
   fi
   )
