@@ -5,6 +5,7 @@
 	- Updated harfbuzz to version 1.4.1
 	- Updated gettext to version 0.19.8.1
 	- Updated qt to version 5.7.1
+	- Updated zlib to version 1.2.10
 
 1.2
 	- Added "FeatureVersion" information to crosser.txt
@@ -37,7 +38,6 @@
 	- Updated tiff to version 4.0.7
 	- Updated cairo to version 1.14.8
 	- Updated xz to version 5.2.3
-	- Updated zlib to version 1.2.10
 
 1.1.1
 	- Fixed icu build with gcc-6
