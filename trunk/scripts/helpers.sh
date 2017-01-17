@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -20,7 +20,7 @@ then
 fi
 
 CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
-CROSSER_FEATURE_VERSION=$(echo $CROSSER_VERSION | sed 's/\./ /g' | (read CR_MAJOR CR_MINOR CR_PATCH ; echo "$CR_MAJOR.$CR_MINOR"))
+CROSSER_FEATURE_LEVEL=$(echo $CROSSER_VERSION | sed 's/\./ /g' | (read CR_MAJOR CR_MINOR CR_PATCH ; echo "$CR_MAJOR.$CR_MINOR"))
 CROSSER_BUILD_DATE=$(date +"%d.%m.%y")
 
 if test "x$CROSSER_LOGLVL_STDOUT" = "x" ; then
