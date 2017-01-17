@@ -1,5 +1,5 @@
 1.2
-	- Added "FeatureVersion" information to crosser.txt
+	- Added "FeatureLevel" information to crosser.txt
 	- Default build setup is configurable
 	- Support unpacking zip source archives
 	- Fixed icu build with gcc-6
