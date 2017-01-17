@@ -1,0 +1,13 @@
+diff -Nurd gtk+-3.89.1/gtk/gtkfilechoosernativewin32.c gtk+-3.89.1/gtk/gtkfilechoosernativewin32.c
+--- gtk+-3.89.1/gtk/gtkfilechoosernativewin32.c	2016-10-22 08:55:55.000000000 +0300
++++ gtk+-3.89.1/gtk/gtkfilechoosernativewin32.c	2017-01-17 22:39:17.467782965 +0200
+@@ -20,7 +20,9 @@
+ #include "config.h"
+ 
+ /* Vista or newer */
++#ifndef _WIN32_WINNT
+ #define _WIN32_WINNT 0x0600
++#endif
+ #define WINVER _WIN32_WINNT
+ #define NTDDI_VERSION NTDDI_VISTA
+ #define COBJMACROS
