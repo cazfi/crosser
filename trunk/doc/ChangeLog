@@ -12,6 +12,8 @@
 	- Added "FeatureVersion" information to crosser.txt
 	- Default build setup is configurable
 	- Support unpacking zip source archives
+	- Fixed icu build with gcc-6
+	- Really create patch-directory after asking permission from user
 	- sdl-chain is not built by default
 	- Updated auxiliary config.guess and config.sub to '2016-10-02' version
 	- Added optional sfml-chain, defaulting off
@@ -39,10 +41,6 @@
 	- Updated tiff to version 4.0.7
 	- Updated cairo to version 1.14.8
 	- Updated xz to version 5.2.3
-
-1.1.1
-	- Fixed icu build with gcc-6
-	- Really create patch-directory after asking permission from user
 
 1.1 (18-Sep-16)
 	- Added Future.txt document
