@@ -7,7 +7,6 @@
 	- sdl-chain is not built by default
 	- Updated auxiliary config.guess and config.sub to '2016-10-02' version
 	- Added optional sfml-chain, defaulting off
-	- Added graphene (version 1.4) to build
 	- Updated sqlite to version 3.16.2
 	- Updated pcre2 to version 10.22
 	- Updated pkgconf to version 1.0.2

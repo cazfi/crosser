@@ -37,7 +37,6 @@ libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
-graphene          GRAPHENE
 libcroco          CROCO
 librsvg           RSVG
 atk               ATK
