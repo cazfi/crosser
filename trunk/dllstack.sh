@@ -839,12 +839,6 @@ if ! unpack_component tiff                                                  ||
    ! unpack_component  pango                                                ||
    ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
-   ! unpack_component  graphene                                             ||
-   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon        ||
-   ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
-       patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)        ||
-   ! build_component   graphene                                             ||
-   ! free_component    graphene   $VERSION_GRAPHENE "graphene"              ||
    ! unpack_component  atk                                                  ||
    ! build_component   atk                                                  ||
    ! free_component    atk        $VERSION_ATK "atk"
@@ -940,7 +934,13 @@ fi
 fi
 
 if test "x$CROSSER_GTK4" = "xyes" ; then
-if ! unpack_component  gtk4                                           ||
+if ! unpack_component  graphene                                       ||
+   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon  ||
+   ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
+       patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)  ||
+   ! build_component   graphene                                       ||
+   ! free_component    graphene   $VERSION_GRAPHENE "graphene"        ||
+   ! unpack_component  gtk4                                           ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
    ! build_component   gtk4                                           \
