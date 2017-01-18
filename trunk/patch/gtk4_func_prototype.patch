@@ -1,0 +1,63 @@
+diff -Nurd gtk+-3.89.2/gtk/gtkprintoperation-win32.c gtk+-3.89.2/gtk/gtkprintoperation-win32.c
+--- gtk+-3.89.2/gtk/gtkprintoperation-win32.c	2017-01-18 08:45:19.743195449 +0200
++++ gtk+-3.89.2/gtk/gtkprintoperation-win32.c	2017-01-18 08:47:04.963614944 +0200
+@@ -89,6 +89,9 @@
+ static UINT got_gdk_events_message;
+ 
+ UINT_PTR CALLBACK
++run_mainloop_hook (HWND hdlg, UINT uiMsg, WPARAM wParam, LPARAM lParam);
++
++UINT_PTR CALLBACK
+ run_mainloop_hook (HWND hdlg, UINT uiMsg, WPARAM wParam, LPARAM lParam)
+ {
+   if (uiMsg == WM_INITDIALOG)
+@@ -454,6 +457,11 @@
+ 
+ void
+ win32_start_page (GtkPrintOperation *op,
++                  GtkPrintContext *print_context,
++                  GtkPageSetup *page_setup);
++
++void
++win32_start_page (GtkPrintOperation *op,
+ 		  GtkPrintContext *print_context,
+ 		  GtkPageSetup *page_setup)
+ {
+@@ -1515,6 +1523,10 @@
+ 
+ GtkPrintOperationResult
+ gtk_print_operation_run_without_dialog (GtkPrintOperation *op,
++                                        gboolean          *do_print);
++
++GtkPrintOperationResult
++gtk_print_operation_run_without_dialog (GtkPrintOperation *op,
+ 					gboolean          *do_print)
+ {
+   GtkPrintOperationResult result;
+@@ -1663,6 +1675,11 @@
+ 
+ GtkPrintOperationResult
+ gtk_print_operation_run_with_dialog (GtkPrintOperation *op,
++                                     GtkWindow         *parent,
++                                     gboolean          *do_print);
++
++GtkPrintOperationResult
++gtk_print_operation_run_with_dialog (GtkPrintOperation *op,
+ 				     GtkWindow         *parent,
+ 				     gboolean          *do_print)
+ {
+diff -Nurd gtk+-3.89.2/gtk/gtkwin32.c gtk+-3.89.2/gtk/gtkwin32.c
+--- gtk+-3.89.2/gtk/gtkwin32.c	2017-01-18 08:45:19.747195463 +0200
++++ gtk+-3.89.2/gtk/gtkwin32.c	2017-01-18 08:45:43.027282761 +0200
+@@ -45,6 +45,11 @@
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+          DWORD     fdwReason,
++         LPVOID    lvpReserved);
++
++BOOL WINAPI
++DllMain (HINSTANCE hinstDLL,
++         DWORD     fdwReason,
+          LPVOID    lpvReserved)
+ {
+   switch (fdwReason)

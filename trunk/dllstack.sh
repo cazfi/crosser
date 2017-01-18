@@ -942,6 +942,7 @@ fi
 if test "x$CROSSER_GTK4" = "xyes" ; then
 if ! unpack_component  gtk4                                           ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
+   ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
    ! build_component   gtk4                                           \
      "--with-included-immodules"                                      ||
    ! free_component    gtk+       $VERSION_GTK4 "gtk4"
