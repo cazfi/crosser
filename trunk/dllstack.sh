@@ -943,6 +943,7 @@ if ! unpack_component  graphene                                       ||
    ! unpack_component  gtk4                                           ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
+   ! patch_src gtk+ $VERSION_GTK4 "gtk4_demoless"                     ||
    ! build_component   gtk4                                           \
      "--with-included-immodules"                                      ||
    ! free_component    gtk+       $VERSION_GTK4 "gtk4"

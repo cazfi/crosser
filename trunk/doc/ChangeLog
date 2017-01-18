@@ -1,6 +1,7 @@
 1.3
 	- Minimum requirement for created dllstack is Windows 7
 	- Default setup is 'win64'
+	- Optionally added gtk4 development version to build
 	- Added glew (version 2.0.0) to build
 	- Updated harfbuzz to version 1.4.1
 	- Updated gettext to version 0.19.8.1
