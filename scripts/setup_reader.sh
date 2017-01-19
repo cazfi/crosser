@@ -101,11 +101,25 @@ if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
   echo "Configuration variable CROSSER_DST_PFX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$CROSSER_DST_PFX"
 fi
+if test "x$CROSSER_FULL" = "x" ; then
+    CROSSER_FULL="no"
+fi
+if test "x$CROSSER_FULL" != "xyes" && test "x$CROSSER_FULL" != "xno" ; then
+    echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
+    exit 1
+fi
 if test "x$CROSSER_QT" = "x" ; then
-    CROSSER_QT="no"
+    CROSSER_QT="$CROSSER_FULL"
 fi
 if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
     echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
+    exit 1
+fi
+if test "x$CROSSER_GTK4" = "x" ; then
+    CROSSER_GTK4="$CROSSER_FULL"
+fi
+if test "x$CROSSER_GTK4" != "xyes" && test "x$CROSSER_GTK4" != "xno" ; then
+    echo "Unknown value \"$CROSSER_GTK4\" for CROSSER_GTK4. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
 if test "x$CROSSER_SDL" = "x" ; then
