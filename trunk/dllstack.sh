@@ -1049,13 +1049,12 @@ fi
 
 if test "x$CROSSER_QT" = "xyes"
 then
-  if is_smaller_version $VERSION_QT 5.7.0-beta
-  then
-    CROSSER_QT_EXTRA_CONF="-no-gtkstyle"
-  else
-    CROSSER_QT_EXTRA_CONF=""
-  fi
-  VERSION_QT=$(echo $VERSION_QT | sed 's/-.*//')
+if is_smaller_version $VERSION_QT 5.7.0-beta
+then
+  CROSSER_QT_EXTRA_CONF="-no-gtkstyle"
+else
+  CROSSER_QT_EXTRA_CONF=""
+fi
 if ! unpack_component qt-everywhere-opensource-src                              ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
