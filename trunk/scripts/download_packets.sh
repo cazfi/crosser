@@ -539,7 +539,8 @@ else
 fi
 
 if echo $VERSION_QT | grep alpha >/dev/null ||
-   echo $VERSION_QT | grep beta >/dev/null
+   echo $VERSION_QT | grep beta >/dev/null ||
+   echo $VERSION_QT | grep rc >/dev/null     
 then
     QT_RELEASEDIR="development_releases"
 else
