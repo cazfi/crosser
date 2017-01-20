@@ -154,7 +154,7 @@ build_component_full()
     return 0
   fi
 
-  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" || test "x$2" = "xgtk4"
+  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3"
   then
     BNAME="gtk+"
   else
@@ -816,9 +816,6 @@ if ! unpack_component tiff                                                  ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
-   ! unpack_component  glew                                                 ||
-   ! patch_src         glew $VERSION_GLEW glew_mingw                        ||
-   ! build_component_full src glew                                          ||
    ! unpack_component  epoxy "" "epoxy/v${VERSION_EPOXY}"                   ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
@@ -933,26 +930,6 @@ then
 fi
 fi
 
-if test "x$CROSSER_GTK4" = "xyes" ; then
-if ! unpack_component  graphene                                       ||
-   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon  ||
-   ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
-       patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)  ||
-   ! build_component   graphene                                       ||
-   ! free_component    graphene   $VERSION_GRAPHENE "graphene"        ||
-   ! unpack_component  gtk4                                           ||
-   ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
-   ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
-   ! patch_src gtk+ $VERSION_GTK4 "gtk4_demoless"                     ||
-   ! build_component   gtk4                                           \
-     "--with-included-immodules"                                      ||
-   ! free_component    gtk+       $VERSION_GTK4 "gtk4"
-then
-  log_error "gtk4 build failed"
-  exit 1
-fi
-fi
-
 if ! unpack_component  libogg                                         ||
    ! build_component   libogg                                         ||
    ! free_component    libogg     $VERSION_OGG "libogg"               ||
@@ -1049,12 +1026,13 @@ fi
 
 if test "x$CROSSER_QT" = "xyes"
 then
-if is_smaller_version $VERSION_QT 5.7.0-beta
-then
-  CROSSER_QT_EXTRA_CONF="-no-gtkstyle"
-else
-  CROSSER_QT_EXTRA_CONF=""
-fi
+  if is_smaller_version $VERSION_QT 5.7.0-beta
+  then
+    CROSSER_QT_EXTRA_CONF="-no-gtkstyle"
+  else
+    CROSSER_QT_EXTRA_CONF=""
+  fi
+  VERSION_QT=$(echo $VERSION_QT | sed 's/-.*//')
 if ! unpack_component qt-everywhere-opensource-src                              ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
@@ -1071,8 +1049,6 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! ( is_smaller_version $VERSION_QT 5.6.0 ||
        is_minimum_version $VERSION_QT 5.6.1 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )     ||
-   ! ( is_smaller_version $VERSION_QT 5.7.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )      ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \

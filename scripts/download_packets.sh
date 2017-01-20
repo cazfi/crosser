@@ -90,7 +90,7 @@ download_file() {
 # $6 - Subdirectory to download to
 download_packet() {
 
-  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" || test "x$2" = "xgtk4" ; then
+  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" ; then
     BFNAME="gtk+"
   else
     BFNAME="$2"
@@ -420,12 +420,10 @@ then
     bzip2)       VERSION_BZIP2=$VERSION_SELECTED ;;
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
-    graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
     gobject-introspection) VERSION_GOBJ_INTRO=$VERSION_SELECTED ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
     gtk2)        VERSION_GTK2=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
-    gtk4)        VERSION_GTK4=$VERSION_SELECTED ;;
     gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
@@ -443,7 +441,6 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
-    glew)        VERSION_GLEW=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
@@ -456,11 +453,9 @@ GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GOBJ_INTRO_DIR="$(echo $VERSION_GOBJ_INTRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK2_DIR="$(echo $VERSION_GTK2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GTK4_DIR="$(echo $VERSION_GTK4 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
 GNOME_ICON_DIR="$(major.minor_from_version $VERSION_GNOME_ICONS)"
@@ -539,8 +534,7 @@ else
 fi
 
 if echo $VERSION_QT | grep alpha >/dev/null ||
-   echo $VERSION_QT | grep beta >/dev/null ||
-   echo $VERSION_QT | grep rc >/dev/null     
+   echo $VERSION_QT | grep beta >/dev/null
 then
     QT_RELEASEDIR="development_releases"
 else
@@ -614,11 +608,7 @@ download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_C
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"
-RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/glew/files/glew/$VERSION_GLEW/" "glew" "$VERSION_GLEW" "tgz"
 RET="$RET $?"
 download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
 RET="$RET $?"
@@ -629,8 +619,6 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_GTK2"        "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK4_DIR/" "gtk4"       "$VERSION_GTK4"        "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
 RET="$RET $?"

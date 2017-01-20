@@ -37,17 +37,14 @@ libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
-graphene          GRAPHENE
 libcroco          CROCO
 librsvg           RSVG
 atk               ATK
 util-macros       UTIL_MACROS
-glew              GLEW
 epoxy             EPOXY
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
 gtk3              GTK3
-gtk4              GTK4
 gtk-engines       GTK_ENG
 hicolor-icon-theme HICOLOR
 adwaita-icon-theme ADWAITA_ICON

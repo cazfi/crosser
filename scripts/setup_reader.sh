@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2017 Marko Lindqvist
+# (c) 2008-2016 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -101,25 +101,11 @@ if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
   echo "Configuration variable CROSSER_DST_PFX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$CROSSER_DST_PFX"
 fi
-if test "x$CROSSER_FULL" = "x" ; then
-    CROSSER_FULL="no"
-fi
-if test "x$CROSSER_FULL" != "xyes" && test "x$CROSSER_FULL" != "xno" ; then
-    echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
 if test "x$CROSSER_QT" = "x" ; then
-    CROSSER_QT="$CROSSER_FULL"
+    CROSSER_QT="no"
 fi
 if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
     echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
-fi
-if test "x$CROSSER_GTK4" = "x" ; then
-    CROSSER_GTK4="$CROSSER_FULL"
-fi
-if test "x$CROSSER_GTK4" != "xyes" && test "x$CROSSER_GTK4" != "xno" ; then
-    echo "Unknown value \"$CROSSER_GTK4\" for CROSSER_GTK4. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
 if test "x$CROSSER_SDL" = "x" ; then
@@ -158,13 +144,13 @@ if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpk
     exit 1
 fi
 if test "x$CROSSER_DEFAULT_SETUP" = "x" ; then
-    CROSSER_DEFAULT_SETUP="win64"
+    CROSSER_DEFAULT_SETUP="win32"
 fi
 if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
     # Use real pkg-config, not recursively the link we create
     CROSSER_PKGCONF="pkg-config.real"
 fi
 if test "x$CROSSER_WINVER" = "x" ; then
-    # Default minimum version is Windows 7
-    CROSSER_WINVER=0x0601
+    # Default minimum version is Windows Server 2003
+    CROSSER_WINVER=0x0502
 fi
