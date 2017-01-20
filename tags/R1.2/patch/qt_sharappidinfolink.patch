@@ -1,0 +1,21 @@
+diff -Nurd qt-everywhere-opensource-src-5.2.0/qtwinextras/src/winextras/winshobjidl_p.h qt-everywhere-opensource-src-5.2.0/qtwinextras/src/winextras/winshobjidl_p.h
+--- qt-everywhere-opensource-src-5.2.0/qtwinextras/src/winextras/winshobjidl_p.h	2013-12-08 19:10:20.000000000 +0200
++++ qt-everywhere-opensource-src-5.2.0/qtwinextras/src/winextras/winshobjidl_p.h	2013-12-25 02:47:14.946166199 +0200
+@@ -224,6 +224,8 @@
+ 
+ #   if !defined(__MINGW64_VERSION_MAJOR) || !defined(__MINGW64_VERSION_MINOR) || __MINGW64_VERSION_MAJOR * 100 + __MINGW64_VERSION_MINOR < 301
+ 
++#if 0
++
+ typedef struct SHARDAPPIDINFOLINK
+ {
+     IShellLink *psl;        // An IShellLink instance that when launched opens a recently used item in the specified
+@@ -232,6 +234,8 @@
+     PCWSTR pszAppID;        // The id of the application that should be associated with this recent doc.
+ } SHARDAPPIDINFOLINK;
+ 
++#endif
++
+ #   endif // !defined(__MINGW64_VERSION_MAJOR) || !defined(__MINGW64_VERSION_MINOR) || __MINGW64_VERSION_MAJOR * 100 + __MINGW64_VERSION_MINOR < 301
+ 
+ #endif

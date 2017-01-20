@@ -1,0 +1,12 @@
+diff -Nurd pcre-8.38/Makefile.in pcre-8.38/Makefile.in
+--- pcre-8.38/Makefile.in	2015-11-23 14:37:21.000000000 +0200
++++ pcre-8.38/Makefile.in	2016-02-20 16:30:51.928929195 +0200
+@@ -93,7 +93,7 @@
+ build_triplet = @build@
+ host_triplet = @host@
+ TESTS = $(am__EXEEXT_3) $(am__EXEEXT_4) RunTest $(am__append_38)
+-bin_PROGRAMS = pcretest$(EXEEXT) $(am__EXEEXT_1)
++bin_PROGRAMS = $(am__EXEEXT_1)
+ noinst_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_3) $(am__EXEEXT_4)
+ 
+ # These additional headers will be be installed if C++ support is enabled. We
