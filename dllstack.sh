@@ -1055,29 +1055,31 @@ then
 else
   CROSSER_QT_EXTRA_CONF=""
 fi
-if ! unpack_component qt-everywhere-opensource-src                              ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig"          ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs"      ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"  ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"   ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"          ||
+if ! unpack_component qt-everywhere-opensource-src                                ||
+   ! ( is_minimum_version $VERSION_QT 5.8.0 ||
+       ( patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig" &&
+         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" )) ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"    ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                  ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"     ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"            ||
    ! ( ! cmp_versions $VERSION_QT 5.5.0 ||
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )           ||
+         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )             ||
    ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_host_shell" )   ||
+         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_host_shell" )     ||
    ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
          patch_src qt-everywhere-opensource-src $VERSION_QT "qt_buildroot_generator_external_path" ) ||
    ! ( is_smaller_version $VERSION_QT 5.6.0 ||
        is_minimum_version $VERSION_QT 5.6.1 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )     ||
+       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )       ||
    ! ( is_smaller_version $VERSION_QT 5.7.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )      ||
+       is_minimum_version $VERSION_QT 5.8.0 ||
+       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )        ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -system-zlib -nomake examples -force-pkg-config -no-opengl $CROSSER_QT_EXTRA_CONF" \
-     "qt" "" "no"                                                               ||
+     "qt" "" "no"                                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then
   log_error "QT stack build failed"
