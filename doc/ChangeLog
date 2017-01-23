@@ -9,7 +9,7 @@
 	- Updated gettext to version 0.19.8.1
 	- Updated qt to version 5.7.1
 	- Updated zlib to version 1.2.11
-	- Updated pkgconf to version 1.1.1
+	- Updated pkgconf to version 1.2.0
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
