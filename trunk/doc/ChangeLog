@@ -5,7 +5,7 @@
 	- Added CROSSER_FULL configuration parameter to control
 	  whether full or normal version is built
 	- Added glew (version 2.0.0) to build
-	- Updated harfbuzz to version 1.4.1
+	- Updated harfbuzz to version 1.4.2
 	- Updated gettext to version 0.19.8.1
 	- Updated qt to version 5.8.0
 	- Updated zlib to version 1.2.11
