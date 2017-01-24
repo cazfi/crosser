@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp
+--- qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp	2017-01-18 16:20:58.000000000 +0200
++++ qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp	2017-01-23 23:43:10.619397116 +0200
+@@ -43,7 +43,7 @@
+ #include <QtCore/private/qsystemlibrary_p.h>
+ 
+ #if defined(Q_CC_MINGW)
+-#  define HAS_UI_VIEW_SETTINGS_INTEROP
++//#  define HAS_UI_VIEW_SETTINGS_INTEROP
+ // Present from MSVC2015 + SDK 10 onwards
+ #elif (!defined(Q_CC_MSVC) || _MSC_VER >= 1900) && NTDDI_VERSION >= 0xa000000
+ #  define HAS_UI_VIEW_SETTINGS_INTEROP

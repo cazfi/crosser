@@ -1075,10 +1075,12 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! ( is_smaller_version $VERSION_QT 5.7.0 ||
        is_minimum_version $VERSION_QT 5.8.0 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )        ||
+   ! ( is_smaller_version $VERSION_QT 5.8.0 ||
+       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vs_interop" )       ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -system-zlib -nomake examples -force-pkg-config -no-opengl $CROSSER_QT_EXTRA_CONF" \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -nomake examples -no-opengl $CROSSER_QT_EXTRA_CONF" \
      "qt" "" "no"                                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then

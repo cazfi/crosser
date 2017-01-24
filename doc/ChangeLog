@@ -7,7 +7,7 @@
 	- Added glew (version 2.0.0) to build
 	- Updated harfbuzz to version 1.4.1
 	- Updated gettext to version 0.19.8.1
-	- Updated qt to version 5.7.1
+	- Updated qt to version 5.8.0
 	- Updated zlib to version 1.2.11
 	- Updated pkgconf to version 1.2.0
 	- Updated pcre to version 8.40
