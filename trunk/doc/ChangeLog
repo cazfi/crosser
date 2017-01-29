@@ -11,6 +11,7 @@
 	- Updated zlib to version 1.2.11
 	- Updated pkgconf to version 1.2.0
 	- Updated pcre to version 8.40
+	- Updated readline to version 7.0-003
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
