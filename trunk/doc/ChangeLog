@@ -13,6 +13,7 @@
 	- Updated pcre to version 8.40
 	- Updated readline to version 7.0-003
 	- Updated libepoxy to version 1.4.0
+	- Updated glib to version 2.50.3
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
