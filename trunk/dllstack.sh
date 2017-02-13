@@ -823,6 +823,9 @@ if ! unpack_component tiff                                                  ||
    ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
    ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
    ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||
+   ! unpack_component  libepoxy                                             ||
+   ! build_component   libepoxy                                             ||
+   ! free_component    libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
    ! unpack_component  pixman                                               ||
    ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
    ! build_component   pixman                                               \

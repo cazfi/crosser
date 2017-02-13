@@ -44,6 +44,7 @@ atk               ATK
 util-macros       UTIL_MACROS
 glew              GLEW
 epoxy             EPOXY
+libepoxy          LIBEPOXY
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
 gtk3              GTK3
