@@ -445,6 +445,7 @@ then
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     glew)        VERSION_GLEW=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
+    libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
@@ -468,6 +469,7 @@ GNOME_ICONE_DIR="$(major.minor_from_version $VERSION_GNOME_ICONE)"
 GNOME_THEME_STD_DIR="$(major.minor_from_version $VERSION_GNOME_THEME_STD)"
 CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
 RSVG_DIR="$(major.minor_from_version $VERSION_RSVG)"
+LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
@@ -620,7 +622,11 @@ download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-ma
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/glew/files/glew/$VERSION_GLEW/" "glew" "$VERSION_GLEW" "tgz"
 RET="$RET $?"
-download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
+if test "x$VERSION_EPOXY" != "x0" ; then
+  download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
+  RET="$RET $?"
+fi
+download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
 RET="$RET $?"
