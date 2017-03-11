@@ -880,8 +880,8 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! ( is_smaller_version $VERSION_GTK3 3.20.0 ||
        is_minimum_version $VERSION_GTK3 3.21.1 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.20 )              ||
-   ! ( is_smaller_version $VERSION_GTK3 3.21.1 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.21 )              ||
+   ! ( is_smaller_version $VERSION_GTK3 3.22.9 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.22.9 )            ||
    ! ( is_smaller_version $VERSION_GTK3 3.18.0 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros )                  ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
