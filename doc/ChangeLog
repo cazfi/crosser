@@ -21,6 +21,7 @@
 	- Updated libiconv to version 1.15
 	- Updated curl to version 7.53.1
 	- Updated atk to version 2.24.0
+	- Updated libpng to version 1.6.29
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
