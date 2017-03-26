@@ -13,8 +13,8 @@
 	- Updated pcre to version 8.40
 	- Updated readline to version 7.0-003
 	- Updated libepoxy to version 1.4.1
-	- Updated glib to version 2.50.3
-	- Updated gtk3 to version 3.22.10
+	- Updated glib to version 2.52.0
+	- Updated gtk3 to version 3.22.11
 	- Updated sqlite to version 3.17.0
 	- Updated ImageMagick to version 7.0.4-10
 	- Updated pango to version 1.40.4
@@ -22,6 +22,9 @@
 	- Updated curl to version 7.53.1
 	- Updated atk to version 2.24.0
 	- Updated libpng to version 1.6.29
+	- Updated gobject-introspection to version 1.52.0
+	- Updated adwaita-icon-theme to version 3.24.0
+	- Updated gnome-themes-standard to version 3.22.3
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
