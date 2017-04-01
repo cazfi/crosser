@@ -1111,6 +1111,7 @@ log_write 1 "Creating crosser.txt"
   else
     echo "CROSSER_GTK3=\"no\""
   fi
+  echo "CROSSER_GTK4=\"$CROSSER_GTK4\""
   echo "CROSSER_QT=\"$CROSSER_QT\""
   echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
   echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
