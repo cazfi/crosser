@@ -25,6 +25,7 @@
 	- Updated gobject-introspection to version 1.52.0
 	- Updated adwaita-icon-theme to version 3.24.0
 	- Updated gnome-themes-standard to version 3.22.3
+	- Updated SDL2_gfx to version 1.0.3
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
