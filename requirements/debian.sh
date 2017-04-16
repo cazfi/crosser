@@ -31,6 +31,7 @@ PACKAGES="\
  cmake \
  rustc \
  cargo \
+ imagemagick \
 "
 
 if test "$UID" != "0" ; then
