@@ -30,8 +30,8 @@
 	- Updated jansson to version 2.10
 	- Updated libcroco to version 0.6.12
 
-1.2.1
-	- requirements/debian.sh install imagemagick
+1.2.1 (17-Apr-17)
+	- requirements/debian.sh installs imagemagick
 
 1.2 (20-Jan-17)
 	- Added "FeatureLevel" information to crosser.txt
