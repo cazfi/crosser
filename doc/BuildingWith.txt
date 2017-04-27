@@ -1,0 +1,12 @@
+This document is about building other software on top of crosser
+environment.
+
+The same environment that is available for installing to target
+Windows system, can be used to cross-build more software in Linux.
+
+For building with it, the official dllstack builds of crosser assumes
+that the environment resides in
+/usr/crosser/<arch>stack-<version>, or
+/usr/crosser/<arch>stack-full-<version>
+That is; extract the environment package to /usr/crosser. Symbolic links
+should work.
