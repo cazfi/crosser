@@ -33,6 +33,7 @@
 	- Updated libcroco to version 0.6.12
 	- Updated SDL_gfx to version 2.0.26
 	- Updated SFML to version 2.4.2
+	- Updated ffmpeg to version 3.3
 
 1.2.1 (17-Apr-17)
 	- requirements/debian.sh installs imagemagick
