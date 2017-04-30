@@ -1,3 +1,6 @@
+1.2.2
+	- Fixed freeing of SFML srcdir
+
 1.2.1 (17-Apr-17)
 	- requirements/debian.sh installs imagemagick
 

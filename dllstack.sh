@@ -1017,7 +1017,7 @@ if ! unpack_component     ffmpeg                                                
    ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||     
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
    ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"                ||
-   ! free_component       sfml $VERSION_SFML "sfml"
+   ! free_component       "SFML-${VERSION_SFML}" "" "sfml"
 then
     log_error "SFML stack build failed"
     exit 1
