@@ -14,7 +14,7 @@
 	- Updated pkgconf to version 1.3.5
 	- Updated pcre to version 8.40
 	- Updated readline to version 7.0-003
-	- Updated libepoxy to version 1.4.1
+	- Updated libepoxy to version 1.4.2
 	- Updated glib to version 2.52.1
 	- Updated gtk3 to version 3.22.12
 	- Updated sqlite to version 3.18.0
