@@ -35,6 +35,9 @@
 	- Updated SFML to version 2.4.2
 	- Updated ffmpeg to version 3.3
 
+1.2.2 (03-May-17)
+	- Fixed freeing of SFML srcdir
+
 1.2.1 (17-Apr-17)
 	- requirements/debian.sh installs imagemagick
 
