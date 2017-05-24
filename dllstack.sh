@@ -662,7 +662,9 @@ if ! unpack_component     autoconf                          ||
    ! (is_smaller_version $VERSION_ICU 58.1 ||
       patch_src icu $VERSION_ICU icu_locale )                               ||
    ! (is_smaller_version $VERSION_ICU 59.1 ||
-      patch_src icu $VERSION_ICU icu_uloc_slash )                           ||
+      (patch_src icu $VERSION_ICU icu_uloc_slash &&
+       patch_src icu $VERSION_ICU icu_mbstowcs_params &&
+       patch_src icu $VERSION_ICU icu_filetools_inc ))                    ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component gdk-pixbuf                                            ||

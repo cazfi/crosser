@@ -1,0 +1,11 @@
+diff -Nurd icu/source/tools/toolutil/pkg_genc.cpp icu/source/tools/toolutil/pkg_genc.cpp
+--- icu/source/tools/toolutil/pkg_genc.cpp	2017-04-13 12:46:02.000000000 +0300
++++ icu/source/tools/toolutil/pkg_genc.cpp	2017-05-24 02:44:01.548753343 +0300
+@@ -43,6 +43,7 @@
+ #include "cmemory.h"
+ #include "cstring.h"
+ #include "filestrm.h"
++#include "filetools.h"
+ #include "toolutil.h"
+ #include "unicode/uclean.h"
+ #include "uoptions.h"
