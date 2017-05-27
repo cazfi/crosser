@@ -264,7 +264,7 @@ build_component_full()
   then
     MAKEOPTIONS="$6"
   else
-    MAKEOPTIONS="$CROSSER_MAKEOPTIONS"
+    MAKEOPTIONS="$CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS"
   fi
   log_write 4 "  Options: \"$MAKEOPTIONS\""
 
@@ -331,15 +331,17 @@ build_zlib()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS\""
 
-  if ! make $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make $CROSSER_MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS install \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -395,22 +397,25 @@ build_simple_make()
   if test "x$1" = "xbzip2"
   then
       MKTARGETS="libbz2.a bzip2 bzip2recover"
+      MAKEOPTIONS="$CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS"
   elif test "x$1" = "xwin-iconv"
   then
       MKTARGETS="all"
+      MAKEOPTIONS="$CROSSER_MAKEOPTIONS"
   fi
   log_write 3 " Make targets: $MKTARGETS & install"
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
+  log_write 4 "  Options: \"$MAKEOPTIONS\""
   log_flags
 
-  if ! make $CROSSER_MAKEOPTIONS $MKTARGETS \
+  if ! make $MAKEOPTIONS $MKTARGETS \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! make $CROSSER_MAKEOPTIONS prefix="$DLLSPREFIX" install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make $MAKEOPTIONS prefix="$DLLSPREFIX" install \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
@@ -449,9 +454,10 @@ build_pdcurses()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default]"
-  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS\""
+  log_write 4 "  Options: \"$CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS\""
 
-  if ! make -f mingwin32.mak $CROSSER_MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make -f mingwin32.mak $CROSSER_MAKEOPTIONS $CROSSER_COREOPTIONS \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1

@@ -89,9 +89,9 @@ if test "x$CROSSER_CORES" != "x" ; then
     echo "Illegal CROSSER_CORES configure option value \"$CROSSER_CORES\"" >&2
     exit 1
   fi
-  CROSSER_MAKEOPTIONS="-j $CROSSER_CORES"
+  CROSSER_COREOPTIONS="-j $CROSSER_CORES"
 else
-  CROSSER_MAKEOPTIONS=""
+  CROSSER_COREOPTIONS=""
 fi
 if test "x$DLLSPREFIX" = "x" && test "x$LSPREFIX" != "x" ; then
   echo "Configuration variable LSPREFIX is deprecated. Please use DLLSPREFIX." >&2
