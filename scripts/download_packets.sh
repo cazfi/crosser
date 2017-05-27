@@ -443,7 +443,6 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
-    glew)        VERSION_GLEW=$VERSION_SELECTED ;;
     epoxy)       VERSION_EPOXY=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
@@ -619,8 +618,6 @@ RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/glew/files/glew/$VERSION_GLEW/" "glew" "$VERSION_GLEW" "tgz"
 RET="$RET $?"
 if test "x$VERSION_EPOXY" != "x0" ; then
   download_needed "https://github.com/anholt/libepoxy/archive/" "epoxy" "v${VERSION_EPOXY}.tar.gz" "" "" "epoxy"
