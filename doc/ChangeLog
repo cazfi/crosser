@@ -1,4 +1,5 @@
 1.4
+	- Added glew (version 2.0.0) to build
 
 1.3
 	- Minimum requirement for created dllstack is Windows 7
@@ -8,7 +9,6 @@
 	- Optionally added gtk4 development version to build
 	- Added CROSSER_FULL configuration parameter to control
 	  whether full or normal version is built
-	- Added glew (version 2.0.0) to build
 	- Updated harfbuzz to version 1.4.6
 	- Updated gettext to version 0.19.8.1
 	- Updated qt to version 5.8.0
