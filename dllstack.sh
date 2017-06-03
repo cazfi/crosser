@@ -1075,7 +1075,10 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"    ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"     ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags"            ||
+   ! (( is_smaller_version $VERSION_QT 5.9.0 &&
+        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags" ) ||
+      ( is_minimum_version $VERSION_QT 5.9.0 &&
+        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags-5.9" ))  ||
    ! ( ! cmp_versions $VERSION_QT 5.5.0 ||
          patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )             ||
    ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
