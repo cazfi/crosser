@@ -823,6 +823,8 @@ if ! unpack_component tiff                                                  ||
    ! build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
+   ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
+       patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||

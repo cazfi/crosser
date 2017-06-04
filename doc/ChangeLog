@@ -38,6 +38,7 @@
 	- Updated ffmpeg to version 3.3
 	- Updated icu to version 59.1
 	- Updated tiff to version 4.0.8
+	- Updated fontconfig to version 2.12.3
 
 1.2.3 (27-May-17)
 	- Ignore CROSSER_CORES when building win-iconv
