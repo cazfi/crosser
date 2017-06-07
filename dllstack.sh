@@ -1081,12 +1081,6 @@ if ! unpack_component qt-everywhere-opensource-src                              
         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags" ) ||
       ( is_minimum_version $VERSION_QT 5.9.0 &&
         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags-5.9" ))  ||
-   ! ( ! cmp_versions $VERSION_QT 5.5.0 ||
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_3d" )             ||
-   ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_host_shell" )     ||
-   ! ( ! cmp_versions $VERSION_QT 5.5.1 ||
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_buildroot_generator_external_path" ) ||
    ! ( is_smaller_version $VERSION_QT 5.6.0 ||
        is_minimum_version $VERSION_QT 5.6.1 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )       ||
