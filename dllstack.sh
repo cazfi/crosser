@@ -886,16 +886,12 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
-   ! ( is_smaller_version $VERSION_GTK3 3.18.0 ||
-       is_minimum_version $VERSION_GTK3 3.19.6 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.18 )              ||
    ! ( is_smaller_version $VERSION_GTK3 3.20.0 ||
        is_minimum_version $VERSION_GTK3 3.21.1 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.20 )              ||
    ! ( is_smaller_version $VERSION_GTK3 3.22.9 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.22.9 )            ||
-   ! ( is_smaller_version $VERSION_GTK3 3.18.0 ||
-       patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros )                  ||
+   ! patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros                      ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
      "--with-included-immodules"                                      ||
