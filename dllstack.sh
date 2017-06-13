@@ -831,10 +831,6 @@ if ! unpack_component tiff                                                  ||
    ! unpack_component  glew                                                 ||
    ! patch_src         glew $VERSION_GLEW glew_mingw                        ||
    ! build_component_full src glew                                          ||
-   ! unpack_component  epoxy "" "epoxy/v${VERSION_EPOXY}"                   ||
-   ! NOCONFIGURE=true autogen_component libepoxy $VERSION_EPOXY             ||
-   ! build_component_full   epoxy epoxy "" "" "libepoxy-${VERSION_EPOXY}"   ||
-   ! free_component    libepoxy $VERSION_EPOXY "epoxy"                      ||
    ! unpack_component  libepoxy                                             ||
    ! build_component   libepoxy                                             ||
    ! free_component    libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
