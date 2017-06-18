@@ -402,7 +402,7 @@ autogen_component()
         TOOLPARAM=" -f"
       elif test "x$TOOL" = "xautomake"
       then
-        TOOLPARAM=" -a"
+        TOOLPARAM=" -a --add-missing"
       elif test "x$TOOL" = "xaclocal"
       then
         if test -d m4

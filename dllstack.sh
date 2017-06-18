@@ -1024,6 +1024,12 @@ if ! unpack_component  SDL2                                           ||
    ! build_component   SDL2_gfx                                       ||
    ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
    ! unpack_component  SDL2_ttf                                       ||
+   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS          ||
+   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/README        ||
+   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/AUTHORS       ||
+   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/ChangeLog     ||
+   ! autogen_component SDL2_ttf   $VERSION_SDL2_TTF \
+        "aclocal automake autoconf"                                   ||
    ! build_component   SDL2_ttf                                       \
      "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
