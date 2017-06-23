@@ -300,14 +300,22 @@ build_zlib()
     return 1
   fi
 
+  BUILDDIR="$CROSSER_BUILDDIR/$1"
+  if ! mkdir -p "$BUILDDIR"
+  then
+    log_error "Failed to create directory $BUILDDIR"
+    return 1
+  fi
+  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+
   (
   export CC="$CROSSER_TARGET-gcc -static-libgcc"
   export RANLIB="$CROSSER_TARGET-ranlib"
   export AR="$CROSSER_TARGET-ar"
 
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
+  if ! cd "$BUILDDIR"
   then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
+    log_error "Cannot change to directory $BUILDDIR"
     return 1
   fi
 
@@ -323,7 +331,7 @@ build_zlib()
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
 
-  if ! ./configure $CONFOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! $SRCDIR/configure $CONFOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Configure for $1 failed"
     return 1
