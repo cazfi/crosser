@@ -6,6 +6,7 @@
 	- Updated cairo to version 1.14.10
 	- Updated gtk3 to version 3.22.16
 	- Updated glib to version 2.52.3
+	- Updated libpng to version 1.6.30
 
 1.3 (10-Jun-17)
 	- Minimum requirement for created dllstack is Windows 7
