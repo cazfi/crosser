@@ -32,6 +32,7 @@ PACKAGES="\
  rustc \
  cargo \
  imagemagick \
+ gperf \
 "
 
 if test "$UID" != "0" ; then
