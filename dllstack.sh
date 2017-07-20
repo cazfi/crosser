@@ -682,6 +682,8 @@ if ! unpack_component     autoconf                          ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component gdk-pixbuf                                            ||
+   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
+      patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
    ! build_component_host gdk-pixbuf                                        ||
    ! free_build           "native-gdk-pixbuf"                               ||
    ! unpack_component     util-macros                                       ||
