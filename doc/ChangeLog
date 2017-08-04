@@ -2,7 +2,7 @@
 	- Added glew (version 2.0.0) to build
 	- Updated libepoxy to version 1.4.3
 	- Updated curl to version 7.54.1
-	- Updated sqlite to version 3.19.3
+	- Updated sqlite to version 3.20.0
 	- Updated cairo to version 1.14.10
 	- Updated gtk3 to version 3.22.17
 	- Updated glib to version 2.52.3
