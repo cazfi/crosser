@@ -4,11 +4,11 @@
 	- Updated curl to version 7.54.1
 	- Updated sqlite to version 3.20.0
 	- Updated cairo to version 1.14.10
-	- Updated gtk3 to version 3.22.17
+	- Updated gtk3 to version 3.22.18
 	- Updated glib to version 2.52.3
 	- Updated libpng to version 1.6.31
 	- Updated fontconfig to version 2.12.4
-	- Updated pango to version 1.40.8
+	- Updated pango to version 1.40.9
 	- Updated librsvg to version 2.40.18
 	- Updated gdk-pixbuf to version 2.36.7
 	- Updated harfbuzz to version 1.4.7
