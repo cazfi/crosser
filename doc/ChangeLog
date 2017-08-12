@@ -13,6 +13,7 @@
 	- Updated gdk-pixbuf to version 2.36.7
 	- Updated harfbuzz to version 1.4.7
 	- Updated pcre to version 8.41
+	- Updated gtk-doc to version 1.26
 
 1.3 (10-Jun-17)
 	- Minimum requirement for created dllstack is Windows 7
