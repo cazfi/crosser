@@ -681,6 +681,10 @@ if ! unpack_component     autoconf                          ||
        patch_src icu $VERSION_ICU icu_filetools_inc ))                    ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
+   ! unpack_component tiff                                                  ||
+   ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
+   ! build_component_host tiff                                              ||
+   ! free_build           "native-tiff"                                     ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
       patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
@@ -815,9 +819,7 @@ then
 fi
 CONF_JPEG_GTK="--without-libjasper"
 
-if ! unpack_component tiff                                                  ||
-   ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
-   ! build_component   tiff                                                 ||
+if ! build_component   tiff                                                 ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
    ! unpack_component  libxml2                                              ||
    ! build_component   libxml2                                              \
