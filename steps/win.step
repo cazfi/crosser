@@ -30,6 +30,7 @@ gtk-doc           GTK_DOC
 gobject-introspection GOBJ_INTRO
 jpeg              JPEG
 tiff              TIFF
+shared-mime-info  SHARED_MIME_INFO
 freetype          FREETYPE
 fontconfig        FONTCONFIG
 harfbuzz          HARFBUZZ
