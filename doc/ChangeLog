@@ -5,7 +5,7 @@
 	- Updated sqlite to version 3.20.1
 	- Updated cairo to version 1.14.10
 	- Updated gtk3 to version 3.22.22
-	- Updated glib to version 2.54.0
+	- Updated glib to version 2.54.1
 	- Updated libpng to version 1.6.32
 	- Updated fontconfig to version 2.12.4
 	- Updated pango to version 1.40.12
