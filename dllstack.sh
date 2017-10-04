@@ -685,6 +685,9 @@ if ! unpack_component     autoconf                          ||
    ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
    ! build_component_host tiff                                              ||
    ! free_build           "native-tiff"                                     ||
+   ! unpack_component     libxml2                                           ||
+   ! build_component_host libxml2 "--without-python"                        ||
+   ! free_build           "native-libxml2"                                  ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
       patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
@@ -821,7 +824,6 @@ CONF_JPEG_GTK="--without-libjasper"
 
 if ! build_component   tiff                                                 ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
-   ! unpack_component  libxml2                                              ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
