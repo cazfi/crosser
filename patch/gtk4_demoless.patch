@@ -1,6 +1,6 @@
-diff -Nurd gtk+-3.89.5/configure gtk+-3.89.5/configure
---- gtk+-3.89.5/configure	2017-03-14 02:21:13.000000000 +0200
-+++ gtk+-3.89.5/configure	2017-03-26 20:26:49.460659080 +0300
+diff -Nurd gtk+-3.90.0/configure gtk+-3.90.0/configure
+--- gtk+-3.90.0/configure	2017-03-31 21:05:53.000000000 +0300
++++ gtk+-3.90.0/configure	2017-10-05 19:31:48.162475606 +0300
 @@ -29561,7 +29561,7 @@
  fi
  
@@ -10,15 +10,15 @@ diff -Nurd gtk+-3.89.5/configure gtk+-3.89.5/configure
  
  
  cat >confcache <<\_ACEOF
-diff -Nurd gtk+-3.89.5/Makefile.am gtk+-3.89.5/Makefile.am
---- gtk+-3.89.5/Makefile.am	2017-01-19 20:01:02.000000000 +0200
-+++ gtk+-3.89.5/Makefile.am	2017-03-26 20:25:47.893027533 +0300
-@@ -1,7 +1,7 @@
- ## Makefile.am for GTK+
- include $(top_srcdir)/Makefile.decl
+diff -Nurd gtk+-3.90.0/Makefile.in gtk+-3.90.0/Makefile.in
+--- gtk+-3.90.0/Makefile.in	2017-03-31 21:05:49.000000000 +0300
++++ gtk+-3.90.0/Makefile.in	2017-10-05 19:32:46.058027899 +0300
+@@ -573,7 +573,7 @@
+ 	|| { echo "Gtk+Tests:ERROR: Failed to start Xvfb environment for X11 target tests."; exit 1; } \
+ 	&& DISPLAY=:$$XID && export DISPLAY
  
 -SRC_SUBDIRS = gdk gsk gtk modules demos tests testsuite examples
 +SRC_SUBDIRS = gdk gsk gtk modules tests testsuite examples
  SUBDIRS = po po-properties $(SRC_SUBDIRS) docs win32
- 
  ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+ MAINTAINERCLEANFILES = \
