@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-opensource-src-5.9.1/qtlocation/src/plugins/geoservices/geoservices.pro qt-everywhere-opensource-src-5.9.1/qtlocation/src/plugins/geoservices/geoservices.pro
+--- qt-everywhere-opensource-src-5.9.1/qtlocation/src/plugins/geoservices/geoservices.pro	2017-06-23 13:44:59.000000000 +0300
++++ qt-everywhere-opensource-src-5.9.1/qtlocation/src/plugins/geoservices/geoservices.pro	2017-10-05 03:45:42.638314730 +0300
+@@ -6,7 +6,7 @@
+     SUBDIRS += osm
+ }
+ 
+-qtConfig(opengl):qtConfig(c++14):!win32|mingw:!qnx {
++qtConfig(opengl):qtConfig(c++14):!win32:!qnx {
+     !exists(../../3rdparty/mapbox-gl-native/CMakeLists.txt) {
+         warning("Submodule mapbox-gl-native does not exist. Run 'git submodule update --init' on qtlocation.")
+     } else {
