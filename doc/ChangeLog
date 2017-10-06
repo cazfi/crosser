@@ -28,6 +28,7 @@
 	- Updated automake to version 1.15.1
 	- Updated util-macros to version 1.19.1
 	- Updated qt to version 5.9.1
+	- Updated freetype to version 2.8.1
 
 1.3 (10-Jun-17)
 	- Minimum requirement for created dllstack is Windows 7
