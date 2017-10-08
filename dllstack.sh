@@ -689,6 +689,7 @@ if ! unpack_component     autoconf                          ||
    ! build_component_host libxml2 "--without-python"                        ||
    ! free_build           "native-libxml2"                                  ||
    ! unpack_component  shared-mime-info                                     ||
+   ! ln -s "../lib/pkgconfig" "$NATIVE_PREFIX/share/pkgconfig"              ||
    ! build_component_host shared-mime-info                                  ||
    ! free_build           "shared-mime-info"                                ||
    ! unpack_component gdk-pixbuf                                            ||
