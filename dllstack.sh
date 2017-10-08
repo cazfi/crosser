@@ -688,6 +688,9 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component     libxml2                                           ||
    ! build_component_host libxml2 "--without-python"                        ||
    ! free_build           "native-libxml2"                                  ||
+   ! unpack_component  shared-mime-info                                     ||
+   ! build_component_host shared-mime-info                                  ||
+   ! free_build           "shared-mime-info"                                ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
       patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
@@ -825,7 +828,6 @@ if ! build_component   tiff                                                 ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
-   ! unpack_component  shared-mime-info                                     ||
    ! build_component   shared-mime-info                                     ||
    ! free_component    shared-mime-info $VERSION_SHARED_MIME_INFO           \
      "shared-mime-info"                                                     ||
