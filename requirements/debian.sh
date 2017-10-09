@@ -33,6 +33,7 @@ PACKAGES="\
  cargo \
  imagemagick \
  gperf \
+ libxml2-dev \
 "
 
 if test "$UID" != "0" ; then
