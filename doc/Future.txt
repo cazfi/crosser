@@ -5,5 +5,4 @@ These changes are coming in future versions:
 - Drop gtk2 from build -> later drop completely
 - Drop sdl build completely
 - Disable bzip2 build -> later drop completely
-- Build zlib in separate build directory (zlib 1.2.9 and later should support this)
 - Keep updated with gtk+-3.9x dependencies for being ready for gtk4
