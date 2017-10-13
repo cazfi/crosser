@@ -679,7 +679,8 @@ if ! unpack_component     autoconf                          ||
       (patch_src icu $VERSION_ICU icu_uloc_slash &&
        patch_src icu $VERSION_ICU icu_mbstowcs_params &&
        patch_src icu $VERSION_ICU icu_filetools_inc ))                      ||
-   ! patch_src icu $VERSION_ICU icu_xlocale_no                              ||
+   ! (is_minimum_version $VERSION_ICU 60 ||
+      patch_src icu $VERSION_ICU icu_xlocale_no )                           ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component tiff                                                  ||
