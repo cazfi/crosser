@@ -752,7 +752,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    xz         $VERSION_XZ "xz"                    ||
    ! unpack_component  curl                                           ||
    ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
-   ! build_component   curl                                           ||
+   ! build_component   curl       "--disable-pthreads"                ||
    ! free_component    curl       $VERSION_CURL "curl"                ||
    ! unpack_component  sqlite                                         \
      "" "sqlite-autoconf-${SQL_VERSTR}"                               ||
