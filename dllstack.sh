@@ -280,6 +280,8 @@ build_component_full()
     return 1
   fi
   )
+
+  echo "$DISPLAY_NAME : $BVER" >> $DLLSPREFIX/ComponentVersions.txt
 }
 
 # Build zlib
@@ -362,6 +364,8 @@ build_zlib()
     return 1
   fi
   )
+
+  echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
 }
 
 # Build bzip2/win-iconv
@@ -429,6 +433,8 @@ build_simple_make()
     return 1
   fi
   )
+
+  echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
 }
 
 # Build PDCurses
@@ -477,6 +483,8 @@ build_pdcurses()
       return 1
   fi
   )
+
+  echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
 }
 
 #######################################################################################################
