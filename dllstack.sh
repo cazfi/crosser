@@ -762,11 +762,11 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
    ! build_component   curl       "--disable-pthreads"                ||
    ! free_component    curl       $VERSION_CURL "curl"                ||
-   ! unpack_component  sqlite                                         \
-     "" "sqlite-autoconf-${SQL_VERSTR}"                               ||
-   ! build_component_full sqlite sqlite-autoconf                      \
-     "--disable-threadsafe" "" "" "" "${SQL_VERSTR}"                  ||
-   ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"           ||
+   ! unpack_component  sqlite                                                        \
+     "" "sqlite-autoconf-${SQL_VERSTR}"                                              ||
+   ! build_component_full sqlite sqlite                                              \
+     "--disable-threadsafe" "" "sqlite-autoconf-${SQL_VERSTR}"                       ||
+   ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
    ! build_component_full icu4c icu4c                                                \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source"             ||
    ! free_build           "native-icu4c"                                             ||
