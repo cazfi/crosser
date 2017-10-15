@@ -1149,6 +1149,7 @@ log_write 1 "Creating crosser.txt"
   echo "CROSSER_QT=\"$CROSSER_QT\""
   echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
   echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
+  echo "CROSSER_SFML=\"$CROSSER_SFML\""
   echo
   echo "; Scheduled for complete removal"
   echo "-------------------------"

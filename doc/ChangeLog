@@ -1,5 +1,6 @@
 1.4
 	- Generate ComponentVersions.txt
+	- Added SFML status to crosser.txt
 	- Added shared-mime-info (version 1.9) to build
 	- Build native version of tiff
 	- Build native version of libxml2
