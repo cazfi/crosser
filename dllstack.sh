@@ -815,7 +815,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--disable-cpp --enable-unicode-properties"                      ||
    ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
    ! build_component   pcre2                                          \
-     "--disable-cpp --enable-unicode-properties"                      ||
+     "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
    ! free_component    pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
