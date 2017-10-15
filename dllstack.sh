@@ -1113,6 +1113,7 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! ( is_smaller_version $VERSION_QT 5.8.0 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vs_interop" )       ||
    ! ( is_smaller_version $VERSION_QT 5.9.0 ||
+       is_minimum_version $VERSION_QT 5.9.2 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_mapbox_disable" )   ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
