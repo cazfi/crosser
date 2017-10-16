@@ -227,10 +227,6 @@ build_component_full()
   elif test "x$4" = "xqt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
-    export CPPFLAGS="-isystem ${DLLSPREFIX}/include $CROSSER_WINVER_FLAG"
-    export CFLAGS="${CPPFLAGS}"
-    export CXXFLAGS="-isystem ${DLLSPREFIX}/include"
-    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc $CROSSER_STDCXX"
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
