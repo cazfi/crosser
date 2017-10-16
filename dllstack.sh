@@ -1139,7 +1139,7 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -nomake examples -no-opengl $CROSSER_QT_EXTRA_CONF" \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -nomake examples -no-opengl -system-pcre $CROSSER_QT_EXTRA_CONF" \
      "qt" "" "no"                                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then
