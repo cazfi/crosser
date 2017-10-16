@@ -1135,10 +1135,11 @@ if ! unpack_component qt-everywhere-opensource-src                              
    ! ( is_smaller_version $VERSION_QT 5.9.0 ||
        is_minimum_version $VERSION_QT 5.9.2 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_mapbox_disable" )   ||
+   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_dllsprefix"           ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-opensource-src                                    \
      qt-everywhere-opensource-src                                                          \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -nomake examples -no-opengl $CROSSER_QT_EXTRA_CONF" \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -nomake examples -no-opengl $CROSSER_QT_EXTRA_CONF" \
      "qt" "" "no"                                                                 ||
    ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
 then

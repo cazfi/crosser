@@ -1,0 +1,26 @@
+diff -Nurd qt-everywhere-opensource-src-5.9.2/qtbase/mkspecs/win32-g++/qmake.conf qt-everywhere-opensource-src-5.9.2/qtbase/mkspecs/win32-g++/qmake.conf
+--- qt-everywhere-opensource-src-5.9.2/qtbase/mkspecs/win32-g++/qmake.conf	2017-10-15 23:33:25.213540878 +0300
++++ qt-everywhere-opensource-src-5.9.2/qtbase/mkspecs/win32-g++/qmake.conf	2017-10-15 23:36:00.988530877 +0300
+@@ -25,11 +25,12 @@
+ QMAKE_LEXFLAGS          =
+ QMAKE_YACC              = bison -y
+ QMAKE_YACCFLAGS         = -d
+-QMAKE_CFLAGS           += -fno-keep-inline-dllexport
++QMAKE_CFLAGS           += -fno-keep-inline-dllexport -I$${DLLSPREFIX}/include
+ QMAKE_CFLAGS_WARN_ON   += -Wextra
+ QMAKE_CFLAGS_SSE2      += -mstackrealign
+ 
+ QMAKE_CXX               = $${CROSS_COMPILE}g++ -static-libgcc -static-libstdc++
++QMAKE_CXXFLAGS         += -I$${DLLSPREFIX}/include
+ QMAKE_CXXFLAGS_THREAD   = $$QMAKE_CFLAGS_THREAD
+ QMAKE_CXXFLAGS_RTTI_ON  = -frtti
+ QMAKE_CXXFLAGS_RTTI_OFF = -fno-rtti
+@@ -44,7 +45,7 @@
+ 
+ QMAKE_LINK              = $${CROSS_COMPILE}g++ -static-libgcc -static-libstdc++
+ QMAKE_LINK_C            = $${CROSS_COMPILE}gcc -static-libgcc -static-libstdc++
+-QMAKE_LFLAGS            = -static-libgcc -static-libstdc++
++QMAKE_LFLAGS            = -static-libgcc -static-libstdc++ -L$${DLLSPREFIX}/lib
+ QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads
+ QMAKE_LFLAGS_RELEASE    = -Wl,-s
+ QMAKE_LFLAGS_CONSOLE    = -Wl,-subsystem,console
