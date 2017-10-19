@@ -1,0 +1,12 @@
+[binaries]
+c = '<TARGET_GCC>'
+cpp = '<TARGET_GPP>'
+ar = '<TARGET_AR>'
+strip = '<TARGET_STRIP>'
+pkgconfig = '<TARGET_PKGCONFIG>'
+
+[host_machine]
+system = 'windows'
+cpu_family = 'x86'
+cpu = 'i686'
+endian = 'little'

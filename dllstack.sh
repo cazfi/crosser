@@ -144,7 +144,8 @@ build_component_full()
     BVER="$(component_version $2)"
   fi
 
-  if test "x$BVER" = "x" ; then
+  if test "x$BVER" = "x"
+  then
     log_error "Version for $2 not defined"
     return 1
   fi
@@ -273,6 +274,84 @@ build_component_full()
   if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Install for $DISPLAY_NAME failed"
+    return 1
+  fi
+  )
+
+  RET=$?
+
+  if test $RET = 0 ; then
+    echo "$DISPLAY_NAME : $BVER" >> $DLLSPREFIX/ComponentVersions.txt
+  fi
+
+  return $RET
+}
+
+# $1 - Build dir
+# $2 - Component
+build_with_meson()
+{
+  log_packet "$2"
+
+  BVER=$(component_version $2)
+
+  if test "x$BVER" = "x"
+  then
+    log_error "Version for $2 not definer"
+    return 1
+  fi
+
+  if test "x$BVER" = "x0"
+  then
+    return 0
+  fi
+
+  if test "x$2" = "xgtk4"
+  then
+    BNAME="gtk+"
+  else
+    BNAME="$2"
+  fi
+
+  SUBDIR="$(src_subdir $BNAME $BVER)"
+  if test "x$SUBDIR" = "x"
+  then
+    log_error "Cannot find srcdir for $BNAME version $BVER"
+    return 1
+  fi
+
+  DISPLAY_NAME="$1"
+
+  BUILDDIR="$CROSSER_BUILDDIR/$1"
+  if ! mkdir -p "$BUILDDIR"
+  then
+    log_error "Failed to create directory $BUILDDIR"
+    return 1
+  fi
+  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+
+  (
+  cd "$BUILDDIR"
+
+  export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+  export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+
+  log_write 1 "Running meson for $DISPLAY_NAME"
+
+  if ! meson $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
+       --prefix=$DLLSPREFIX \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  then
+    log_error "Meson for $DISPLAY_NAME failed"
+    return 1
+  fi
+
+  log_write 1 "Running ninja for $DISPLAY_NAME"
+
+  if ! ninja install \
+       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  then
+    log_error "Ninja for $DISPLAY_NAME failed"
     return 1
   fi
   )
@@ -588,7 +667,8 @@ then
   exit 1
 fi
 
-if ! mkdir -p "$DLLSPREFIX/man/man1"
+if ! mkdir -p "$DLLSPREFIX/man/man1" ||
+   ! mkdir -p "$DLLSPREFIX/etc"
 then
   log_error "Cannot create target directory hierarchy under $DLLSPREFIX"
   exit 1
@@ -607,6 +687,36 @@ then
   log_error "Packetdir missing"
   exit 1
 fi
+
+log_write 1 "Creating meson cross file"
+
+(
+  TARGET_GCC=$(which $CROSSER_TARGET-gcc)
+  TARGET_GPP=$(which $CROSSER_TARGET-g++)
+  TARGET_AR=$(which $CROSSER_TARGET-ar)
+  TARGET_STRIP=$(which $CROSSER_TARGET-strip)
+  TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
+
+  if test "x$TARGET_GCC" = "x" ||
+     test "x$TARGET_GPP" = "x" ||
+     test "x$TARGET_AR" = "x"  ||
+     test "x$TARGET_STRIP" = "x"
+  then
+    log_error "Cross-tools missing"
+    exit 1
+  fi
+  if ! sed -e "s,<TARGET_GCC>,$TARGET_GCC,g" \
+           -e "s,<TARGET_GPP>,$TARGET_GPP,g" \
+           -e "s,<TARGET_AR>,$TARGET_AR,g" \
+           -e "s,<TARGET_STRIP>,$TARGET_STRIP,g" \
+           -e "s,<TARGET_PKGCONFIG>,$TARGET_PKGCONFIG,g" \
+           $CROSSER_MAINDIR/scripts/$MESON_CROSS_FILE \
+           > $DLLSPREFIX/etc/meson_cross_file.txt
+  then
+    log_error "Meson cross-file creation failed"
+    exit 1
+  fi
+)
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
