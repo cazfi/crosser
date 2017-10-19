@@ -289,6 +289,7 @@ build_component_full()
 
 # $1 - Build dir
 # $2 - Component
+# $3 - Extra meson options
 build_with_meson()
 {
   log_packet "$2"
@@ -337,9 +338,10 @@ build_with_meson()
   export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
 
   log_write 1 "Running meson for $DISPLAY_NAME"
+  log_write 3 "  Options: $3"
 
   if ! meson $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
-       --prefix=$DLLSPREFIX \
+       --prefix=$DLLSPREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Meson for $DISPLAY_NAME failed"
