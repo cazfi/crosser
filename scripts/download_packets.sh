@@ -617,6 +617,8 @@ download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_P
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"
 RET="$RET $?"
+download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOMMON" "tar.xz"
+RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
 download_needed "http://freedesktop.org/~hadess/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.xz"
