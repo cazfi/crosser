@@ -1108,6 +1108,11 @@ if ! unpack_component  graphene                                       ||
        patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)  ||
    ! build_component   graphene                                       ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"        ||
+   ! unpack_component  libxkbcommon                                     ||
+   ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
+   ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ||
+   ! build_component   libxkbcommon  "--disable-x11"                    ||
+   ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"  ||
    ! unpack_component  gtk4                                           ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
@@ -1117,7 +1122,7 @@ if ! unpack_component  graphene                                       ||
      "--with-included-immodules"                                      ||
    ! free_component    gtk+       $VERSION_GTK4 "gtk4"
 then
-  log_error "gtk4 build failed"
+  log_error "gtk4 chain build failed"
   exit 1
 fi
 fi

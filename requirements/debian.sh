@@ -34,6 +34,7 @@ PACKAGES="\
  imagemagick \
  gperf \
  libxml2-dev \
+ graphviz \
 "
 
 if test "$UID" != "0" ; then

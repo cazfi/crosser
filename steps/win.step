@@ -39,6 +39,7 @@ pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
 graphene          GRAPHENE
+libxkbcommon      XKBCOMMON
 libcroco          CROCO
 librsvg           RSVG
 atk               ATK
