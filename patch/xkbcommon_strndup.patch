@@ -1,0 +1,24 @@
+diff -Nurd libxkbcommon-0.7.2/src/atom.c libxkbcommon-0.7.2/src/atom.c
+--- libxkbcommon-0.7.2/src/atom.c	2017-10-20 10:21:42.093525492 +0300
++++ libxkbcommon-0.7.2/src/atom.c	2017-10-20 10:29:50.458323439 +0300
+@@ -73,6 +73,8 @@
+ #include "utils.h"
+ #include "atom.h"
+ 
++char *strndup(const char *s, size_t n);
++
+ struct atom_node {
+     xkb_atom_t left, right;
+     xkb_atom_t atom;
+diff -Nurd libxkbcommon-0.7.2/src/compose/paths.c libxkbcommon-0.7.2/src/compose/paths.c
+--- libxkbcommon-0.7.2/src/compose/paths.c	2017-10-20 10:28:56.366686322 +0300
++++ libxkbcommon-0.7.2/src/compose/paths.c	2017-10-20 09:45:02.237168388 +0300
+@@ -24,6 +24,8 @@
+ #include "utils.h"
+ #include "paths.h"
+ 
++char *strndup(const char *s, size_t n);
++
+ enum resolve_name_direction {
+     LEFT_TO_RIGHT,
+     RIGHT_TO_LEFT,
