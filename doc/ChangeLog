@@ -36,6 +36,7 @@
 	- Updated SDL2 to version 2.0.7
 	- Updated SDL2_image to version 2.0.2
 	- Updated SDL2_mixer to version 2.0.2
+	- Updated icu to version 60.1
 
 1.3 (10-Jun-17)
 	- Minimum requirement for created dllstack is Windows 7

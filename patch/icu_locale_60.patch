@@ -1,0 +1,12 @@
+diff -Nurd icu/source/i18n/digitlst.cpp icu/source/i18n/digitlst.cpp
+--- icu/source/i18n/digitlst.cpp	2017-10-11 19:24:33.000000000 +0300
++++ icu/source/i18n/digitlst.cpp	2017-11-05 19:52:19.156069006 +0200
+@@ -52,7 +52,7 @@
+ 
+ #if !defined(U_USE_STRTOD_L)
+ # if U_PLATFORM_USES_ONLY_WIN32_API
+-#   define U_USE_STRTOD_L 1
++#   define U_USE_STRTOD_L 0
+ #   define U_HAVE_XLOCALE_H 0
+ # elif defined(U_HAVE_STRTOD_L)
+ #   define U_USE_STRTOD_L U_HAVE_STRTOD_L
