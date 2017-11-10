@@ -11,7 +11,7 @@
 	- Updated curl to version 7.56.1
 	- Updated sqlite to version 3.21.0
 	- Updated cairo to version 1.14.10
-	- Updated gtk3 to version 3.22.25
+	- Updated gtk3 to version 3.22.26
 	- Updated glib to version 2.54.2
 	- Updated libpng to version 1.6.34
 	- Updated fontconfig to version 2.12.6
