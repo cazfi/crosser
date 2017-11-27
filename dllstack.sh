@@ -1115,7 +1115,8 @@ if ! unpack_component  graphene                                       ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"        ||
    ! unpack_component  libxkbcommon                                     ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
-   ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ||
+   ! (test "x$CROSSER_SETUP" != "xwin64" ||
+      patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ) ||
    ! build_component   libxkbcommon  "--disable-x11"                    ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"  ||
    ! unpack_component  gtk4                                           ||
