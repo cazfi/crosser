@@ -23,7 +23,7 @@
 	- Updated gtk-doc to version 1.26
 	- Updated ffmpeg to version 3.3.3
 	- Updated pcre2 to version 10.30
-	- Updated ImageMagick to version 7.0.7-11
+	- Updated ImageMagick to version 7.0.7-14
 	- Updated libxml to version 2.9.7
 	- Updated atk to version 2.26.1
 	- Updated gobject-introspection to version 1.54.1
