@@ -3,7 +3,7 @@
 	- Added SFML status to crosser.txt
 	- Added support for meson based builds
 	- Added shared-mime-info (version 1.9) to build
-	- Added libxkbcommon (version 0.7.2) to gtk4 chain
+	- Added libxkbcommon (version 0.8.0) to gtk4 chain
 	- Build native version of tiff
 	- Build native version of libxml2
 	- Added glew (version 2.0.0) to build
