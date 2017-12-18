@@ -976,7 +976,8 @@ if ! build_component   tiff                                                 ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
-   ! build_component   shared-mime-info                                     ||
+   ! build_component_full shared-mime-info shared-mime-info "" "" ""        \
+     "no"                                                                   ||
    ! free_component    shared-mime-info $VERSION_SHARED_MIME_INFO           \
      "shared-mime-info"                                                     ||
    ! unpack_component  jansson                                              ||
