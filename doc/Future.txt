@@ -1,5 +1,6 @@
 These changes are coming in future versions:
 
+- Drop win32 support completely
 - Enable readline build by default (-> part of the ready-made build)
 - Use win-iconv by default, drop libiconv
 - Drop gtk2 from build -> later drop completely
