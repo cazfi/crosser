@@ -2,6 +2,7 @@
 	- Generate ComponentVersions.txt
 	- Added SFML status to crosser.txt
 	- Added support for meson based builds
+	- Qt build no longer supported on win32 setup
 	- Added shared-mime-info (version 1.9) to build
 	- Added libxkbcommon (version 0.8.0) to gtk4 chain
 	- Build native version of tiff
