@@ -443,7 +443,6 @@ then
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
-    glew)        VERSION_GLEW=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
@@ -622,8 +621,6 @@ RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
 download_needed "http://freedesktop.org/~hadess/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/glew/files/glew/$VERSION_GLEW/" "glew" "$VERSION_GLEW" "tgz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
 RET="$RET $?"
