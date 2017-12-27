@@ -83,16 +83,17 @@ fi
 if test "x$CROSSER_DOWNLOAD" = "x" ; then
   CROSSER_DOWNLOAD="demand"
 fi
-if test "x$CROSSER_CORES" != "x" ; then
-  declare -i CTMP="$CROSSER_CORES"
-  if test $CTMP -lt 1 ; then
-    echo "Illegal CROSSER_CORES configure option value \"$CROSSER_CORES\"" >&2
-    exit 1
-  fi
-  CROSSER_COREOPTIONS="-j $CROSSER_CORES"
-else
-  CROSSER_COREOPTIONS=""
+if test "x$CROSSER_CORES" = "x" ; then
+  CROSSER_CORES="2"
 fi
+
+declare -i CTMP="$CROSSER_CORES"
+if test $CTMP -lt 1 ; then
+  echo "Illegal CROSSER_CORES configure option value \"$CROSSER_CORES\"" >&2
+  exit 1
+fi
+CROSSER_COREOPTIONS="-j $CROSSER_CORES"
+
 if test "x$DLLSPREFIX" = "x" && test "x$LSPREFIX" != "x" ; then
   echo "Configuration variable LSPREFIX is deprecated. Please use DLLSPREFIX." >&2
   DLLSPREFIX="$LSPREFIX"
