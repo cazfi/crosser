@@ -838,7 +838,7 @@ if ! unpack_component     autoconf                          ||
    ! unpack_component  shared-mime-info                                     ||
    ! ln -s "../lib/pkgconfig" "$NATIVE_PREFIX/share/pkgconfig"              ||
    ! build_component_host shared-mime-info                                  ||
-   ! free_build           "shared-mime-info"                                ||
+   ! free_build           "native-shared-mime-info"                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
       patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
