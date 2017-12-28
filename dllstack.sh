@@ -1243,22 +1243,11 @@ else
   CROSSER_QT_EXTRA_CONF=""
 fi
 if ! unpack_component qt-everywhere-opensource-src                                ||
-   ! ( is_minimum_version $VERSION_QT 5.8.0 ||
-       ( patch_src qt-everywhere-opensource-src $VERSION_QT "qt_pkgconfig" &&
-         patch_src qt-everywhere-opensource-src $VERSION_QT "qt_freetype_libs" )) ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"    ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                  ||
    ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"     ||
-   ! (( is_smaller_version $VERSION_QT 5.9.0 &&
-        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags" ) ||
-      ( is_minimum_version $VERSION_QT 5.9.0 &&
-        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags-5.9" ))  ||
-   ! ( is_smaller_version $VERSION_QT 5.6.0 ||
-       is_minimum_version $VERSION_QT 5.6.1 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_evrinclude" )       ||
-   ! ( is_smaller_version $VERSION_QT 5.7.0 ||
-       is_minimum_version $VERSION_QT 5.8.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vkbdquick" )        ||
+   ! ( is_minimum_version $VERSION_QT 5.9.0 &&
+       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags-5.9" )    ||
    ! ( is_smaller_version $VERSION_QT 5.8.0 ||
        patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vs_interop" )       ||
    ! ( is_smaller_version $VERSION_QT 5.9.0 ||
