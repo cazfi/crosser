@@ -37,7 +37,7 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
   Currently there is four versionsets:
   current      - This versionset will always contain currently best supported
                  versionlist.
-  stable       - This versionset contains a bit more mature versions.
+  mature       - This versionset contains a bit more mature versions.
                  Typically those are final (most mature) versions from
                  previous release series of the software.
   test         - Versionset used to test development packages before

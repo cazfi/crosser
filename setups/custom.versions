@@ -1,13 +1,13 @@
 # custom.versions: Example of custom versionset
 #
-# (c) 2015 Marko Lindqvist
+# (c) 2015-2017 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 # WARNING!
 # Crosser is not even supposed to work with just any arbitrary set
 # of component versions. The only supported versionsets are the
-# supplied 'current' and 'stable'. Use customized versionsets
+# supplied 'current' and 'mature'. Use customized versionsets
 # only if you know what you are doing. If it breaks your build,
 # you're the one who needs to fix it.
 
