@@ -52,7 +52,8 @@ Script scripts/download_packets.sh downloads toolchain related source packages.
 
   Third parameter is description of system dllstack is built for.
   win32 - 32bit compilation. This set builds older versions - ones that
-          work on win32 setup - of gettext and icu
+          work on win32 setup - of gettext and icu. Qt can't be built
+          on win32 setup.
   win64 - Default one. 64bit compilation. This set doesn't build gtk2,
           gtk-engines, or gnome-themes-standard
 
