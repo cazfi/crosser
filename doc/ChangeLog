@@ -1,4 +1,4 @@
-1.4
+1.4 (29-Dec-17)
 	- Generate ComponentVersions.txt
 	- Added SFML status to crosser.txt
 	- Added support for meson based builds
