@@ -3,6 +3,7 @@
 	- Renamed 'stable' versionset as 'mature'
 	- Added glew (version 2.0.0) to build
 	- Updated ImageMagick to version 7.0.7-18
+	- Updated ffmpeg to version 3.4.1
 
 1.4
 	- Generate ComponentVersions.txt
