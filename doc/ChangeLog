@@ -2,7 +2,7 @@
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
 	- Added glew (version 2.0.0) to build
-	- Updated ImageMagick to version 7.0.7-17
+	- Updated ImageMagick to version 7.0.7-18
 
 1.4
 	- Generate ComponentVersions.txt
