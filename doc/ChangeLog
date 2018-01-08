@@ -4,6 +4,7 @@
 	- Added glew (version 2.0.0) to build
 	- Updated ImageMagick to version 7.0.7-18
 	- Updated ffmpeg to version 3.4.1
+	- Updated glib to version 2.54.3
 
 1.4
 	- Generate ComponentVersions.txt
