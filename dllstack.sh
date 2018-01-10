@@ -837,7 +837,8 @@ if ! unpack_component     autoconf                          ||
    ! free_build           "native-libxml2"                                  ||
    ! unpack_component  shared-mime-info                                     ||
    ! ln -s "../lib/pkgconfig" "$NATIVE_PREFIX/share/pkgconfig"              ||
-   ! build_component_host shared-mime-info                                  ||
+   ! build_component_full native-shared-mime-info shared-mime-info          \
+     "" "native" "" "no"                                                    ||
    ! free_build           "native-shared-mime-info"                         ||
    ! unpack_component gdk-pixbuf                                            ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
