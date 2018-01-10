@@ -5,6 +5,7 @@
 	- Updated ImageMagick to version 7.0.7-18
 	- Updated ffmpeg to version 3.4.1
 	- Updated glib to version 2.54.3
+	- Updated gtk2 to version 2.24.32
 
 1.4 (29-Dec-17)
 	- Generate ComponentVersions.txt
