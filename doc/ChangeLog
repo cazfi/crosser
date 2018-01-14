@@ -9,7 +9,7 @@
 	- Updated freetype to version 2.9
 	- Updated tiff to version 4.0.9
 
-1.4.1
+1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
 
 1.4 (29-Dec-17)
