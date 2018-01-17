@@ -8,6 +8,7 @@
 	- Updated gtk2 to version 2.24.32
 	- Updated freetype to version 2.9
 	- Updated tiff to version 4.0.9
+	- Updated pkgconf to version 1.4.0
 
 1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
