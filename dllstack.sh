@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2017 Marko Lindqvist
+# (c) 2008-2018 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -996,9 +996,6 @@ if ! build_component   tiff                                                 ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
-   ! unpack_component  glew                                                 ||
-   ! patch_src         glew $VERSION_GLEW glew_mingw                        ||
-   ! build_component_full src glew                                          ||
    ! unpack_component  libepoxy                                             ||
    ! build_component   libepoxy                                             ||
    ! free_component    libepoxy $VERSION_LIBEPOXY "libepoxy"                ||

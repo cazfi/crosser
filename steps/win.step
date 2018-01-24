@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2017 Marko Lindqvist
+# (c) 2008-2018 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -44,7 +44,6 @@ libcroco          CROCO
 librsvg           RSVG
 atk               ATK
 util-macros       UTIL_MACROS
-glew              GLEW
 libepoxy          LIBEPOXY
 gdk-pixbuf        GDK_PIXBUF
 gtk2              GTK2
