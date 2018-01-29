@@ -483,17 +483,17 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.16.0
+if is_minimum_version $VERSION_SQLITE 3.22.0
 then
-    SQL_SUBDIR="2017/"
+  SQL_SUBDIR="2018/"
+elif is_minimum_version $VERSION_SQLITE 3.16.0
+then
+  SQL_SUBDIR="2017/"
 elif is_minimum_version $VERSION_SQLITE 3.10.0
 then
-    SQL_SUBDIR="2016/"
-elif is_minimum_version $VERSION_SQLITE 3.8.8
-then
-   SQL_SUBDIR="2015/"
+  SQL_SUBDIR="2016/"
 else
-   SQL_SUBDIR=""
+  SQL_SUBDIR=""
 fi
 
 if is_minimum_version $VERSION_ZLIB 1.2.8
