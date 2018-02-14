@@ -11,6 +11,7 @@
 	- Updated jpeg to version 9c
 	- Updated sqlite to version 3.22.0
 	- Updated curl to version 7.58.0
+	- Updated jansson to version 2.11
 
 1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
