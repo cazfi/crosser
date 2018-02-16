@@ -1,0 +1,21 @@
+diff -Nurd qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf
+--- qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf	2018-02-15 23:11:33.423460024 +0200
++++ qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf	2018-02-15 23:15:31.894107228 +0200
+@@ -29,7 +29,7 @@
+ QMAKE_LEXFLAGS          =
+ QMAKE_YACC              = bison -y
+ QMAKE_YACCFLAGS         = -d
+-QMAKE_CFLAGS           += -fno-keep-inline-dllexport
++QMAKE_CFLAGS           += -fno-keep-inline-dllexport -I$${DLLSPREFIX}/include
+ QMAKE_CFLAGS_WARN_ON   += -Wextra
+ 
+ QMAKE_CFLAGS_SSE2      += -mstackrealign
+@@ -50,7 +50,7 @@
+ 
+ QMAKE_LINK              = $${CROSS_COMPILE}g++ -static-libgcc -static-libstdc++
+ QMAKE_LINK_C            = $${CROSS_COMPILE}gcc -static-libgcc -static-libstdc++
+-QMAKE_LFLAGS            = -static-libgcc -static-libstdc++
++QMAKE_LFLAGS            = -static-libgcc -static-libstdc++ -L$${DLLSPREFIX}/lib
+ QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads
+ QMAKE_LFLAGS_RELEASE    = -Wl,-s
+ QMAKE_LFLAGS_CONSOLE    = -Wl,-subsystem,console

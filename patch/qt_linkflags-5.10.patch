@@ -1,25 +1,25 @@
-diff -Nurd qt-everywhere-opensource-src-5.9.0/qtbase/mkspecs/win32-g++/qmake.conf qt-everywhere-opensource-src-5.9.0/qtbase/mkspecs/win32-g++/qmake.conf
---- qt-everywhere-opensource-src-5.9.0/qtbase/mkspecs/win32-g++/qmake.conf	2017-05-26 15:43:31.000000000 +0300
-+++ qt-everywhere-opensource-src-5.9.0/qtbase/mkspecs/win32-g++/qmake.conf	2017-06-03 13:32:07.902259501 +0300
-@@ -20,7 +20,7 @@
- QMAKE_EXT_RES           = _res.o
- 
+diff -Nurd qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf
+--- qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf	2018-02-15 16:39:09.996558417 +0200
++++ qt-everywhere-src-5.10.1/qtbase/mkspecs/win32-g++/qmake.conf	2018-02-15 16:41:32.759816734 +0200
+@@ -24,7 +24,7 @@
+ # x86_64 platform similar to 'msvc-desktop.conf' toolchain, because, unlike for MSVC,
+ # 'QMAKE_TARGET.arch' is inherently unavailable.
  
 -QMAKE_CC                = $${CROSS_COMPILE}gcc
 +QMAKE_CC                = $${CROSS_COMPILE}gcc -static-libgcc -static-libstdc++
  QMAKE_LEX               = flex
  QMAKE_LEXFLAGS          =
  QMAKE_YACC              = bison -y
-@@ -29,7 +29,7 @@
- QMAKE_CFLAGS_WARN_ON   += -Wextra
+@@ -34,7 +34,7 @@
+ 
  QMAKE_CFLAGS_SSE2      += -mstackrealign
  
 -QMAKE_CXX               = $${CROSS_COMPILE}g++
 +QMAKE_CXX               = $${CROSS_COMPILE}g++ -static-libgcc -static-libstdc++
- QMAKE_CXXFLAGS_THREAD   = $$QMAKE_CFLAGS_THREAD
+ QMAKE_CXXFLAGS          = $$QMAKE_CFLAGS
+ QMAKE_CXXFLAGS_WARN_ON  = $$QMAKE_CFLAGS_WARN_ON
  QMAKE_CXXFLAGS_RTTI_ON  = -frtti
- QMAKE_CXXFLAGS_RTTI_OFF = -fno-rtti
-@@ -42,8 +42,9 @@
+@@ -48,8 +48,9 @@
  QMAKE_RUN_CXX           = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o $obj $src
  QMAKE_RUN_CXX_IMP       = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
  

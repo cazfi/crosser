@@ -439,7 +439,7 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt-everywhere-opensource-src) VERSION_QT=$VERSION_SELECTED ;;
+    qt-everywhere-src) VERSION_QT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
@@ -690,7 +690,7 @@ download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JAN
 RET="$RET $?"
 download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
-download_needed "http://download.qt-project.org/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-opensource-src" "$VERSION_QT" "tar.xz"
+download_needed "http://download.qt-project.org/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
 
 for VALUE in $RET

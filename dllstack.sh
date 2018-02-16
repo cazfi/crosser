@@ -1240,24 +1240,19 @@ then
 else
   CROSSER_QT_EXTRA_CONF=""
 fi
-if ! unpack_component qt-everywhere-opensource-src                                ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_sharappidinfolink"    ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_g++"                  ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_disableidc-5.4.2"     ||
-   ! ( is_minimum_version $VERSION_QT 5.9.0 &&
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_linkflags-5.9" )    ||
-   ! ( is_smaller_version $VERSION_QT 5.8.0 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_vs_interop" )       ||
-   ! ( is_smaller_version $VERSION_QT 5.9.0 ||
-       is_minimum_version $VERSION_QT 5.9.2 ||
-       patch_src qt-everywhere-opensource-src $VERSION_QT "qt_mapbox_disable" )   ||
-   ! patch_src qt-everywhere-opensource-src $VERSION_QT "qt_dllsprefix"           ||
-   ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-opensource-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
-     build_component_full  qt-everywhere-opensource-src                                    \
-     qt-everywhere-opensource-src                                                          \
+if ! unpack_component qt-everywhere-src                                ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_g++"                  ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_disableidc-5.4.2"     ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_linkflags-5.10"       ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop"           ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_dllsprefix-5.10"      ||
+   ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
+     build_component_full  qt-everywhere-src                                    \
+     qt-everywhere-src                                                          \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -nomake examples -no-opengl -system-pcre $CROSSER_QT_EXTRA_CONF" \
      "qt" "" "no"                                                                 ||
-   ! free_component   qt-everywhere-opensource-src $VERSION_QT "qt-everywhere-opensource-src"
+   ! free_component   qt-everywhere-src $VERSION_QT "qt-everywhere-src"
 then
   log_error "QT stack build failed"
   exit 1
