@@ -1,6 +1,7 @@
 1.5
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
+	- Updated auxiliary config.guess and config.sub to '2018-02-24' version
 	- Updated ImageMagick to version 7.0.7-18
 	- Updated ffmpeg to version 3.4.1
 	- Updated glib to version 2.54.3
