@@ -1106,12 +1106,17 @@ fi
 fi
 
 if test "x$CROSSER_GTK4" = "xyes" ; then
-if ! unpack_component  graphene                                       ||
-   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon  ||
+if ! unpack_component  graphene                                         ||
+   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon    ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
-       patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)  ||
-   ! build_component   graphene                                       ||
-   ! free_component    graphene   $VERSION_GRAPHENE "graphene"        ||
+       is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
+       patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)    ||
+   ! ( is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
+       build_component   graphene )                                     ||
+   ! ( is_smaller_version $VERSION_GRAPHENE 1.8.0 ||
+       build_with_meson graphene graphene \
+       "-D introspection=false" )                                       ||
+   ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
    ! (test "x$CROSSER_SETUP" != "xwin64" ||
