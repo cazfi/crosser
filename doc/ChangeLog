@@ -17,6 +17,7 @@
 	- Updated qt to version 5.10.1
 	- Updated graphene to version 1.6.2
 	- Updated automake to version 1.16
+	- Updated libxml2 to version 2.9.8
 
 1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
@@ -47,7 +48,7 @@
 	- Updated ffmpeg to version 3.3.5
 	- Updated pcre2 to version 10.30
 	- Updated ImageMagick to version 7.0.6-10
-	- Updated libxml to version 2.9.7
+	- Updated libxml2 to version 2.9.7
 	- Updated atk to version 2.26.1
 	- Updated gobject-introspection to version 1.54.1
 	- Updated adwaita-icon-theme to version 3.26.1
@@ -184,7 +185,7 @@
 	- Updated pkg-config to version 0.29.1
 	- Updated icu to version 57.1
 	- Updated pango to version 1.40.3
-	- Updated libxml to version 2.9.4
+	- Updated libxml2 to version 2.9.4
 	- Updated fontconfig to version 2.12.1
 
 1.0.4 (14-Sep-16)
