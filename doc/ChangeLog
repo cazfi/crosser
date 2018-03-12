@@ -16,7 +16,7 @@
 	- Updated gtk3 to version 3.22.28
 	- Updated qt to version 5.10.1
 	- Updated graphene to version 1.6.2
-	- Updated automake to version 1.16
+	- Updated automake to version 1.16.1
 	- Updated libxml2 to version 2.9.8
 	- Updated util-macros to version 1.19.2
 	- Updated pcre2 to version 10.31
