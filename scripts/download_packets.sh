@@ -557,6 +557,8 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSION_PKGCONF" "tar.gz"
 RET="$RET $?"
+download_needed "https://github.com/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "$VERSION_FRIBIDI" "tar.bz2"
+RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"

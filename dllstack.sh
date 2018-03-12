@@ -934,7 +934,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
    ! build_component   glib       "$GLIB_VARS --with-threads=win32"   ||
-   ! free_component    glib       $VERSION_GLIB    "glib"
+   ! free_component    glib       $VERSION_GLIB    "glib"             ||
+   ! unpack_component  fribidi                                        ||
+   ! build_component   fribidi                                        ||
+   ! free_component    fribidi    $VERSION_FRIBIDI "fribidi"
 then
   log_error "Build failed"
   exit 1
