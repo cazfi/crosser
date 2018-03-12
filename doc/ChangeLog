@@ -22,6 +22,7 @@
 	- Updated util-macros to version 1.19.2
 	- Updated pcre2 to version 10.31
 	- Updated atk to version 2.28.0
+	- Updated pango to version 1.42.0
 
 1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
