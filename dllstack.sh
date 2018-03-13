@@ -1089,6 +1089,8 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! unpack_component gnome-icon-theme                                ||
    ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
      "gnomeitheme-build-pkgconfig"                                    ||
+   ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
+     "gnomeitheme_no_host_icon_cache"                                 ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gnome-icon-theme                                ||
    ! free_component   gnome-icon-theme $VERSION_GNOME_ICONS           \
