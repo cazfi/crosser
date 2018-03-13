@@ -1081,6 +1081,8 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! free_component   tango-icon-theme   $VERSION_TANGO_ICONS         \
      "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
+   ! patch_src adwaita-icon-theme $VERSION_ADWAITA_ICON               \
+     "adwaita_no_host_icon_cache"                                     ||
    ! build_component  adwaita-icon-theme                              ||
    ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
      "adwaita-icon-theme"                                             ||
