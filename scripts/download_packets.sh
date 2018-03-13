@@ -448,6 +448,7 @@ then
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
     sfml)        VERSION_SFML=$VERSION_SELECTED ;;
+    fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
   esac
 fi
 
