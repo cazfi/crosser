@@ -1,0 +1,13 @@
+diff -Nurd adwaita-icon-theme-3.26.1/Makefile.am adwaita-icon-theme-3.26.1/Makefile.am
+--- adwaita-icon-theme-3.26.1/Makefile.am	2017-11-27 18:18:42.000000000 +0200
++++ adwaita-icon-theme-3.26.1/Makefile.am	2018-03-13 05:01:07.764431273 +0200
+@@ -206,9 +206,6 @@
+ 		$(LN_S) -f  fd_double_arrow$$cur	nesw-resize$$cur && \
+ 		$(LN_S) -f  bd_double_arrow$$cur	nwse-resize$$cur; \
+ 	done
+-	if test -z "$(DESTDIR)" && test -n "$(GTK_UPDATE_ICON_CACHE)" ; then \
+-		$(GTK_UPDATE_ICON_CACHE) -q $(DESTDIR)$(themedir); \
+-	fi
+ 
+ uninstall-hook:
+ 	@rm -f  $(DESTDIR)$(themedir)/icon-theme.cache
