@@ -1,7 +1,7 @@
-diff -Nurd gtk+-3.22.9/configure gtk+-3.22.9/configure
---- gtk+-3.22.9/configure	2017-02-28 00:57:26.000000000 +0200
-+++ gtk+-3.22.9/configure	2017-03-11 17:44:48.900499805 +0200
-@@ -29208,7 +29208,7 @@
+diff -Nurd gtk+-3.22.28/configure gtk+-3.22.28/configure
+--- gtk+-3.22.28/configure	2018-02-14 20:22:33.000000000 +0200
++++ gtk+-3.22.28/configure	2018-03-13 02:31:50.176007601 +0200
+@@ -29289,7 +29289,7 @@
  fi
  
  
@@ -10,44 +10,9 @@ diff -Nurd gtk+-3.22.9/configure gtk+-3.22.9/configure
  
  
  cat >confcache <<\_ACEOF
-diff -Nurd gtk+-3.22.9/configure.ac gtk+-3.22.9/configure.ac
---- gtk+-3.22.9/configure.ac	2017-02-28 00:52:46.000000000 +0200
-+++ gtk+-3.22.9/configure.ac	2017-03-11 17:42:33.717248799 +0200
-@@ -1905,11 +1905,6 @@
- m4macros/Makefile
- po/Makefile.in
- po-properties/Makefile.in
--demos/Makefile
--demos/gtk-demo/Makefile
--demos/gtk-demo/geninclude.pl
--demos/widget-factory/Makefile
--demos/icon-browser/Makefile
- examples/Makefile
- examples/bp/Makefile
- examples/application1/Makefile
-@@ -1922,19 +1917,6 @@
- examples/application8/Makefile
- examples/application9/Makefile
- examples/application10/Makefile
--tests/Makefile
--tests/visuals/Makefile
--testsuite/Makefile
--testsuite/a11y/Makefile
--testsuite/a11y/state/Makefile
--testsuite/css/Makefile
--testsuite/css/parser/Makefile
--testsuite/css/nodes/Makefile
--testsuite/css/style/Makefile
--testsuite/gdk/Makefile
--testsuite/gtk/Makefile
--testsuite/reftests/Makefile
--testsuite/tools/Makefile
- docs/Makefile
- docs/reference/Makefile
- docs/reference/gdk/Makefile
-diff -Nurd gtk+-3.22.9/Makefile.am gtk+-3.22.9/Makefile.am
---- gtk+-3.22.9/Makefile.am	2016-12-30 16:55:56.000000000 +0200
-+++ gtk+-3.22.9/Makefile.am	2017-03-11 17:42:33.717248799 +0200
+diff -Nurd gtk+-3.22.28/Makefile.am gtk+-3.22.28/Makefile.am
+--- gtk+-3.22.28/Makefile.am	2018-02-13 23:30:33.000000000 +0200
++++ gtk+-3.22.28/Makefile.am	2018-03-13 02:31:50.176007601 +0200
 @@ -1,7 +1,7 @@
  ## Makefile.am for GTK+
  include $(top_srcdir)/Makefile.decl
