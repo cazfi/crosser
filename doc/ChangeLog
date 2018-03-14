@@ -23,6 +23,7 @@
 	- Updated pcre2 to version 10.31
 	- Updated atk to version 2.28.1
 	- Updated pango to version 1.42.0
+	- Updated adwaita-icon-theme to version 3.28.0
 
 1.4.2 (14-Mar-18)
 	- Don't update icon cache on build host
