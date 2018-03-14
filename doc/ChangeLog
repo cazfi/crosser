@@ -24,6 +24,9 @@
 	- Updated atk to version 2.28.1
 	- Updated pango to version 1.42.0
 
+1.4.2 (14-Mar-18)
+	- Don't update icon cache on build host
+
 1.4.1 (14-Jan-18)
 	- Ignore CROSSER_CORES when building native shared-mime-info
 
