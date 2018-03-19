@@ -2,7 +2,7 @@
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
 	- Updated auxiliary config.guess and config.sub to '2018-02-24' version
-	- Added fribidi (version 1.0.1) to build
+	- Added fribidi (version 1.0.2) to build
 	- Updated ffmpeg to version 3.4.1
 	- Updated glib to version 2.54.3
 	- Updated gtk2 to version 2.24.32
