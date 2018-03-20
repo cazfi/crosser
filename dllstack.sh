@@ -923,7 +923,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! (is_smaller_version $VERSION_GETTEXT 0.19 ||
       patch_src         gettext    $VERSION_GETTEXT "gettext_nolibintl_inc")         ||
    ! LIBS="-liconv" build_component gettext                                          \
-     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf"    ||
+     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"                         ||
    ! build_component   pcre                                           \
      "--disable-cpp --enable-unicode-properties"                      ||
