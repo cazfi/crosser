@@ -1057,6 +1057,8 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! ( is_smaller_version $VERSION_GTK3 3.22.9 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.22.9 )            ||
    ! patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros                      ||
+   ! autogen_component gtk+   $VERSION_GTK3                           \
+        "aclocal automake"                                            ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
      "--with-included-immodules"                                      ||
