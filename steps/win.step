@@ -57,6 +57,7 @@ tango-icon-theme  TANGO_ICONS
 gnome-icon-theme  GNOME_ICONS
 gnome-icon-theme-extras GNOME_ICONE
 gnome-themes-standard GNOME_THEME_STD
+gnome-themes-extra GNOME_THEME_EXTRA
 libogg            OGG
 libvorbis         VORBIS
 libxml2           XML2

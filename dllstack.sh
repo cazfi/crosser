@@ -1033,6 +1033,7 @@ if test "x$CROSSER_GTK2" = "xno" ; then
         VERSION_GTK2=0
         VERSION_GTK_ENG=0
         VERSION_GNOME_THEME_STD=0
+        VERSION_GNOME_THEME_EXTRA=0
     fi
 else
     if test "x$CROSSER_GTK3" = "xno" ; then
@@ -1105,7 +1106,11 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! unpack_component gnome-themes-standard                           ||
    ! build_component  gnome-themes-standard                           ||
    ! free_component   gnome-themes-standard $VERSION_GNOME_THEME_STD  \
-     "gnome-themes-standard"
+     "gnome-themes-standard"                                          ||
+   ! unpack_component gnome-themes-extra                              ||
+   ! build_component  gnome-themes-extra                              ||
+   ! free_component   gnome-themes-extra $VERSION_GNOME_THEME_EXTRA   \
+     "gnome-themes-extra"
 then
   log_error "gtk+ stack build failed"
   exit 1
