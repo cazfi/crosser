@@ -1086,6 +1086,8 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
    ! unpack_component adwaita-icon-theme                              ||
    ! patch_src adwaita-icon-theme $VERSION_ADWAITA_ICON               \
      "adwaita_no_host_icon_cache"                                     ||
+   ! autogen_component adwaita-icon-theme  $VERSION_ADWAITA_ICON      \
+     "aclocal automake"                                               ||
    ! build_component  adwaita-icon-theme                              ||
    ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
      "adwaita-icon-theme"                                             ||
