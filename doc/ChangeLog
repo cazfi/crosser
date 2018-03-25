@@ -26,6 +26,7 @@
 	- Updated adwaita-icon-theme to version 3.28.0
 	- Updated vorbis to version 1.3.6
 	- Updated gnome-themes-extra to version 3.28
+	- Updated gtk-doc to version 1.28
 
 1.4.2 (14-Mar-18)
 	- Don't update icon cache on build host
