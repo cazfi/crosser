@@ -28,6 +28,7 @@
 	- Updated gnome-themes-extra to version 3.28
 	- Updated gtk-doc to version 1.28
 	- Updated icu to version 61.1
+	- Updated SDL2_gfx to version 1.0.4
 
 1.4.2 (14-Mar-18)
 	- Don't update icon cache on build host
