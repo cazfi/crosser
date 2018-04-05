@@ -787,6 +787,8 @@ if ! unpack_component     autoconf                          ||
      "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
+   ! (is_smaller_version $VERSION_GLIB 2.56.0 ||
+      patch_src glib $VERSION_GLIB glib_weekday_full )                      ||
    ! build_component_host glib                                              \
      "--disable-libmount"                                                   ||
    ! free_build           "native-glib"                                     ||
