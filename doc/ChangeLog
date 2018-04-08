@@ -30,6 +30,7 @@
 	- Updated icu to version 61.1
 	- Updated SDL2_gfx to version 1.0.4
 	- Updated pcre to version 8.42
+	- Updated gdk-pixbuf to version 2.36.12
 
 1.4.2 (14-Mar-18)
 	- Don't update icon cache on build host
