@@ -4,7 +4,7 @@
 	- Updated auxiliary config.guess and config.sub to '2018-02-24' version
 	- Added fribidi (version 1.0.2) to build
 	- Updated ffmpeg to version 3.4.2
-	- Updated glib to version 2.54.3
+	- Updated glib to version 2.56.1
 	- Updated gtk2 to version 2.24.32
 	- Updated freetype to version 2.9
 	- Updated tiff to version 4.0.9
