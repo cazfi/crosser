@@ -554,10 +554,19 @@ build_pdcurses()
     return 1
   fi
 
-  (
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR/win32"
+  if is_minimum_version $VERSION_PDCURSES 3.6
   then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR/win32"
+    SUBDIR=$SUBDIR/wincon
+    MKFILE=Makefile
+  else
+    SUBDIR=$SUBDIR/win32
+    MKFILE=mingwin32.mak
+  fi
+
+  (
+  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
+  then
+    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
     return 1
   fi
 
@@ -565,7 +574,7 @@ build_pdcurses()
   log_write 3 "  Make targets: [default]"
   log_write 4 "  Options: \"$CROSSER_COREOPTIONS\""
 
-  if ! make -f mingwin32.mak $CROSSER_COREOPTIONS \
+  if ! make -f $MKFILE $CROSSER_COREOPTIONS \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
     log_error "Make for $1 failed"
@@ -945,7 +954,10 @@ fi
 
 if test "x$CROSSER_READLINE" = "xyes" ; then
 if ! unpack_component  PDCurses                                          ||
-   ! patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin"            ||
+   ! (is_minimum_version $VERSION_PDCURSES 3.6 ||
+      patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin" )         ||
+   ! (is_smaller_version $VERSION_PDCURSES 3.6 ||
+      patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin-3.6" )     ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
    ! free_src          PDCurses $VERSION_PDCURSES                        ||
