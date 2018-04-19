@@ -401,10 +401,6 @@ if test "x$MIRROR_GNU" = "x" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
 fi
 
-if test "x$MIRROR_GCC" = "x"; then
-  MIRROR_GCC="http://gcc.cybermirror.org"
-fi
-
 if test "x$MIRROR_IM" = "x" ; then
   MIRROR_IM="http://www.imagemagick.org/download/releases"
 fi
