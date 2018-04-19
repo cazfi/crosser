@@ -127,7 +127,7 @@ CROSSER_DOWNLOAD
 
 CROSSER_CORES
  ; Hint of number of CPU cores to use when parallel execution possible.
- ; Current default is 2.
+ ; Current default is number of cores detected in the system + 1
 
 CROSSER_GROUP
  ; If set, some files crosser produces are set owned by that user group.

@@ -84,7 +84,9 @@ if test "x$CROSSER_DOWNLOAD" = "x" ; then
   CROSSER_DOWNLOAD="demand"
 fi
 if test "x$CROSSER_CORES" = "x" ; then
-  CROSSER_CORES="2"
+  declare -i CROSSER_CORES
+  CROSSER_CORES=$(cat /proc/cpuinfo | grep processor | tail -n 1 | sed 's/processor.*: //')+1
+  CROSSER_CORES=$CROSSER_CORES+1
 fi
 
 declare -i CTMP="$CROSSER_CORES"
