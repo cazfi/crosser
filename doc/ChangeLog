@@ -1,4 +1,4 @@
-1.5
+1.5 (22-apr-18)
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
 	- Updated auxiliary config.guess and config.sub to '2018-02-24' version
