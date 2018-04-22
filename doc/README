@@ -9,15 +9,15 @@ Crosser homepage is http://www.cazfi.net/crosser/
 
 ------
 
-Script scripts/download_packets.sh downloads toolchain related source packages.
+Script scripts/download_packets.sh downloads source packages.
 
 - It can be used to download single package, predefined set of packages,
   or all packages.
 - Versions to download are read from setups/<VERSIONSET>.versions, where
   default versionset is 'current'. Other sets can be selected from commandline.
   There is also an example of an custom versionset named 'custom.versions',
-  but be aware that customized versionsets are not supported functionality
-  of crosser, so proceed on your own risk.
+  but be aware that arbitrarily customized versionsets are not supported
+  functionality, so proceed on your own risk.
 - You can define mirrors to be used in file called .crosser.mirrors in your
   home directory or mirrors.conf in crosser root directory.
   There's example file suitable for Finland in mirrors-directory.
