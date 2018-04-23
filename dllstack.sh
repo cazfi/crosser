@@ -895,7 +895,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                 ||
    ! patch_src zlib $VERSION_ZLIB zlib_dllext                         ||
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
-   ! free_src          zlib       $VERSION_ZLIB                       ||
+   ! free_component    zlib       $VERSION_ZLIB "zlib"                ||
    ! unpack_component  bzip2                                          ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_unhardcodecc                ||
    ! patch_src bzip2 $VERSION_BZIP2 bzip2_incpathsep                  ||
