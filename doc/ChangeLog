@@ -1,5 +1,6 @@
 1.6
 	- Set default number of cores to use dynamically
+	- Added explanation of the licensing to the produced dllstack
 
 1.5 (22-Apr-18)
 	- Assume 2 cores by default

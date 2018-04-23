@@ -1329,6 +1329,15 @@ log_write 1 "Creating crosser.txt"
   echo "CROSSER_EXPAT=\"no\""
 ) > "$DLLSPREFIX/crosser.txt"
 
+log_write 1 "Copying license information"
+if ! mkdir -p $DLLSPREFIX/license ||
+   ! cp $CROSSER_MAINDIR/license/crosser.txt $DLLSPREFIX/license/ ||
+   ! cp $CROSSER_MAINDIR/COPYING $DLLSPREFIX/license/
+then
+  log_error "Failed to copy license information"
+  exit 1
+fi
+
 log_write 1 "Creating configuration files"
 
 if test "x$VERSION_GTK3" != "x0"

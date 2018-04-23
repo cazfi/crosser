@@ -1,0 +1,6 @@
+The crosser build script used to build dllstack and metadata is licensed
+under GNU General Public License version 2. The license text is in file
+COPYING.
+
+Components built by the crosser script are licensed under their own
+licenses.
