@@ -23,17 +23,19 @@ download_file() {
       echo "Failed to create packet subdirectory \"$DLDIR\"" >&2
       return 1
     fi
+    FLFILE="$3/$2"
   else
     DLDIR="."
+    FLFILE="$2"
   fi
 
   TIMEPART=$(date +%y%m%d%H%M)
 
   if test -f filelist.txt
   then
-    if grep ": $2\$" filelist.txt > /dev/null
+    if grep ": $FLFILE\$" filelist.txt > /dev/null
     then
-      sed "s/: .* : $2\$/: $TIMEPART : $2/" filelist.txt > filelist.tmp
+      sed "s,: .* : $FLFILE\$,: $TIMEPART : $FLFILE," filelist.txt > filelist.tmp
       mv filelist.tmp filelist.txt
       APPEND=no
     else
@@ -53,7 +55,7 @@ download_file() {
 
   if test "x$APPEND" = "xyes"
   then
-    echo "$TIMEPART : $TIMEPART : $2" >> filelist.txt
+    echo "$TIMEPART : $TIMEPART : $FLFILE" >> filelist.txt
   fi
 
   if test -f "$DLDIR/$2"

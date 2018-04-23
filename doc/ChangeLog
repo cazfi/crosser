@@ -1,3 +1,6 @@
+1.5.1
+	- Include subdir in filepath part of filelist.txt
+
 1.5 (22-apr-18)
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
