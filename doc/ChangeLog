@@ -4,6 +4,7 @@
 
 1.5.1
 	- Include subdir in filepath part of filelist.txt
+	- Fixed freeing of zlib builddir
 
 1.5 (22-Apr-18)
 	- Assume 2 cores by default
