@@ -2,7 +2,7 @@
 	- Set default number of cores to use dynamically
 	- Added explanation of the licensing to the produced dllstack
 
-1.5.1
+1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
 	- Fixed freeing of zlib builddir
 	- trim_packetdir.sh removes emptied subdirs
