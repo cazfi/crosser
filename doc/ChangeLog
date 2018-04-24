@@ -5,7 +5,7 @@
 	- trim_packetdir.sh leaves correct number of files after non-existent
 	  entries have been removed
 
-1.5 (22-apr-18)
+1.5 (22-Apr-18)
 	- Assume 2 cores by default
 	- Renamed 'stable' versionset as 'mature'
 	- Updated auxiliary config.guess and config.sub to '2018-02-24' version
