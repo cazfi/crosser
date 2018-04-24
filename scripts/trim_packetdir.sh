@@ -2,7 +2,7 @@
 
 # trim_packetdir.sh: Delete old source packets
 #
-# (c) 2009-2015 Marko Lindqvist
+# (c) 2009-2018 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -70,6 +70,10 @@ declare -i FILECOUNT=$(wc -l "$1/filelist.txt" | sed 's/ .*//')
   do
     if test $FILECOUNT -gt $FILELIMIT ; then
       rm "$1/$F5"
+      DNAME=$(dirname $F5)
+      if test "x$DNAME" != "x." ; then
+        rmdir $DNAME >/dev/null 2>/dev/null
+      fi
       FILECOUNT=$FILECOUNT-1
     else
       echo $F1 $F2 $F3 $F4 $F5
