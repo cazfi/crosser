@@ -1,6 +1,7 @@
 1.5.1
 	- Include subdir in filepath part of filelist.txt
 	- Fixed freeing of zlib builddir
+	- trim_packetdir.sh removes emptied subdirs
 
 1.5 (22-apr-18)
 	- Assume 2 cores by default
