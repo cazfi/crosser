@@ -2,6 +2,8 @@
 	- Include subdir in filepath part of filelist.txt
 	- Fixed freeing of zlib builddir
 	- trim_packetdir.sh removes emptied subdirs
+	- trim_packetdir.sh leaves correct number of files after non-existent
+	  entries have been removed
 
 1.5 (22-apr-18)
 	- Assume 2 cores by default
