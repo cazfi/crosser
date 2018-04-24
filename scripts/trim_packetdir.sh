@@ -64,7 +64,7 @@ fi
   done
 ) > "$1/filelist.tmp"
 
-declare -i FILECOUNT=$(wc -l "$1/filelist.txt" | sed 's/ .*//')
+declare -i FILECOUNT=$(wc -l "$1/filelist.tmp" | sed 's/ .*//')
 
 ( sort -k 3 "$1/filelist.tmp" | while read F1 F2 F3 F4 F5
   do
