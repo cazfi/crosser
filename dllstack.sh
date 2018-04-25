@@ -707,11 +707,13 @@ log_write 1 "Creating meson cross file"
   TARGET_AR=$(which $CROSSER_TARGET-ar)
   TARGET_STRIP=$(which $CROSSER_TARGET-strip)
   TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
+  TARGET_WINDRES=$(which $CROSSER_TARGET-windres)
 
-  if test "x$TARGET_GCC" = "x" ||
-     test "x$TARGET_GPP" = "x" ||
-     test "x$TARGET_AR" = "x"  ||
-     test "x$TARGET_STRIP" = "x"
+  if test "x$TARGET_GCC" = "x"   ||
+     test "x$TARGET_GPP" = "x"   ||
+     test "x$TARGET_AR" = "x"    ||
+     test "x$TARGET_STRIP" = "x" ||
+     test "x$TARGET_WINDRES" = "x"
   then
     log_error "Cross-tools missing"
     exit 1
@@ -721,6 +723,7 @@ log_write 1 "Creating meson cross file"
            -e "s,<TARGET_AR>,$TARGET_AR,g" \
            -e "s,<TARGET_STRIP>,$TARGET_STRIP,g" \
            -e "s,<TARGET_PKGCONFIG>,$TARGET_PKGCONFIG,g" \
+           -e "s,<TARGET_WINDRES>,$TARGET_WINDRES,g" \
            $CROSSER_MAINDIR/scripts/$MESON_CROSS_FILE \
            > $DLLSPREFIX/etc/meson_cross_file.txt
   then

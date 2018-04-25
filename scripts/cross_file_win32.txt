@@ -4,6 +4,7 @@ cpp = '<TARGET_GPP>'
 ar = '<TARGET_AR>'
 strip = '<TARGET_STRIP>'
 pkgconfig = '<TARGET_PKGCONFIG>'
+windres = '<TARGET_WINDRES>'
 
 [host_machine]
 system = 'windows'
