@@ -1034,7 +1034,10 @@ if ! build_component   tiff                                                 ||
    ! build_component   pango                                                ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
-   ! build_component   atk                                                  ||
+   ! (is_minimum_version $VERSION_ATK 2.29.1 ||
+      build_component   atk )                                               ||
+   ! (is_smaller_version $VERSION_ATK 2.29.1 ||
+      build_with_meson atk atk )                                            ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
   log_error "Build failed"
