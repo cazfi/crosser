@@ -2,6 +2,7 @@
 	- Set default number of cores to use dynamically
 	- Added explanation of the licensing to the produced dllstack
 	- Updated xz to version 5.2.4
+	- Updated curl to version 7.60.0
 
 1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
