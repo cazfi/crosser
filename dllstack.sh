@@ -1076,7 +1076,7 @@ if ! build_component  gdk-pixbuf "--enable-relocations"               ||
         "aclocal automake"                                            ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
-     "--with-included-immodules"                                      ||
+     "--with-included-immodules --disable-cups"                       ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
@@ -1161,7 +1161,7 @@ if ! unpack_component  graphene                                         ||
       patch_src gtk+ $VERSION_GTK4 "gtk4_demoless" )                  ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
       build_component   gtk4                                          \
-      "--with-included-immodules" )                                   ||
+      "--with-included-immodules --disable-cups" )                    ||
    ! (is_smaller_version $VERSION_GTK4 3.92.0 ||
       build_with_meson gtk4 gtk4 \
       "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all" ) ||
