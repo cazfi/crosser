@@ -1,6 +1,6 @@
-diff -Nurd graphene-1.5.4/configure graphene-1.5.4/configure
---- graphene-1.5.4/configure	2017-01-10 14:49:31.000000000 +0200
-+++ graphene-1.5.4/configure	2017-01-17 21:42:24.125841719 +0200
+diff -Nurd graphene-1.6.2/configure graphene-1.6.2/configure
+--- graphene-1.6.2/configure	2018-08-13 22:11:40.991881364 +0300
++++ graphene-1.6.2/configure	2018-08-13 22:11:54.151805497 +0300
 @@ -16972,7 +16972,7 @@
  fi
  
@@ -10,15 +10,16 @@ diff -Nurd graphene-1.5.4/configure graphene-1.5.4/configure
  do :
    as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
  ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
-diff -Nurd graphene-1.5.4/configure.ac graphene-1.5.4/configure.ac
---- graphene-1.5.4/configure.ac	2017-01-10 14:49:27.000000000 +0200
-+++ graphene-1.5.4/configure.ac	2017-01-17 21:43:31.670379010 +0200
-@@ -126,7 +126,7 @@
- AM_CONDITIONAL(OS_LINUX, [test "$platform_linux" = "yes"])
- AM_CONDITIONAL(OS_WIN32, [test "$platform_win32" = "yes"])
+diff -Nurd graphene-1.6.2/src/config.h.in graphene-1.6.2/src/config.h.in
+--- graphene-1.6.2/src/config.h.in	2018-02-23 01:00:46.000000000 +0200
++++ graphene-1.6.2/src/config.h.in	2018-08-13 22:12:30.827594404 +0300
+@@ -3,6 +3,9 @@
+ /* Define to 1 if you have the `aligned_alloc' function. */
+ #undef HAVE_ALIGNED_ALLOC
  
--AC_CHECK_FUNCS([aligned_alloc posix_memalign memalign])
-+AC_CHECK_FUNCS([aligned_alloc posix_memalign memalign _aligned_malloc])
++/* Define to 1 if you have the `_aligned_malloc' function. */
++#undef HAVE__ALIGNED_MALLOC
++
+ /* Define to 1 if you have the <dlfcn.h> header file. */
+ #undef HAVE_DLFCN_H
  
- saved_LIBS="$LIBS"
- LIBS=$LIBM
