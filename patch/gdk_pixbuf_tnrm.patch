@@ -1,6 +1,6 @@
-diff -Nurd gdk-pixbuf-2.36.11/configure gdk-pixbuf-2.36.11/configure
---- gdk-pixbuf-2.36.11/configure	2017-10-02 18:32:14.000000000 +0300
-+++ gdk-pixbuf-2.36.11/configure	2017-10-04 06:21:40.405354398 +0300
+diff -Nurd gdk-pixbuf-2.36.12/configure gdk-pixbuf-2.36.12/configure
+--- gdk-pixbuf-2.36.12/configure	2018-04-07 21:42:22.000000000 +0300
++++ gdk-pixbuf-2.36.12/configure	2018-08-13 18:33:44.192733270 +0300
 @@ -20776,7 +20776,7 @@
  # Output commands
  ##################################################
@@ -10,23 +10,15 @@ diff -Nurd gdk-pixbuf-2.36.11/configure gdk-pixbuf-2.36.11/configure
  
  
  cat >confcache <<\_ACEOF
-diff -Nurd gdk-pixbuf-2.36.11/configure.ac gdk-pixbuf-2.36.11/configure.ac
---- gdk-pixbuf-2.36.11/configure.ac	2017-10-02 18:29:22.000000000 +0300
-+++ gdk-pixbuf-2.36.11/configure.ac	2017-10-04 06:20:39.973904088 +0300
-@@ -1010,7 +1010,6 @@
- docs/reference/gdk-pixbuf/version.xml
- po/Makefile.in
- tests/Makefile
--thumbnailer/Makefile
- contrib/Makefile
- contrib/gdk-pixbuf-xlib/Makefile
- contrib/gdk-pixbuf-xlib/gdk-pixbuf-xlib-2.0.pc
-diff -Nurd gdk-pixbuf-2.36.11/Makefile.am gdk-pixbuf-2.36.11/Makefile.am
---- gdk-pixbuf-2.36.11/Makefile.am	2017-08-07 19:52:44.000000000 +0300
-+++ gdk-pixbuf-2.36.11/Makefile.am	2017-10-04 06:20:39.973904088 +0300
-@@ -1,4 +1,4 @@
+diff -Nurd gdk-pixbuf-2.36.12/Makefile.in gdk-pixbuf-2.36.12/Makefile.in
+--- gdk-pixbuf-2.36.12/Makefile.in	2018-04-07 21:42:24.000000000 +0300
++++ gdk-pixbuf-2.36.12/Makefile.in	2018-08-13 18:34:02.496626833 +0300
+@@ -450,7 +450,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
 -SUBDIRS = gdk-pixbuf po docs thumbnailer tests contrib win32
 +SUBDIRS = gdk-pixbuf po docs tests contrib win32
- 
  meson_files = \
  	meson.build \
+ 	meson_options.txt \
