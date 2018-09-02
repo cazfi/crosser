@@ -838,6 +838,7 @@ if ! unpack_component     autoconf                          ||
       is_minimum_version $VERSION_ICU 60.1 ||
       patch_src icu $VERSION_ICU icu_locale )                               ||
    ! (is_smaller_version $VERSION_ICU 60.1 ||
+      is_minimum_version $VERSION_ICU 62.1 ||
       patch_src icu $VERSION_ICU icu_locale_60 )                            ||
    ! (is_smaller_version $VERSION_ICU 59.1 ||
       is_minimum_version $VERSION_ICU 60.1 ||
