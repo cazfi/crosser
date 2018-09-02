@@ -8,6 +8,7 @@
 	- Updated ImageMagick to version 7.0.7-39
 	- Updated icu to version 62.1
 	- Updated libpng to version 1.6.35
+	- Updated shared-mime-info to version 1.10
 
 1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
