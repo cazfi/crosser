@@ -879,11 +879,12 @@ if ! unpack_component     autoconf                          ||
    ! (( is_minimum_version $VERSION_IMAGEMAGICK 7.0.0 &&
         ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.2 ||
           patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not_7" ) &&
-        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin_7" ) ||
+        ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.7 ||
+          patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin_7" )) ||
       ( patch_src ImageMagick $VERSION_IMAGEMAGICK "im_nobin" &&
         patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fchmod_avoid" &&
         patch_src ImageMagick $VERSION_IMAGEMAGICK "im_intsafe_not" ))      ||
-   ! build_component_host ImageMagick                                       ||
+   ! build_component_host ImageMagick "--without-utilities"                 ||
    ! free_build           "native-ImageMagick"
 then
   log_error "Native build failed"
@@ -936,7 +937,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
       (patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment" &&
        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2" ))                   ||
    ! build_component   ImageMagick                                                   \
-     "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp" ||
+     "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
    ! build_component   libpng                                                        ||
    ! free_component    libpng     $VERSION_PNG "libpng"                              ||
