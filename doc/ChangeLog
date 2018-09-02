@@ -4,7 +4,7 @@
 	- Updated xz to version 5.2.4
 	- Updated curl to version 7.60.0
 	- Updated fribidi to version 1.0.3
-	- Updated pango to version 1.42.3
+	- Updated pango to version 1.42.4
 
 1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
