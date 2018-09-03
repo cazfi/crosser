@@ -12,6 +12,7 @@
 	- Updated sqlite to version 3.24.0
 	- Updated fontconfig to version 2.13.1
 	- Updated harfbuzz to version 1.8.8
+	- Updated libxkbcommon to version 0.8.2
 
 1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
