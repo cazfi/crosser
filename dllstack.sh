@@ -1022,6 +1022,8 @@ if ! build_component   tiff                                                 ||
    ! unpack_component  fontconfig                                           ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
+   ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.0 ||
+       patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_disable_test) ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
