@@ -14,6 +14,7 @@
 	- Updated harfbuzz to version 1.8.8
 	- Updated libxkbcommon to version 0.8.2
 	- Updated pkgconf to version 1.5.3
+	- Updated adwaita-icon-theme to version 3.30.0
 
 1.5.1 (24-Apr-18)
 	- Include subdir in filepath part of filelist.txt
