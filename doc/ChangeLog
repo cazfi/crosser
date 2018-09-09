@@ -1,5 +1,6 @@
 1.6
 	- Set default number of cores to use dynamically
+	- Dropped bzip2 from build
 	- Added explanation of the licensing to the produced dllstack
 	- Updated xz to version 5.2.4
 	- Updated curl to version 7.61.0

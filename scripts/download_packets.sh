@@ -415,7 +415,6 @@ if test "x$VERSION_SELECTED" != "x"
 then
   case $DOWNLOAD_PACKET in
     zlib)        VERSION_ZLIB=$VERSION_SELECTED ;;
-    bzip2)       VERSION_BZIP2=$VERSION_SELECTED ;;
     glib)        VERSION_GLIB=$VERSION_SELECTED ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
     graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
@@ -575,8 +574,6 @@ RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre/$VERSION_PCRE/" "pcre" "$VERSION_PCRE" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre2/$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2"
-RET="$RET $?"
-download_needed "http://www.bzip.org/$VERSION_BZIP2/"   "bzip2"      "$VERSION_BZIP2"      "tar.gz"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
 RET="$RET $?"

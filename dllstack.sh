@@ -466,7 +466,7 @@ build_zlib()
   return $RET
 }
 
-# Build bzip2/win-iconv
+# Build win-iconv
 #
 # $1 - Package name
 # $2 - Version
@@ -504,11 +504,7 @@ build_simple_make()
   export LDFLAGS="-L$DLLSPREFIX/lib"
 
   log_write 1 "Building $1"
-  if test "x$1" = "xbzip2"
-  then
-      MKTARGETS="libbz2.a bzip2 bzip2recover"
-      MAKEOPTIONS="$CROSSER_COREOPTIONS"
-  elif test "x$1" = "xwin-iconv"
+  if test "x$1" = "xwin-iconv"
   then
       MKTARGETS="all"
       MAKEOPTIONS=""
@@ -910,12 +906,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src zlib $VERSION_ZLIB zlib_dllext                         ||
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
    ! free_component    zlib       $VERSION_ZLIB "zlib"                ||
-   ! unpack_component  bzip2                                          ||
-   ! patch_src bzip2 $VERSION_BZIP2 bzip2_unhardcodecc                ||
-   ! patch_src bzip2 $VERSION_BZIP2 bzip2_incpathsep                  ||
-   ! patch_src bzip2 $VERSION_BZIP2 bzip2_winapi                      ||
-   ! build_simple_make bzip2      $VERSION_BZIP2                      ||
-   ! free_src          bzip2      $VERSION_BZIP2                      ||
    ! unpack_component  xz                                             ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
    ! free_component    xz         $VERSION_XZ "xz"                    ||
