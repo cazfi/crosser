@@ -1,3 +1,5 @@
+1.7
+
 1.6
 	- Set default number of cores to use dynamically
 	- Dropped bzip2 from build
