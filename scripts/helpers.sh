@@ -23,7 +23,7 @@ CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
 CROSSER_FEATURE_LEVEL=$(echo $CROSSER_VERSION | sed 's/\./ /g' |
                             (read CR_MAJOR CR_MINOR CR_PATCH CR_REST
                              declare -i REAL_MINOR=$CR_MINOR
-                             if test "$CR_PATCH" -ge 50 ; then
+                             if test "x$CR_PATCH" != "x" && test "$CR_PATCH" -ge 50 ; then
                                  REAL_MINOR=$REAL_MINOR+1
                              fi
                              echo "$CR_MAJOR.$REAL_MINOR"))
