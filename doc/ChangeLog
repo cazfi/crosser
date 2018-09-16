@@ -1,4 +1,4 @@
-1.6
+1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
 	- Dropped bzip2 from build
 	- Added explanation of the licensing to the produced dllstack
