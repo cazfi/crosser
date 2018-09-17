@@ -876,10 +876,12 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_full native-shared-mime-info shared-mime-info          \
      "" "native" "" "no"                                                    ||
    ! free_build           "native-shared-mime-info"                         ||
-   ! unpack_component gdk-pixbuf                                            ||
-   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.36.5 ||
-      patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm )            ||
-   ! build_component_host gdk-pixbuf                                        ||
+   ! unpack_component     gdk-pixbuf                                        ||
+   ! (is_smaller_version  $VERSION_GDK_PIXBUF 2.38.0 ||
+      build_with_meson_host gdk-pixbuf "-D x11=false" )                     ||
+   ! (is_minimum_version  $VERSION_GDK_PIXBUF 2.38.0 ||
+       ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm &&
+         build_component_host gdk-pixbuf ))                                 ||
    ! free_build           "native-gdk-pixbuf"                               ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
@@ -1084,7 +1086,10 @@ else
 fi
 
 if test "x$CROSSER_GTK" != "xno" ; then
-if ! build_component  gdk-pixbuf "--enable-relocations"               ||
+if ! (is_smaller_version $VERSION_GDK_PIXBUF 2.38.0 ||
+      build_with_meson gdk-pixbuf "-D relocatable=true" )             ||
+   ! (is_minimum_version $VERSION_GDK_PIXBUF 2.38.0 ||
+      build_component  gdk-pixbuf "--enable-relocations" )            ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
    ! unpack_component gtk2                                            ||
    ! build_component  gtk2                                            \
