@@ -806,8 +806,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "--enable-unicode-properties"                                          ||
    ! free_build           "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
-   ! build_component_host glib                                              \
-     "--disable-libmount"                                                   ||
+   ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
+      build_component_host glib "--disable-libmount" )                      ||
+   ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
+      build_with_meson glib glib "" native )                                ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
@@ -948,7 +950,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
-   ! build_component   glib       "$GLIB_VARS --with-threads=win32"   ||
+   ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
+      build_component  glib "$GLIB_VARS --with-threads=win32" )   ||
+   ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
+      build_with_meson glib glib )                                    ||
    ! free_component    glib       $VERSION_GLIB    "glib"             ||
    ! unpack_component  fribidi                                        ||
    ! build_component   fribidi    "--disable-docs"                    ||
