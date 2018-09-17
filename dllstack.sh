@@ -192,7 +192,7 @@ build_component_full()
   else
     DISPLAY_NAME="$2"
     BUILDDIR="$CROSSER_SRCDIR/$SUBDIR"
-    SRCDIR="."  
+    SRCDIR="."
   fi
 
   (
@@ -203,16 +203,19 @@ build_component_full()
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
     unset CPPFLAGS
     unset LDFLAGS
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   elif test "x$4" = "xcross"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     unset LDFLAGS
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   elif test "x$4" = "xpkg-config"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   elif test "x$4" = "xcustom"
   then
     CONFOPTIONS="--prefix=${DLLSPREFIX} $3"
@@ -626,6 +629,7 @@ build_pdcurses()
 cd $(dirname $0)
 
 CROSSER_BUILD_ARCH="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
+CROSSER_PKG_ARCH="$(echo $CROSSER_BUILD_ARCH | sed 's/-pc//')"
 
 if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
   log_error "Can't find setup \"$CROSSER_SETUP.conf\""
