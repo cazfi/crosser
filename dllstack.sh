@@ -788,7 +788,7 @@ IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
+export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "$CROSSER_SRCDIR/meson-$VERSION_MESON" "$NATIVE_PREFIX"       ||
