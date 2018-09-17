@@ -287,11 +287,25 @@ build_component_full()
   return $RET
 }
 
+# $1 - Component
+# $2 - Extra meson options
+build_with_meson()
+{
+  build_with_meson_full "$1" "$1" "$2"
+}
+
+# $1 - Component
+# $2 - Extra meson options
+build_with_meson_host()
+{
+  build_with_meson_full "$1" "$1" "$2" "native"
+}
+
 # $1 - Build dir
 # $2 - Component
 # $3 - Extra meson options
 # [$4] - Build type ('native' | 'cross')
-build_with_meson()
+build_with_meson_full()
 {
   log_packet "$2"
 
@@ -809,7 +823,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
       build_component_host glib "--disable-libmount" )                      ||
    ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
-      build_with_meson glib glib "" native )                                ||
+      build_with_meson_host glib )                                          ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
@@ -953,7 +967,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
       build_component  glib "$GLIB_VARS --with-threads=win32" )   ||
    ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
-      build_with_meson glib glib )                                    ||
+      build_with_meson glib )                                         ||
    ! free_component    glib       $VERSION_GLIB    "glib"             ||
    ! unpack_component  fribidi                                        ||
    ! build_component   fribidi    "--disable-docs"                    ||
@@ -1047,7 +1061,7 @@ if ! build_component   tiff                                                 ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
       build_component   atk )                                               ||
    ! (is_smaller_version $VERSION_ATK 2.29.1 ||
-      build_with_meson atk atk )                                            ||
+      build_with_meson atk )                                                ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
   log_error "Build failed"
@@ -1155,8 +1169,7 @@ if ! unpack_component  graphene                                         ||
    ! ( is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
        build_component   graphene )                                     ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.8.0 ||
-       build_with_meson graphene graphene \
-       "-D introspection=false" )                                       ||
+       build_with_meson graphene "-D introspection=false" )             ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
@@ -1173,7 +1186,7 @@ if ! unpack_component  graphene                                         ||
       build_component   gtk4                                          \
       "--with-included-immodules --disable-cups" )                    ||
    ! (is_smaller_version $VERSION_GTK4 3.92.0 ||
-      build_with_meson gtk4 gtk4 \
+      build_with_meson gtk4 \
       "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all" ) ||
    ! free_component    gtk+       $VERSION_GTK4 "gtk4"
 then
