@@ -299,7 +299,7 @@ build_with_meson()
 
   if test "x$BVER" = "x"
   then
-    log_error "Version for $2 not definer"
+    log_error "Version for $2 not defined"
     return 1
   fi
 
