@@ -693,6 +693,8 @@ download_needed "http://download.icu-project.org/files/icu4c/$VERSION_ICU/" "icu
 RET="$RET $?"
 download_needed "http://download.qt-project.org/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-src" "$VERSION_QT" "tar.xz"
 RET="$RET $?"
+download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"
+RET="$RET $?"
 
 for VALUE in $RET
 do

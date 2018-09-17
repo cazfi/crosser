@@ -9,6 +9,7 @@ automake          AUTOMAKE
 libtool           LIBTOOL
 pkg-config        PKG_CONFIG
 pkgconf           PKGCONF
+meson             MESON
 icon-naming-utils ICON_NUTILS
 libiconv          ICONV
 win-iconv         WIN_ICONV

@@ -1,4 +1,5 @@
 1.7
+	- Added meson (0.47.2) to native build
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically

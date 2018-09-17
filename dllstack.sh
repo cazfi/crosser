@@ -343,13 +343,13 @@ build_with_meson()
 
   if test "x$4" = "xnative"
   then
-    if ! meson $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
+    if ! meson.py $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
       log_error "Meson for $DISPLAY_NAME failed"
       return 1
     fi
-  elif ! meson $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
+  elif ! meson.py $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
        --prefix=$DLLSPREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
@@ -696,7 +696,7 @@ then
   exit 1
 fi
 
-export PATH="$NATIVE_PREFIX/bin:$PATH"
+export PATH="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/meson-$VERSION_MESON:$PATH"
 
 if ! packetdir_check
 then
@@ -770,7 +770,9 @@ ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib"
 
-if ! unpack_component     autoconf                          ||
+if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
+   ! cp -R "$CROSSER_SRCDIR/meson-$VERSION_MESON" "$NATIVE_PREFIX"       ||
+   ! unpack_component     autoconf                          ||
    ! build_component_host autoconf                          ||
    ! free_component       autoconf   $VERSION_AUTOCONF "native-autoconf" ||
    ! unpack_component     automake                          ||
