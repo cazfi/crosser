@@ -349,8 +349,10 @@ build_with_meson_full()
   (
   cd "$BUILDDIR"
 
-  export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-  export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+  if test "x$4" != "xnative" ; then
+    export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+  fi
 
   log_write 1 "Running meson for $DISPLAY_NAME"
   log_write 3 "  Options: $3"
