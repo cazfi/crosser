@@ -825,7 +825,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
       build_component_host glib "--disable-libmount" )                      ||
    ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
-      build_with_meson_host glib )                                          ||
+      build_with_meson_host glib "-D libmount=false -D selinux=false" )     ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
