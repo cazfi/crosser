@@ -237,6 +237,7 @@ build_component_full()
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$CROSSER_TARGET-gcc -static-libgcc"
     export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
+    export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   fi
 
   if test -x "$SRCDIR/configure"
