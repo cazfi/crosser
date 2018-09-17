@@ -1,5 +1,6 @@
 1.7
 	- Added meson (0.47.2) to native build
+	- Updated curl to version 7.61.1
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
