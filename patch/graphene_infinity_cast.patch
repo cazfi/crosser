@@ -1,0 +1,20 @@
+diff -Nurd graphene-1.8.2/src/graphene-ray.c graphene-1.8.2/src/graphene-ray.c
+--- graphene-1.8.2/src/graphene-ray.c	2018-06-13 19:51:25.000000000 +0300
++++ graphene-1.8.2/src/graphene-ray.c	2018-09-18 09:55:14.509677216 +0300
+@@ -282,14 +282,14 @@
+       if (fabsf (graphene_plane_distance (p, &tmp)) < GRAPHENE_FLOAT_EPSILON)
+         return 0.f;
+ 
+-      return INFINITY;
++      return (float)INFINITY;
+     }
+ 
+   t = -1.f * (graphene_vec3_dot (&r->origin, &p->normal) + p->constant) / denom;
+   if (t >= 0.f)
+     return t;
+ 
+-  return INFINITY;
++  return (float)INFINITY;
+ }
+ 
+ static bool

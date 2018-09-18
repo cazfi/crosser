@@ -1181,6 +1181,8 @@ if ! unpack_component  graphene                                         ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
        is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
        patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)    ||
+   ! ( is_smaller_version $VERSION_GRAPHENE 1.8.0 ||
+       patch_src graphene $VERSION_GRAPHENE "graphene_infinity_cast" )  ||
    ! ( is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
        build_component   graphene )                                     ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.8.0 ||
