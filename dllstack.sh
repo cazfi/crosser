@@ -353,9 +353,12 @@ build_with_meson_full()
   (
   cd "$BUILDDIR"
 
-  if test "x$4" != "xnative" ; then
+  if test "x$4" = "xnative" ; then
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+  else
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+    export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   fi
 
   log_write 1 "Running meson for $DISPLAY_NAME"
