@@ -4,6 +4,7 @@
 	- Updated sqlite to version 3.25.0
 	- Updated atk to version 2.30.0
 	- Updated graphene to version 1.8.2
+	- Updated gtk3 to version 3.24.1
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
