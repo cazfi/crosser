@@ -1,0 +1,15 @@
+diff -Nurd graphene-1.8.2/meson.build graphene-1.8.2/meson.build
+--- graphene-1.8.2/meson.build	2018-06-13 19:51:25.000000000 +0300
++++ graphene-1.8.2/meson.build	2018-10-10 00:21:23.440299963 +0300
+@@ -145,11 +145,6 @@
+   )
+ endforeach
+ 
+-conf.set('HAVE_PTHREAD_H',
+-  cc.has_header('pthread.h', dependencies: threadlib),
+-  description: 'Define if pthread.h is available',
+-)
+-
+ # Functions
+ if cc.has_function('memalign', prefix: '#include <stdlib.h>\n#include <malloc.h>')
+   conf.set10('HAVE_MEMALIGN', 1, description: 'Define if memalign() is available')
