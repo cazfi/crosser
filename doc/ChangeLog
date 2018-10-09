@@ -9,6 +9,7 @@
 	- Updated SDL2_image to version 2.0.3
 	- Updated SDL2_mixer to version 2.0.2
 	- Updated pcre2 to version 10.32
+	- Updated harfbuzz to version 1.9.0
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
