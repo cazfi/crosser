@@ -761,6 +761,15 @@ log_write 1 "Creating meson cross file"
   fi
 )
 
+log_write 1 "Setting up fixed environment"
+
+if ! mkdir -p "$DLLSPREFIX/lib/$CROSSER_PKG_ARCH" ||
+   ! ln -s ../pkgconfig "$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/"
+then
+  log_error "Failed to set up fixed environment"
+  exit 1
+fi
+
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
     if test "x$CROSSER_SDL" = "xyes" ; then
