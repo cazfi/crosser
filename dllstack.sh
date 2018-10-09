@@ -1186,7 +1186,8 @@ if ! unpack_component  graphene                                         ||
    ! ( is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
        build_component   graphene )                                     ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.8.0 ||
-       build_with_meson graphene "-D introspection=false" )             ||
+       ( patch_src graphene $VERSION_GRAPHENE "graphene_nopthread" &&
+         build_with_meson graphene "-D introspection=false" ))          ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
