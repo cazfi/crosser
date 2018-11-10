@@ -7,7 +7,7 @@
 	- Updated gtk3 to version 3.24.1
 	- Updated SDL2 toversion 2.0.8
 	- Updated SDL2_image to version 2.0.3
-	- Updated SDL2_mixer to version 2.0.2
+	- Updated SDL2_mixer to version 2.0.4
 	- Updated pcre2 to version 10.32
 	- Updated harfbuzz to version 1.9.0
 	- Updated qt to version 5.11.2
