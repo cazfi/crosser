@@ -1,6 +1,6 @@
 # mature.versions: Package versions
 #
-# (c) 2009-2018 Marko Lindqvist
+# (c) 2009-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -33,7 +33,7 @@ VERSION_READLINE=6.3
 PATCHES_READLINE=8
 VERSION_PCRE=8.41
 VERSION_PCRE2=10.31
-VERSION_GLIB=2.54.3
+VERSION_GLIB=2.56.4
 VERSION_FRIBIDI=1.0.5
 VERSION_GTK_DOC=1.26
 VERSION_GOBJ_INTRO=1.54.1
