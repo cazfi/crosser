@@ -18,6 +18,7 @@
 	- Updated libxml2 to version 2.9.9
 	- Updated jansson to version 2.12
 	- Updated pixman to version 0.36.0
+	- Updated cairo to version 1.16.0
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
