@@ -15,6 +15,7 @@
 	- Updated glib to version 2.56.4
 	- Updated libpng to version 1.6.36
 	- Updated tiff to version 4.0.10
+	- Updated libxml2 to version 2.9.9
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
