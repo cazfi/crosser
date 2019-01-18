@@ -1,6 +1,6 @@
 1.7
 	- Added meson (0.48.0) to native build
-	- Updated curl to version 7.61.1
+	- Updated curl to version 7.63.0
 	- Updated sqlite to version 3.25.2
 	- Updated atk to version 2.30.0
 	- Updated graphene to version 1.8.2
