@@ -9,7 +9,7 @@
 	- Updated SDL2_image to version 2.0.4
 	- Updated SDL2_mixer to version 2.0.4
 	- Updated pcre2 to version 10.32
-	- Updated harfbuzz to version 1.9.0
+	- Updated harfbuzz to version 2.3.0
 	- Updated qt to version 5.11.2
 	- Updated adwaita-icon-theme to version 3.30.1
 	- Updated glib to version 2.56.4
