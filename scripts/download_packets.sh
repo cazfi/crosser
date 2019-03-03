@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2018 Marko Lindqvist
+# (c) 2008-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -483,7 +483,10 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 
-if is_minimum_version $VERSION_SQLITE 3.22.0
+if is_minimum_version $VERSION_SQLITE 3.27.0
+then
+  SQL_SUBDIR="2019/"
+elif is_minimum_version $VERSION_SQLITE 3.22.0
 then
   SQL_SUBDIR="2018/"
 elif is_minimum_version $VERSION_SQLITE 3.16.0
