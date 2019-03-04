@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2018 Marko Lindqvist
+# (c) 2008-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1097,7 +1097,8 @@ fi
 
 if test "x$CROSSER_GTK" != "xno" ; then
 if ! (is_smaller_version $VERSION_GDK_PIXBUF 2.38.0 ||
-      build_with_meson gdk-pixbuf "-D relocatable=true" )             ||
+      build_with_meson gdk-pixbuf \
+        "-D relocatable=true -D x11=false -D gir=false" )             ||
    ! (is_minimum_version $VERSION_GDK_PIXBUF 2.38.0 ||
       build_component  gdk-pixbuf "--enable-relocations" )            ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
