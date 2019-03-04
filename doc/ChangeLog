@@ -22,6 +22,7 @@
 	- Updated pkgconf to version 1.6.0
 	- Updated libxkbcommon to version 0.8.4
 	- Updated SDL2_ttf to version 2.0.15
+	- Updated freetype to version 2.9.1
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
