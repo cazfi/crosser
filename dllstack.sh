@@ -1121,9 +1121,6 @@ if ! (is_smaller_version $VERSION_GDK_PIXBUF 2.38.0 ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
    ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
-   ! unpack_component librsvg                                         ||
-   ! build_component  librsvg     "--disable-introspection"           ||
-   ! free_component   librsvg     $VERSION_RSVG    "librsvg"          ||
    ! unpack_component gtk-engines                                     ||
    ! build_component  gtk-engines                                     ||
    ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
