@@ -1,6 +1,9 @@
+1.8
+	- Dropped librsvg from build
+	- Updated gdk-pixbuf to version 2.38.1
+
 1.7
 	- Added meson (0.49.2) to native build
-	- Dropped librsvg from build
 	- Dropped native build of gdk-pixbuf
 	- Updated curl to version 7.64.0
 	- Updated sqlite to version 3.27.2
@@ -25,7 +28,6 @@
 	- Updated libxkbcommon to version 0.8.4
 	- Updated SDL2_ttf to version 2.0.15
 	- Updated freetype to version 2.9.1
-	- Updated gdk-pixbuf to version 2.38.1
 
 1.6 (16-Sep-18)
 	- Set default number of cores to use dynamically
