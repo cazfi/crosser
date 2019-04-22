@@ -2,7 +2,7 @@
 	- Dropped librsvg from build
 	- Dropped native build of gdk-pixbuf
 	- Updated gdk-pixbuf to version 2.38.1
-	- Updated meson to version 0.50.0
+	- Updated meson to version 0.50.1
 	- Updated adwaita-icon-theme to version 3.32.0
 	- Updated atk to version 2.32.0
 	- Updated gtk3 to version 3.24.8
