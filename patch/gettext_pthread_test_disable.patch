@@ -1,0 +1,198 @@
+diff -Nurd gettext-0.20.1/gettext-tools/configure gettext-0.20.1/gettext-tools/configure
+--- gettext-0.20.1/gettext-tools/configure	2019-05-12 18:09:13.000000000 +0300
++++ gettext-0.20.1/gettext-tools/configure	2019-05-18 20:05:03.751183996 +0300
+@@ -61597,7 +61597,7 @@
+ 
+ 
+ 
+-  gltests_LIBOBJS="$gltests_LIBOBJS pthread_sigmask.$ac_objext"
++  gltests_LIBOBJS="$gltests_LIBOBJS"
+ 
+ 
+   if test $HAVE_PTHREAD_SIGMASK = 1; then
+diff -Nurd gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.gnulib gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.gnulib
+--- gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.gnulib	2019-05-18 19:57:23.457468735 +0300
++++ gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.gnulib	2019-05-18 19:57:10.833538463 +0300
+@@ -1308,19 +1308,11 @@
+ ## begin gnulib module pthread_sigmask
+ 
+ 
+-EXTRA_DIST += pthread_sigmask.c
+-
+-EXTRA_libtests_a_SOURCES += pthread_sigmask.c
+ 
+ ## end   gnulib module pthread_sigmask
+ 
+ ## begin gnulib module pthread_sigmask-tests
+ 
+-TESTS += test-pthread_sigmask1 test-pthread_sigmask2
+-check_PROGRAMS += test-pthread_sigmask1 test-pthread_sigmask2
+-test_pthread_sigmask1_LDADD = $(LDADD) @LIB_PTHREAD_SIGMASK@
+-test_pthread_sigmask2_LDADD = $(LDADD) @LIB_PTHREAD_SIGMASK@ @LIBMULTITHREAD@
+-EXTRA_DIST += test-pthread_sigmask1.c test-pthread_sigmask2.c signature.h macros.h
+ 
+ ## end   gnulib module pthread_sigmask-tests
+ 
+diff -Nurd gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.in gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.in
+--- gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.in	2019-05-18 19:57:23.461468713 +0300
++++ gettext-0.20.1/gettext-tools/gnulib-tests/Makefile.in	2019-05-18 19:57:10.793538684 +0300
+@@ -166,8 +166,8 @@
+ 	test-posix_spawn_file_actions_addclose$(EXEEXT) \
+ 	test-posix_spawn_file_actions_adddup2$(EXEEXT) \
+ 	test-posix_spawn_file_actions_addopen$(EXEEXT) $(am__EXEEXT_1) \
+-	test-pow$(EXEEXT) test-pthread_sigmask1$(EXEEXT) \
+-	test-pthread_sigmask2$(EXEEXT) test-quotearg-simple$(EXEEXT) \
++	test-pow$(EXEEXT) \
++	test-quotearg-simple$(EXEEXT) \
+ 	test-raise$(EXEEXT) test-rawmemchr$(EXEEXT) \
+ 	test-read-file$(EXEEXT) test-read$(EXEEXT) \
+ 	test-readlink$(EXEEXT) test-rmdir$(EXEEXT) test-sched$(EXEEXT) \
+@@ -265,8 +265,8 @@
+ 	test-posix_spawn_file_actions_addclose$(EXEEXT) \
+ 	test-posix_spawn_file_actions_adddup2$(EXEEXT) \
+ 	test-posix_spawn_file_actions_addopen$(EXEEXT) $(am__EXEEXT_1) \
+-	test-pow$(EXEEXT) test-pthread_sigmask1$(EXEEXT) \
+-	test-pthread_sigmask2$(EXEEXT) test-quotearg-simple$(EXEEXT) \
++	test-pow$(EXEEXT) \
++	test-quotearg-simple$(EXEEXT) \
+ 	test-raise$(EXEEXT) test-rawmemchr$(EXEEXT) \
+ 	test-read-file$(EXEEXT) test-read$(EXEEXT) \
+ 	test-readlink$(EXEEXT) test-rmdir$(EXEEXT) test-sched$(EXEEXT) \
+@@ -1222,12 +1222,6 @@
+ test_pow_SOURCES = test-pow.c
+ test_pow_OBJECTS = test-pow.$(OBJEXT)
+ test_pow_DEPENDENCIES = $(am__DEPENDENCIES_2)
+-test_pthread_sigmask1_SOURCES = test-pthread_sigmask1.c
+-test_pthread_sigmask1_OBJECTS = test-pthread_sigmask1.$(OBJEXT)
+-test_pthread_sigmask1_DEPENDENCIES = $(am__DEPENDENCIES_2)
+-test_pthread_sigmask2_SOURCES = test-pthread_sigmask2.c
+-test_pthread_sigmask2_OBJECTS = test-pthread_sigmask2.$(OBJEXT)
+-test_pthread_sigmask2_DEPENDENCIES = $(am__DEPENDENCIES_2)
+ test_quotearg_simple_SOURCES = test-quotearg-simple.c
+ test_quotearg_simple_OBJECTS = test-quotearg-simple.$(OBJEXT)
+ test_quotearg_simple_DEPENDENCIES = $(am__DEPENDENCIES_2)
+@@ -1680,7 +1674,7 @@
+ 	./$(DEPDIR)/ioctl.Po ./$(DEPDIR)/isblank.Po \
+ 	./$(DEPDIR)/listen.Po ./$(DEPDIR)/mbtowc.Po \
+ 	./$(DEPDIR)/nanosleep.Po ./$(DEPDIR)/perror.Po \
+-	./$(DEPDIR)/pipe.Po ./$(DEPDIR)/pthread_sigmask.Po \
++	./$(DEPDIR)/pipe.Po \
+ 	./$(DEPDIR)/putenv.Po ./$(DEPDIR)/randomd.Po \
+ 	./$(DEPDIR)/select.Po ./$(DEPDIR)/setsockopt.Po \
+ 	./$(DEPDIR)/sleep.Po ./$(DEPDIR)/socket.Po \
+@@ -1749,8 +1743,7 @@
+ 	./$(DEPDIR)/test-posix_spawn_file_actions_addclose.Po \
+ 	./$(DEPDIR)/test-posix_spawn_file_actions_adddup2.Po \
+ 	./$(DEPDIR)/test-posix_spawn_file_actions_addopen.Po \
+-	./$(DEPDIR)/test-pow.Po ./$(DEPDIR)/test-pthread_sigmask1.Po \
+-	./$(DEPDIR)/test-pthread_sigmask2.Po \
++	./$(DEPDIR)/test-pow.Po \
+ 	./$(DEPDIR)/test-quotearg-simple.Po ./$(DEPDIR)/test-raise.Po \
+ 	./$(DEPDIR)/test-rawmemchr.Po ./$(DEPDIR)/test-read-file.Po \
+ 	./$(DEPDIR)/test-read.Po ./$(DEPDIR)/test-readlink.Po \
+@@ -1866,7 +1859,6 @@
+ 	test-posix_spawn_file_actions_addclose.c \
+ 	test-posix_spawn_file_actions_adddup2.c \
+ 	test-posix_spawn_file_actions_addopen.c test-pow.c \
+-	test-pthread_sigmask1.c test-pthread_sigmask2.c \
+ 	test-quotearg-simple.c test-raise.c test-rawmemchr.c \
+ 	test-read.c test-read-file.c test-readlink.c test-rmdir.c \
+ 	test-rwlock1.c test-sameacls.c test-sched.c test-select.c \
+@@ -1934,7 +1926,6 @@
+ 	test-posix_spawn_file_actions_addclose.c \
+ 	test-posix_spawn_file_actions_adddup2.c \
+ 	test-posix_spawn_file_actions_addopen.c test-pow.c \
+-	test-pthread_sigmask1.c test-pthread_sigmask2.c \
+ 	test-quotearg-simple.c test-raise.c test-rawmemchr.c \
+ 	test-read.c test-read-file.c test-readlink.c test-rmdir.c \
+ 	test-rwlock1.c test-sameacls.c test-sched.c test-select.c \
+@@ -3195,7 +3186,6 @@
+ LIB_HAS_ACL = @LIB_HAS_ACL@
+ LIB_NANOSLEEP = @LIB_NANOSLEEP@
+ LIB_POSIX_SPAWN = @LIB_POSIX_SPAWN@
+-LIB_PTHREAD_SIGMASK = @LIB_PTHREAD_SIGMASK@
+ LIB_SELECT = @LIB_SELECT@
+ LIMITS_H = @LIMITS_H@
+ LIPO = @LIPO@
+@@ -3819,8 +3809,8 @@
+ 	signature.h macros.h test-posix_spawn1.c \
+ 	test-posix_spawn1.in.sh test-posix_spawn2.c \
+ 	test-posix_spawn2.in.sh signature.h test-pow.c signature.h \
+-	macros.h pthread_sigmask.c test-pthread_sigmask1.c \
+-	test-pthread_sigmask2.c signature.h macros.h putenv.c \
++	macros.h \
++	signature.h macros.h putenv.c \
+ 	test-quotearg-simple.c test-quotearg.h macros.h zerosize-ptr.h \
+ 	test-raise.c signature.h macros.h test-rawmemchr.c \
+ 	zerosize-ptr.h signature.h macros.h test-read-file.c \
+@@ -3918,7 +3908,7 @@
+ EXTRA_libtests_a_SOURCES = accept.c alloca.c bind.c btowc.c connect.c \
+ 	dup.c fdopen.c ftruncate.c getcwd-lgpl.c getpagesize.c \
+ 	inet_pton.c ioctl.c isblank.c listen.c mbtowc.c nanosleep.c \
+-	perror.c pipe.c pthread_sigmask.c putenv.c select.c \
++	perror.c pipe.c putenv.c select.c \
+ 	setsockopt.c sleep.c socket.c strerror_r.c symlink.c usleep.c \
+ 	wcrtomb.c wctob.c wctomb.c
+ AM_LIBTOOLFLAGS = --preserve-dup-deps
+@@ -3964,8 +3954,6 @@
+ test_pipe_filter_ii2_main_LDADD = $(LDADD) @LIBINTL@
+ test_pipe2_LDADD = $(LDADD) $(LIBSOCKET)
+ test_pow_LDADD = $(LDADD) @POW_LIBM@
+-test_pthread_sigmask1_LDADD = $(LDADD) @LIB_PTHREAD_SIGMASK@
+-test_pthread_sigmask2_LDADD = $(LDADD) @LIB_PTHREAD_SIGMASK@ @LIBMULTITHREAD@
+ test_quotearg_simple_LDADD = $(LDADD) @LIBINTL@
+ test_select_LDADD = $(LDADD) @LIB_SELECT@ @LIBSOCKET@ $(INET_PTON_LIB)
+ test_select_fd_LDADD = $(LDADD) @LIB_SELECT@
+@@ -4595,14 +4583,6 @@
+ 	@rm -f test-pow$(EXEEXT)
+ 	$(AM_V_CCLD)$(LINK) $(test_pow_OBJECTS) $(test_pow_LDADD) $(LIBS)
+ 
+-test-pthread_sigmask1$(EXEEXT): $(test_pthread_sigmask1_OBJECTS) $(test_pthread_sigmask1_DEPENDENCIES) $(EXTRA_test_pthread_sigmask1_DEPENDENCIES) 
+-	@rm -f test-pthread_sigmask1$(EXEEXT)
+-	$(AM_V_CCLD)$(LINK) $(test_pthread_sigmask1_OBJECTS) $(test_pthread_sigmask1_LDADD) $(LIBS)
+-
+-test-pthread_sigmask2$(EXEEXT): $(test_pthread_sigmask2_OBJECTS) $(test_pthread_sigmask2_DEPENDENCIES) $(EXTRA_test_pthread_sigmask2_DEPENDENCIES) 
+-	@rm -f test-pthread_sigmask2$(EXEEXT)
+-	$(AM_V_CCLD)$(LINK) $(test_pthread_sigmask2_OBJECTS) $(test_pthread_sigmask2_LDADD) $(LIBS)
+-
+ test-quotearg-simple$(EXEEXT): $(test_quotearg_simple_OBJECTS) $(test_quotearg_simple_DEPENDENCIES) $(EXTRA_test_quotearg_simple_DEPENDENCIES) 
+ 	@rm -f test-quotearg-simple$(EXEEXT)
+ 	$(AM_V_CCLD)$(LINK) $(test_quotearg_simple_OBJECTS) $(test_quotearg_simple_LDADD) $(LIBS)
+@@ -5044,7 +5024,6 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nanosleep.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/perror.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipe.Po@am__quote@ # am--include-marker
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pthread_sigmask.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/putenv.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/randomd.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/select.Po@am__quote@ # am--include-marker
+@@ -5169,8 +5148,6 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-posix_spawn_file_actions_adddup2.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-posix_spawn_file_actions_addopen.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-pow.Po@am__quote@ # am--include-marker
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-pthread_sigmask1.Po@am__quote@ # am--include-marker
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-pthread_sigmask2.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-quotearg-simple.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-raise.Po@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-rawmemchr.Po@am__quote@ # am--include-marker
+@@ -6494,20 +6471,6 @@
+ 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+ 	--log-file $$b.log --trs-file $$b.trs \
+ 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+-	"$$tst" $(AM_TESTS_FD_REDIRECT)
+-test-pthread_sigmask1.log: test-pthread_sigmask1$(EXEEXT)
+-	@p='test-pthread_sigmask1$(EXEEXT)'; \
+-	b='test-pthread_sigmask1'; \
+-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+-	--log-file $$b.log --trs-file $$b.trs \
+-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+-	"$$tst" $(AM_TESTS_FD_REDIRECT)
+-test-pthread_sigmask2.log: test-pthread_sigmask2$(EXEEXT)
+-	@p='test-pthread_sigmask2$(EXEEXT)'; \
+-	b='test-pthread_sigmask2'; \
+-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+-	--log-file $$b.log --trs-file $$b.trs \
+-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+ 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+ test-quotearg-simple.log: test-quotearg-simple$(EXEEXT)
+ 	@p='test-quotearg-simple$(EXEEXT)'; \
