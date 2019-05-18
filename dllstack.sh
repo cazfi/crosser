@@ -842,7 +842,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
       build_component_host glib "--disable-libmount" )                      ||
    ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
-      build_with_meson_host glib "-D libmount=false -D selinux=false" )     ||
+      build_with_meson_host glib "-D libmount=false -D selinux=disabled" )  ||
    ! free_build           "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
@@ -1113,7 +1113,7 @@ if ! unpack_component     gdk-pixbuf                                  ||
         "aclocal automake"                                            ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  gtk3                                            \
-     "--with-included-immodules --disable-cups"                       ||
+     "--with-included-immodules --disable-cups GLIB_COMPILE_RESOURCES=$NATIVE_PREFIX/bin/glib-compile-resources" ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
