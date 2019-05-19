@@ -1194,10 +1194,11 @@ if ! unpack_component  graphene                                         ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
-      patch_src gtk+ $VERSION_GTK4 "gtk4_demoless" )                  ||
+       ( patch_src gtk+ $VERSION_GTK4 "gtk4_demoless" &&
+         patch_src gtk+ $VERSION_GTK4 "gtk4_gcr_find" ))                ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
       build_component   gtk4                                          \
-      "--with-included-immodules --disable-cups" )                    ||
+      "--with-included-immodules --disable-cups GLIB_COMPILE_RESOURCES=$NATIVE_PREFIX/bin/glib-compile-resources" )                    ||
    ! (is_smaller_version $VERSION_GTK4 3.92.0 ||
       build_with_meson gtk4 \
       "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all" ) ||
