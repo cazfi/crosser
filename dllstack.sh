@@ -472,8 +472,7 @@ build_zlib()
     return 1
   fi
 
-  if ! cp "$DLLSPREFIX/lib/libz.dll"* "$DLLSPREFIX/bin/" ||
-     ! mv "$DLLSPREFIX/lib/libz.a"    "$DLLSPREFIX/bin/"
+  if ! cp "$DLLSPREFIX/lib/libz.dll"* "$DLLSPREFIX/bin/"
   then
     log_error "Failed to move libz dll:s to correct directory"
     return 1

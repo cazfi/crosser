@@ -1,4 +1,5 @@
 1.8
+	- Leave libz.a to lib/
 	- Dropped librsvg from build
 	- Dropped native build of gdk-pixbuf
 	- Updated gdk-pixbuf to version 2.38.1
