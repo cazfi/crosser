@@ -1306,12 +1306,6 @@ fi
 
 if test "x$CROSSER_QT" = "xyes"
 then
-if is_smaller_version $VERSION_QT 5.7.0-beta
-then
-  CROSSER_QT_EXTRA_CONF="-no-gtkstyle"
-else
-  CROSSER_QT_EXTRA_CONF=""
-fi
 if ! unpack_component qt-everywhere-src                                ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_g++"                  ||
@@ -1328,7 +1322,7 @@ if ! unpack_component qt-everywhere-src                                ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -system-zlib $CROSSER_QT_EXTRA_CONF" \
+     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -system-zlib" \
      "qt" "" "no"                                                                 ||
    ! free_component   qt-everywhere-src $VERSION_QT "qt-everywhere-src"
 then
