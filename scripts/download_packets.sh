@@ -541,6 +541,13 @@ else
   HICOLOR_PACK="tar.gz"
 fi
 
+if is_minimum_version $VERSION_HARFBUZZ 2.5.0
+then
+  HB_PACK="tar.xz"
+else
+  HB_PACK="tar.bz2"
+fi
+
 if echo $VERSION_QT | grep alpha >/dev/null ||
    echo $VERSION_QT | grep beta >/dev/null ||
    echo $VERSION_QT | grep rc >/dev/null     
@@ -601,7 +608,7 @@ download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v$
 RET="$RET $?"
 download_needed "http://download.osgeo.org/libtiff/"    "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
-download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "tar.bz2"
+download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "$HB_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "tar.bz2"
 RET="$RET $?"
