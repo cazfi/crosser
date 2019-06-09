@@ -23,7 +23,7 @@
 	- Updated pcre2 to version 10.33
 	- Updated pcre to version 8.43
 	- Updated icu to version 62.2
-	- Updated curl to version 7.65.0
+	- Updated curl to version 7.65.1
 
 1.7 (31-Mar-19)
 	- Added meson (0.49.2) to native build
