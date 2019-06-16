@@ -19,7 +19,7 @@
 	- Updated freetype to version 2.10.0
 	- Updated harfbuzz to version 2.5.0
 	- Updated gtk-doc to version 1.30
-	- Updated gobject-introspection to version 1.58.3
+	- Updated gobject-introspection to version 1.60.2
 	- Updated pcre2 to version 10.33
 	- Updated pcre to version 8.43
 	- Updated icu to version 62.2

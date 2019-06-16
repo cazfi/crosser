@@ -3,7 +3,7 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2018 Marko Lindqvist
+# (c) 2014-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -26,7 +26,7 @@ PACKAGES="\
  flex \
  bison \
  docbook-xsl \
- python-dev \
+ python3-dev \
  intltool \
  cmake \
  rustc \
