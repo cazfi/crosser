@@ -1,0 +1,13 @@
+diff -Nurd qt-everywhere-src-5.13.0/qtbase/src/corelib/tools/qdatetime.cpp qt-everywhere-src-5.13.0/qtbase/src/corelib/tools/qdatetime.cpp
+--- qt-everywhere-src-5.13.0/qtbase/src/corelib/tools/qdatetime.cpp	2019-06-13 07:18:18.000000000 +0300
++++ qt-everywhere-src-5.13.0/qtbase/src/corelib/tools/qdatetime.cpp	2019-06-22 10:59:19.380549474 +0300
+@@ -2346,7 +2346,8 @@
+     // localtime_r() does not have this constraint, so make an explicit call.
+     // The explicit call should also request the timezone info be re-parsed.
+     qTzSet();
+-#if QT_CONFIG(thread) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
++//#if QT_CONFIG(thread) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
++#if 0
+     // Use the reentrant version of localtime() where available
+     // as is thread-safe and doesn't use a shared static data area
+     tm *res = 0;

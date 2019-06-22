@@ -1319,6 +1319,8 @@ if ! unpack_component qt-everywhere-src                                ||
        patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop-5.11" &&
        patch_src qt-everywhere-src $VERSION_QT "qt_dllsprefix-5.11" &&
        patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable" )) ||
+   ! (is_smaller_version $VERSION_QT 5.13 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )     ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
