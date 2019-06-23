@@ -1310,10 +1310,6 @@ if ! unpack_component qt-everywhere-src                                ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_g++"                  ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_disableidc-5.4.2"     ||
-   ! (is_minimum_version $VERSION_QT 5.11 ||
-      (patch_src qt-everywhere-src $VERSION_QT "qt_linkflags-5.10" &&
-       patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop" &&
-       patch_src qt-everywhere-src $VERSION_QT "qt_dllsprefix-5.10" )) ||
    ! (is_smaller_version $VERSION_QT 5.11 ||
       (patch_src qt-everywhere-src $VERSION_QT "qt_linkflags-5.11" &&
        patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop-5.11" &&
