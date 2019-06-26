@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2018 Marko Lindqvist
+# (c) 2008-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -363,7 +363,7 @@ autogen_component()
   fi
 
   log_packet "autogen $1"
-  log_write 1 "autogen $1"
+  log_write 1 "Autogen $1"
 
   if test "x$4" = "x"
   then
