@@ -1107,7 +1107,10 @@ if ! unpack_component     gdk-pixbuf                                  ||
        is_minimum_version $VERSION_GTK3 3.24.9 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.22.9 )            ||
    ! ( is_smaller_version $VERSION_GTK3 3.24.9 ||
+       is_minimum_version $VERSION_GTK3 3.24.10 ||
        patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.24.9 )            ||
+   ! ( is_smaller_version $VERSION_GTK3 3.24.10 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_demoless-3.24.10 )           ||
    ! patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros                      ||
    ! autogen_component gtk+   $VERSION_GTK3                           \
         "aclocal automake"                                            ||
