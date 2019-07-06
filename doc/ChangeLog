@@ -17,7 +17,7 @@
 	- Updated glib to version 2.60.4
 	- Updated sqlite to version 3.28.0
 	- Updated pixman to version 0.38.4
-	- Updated freetype to version 2.10.0
+	- Updated freetype to version 2.10.1
 	- Updated harfbuzz to version 2.5.0
 	- Updated gtk-doc to version 1.30
 	- Updated gobject-introspection to version 1.60.2

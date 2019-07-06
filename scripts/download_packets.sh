@@ -448,6 +448,7 @@ then
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
+    freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -547,6 +548,13 @@ else
   HB_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_FREETYPE 2.10.1
+then
+  FT_PACK="tar.xz"
+else
+  FT_PACK="tar.bz2"
+fi
+
 if echo $VERSION_QT | grep alpha >/dev/null ||
    echo $VERSION_QT | grep beta >/dev/null ||
    echo $VERSION_QT | grep rc >/dev/null     
@@ -609,7 +617,7 @@ download_needed "http://download.osgeo.org/libtiff/"    "tiff"    "$VERSION_TIFF
 RET="$RET $?"
 download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "$HB_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "tar.bz2"
+download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "$FT_PACK"
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"
 RET="$RET $?"
