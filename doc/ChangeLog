@@ -5,7 +5,7 @@
 	- Updated auxiliary config.guess and config.sub to '2019-05-28' version
 	- Dropped native build of gdk-pixbuf
 	- Updated gdk-pixbuf to version 2.38.1
-	- Updated meson to version 0.51.0
+	- Updated meson to version 0.51.1
 	- Updated adwaita-icon-theme to version 3.32.0
 	- Updated atk to version 2.32.0
 	- Updated gtk3 to version 3.24.10
