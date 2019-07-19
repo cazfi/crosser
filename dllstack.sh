@@ -1187,7 +1187,8 @@ if ! unpack_component  graphene                                         ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"  ||
    ! unpack_component  gtk4                                           ||
    ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
-   ! patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype"               ||
+   ! (is_minimum_version $VERSION_GTK4 3.94.0 ||
+      patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype" )              ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
        ( patch_src gtk+ $VERSION_GTK4 "gtk4_demoless" &&
          patch_src gtk+ $VERSION_GTK4 "gtk4_gcr_find" ))                ||
