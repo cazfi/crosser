@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2017 Marko Lindqvist
+# (c) 2008-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -154,7 +154,7 @@ if test "x$CROSSER_READLINE" != "xyes" && test "x$CROSSER_READLINE" != "xno" ; t
     exit 1
 fi
 if test "x$CROSSER_PKGCONF" = "x" ; then
-    CROSSER_PKGCONF="pkg-config"
+    CROSSER_PKGCONF="pkgconf"
 fi
 if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpkgconf" ; then
     echo "Unknown value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2

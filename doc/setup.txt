@@ -176,7 +176,7 @@ CROSSER_READLINE
 
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
- ; and 'pkgconf'
+ ; and 'pkgconf'. Default is 'pkgconf'
 
 =======================================================================
 
