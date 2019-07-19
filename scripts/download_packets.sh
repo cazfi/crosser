@@ -315,7 +315,7 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
-  echo "  - win"
+  echo "  - win,sdl,sdl2,sfml,full"
 
   exit $HELP_RETURN
 fi
