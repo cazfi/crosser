@@ -311,7 +311,7 @@ elif test "x$1" = "x" ; then
 fi
 
 if test "x$HELP_RETURN" != "x" ; then
-  echo "Usage: $(basename "$0") <step> [versionset]"
+  echo "Usage: $(basename "$0") <step> [versionset] [setup]"
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
@@ -344,9 +344,18 @@ then
   else
     CROSSER_VERSIONSET="current"
   fi
-elif test "x$1" != "x--packet" && test "x$2" != "x"
+elif test "x$1" != "x--packet"
 then
-  CROSSER_VERSIONSET="$2"
+  if test "x$2" != "x"
+  then
+    CROSSER_VERSIONSET="$2"
+  else
+    CROSSER_VERSIONSET="current"
+  fi
+  if test "x$3" != "x"
+  then
+    CROSSER_SETUP="$3"
+  fi
 else
   CROSSER_VERSIONSET="current"
 fi
@@ -361,6 +370,20 @@ then
 
   if ! . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions" ; then
     echo "Failed to read list of package versions (${CROSSER_VERSIONSET}.versions)" >&2
+    exit 1
+  fi
+fi
+
+if test "x$CROSSER_SETUP" != "x"
+then
+  if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_SETUP}.conf"
+  then
+    echo "Setup ${CROSSER_SETUP}.conf not found" >&2
+    exit 1
+  fi
+
+  if ! . "$CROSSER_MAINDIR/setups/${CROSSER_SETUP}.conf" ; then
+    echo "Failed to read setup (${CROSSER_SETUP}.conf)" >&2
     exit 1
   fi
 fi

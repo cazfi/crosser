@@ -786,7 +786,7 @@ then
         steplist="${steplist},full"
     fi
     if ! (cd "$CROSSER_PACKETDIR" &&
-          "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$CROSSER_VERSIONSET")
+          "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$CROSSER_VERSIONSET" "$CROSSER_SETUP")
   then
     log_error "Downloading packets failed"
     exit 1
