@@ -30,6 +30,7 @@
 	- Updated qt to version 5.12.4
 	- Updated pkgconf to version 1.6.3
 	- Updated SDL2_image to version 2.0.5
+	- Updated gtk4 to version 3.94.0
 
 1.7 (31-Mar-19)
 	- Added meson (0.49.2) to native build
