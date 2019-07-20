@@ -771,11 +771,7 @@ fi
 
 if test "x$CROSSER_DOWNLOAD" = "xyes"
 then
-    if test "x$CROSSER_SDL" = "xyes" ; then
-        steplist="win,sdl"
-    else
-        steplist="win"
-    fi
+    steplist="win"
     if test "x$CROSSER_SDL2" = "xyes" ; then
         steplist="${steplist},sdl2"
     fi
@@ -1218,38 +1214,6 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_SDL" = "xyes" ; then
-if ! unpack_component  SDL                                            ||
-   ! build_component   SDL                                            ||
-   ! free_component    SDL        $VERSION_SDL "SDL"                  ||
-   ! rm "$DLLSPREFIX/lib/libSDLmain.la"                               ||
-   ! unpack_component  SDL_image                                      ||
-   ! build_component   SDL_image                                      ||
-   ! free_component    SDL_image  $VERSION_SDL_IMAGE "SDL_image"      ||
-   ! unpack_component  SDL_gfx                                        ||
-   ! build_component   SDL_gfx                                        ||
-   ! free_component    SDL_gfx    $VERSION_SDL_GFX   "SDL_gfx"        ||
-   ! unpack_component  SDL_ttf                                        ||
-   ! patch_src SDL_ttf $VERSION_SDL_TTF "sdlttf_fttool"               ||
-   ! FREETYPE_CONFIG="$DLLSPREFIX/bin/freetype-config"                \
-     build_component   SDL_ttf                                        ||
-   ! free_component    SDL_ttf    $VERSION_SDL_TTF   "SDL_ttf"        ||
-   ! unpack_component  SDL_mixer                                      ||
-   ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_configmacrodir   ||
-   ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_host             ||
-   ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_libwindres       ||
-   ! patch_src SDL_mixer $VERSION_SDL_MIXER SDLmixer_staticpc         ||
-   ! autogen_component SDL_mixer  $VERSION_SDL_MIXER                  \
-     "libtoolize aclocal autoconf"                                    ||
-   ! build_component   SDL_mixer                                      \
-     "--disable-music-mod --disable-music-ogg-shared --disable-music-midi --disable-music-mp3" ||
-   ! free_component    SDL_mixer  $VERSION_SDL_MIXER "SDL_mixer"
-then
-    log_error "SDL stack build failed"
-    exit 1
-fi
-fi
-
 if test "x$CROSSER_SDL2" = "xyes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
@@ -1358,9 +1322,9 @@ log_write 1 "Creating crosser.txt"
   echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
   echo "CROSSER_SFML=\"$CROSSER_SFML\""
   echo
-  echo "; Scheduled for complete removal"
+  echo "; Removed"
   echo "-------------------------"
-  echo "CROSSER_SDL=\"$CROSSER_SDL\""
+  echo "CROSSER_SDL=\"no\""
   if test "x$VERSION_GTK2" != "x0"
   then
     echo "CROSSER_GTK2=\"yes\""
