@@ -4,5 +4,4 @@ These changes are coming in future versions:
 - Enable readline build by default (-> part of the ready-made build)
 - Use win-iconv by default, drop libiconv
 - Drop gtk2 from build -> later drop completely
-- Drop sdl build completely
 - Keep updated with gtk+-3.9x dependencies for being ready for gtk4

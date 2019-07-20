@@ -143,11 +143,6 @@ CROSSER_QT
  ; not part of crosser environment, if built with gcc-4.8 or newer.
  ; Default value is "yes" if CROSSER_FULL is enabled.
 
-CROSSER_SDL
- ; Whether SDL-chain should be built as part of crosser.
- ; Current default is 'no'.
- ; Future releases are going to drop SDL-chain support completely.
-
 CROSSER_SDL2
  ; Whether SDL2-chain should be built as part of crosser.
  ; Current default is 'yes'.

@@ -311,7 +311,7 @@ if test "x$HELP_RETURN" != "x" ; then
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
-  echo "  - win,sdl,sdl2,sfml,full"
+  echo "  - win,sdl2,sfml,full"
 
   exit $HELP_RETURN
 fi
@@ -691,24 +691,14 @@ download_needed "http://downloads.xiph.org/releases/ogg/" "libogg"   "$VERSION_O
 RET="$RET $?"
 download_needed "http://downloads.xiph.org/releases/vorbis/" "libvorbis" "$VERSION_VORBIS" "tar.xz"
 RET="$RET $?"
-download_needed "http://www.libsdl.org/release/"        "SDL"        "$VERSION_SDL"        "tar.gz"
-RET="$RET $?"
-download_needed "http://www.libsdl.org/projects/SDL_image/release/" "SDL_image"  "$VERSION_SDL_IMAGE"  "tar.gz"
-RET="$RET $?"
-download_needed "http://www.libsdl.org/projects/SDL_mixer/release/" "SDL_mixer"  "$VERSION_SDL_MIXER"  "tar.gz"
-RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"    "SDL2"       "$VERSION_SDL2"       "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/"      "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_mixer/release/"      "SDL2_mixer" "$VERSION_SDL2_MIXER" "tar.gz"
 RET="$RET $?"
-download_needed "http://www.ferzkopp.net/Software/SDL_gfx-2.0/" "SDL_gfx" "$VERSION_SDL_GFX" "tar.gz"
-RET="$RET $?"
 download_needed "http://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "$VERSION_SDL2_GFX" "tar.gz"
 RET="$RET $?" 
-download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL_ttf" "$VERSION_SDL_TTF" "tar.gz"
-RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.sfml-dev.org/files/" "sfml" "SFML-$VERSION_SFML-sources.zip"

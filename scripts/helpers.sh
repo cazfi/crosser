@@ -846,9 +846,6 @@ component_varname()
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
   fi
   if test "x$VARNAME" = "x" ; then
-      VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl.step | sed 's/.*[ \t]//')
-  fi
-  if test "x$VARNAME" = "x" ; then
       VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl2.step | sed 's/.*[ \t]//')
   fi
   if test "x$VARNAME" = "x" ; then

@@ -6,6 +6,7 @@
 	- Leave libz.a to lib/
 	- Dropped librsvg from build
 	- Dropped gnome-themes-extra from build
+	- Dropped sdl and related components from build
 	- Updated auxiliary config.guess and config.sub to '2019-05-28' version
 	- Dropped native build of gdk-pixbuf
 	- Install debian requirement packages by 'apt'
