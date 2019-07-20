@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2016 Marko Lindqvist
+# (c) 2008-2019 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -33,18 +33,6 @@ patch_readline() {
     fi
     DLNUM=$DLNUM+1
   done
-}
-
-# Echo base version of libtool version string
-#
-# $1 - Full version
-basever_libtool() {
-  if cmp_versions $VERSION_LIBTOOL 2.2.6a
-  then
-    echo $1 | sed 's/[a-z]//g'
-  else
-    echo $1
-  fi
 }
 
 # Echo sqlite version string

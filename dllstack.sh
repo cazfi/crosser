@@ -773,7 +773,6 @@ then
   fi
 fi
 
-BASEVER_LIBTOOL="$(basever_libtool $VERSION_LIBTOOL)"
 GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
@@ -792,7 +791,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
    ! unpack_component     libtool                           ||
    ! build_component_full native-libtool libtool            \
-     "" "native" "" "" "$BASEVER_LIBTOOL"                   ||
+     "" "native" "" "" "$VERSION_LIBTOOL"                   ||
    ! free_build           "native-libtool"                               ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
@@ -899,8 +898,8 @@ SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
 READLINE_VARS="$(read_configure_vars readline)"
 
 if ! build_component_full libtool libtool "" "" "" ""                 \
-     "${BASEVER_LIBTOOL}"                                             ||
-   ! free_component    libtool    $BASEVER_LIBTOOL "libtool"          ||
+     "${VERSION_LIBTOOL}"                                             ||
+   ! free_component    libtool    $VERSION_LIBTOOL "libtool"          ||
    ! unpack_component  win-iconv  "" "win-iconv/v${VERSION_WIN_ICONV}" ||
    ! build_simple_make win-iconv  $VERSION_WIN_ICONV                  ||
    ! free_src          win-iconv  $VERSION_WIN_ICONV                  ||
