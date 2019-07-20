@@ -160,19 +160,33 @@ upstream_patch() {
   fi
 }
 
+# Convert component name to package name
+#
+# $1 - Component name
+# $2 - Component version
+component_name_to_package_name() {
+  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
+  then
+    echo "gtk+"
+  elif test "x$1" = "xgtk4"
+  then
+    if is_minimum_version $2 3.96
+    then
+      echo "gtk"
+    else
+      echo "gtk+"
+    fi
+  else
+    echo "$1"
+  fi
+}
+
 # Unpack component package to source directory
 #
 # $1   - Package name
 # [$2] - Subdir in source hierarchy
 # [$3] - Package file name base in case it's not 'name-version'
 unpack_component() {
-  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3" || test "x$1" = "xgtk4"
-  then
-    BNAME="gtk+"
-  else
-    BNAME="$1"
-  fi
-
   BVER=$(component_version $1)
   BPTCH=$(component_patches $1)
 
@@ -186,6 +200,8 @@ unpack_component() {
   then
     return 0
   fi
+
+  BNAME=$(component_name_to_package_name $1 $BVER)
 
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
   then

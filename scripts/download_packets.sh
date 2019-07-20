@@ -92,11 +92,7 @@ download_file() {
 # $6 - Subdirectory to download to
 download_packet() {
 
-  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" || test "x$2" = "xgtk4" ; then
-    BFNAME="gtk+"
-  else
-    BFNAME="$2"
-  fi
+  BFNAME=$(component_name_to_package_name $2 $3)
 
   if test "x$4" = "xdsc" ; then
     DLFILENAME="${BFNAME}_$3.$4"
@@ -672,8 +668,13 @@ download_needed "$MIRROR_GNOME/sources/gtk+/$GTK2_DIR/" "gtk2"       "$VERSION_G
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.xz"
 RET="$RET $?"
+if is_minimum_version "$VERSION_GTK4" 3.96 ; then
+download_needed "$MIRROR_GNOME/sources/gtk/$GTK4_DIR/"  "gtk4"       "$VERSION_GTK4"        "tar.xz"
+RET="$RET $?"
+else
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK4_DIR/" "gtk4"       "$VERSION_GTK4"        "tar.xz"
 RET="$RET $?"
+fi
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"

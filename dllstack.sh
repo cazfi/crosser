@@ -155,12 +155,7 @@ build_component_full()
     return 0
   fi
 
-  if test "x$2" = "xgtk2" || test "x$2" = "xgtk3" || test "x$2" = "xgtk4"
-  then
-    BNAME="gtk+"
-  else
-    BNAME="$2"
-  fi
+  BNAME=$(component_name_to_package_name $2 $BVER)
 
   if test "x$5" != "x"
   then
@@ -326,12 +321,7 @@ build_with_meson_full()
     return 0
   fi
 
-  if test "x$2" = "xgtk4"
-  then
-    BNAME="gtk+"
-  else
-    BNAME="$2"
-  fi
+  BNAME=$(component_name_to_package_name $2 $BVER)
 
   SUBDIR="$(src_subdir $BNAME $BVER)"
   if test "x$SUBDIR" = "x"
@@ -1166,6 +1156,12 @@ fi
 fi
 
 if test "x$CROSSER_GTK4" = "xyes" ; then
+if is_minimum_version $VERSION_GTK4 3.96
+then
+  GTK4PN="gtk"
+else
+  GTK4PN="gtk+"
+fi
 if ! unpack_component  graphene                                         ||
    ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon    ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
@@ -1186,7 +1182,7 @@ if ! unpack_component  graphene                                         ||
    ! build_component   libxkbcommon  "--disable-x11"                    ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"  ||
    ! unpack_component  gtk4                                           ||
-   ! patch_src gtk+ $VERSION_GTK4 "gtk4_winnt"                        ||
+   ! patch_src $GTK4PN $VERSION_GTK4 "gtk4_winnt"                       ||
    ! (is_minimum_version $VERSION_GTK4 3.94.0 ||
       patch_src gtk+ $VERSION_GTK4 "gtk4_func_prototype" )              ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
@@ -1196,11 +1192,11 @@ if ! unpack_component  graphene                                         ||
       build_component   gtk4                                          \
       "--with-included-immodules --disable-cups GLIB_COMPILE_RESOURCES=$NATIVE_PREFIX/bin/glib-compile-resources" )                                     ||
    ! (is_smaller_version $VERSION_GTK4 3.94.0 ||
-      patch_src gtk+ $VERSION_GTK4 "gtk4_lowercase_windows_h" )         ||
+      patch_src $GTK4PN $VERSION_GTK4 "gtk4_lowercase_windows_h" )      ||
    ! (is_smaller_version $VERSION_GTK4 3.92.0 ||
       build_with_meson gtk4 \
       "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all -D media=none" ) ||
-   ! free_component    gtk+       $VERSION_GTK4 "gtk4"
+   ! free_component    $GTK4PN    $VERSION_GTK4 "gtk4"
 then
   log_error "gtk4 chain build failed"
   exit 1
