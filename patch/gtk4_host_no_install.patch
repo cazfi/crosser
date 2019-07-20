@@ -1,0 +1,17 @@
+diff -Nurd gtk-3.96.0/meson.build gtk-3.96.0/meson.build
+--- gtk-3.96.0/meson.build	2019-05-07 06:27:30.000000000 +0300
++++ gtk-3.96.0/meson.build	2019-07-20 07:58:50.495347305 +0300
+@@ -794,13 +794,6 @@
+   subdir('docs/reference')
+ endif
+ 
+-# Keep this in sync with post-install.sh expected arguments
+-meson.add_install_script('build-aux/meson/post-install.py',
+-                         gtk_api_version,
+-                         gtk_binary_version,
+-                         gtk_libdir,
+-                         gtk_datadir)
+-
+ summary = [
+   '',
+   '------',
