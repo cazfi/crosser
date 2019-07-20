@@ -630,12 +630,6 @@ if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
 fi
 . "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf"
 
-if test "x$DLLSTACK" = "xno"
-then
-  log_error "dllstack.sh cannot be used with configuration \"$CROSSER_SETUP\"."
-  exit 1
-fi
-
 if test "x$TARGET_VENDOR" = "x"
 then
   export CROSSER_TARGET="$TARGET_ARCH-$TARGET_OS"
