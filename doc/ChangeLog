@@ -1,7 +1,7 @@
 1.9
 	- Gettext version in win32 setup is no longer held back
 
-1.8
+1.8 (20-Jul-19)
 	- Use pkgconf by default
 	- Leave libz.a to lib/
 	- Dropped librsvg from build
