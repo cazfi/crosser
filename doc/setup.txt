@@ -153,7 +153,7 @@ CROSSER_GTK
  ; have no effect.
 
 CROSSER_GTK2
- ; Whether gtk2 parts of gtk-chain should be built. Current default is 'yes'.
+ ; Whether gtk2 parts of gtk-chain should be built. Current default is 'no'.
 
 CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.

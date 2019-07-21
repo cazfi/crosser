@@ -1053,7 +1053,7 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_GTK2" = "xno" ; then
+if test "x$CROSSER_GTK2" != "xyes" ; then
     if test "x$CROSSER_GTK3" = "xno" ; then
         CROSSER_GTK=no
     else
