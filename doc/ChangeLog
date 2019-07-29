@@ -1,6 +1,7 @@
 1.9
 	- Gettext version in win32 setup is no longer held back
 	- gtk2 is no longer built by default even in win32 setup
+	- Updated SDL2 to version 2.0.10
 
 1.8 (20-Jul-19)
 	- Use pkgconf by default
