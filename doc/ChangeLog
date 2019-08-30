@@ -4,6 +4,7 @@
 	- Updated SDL2 to version 2.0.10
 	- Updated gtk-doc to version 1.32
 	- Updated meson to version 0.51.2
+	- Updated curl to version 7.65.3
 
 1.8 (20-Jul-19)
 	- Use pkgconf by default
