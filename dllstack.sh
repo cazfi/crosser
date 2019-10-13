@@ -1049,7 +1049,7 @@ if ! build_component   tiff                                                 ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
       build_component   atk )                                               ||
    ! (is_smaller_version $VERSION_ATK 2.29.1 ||
-      build_with_meson atk )                                                ||
+      build_with_meson atk "-D introspection=false" )                       ||
    ! free_component    atk        $VERSION_ATK "atk"
 then
   log_error "Build failed"

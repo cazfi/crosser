@@ -9,6 +9,7 @@
 	- Updated graphene to version 1.10.0
 	- Updated gobject-introspection to version 1.62.0
 	- Updated adwaita-icon-theme to version 3.34.0
+	- Updated atk to version 2.34.1
 
 1.8 (20-Jul-19)
 	- Use pkgconf by default
