@@ -1,0 +1,18 @@
+diff -Nurd gtk+-3.24.10/meson.build gtk+-3.24.10/meson.build
+--- gtk+-3.24.10/meson.build	2019-07-03 23:24:52.000000000 +0300
++++ gtk+-3.24.10/meson.build	2019-10-13 16:01:35.853883640 +0300
+@@ -954,14 +954,6 @@
+ 
+ install_data('m4macros/gtk-3.0.m4', install_dir: join_paths(get_option('datadir'), 'aclocal'))
+ 
+-# Keep this in sync with post-install.py expected arguments
+-meson.add_install_script('build-aux/meson/post-install.py',
+-                         gtk_api_version,
+-                         gtk_binary_version,
+-                         join_paths(gtk_prefix, get_option('bindir')),
+-                         gtk_libdir,
+-                         gtk_datadir)
+-
+ summary = [
+   '',
+   '------',
