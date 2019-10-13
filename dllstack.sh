@@ -1155,7 +1155,8 @@ else
   GTK4PN="gtk+"
 fi
 if ! unpack_component  graphene                                         ||
-   ! patch_src         graphene   $VERSION_GRAPHENE graphene_epsilon    ||
+   ! ( is_minimum_version $VERSION_GRAPHENE 1.10.0 ||
+       patch_src graphene $VERSION_GRAPHENE graphene_epsilon )          ||
    ! ( is_smaller_version $VERSION_GRAPHENE 1.5.4 ||
        is_minimum_version $VERSION_GRAPHENE 1.8.0 ||
        patch_src graphene $VERSION_GRAPHENE graphene_aligned_malloc)    ||
