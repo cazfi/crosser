@@ -472,6 +472,7 @@ then
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
     freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
+    shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -578,6 +579,14 @@ else
   FT_PACK="tar.bz2"
 fi
 
+if test "x$VERSION_SHARED_MIME_INFO" = "x1.14" ; then
+  SMI_HASH="aee9ae9646cbef724bbb1bd2ba146556"
+elif test "x$VERSION_SHARED_MIME_INFO" = "x1.10" ; then
+  SMI_HASH="6a226038bf42dae45a049a6b8e729abc"
+elif test "x$VERSION_SHARED_MIME_INFO" = "x1.9" ; then
+  SMI_HASH="63cd31473fc85fbbe9cd57a7ef028b05"
+fi
+
 if echo $VERSION_QT | grep alpha >/dev/null ||
    echo $VERSION_QT | grep beta >/dev/null ||
    echo $VERSION_QT | grep rc >/dev/null     
@@ -660,7 +669,7 @@ download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOM
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
-download_needed "http://freedesktop.org/~hadess/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.xz"
+download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/$SMI_HASH/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
 RET="$RET $?"

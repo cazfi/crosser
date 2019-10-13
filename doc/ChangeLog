@@ -1,3 +1,6 @@
+1.8.1
+	- Updated shared-mime-info download URL
+
 1.8 (20-Jul-19)
 	- Use pkgconf by default
 	- Leave libz.a to lib/
