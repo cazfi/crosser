@@ -12,6 +12,7 @@
 	- Updated atk to version 2.34.1
 	- Updated gtk3 to version 3.24.12
 	- Updated shared-mime-info to version 1.14
+	- Updated sqlite to version 3.30.1
 
 1.8.1
 	- Updated shared-mime-info download URL
