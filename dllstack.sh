@@ -830,7 +830,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
      "native-gtk-doc"                                                       ||
    ! unpack_component     gobject-introspection                             ||
-   ! build_component_host gobject-introspection                             ||
+   ! build_with_meson_host gobject-introspection                            ||
    ! free_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
      "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
