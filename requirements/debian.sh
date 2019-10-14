@@ -29,8 +29,6 @@ PACKAGES="\
  python3-dev \
  intltool \
  cmake \
- rustc \
- cargo \
  imagemagick \
  gperf \
  libxml2-dev \
