@@ -18,6 +18,7 @@
 	- Updated ImageMagick to version 7.0.8-68
 	- Updated tiff to version 4.1.0
 	- Updated libxml2 to version 2.9.10
+	- Updated gdk-pixbuf to version 2.40.0
 
 1.8.1 (14-Oct-19)
 	- Updated shared-mime-info download URL
