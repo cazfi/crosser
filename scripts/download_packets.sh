@@ -575,7 +575,9 @@ else
   FT_PACK="tar.bz2"
 fi
 
-if test "x$VERSION_SHARED_MIME_INFO" = "x1.14" ; then
+if test "x$VERSION_SHARED_MIME_INFO" = "x1.15" ; then
+  SMI_HASH="b27eb88e4155d8fccb8bb3cd12025d5b"
+elif test "x$VERSION_SHARED_MIME_INFO" = "x1.14" ; then
   SMI_HASH="aee9ae9646cbef724bbb1bd2ba146556"
 elif test "x$VERSION_SHARED_MIME_INFO" = "x1.10" ; then
   SMI_HASH="6a226038bf42dae45a049a6b8e729abc"
