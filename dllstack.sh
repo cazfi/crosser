@@ -928,7 +928,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source"             ||
    ! free_build           "native-icu4c"                                             ||
    ! free_component    icu        $VERSION_ICU "icu4c"                               ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment_7"           ||
+   ! (is_minimum_version $VERSION_IMAGEMAGICK 7.0.8 ||
+      patch_src ImageMagick $VERSION_IMAGEMAGICK "im_free_locale_comment_7" )        ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7"                      ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
