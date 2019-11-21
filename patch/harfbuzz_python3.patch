@@ -1,0 +1,81 @@
+diff -Nurd harfbuzz-2.6.4/src/gen-arabic-table.py harfbuzz-2.6.4/src/gen-arabic-table.py
+--- harfbuzz-2.6.4/src/gen-arabic-table.py	2019-05-06 22:14:20.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-arabic-table.py	2019-11-21 18:02:29.188818837 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function, division, absolute_import
+ 
+diff -Nurd harfbuzz-2.6.4/src/gen-def.py harfbuzz-2.6.4/src/gen-def.py
+--- harfbuzz-2.6.4/src/gen-def.py	2019-05-06 22:14:20.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-def.py	2019-11-21 18:01:15.280548457 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function, division, absolute_import
+ 
+diff -Nurd harfbuzz-2.6.4/src/gen-emoji-table.py harfbuzz-2.6.4/src/gen-emoji-table.py
+--- harfbuzz-2.6.4/src/gen-emoji-table.py	2019-07-19 00:15:44.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-emoji-table.py	2019-11-21 18:02:20.040785413 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ 
+ from __future__ import print_function, division, absolute_import
+ import sys
+diff -Nurd harfbuzz-2.6.4/src/gen-indic-table.py harfbuzz-2.6.4/src/gen-indic-table.py
+--- harfbuzz-2.6.4/src/gen-indic-table.py	2019-08-28 23:16:09.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-indic-table.py	2019-11-21 18:01:26.596589905 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function, division, absolute_import
+ 
+diff -Nurd harfbuzz-2.6.4/src/gen-os2-unicode-ranges.py harfbuzz-2.6.4/src/gen-os2-unicode-ranges.py
+--- harfbuzz-2.6.4/src/gen-os2-unicode-ranges.py	2019-05-13 06:56:15.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-os2-unicode-ranges.py	2019-11-21 18:02:01.588717961 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ 
+ # -*- coding: utf-8 -*-
+ 
+diff -Nurd harfbuzz-2.6.4/src/gen-tag-table.py harfbuzz-2.6.4/src/gen-tag-table.py
+--- harfbuzz-2.6.4/src/gen-tag-table.py	2019-05-06 22:14:20.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-tag-table.py	2019-11-21 18:02:37.888850614 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ 
+ """Generator of the mapping from OpenType tags to BCP 47 tags and vice
+ versa.
+diff -Nurd harfbuzz-2.6.4/src/gen-ucd-table.py harfbuzz-2.6.4/src/gen-ucd-table.py
+--- harfbuzz-2.6.4/src/gen-ucd-table.py	2019-07-19 00:15:44.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-ucd-table.py	2019-11-21 18:01:48.600670456 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function, division, absolute_import
+ 
+diff -Nurd harfbuzz-2.6.4/src/gen-use-table.py harfbuzz-2.6.4/src/gen-use-table.py
+--- harfbuzz-2.6.4/src/gen-use-table.py	2019-10-16 00:57:38.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-use-table.py	2019-11-21 18:01:37.792630903 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # flake8: noqa
+ 
+ from __future__ import print_function, division, absolute_import
+diff -Nurd harfbuzz-2.6.4/src/gen-vowel-constraints.py harfbuzz-2.6.4/src/gen-vowel-constraints.py
+--- harfbuzz-2.6.4/src/gen-vowel-constraints.py	2019-07-19 00:15:44.000000000 +0300
++++ harfbuzz-2.6.4/src/gen-vowel-constraints.py	2019-11-21 18:00:42.880429653 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ 
+ """Generator of the function to prohibit certain vowel sequences.
+ 
