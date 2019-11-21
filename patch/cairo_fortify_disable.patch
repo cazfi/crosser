@@ -1,0 +1,12 @@
+diff -Nurd cairo-1.16.0/configure cairo-1.16.0/configure
+--- cairo-1.16.0/configure	2019-11-21 10:42:33.243790524 +0200
++++ cairo-1.16.0/configure	2019-11-21 10:54:30.188464520 +0200
+@@ -19173,7 +19173,7 @@
+ 
+ MAYBE_WARN="$MAYBE_WARN -fno-strict-aliasing -fno-common"
+ 
+-MAYBE_WARN="$MAYBE_WARN -Wp,-D_FORTIFY_SOURCE=2"
++MAYBE_WARN="$MAYBE_WARN -Wp"
+ 
+ # invalidate cached value if MAYBE_WARN has changed
+ if test "x$cairo_cv_warn_maybe" != "x$MAYBE_WARN"; then
