@@ -1048,7 +1048,7 @@ if ! build_component   tiff                                                 ||
    ! (is_minimum_version $VERSION_PANGO 1.44 ||
       build_component   pango )                                             ||
    ! (is_smaller_version $VERSION_PANGO 1.44 ||
-      build_with_meson pango )                                              ||
+      build_with_meson pango "-Dintrospection=false" )                      ||
    ! free_component    pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
