@@ -1014,6 +1014,8 @@ if ! build_component   tiff                                                 ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  harfbuzz                                             ||
+   ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
+       patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
    ! build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
