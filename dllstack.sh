@@ -1177,7 +1177,8 @@ if ! unpack_component  graphene                                         ||
        ( patch_src gtk+ $VERSION_GTK4 "gtk4_demoless" &&
          patch_src gtk+ $VERSION_GTK4 "gtk4_gcr_find" ))                ||
    ! (is_smaller_version $VERSION_GTK4 3.96.0 ||
-      patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install" )             ||
+       ( patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install" &&
+	 patch_src gtk  $VERSION_GTK4 "gtk4_return_end" ))              ||
    ! (is_minimum_version $VERSION_GTK4 3.92.0 ||
       build_component   gtk4                                          \
       "--with-included-immodules --disable-cups GLIB_COMPILE_RESOURCES=$NATIVE_PREFIX/bin/glib-compile-resources" )                                     ||
