@@ -22,6 +22,7 @@
 	- Updated gtk4 to version 3.96.0
 	- Updated harfbuzz to version 2.6.4
 	- Updated pango to version 1.44.7
+	- Updated qt to version 5.12.6
 
 1.8.1 (14-Oct-19)
 	- Updated shared-mime-info download URL

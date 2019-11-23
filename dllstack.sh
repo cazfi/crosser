@@ -1272,7 +1272,7 @@ if ! unpack_component qt-everywhere-src                                ||
    ! (is_smaller_version $VERSION_QT 5.12 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_yarr_inc_conflict" )   ||
    ! (is_smaller_version $VERSION_QT 5.12 ||
-      is_minimum_version $VERSION_QT 5.13 ||
+      is_minimum_version $VERSION_QT 5.12.5 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_nogl_fix" )            ||
    ! (is_smaller_version $VERSION_QT 5.13 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )     ||
