@@ -1,0 +1,36 @@
+diff -Nurd libxkbcommon-0.8.4/meson.build libxkbcommon-0.8.4/meson.build
+--- libxkbcommon-0.8.4/meson.build	2019-12-01 14:46:05.382958739 +0200
++++ libxkbcommon-0.8.4/meson.build	2019-12-01 14:47:04.358638983 +0200
+@@ -274,6 +274,8 @@
+ endif
+ 
+ 
++if get_option('enable-test')
++
+ # Tests
+ test_env = environment()
+ test_env.set('XKB_LOG_LEVEL', 'debug')
+@@ -481,6 +483,7 @@
+     env: bench_env,
+ )
+ 
++endif
+ 
+ # Documentation.
+ if get_option('enable-docs')
+diff -Nurd libxkbcommon-0.8.4/meson_options.txt libxkbcommon-0.8.4/meson_options.txt
+--- libxkbcommon-0.8.4/meson_options.txt	2019-12-01 14:46:05.382958739 +0200
++++ libxkbcommon-0.8.4/meson_options.txt	2019-12-01 14:46:00.850983561 +0200
+@@ -51,6 +51,12 @@
+     description: 'Enable building the documentation',
+ )
+ option(
++    'enable-test',
++    type: 'boolean',
++    value: false,
++    description: 'Enable building of the tests',
++)
++option(
+     'enable-wayland',
+     type: 'boolean',
+     value: true,
