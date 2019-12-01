@@ -24,6 +24,7 @@
 	- Updated pango to version 1.44.7
 	- Updated qt to version 5.12.6
 	- Updated ffi to version 3.3
+	- Updated libxkbcommon to version 0.9.1
 
 1.8.1 (14-Oct-19)
 	- Updated shared-mime-info download URL
