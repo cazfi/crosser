@@ -1169,7 +1169,7 @@ if ! unpack_component  graphene                                         ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ) ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt"     ||
    ! build_with_meson  libxkbcommon                                     \
-     "-Denable-x11=false -Denable-wayland=false"                        ||
+     "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"    ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"  ||
    ! unpack_component  gtk4                                           ||
    ! patch_src $GTK4PN $VERSION_GTK4 "gtk4_winnt"                       ||
