@@ -1,4 +1,5 @@
 1.9
+	- Libcurl is built with schannel support
 	- Gettext version in win32 setup is no longer held back
 	- gtk2 is no longer built by default even in win32 setup
 	- Updated SDL2 to version 2.0.10
