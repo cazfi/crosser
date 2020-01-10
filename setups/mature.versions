@@ -1,6 +1,6 @@
 # mature.versions: Package versions
 #
-# (c) 2009-2019 Marko Lindqvist
+# (c) 2009-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -15,7 +15,7 @@
 VERSION_AUTOCONF=2.69
 VERSION_AUTOMAKE=1.15.1
 VERSION_LIBTOOL=2.4.6
-VERSION_MESON=0.51.2
+VERSION_MESON=0.52.1
 
 VERSION_ICONV=1.15
 VERSION_WIN_ICONV=0.0.8
