@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2019 Marko Lindqvist
+# (c) 2008-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -728,7 +728,8 @@ download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JAN
 RET="$RET $?"
 download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
-download_needed "http://download.qt-project.org/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-src" "$VERSION_QT" "tar.xz"
+download_needed "http://download.qt.io/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-src" "$VERSION_QT" "tar.xz" \
+		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT/single/"
 RET="$RET $?"
 download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"
 RET="$RET $?"
