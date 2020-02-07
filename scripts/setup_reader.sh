@@ -85,7 +85,7 @@ if test "x$CROSSER_DOWNLOAD" = "x" ; then
 fi
 if test "x$CROSSER_CORES" = "x" ; then
   declare -i CROSSER_CORES
-  CROSSER_CORES=$(cat /proc/cpuinfo | grep processor | tail -n 1 | sed 's/processor.*: //')+1
+  CROSSER_CORES=$(nproc)
   CROSSER_CORES=$CROSSER_CORES+1
 fi
 
