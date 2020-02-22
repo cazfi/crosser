@@ -1,0 +1,34 @@
+diff -Nurd gtk+-3.24.14/gdk/win32/gdkdisplay-win32.c gtk+-3.24.14/gdk/win32/gdkdisplay-win32.c
+--- gtk+-3.24.14/gdk/win32/gdkdisplay-win32.c	2020-02-07 02:03:55.000000000 +0200
++++ gtk+-3.24.14/gdk/win32/gdkdisplay-win32.c	2020-02-22 18:14:18.775724139 +0200
+@@ -540,6 +540,7 @@
+         PostQuitMessage (0);
+         return 0;
+       }
++#ifdef WM_CLIPBOARDUPDATE
+     case WM_CLIPBOARDUPDATE:
+       {
+         HWND hwnd_owner;
+@@ -621,6 +622,7 @@
+         SetLastError (0);
+         return 0;
+       }
++#endif
+     default:
+       /* Otherwise call DefWindowProcW(). */
+       GDK_NOTE (EVENTS, g_print (" DefWindowProcW"));
+diff -Nurd gtk+-3.24.14/gdk/win32/gdkevents-win32.c gtk+-3.24.14/gdk/win32/gdkevents-win32.c
+--- gtk+-3.24.14/gdk/win32/gdkevents-win32.c	2020-02-07 02:03:55.000000000 +0200
++++ gtk+-3.24.14/gdk/win32/gdkevents-win32.c	2020-02-22 18:11:28.879466807 +0200
+@@ -3814,9 +3814,11 @@
+       return_val = TRUE;
+       break;
+ 
++#ifdef WM_DWMCOMPOSITIONCHANGED
+     case WM_DWMCOMPOSITIONCHANGED:
+       _gdk_win32_window_enable_transparency (window);
+       break;
++#endif
+ 
+     case WM_DESTROYCLIPBOARD:
+       win32_sel = _gdk_win32_selection_get ();

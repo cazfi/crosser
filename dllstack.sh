@@ -1091,7 +1091,10 @@ if ! unpack_component     gdk-pixbuf                                  ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
-   ! patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros                      ||
+   ! ( is_minimum_version $VERSION_GTK3 3.24.14 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros )                  ||
+   ! ( is_smaller_version $VERSION_GTK3 3.24.14 ||
+       patch_src gtk+ $VERSION_GTK3 gtk3_wm_macros-3.24.14 )          ||
    ! patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install"              ||
    ! build_with_meson gtk3                                            \
      "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false"                                                    ||
