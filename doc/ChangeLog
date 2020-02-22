@@ -4,7 +4,7 @@
 	- gtk2 is no longer built by default even in win32 setup
 	- Updated SDL2 to version 2.0.10
 	- Updated gtk-doc to version 1.32
-	- Updated meson to version 0.53.0
+	- Updated meson to version 0.53.1
 	- Updated curl to version 7.68.0
 	- Updated glib to version 2.62.5
 	- Updated graphene to version 1.10.0
