@@ -1168,8 +1168,10 @@ if ! unpack_component  graphene                                         ||
          build_with_meson graphene "-D introspection=false" ))          ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
-   ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup"      ||
+   ! (is_minimum_version $VERSION_XKBCOMMON 0.10.0 ||
+      patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_strndup" )      ||
    ! (test "x$CROSSER_SETUP" != "xwin64" ||
+      is_minimum_version $VERSION_XKBCOMMON 0.10.0 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ) ||
    ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt"     ||
    ! build_with_meson  libxkbcommon                                     \

@@ -25,7 +25,7 @@
 	- Updated pango to version 1.44.7
 	- Updated qt to version 5.12.6
 	- Updated ffi to version 3.3
-	- Updated libxkbcommon to version 0.9.1
+	- Updated libxkbcommon to version 0.10.0
 	- Updated pcre2 to version 10.34
 	- Updated jpeg to version 9d
 	- Updated pcre to version 8.44
