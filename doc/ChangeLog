@@ -23,7 +23,7 @@
 	- Updated gtk4 to version 3.96.0
 	- Updated harfbuzz to version 2.6.4
 	- Updated pango to version 1.44.7
-	- Updated qt to version 5.12.6
+	- Updated qt to version 5.12.7
 	- Updated ffi to version 3.3
 	- Updated libxkbcommon to version 0.10.0
 	- Updated pcre2 to version 10.34
