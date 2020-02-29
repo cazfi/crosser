@@ -1,3 +1,5 @@
+1.10
+
 1.9
 	- Libcurl is built with schannel support
 	- Gettext version in win32 setup is no longer held back
