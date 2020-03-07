@@ -1267,16 +1267,25 @@ if test "x$CROSSER_QT" = "xyes"
 then
 if ! unpack_component qt-everywhere-src                                ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_g++"                  ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_disableidc-5.4.2"     ||
+   ! (is_minimum_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_g++" )                    ||
+   ! (is_smaller_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_g++-5.14" )               ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_disableidc-5.4.2"       ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_linkflags-5.11"         ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop-5.11"        ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_dllsprefix-5.11"        ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable"      ||
+   ! (is_minimum_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable" )      ||
+   ! (is_smaller_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable-5.14" ) ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_yarr_inc_conflict"      ||
    ! (is_smaller_version $VERSION_QT 5.13 ||
+      is_minimum_version $VERSION_QT 5.14 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )     ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_python3"                ||
+   ! (is_smaller_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_setupapi_case" )          ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
