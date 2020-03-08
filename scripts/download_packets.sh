@@ -519,6 +519,13 @@ else
   SQL_SUBDIR=""
 fi
 
+if is_minimum_version $VERSION_FRIBIDI 1.0.9
+then
+  FRIBIDI_PACK="tar.xz"
+else
+  FRIBIDI_PACK="tar.bz2"
+fi
+
 if is_minimum_version $VERSION_ZLIB 1.2.8
 then
   ZLIB_PACK="tar.xz"
@@ -604,7 +611,7 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="$RET $?"
 download_needed "https://github.com/pkgconf/pkgconf/archive/" "pkgconf" "$VERSION_PKGCONF" "tar.gz"
 RET="$RET $?"
-download_needed "https://github.com/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "$VERSION_FRIBIDI" "tar.bz2"
+download_needed "https://github.com/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "$VERSION_FRIBIDI" "$FRIBIDI_PACK"
 RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="$RET $?"

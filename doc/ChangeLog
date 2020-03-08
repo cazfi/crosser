@@ -2,6 +2,7 @@
 	- Updated glib to version 2.64.0
 	- Updated qt to version 5.13.1
 	- Updated curl to version 7.69.0
+	- Updated fribidi to version 1.0.9
 
 1.9
 	- Libcurl is built with schannel support
