@@ -28,4 +28,3 @@ dllstack.sh
 - xsltproc
 - DocBook XSL Stylesheets
 - Python development files
-- Rust toolchain
