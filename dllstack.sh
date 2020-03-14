@@ -1211,9 +1211,6 @@ fi
 if test "x$CROSSER_SDL2" = "xyes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
-   ! ( ! cmp_versions $VERSION_SDL2 2.0.4 ||
-       ( patch_src SDL2 $VERSION_SDL2 "sdl2_writeopen_FUNC_-2.0.4" &&
-         patch_src SDL2 $VERSION_SDL2 "sdl2_iiddefs-2.0.4" ))         ||
    ! build_component   SDL2                                           ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
