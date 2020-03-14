@@ -1064,7 +1064,6 @@ if test "x$CROSSER_GTK2" != "xyes" ; then
         CROSSER_GTK=no
     else
         VERSION_GTK2=0
-        VERSION_GTK_ENG=0
     fi
 else
     if test "x$CROSSER_GTK3" = "xno" ; then
@@ -1099,9 +1098,6 @@ if ! unpack_component     gdk-pixbuf                                  ||
    ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
    ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
-   ! unpack_component gtk-engines                                     ||
-   ! build_component  gtk-engines                                     ||
-   ! free_component   gtk-engines $VERSION_GTK_ENG "gtk-engines"      ||
    ! unpack_component hicolor-icon-theme                              ||
    ! build_component  hicolor-icon-theme                              ||
    ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \

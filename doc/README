@@ -54,8 +54,7 @@ Script scripts/download_packets.sh downloads source packages.
   win32 - 32bit compilation. This set builds older version - one that
           works on win32 setup - of icu. Qt can't be built
           on win32 setup.
-  win64 - Default one. 64bit compilation. This set doesn't build gtk2 or
-          gtk-engines
+  win64 - Default one. 64bit compilation. This set doesn't build gtk2.
 
 ------
 

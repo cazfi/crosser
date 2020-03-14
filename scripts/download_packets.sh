@@ -442,7 +442,6 @@ then
     gtk2)        VERSION_GTK2=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
     gtk4)        VERSION_GTK4=$VERSION_SELECTED ;;
-    gtk-engines) VERSION_GTK_ENG=$VERSION_SELECTED ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
@@ -481,7 +480,6 @@ GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATC
 GTK2_DIR="$(echo $VERSION_GTK2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK4_DIR="$(echo $VERSION_GTK4 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GTK_ENG_DIR="$(echo $VERSION_GTK_ENG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
 GNOME_ICON_DIR="$(major.minor_from_version $VERSION_GNOME_ICONS)"
 GNOME_ICONE_DIR="$(major.minor_from_version $VERSION_GNOME_ICONE)"
@@ -694,8 +692,6 @@ download_needed "$MIRROR_GNOME/sources/gtk+/$GTK4_DIR/" "gtk4"       "$VERSION_G
 RET="$RET $?"
 fi
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
-RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/gtk-engines/$GTK_ENG_DIR/"  "gtk-engines" "$VERSION_GTK_ENG" "tar.bz2"
 RET="$RET $?"
 download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "$HICOLOR_PACK"
 RET="$RET $?"
