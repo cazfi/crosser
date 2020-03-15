@@ -1298,14 +1298,14 @@ WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
 
 log_write 1 "Creating crosser.txt"
 (
-  echo "Dllstack"
-  echo "========================="
+  echo "# Dllstack"
+  echo "# ========================="
   echo "Version=\"$CROSSER_VERSION\""
   echo "FeatureLevel=\"$CROSSER_FEATURE_LEVEL\""
   echo "Setup=\"$CROSSER_SETUP\""
   echo "Set=\"$CROSSER_VERSIONSET\""
   echo "Built=\"$(date +"%d.%m.%Y")\""
-  echo "-------------------------"
+  echo "# -------------------------"
   if test "x$VERSION_GTK3" != "x0"
   then
     echo "CROSSER_GTK3=\"yes\""
@@ -1318,9 +1318,8 @@ log_write 1 "Creating crosser.txt"
   echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
   echo "CROSSER_SFML=\"$CROSSER_SFML\""
   echo
-  echo "; Removed"
-  echo "-------------------------"
-  echo "CROSSER_SDL=\"no\""
+  echo "# To be Removed"
+  echo "# -------------------------"
   if test "x$VERSION_GTK2" != "x0"
   then
     echo "CROSSER_GTK2=\"yes\""
@@ -1328,9 +1327,10 @@ log_write 1 "Creating crosser.txt"
     echo "CROSSER_GTK2=\"no\""
   fi
   echo
-  echo "; Already removed"
-  echo "-------------------------"
+  echo "# Already removed"
+  echo "# -------------------------"
   echo "CROSSER_EXPAT=\"no\""
+  echo "CROSSER_SDL=\"no\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Copying license information"
