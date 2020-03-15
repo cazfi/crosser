@@ -283,7 +283,7 @@ major.minor_from_version()
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
