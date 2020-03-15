@@ -1,5 +1,6 @@
 1.10
 	- Format of crosser.txt changed so it can sourced as shell script
+	- Updated auxiliary config.guess and config.sub to '2020-01-01' version
 	- Dropped gtk-engines completely
 	- Updated glib to version 2.64.1
 	- Updated qt to version 5.13.1
