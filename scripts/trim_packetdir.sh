@@ -2,7 +2,7 @@
 
 # trim_packetdir.sh: Delete old source packets
 #
-# (c) 2009-2018 Marko Lindqvist
+# (c) 2009-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -12,7 +12,7 @@ FILELIMIT=200
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
