@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2019 Marko Lindqvist
+# (c) 2008-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -39,43 +39,14 @@ elif test "x$CROSSER_GLOBAL_CONF" = "x" ; then
   echo "         Read doc/setup.txt for configuration instructions." >&2
 fi
 
-if test "x$CROSSER_PACKETDIR" = "x" && test "x$PACKETDIR" != "x" ; then
-    echo "Configuration variable PACKETDIR is deprecated. Please use CROSSER_PACKETDIR" >&2
-    CROSSER_PACKETDIR="$PACKETDIR"
-fi
 if test "x$CROSSER_PACKETDIR" = "x" ; then
     CROSSER_PACKETDIR="$HOME/.crosser/packets"
-fi
-if test "x$CROSSER_BUILDDIR" = "x" && test "x$MAINBUILDDIR" != "x"
-then
-  echo "Configuration variable MAINBUILDDIR is deprecated. Please use CROSSER_BUILDDIR" >&2
-  CROSSER_BUILDDIR="$MAINBUILDDIR"
 fi
 if test "x$CROSSER_BUILDDIR" = "x" ; then
   CROSSER_BUILDDIR="$CROSSER_TMPDIR/build"
 fi
-if test "x$CROSSER_SRCDIR" = "x" && test "x$MAINSRCDIR" != "x"
-then
-  echo "Configuration variable MAINSRCDIR is deprecated. Please use CROSSER_SRCDIR" >&2
-  CROSSER_SRCDIR="$MAINSRCDIR"
-fi
 if test "x$CROSSER_SRCDIR" = "x" ; then
   CROSSER_SRCDIR="$CROSSER_TMPDIR/src"
-fi
-if test "x$CROSSER_LOGDIR" = "x" && test "x$LOGDIR" != "x"
-then
-  echo "Configuration variable LOGDIR is deprecated. Please use CROSSER_LOGDIR" >&2
-  CROSSER_LOGDIR="$LOGDIR"
-fi
-if test "x$LOGLEVEL_FILE" != "x" && test "x$CROSSER_LOGLVL_FILE" = "x"
-then
-    echo "Configuration variable LOGLEVEL_FILE is deprecated. Please use CROSSER_LOGLVL_FILE" >&2
-    CROSSER_LOGLVL_FILE="$LOGLEVEL_FILE"
-fi
-if test "x$LOGLEVEL_STDOUT" != "x" && test "x$CROSSER_LOGLVL_STDOUT" = "x"
-then
-    echo "Configuration variable LOGLEVEL_STDOUT is deprecated. Please use CROSSER_LOGLVL_STDOUT" >&2
-    CROSSER_LOGLVL_STDOUT="$LOGLEVEL_STDOUT"
 fi
 if test "x$CROSSER_LOGDIR" = "x" ; then
   CROSSER_LOGDIR="$HOME/.crosser/log"
@@ -96,14 +67,6 @@ if test $CTMP -lt 1 ; then
 fi
 CROSSER_COREOPTIONS="-j $CROSSER_CORES"
 
-if test "x$DLLSPREFIX" = "x" && test "x$LSPREFIX" != "x" ; then
-  echo "Configuration variable LSPREFIX is deprecated. Please use DLLSPREFIX." >&2
-  DLLSPREFIX="$LSPREFIX"
-fi
-if test "x$DLLSPREFIX" = "x" && test "x$CROSSER_DST_PFX" != "x" ; then
-  echo "Configuration variable CROSSER_DST_PFX is deprecated. Please use DLLSPREFIX." >&2
-  DLLSPREFIX="$CROSSER_DST_PFX"
-fi
 if test "x$CROSSER_FULL" = "x" ; then
     CROSSER_FULL="no"
 fi
