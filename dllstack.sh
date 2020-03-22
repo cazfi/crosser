@@ -1276,6 +1276,8 @@ if ! unpack_component qt-everywhere-src                                ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_python3"                ||
    ! (is_smaller_version $VERSION_QT 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_setupapi_case" )          ||
+   ! (is_smaller_version $VERSION_QT 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_quick3d_req_ogl" )        ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
