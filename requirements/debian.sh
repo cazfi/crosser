@@ -3,7 +3,7 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2019 Marko Lindqvist
+# (c) 2014-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -34,6 +34,7 @@ PACKAGES="\
  libxml2-dev \
  graphviz \
  ninja-build \
+ sassc \
 "
 
 if test "$UID" != "0" ; then
