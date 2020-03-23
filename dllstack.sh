@@ -1262,11 +1262,13 @@ if ! unpack_component qt-everywhere-src                                ||
       patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable" )      ||
    ! (is_smaller_version $VERSION_QT 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable-5.14" ) ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_yarr_inc_conflict"      ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_yarr_inc_conflict"         ||
    ! (is_smaller_version $VERSION_QT 5.13 ||
       is_minimum_version $VERSION_QT 5.14 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )     ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_python3"                ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )        ||
+   ! (is_smaller_version $VERSION_QT 5.14 ||
+      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r-5.14" )   ||
+   ! patch_src qt-everywhere-src $VERSION_QT "qt_python3"                   ||
    ! (is_smaller_version $VERSION_QT 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT "qt_setupapi_case" )          ||
    ! (is_smaller_version $VERSION_QT 5.14.0 ||
