@@ -2,6 +2,8 @@
 	- Format of crosser.txt changed so it can sourced as shell script
 	- Sassc is a new requirement
 	- Icu version in win32 setup is no longer held back
+	- License text crosser.txt renamed as crosser.license to distinguish
+	  it from feature list file crosser.txt
 	- Updated auxiliary config.guess and config.sub to '2020-01-01' version
 	- Dropped gtk-engines completely
 	- Dropped win-iconv completely

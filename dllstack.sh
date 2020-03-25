@@ -1243,7 +1243,7 @@ log_write 1 "Creating crosser.txt"
 
 log_write 1 "Copying license information"
 if ! mkdir -p $DLLSPREFIX/license ||
-   ! cp $CROSSER_MAINDIR/license/crosser.txt $DLLSPREFIX/license/ ||
+   ! cp $CROSSER_MAINDIR/license/crosser.license $DLLSPREFIX/license/ ||
    ! cp $CROSSER_MAINDIR/COPYING $DLLSPREFIX/license/
 then
   log_error "Failed to copy license information"
