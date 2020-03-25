@@ -1273,11 +1273,6 @@ fi
 
 log_write 1 "Creating setup.bat"
 (
-  if test "x$VERSION_PANGO" != "x0" && is_smaller_version $VERSION_PANGO 1.37.0
-  then
-    echo -n -e "if not exist etc\\\pango mkdir etc\\\pango\r\n"  
-    echo -n -e "bin\\\pango-querymodules.exe > etc\\\pango\\\pango.modules\r\n"
-  fi
   echo -n -e "bin\\\glib-compile-schemas.exe share\\\glib-2.0\\\schemas\r\n"
   if test "x$VERSION_GDK_PIXBUF" != "x0"
   then
