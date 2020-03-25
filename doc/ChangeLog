@@ -4,6 +4,7 @@
 	- Icu version in win32 setup is no longer held back
 	- Updated auxiliary config.guess and config.sub to '2020-01-01' version
 	- Dropped gtk-engines completely
+	- Dropped win-iconv completely
 	- Updated glib to version 2.64.1
 	- Updated qt to version 5.14.1
 	- Updated curl to version 7.69.1

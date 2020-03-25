@@ -12,7 +12,6 @@ pkgconf           PKGCONF
 meson             MESON
 icon-naming-utils ICON_NUTILS
 libiconv          ICONV
-win-iconv         WIN_ICONV
 libpng            PNG
 zlib              ZLIB
 xz                XZ

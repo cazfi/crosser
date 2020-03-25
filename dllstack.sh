@@ -478,77 +478,6 @@ build_zlib()
   return $RET
 }
 
-# Build win-iconv
-#
-# $1 - Package name
-# $2 - Version
-#
-build_simple_make()
-{
-  log_packet "$1"
-
-  if test "x$2" = "x0"
-  then
-    return 0
-  fi
-
-  SUBDIR="$(src_subdir $1 $2)"
-
-  if test "x$SUBDIR" = "x"
-  then
-    log_error "Cannot find srcdir for $1 version $2"
-    return 1
-  fi
-
-  (
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
-  then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
-    return 1
-  fi
-
-  export CC="$CROSSER_TARGET-gcc -static-libgcc"
-  export RANLIB="$CROSSER_TARGET-ranlib"
-  export AR="$CROSSER_TARGET-ar"
-  export DLLTOOL="$CROSSER_TARGET-dlltool"
-  export PREFIX=$DLLSPREFIX
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
-  export LDFLAGS="-L$DLLSPREFIX/lib"
-
-  log_write 1 "Building $1"
-  if test "x$1" = "xwin-iconv"
-  then
-      MKTARGETS="all"
-      MAKEOPTIONS=""
-  fi
-  log_write 3 " Make targets: $MKTARGETS & install"
-  log_write 4 "  Options: \"$MAKEOPTIONS\""
-  log_flags
-
-  if ! make $MAKEOPTIONS $MKTARGETS \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-  then
-    log_error "Make for $1 failed"
-    return 1
-  fi
-
-  if ! make $MAKEOPTIONS prefix="$DLLSPREFIX" install \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-  then
-    log_error "Install for $1 failed"
-    return 1
-  fi
-  )
-
-  RET=$?
-
-  if test $RET = 0 ; then
-    echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
-  fi
-
-  return $RET
-}
-
 # Build PDCurses
 #
 # $1 - Package name
@@ -888,9 +817,6 @@ READLINE_VARS="$(read_configure_vars readline)"
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${VERSION_LIBTOOL}"                                             ||
    ! free_component    libtool    $VERSION_LIBTOOL "libtool"          ||
-   ! unpack_component  win-iconv  "" "win-iconv/v${VERSION_WIN_ICONV}" ||
-   ! build_simple_make win-iconv  $VERSION_WIN_ICONV                  ||
-   ! free_src          win-iconv  $VERSION_WIN_ICONV                  ||
    ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
    ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||

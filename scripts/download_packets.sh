@@ -461,7 +461,6 @@ then
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
-    win-iconv)   VERSION_WIN_ICONV=$VERSION_SELECTED ;;
     sfml)        VERSION_SFML=$VERSION_SELECTED ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
@@ -616,8 +615,6 @@ RET="$RET $?"
 download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
-RET="$RET $?"
-download_needed "https://github.com/win-iconv/win-iconv/archive/" "win-iconv" "v$VERSION_WIN_ICONV.tar.gz" "" "" "win-iconv"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
