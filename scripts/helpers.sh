@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2019 Marko Lindqvist
+# (c) 2008-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -85,11 +85,11 @@ log_write() {
         mv "$CROSSER_LOGDIR/main.log" "$CROSSER_LOGDIR/main.old"
       fi
     fi
-    echo -e "$DSTAMP $STEP:$STEPADD $2" >> "$CROSSER_LOGDIR/main.log"
+    echo -e "$DSTAMP : $2" >> "$CROSSER_LOGDIR/main.log"
   fi
 
   if test $1 -le $CROSSER_LOGLVL_STDOUT ; then
-    echo -e "$DSTAMP $STEP:$STEPADD $2"
+    echo -e "$DSTAMP : $2"
   fi
 }
 
