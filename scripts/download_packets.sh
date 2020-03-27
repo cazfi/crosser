@@ -94,61 +94,22 @@ download_packet() {
 
   BFNAME=$(component_name_to_package_name $2 $3)
 
-  if test "x$4" = "xdsc" ; then
-    DLFILENAME="${BFNAME}_$3.$4"
-
-    if ! download_file "$1" "$DLFILENAME" "$6"
-    then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
-      then
-        echo "Download of $BFNAME version $3 dsc file failed" >&2
-        return 1
-      fi
-    fi
-
-    FILELIST_SECTION=no
-    cat "$DLDIR/$DLFILENAME" |
-    ( while read PART1 PART2 PART3
-      do
-        if test "x$FILELIST_SECTION" = "xyes"
-        then
-          if test "x$PART1" = "x"
-          then
-            FILELIST_SECTION=no
-          else
-            if ! download_file "$1" "$PART3" "$6"
-            then
-              if test "x$5" = "x" || ! download_file "$5" "$PART3" "$6"
-              then
-                echo "Download of $BFNAME version $3 file $PART3 failed" >&2
-                return 1
-              fi
-            fi
-          fi
-        elif test "x$PART1" = "xFiles:"
-        then
-          FILELIST_SECTION=yes
-        fi
-      done
-    )
+  if test "x$4" = "x" ; then
+    DLFILENAME="$3"
   else
-    if test "x$4" = "x" ; then
-      DLFILENAME="$3"
-    else
-      DLFILENAME="$BFNAME-$3.$4"
-    fi
-    if ! download_file "$1" "$DLFILENAME" "$6"
+    DLFILENAME="$BFNAME-$3.$4"
+  fi
+  if ! download_file "$1" "$DLFILENAME" "$6"
+  then
+    if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
     then
-      if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
+      if test "x$4" != "x"
       then
-        if test "x$4" != "x"
-        then
-          echo "Download of $BFNAME version $3 failed" >&2
-        else
-          echo "Download of $3 failed" >&2
-        fi
-        return 1
+        echo "Download of $BFNAME version $3 failed" >&2
+      else
+        echo "Download of $3 failed" >&2
       fi
+      return 1
     fi
   fi
 }

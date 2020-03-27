@@ -261,22 +261,6 @@ unpack_component() {
       log_error "Unpacking $NAME_BASE.zip failed"
       return 1  
     fi
-  elif test -e "$CROSSER_PACKETDIR/${BNAME}_${BVER}.dsc" ; then
-    if ! which dpkg-source >/dev/null ; then
-      log_error "No way to unpack debian source packages"
-      return 1
-    fi
-    if test "x$2" = "x" ; then
-      SRCDIR="$BNAME"
-    else
-      SRCDIR="$2"
-    fi
-    if ! dpkg-source -x "$CROSSER_PACKETDIR/${BNAME}_${BVER}.dsc" "$CROSSER_SRCDIR/$SRCDIR" \
-                     >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-    then
-      log_error "Unpacking $BNAME_$BVER.dsc failed"
-      return 1
-    fi
   else
     log_error "Can't find $BNAME version $BVER package to unpack."
     return 1
