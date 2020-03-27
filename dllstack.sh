@@ -697,7 +697,6 @@ then
   fi
 fi
 
-GLIB_VARS="$(read_configure_vars glib)"
 GETTEXT_VARS="$(read_configure_vars gettext)"
 IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
@@ -863,10 +862,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
    ! free_component    libffi     $VERSION_FFI     "libffi"           ||
-   ! (is_minimum_version $VERSION_GLIB 2.58.0 ||
-      build_component  glib "$GLIB_VARS --with-threads=win32" )   ||
-   ! (is_smaller_version $VERSION_GLIB 2.58.0 ||
-      build_with_meson glib )                                         ||
+   ! build_with_meson  glib                                           ||
    ! free_component    glib       $VERSION_GLIB    "glib"             ||
    ! unpack_component  fribidi                                        ||
    ! build_component   fribidi    "--disable-docs"                    ||
