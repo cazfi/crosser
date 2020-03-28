@@ -248,7 +248,13 @@ build_component_full()
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
   then
-    cmake -DCMAKE_SYSTEM_NAME="Windows" -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    if test -f "$SRCDIR/XCompile.txt"
+    then
+      # openal-soft uses this
+      cmake -DCMAKE_TOOLCHAIN_FILE="$SRCDIR/XCompile.txt" -DCMAKE_SYSTEM_NAME="Windows" -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    else
+      cmake -DCMAKE_SYSTEM_NAME="Windows" -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    fi
   fi
 
   log_write 1 "Building $DISPLAY_NAME"
@@ -1145,8 +1151,10 @@ if ! unpack_component     ffmpeg                                                
    ! build_component_full ffmpeg ffmpeg                                         \
      "--cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
      "custom"                                                                   ||
-   ! free_component       ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||     
+   ! free_component       ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
+   ! patch_src openal-soft $VERSION_OPENAL "oals_rdynamic_workaround"           ||
+   ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
    ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
    ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||     
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||

@@ -1,0 +1,12 @@
+diff -Nurd openal-soft-1.17.2/CMakeLists.txt openal-soft-1.17.2/CMakeLists.txt
+--- openal-soft-1.17.2/CMakeLists.txt	2016-01-25 05:12:39.000000000 +0200
++++ openal-soft-1.17.2/CMakeLists.txt	2020-03-29 00:00:45.550691280 +0200
+@@ -885,7 +885,7 @@
+ OPTION(ALSOFT_REQUIRE_MMDEVAPI "Require MMDevApi backend" OFF)
+ IF(HAVE_WINDOWS_H)
+     # Check MMSystem backend
+-    CHECK_INCLUDE_FILES("windows.h;mmsystem.h" HAVE_MMSYSTEM_H -D_WIN32_WINNT=0x0502)
++    CHECK_INCLUDE_FILES("windows.h;mmsystem.h" HAVE_MMSYSTEM_H)
+     IF(HAVE_MMSYSTEM_H)
+         CHECK_SHARED_FUNCTION_EXISTS(waveOutOpen "windows.h;mmsystem.h" winmm "" HAVE_LIBWINMM)
+         IF(HAVE_LIBWINMM)
