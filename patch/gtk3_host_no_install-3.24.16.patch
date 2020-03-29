@@ -1,0 +1,18 @@
+diff -Nurd gtk+-3.24.16/meson.build gtk+-3.24.16/meson.build
+--- gtk+-3.24.16/meson.build	2020-02-25 03:50:38.000000000 +0200
++++ gtk+-3.24.16/meson.build	2020-03-29 02:04:24.968014884 +0200
+@@ -972,14 +972,6 @@
+ 
+ install_data('m4macros/gtk-3.0.m4', install_dir: join_paths(get_option('datadir'), 'aclocal'))
+ 
+-# Keep this in sync with post-install.py expected arguments
+-meson.add_install_script('build-aux/meson/post-install.py',
+-                         gtk_api_version,
+-                         gtk_binary_version,
+-                         join_paths(gtk_prefix, get_option('bindir')),
+-                         gtk_libdir,
+-                         gtk_datadir)
+-
+ if host_machine.system() != 'windows'
+   # Install Valgrind suppression files (except on Windows,
+   # as Valgrind is currently not supported on Windows)
