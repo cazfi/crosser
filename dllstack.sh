@@ -953,7 +953,6 @@ if ! build_component   tiff                                                 ||
    ! unpack_component  cairo                                                ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
    ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
-   ! patch_src         cairo $VERSION_CAIRO cairo_ffs                       ||
    ! patch_src         cairo $VERSION_CAIRO "cairo_fortify_disable"         ||
    ! ( is_minimum_version    $VERSION_CAIRO 1.15.2 ||
        patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
