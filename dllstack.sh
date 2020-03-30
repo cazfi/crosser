@@ -788,7 +788,6 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source"                                                  ||
    ! unpack_component tiff                                                  ||
-   ! patch_src tiff $VERSION_TIFF tiff_config_headers_395                   ||
    ! build_component_host tiff                                              ||
    ! free_build           "native-tiff"                                     ||
    ! unpack_component     libxml2                                           ||
