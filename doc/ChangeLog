@@ -20,6 +20,7 @@
 	- Updated gtk4 to version 3.98.1
 	- Updated icu to version 63.2
 	- Updated gtk3 to version 3.24.16
+	- Updated meson to version 0.54.0
 
 1.9 (16-Mar-20)
 	- Libcurl is built with schannel support
