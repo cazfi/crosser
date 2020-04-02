@@ -10,7 +10,7 @@
 	- Dropped gtk-engines completely
 	- Dropped win-iconv completely
 	- Updated glib to version 2.64.1
-	- Updated qt to version 5.14.1
+	- Updated qt to version 5.14.2
 	- Updated curl to version 7.69.1
 	- Updated fribidi to version 1.0.9
 	- Updated adwaita-icon-theme to version 3.36.0
