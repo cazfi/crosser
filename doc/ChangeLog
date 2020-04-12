@@ -9,7 +9,7 @@
 	- Updated auxiliary config.guess and config.sub to '2020-01-01' version
 	- Dropped gtk-engines completely
 	- Dropped win-iconv completely
-	- Updated glib to version 2.64.1
+	- Updated glib to version 2.64.2
 	- Updated qt to version 5.14.2
 	- Updated curl to version 7.69.1
 	- Updated fribidi to version 1.0.9
