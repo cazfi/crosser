@@ -855,6 +855,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    libpng     $VERSION_PNG "libpng"                              ||
    ! unpack_component  gettext                                                       ||
    ! (is_smaller_version $VERSION_GETTEXT 0.20 ||
+      is_minimum_version $VERSION_GETTEXT 0.20.2 ||
       patch_src gettext $VERSION_GETTEXT "gettext_pthread_test_disable" )            ||
    ! LIBS="-liconv" build_component gettext                                          \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||

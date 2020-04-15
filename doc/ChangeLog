@@ -23,6 +23,7 @@
 	- Updated meson to version 0.54.0
 	- Updated atk to version 2.36.0
 	- Updated automake to version 1.16.2
+	- Updated gettext to version 0.20.2
 
 1.9 (16-Mar-20)
 	- Libcurl is built with schannel support
