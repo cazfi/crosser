@@ -1090,6 +1090,7 @@ if ! unpack_component  graphene                                         ||
       is_minimum_version $VERSION_GTK4 3.98.1 ||
       patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install" )             ||
    ! (is_smaller_version $VERSION_GTK4 3.98.1 ||
+      is_minimum_version $VERSION_GTK4 3.98.3 ||
       patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install-3.98.1" )      ||
    ! (is_smaller_version $VERSION_GTK4 3.96.0 ||
       is_minimum_version $VERSION_GTK4 3.98.0 ||
