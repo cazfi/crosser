@@ -577,6 +577,11 @@ then
   export TGT_HEADERS="/usr/$CROSSER_TARGET/include"
 fi
 
+if test "x$DLLSHOST_PREFIX" = "x" && test "x$LSHOST_PREFIX" != "x" ; then
+  echo "Configuration variable LSHOST_PREFIX is deprecated. Please use DLLSHOST_PREFIX." >&2
+  DLLSHOST_PREFIX="$LSHOST_PREFIX"
+fi
+
 export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "$DLLSPREFIX")
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
