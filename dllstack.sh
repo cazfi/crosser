@@ -1246,6 +1246,11 @@ log_write 1 "Creating crosser.txt"
   else
     echo "CROSSER_GTK2=\"no\""
   fi
+  echo
+  echo "# Already removed"
+  echo "# -------------------------"
+  echo "CROSSER_EXPAT=\"no\""
+  echo "CROSSER_SDL=\"no\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Copying license information"
