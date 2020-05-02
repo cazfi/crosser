@@ -1,4 +1,4 @@
-1.10
+1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
 	- Sassc is a new requirement
 	- Icu version in win32 setup is no longer held back
