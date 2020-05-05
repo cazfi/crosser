@@ -74,11 +74,15 @@ if test "x$CROSSER_FULL" != "xyes" && test "x$CROSSER_FULL" != "xno" ; then
     echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
-if test "x$CROSSER_QT" = "x" ; then
-    CROSSER_QT="$CROSSER_FULL"
+if test "x$CROSSER_QT5" = "x" && test "x$CROSSER_QT" != "x" ; then
+  echo "Configuration variable CROSSER_QT is deprecated. Please use CROSSER_QT5" >&2
+  CROSSER_QT5="$CROSSER_QT"
 fi
-if test "x$CROSSER_QT" != "xyes" && test "x$CROSSER_QT" != "xno" ; then
-    echo "Unknown value \"$CROSSER_QT\" for CROSSER_QT. Valid values are \"yes\" and \"no\"" >&2
+if test "x$CROSSER_QT5" = "x" ; then
+    CROSSER_QT5="$CROSSER_FULL"
+fi
+if test "x$CROSSER_QT5" != "xyes" && test "x$CROSSER_QT5" != "xno" ; then
+    echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
 if test "x$CROSSER_GTK4" = "x" ; then

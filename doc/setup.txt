@@ -135,10 +135,10 @@ CROSSER_GROUP
 
 CROSSER_FULL
  ; If set to value "yes", more components will be built by default.
- ; Currently this is like enabling CROSSER_QT and CROSSER_GTK4
+ ; Currently this is like enabling CROSSER_QT5 and CROSSER_GTK4
 
-CROSSER_QT
- ; If set to value "yes", Qt will be built as part of crosser.
+CROSSER_QT5
+ ; If set to value "yes", Qt5 will be built as part of crosser.
  ; Currently such an build will have dynamic dependency to some dlls
  ; not part of crosser environment, if built with gcc-4.8 or newer.
  ; Default value is "yes" if CROSSER_FULL is enabled.

@@ -692,7 +692,7 @@ then
     if test "x$CROSSER_SFML" = "xyes" ; then
         steplist="${steplist},sfml"
     fi
-    if test "x$CROSSER_QT" = "xyes" ; then
+    if test "x$CROSSER_QT5" = "xyes" ; then
         steplist="${steplist},full"
     fi
     if ! (cd "$CROSSER_PACKETDIR" &&
@@ -1169,7 +1169,7 @@ then
 fi
 fi
 
-if test "x$CROSSER_QT" = "xyes"
+if test "x$CROSSER_QT5" = "xyes"
 then
 if ! unpack_component qt-everywhere-src                                ||
    ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
@@ -1240,10 +1240,14 @@ log_write 1 "Creating crosser.txt"
     echo "CROSSER_GTK3=\"no\""
   fi
   echo "CROSSER_GTK4=\"$CROSSER_GTK4\""
-  echo "CROSSER_QT=\"$CROSSER_QT\""
+  echo "CROSSER_QT5=\"$CROSSER_QT5\""
   echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
   echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
   echo "CROSSER_SFML=\"$CROSSER_SFML\""
+  echo
+  echo "# Deprecated entries"
+  echo "# -------------------------"
+  echo "CROSSER_QT=\"$CROSSER_QT5\""
   echo
   echo "# To be Removed"
   echo "# -------------------------"
@@ -1306,7 +1310,7 @@ log_write 1 "Creating launch.bat"
 (
   echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
-  if test "x$CROSSER_QT" = "xyes"
+  if test "x$CROSSER_QT5" = "xyes"
   then
       echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\plugins\r\n"
   fi
