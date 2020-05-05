@@ -139,8 +139,6 @@ CROSSER_FULL
 
 CROSSER_QT
  ; If set to value "yes", Qt will be built as part of crosser.
- ; Currently such an build will have dynamic dependency to some dlls
- ; not part of crosser environment, if built with gcc-4.8 or newer.
  ; Default value is "yes" if CROSSER_FULL is enabled.
 
 CROSSER_SDL2
