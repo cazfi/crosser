@@ -1,5 +1,6 @@
 2.0
 	- Entries in crosser.txt renamed for cleaner namespaces
+	- Updated pixman to version 0.40.0
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
