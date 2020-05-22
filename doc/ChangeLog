@@ -3,6 +3,7 @@
 	- Configuration variable CROSSER_QT replaced by CROSSER_QT5
 	- Updated pixman to version 0.40.0
 	- Updated curl to version 7.70.0
+	- Updated glib to version 2.64.3
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
