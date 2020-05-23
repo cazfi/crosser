@@ -6,6 +6,7 @@
 	- Updated glib to version 2.64.3
 	- Updated meson to version 0.54.2
 	- Updated sqlite to version 3.32.0
+	- Updated jansson to version 2.13.1
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
