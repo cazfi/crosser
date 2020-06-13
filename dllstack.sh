@@ -1011,6 +1011,8 @@ if ! unpack_component     gdk-pixbuf                                  ||
        patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install" )          ||
    ! ( is_smaller_version $VERSION_GTK3 3.24.16 ||
        patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install-3.24.16" )  ||
+   ! ( is_smaller_version $VERSION_GTK3 3.24.20 ||
+       patch_src gtk+ $VERSION_GTK3 "gtk3_ver_test_disable" )         ||
    ! build_with_meson gtk3                                            \
      "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false"                                                    ||
    ! free_component   gtk+        $VERSION_GTK3 "gtk3"                ||

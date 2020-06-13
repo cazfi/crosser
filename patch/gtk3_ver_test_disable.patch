@@ -1,0 +1,20 @@
+diff -Nurd gtk+-3.24.20/meson.build gtk+-3.24.20/meson.build
+--- gtk+-3.24.20/meson.build	2020-06-13 23:36:27.668508448 +0300
++++ gtk+-3.24.20/meson.build	2020-06-14 00:17:11.079888049 +0300
+@@ -979,16 +979,6 @@
+     install_dir : join_paths(gtk_datadir, 'gtk-3.0', 'valgrind'))
+ endif
+ 
+-test(
+-  'version-check',
+-  find_program('check-version.py'),
+-  args: [
+-    join_paths(meson.current_source_dir(), 'configure.ac'),
+-    join_paths(meson.current_source_dir(), 'meson.build'),
+-  ],
+-  suite: 'gtk',
+-)
+-
+ summary = [
+   '',
+   '------',
