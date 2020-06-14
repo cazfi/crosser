@@ -10,6 +10,7 @@
 	- Updated pcre2 to version 10.35
 	- Updated freetype to version 2.10.2
 	- Updated gtk3 to version 3.24.20
+	- Updated pkgconf to version 1.7.3
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
