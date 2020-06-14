@@ -35,6 +35,7 @@ PACKAGES="\
  graphviz \
  ninja-build \
  sassc \
+ xmlto \
 "
 
 if test "$UID" != "0" ; then

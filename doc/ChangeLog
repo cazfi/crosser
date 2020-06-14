@@ -11,6 +11,7 @@
 	- Updated freetype to version 2.10.2
 	- Updated gtk3 to version 3.24.20
 	- Updated pkgconf to version 1.7.3
+	- Updated shared-mime-info to version 2.0
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
