@@ -937,7 +937,8 @@ if ! build_component   tiff                                                 ||
    ! unpack_component  harfbuzz                                             ||
    ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
-   ! patch_src         harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3"      ||
+   ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
+       patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
    ! build_component   harfbuzz   "--without-icu"                           ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
