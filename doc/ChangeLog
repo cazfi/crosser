@@ -4,7 +4,7 @@
 	- Updated pixman to version 0.40.0
 	- Updated curl to version 7.70.0
 	- Updated glib to version 2.64.3
-	- Updated meson to version 0.54.2
+	- Updated meson to version 0.54.3
 	- Updated sqlite to version 3.32.2
 	- Updated jansson to version 2.13.1
 	- Updated pcre2 to version 10.35
