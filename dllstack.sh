@@ -1181,42 +1181,42 @@ fi
 if test "x$CROSSER_QT5" = "xyes"
 then
 if ! unpack_component qt-everywhere-src                                ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_sharappidinfolink"    ||
-   ! (is_minimum_version $VERSION_QT 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_g++" )                    ||
-   ! (is_smaller_version $VERSION_QT 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_g++-5.14" )               ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_disableidc-5.4.2"       ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_linkflags-5.11"         ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_vs_interop-5.11"        ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_dllsprefix-5.11"        ||
-   ! (is_minimum_version $VERSION_QT 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable" )      ||
-   ! (is_smaller_version $VERSION_QT 5.14.0 ||
-      is_minimum_version $VERSION_QT 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable-5.14" ) ||
-   ! (is_smaller_version $VERSION_QT 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_winextras_disable-5.14.2" ) ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_yarr_inc_conflict"         ||
-   ! (is_smaller_version $VERSION_QT 5.13 ||
-      is_minimum_version $VERSION_QT 5.14 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r" )        ||
-   ! (is_smaller_version $VERSION_QT 5.14 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_localtime_not_r-5.14" )   ||
-   ! patch_src qt-everywhere-src $VERSION_QT "qt_python3"                   ||
-   ! (is_smaller_version $VERSION_QT 5.14.0 ||
-      is_minimum_version $VERSION_QT 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_setupapi_case" )          ||
-   ! (is_smaller_version $VERSION_QT 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT "qt_quick3d_req_ogl" )        ||
-   ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT)/qtwebkit/Source/WebCore"  \
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_sharappidinfolink"    ||
+   ! (is_minimum_version $VERSION_QT5 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_g++" )                    ||
+   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_g++-5.14" )               ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_disableidc-5.4.2"       ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_linkflags-5.11"         ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_vs_interop-5.11"        ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_dllsprefix-5.11"        ||
+   ! (is_minimum_version $VERSION_QT5 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable" )      ||
+   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
+      is_minimum_version $VERSION_QT5 5.14.2 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable-5.14" ) ||
+   ! (is_smaller_version $VERSION_QT5 5.14.2 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable-5.14.2" ) ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_yarr_inc_conflict"         ||
+   ! (is_smaller_version $VERSION_QT5 5.13 ||
+      is_minimum_version $VERSION_QT5 5.14 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r" )        ||
+   ! (is_smaller_version $VERSION_QT5 5.14 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r-5.14" )   ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_python3"                   ||
+   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
+      is_minimum_version $VERSION_QT5 5.14.2 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_setupapi_case" )          ||
+   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
+   ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT5)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib" \
      "qt"                                                                       ||
-   ! free_component   qt-everywhere-src $VERSION_QT "qt-everywhere-src"
+   ! free_component   qt-everywhere-src $VERSION_QT5 "qt-everywhere-src"
 then
-  log_error "QT stack build failed"
+  log_error "QT5 stack build failed"
   exit 1
 fi
 fi

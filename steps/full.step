@@ -1,8 +1,8 @@
 # full.step: Packages in optional step
 #
-# (c) 2015-2018 Marko Lindqvist
+# (c) 2015-2020 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 
-qt-everywhere-src    QT
+qt-everywhere-src    QT5

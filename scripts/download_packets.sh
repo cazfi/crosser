@@ -415,7 +415,7 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt-everywhere-src) VERSION_QT=$VERSION_SELECTED ;;
+    qt-everywhere-src) VERSION_QT5=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
@@ -447,7 +447,7 @@ CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
 LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
-QT_DIR="$(echo $VERSION_QT | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
+QT5_DIR="$(echo $VERSION_QT5 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
@@ -552,13 +552,13 @@ elif test "x$VERSION_SHARED_MIME_INFO" = "x1.9" ; then
   SMI_HASH="63cd31473fc85fbbe9cd57a7ef028b05"
 fi
 
-if echo $VERSION_QT | grep alpha >/dev/null ||
-   echo $VERSION_QT | grep beta >/dev/null ||
-   echo $VERSION_QT | grep rc >/dev/null     
+if echo $VERSION_QT5 | grep alpha >/dev/null ||
+   echo $VERSION_QT5 | grep beta >/dev/null ||
+   echo $VERSION_QT5 | grep rc >/dev/null
 then
-    QT_RELEASEDIR="development_releases"
+    QT5_RELEASEDIR="development_releases"
 else
-    QT_RELEASEDIR="official_releases"
+    QT5_RELEASEDIR="official_releases"
 fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
@@ -691,8 +691,8 @@ download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JAN
 RET="$RET $?"
 download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
-download_needed "http://download.qt.io/$QT_RELEASEDIR/qt/$QT_DIR/$VERSION_QT/single/" "qt-everywhere-src" "$VERSION_QT" "tar.xz" \
-		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT/single/"
+download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt-everywhere-src" "$VERSION_QT5" "tar.xz" \
+		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
 RET="$RET $?"
 download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"
 RET="$RET $?"
