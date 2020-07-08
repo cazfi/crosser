@@ -13,6 +13,7 @@
 	- Updated pkgconf to version 1.7.3
 	- Updated shared-mime-info to version 2.0
 	- Updated harfbuzz to version 2.6.7
+	- Updated fribidi to version 1.0.10
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
