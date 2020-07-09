@@ -610,7 +610,7 @@ download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v$
 RET="$RET $?"
 download_needed "http://download.osgeo.org/libtiff/"    "tiff"    "$VERSION_TIFF"       "tar.gz"
 RET="$RET $?"
-download_needed "http://www.freedesktop.org/software/harfbuzz/release/" "harfbuzz" "$VERSION_HARFBUZZ" "$HB_PACK"
+download_needed "https://github.com/harfbuzz/harfbuzz/releases/download/$VERSION_HARFBUZZ/" "harfbuzz" "$VERSION_HARFBUZZ" "$HB_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "$FT_PACK"
 RET="$RET $?"
