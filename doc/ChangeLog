@@ -15,6 +15,7 @@
 	- Updated harfbuzz to version 2.6.8
 	- Updated fribidi to version 1.0.10
 	- Updated graphene to version 1.10.2
+	- Updated gtk4 to version 3.98.4
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
