@@ -934,7 +934,7 @@ if ! build_component   tiff                                                 ||
    ! unpack_component  freetype                                             ||
    ! build_component   freetype   "--without-bzip2"                         ||
    ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
-   ! unpack_component  harfbuzz                                             ||
+   ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"           ||
    ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
