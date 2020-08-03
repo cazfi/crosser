@@ -29,3 +29,4 @@ dllstack.sh
 - DocBook XSL Stylesheets
 - Python development files
 - sassc
+- xmlto
