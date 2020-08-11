@@ -16,6 +16,7 @@
 	- Updated fribidi to version 1.0.10
 	- Updated graphene to version 1.10.2
 	- Updated gtk4 to version 3.98.4
+	- Updated pango to version 1.46.0
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
