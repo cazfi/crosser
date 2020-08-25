@@ -36,6 +36,7 @@ PACKAGES="\
  ninja-build \
  sassc \
  xmlto \
+ python3-pygments \
 "
 
 if test "$UID" != "0" ; then
