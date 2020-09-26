@@ -3,7 +3,7 @@
 	- Configuration variable CROSSER_QT replaced by CROSSER_QT5
 	- Updated pixman to version 0.40.0
 	- Updated curl to version 7.72.0
-	- Updated glib to version 2.64.5
+	- Updated glib to version 2.66.0
 	- Updated meson to version 0.55.1
 	- Updated sqlite to version 3.33.0
 	- Updated jansson to version 2.13.1
