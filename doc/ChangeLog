@@ -18,6 +18,7 @@
 	- Updated gtk4 to version 3.98.5
 	- Updated pango to version 1.46.2
 	- Updated adwaita-icon-theme to version 3.38.0
+	- Updated libxkbcommon to version 1.0.1
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script

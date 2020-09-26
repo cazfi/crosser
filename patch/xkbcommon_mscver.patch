@@ -1,0 +1,11 @@
+diff -Nurd libxkbcommon-1.0.1/meson.build libxkbcommon-1.0.1/meson.build
+--- libxkbcommon-1.0.1/meson.build	2020-09-26 10:38:21.782063741 +0300
++++ libxkbcommon-1.0.1/meson.build	2020-09-26 13:09:39.813360500 +0300
+@@ -142,6 +142,7 @@
+ configh_data.set('_CRT_SECURE_NO_WARNINGS', 1)
+ configh_data.set('_CRT_NONSTDC_NO_WARNINGS', 1)
+ configh_data.set('_CRT_NONSTDC_NO_DEPRECATE', 1)
++configh_data.set('_MSC_VER', 1)
+ # Reduce unnecessary includes on MSVC.
+ configh_data.set('WIN32_LEAN_AND_MEAN', 1)
+ 
