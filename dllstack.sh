@@ -1205,6 +1205,7 @@ if ! unpack_component qt-everywhere-src                                ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_setupapi_case" )          ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
    ! SOURCE_ROOT_CROSSER_HACK="$CROSSER_SRCDIR/$(src_subdir qt-everywhere-src $VERSION_QT5)/qtwebkit/Source/WebCore"  \
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
