@@ -1225,6 +1225,7 @@ log_write 1 "Creating crosser.txt"
 (
   echo "# Dllstack"
   echo "# ========================="
+  echo "CrosserVersion=\"$CROSSER_VERSION\""
   echo "CrosserFeatureLevel=\"$CROSSER_FEATURE_LEVEL\""
   echo "CrosserSetup=\"$CROSSER_SETUP\""
   echo "CrosserSet=\"$CROSSER_VERSIONSET\""
