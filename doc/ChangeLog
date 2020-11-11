@@ -21,6 +21,7 @@
 	- Updated libxkbcommon to version 1.0.1
 	- Updated vorbis to version 1.3.7
 	- Updated gobject-introspection to version 1.66.1
+	- Updated gdk-pixbuf to version 2.42.0
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script

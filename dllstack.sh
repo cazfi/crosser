@@ -999,7 +999,11 @@ fi
 
 if test "x$CROSSER_GTK" != "xno" ; then
 if ! unpack_component     gdk-pixbuf                                  ||
+   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.32.0 ||
+      build_with_meson gdk-pixbuf \
+        "-D relocatable=true -D x11=false -D introspection=disabled" ) ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.38.0 ||
+      is_minimum_version $VERSION_GDK_PIXBUF 2.42.0 ||
       build_with_meson gdk-pixbuf \
         "-D relocatable=true -D x11=false -D gir=false" )             ||
    ! (is_minimum_version $VERSION_GDK_PIXBUF 2.38.0 ||
