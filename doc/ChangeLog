@@ -7,7 +7,7 @@
 	- Updated meson to version 0.56.0
 	- Updated sqlite to version 3.34.0
 	- Updated jansson to version 2.13.1
-	- Updated pcre2 to version 10.35
+	- Updated pcre2 to version 10.36
 	- Updated freetype to version 2.10.4
 	- Updated gtk3 to version 3.24.24
 	- Updated pkgconf to version 1.7.3
