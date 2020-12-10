@@ -1206,7 +1206,10 @@ if ! unpack_component qt-everywhere-src                                ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r" )        ||
    ! (is_smaller_version $VERSION_QT5 5.14 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r-5.14" )   ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_python3"                   ||
+   ! (is_minimum_version $VERSION_QT5 5.15 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_python3" )                ||
+   ! (is_smaller_version $VERSION_QT5 5.15 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_python3-5.15" )           ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       is_minimum_version $VERSION_QT5 5.14.2 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_setupapi_case" )          ||
