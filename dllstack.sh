@@ -1231,7 +1231,7 @@ if ! unpack_component qt-everywhere-src                                ||
      build_component_full  qt-everywhere-src                                    \
      qt-everywhere-src                                                          \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib" \
-     "qt"                                                                       ||
+     "qt" "" "" "" "yes"                                                        ||
    ! free_component   qt-everywhere-src $VERSION_QT5 "qt-everywhere-src"
 then
   log_error "QT5 stack build failed"
