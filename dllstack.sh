@@ -133,6 +133,7 @@ build_component_host()
 # [$5] - Src subdir
 # [$6] - Make options
 # [$7] - Version
+# [$8] - 'yes' - build default target before 'install'
 build_component_full()
 {
   log_packet "$2"
@@ -258,7 +259,12 @@ build_component_full()
   fi
 
   log_write 1 "Building $DISPLAY_NAME"
-  log_write 3 "  Make targets: [default] install"
+  if test "x$8" = "xyes"
+  then
+    log_write 3 "  Make targets: [default] install"
+  else
+    log_write 3 "  Make targets: install"
+  fi
   if test "x$6" = "xno"
   then
     MAKEOPTIONS=""
@@ -270,10 +276,13 @@ build_component_full()
   fi
   log_write 4 "  Options: \"$MAKEOPTIONS\""
 
-  if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if test "x$8" = "xyes"
   then
-    log_error "Make for $DISPLAY_NAME failed"
-    return 1
+    if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    then
+      log_error "Make for $DISPLAY_NAME failed"
+      return 1
+    fi
   fi
 
   if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
@@ -786,7 +795,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! (is_minimum_version $VERSION_ICU 60 ||
       patch_src icu $VERSION_ICU icu_xlocale_no )                           ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
-     "native" "icu/source"                                                  ||
+     "native" "icu/source" "" "" "yes"                                      ||
    ! unpack_component tiff                                                  ||
    ! build_component_host tiff                                              ||
    ! free_build           "native-tiff"                                     ||
@@ -847,7 +856,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--disable-threadsafe" "" "sqlite-autoconf-${SQL_VERSTR}"                       ||
    ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
    ! build_component_full icu4c icu4c                                                \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source"             ||
+     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
    ! free_build           "native-icu4c"                                             ||
    ! free_component    icu        $VERSION_ICU "icu4c"                               ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7"                      ||
