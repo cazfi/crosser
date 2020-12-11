@@ -91,6 +91,13 @@ build_component()
   build_component_full "$1" "$1" "$2"
 }
 
+# $1 - Component
+# $2 - Extra configure options
+build_component_def_make()
+{
+  build_component_full "$1" "$1" "$2" "" "" "" "" "yes"
+}
+
 # $1   - Component
 # $2   - Extra configure options
 # [$3] - "native", "cross", or "pkg-config"
@@ -1141,7 +1148,7 @@ fi
 if test "x$CROSSER_SDL2" = "xyes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
-   ! build_component   SDL2                                           ||
+   ! build_component_def_make SDL2                                    ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
    ! build_component   SDL2_image                                     ||
