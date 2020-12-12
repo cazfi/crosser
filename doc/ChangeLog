@@ -24,6 +24,7 @@
 	- Updated gdk-pixbuf to version 2.42.2
 	- Updated automake to version 1.16.3
 	- Updated autoconf to version 2.70
+	- Updated qt to version 5.15.2
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
