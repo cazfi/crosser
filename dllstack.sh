@@ -1227,7 +1227,9 @@ if ! unpack_component qt-everywhere-src                                ||
    ! (is_smaller_version $VERSION_QT5 5.15 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_python3-5.15" )           ||
    ! (is_smaller_version $VERSION_QT5 5.15 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_testlib_disable" )        ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_test_thread_disable" )    ||
+   ! (is_smaller_version $VERSION_QT5 5.15 ||
+      patch_src qt-everywhere-src $VERSION_QT5 "qt_nothr_shellexecute" )     ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       is_minimum_version $VERSION_QT5 5.14.2 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_setupapi_case" )          ||

@@ -1,0 +1,40 @@
+diff -Nurd qt-everywhere-src-5.15.1/qtbase/src/plugins/platforms/windows/qwindowsservices.cpp qt-everywhere-src-5.15.1/qtbase/src/plugins/platforms/windows/qwindowsservices.cpp
+--- qt-everywhere-src-5.15.1/qtbase/src/plugins/platforms/windows/qwindowsservices.cpp	2020-09-02 13:15:07.000000000 +0300
++++ qt-everywhere-src-5.15.1/qtbase/src/plugins/platforms/windows/qwindowsservices.cpp	2020-12-12 03:44:57.812444652 +0200
+@@ -56,6 +56,7 @@
+ 
+ enum { debug = 0 };
+ 
++#if 0
+ static quintptr runShellExecute(const wchar_t *path)
+ {
+     HINSTANCE result = nullptr;
+@@ -65,6 +66,7 @@
+     }
+     return reinterpret_cast<quintptr>(result);
+ }
++#endif
+ 
+ static inline bool shellExecute(const QUrl &url)
+ {
+@@ -73,6 +75,7 @@
+         : url.toString(QUrl::FullyEncoded);
+ 
+ 
++#if 0
+     // Run ShellExecute() in a thread since it may spin the event loop.
+     // Prevent it from interfering with processing of posted events (QTBUG-85676).
+     quintptr result = 0;
+@@ -82,6 +85,12 @@
+                                                    () { *resultPtr = runShellExecute(path); }));
+     thread->start();
+     thread->wait();
++#endif
++
++    const auto result =
++        reinterpret_cast<quintptr>(ShellExecute(nullptr, nullptr,
++                                                reinterpret_cast<const wchar_t *>(nativeFilePath.utf16()),
++                                                nullptr, nullptr, SW_SHOWNORMAL));
+ 
+     // ShellExecute returns a value greater than 32 if successful
+     if (result <= 32) {
