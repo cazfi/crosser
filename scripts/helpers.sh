@@ -165,7 +165,7 @@ upstream_patch() {
 # $1 - Component name
 # $2 - Component version
 component_name_to_package_name() {
-  if test "x$1" = "xgtk2" || test "x$1" = "xgtk3"
+  if test "x$1" = "xgtk3"
   then
     echo "gtk+"
   elif test "x$1" = "xgtk4"

@@ -52,7 +52,7 @@ Script scripts/download_packets.sh downloads source packages.
 
   Third parameter is description of system dllstack is built for.
   win32 - 32bit compilation. Qt can't be built on win32 setup.
-  win64 - Default one. 64bit compilation. This set doesn't build gtk2.
+  win64 - Default one. 64bit compilation.
 
 ------
 

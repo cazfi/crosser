@@ -17,7 +17,7 @@ PACKAGES="\
  xz-utils \
  unzip \
  patch \
- libgtk2.0-dev \
+ libgdk-pixbuf2.0-bin \
  gettext \
  libxml-simple-perl \
  libtiff5-dev \

@@ -1001,16 +1001,8 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_GTK2" != "xyes" ; then
-    if test "x$CROSSER_GTK3" = "xno" ; then
-        CROSSER_GTK=no
-    else
-        VERSION_GTK2=0
-    fi
-else
-    if test "x$CROSSER_GTK3" = "xno" ; then
-        VERSION_GTK3=no
-    fi
+if test "x$CROSSER_GTK3" = "xno" ; then
+  CROSSER_GTK=no
 fi
 
 if test "x$CROSSER_GTK" != "xno" ; then
@@ -1026,10 +1018,6 @@ if ! unpack_component     gdk-pixbuf                                  ||
        ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm &&
          build_component  gdk-pixbuf "--enable-relocations" ))        ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"     ||
-   ! unpack_component gtk2                                            ||
-   ! build_component  gtk2                                            \
-     "--disable-cups --disable-explicit-deps --with-included-immodules $CONF_JPEG_GTK" ||
-   ! free_component   gtk+        $VERSION_GTK2 "gtk2"                ||
    ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
@@ -1287,15 +1275,7 @@ log_write 1 "Creating crosser.txt"
   echo "# Deprecated entries"
   echo "# -------------------------"
   echo "CROSSER_QT=\"$CROSSER_QT5\""
-  echo
-  echo "# To be Removed"
-  echo "# -------------------------"
-  if test "x$VERSION_GTK2" != "x0"
-  then
-    echo "CROSSER_GTK2=\"yes\""
-  else
-    echo "CROSSER_GTK2=\"no\""
-  fi
+  echo "CROSSER_GTK2=\"no\""
 ) > "$DLLSPREFIX/crosser.txt"
 
 log_write 1 "Copying license information"
@@ -1318,14 +1298,6 @@ then
     echo -n -e "gtk-button-images = true\r\n"
     echo -n -e "gtk-menu-images = true\r\n"
   ) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
-fi
-
-if test "x$VERSION_GTK2" != "x0"
-then
-  mkdir -p "$DLLSPREFIX/etc/gtk-2.0"
-  (
-    echo -n -e "gtk-icon-theme-name = gnome\r\n"
-  ) > "$DLLSPREFIX/etc/gtk-2.0/gtkrc"
 fi
 
 log_write 1 "Creating setup.bat"

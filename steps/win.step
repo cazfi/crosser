@@ -45,7 +45,6 @@ atk               ATK
 util-macros       UTIL_MACROS
 libepoxy          LIBEPOXY
 gdk-pixbuf        GDK_PIXBUF
-gtk2              GTK2
 gtk3              GTK3
 gtk4              GTK4
 hicolor-icon-theme HICOLOR
