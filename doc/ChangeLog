@@ -27,6 +27,7 @@
 	- Updated automake to version 1.16.3
 	- Updated autoconf to version 2.70
 	- Updated qt to version 5.15.2
+	- Updated SDL2 to version 2.0.14
 
 1.10 (02-May-20)
 	- Format of crosser.txt changed so it can sourced as shell script
