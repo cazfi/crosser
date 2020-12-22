@@ -1113,8 +1113,12 @@ if ! unpack_component  graphene                                         ||
       patch_src gtk  $VERSION_GTK4 "gtk4_return_end" )                  ||
    ! (is_smaller_version $VERSION_GTK4 3.94.0 ||
       patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h" )         ||
-   ! build_with_meson gtk4 \
-     "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all -D media=none -D build-tests=false" ||
+   ! (is_minimum_version $VERSION_GTK4 4.0.0 ||
+      build_with_meson gtk4 \
+      "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all -D media=none -D build-tests=false" )                                             ||
+   ! (is_smaller_version $VERSION_GTK4 4.0.0 ||
+      build_with_meson gtk4 \
+      "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=disabled -D with-included-immodules=all -D media=none -D build-tests=false" )                                             ||
    ! free_component    gtk        $VERSION_GTK4 "gtk4"
 then
   log_error "gtk4 chain build failed"
