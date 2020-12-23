@@ -1,4 +1,5 @@
 These changes are coming in future versions:
 
+- Qt6 support
 - Drop win32 support completely
 - Enable readline build by default (-> part of the ready-made build)
