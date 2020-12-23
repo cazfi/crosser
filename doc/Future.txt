@@ -2,4 +2,3 @@ These changes are coming in future versions:
 
 - Drop win32 support completely
 - Enable readline build by default (-> part of the ready-made build)
-- Keep updated with gtk-3.9x dependencies for being ready for gtk4
