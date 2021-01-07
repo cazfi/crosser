@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2020 Marko Lindqvist
+# (c) 2008-2021 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -531,18 +531,6 @@ else
   FT_PACK="tar.bz2"
 fi
 
-if test "x$VERSION_SHARED_MIME_INFO" = "x2.0" ; then
-  SMI_HASH="0440063a2e6823a4b1a6fb2f2af8350f"
-elif test "x$VERSION_SHARED_MIME_INFO" = "x1.15" ; then
-  SMI_HASH="b27eb88e4155d8fccb8bb3cd12025d5b"
-elif test "x$VERSION_SHARED_MIME_INFO" = "x1.14" ; then
-  SMI_HASH="aee9ae9646cbef724bbb1bd2ba146556"
-elif test "x$VERSION_SHARED_MIME_INFO" = "x1.10" ; then
-  SMI_HASH="6a226038bf42dae45a049a6b8e729abc"
-elif test "x$VERSION_SHARED_MIME_INFO" = "x1.9" ; then
-  SMI_HASH="63cd31473fc85fbbe9cd57a7ef028b05"
-fi
-
 if echo $VERSION_QT5 | grep alpha >/dev/null ||
    echo $VERSION_QT5 | grep beta >/dev/null ||
    echo $VERSION_QT5 | grep rc >/dev/null
@@ -623,7 +611,7 @@ download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOM
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
 RET="$RET $?"
-download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/$SMI_HASH/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.xz"
+download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$VERSION_SHARED_MIME_INFO/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
 RET="$RET $?"
