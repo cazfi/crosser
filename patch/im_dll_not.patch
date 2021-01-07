@@ -1,0 +1,14 @@
+diff -Nurd ImageMagick-7.0.9-27/MagickWand/MagickWand.h ImageMagick-7.0.9-27/MagickWand/MagickWand.h
+--- ImageMagick-7.0.9-27/MagickWand/MagickWand.h	2020-02-29 15:59:43.000000000 +0200
++++ ImageMagick-7.0.9-27/MagickWand/MagickWand.h	2021-01-07 03:12:43.878706774 +0200
+@@ -64,6 +64,10 @@
+ #include <sys/types.h>
+ #include <time.h>
+ 
++/* Some of the above includes set _DLL, and we would wrongly assume
++ * that it says MagickWand to be dll. */
++#undef _DLL
++
+ #if defined(WIN32) || defined(WIN64)
+ #  define MAGICKWAND_WINDOWS_SUPPORT
+ #else
