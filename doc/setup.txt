@@ -154,7 +154,7 @@ CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
 
 CROSSER_GTK4
- ; Whether gtk4 development version parts of gtk-chain should be built.
+ ; Whether gtk4 parts of gtk-chain should be built.
  ; Current default is 'no'. If CROSSER_FULL is enabled, default value is 'yes'.
 
 CROSSER_SFML
