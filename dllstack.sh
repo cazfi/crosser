@@ -1101,25 +1101,11 @@ if ! unpack_component  graphene                                         ||
    ! build_with_meson  libxkbcommon                                        \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"     ||
-   ! unpack_component  gtk4                                           ||
-   ! patch_src gtk $VERSION_GTK4 "gtk4_winnt"                           ||
-   ! (is_smaller_version $VERSION_GTK4 3.96.0 ||
-      is_minimum_version $VERSION_GTK4 3.98.1 ||
-      patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install" )             ||
-   ! (is_smaller_version $VERSION_GTK4 3.98.1 ||
-      is_minimum_version $VERSION_GTK4 3.98.3 ||
-      patch_src gtk  $VERSION_GTK4 "gtk4_host_no_install-3.98.1" )      ||
-   ! (is_smaller_version $VERSION_GTK4 3.96.0 ||
-      is_minimum_version $VERSION_GTK4 3.98.0 ||
-      patch_src gtk  $VERSION_GTK4 "gtk4_return_end" )                  ||
-   ! (is_smaller_version $VERSION_GTK4 3.94.0 ||
-      patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h" )         ||
-   ! (is_minimum_version $VERSION_GTK4 4.0.0 ||
-      build_with_meson gtk4 \
-      "-D enable-x11-backend=false -D enable-wayland-backend=false -D enable-win32-backend=true -D introspection=false -D with-included-immodules=all -D media=none -D build-tests=false" )                                             ||
-   ! (is_smaller_version $VERSION_GTK4 4.0.0 ||
-      build_with_meson gtk4 \
-      "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false" )                                             ||
+   ! unpack_component  gtk4                                                ||
+   ! patch_src gtk  $VERSION_GTK4 "gtk4_winnt"                             ||
+   ! patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h"               ||
+   ! build_with_meson gtk4 \
+     "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false" ||
    ! free_component    gtk        $VERSION_GTK4 "gtk4"
 then
   log_error "gtk4 chain build failed"
