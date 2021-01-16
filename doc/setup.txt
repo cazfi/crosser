@@ -147,8 +147,8 @@ CROSSER_SDL2
 
 CROSSER_GTK
  ; If set to 'no', gtk-chain is not built. This implies lack of any
- ; gtk version from the build, and value of CROSSER_GTK3
- ; has no effect.
+ ; gtk version from the build, and values of CROSSER_GTK3 and
+ ; CROSSER_GTK4 have no effect.
 
 CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
