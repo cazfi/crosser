@@ -4,7 +4,7 @@
 	- Dropped gtk2 completely
 	- Added CROSSER_QT6 entry to crosser.txt
 	- Updated auxiliary config.guess and config.sub to '2021-01-07' level
-	- Updated gtk4 to version 4.0.1
+	- Updated gtk4 to version 4.0.2
 	- Updated pixman to version 0.40.0
 	- Updated curl to version 7.74.0
 	- Updated glib to version 2.66.4
