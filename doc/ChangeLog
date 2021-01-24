@@ -9,7 +9,7 @@
 	- Updated curl to version 7.74.0
 	- Updated glib to version 2.66.4
 	- Updated meson to version 0.56.2
-	- Updated sqlite to version 3.34.0
+	- Updated sqlite to version 3.34.1
 	- Updated jansson to version 2.13.1
 	- Updated pcre2 to version 10.36
 	- Updated freetype to version 2.10.4
