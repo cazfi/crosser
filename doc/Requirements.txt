@@ -16,7 +16,7 @@ dllstack.sh
 - xz          - for unpacking source packages
 - patch       - for applying patches to source packages
 - gtk-doc     - in debian system relevant parts are in gtk-doc-tools
-- gdk-pixbuf-csource - package libggdk-pixbuf2.0-bin in debian based distributions
+- gdk-pixbuf-csource - package libgdk-pixbuf2.0-bin in debian based distributions
 - intltool-update
 - zlib development files
 - gettext
