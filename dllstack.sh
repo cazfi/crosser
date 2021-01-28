@@ -206,19 +206,19 @@ build_component_full()
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   elif test "x$4" = "xcross"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   elif test "x$4" = "xpkg-config"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   elif test "x$4" = "xcustom"
   then
     CONFOPTIONS="--prefix=${DLLSPREFIX} $3"
@@ -366,7 +366,7 @@ build_with_meson_full()
   cd "$BUILDDIR"
 
   if test "x$4" = "xnative" ; then
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   else
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
