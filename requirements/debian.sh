@@ -3,13 +3,15 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2020 Marko Lindqvist
+# (c) 2014-2021 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 
 PACKAGES="\
- mingw-w64 g++-mingw-w64 \
+ mingw-w64 \
+ g++-mingw-w64 \
+ g++ \
  wget \
  tar \
  gzip \
