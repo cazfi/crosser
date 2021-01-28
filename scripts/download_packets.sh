@@ -414,7 +414,7 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt-everywhere-src) VERSION_QT5=$VERSION_SELECTED ;;
+    qt5)         VERSION_QT5=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
@@ -668,7 +668,7 @@ download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JAN
 RET="$RET $?"
 download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
 RET="$RET $?"
-download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt-everywhere-src" "$VERSION_QT5" "tar.xz" \
+download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt5" "$VERSION_QT5" "tar.xz" \
 		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
 RET="$RET $?"
 download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"

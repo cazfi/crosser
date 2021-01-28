@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2020 Marko Lindqvist
+# (c) 2008-2021 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -176,6 +176,9 @@ component_name_to_package_name() {
     else
       echo "gtk+"
     fi
+  elif test "x$1" = "xqt5"
+  then
+    echo "qt-everywhere-src"
   else
     echo "$1"
   fi
