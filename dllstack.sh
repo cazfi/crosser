@@ -787,20 +787,8 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
-   ! (is_smaller_version $VERSION_ICU 58.1 ||
-      is_minimum_version $VERSION_ICU 60.1 ||
-      patch_src icu $VERSION_ICU icu_locale )                               ||
-   ! (is_smaller_version $VERSION_ICU 60.1 ||
-      is_minimum_version $VERSION_ICU 62.1 ||
-      patch_src icu $VERSION_ICU icu_locale_60 )                            ||
-   ! (is_smaller_version $VERSION_ICU 59.1 ||
-      is_minimum_version $VERSION_ICU 60.1 ||
-      ( patch_src icu $VERSION_ICU icu_uloc_slash &&
-        patch_src icu $VERSION_ICU icu_mbstowcs_params ))                   ||
    ! (is_smaller_version $VERSION_ICU 59.1 ||
       patch_src icu $VERSION_ICU icu_filetools_inc )                        ||
-   ! (is_minimum_version $VERSION_ICU 60 ||
-      patch_src icu $VERSION_ICU icu_xlocale_no )                           ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source" "" "" "yes"                                      ||
    ! unpack_component tiff                                                  ||
