@@ -1,4 +1,4 @@
-2.0
+2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
 	- Configuration variable CROSSER_QT replaced by CROSSER_QT5
 	- Dropped gtk2 completely
