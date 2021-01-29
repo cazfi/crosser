@@ -5,7 +5,7 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-VERSION_AUTOCONF=2.70
+VERSION_AUTOCONF=2.71
 VERSION_AUTOMAKE=1.16.3
 VERSION_LIBTOOL=2.4.6
 VERSION_MESON=0.56.2
