@@ -1243,14 +1243,6 @@ log_write 1 "Creating crosser.txt"
   echo "CrosserBuilt=\"$(date +"%d.%m.%Y")\""
   echo
   echo "# -------------------------"
-  echo "# Deprecated entries"
-  echo "Version=\"$CROSSER_VERSION\""
-  echo "FeatureLevel=\"$CROSSER_FEATURE_LEVEL\""
-  echo "Setup=\"$CROSSER_SETUP\""
-  echo "Set=\"$CROSSER_VERSIONSET\""
-  echo "Built=\"$(date +"%d.%m.%Y")\""
-  echo
-  echo "# -------------------------"
   if test "x$VERSION_GTK3" != "x0"
   then
     echo "CROSSER_GTK3=\"yes\""
