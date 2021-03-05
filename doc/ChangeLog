@@ -1,5 +1,6 @@
 2.1
 	- Dropped deprecated pre-2.0 entries from crosser.txt
+	- Updated pango to version 1.48.2
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
