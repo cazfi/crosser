@@ -4,6 +4,7 @@
 	- Updated gtk3 to version 3.24.26
 	- Updated gtk4 to version 4.0.3
 	- Updated glib to version 2.66.7
+	- Updated meson to version 0.57.1
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
