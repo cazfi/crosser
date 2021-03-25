@@ -7,6 +7,7 @@
 	- Updated glib to version 2.68.0
 	- Updated meson to version 0.57.1
 	- Updated curl to version 7.75.0
+	- Updated gdk-pixbuf to version 2.42.4
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
