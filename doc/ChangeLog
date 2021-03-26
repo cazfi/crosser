@@ -10,6 +10,7 @@
 	- Updated gdk-pixbuf to version 2.42.4
 	- Updated sqlite to version 3.35.2
 	- Updated pkgconf to version 1.7.4
+	- Updated harfbuzz to version 2.8.0
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
