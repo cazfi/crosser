@@ -6,7 +6,7 @@
 	- Updated gtk4 to version 4.2.0
 	- Updated glib to version 2.68.1
 	- Updated meson to version 0.57.1
-	- Updated curl to version 7.75.0
+	- Updated curl to version 7.76.0
 	- Updated gdk-pixbuf to version 2.42.4
 	- Updated sqlite to version 3.35.2
 	- Updated pkgconf to version 1.7.4
