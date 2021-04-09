@@ -1088,7 +1088,10 @@ if ! unpack_component  graphene                                         ||
        patch_src graphene $VERSION_GRAPHENE graphene_epsilon )          ||
    ! patch_src graphene $VERSION_GRAPHENE "graphene_infinity_cast"      ||
    ! patch_src graphene $VERSION_GRAPHENE "graphene_nopthread"          ||
-   ! build_with_meson  graphene "-D introspection=false"                ||
+   ! (( is_minimum_version $VERSION_GRAPHENE 1.10.6 &&
+        build_with_meson graphene "-Dintrospection=disabled" ) ||
+      ( is_smaller_version $VERSION_GRAPHENE 1.10.6 &&
+        build_with_meson  graphene "-D introspection=false" ))          ||
    ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
    ! (is_minimum_version $VERSION_XKBCOMMON 0.10.0 ||
