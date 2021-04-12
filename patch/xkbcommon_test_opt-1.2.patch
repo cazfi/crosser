@@ -1,0 +1,36 @@
+diff -Nurd libxkbcommon-1.2.1/meson.build libxkbcommon-1.2.1/meson.build
+--- libxkbcommon-1.2.1/meson.build	2021-04-12 06:24:11.176163870 +0300
++++ libxkbcommon-1.2.1/meson.build	2021-04-12 06:27:10.973765890 +0300
+@@ -494,6 +494,8 @@
+                output: 'xkeyboard-config-test',
+                configuration: xkct_config)
+ 
++if get_option('enable-test')
++
+ # Tests
+ test_env = environment()
+ test_env.set('XKB_LOG_LEVEL', 'debug')
+@@ -726,6 +728,7 @@
+   )
+ endif
+ 
++endif
+ 
+ # Documentation.
+ if get_option('enable-docs')
+diff -Nurd libxkbcommon-1.2.1/meson_options.txt libxkbcommon-1.2.1/meson_options.txt
+--- libxkbcommon-1.2.1/meson_options.txt	2021-04-12 06:24:11.176163870 +0300
++++ libxkbcommon-1.2.1/meson_options.txt	2021-04-12 06:23:43.259915605 +0300
+@@ -56,6 +56,12 @@
+     description: 'Enable building the documentation',
+ )
+ option(
++    'enable-test',
++    type: 'boolean',
++    value: false,
++    description: 'Enable building of the tests',
++)
++option(
+     'enable-wayland',
+     type: 'boolean',
+     value: true,

@@ -1099,7 +1099,10 @@ if ! unpack_component  graphene                                         ||
    ! (test "x$CROSSER_SETUP" != "xwin64" ||
       is_minimum_version $VERSION_XKBCOMMON 0.10.0 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_longlongcast" ) ||
-   ! patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt"        ||
+   ! (is_minimum_version $VERSION_XKBCOMMON 1.1.0 ||
+      patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt" )     ||
+   ! (is_smaller_version $VERSION_XKBCOMMON 1.2.0 ||
+      patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt-1.2" ) ||
    ! (is_smaller_version $VERSION_XKBCOMMON 1.0.0 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_eof" )          ||
    ! (is_smaller_version $VERSION_XKBCOMMON 1.0.0 ||
