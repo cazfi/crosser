@@ -15,6 +15,7 @@
 	- Updated libxkbcommon to version 1.2.1
 	- Updated adwaita-icon-theme to version 40.0
 	- Updated tiff to version 4.3.0
+	- Updated util-macros to version 1.19.3
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
