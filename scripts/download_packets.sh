@@ -242,6 +242,18 @@ major.minor_from_version()
   echo $DIRVER | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "$MAJOR.$MINOR")
 }
 
+# $1 - Version number
+major_from_version()
+{
+  if test "x$1" = "x" ; then
+    DIRVER=$VERSION_SELECTED
+  else
+    DIRVER=$1
+  fi
+
+  echo $DIRVER | sed 's/\./ /g' | (read MAJOR REST ; echo -n "$MAJOR")
+}
+
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
@@ -438,7 +450,11 @@ GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATC
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK4_DIR="$(echo $VERSION_GTK4 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
+if is_smaller_version $VERSION_ADWAITA_ICON 40.0 ; then
+  ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
+else
+  ADWAITA_ICON_DIR="$(major_from_version $VERSION_ADWAITA_ICON)"
+fi
 GNOME_ICON_DIR="$(major.minor_from_version $VERSION_GNOME_ICONS)"
 GNOME_ICONE_DIR="$(major.minor_from_version $VERSION_GNOME_ICONE)"
 CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
