@@ -17,6 +17,7 @@
 	- Updated adwaita-icon-theme to version 40.0
 	- Updated tiff to version 4.3.0
 	- Updated util-macros to version 1.19.3
+	- Updated icu to version 64.2
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces

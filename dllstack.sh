@@ -861,6 +861,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full tinycthread tinycthread "" ""                              \
      "tinycthread-${VERSION_TCT}/source"                                             ||
    ! free_component    tinycthread $VERSION_TCT "tinycthread"                        ||
+   ! (is_smaller_version $VERSION_ICU 64.1 ||
+      patch_src icu $VERSION_ICU icu_tct )                                           ||
    ! build_component_full icu4c icu4c                                                \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
    ! free_build           "native-icu4c"                                             ||
