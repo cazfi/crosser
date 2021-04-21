@@ -1,0 +1,11 @@
+
+AC_INIT([tinycthread], [1.1])
+
+AM_INIT_AUTOMAKE
+
+AC_PROG_CC
+AC_PROG_RANLIB
+
+AC_CONFIG_FILES([Makefile])
+
+AC_OUTPUT

@@ -427,6 +427,7 @@ then
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
     qt5)         VERSION_QT5=$VERSION_SELECTED ;;
+    tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
@@ -682,7 +683,9 @@ download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
-download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz" ""
+download_needed "https://github.com/tinycthread/tinycthread/archive/refs/tags/" "tinycthread" "v$VERSION_TCT.tar.gz" "" "" "tinycthread"
+RET="$RET $?"
+download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz"
 RET="$RET $?"
 download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt5" "$VERSION_QT5" "tar.xz" \
 		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
