@@ -2,7 +2,7 @@
 	- Dropped deprecated pre-2.0 entries from crosser.txt
 	- Added tinycthread to build
 	- Updated auxiliary config.guess and config.sub to '2021-04-30' level
-	- Updated pango to version 1.48.4
+	- Updated pango to version 1.48.5
 	- Updated gtk3 to version 3.24.29
 	- Updated gtk4 to version 4.2.1
 	- Updated glib to version 2.68.2
