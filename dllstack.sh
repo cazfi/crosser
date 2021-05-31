@@ -1072,23 +1072,7 @@ if ! unpack_component libcroco                                        ||
      "aclocal automake"                                               ||
    ! build_component  adwaita-icon-theme                              ||
    ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
-     "adwaita-icon-theme"                                             ||
-   ! unpack_component gnome-icon-theme                                ||
-   ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
-     "gnomeitheme-build-pkgconfig"                                    ||
-   ! patch_src gnome-icon-theme $VERSION_GNOME_ICONS \
-     "gnomeitheme_no_host_icon_cache"                                 ||
-   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
-     build_component  gnome-icon-theme                                ||
-   ! free_component   gnome-icon-theme $VERSION_GNOME_ICONS           \
-     "gnome-icon-theme"                                               ||
-   ! unpack_component gnome-icon-theme-extras                         ||
-   ! patch_src gnome-icon-theme-extras $VERSION_GNOME_ICONE \
-     "gnomeitheme-build-pkgconfig"                                    ||
-   ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
-     build_component  gnome-icon-theme-extras                         ||
-   ! free_component   gnome-icon-theme-extras $VERSION_GNOME_ICONE    \
-     "gnome-icon-theme-extras"
+     "adwaita-icon-theme"
 then
   log_error "gtk+ theme stack build failed"
   exit 1
@@ -1297,7 +1281,7 @@ then
   mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
   (
     echo -n -e "[Settings]\r\n"
-    echo -n -e "gtk-fallback-icon-theme = gnome\r\n"
+    echo -n -e "gtk-fallback-icon-theme = hicolor\r\n"
     echo -n -e "gtk-button-images = true\r\n"
     echo -n -e "gtk-menu-images = true\r\n"
   ) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
@@ -1313,7 +1297,6 @@ log_write 1 "Creating setup.bat"
   if test "x$VERSION_GTK3" != "x0"
   then
       echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
-      echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\gnome\r\n"
       echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\hicolor\r\n"
   fi
   echo -n -e "if not exist etc\\\crosser mkdir etc\\\crosser\r\n"

@@ -51,8 +51,6 @@ gtk4              GTK4
 hicolor-icon-theme HICOLOR
 adwaita-icon-theme ADWAITA_ICON
 tango-icon-theme  TANGO_ICONS
-gnome-icon-theme  GNOME_ICONS
-gnome-icon-theme-extras GNOME_ICONE
 libogg            OGG
 libvorbis         VORBIS
 libxml2           XML2
