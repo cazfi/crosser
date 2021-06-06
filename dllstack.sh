@@ -266,35 +266,54 @@ build_component_full()
   fi
 
   log_write 1 "Building $DISPLAY_NAME"
-  if test "x$8" = "xyes"
-  then
-    log_write 3 "  Make targets: [default] install"
-  else
-    log_write 3 "  Make targets: install"
-  fi
-  if test "x$6" = "xno"
-  then
-    MAKEOPTIONS=""
-  elif test "x$6" != "x"
-  then
-    MAKEOPTIONS="$6"
-  else
-    MAKEOPTIONS="$CROSSER_COREOPTIONS"
-  fi
-  log_write 4 "  Options: \"$MAKEOPTIONS\""
 
-  if test "x$8" = "xyes"
+  if test -f Makefile
   then
-    if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    if test "x$8" = "xyes"
     then
-      log_error "Make for $DISPLAY_NAME failed"
+      log_write 3 "  Make targets: [default] install"
+    else
+      log_write 3 "  Make targets: install"
+    fi
+    if test "x$6" = "xno"
+    then
+      MAKEOPTIONS=""
+    elif test "x$6" != "x"
+    then
+      MAKEOPTIONS="$6"
+    else
+      MAKEOPTIONS="$CROSSER_COREOPTIONS"
+    fi
+    log_write 4 "  Options: \"$MAKEOPTIONS\""
+
+    if test "x$8" = "xyes"
+    then
+      if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+      then
+        log_error "Make for $DISPLAY_NAME failed"
+        return 1
+      fi
+    fi
+
+    if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    then
+      log_error "Install for $DISPLAY_NAME failed"
       return 1
     fi
-  fi
-
-  if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  elif test -f CMakeCache.txt
   then
-    log_error "Install for $DISPLAY_NAME failed"
+    if ! cmake --build . --parallel >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    then
+      log_error "CMake build for $DISPLAY_NAME failed"
+      return 1
+    fi
+    if ! cmake --install . >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    then
+      log_error "CMake install for $DISPLAY_NAME failed"
+      return 1
+    fi
+  else
+    log_error "Can't detect build method for $DISPLAY_NAME"
     return 1
   fi
   )
