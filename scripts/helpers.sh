@@ -176,7 +176,7 @@ component_name_to_package_name() {
     else
       echo "gtk+"
     fi
-  elif test "x$1" = "xqt5"
+  elif test "x$1" = "xqt5" || test "x$1" = "xqt6"
   then
     echo "qt-everywhere-src"
   else
