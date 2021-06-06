@@ -1185,7 +1185,6 @@ fi
 if test "x$CROSSER_QT5" = "xyes"
 then
 if ! unpack_component qt5                                                    ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_sharappidinfolink"    ||
    ! (is_minimum_version $VERSION_QT5 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_g++" )                    ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
