@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2020 Marko Lindqvist
+# (c) 2008-2021 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -85,11 +85,17 @@ if test "x$CROSSER_QT5" != "xyes" && test "x$CROSSER_QT5" != "xno" ; then
     echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
     exit 1
 fi
-if test "x$CROSSER_QT6" = "xyes" ; then
-    echo "Qt6 not supported by this version of crosser." >&2
-    exit 1
+if test "x$CROSSER_QT6" = "x" ; then
+  CROSSER_QT6="no"
 fi
-CROSSER_QT6="no"
+if test "x$CROSSER_QT6" != "xyes" && test "x$CROSSER_QT6" != "xno" ; then
+  echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
+fi
+if test "x$CROSSER_QT6" = "xyes" ; then
+  echo "Qt6 not supported by this version of crosser." >&2
+  exit 1
+fi
 if test "x$CROSSER_GTK4" = "x" ; then
     CROSSER_GTK4="$CROSSER_FULL"
 fi
