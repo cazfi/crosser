@@ -22,6 +22,7 @@
 	- Updated icu to version 64.2
 	- Updated libxml2 to version 2.9.12
 	- Updated pcre2 to version 10.37
+	- Updated pcre to version 8.45
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
