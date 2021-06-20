@@ -89,7 +89,7 @@ if test "x$CROSSER_QT6" = "x" ; then
   CROSSER_QT6="no"
 fi
 if test "x$CROSSER_QT6" != "xyes" && test "x$CROSSER_QT6" != "xno" ; then
-  echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
+  echo "Unknown value \"$CROSSER_QT6\" for CROSSER_QT6. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
 if test "x$CROSSER_QT6" = "xyes" ; then
