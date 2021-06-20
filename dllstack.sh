@@ -727,7 +727,7 @@ then
     if test "x$CROSSER_SFML" = "xyes" ; then
         steplist="${steplist},sfml"
     fi
-    if test "x$CROSSER_QT5" = "xyes" ; then
+    if test "x$CROSSER_FULL" = "xyes" ; then
         steplist="${steplist},full"
     fi
     if ! (cd "$CROSSER_PACKETDIR" &&
