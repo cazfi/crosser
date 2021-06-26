@@ -23,6 +23,7 @@
 	- Updated libxml2 to version 2.9.12
 	- Updated pcre2 to version 10.37
 	- Updated pcre to version 8.45
+	- Updated libogg to version 1.3.5
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
