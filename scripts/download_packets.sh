@@ -440,6 +440,7 @@ then
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
     freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
+    libffi) VERSION_FFI=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -612,7 +613,7 @@ download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_F
 RET="$RET $?"
 download_needed "http://curl.haxx.se/download/"         "curl"       "$VERSION_CURL"       "tar.bz2"
 RET="$RET $?"
-download_needed "ftp://sourceware.org/pub/libffi/"      "libffi"     "$VERSION_FFI"        "tar.gz"
+download_needed "https://github.com/libffi/libffi/releases/download/v$VERSION_FFI/" "libffi" "$VERSION_FFI" "tar.gz"
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
