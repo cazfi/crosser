@@ -709,6 +709,28 @@ log_write 1 "Creating meson cross file"
   fi
 )
 
+log_write 1 "Creating cmake toolchain file"
+
+(
+  TARGET_GCC=$(which $CROSSER_TARGET-gcc)
+  TARGET_GPP=$(which $CROSSER_TARGET-g++)
+
+  if test "x$TARGET_GCC" = "x"   ||
+     test "x$TARGET_GPP" = "x"
+  then
+    log_error "Cross-tools missing"
+    exit 1
+  fi
+  if ! sed -e "s,<TARGET_GCC>,$TARGET_GCC,g" \
+           -e "s,<TARGET_GPP>,$TARGET_GPP,g" \
+           $CROSSER_MAINDIR/scripts/$CMAKE_PLATFORM_FILE \
+           > $DLLSPREFIX/etc/toolchain.cmake
+  then
+    log_error "CMake toolchain file creation failed"
+    exit 1
+  fi
+)
+
 log_write 1 "Setting up fixed environment"
 
 if ! mkdir -p "$DLLSPREFIX/lib/$CROSSER_PKG_ARCH" ||
