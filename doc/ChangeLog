@@ -27,6 +27,7 @@
 	- Updated ffi to version 3.4.2
 	- Updated automake to version 1.16.4
 	- Updated SDL2 to version 2.0.16
+	- Updated freetype to version 2.11.0
 
 2.0 (29-Jan-21)
 	- Entries in crosser.txt renamed for cleaner namespaces
