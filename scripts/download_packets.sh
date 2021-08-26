@@ -432,7 +432,6 @@ then
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
-    pcre)        VERSION_PCRE=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     sfml)        VERSION_SFML=$VERSION_SELECTED ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
@@ -578,8 +577,6 @@ download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
-RET="$RET $?"
-download_needed "https://ftp.pcre.org/pub/pcre/" "pcre" "$VERSION_PCRE" "tar.bz2" "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre/$VERSION_PCRE/"
 RET="$RET $?"
 download_needed "https://ftp.pcre.org/pub/pcre/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre2/$VERSION_PCRE2/"
 RET="$RET $?"
