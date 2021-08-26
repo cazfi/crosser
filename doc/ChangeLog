@@ -1,5 +1,6 @@
 2.1
 	- Dropped deprecated pre-2.0 entries from crosser.txt
+	- Use modern replacements instead of deprecated 'which' command
 	- Added tinycthread to build
 	- Dropped gnome-icon-theme and gnome-icon-theme-extras
 	- Download pcre and pcre2 from the official site

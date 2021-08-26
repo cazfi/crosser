@@ -36,7 +36,7 @@ if test "x$CROSSER_LOGLVL_FILE" = "x" ; then
   CROSSER_LOGLVL_FILE=4
 fi
 
-if which cvercmp >/dev/null 2>&1 ; then
+if command -v cvercmp >/dev/null 2>&1 ; then
   CROSSER_CVERCMP=yes
 fi
 
@@ -873,8 +873,8 @@ component_patches()
 #
 host_pkg_config()
 {
-    # Make sure we don't run 'which' in a removed directory
+    # Make sure we don't run 'command -v' in a removed directory
     # cd to safe directory
     cd $CROSSER_MAINDIR
-    which pkg-config
+    command -v pkg-config
 }

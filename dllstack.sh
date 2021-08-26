@@ -679,12 +679,12 @@ fi
 log_write 1 "Creating meson cross file"
 
 (
-  TARGET_GCC=$(which $CROSSER_TARGET-gcc)
-  TARGET_GPP=$(which $CROSSER_TARGET-g++)
-  TARGET_AR=$(which $CROSSER_TARGET-ar)
-  TARGET_STRIP=$(which $CROSSER_TARGET-strip)
+  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
+  TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
+  TARGET_AR=$(command -v $CROSSER_TARGET-ar)
+  TARGET_STRIP=$(command -v $CROSSER_TARGET-strip)
   TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
-  TARGET_WINDRES=$(which $CROSSER_TARGET-windres)
+  TARGET_WINDRES=$(command -v $CROSSER_TARGET-windres)
 
   if test "x$TARGET_GCC" = "x"   ||
      test "x$TARGET_GPP" = "x"   ||
@@ -712,8 +712,8 @@ log_write 1 "Creating meson cross file"
 log_write 1 "Creating cmake toolchain file"
 
 (
-  TARGET_GCC=$(which $CROSSER_TARGET-gcc)
-  TARGET_GPP=$(which $CROSSER_TARGET-g++)
+  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
+  TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
 
   if test "x$TARGET_GCC" = "x"   ||
      test "x$TARGET_GPP" = "x"
