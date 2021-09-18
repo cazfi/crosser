@@ -439,7 +439,8 @@ then
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
     freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
-    libffi) VERSION_FFI=$VERSION_SELECTED ;;
+    libffi)      VERSION_FFI=$VERSION_SELECTED ;;
+    jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -673,7 +674,7 @@ download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
 download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
 RET="$RET $?"
-download_needed "http://www.digip.org/jansson/releases/" "jansson" "$VERSION_JANSSON" "tar.bz2"
+download_needed "https://github.com/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
 download_needed "https://github.com/tinycthread/tinycthread/archive/refs/tags/" "tinycthread" "v$VERSION_TCT.tar.gz" "" "" "tinycthread"
 RET="$RET $?"
