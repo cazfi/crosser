@@ -441,6 +441,7 @@ then
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
+    adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
   esac
 fi
 
