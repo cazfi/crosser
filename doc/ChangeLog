@@ -1,4 +1,4 @@
-2.1
+2.1 (22-Sep-21)
 	- Dropped deprecated pre-2.0 entries from crosser.txt
 	- Use modern replacements instead of deprecated 'which' command
 	- Added tinycthread to build
