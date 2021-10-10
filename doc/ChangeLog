@@ -1,5 +1,6 @@
 2.2
 	- Updated glib to version 2.70.0
+	- Updated automake to version 1.16.5
 
 2.1 (22-Sep-21)
 	- Dropped deprecated pre-2.0 entries from crosser.txt
