@@ -3,6 +3,7 @@
 	- Updated automake to version 1.16.5
 	- Updated meson to version 0.59.2
 	- Updated curl to version 7.79.1
+	- Updated pcre2 to version 10.38
 
 2.1.1
        - Fixed downloading pcre2
