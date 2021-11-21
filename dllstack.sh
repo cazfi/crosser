@@ -1265,6 +1265,7 @@ if ! unpack_component qt5                                                    ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_limits_inc"                ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
