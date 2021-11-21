@@ -6,7 +6,7 @@
 	- Updated curl to version 7.79.1
 	- Updated pcre2 to version 10.38
 	- Updated fribidi to version 1.0.11
-	- Updated gtk4 to version 4.4.0
+	- Updated gtk4 to version 4.4.1
 
 2.1.1
        - Fixed downloading pcre2
