@@ -1,6 +1,6 @@
 2.2
 	- Restored pcre to build (version 8.45)
-	- Updated glib to version 2.70.0
+	- Updated glib to version 2.70.1
 	- Updated automake to version 1.16.5
 	- Updated meson to version 0.59.2
 	- Updated curl to version 7.79.1
