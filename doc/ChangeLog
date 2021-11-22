@@ -1,5 +1,6 @@
 2.2
 	- Restored pcre to build (version 8.45)
+	- Fixed downloading pcre2
 	- Updated glib to version 2.70.1
 	- Updated automake to version 1.16.5
 	- Updated meson to version 0.59.4
@@ -7,9 +8,6 @@
 	- Updated pcre2 to version 10.39
 	- Updated fribidi to version 1.0.11
 	- Updated gtk4 to version 4.4.1
-
-2.1.1
-       - Fixed downloading pcre2
 
 2.1 (22-Sep-21)
 	- Dropped deprecated pre-2.0 entries from crosser.txt
