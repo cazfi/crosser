@@ -1,4 +1,4 @@
-2.2
+2.2 (23-Nov-21)
 	- Restored pcre to build (version 8.45)
 	- Fixed downloading pcre2
 	- Updated glib to version 2.70.1
