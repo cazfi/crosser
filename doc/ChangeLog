@@ -1,5 +1,6 @@
 2.3
 	- Updated glib to version 2.70.2
+	- Updated pango to version 1.50.1
 
 2.2 (23-Nov-21)
 	- Restored pcre to build (version 8.45)
