@@ -3,6 +3,7 @@
 	- Updated pango to version 1.50.1
 	- Updated sqlite to version 3.37.0
 	- Updated freetype to version 2.11.1
+	- Updated SDL2 to version 2.0.18
 
 2.2 (23-Nov-21)
 	- Restored pcre to build (version 8.45)
