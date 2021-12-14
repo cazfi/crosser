@@ -2,6 +2,7 @@
 	- Updated glib to version 2.70.2
 	- Updated pango to version 1.50.1
 	- Updated sqlite to version 3.37.0
+	- Updated freetype to version 2.11.1
 
 2.2 (23-Nov-21)
 	- Restored pcre to build (version 8.45)
