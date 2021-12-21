@@ -443,6 +443,7 @@ then
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
+    zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -586,6 +587,8 @@ RET="$RET $?"
 download_needed "https://github.com/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
 RET="$RET $?"
 download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
+RET="$RET $?"
+download_needed "https://github.com/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
 RET="$RET $?"

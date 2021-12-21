@@ -15,6 +15,7 @@ libiconv          ICONV
 libpng            PNG
 zlib              ZLIB
 xz                XZ
+zstd              ZSTD
 tinycthread       TCT
 icu4c             ICU
 PDCurses          PDCURSES

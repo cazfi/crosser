@@ -345,6 +345,7 @@ build_with_meson_host()
 # $2 - Component
 # $3 - Extra meson options
 # [$4] - Build type ('native' | 'cross')
+# [$5] - Source subdir
 build_with_meson_full()
 {
   log_packet "$2"
@@ -369,6 +370,13 @@ build_with_meson_full()
   then
     log_error "Cannot find srcdir for $BNAME version $BVER"
     return 1
+  fi
+  if test "x$5" != "x" ; then
+    SUBDIR="$SUBDIR/$5"
+    if ! test -d "$CROSSER_SRCDIR/$SUBDIR" ; then
+      log_error "Cannot find source subdir \"$SUBDIR\""
+      return 1
+    fi
   fi
 
   DISPLAY_NAME="$1"
@@ -881,6 +889,9 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  xz                                             ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
    ! free_component    xz         $VERSION_XZ "xz"                    ||
+   ! unpack_component  zstd                                           ||
+   ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
+   ! free_component    zstd       $VERSION_ZSTD "zstd"                ||
    ! unpack_component  curl                                           ||
    ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
    ! build_component   curl                                           \
