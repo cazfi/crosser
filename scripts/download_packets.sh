@@ -427,6 +427,7 @@ then
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
     qt5)         VERSION_QT5=$VERSION_SELECTED ;;
+    qt6)         VERSION_QT6=$VERSION_SELECTED ;;
     tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
@@ -465,6 +466,7 @@ LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATC
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT5_DIR="$(echo $VERSION_QT5 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
+QT6_DIR="$(echo $VERSION_QT6 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
@@ -557,6 +559,15 @@ then
     QT5_RELEASEDIR="development_releases"
 else
     QT5_RELEASEDIR="official_releases"
+fi
+
+if echo $VERSION_QT6 | grep alpha >/dev/null ||
+   echo $VERSION_QT6 | grep beta >/dev/null ||
+   echo $VERSION_QT6 | grep rc >/dev/null
+then
+    QT6_RELEASEDIR="development_releases"
+else
+    QT6_RELEASEDIR="official_releases"
 fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
@@ -689,6 +700,9 @@ download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/"
 RET="$RET $?"
 download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt5" "$VERSION_QT5" "tar.xz" \
 		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
+RET="$RET $?"
+download_needed "http://download.qt.io/$QT6_RELEASEDIR/qt/$QT6_DIR/$VERSION_QT6/single/" "qt6" "$VERSION_QT6" "tar.xz" \
+		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT6/single/"
 RET="$RET $?"
 download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"
 RET="$RET $?"
