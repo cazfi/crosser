@@ -1157,7 +1157,10 @@ if ! unpack_component  graphene                                         ||
    ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"     ||
    ! unpack_component  gtk4                                                ||
    ! patch_src gtk  $VERSION_GTK4 "gtk4_winnt"                             ||
-   ! patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h"               ||
+   ! (is_minimum_version $VERSION_GTK4 4.6.0 ||
+      patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h" )            ||
+   ! (is_smaller_version $VERSION_GTK4 4.6.0 ||
+      patch_src gtk  $VERSION_GTK4 "gtk4_stdlib_inc" )                     ||
    ! (is_minimum_version $VERSION_GTK4 4.4.0 ||
       build_with_meson gtk4 \
         "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false" ) ||

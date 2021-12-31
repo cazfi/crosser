@@ -1,0 +1,11 @@
+diff -Nurd gtk-4.6.0/gdk/loaders/gdkjpeg.c gtk-4.6.0/gdk/loaders/gdkjpeg.c
+--- gtk-4.6.0/gdk/loaders/gdkjpeg.c	2021-12-30 17:33:47.957443200 +0200
++++ gtk-4.6.0/gdk/loaders/gdkjpeg.c	2021-12-31 04:00:11.043544754 +0200
+@@ -25,6 +25,7 @@
+ 
+ #include "gdkprofilerprivate.h"
+ 
++#include <stdlib.h>
+ #include <jpeglib.h>
+ #include <jerror.h>
+ #include <setjmp.h>
