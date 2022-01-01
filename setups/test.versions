@@ -1,6 +1,6 @@
 # test.versions: Package versions
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -21,7 +21,7 @@ VERSION_ZLIB=1.2.11
 VERSION_XZ=5.3.1alpha
 VERSION_ZSTD=1.5.1
 VERSION_CURL=7.80.0
-VERSION_SQLITE=3.37.0
+VERSION_SQLITE=3.37.1
 VERSION_GETTEXT=0.21
 VERSION_PKG_CONFIG=0.29.2
 VERSION_PKGCONF=1.8.0

@@ -3,7 +3,7 @@
 	- Updated auxiliary config.guess and config.sub to '2021-12-25' level
 	- Updated glib to version 2.70.2
 	- Updated pango to version 1.50.3
-	- Updated sqlite to version 3.37.0
+	- Updated sqlite to version 3.37.1
 	- Updated freetype to version 2.11.1
 	- Updated SDL2 to version 2.0.18
 	- Updated gettext to version 0.21
