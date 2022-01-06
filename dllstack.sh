@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1282,6 +1282,19 @@ if ! unpack_component qt5                                                    ||
    ! free_component   qt-everywhere-src $VERSION_QT5 "qt-everywhere-src"
 then
   log_error "QT5 stack build failed"
+  exit 1
+fi
+fi
+
+if test "x$CROSSER_QT6" = "xyes"
+then
+if ! unpack_component qt6                                                       ||
+   ! build_component_full "native-qt6" "qt6"                                    \
+     "-opensource -confirm-license -qt-harfbuzz"                                \
+     "native"                                                                   ||
+   ! free_component   qt-everywhere-src $VERSION_QT6 "qt-everywhere-src"
+then
+  log_error "QT6 stack build failed"
   exit 1
 fi
 fi
