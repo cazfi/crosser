@@ -1,7 +1,7 @@
 2.3
 	- Added experimental Qt6 (version 6.2.2) support
 	- Added zstd (version 1.5.1) to build
-	- Updated auxiliary config.guess and config.sub to '2021-12-25' level
+	- Updated auxiliary config.guess and config.sub to '2022-01-09' level
 	- Updated glib to version 2.70.2
 	- Updated pango to version 1.50.3
 	- Updated sqlite to version 3.37.2
