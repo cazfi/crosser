@@ -1297,7 +1297,14 @@ if ! unpack_component qt6                                                       
      "qt" "" "" "" "yes"                                                        ||
    ! free_component   qt-everywhere-src $VERSION_QT6 "qt-everywhere-src"
 then
-  log_error "QT6 stack build failed"
+  log_error "Qt6 stack build failed"
+  exit 1
+fi
+
+if ! mkdir -p "${DLLSPREFIX}/linux/libexec" ||
+   ! cp "${NATIVE_PREFIX}/libexec/moc" "${DLLSPREFIX}/linux/libexec/moc-qt6"
+then
+  log_error "Qt6 moc installation failed"
   exit 1
 fi
 fi
