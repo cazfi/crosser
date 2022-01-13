@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -443,6 +443,7 @@ then
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
+    SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -664,7 +665,7 @@ download_needed "http://www.libsdl.org/projects/SDL_mixer/release/"      "SDL2_m
 RET="$RET $?"
 download_needed "http://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "$VERSION_SDL2_GFX" "tar.gz"
 RET="$RET $?" 
-download_needed "http://www.libsdl.org/projects/SDL_ttf/release/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
+download_needed "https://github.com/libsdl-org/SDL_ttf/archive/refs/tags/" "SDL2_ttf" "release-${VERSION_SDL2_TTF}.tar.gz" "" "" "SDL2_ttf"
 RET="$RET $?"
 download_needed "http://www.sfml-dev.org/files/" "sfml" "SFML-$VERSION_SFML-sources.zip"
 RET="$RET $?"

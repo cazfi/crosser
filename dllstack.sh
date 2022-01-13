@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1188,15 +1188,17 @@ if ! unpack_component  SDL2                                           ||
         "aclocal automake autoconf"                                   ||
    ! build_component   SDL2_gfx                                       ||
    ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
-   ! unpack_component  SDL2_ttf                                       ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS          ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/README        ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/AUTHORS       ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/ChangeLog     ||
+   ! unpack_component  SDL2_ttf   ""                                  \
+     "SDL2_ttf/release-$VERSION_SDL2_TTF"                             ||
+   ! touch $CROSSER_SRCDIR/SDL_ttf-release-${VERSION_SDL2_TTF}/NEWS          ||
+   ! touch $CROSSER_SRCDIR/SDL_ttf-release-${VERSION_SDL2_TTF}/README        ||
+   ! touch $CROSSER_SRCDIR/SDL_ttf-release-${VERSION_SDL2_TTF}/AUTHORS       ||
+   ! touch $CROSSER_SRCDIR/SDL_ttf-release-${VERSION_SDL2_TTF}/ChangeLog     ||
    ! autogen_component SDL2_ttf   $VERSION_SDL2_TTF \
-        "aclocal automake autoconf"                                   ||
-   ! build_component   SDL2_ttf                                       \
-     "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
+        "aclocal automake autoconf" "SDL_ttf-release-${VERSION_SDL2_TTF}"    ||
+   ! build_component_full SDL2_ttf SDL2_ttf                                  \
+     "--with-freetype-exec-prefix=$DLLSPREFIX" ""                            \
+     "SDL_ttf-release-${VERSION_SDL2_TTF}"                                   ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
    ! unpack_component  SDL2_mixer                                     ||
    ! build_component   SDL2_mixer                                     ||
