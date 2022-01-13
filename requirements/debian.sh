@@ -3,7 +3,7 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2021 Marko Lindqvist
+# (c) 2014-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -39,6 +39,7 @@ PACKAGES="\
  sassc \
  xmlto \
  python3-pygments \
+ libclang-dev \
 "
 
 if test "$UID" != "0" ; then
