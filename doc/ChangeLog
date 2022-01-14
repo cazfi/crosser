@@ -12,6 +12,9 @@
 	- Updated curl to version 7.81.0
 	- Updated SDL2_ttf to version 2.0.18
 
+2.2.1 (14-Jan-22)
+	- Updated SDL2_ttf download URL
+
 2.2 (23-Nov-21)
 	- Restored pcre to build (version 8.45)
 	- Fixed downloading pcre2
