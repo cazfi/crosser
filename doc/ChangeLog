@@ -3,7 +3,7 @@
 	- Added zstd (version 1.5.2) to build
 	- Updated auxiliary config.guess and config.sub to '2022-01-09' level
 	- Updated glib to version 2.70.3
-	- Updated pango to version 1.50.3
+	- Updated pango to version 1.50.4
 	- Updated sqlite to version 3.37.2
 	- Updated freetype to version 2.11.1
 	- Updated SDL2 to version 2.0.20
