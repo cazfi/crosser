@@ -13,6 +13,7 @@
 	- Updated SDL2_ttf to version 2.0.18
 	- Updated jpeg to version 9e
 	- Updated ImageMagick to version 7.0.10-62
+	- Updated libxkbcommon to version 1.4.0
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL
