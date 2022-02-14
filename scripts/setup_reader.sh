@@ -92,11 +92,6 @@ if test "x$CROSSER_QT6" != "xyes" && test "x$CROSSER_QT6" != "xno" ; then
   echo "Unknown value \"$CROSSER_QT6\" for CROSSER_QT6. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "x$CROSSER_QT6" = "xyes" && test "x$CROSSER_EXPERIMENTAL" != "xyes"
-then
-  echo "Qt6 not supported by this version of crosser." >&2
-  exit 1
-fi
 if test "x$CROSSER_GTK4" = "x" ; then
     CROSSER_GTK4="$CROSSER_FULL"
 fi

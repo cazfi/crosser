@@ -1,5 +1,5 @@
 2.3
-	- Added experimental Qt6 (version 6.2.3) support
+	- Added Qt6 (version 6.2.3) build support
 	- Added zstd (version 1.5.2) to build
 	- Updated auxiliary config.guess and config.sub to '2022-01-09' level
 	- Updated glib to version 2.70.4
