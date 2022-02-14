@@ -1,0 +1,19 @@
+diff -Nurd ImageMagick-7.0.10-62/configure ImageMagick-7.0.10-62/configure
+--- ImageMagick-7.0.10-62/configure	2022-02-14 02:09:17.582113815 +0200
++++ ImageMagick-7.0.10-62/configure	2022-02-14 02:09:22.802152505 +0200
+@@ -9238,6 +9238,7 @@
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
++if test $with_threads != no ; then
+ ax_pthread_ok=no
+ 
+ # We used to check for pthread.h first, but this fails if pthread.h
+@@ -9381,6 +9382,7 @@
+         ax_pthread_flags="-mt,-lpthread pthread $ax_pthread_flags"
+         ;;
+ esac
++fi
+ 
+ # Are we compiling with Clang?
+ 

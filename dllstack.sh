@@ -863,7 +863,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_host libpng                                            ||
    ! free_build           "native-libpng"                                   ||
    ! unpack_component     ImageMagick                                       ||
-   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread"                ||
+   ! ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.10 ||
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread" )            ||
+   ! ( is_smaller_version $VERSION_IMAGEMAGICK 7.0.10 ||
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread-7.0.10" )     ||
    ! build_component_host ImageMagick "--without-utilities"                 ||
    ! free_build           "native-ImageMagick"
 then
@@ -921,6 +924,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! free_component    icu        $VERSION_ICU "icu4c"                               ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7"                      ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_dll_not"                         ||
+   ! ( is_smaller_version $VERSION_IMAGEMAGICK 7.0.10 ||
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_fastdepCXX" )                  ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
    ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||

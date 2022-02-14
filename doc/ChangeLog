@@ -12,6 +12,7 @@
 	- Updated curl to version 7.81.0
 	- Updated SDL2_ttf to version 2.0.18
 	- Updated jpeg to version 9e
+	- Updated ImageMagick to version 7.0.10-62
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL

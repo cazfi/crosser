@@ -1,0 +1,14 @@
+diff -Nurd ImageMagick-7.0.11-14/configure ImageMagick-7.0.11-14/configure
+--- ImageMagick-7.0.11-14/configure	2022-02-14 00:40:40.299257659 +0200
++++ ImageMagick-7.0.11-14/configure	2022-02-14 01:09:47.778694000 +0200
+@@ -22270,6 +22270,10 @@
+ # Check whether --with-magick-plus-plus was given.
+ if test "${with_magick_plus_plus+set}" = set; then :
+   withval=$with_magick_plus_plus; with_magick_plus_plus=$withval
++  if test $with_magick_plus_plus = no ; then
++    am__fastdepCXX_TRUE=
++    am__fastdepCXX_FALSE='#'
++  fi
+ else
+   with_magick_plus_plus='yes'
+ fi
