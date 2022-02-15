@@ -17,6 +17,7 @@
 	- Updated harfbuzz to version 3.4.0
 	- Updated gobject-introspection to version 1.70.0
 	- Updated meson to version 0.60.3
+	- Updated adwaita-icon-theme to version 40.1.1
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL
