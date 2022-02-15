@@ -15,6 +15,7 @@
 	- Updated ImageMagick to version 7.0.10-62
 	- Updated libxkbcommon to version 1.4.0
 	- Updated harfbuzz to version 3.4.0
+	- Updated gobject-introspection to version 1.70.0
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL
