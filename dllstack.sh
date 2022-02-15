@@ -1019,7 +1019,7 @@ if ! build_component   tiff                                                 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
        patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
-   ! build_with_meson  harfbuzz   "-Dicu=disabled -Dfontconfig=disabled"    ||
+   ! build_with_meson  harfbuzz   "-Dicu=disabled"                          ||
    ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
