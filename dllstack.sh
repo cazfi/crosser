@@ -848,6 +848,9 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! free_build           "native-libxml2"                                  ||
    ! unpack_component  shared-mime-info                                     ||
    ! ln -s "../lib/pkgconfig" "$NATIVE_PREFIX/share/pkgconfig"              ||
+   ! ( is_minimum_version $VERSION_SHARED_MIME_INFO 2.2 ||
+       patch_src shared-mime-info $VERSION_SHARED_MIME_INFO \
+                 "smi-meson-0.60" )                                         ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_with_meson_host shared-mime-info )                              ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
