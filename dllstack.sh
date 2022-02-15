@@ -1079,9 +1079,6 @@ if ! unpack_component     gdk-pixbuf                                  ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.42.0 ||
       build_with_meson gdk-pixbuf \
         "-D relocatable=true -D x11=false -D gir=false" )             ||
-   ! (is_minimum_version $VERSION_GDK_PIXBUF 2.38.0 ||
-       ( patch_src gdk-pixbuf $VERSION_GDK_PIXBUF gdk_pixbuf_tnrm &&
-         build_component  gdk-pixbuf "--enable-relocations" ))        ||
    ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"
 then
   log_error "gtk+ stack build failed"
