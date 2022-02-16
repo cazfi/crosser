@@ -1282,7 +1282,7 @@ if ! unpack_component qt5                                                    ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_limits_inc"                ||
    ! build_component_full  qt5 qt5                                              \
-     "-opensource -confirm-license -xplatform win32-g++ -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
+     "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
    ! free_component   qt-everywhere-src $VERSION_QT5 "qt-everywhere-src"
 then
