@@ -1298,7 +1298,7 @@ if ! unpack_component qt6                                                       
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
    ! build_component_full  qt6 qt6                                              \
-     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path $NATIVE_PREFIX -plugindir ${DLLSPREFIX}/qt6/plugins -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
+     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path $NATIVE_PREFIX -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt" "" "" "" "yes"                                                        ||
    ! free_component   qt-everywhere-src $VERSION_QT6 "qt-everywhere-src"
 then
