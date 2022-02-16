@@ -1046,8 +1046,6 @@ if ! build_component   tiff                                                 ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
    ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
-   ! (is_minimum_version $VERSION_PANGO 1.44 ||
-      build_component   pango )                                             ||
    ! (is_smaller_version $VERSION_PANGO 1.44 ||
       is_minimum_version $VERSION_PANGO 1.48 ||
       build_with_meson pango "-Dintrospection=false" )                      ||
