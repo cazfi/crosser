@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -129,11 +129,8 @@ patch_src() {
   if test -r "$CROSSER_MAINDIR/patch/$3.patch"
   then
     PATCH_NAME="$3.patch"
-  elif test -r "$CROSSER_MAINDIR/patch/$3.diff"
-  then
-    PATCH_NAME="$3.diff"
   else
-    log_error "No patch file $3.patch or $3.diff found."
+    log_error "No patch file $3.patch found."
     return 1
   fi
 
