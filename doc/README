@@ -9,21 +9,6 @@ Crosser homepage is http://www.cazfi.net/crosser/
 
 ------
 
-Script scripts/download_packets.sh downloads source packages.
-
-- It can be used to download single package, predefined set of packages,
-  or all packages.
-- Versions to download are read from setups/<VERSIONSET>.versions, where
-  default versionset is 'current'. Other sets can be selected from commandline.
-  There is also an example of an custom versionset named 'custom.versions',
-  but be aware that arbitrarily customized versionsets are not supported
-  functionality, so proceed on your own risk.
-- You can define mirrors to be used in file called .crosser.mirrors in your
-  home directory or mirrors.conf in crosser root directory.
-  There's example file suitable for Finland in mirrors-directory.
-
-------
-
  Dllstack.sh is used to create set of Windows dlls.
 
  Example:
@@ -67,6 +52,22 @@ this by checking last time that source package was used by crosser. Those
 packets which are not used in a long time are removed. Current default of 
 trim_packetdir.sh is to remove all but 200 most recently used files from
 packetdir.
+
+------
+
+Script scripts/download_packets.sh downloads source packages. Usually
+you don't need to run it yourself, but ./dllstack.sh runs it when needed.
+
+- It can be used to download single package, predefined set of packages,
+  or all packages.
+- Versions to download are read from setups/<VERSIONSET>.versions, where
+  default versionset is 'current'. Other sets can be selected from commandline.
+  There is also an example of an custom versionset named 'custom.versions',
+  but be aware that arbitrarily customized versionsets are not supported
+  functionality, so proceed on your own risk.
+- You can define mirrors to be used in file called .crosser.mirrors in your
+  home directory or mirrors.conf in crosser root directory.
+  There's example file suitable for Finland in mirrors-directory.
 
 ------
 
