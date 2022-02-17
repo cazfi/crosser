@@ -994,7 +994,6 @@ then
   log_error "Libjpeg build failed"
   exit 1
 fi
-CONF_JPEG_GTK="--without-libjasper"
 
 if ! build_component   tiff                                                 ||
    ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
