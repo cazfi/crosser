@@ -700,10 +700,10 @@ RET="$RET $?"
 download_needed "https://github.com/unicode-org/icu/releases/download/$ICU_DIR/" "icu4c" "icu4c-$ICU_FILEVER-src.tgz"
 RET="$RET $?"
 download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt5" "$VERSION_QT5" "tar.xz" \
-		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
+                "http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT5/single/"
 RET="$RET $?"
 download_needed "http://download.qt.io/$QT6_RELEASEDIR/qt/$QT6_DIR/$VERSION_QT6/single/" "qt6" "$VERSION_QT6" "tar.xz" \
-		"http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT6/single/"
+                "http://download.qt.io/archive/qt/$QT_DIR/$VERSION_QT6/single/"
 RET="$RET $?"
 download_needed "https://github.com/mesonbuild/meson/archive/" "meson" "$VERSION_MESON.tar.gz" "" "" "meson"
 RET="$RET $?"

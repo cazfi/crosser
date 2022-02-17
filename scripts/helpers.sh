@@ -371,8 +371,8 @@ autogen_component()
 
       if test "x$SUBDIR" = "x"
       then
-	  log_error "Cannot find srcdir for $1 version $2"
-	  return 1
+          log_error "Cannot find srcdir for $1 version $2"
+          return 1
       fi
   else
       SUBDIR="$4"
