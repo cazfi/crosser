@@ -70,7 +70,7 @@ CROSSER_LOGLVL_FILE
 CROSSER_FORCE
  ; If this is set to 'yes', scripts will not provide confirmation prompts
  ; when deleting old directories. It's recommended that this is never
- ; used in local_setup.conf and set as environment variable before running 
+ ; used in local_setup.conf and set as environment variable before running
  ; script only when setup has been already tested and one really knows
  ; that nothing important will be destroyed.
 
@@ -83,7 +83,7 @@ CROSSER_TMPDIR
  ; If you want to support running multiple crosser instances for several
  ; targets or versionsets simultaneously, you may set this as
  ; CROSSER_TMPDIR="$(tempfile)"
- ; Unlike with most configuration variables, default value for 
+ ; Unlike with most configuration variables, default value for
  ; CROSSER_TMPDIR is already set before configuration file is read.
  ; Default is /tmp/crosser
 

@@ -259,7 +259,7 @@ unpack_component() {
          >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
       log_error "Unpacking $NAME_BASE.zip failed"
-      return 1  
+      return 1
     fi
   else
     log_error "Can't find $BNAME version $BVER package to unpack."
@@ -311,7 +311,7 @@ free_src() {
 #
 # $1 -   Builddir
 free_build() {
-  if test "x$CROSSER_TMPFREE" != "xyes" 
+  if test "x$CROSSER_TMPFREE" != "xyes"
   then
     return 0
   fi
@@ -675,7 +675,7 @@ is_greater_version() {
 # Prompt yes/no question from user
 #
 # $1   - Question to ask, line 1
-# [$2] - Question to ask, line 2 
+# [$2] - Question to ask, line 2
 #
 # 0 - Answer was yes
 # 1 - Answer was no
@@ -785,7 +785,7 @@ read_configure_vars() {
     return 1
   fi
 
-  echo "$FULLTEXT" | sed 's/ $//' 
+  echo "$FULLTEXT" | sed 's/ $//'
 }
 
 # Check if packet directory exist and possibly create one

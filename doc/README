@@ -49,7 +49,7 @@ than the one that originally downloaded packet.
  It does not really know which packets are obsolete and which ones are not.
 It just removes those packets that are most likely obsolete. It determines
 this by checking last time that source package was used by crosser. Those
-packets which are not used in a long time are removed. Current default of 
+packets which are not used in a long time are removed. Current default of
 trim_packetdir.sh is to remove all but 200 most recently used files from
 packetdir.
 

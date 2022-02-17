@@ -2,7 +2,7 @@
 
 # stepfuncs.sh: Functions handling Crosser steps.
 #
-# (c) 2008-2019 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -133,7 +133,7 @@ parse_steplist() {
 
   echo $1 | sed 's/,/ /g' |
   (
-     read PARAMLIST 
+     read PARAMLIST
 
      for PART in $PARAMLIST
      do

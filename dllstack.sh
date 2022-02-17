@@ -792,7 +792,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! free_build           "native-libffi"                   ||
    ! unpack_component     pkgconf                                           ||
    ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
-   ! autogen_component pkgconf $VERSION_PKGCONF                             || 
+   ! autogen_component pkgconf $VERSION_PKGCONF                             ||
    ! build_component_host pkgconf                                           \
      "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
    ! free_component       pkgconf $VERSION_PKGCONF native-pkgconf           ||
@@ -1230,7 +1230,7 @@ if ! unpack_component     ffmpeg                                                
    ! patch_src openal-soft $VERSION_OPENAL "oals_rdynamic_workaround"           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
    ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
-   ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||     
+   ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
    ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"                ||
    ! free_component       "SFML-${VERSION_SFML}" "" "sfml"
