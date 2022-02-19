@@ -1029,7 +1029,10 @@ if ! build_component   tiff                                                 ||
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
    ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
    ! unpack_component  libepoxy                                             ||
-   ! build_component   libepoxy                                             ||
+   ! ( is_minimum_version $VERSION_LIBEPOXY 1.5.0 ||
+       build_component   libepoxy )                                         ||
+   ! ( is_smaller_version $VERSION_LIBEPOXY 1.5.0 ||
+       build_with_meson   libepoxy )                                        ||
    ! free_component    libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
    ! unpack_component  pixman                                               ||
    ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
