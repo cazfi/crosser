@@ -446,6 +446,7 @@ then
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
     SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
+    libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
   esac
 fi
 
@@ -468,6 +469,7 @@ ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT5_DIR="$(echo $VERSION_QT5 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 QT6_DIR="$(echo $VERSION_QT6 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
+XML2_DIR="$(echo $VERSION_XML2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
@@ -691,7 +693,7 @@ download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_V
 RET="$RET $?"
 download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
 RET="$RET $?"
-download_needed "ftp://xmlsoft.org/libxml2/" "libxml2" "$VERSION_XML2" "tar.gz"
+download_needed "$MIRROR_GNOME/sources/libxml2/$XML2_DIR/" "libxml2" "$VERSION_XML2" "tar.xz"
 RET="$RET $?"
 download_needed "https://github.com/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
