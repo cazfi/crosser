@@ -21,6 +21,7 @@
 	- Updated gobject-introspection to version 1.70.0
 	- Updated meson to version 0.60.3
 	- Updated adwaita-icon-theme to version 40.1.1
+	- Updated libxml2 to version 2.9.13
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL
