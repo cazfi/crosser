@@ -1396,7 +1396,10 @@ log_write 1 "Creating launch.bat"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
   if test "x$CROSSER_QT5" = "xyes"
   then
-      echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\plugins\r\n"
+    echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt5\\\plugins\r\n"
+  elif test "x$CROSSER_QT6" = "xyes"
+  then
+    echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt6\\\plugins\r\n"
   fi
 ) > "$DLLSPREFIX/launch.bat"
 
