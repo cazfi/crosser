@@ -1377,7 +1377,11 @@ log_write 1 "Creating setup.bat"
   then
       echo -n -e "bin\\\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
   fi
-  if test "x$VERSION_GTK3" != "x0"
+  if test "x$VERSION_GTK4" != "x0"
+  then
+      echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
+      echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\hicolor\r\n"
+  elif test "x$VERSION_GTK3" != "x0"
   then
       echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
       echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\hicolor\r\n"
