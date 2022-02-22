@@ -1,0 +1,33 @@
+diff -Nurd fontconfig-2.13.96/configure fontconfig-2.13.96/configure
+--- fontconfig-2.13.96/configure	2022-02-04 10:20:29.000000000 +0200
++++ fontconfig-2.13.96/configure	2022-02-22 07:39:27.771535213 +0200
+@@ -20549,7 +20549,7 @@
+ 
+ 
+ 
+-ac_config_files="$ac_config_files Makefile fontconfig/Makefile fc-lang/Makefile fc-case/Makefile src/Makefile conf.d/Makefile fc-cache/Makefile fc-cat/Makefile fc-conflist/Makefile fc-list/Makefile fc-match/Makefile fc-pattern/Makefile fc-query/Makefile fc-scan/Makefile fc-validate/Makefile doc/Makefile doc/version.sgml its/Makefile po/Makefile.in po-conf/Makefile.in test/Makefile fontconfig.pc fontconfig-zip"
++ac_config_files="$ac_config_files Makefile fontconfig/Makefile fc-lang/Makefile fc-case/Makefile src/Makefile conf.d/Makefile fc-cache/Makefile fc-cat/Makefile fc-conflist/Makefile fc-list/Makefile fc-match/Makefile fc-pattern/Makefile fc-query/Makefile fc-scan/Makefile fc-validate/Makefile doc/Makefile doc/version.sgml its/Makefile po/Makefile.in po-conf/Makefile.in fontconfig.pc fontconfig-zip"
+ 
+ cat >confcache <<\_ACEOF
+ # This file is a shell script that caches the results of configure
+diff -Nurd fontconfig-2.13.96/Makefile.in fontconfig-2.13.96/Makefile.in
+--- fontconfig-2.13.96/Makefile.in	2022-02-04 10:20:28.000000000 +0200
++++ fontconfig-2.13.96/Makefile.in	2022-02-22 07:38:31.487340882 +0200
+@@ -220,7 +220,7 @@
+   done | $(am__uniquify_input)`
+ DIST_SUBDIRS = fontconfig fc-case fc-lang src fc-cache fc-cat \
+ 	fc-conflist fc-list fc-match fc-pattern fc-query fc-scan \
+-	fc-validate conf.d its po po-conf test doc
++	fc-validate conf.d its po po-conf doc
+ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
+ 	$(srcdir)/fontconfig-zip.in $(srcdir)/fontconfig.pc.in \
+ 	ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README \
+@@ -466,7 +466,7 @@
+ top_srcdir = @top_srcdir@
+ SUBDIRS = fontconfig fc-case fc-lang src fc-cache fc-cat fc-conflist \
+ 	fc-list fc-match fc-pattern fc-query fc-scan fc-validate \
+-	conf.d its po po-conf test $(am__append_1)
++	conf.d its po po-conf $(am__append_1)
+ ACLOCAL_AMFLAGS = -I m4
+ MESON_FILES = \
+ 	conf.d/link_confs.py \
