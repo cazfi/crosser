@@ -800,12 +800,6 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib --disable-compile-warnings"    ||
    ! free_build           "native-pkg-config"                               ||
-   ! unpack_component     pcre                                              ||
-   ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                       ||
-   ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                       ||
-   ! build_component_host pcre                                              \
-     "--enable-unicode-properties"                                          ||
-   ! free_build           "native-pcre"                                     ||
    ! unpack_component     pcre2                                             ||
    ! build_component_host pcre2                                             \
      "--enable-unicode-properties"                                          ||
@@ -941,6 +935,9 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! LIBS="-liconv" build_component gettext                                          \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
    ! free_component    gettext    $VERSION_GETTEXT "gettext"                         ||
+   ! unpack_component     pcre                                                       ||
+   ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                                ||
+   ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                                ||
    ! build_component   pcre                                           \
      "--disable-cpp --enable-unicode-properties"                      ||
    ! free_component    pcre       $VERSION_PCRE    "pcre"             ||

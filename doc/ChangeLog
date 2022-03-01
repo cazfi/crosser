@@ -3,6 +3,7 @@
 	- Qt5 headers and plugins are now installed under separate directory
 	- Added zstd (version 1.5.2) to build
 	- Download libxml2 from gnome servers
+	- Dropped building native pcre
 	- Dropped support for patch files with .diff suffix
 	- Updated auxiliary config.guess and config.sub to '2022-01-09' level
 	- Updated glib to version 2.70.4
