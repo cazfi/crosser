@@ -1199,7 +1199,8 @@ if ! unpack_component  SDL2                                           ||
    ! build_component_full SDL2_ttf SDL2_ttf                                  \
      "--with-freetype-exec-prefix=$DLLSPREFIX" ""                            \
      "SDL_ttf-release-${VERSION_SDL2_TTF}"                                   ||
-   ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
+   ! free_src SDL_ttf-release-$VERSION_SDL2_TTF                              ||
+   ! free_build        "SDL2_ttf"                                            ||
    ! unpack_component  SDL2_mixer                                     ||
    ! build_component   SDL2_mixer                                     ||
    ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"

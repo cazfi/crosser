@@ -1,6 +1,7 @@
 
 2.2.2
 	- Fixed freeing of Qt build directory
+	- Fixed freeing of SDL2_ttf source directory
 
 2.2.1 (14-Jan-22)
 	- Updated SDL2_ttf download URL
