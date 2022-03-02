@@ -1277,7 +1277,7 @@ if ! unpack_component qt5                                                    ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
-   ! free_component   qt-everywhere-src $VERSION_QT5 "qt-everywhere-src"
+   ! free_component   qt-everywhere-src $VERSION_QT5 "qt5"
 then
   log_error "QT5 stack build failed"
   exit 1
@@ -1290,10 +1290,11 @@ if ! unpack_component qt6                                                       
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
+   ! free_build "native-qt6"                                                    ||
    ! build_component_full  qt6 qt6                                              \
      "-opensource -confirm-license -xplatform win32-g++ -qt-host-path $NATIVE_PREFIX -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt" "" "" "" "yes"                                                        ||
-   ! free_component   qt-everywhere-src $VERSION_QT6 "qt-everywhere-src"
+   ! free_component   qt-everywhere-src $VERSION_QT6 "qt6"
 then
   log_error "Qt6 stack build failed"
   exit 1
