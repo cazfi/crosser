@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -292,6 +292,7 @@ free_component() {
 #
 # $1 -   Package
 # $2 -   Version
+# $3 -   Alt subdir name
 free_src() {
   if test "x$CROSSER_TMPFREE" != "xyes"
   then
@@ -300,7 +301,11 @@ free_src() {
 
   log_write 2 "Free source for $1 version $2"
 
-  SRCSUBDIR=$(src_subdir $1 $2)
+  if test "$3" = "" ; then
+    SRCSUBDIR=$(src_subdir $1 $2)
+  else
+    SRCSUBDIR="$3"
+  fi
   if test "x$SRCSUBDIR" = "x"
   then
     echo "Cannot find srcdir of $1 version $2 to remove" >&2
