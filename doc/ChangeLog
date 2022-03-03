@@ -23,6 +23,7 @@
 	- Updated meson to version 0.60.3
 	- Updated adwaita-icon-theme to version 40.1.1
 	- Updated libxml2 to version 2.9.13
+	- Updated qt5 to version 5.15.3
 
 2.2.2
 	- Fixed freeing of Qt build directory

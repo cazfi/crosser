@@ -92,7 +92,7 @@ download_file() {
 # $6 - Subdirectory to download to
 download_packet() {
 
-  BFNAME=$(component_name_to_package_name $2 $3)
+  BFNAME=$(component_name_to_tarball_name $2 $3)
 
   if test "x$4" = "x" ; then
     DLFILENAME="$3"

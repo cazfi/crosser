@@ -181,6 +181,19 @@ component_name_to_package_name() {
   fi
 }
 
+# Convert component name to tarball name
+#
+# $1 - Component name
+# $2 - Component version
+component_name_to_tarball_name() {
+  if test "$1" = "qt5"
+  then
+    echo "qt-everywhere-opensource-src"
+  else
+    echo "$(component_name_to_package_name $1 $2)"
+  fi
+}
+
 # Unpack component package to source directory
 #
 # $1   - Package name
@@ -201,7 +214,7 @@ unpack_component() {
     return 0
   fi
 
-  BNAME=$(component_name_to_package_name $1 $BVER)
+  BNAME=$(component_name_to_tarball_name $1 $BVER)
 
   if test "x$CROSSER_DOWNLOAD" = "xdemand"
   then
