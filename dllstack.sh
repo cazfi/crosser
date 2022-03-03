@@ -1274,6 +1274,8 @@ if ! unpack_component qt5                                                    ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_limits_inc"                ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt5-CVE-2022-25643-5.15"         ||
+   ! patch_src qt-everywhere-src $VERSION_QT5 "qt5-CVE-2022-25255-qprocess5-15" ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
@@ -1287,6 +1289,8 @@ fi
 if test "x$CROSSER_QT6" = "xyes"
 then
 if ! unpack_component qt6                                                       ||
+   ! patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2"          ||
+   ! patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25255-qprocess6-2"  ||
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
