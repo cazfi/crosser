@@ -1,3 +1,5 @@
+2.4
+
 2.3
 	- Added Qt6 (version 6.2.3) build to full build
 	- Qt5 headers and plugins are now installed under separate directory
