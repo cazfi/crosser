@@ -24,6 +24,7 @@
 	- Updated adwaita-icon-theme to version 40.1.1
 	- Updated libxml2 to version 2.9.13
 	- Updated qt5 to version 5.15.3
+	- Updated gtk3 to version 3.24.32
 
 2.2.2 (04-Mar-22)
 	- Fixed freeing of Qt build directory

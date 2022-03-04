@@ -1089,7 +1089,8 @@ if ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
    ! patch_src gtk+ $VERSION_GTK3 "gtk3_wm_macros-3.24.14"            ||
-   ! patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install-3.24.16"      ||
+   ! ( is_minimum_version $VERSION_GTK3 3.24.32 ||
+       patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install-3.24.16" )  ||
    ! ( is_smaller_version $VERSION_GTK3 3.24.20 ||
        patch_src gtk+ $VERSION_GTK3 "gtk3_ver_test_disable" )         ||
    ! build_with_meson gtk3                                            \
