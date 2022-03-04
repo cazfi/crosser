@@ -1,5 +1,5 @@
 
-2.2.2
+2.2.2 (04-Mar-22)
 	- Fixed freeing of Qt build directory
 	- Fixed freeing of SDL2_ttf source directory
 
