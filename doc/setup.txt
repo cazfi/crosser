@@ -135,7 +135,8 @@ CROSSER_GROUP
 
 CROSSER_FULL
  ; If set to value "yes", more components will be built by default.
- ; Currently this is like enabling CROSSER_QT5 and CROSSER_GTK4
+ ; Currently this is like enabling CROSSER_QT5, CROSSER_QT6,
+ ; and CROSSER_GTK4
 
 CROSSER_QT5
  ; If set to value "yes", Qt5 will be built as part of crosser.
@@ -143,6 +144,7 @@ CROSSER_QT5
 
 CROSSER_QT6
  ; If set to value "yes", Qt6 will be built as part of crosser.
+ ; Default value is "yes" if CROSSER_FULL is enabled.
 
 CROSSER_SDL2
  ; Whether SDL2-chain should be built as part of crosser.

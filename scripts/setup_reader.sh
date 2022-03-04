@@ -68,25 +68,25 @@ fi
 CROSSER_COREOPTIONS="-j $CROSSER_CORES"
 
 if test "x$CROSSER_FULL" = "x" ; then
-    CROSSER_FULL="no"
+  CROSSER_FULL="no"
 fi
 if test "x$CROSSER_FULL" != "xyes" && test "x$CROSSER_FULL" != "xno" ; then
-    echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+  echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
 if test "x$CROSSER_QT5" = "x" && test "x$CROSSER_QT" != "x" ; then
   echo "Configuration variable CROSSER_QT is deprecated. Please use CROSSER_QT5" >&2
   CROSSER_QT5="$CROSSER_QT"
 fi
 if test "x$CROSSER_QT5" = "x" ; then
-    CROSSER_QT5="$CROSSER_FULL"
+  CROSSER_QT5="$CROSSER_FULL"
 fi
 if test "x$CROSSER_QT5" != "xyes" && test "x$CROSSER_QT5" != "xno" ; then
-    echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+  echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
 if test "x$CROSSER_QT6" = "x" ; then
-  CROSSER_QT6="no"
+  CROSSER_QT6="$CROSSER_FULL"
 fi
 if test "x$CROSSER_QT6" != "xyes" && test "x$CROSSER_QT6" != "xno" ; then
   echo "Unknown value \"$CROSSER_QT6\" for CROSSER_QT6. Valid values are \"yes\" and \"no\"" >&2
