@@ -1,7 +1,7 @@
 2.4
 	- Updated harfbuzz to version 4.0.0
 
-2.3
+2.3 (05-Mar-22)
 	- Added Qt6 (version 6.2.3) build to full build
 	- Qt5 headers and plugins are now installed under separate directory
 	- Added zstd (version 1.5.2) to build
