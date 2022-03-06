@@ -304,7 +304,7 @@ free_component() {
 # $2 -   Version
 # $3 -   Alt subdir name
 free_src() {
-  if test "x$CROSSER_TMPFREE" != "xyes"
+  if test "$CROSSER_TMPDEL" != "yes"
   then
     return 0
   fi
@@ -329,7 +329,7 @@ free_src() {
 #
 # $1 -   Builddir
 free_build() {
-  if test "x$CROSSER_TMPFREE" != "xyes"
+  if test "$CROSSER_TMPDEL" != "yes"
   then
     return 0
   fi

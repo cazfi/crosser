@@ -101,7 +101,7 @@ CROSSER_LOGDIR
  ; Logfiles stdout.log and stderr are created anew for each build,
  ; main.log is rotated once it reaches 250000 bytes.
 
-CROSSER_TMPFREE
+CROSSER_TMPDEL
  ; If this variable is set to value "yes", dllstack.sh will
  ; aggressively delete anything from temp directories as soon as
  ; it no longer needs it.
