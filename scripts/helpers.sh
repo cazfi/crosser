@@ -280,36 +280,36 @@ unpack_component() {
   fi
 }
 
-# Free components temporary directories
+# Delete component's temporary directories
 #
 # $1 -   Package
 # $2 -   Version
 # $3 -   Builddir
-free_component() {
+deldir_component() {
   if test x$2 = x0
   then
     # Directories were not created in the first place
     return 0
   fi
-  if ! free_src "$1" "$2" ||
-     ! free_build "$3"
+  if ! deldir_src "$1" "$2" ||
+     ! deldir_build "$3"
   then
       return 1
   fi
 }
 
-# Free components temporary source directory
+# Delete component's temporary source directory
 #
 # $1 -   Package
 # $2 -   Version
 # $3 -   Alt subdir name
-free_src() {
+deldir_src() {
   if test "$CROSSER_TMPDEL" != "yes"
   then
     return 0
   fi
 
-  log_write 2 "Free source for $1 version $2"
+  log_write 2 "Delete source directory of $1 version $2"
 
   if test "$3" = "" ; then
     SRCSUBDIR=$(src_subdir $1 $2)
@@ -318,17 +318,17 @@ free_src() {
   fi
   if test "x$SRCSUBDIR" = "x"
   then
-    echo "Cannot find srcdir of $1 version $2 to remove" >&2
+    echo "Cannot find srcdir of $1 version $2 to delete" >&2
     return 1
   fi
 
   rm -Rf "$CROSSER_SRCDIR/$SRCSUBDIR"
 }
 
-# Free components temporary build directory
+# Delete component's temporary build directory
 #
 # $1 -   Builddir
-free_build() {
+deldir_build() {
   if test "$CROSSER_TMPDEL" != "yes"
   then
     return 0
@@ -336,15 +336,15 @@ free_build() {
 
   if test "x$1" = "x"
   then
-    echo "No builddir given for free_build()" >&2
+    echo "No builddir given for deldir_build()" >&2
     return 1
   fi
 
-  log_write 2 "Free builddir $1"
+  log_write 2 "Delete builddir $1"
 
   if ! test -d "$CROSSER_BUILDDIR/$1"
   then
-    echo "Cannot find builddir \"$CROSSER_BUILDDIR/$1\" to remove" >&2
+    echo "Cannot find builddir \"$CROSSER_BUILDDIR/$1\" to delete" >&2
     return 1
   fi
 

@@ -779,54 +779,54 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "$CROSSER_SRCDIR/meson-$VERSION_MESON" "$NATIVE_PREFIX"       ||
    ! unpack_component     autoconf                          ||
    ! build_component_host autoconf                          ||
-   ! free_component       autoconf   $VERSION_AUTOCONF "native-autoconf" ||
+   ! deldir_component     autoconf   $VERSION_AUTOCONF "native-autoconf" ||
    ! unpack_component     automake                          ||
    ! build_component_host automake                          ||
-   ! free_component       automake   $VERSION_AUTOMAKE "native-automake" ||
+   ! deldir_component     automake   $VERSION_AUTOMAKE "native-automake" ||
    ! unpack_component     libtool                           ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$VERSION_LIBTOOL"                   ||
-   ! free_build           "native-libtool"                               ||
+   ! deldir_build         "native-libtool"                               ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
-   ! free_build           "native-libffi"                   ||
+   ! deldir_build         "native-libffi"                   ||
    ! unpack_component     pkgconf                                           ||
    ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
    ! autogen_component pkgconf $VERSION_PKGCONF                             ||
    ! build_component_host pkgconf                                           \
      "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
-   ! free_component       pkgconf $VERSION_PKGCONF native-pkgconf           ||
+   ! deldir_component     pkgconf $VERSION_PKGCONF native-pkgconf           ||
    ! unpack_component     pkg-config                                        ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib --disable-compile-warnings"    ||
-   ! free_build           "native-pkg-config"                               ||
+   ! deldir_build         "native-pkg-config"                               ||
    ! unpack_component     pcre2                                             ||
    ! build_component_host pcre2                                             \
      "--enable-unicode-properties"                                          ||
-   ! free_build           "native-pcre2"                                    ||
+   ! deldir_build         "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
    ! build_with_meson_host glib "-D libmount=disabled -D selinux=disabled"  ||
-   ! free_build           "native-glib"                                     ||
+   ! deldir_build         "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
    ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_configheaders"              ||
    ! autogen_component    gtk-doc $VERSION_GTK_DOC                          ||
    ! build_component_host gtk-doc                                           ||
-   ! free_component  gtk-doc   $VERSION_GTK_DOC                             \
+   ! deldir_component  gtk-doc   $VERSION_GTK_DOC                             \
      "native-gtk-doc"                                                       ||
    ! unpack_component     gobject-introspection                             ||
    ! build_with_meson_host gobject-introspection                            ||
-   ! free_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
+   ! deldir_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
      "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
      "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
-   ! free_component       pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
+   ! deldir_component     pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
    ! mv $NATIVE_PREFIX/bin/pkg-config $NATIVE_PREFIX/bin/pkg-config.real         ||
    ! ln -s $CROSSER_PKGCONF $NATIVE_PREFIX/bin/pkg-config                        ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||
-   ! free_component    icon-naming-utils $VERSION_ICON_NUTILS               \
+   ! deldir_component  icon-naming-utils $VERSION_ICON_NUTILS               \
      "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
    ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
@@ -836,10 +836,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "native" "icu/source" "" "" "yes"                                      ||
    ! unpack_component tiff                                                  ||
    ! build_component_host tiff                                              ||
-   ! free_build           "native-tiff"                                     ||
+   ! deldir_build         "native-tiff"                                     ||
    ! unpack_component     libxml2                                           ||
    ! build_component_host libxml2 "--without-python"                        ||
-   ! free_build           "native-libxml2"                                  ||
+   ! deldir_build         "native-libxml2"                                  ||
    ! unpack_component  shared-mime-info                                     ||
    ! ln -s "../lib/pkgconfig" "$NATIVE_PREFIX/share/pkgconfig"              ||
    ! ( is_minimum_version $VERSION_SHARED_MIME_INFO 2.2 ||
@@ -850,22 +850,22 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full native-shared-mime-info shared-mime-info \
       "" "native" "" "no" )                                                 ||
-   ! free_build           "native-shared-mime-info"                         ||
+   ! deldir_build         "native-shared-mime-info"                         ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
-   ! free_component       util-macros $VERSION_UTIL_MACROS                  \
+   ! deldir_component     util-macros $VERSION_UTIL_MACROS                  \
      "native-util-macros"                                                   ||
    ! unpack_component     libpng                                            ||
    ! patch_src            libpng      $VERSION_PNG "png_epsilon-1.6.8"      ||
    ! build_component_host libpng                                            ||
-   ! free_build           "native-libpng"                                   ||
+   ! deldir_build         "native-libpng"                                   ||
    ! unpack_component     ImageMagick                                       ||
    ! ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.10 ||
        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread" )            ||
    ! ( is_smaller_version $VERSION_IMAGEMAGICK 7.0.10 ||
        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread-7.0.10" )     ||
    ! build_component_host ImageMagick "--without-utilities"                 ||
-   ! free_build           "native-ImageMagick"
+   ! deldir_build         "native-ImageMagick"
 then
   log_error "Native build failed"
   exit 1
@@ -876,32 +876,32 @@ READLINE_VARS="$(read_configure_vars readline)"
 
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${VERSION_LIBTOOL}"                                             ||
-   ! free_component    libtool    $VERSION_LIBTOOL "libtool"          ||
+   ! deldir_component  libtool    $VERSION_LIBTOOL "libtool"          ||
    ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
-   ! free_component    libiconv   $VERSION_ICONV "libiconv"           ||
+   ! deldir_component  libiconv   $VERSION_ICONV "libiconv"           ||
    ! unpack_component  zlib                                           ||
    ! patch_src zlib $VERSION_ZLIB zlib_seeko-1.2.6-2                  ||
    ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                 ||
    ! patch_src zlib $VERSION_ZLIB zlib_dllext                         ||
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
-   ! free_component    zlib       $VERSION_ZLIB "zlib"                ||
+   ! deldir_component  zlib       $VERSION_ZLIB "zlib"                ||
    ! unpack_component  xz                                             ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
-   ! free_component    xz         $VERSION_XZ "xz"                    ||
+   ! deldir_component  xz         $VERSION_XZ "xz"                    ||
    ! unpack_component  zstd                                           ||
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
-   ! free_component    zstd       $VERSION_ZSTD "zstd"                ||
+   ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
    ! unpack_component  curl                                           ||
    ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
    ! build_component   curl                                           \
      "--disable-pthreads --with-schannel"                             ||
-   ! free_component    curl       $VERSION_CURL "curl"                ||
+   ! deldir_component  curl       $VERSION_CURL "curl"                ||
    ! unpack_component  sqlite                                                        \
      "" "sqlite-autoconf-${SQL_VERSTR}"                                              ||
    ! build_component_full sqlite sqlite                                              \
      "--disable-threadsafe" "" "sqlite-autoconf-${SQL_VERSTR}"                       ||
-   ! free_component    sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
+   ! deldir_component  sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
    ! unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"                  ||
    ! cp ${CROSSER_MAINDIR}/patch/tct/Makefile.am                                     \
         ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/                         ||
@@ -912,20 +912,20 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
            >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log                ||
    ! build_component_full tinycthread tinycthread "" ""                              \
      "tinycthread-${VERSION_TCT}/source"                                             ||
-   ! free_component    tinycthread $VERSION_TCT "tinycthread"                        ||
+   ! deldir_component  tinycthread $VERSION_TCT "tinycthread"                        ||
    ! (is_smaller_version $VERSION_ICU 64.1 ||
       patch_src icu $VERSION_ICU icu_tct )                                           ||
    ! build_component_full icu4c icu4c                                                \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
-   ! free_build           "native-icu4c"                                             ||
-   ! free_component    icu        $VERSION_ICU "icu4c"                               ||
+   ! deldir_build      "native-icu4c"                                                ||
+   ! deldir_component  icu        $VERSION_ICU "icu4c"                               ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7"                      ||
    ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_dll_not"                         ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
-   ! free_component    ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
+   ! deldir_component  ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
    ! build_component   libpng                                                        ||
-   ! free_component    libpng     $VERSION_PNG "libpng"                              ||
+   ! deldir_component  libpng     $VERSION_PNG "libpng"                              ||
    ! unpack_component  gettext                                                       ||
    ! (is_smaller_version $VERSION_GETTEXT 0.20 ||
       is_minimum_version $VERSION_GETTEXT 0.20.2 ||
@@ -934,23 +934,23 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
       patch_src gettext $VERSION_GETTEXT "gettext_fs_ruby" )                         ||
    ! LIBS="-liconv" build_component gettext                                          \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
-   ! free_component    gettext    $VERSION_GETTEXT "gettext"                         ||
+   ! deldir_component  gettext    $VERSION_GETTEXT "gettext"                         ||
    ! unpack_component     pcre                                                       ||
    ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                                ||
    ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                                ||
    ! build_component   pcre                                           \
      "--disable-cpp --enable-unicode-properties"                      ||
-   ! free_component    pcre       $VERSION_PCRE    "pcre"             ||
+   ! deldir_component  pcre       $VERSION_PCRE    "pcre"             ||
    ! build_component   pcre2                                          \
      "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
-   ! free_component    pcre2      $VERSION_PCRE2    "pcre2"           ||
+   ! deldir_component  pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
-   ! free_component    libffi     $VERSION_FFI     "libffi"           ||
+   ! deldir_component  libffi     $VERSION_FFI     "libffi"           ||
    ! build_with_meson  glib                                           ||
-   ! free_component    glib       $VERSION_GLIB    "glib"             ||
+   ! deldir_component  glib       $VERSION_GLIB    "glib"             ||
    ! unpack_component  fribidi                                        ||
    ! build_component   fribidi    "--disable-docs"                    ||
-   ! free_component    fribidi    $VERSION_FRIBIDI "fribidi"
+   ! deldir_component  fribidi    $VERSION_FRIBIDI "fribidi"
 then
   log_error "Build failed"
   exit 1
@@ -964,7 +964,7 @@ if ! unpack_component  PDCurses                                          ||
       patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin-3.6" )     ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
-   ! free_src          PDCurses $VERSION_PDCURSES                        ||
+   ! deldir_src        PDCurses $VERSION_PDCURSES                        ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
    ! patch_src readline $VERSION_READLINE "readline_posix"               ||
@@ -975,7 +975,7 @@ if ! unpack_component  PDCurses                                          ||
    ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
    ! build_component   readline                                          \
      "$READLINE_VARS --with-curses"                                      ||
-   ! free_component    readline   $VERSION_READLINE "readline"
+   ! deldir_component  readline   $VERSION_READLINE "readline"
 then
   log_error "Readline build failed"
   exit 1
@@ -984,37 +984,37 @@ fi
 
 if ! unpack_component jpeg  "" "jpegsrc.v${VERSION_JPEG}"             ||
    ! build_component jpeg "--enable-shared"                           ||
-   ! free_component jpeg $VERSION_JPEG "jpeg"
+   ! deldir_component jpeg $VERSION_JPEG "jpeg"
 then
   log_error "Libjpeg build failed"
   exit 1
 fi
 
 if ! build_component   tiff                                                 ||
-   ! free_component    tiff       $VERSION_TIFF "tiff"                      ||
+   ! deldir_component  tiff       $VERSION_TIFF "tiff"                      ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
-   ! free_component    libxml2    $VERSION_XML2 "libxml2"                   ||
+   ! deldir_component  libxml2    $VERSION_XML2 "libxml2"                   ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_with_meson shared-mime-info )                                   ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full shared-mime-info shared-mime-info "" "" "" \
        "no" )                                                               ||
-   ! free_component    shared-mime-info $VERSION_SHARED_MIME_INFO           \
+   ! deldir_component  shared-mime-info $VERSION_SHARED_MIME_INFO           \
      "shared-mime-info"                                                     ||
    ! unpack_component  jansson                                              ||
    ! build_component   jansson                                              ||
-   ! free_component    jansson    $VERSION_JANSSON "jansson"                ||
+   ! deldir_component  jansson    $VERSION_JANSSON "jansson"                ||
    ! unpack_component  freetype                                             ||
    ! build_component   freetype   "--without-bzip2"                         ||
-   ! free_component    freetype   $VERSION_FREETYPE "freetype"              ||
+   ! deldir_component  freetype   $VERSION_FREETYPE "freetype"              ||
    ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"           ||
    ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
        patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
    ! build_with_meson  harfbuzz   "-Dicu=disabled"                          ||
-   ! free_component    harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
+   ! deldir_component  harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
@@ -1025,18 +1025,18 @@ if ! build_component   tiff                                                 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_disable_test-2.13.96) ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
-   ! free_component    fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
+   ! deldir_component  fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
    ! unpack_component  libepoxy                                             ||
    ! ( is_minimum_version $VERSION_LIBEPOXY 1.5.0 ||
        build_component   libepoxy )                                         ||
    ! ( is_smaller_version $VERSION_LIBEPOXY 1.5.0 ||
        build_with_meson   libepoxy )                                        ||
-   ! free_component    libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
+   ! deldir_component  libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
    ! unpack_component  pixman                                               ||
    ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
    ! build_component   pixman                                               \
      "--disable-gtk"                                                        ||
-   ! free_component    pixman     $VERSION_PIXMAN "pixman"                  ||
+   ! deldir_component  pixman     $VERSION_PIXMAN "pixman"                  ||
    ! unpack_component  cairo                                                ||
    ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
    ! patch_src         cairo $VERSION_CAIRO cairo-1.12.10_epsilon           ||
@@ -1044,20 +1044,20 @@ if ! build_component   tiff                                                 ||
    ! ( is_minimum_version    $VERSION_CAIRO 1.15.2 ||
        patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
    ! build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32"    ||
-   ! free_component    cairo      $VERSION_CAIRO "cairo"                    ||
+   ! deldir_component  cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
    ! (is_smaller_version $VERSION_PANGO 1.44 ||
       is_minimum_version $VERSION_PANGO 1.48 ||
       build_with_meson pango "-Dintrospection=false" )                      ||
    ! (is_smaller_version $VERSION_PANGO 1.48 ||
       build_with_meson pango "-Dintrospection=disabled" )                   ||
-   ! free_component    pango      $VERSION_PANGO "pango"                    ||
+   ! deldir_component  pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  atk                                                  ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
       build_component   atk )                                               ||
    ! (is_smaller_version $VERSION_ATK 2.29.1 ||
       build_with_meson atk "-D introspection=false" )                       ||
-   ! free_component    atk        $VERSION_ATK "atk"
+   ! deldir_component  atk        $VERSION_ATK "atk"
 then
   log_error "Build failed"
   exit 1
@@ -1077,7 +1077,7 @@ if ! unpack_component     gdk-pixbuf                                  ||
       is_minimum_version $VERSION_GDK_PIXBUF 2.42.0 ||
       build_with_meson gdk-pixbuf \
         "-D relocatable=true -D x11=false -D gir=false" )             ||
-   ! free_component   gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"
+   ! deldir_component gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"
 then
   log_error "gtk+ stack build failed"
   exit 1
@@ -1095,7 +1095,7 @@ if ! unpack_component gtk3                                            ||
        patch_src gtk+ $VERSION_GTK3 "gtk3_ver_test_disable" )         ||
    ! build_with_meson gtk3                                            \
      "-Dx11_backend=false -Dwayland_backend=false -Dwin32_backend=true -Dintrospection=false"                                                    ||
-   ! free_component   gtk+        $VERSION_GTK3 "gtk3"
+   ! deldir_component gtk+        $VERSION_GTK3 "gtk3"
 then
   log_error "gtk+-3 build failed"
   exit 1
@@ -1105,17 +1105,17 @@ fi
 # This is within CROSSER_GTK != xno
 if ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
-   ! free_component   libcroco    $VERSION_CROCO   "libcroco"         ||
+   ! deldir_component libcroco    $VERSION_CROCO   "libcroco"         ||
    ! unpack_component hicolor-icon-theme                              ||
    ! build_component  hicolor-icon-theme                              ||
-   ! free_component   hicolor-icon-theme $VERSION_HICOLOR             \
+   ! deldir_component hicolor-icon-theme $VERSION_HICOLOR             \
      "hicolor-icon-theme"                                             ||
    ! unpack_component tango-icon-theme                                ||
    ! patch_src tango-icon-theme $VERSION_TANGO_ICONS                  \
      "tango_pkg_config_host"                                          ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
      build_component  tango-icon-theme   $VERSION_TANGO_ICONS         ||
-   ! free_component   tango-icon-theme   $VERSION_TANGO_ICONS         \
+   ! deldir_component tango-icon-theme   $VERSION_TANGO_ICONS         \
      "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
    ! patch_src adwaita-icon-theme $VERSION_ADWAITA_ICON               \
@@ -1123,7 +1123,7 @@ if ! unpack_component libcroco                                        ||
    ! autogen_component adwaita-icon-theme  $VERSION_ADWAITA_ICON      \
      "aclocal automake"                                               ||
    ! build_component  adwaita-icon-theme                              ||
-   ! free_component   adwaita-icon-theme $VERSION_ADWAITA_ICON        \
+   ! deldir_component adwaita-icon-theme $VERSION_ADWAITA_ICON        \
      "adwaita-icon-theme"
 then
   log_error "gtk+ theme stack build failed"
@@ -1141,7 +1141,7 @@ if ! unpack_component  graphene                                         ||
         build_with_meson graphene "-Dintrospection=disabled" ) ||
       ( is_smaller_version $VERSION_GRAPHENE 1.10.6 &&
         build_with_meson  graphene "-D introspection=false" ))          ||
-   ! free_component    graphene   $VERSION_GRAPHENE "graphene"          ||
+   ! deldir_component  graphene   $VERSION_GRAPHENE "graphene"          ||
    ! unpack_component  libxkbcommon                                     ||
    ! (is_minimum_version $VERSION_XKBCOMMON 1.1.0 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt" )     ||
@@ -1153,7 +1153,7 @@ if ! unpack_component  graphene                                         ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_mscver" )       ||
    ! build_with_meson  libxkbcommon                                        \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
-   ! free_component    libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"     ||
+   ! deldir_component  libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"     ||
    ! unpack_component  gtk4                                                ||
    ! patch_src gtk  $VERSION_GTK4 "gtk4_winnt"                             ||
    ! (is_minimum_version $VERSION_GTK4 4.6.0 ||
@@ -1166,7 +1166,7 @@ if ! unpack_component  graphene                                         ||
    ! (is_smaller_version $VERSION_GTK4 4.4.0 ||
       build_with_meson gtk4 \
         "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false -D media-gstreamer=disabled" ) ||
-   ! free_component    gtk        $VERSION_GTK4 "gtk4"
+   ! deldir_component  gtk        $VERSION_GTK4 "gtk4"
 then
   log_error "gtk4 chain build failed"
   exit 1
@@ -1175,10 +1175,10 @@ fi
 
 if ! unpack_component  libogg                                         ||
    ! build_component   libogg                                         ||
-   ! free_component    libogg     $VERSION_OGG "libogg"               ||
+   ! deldir_component  libogg     $VERSION_OGG "libogg"               ||
    ! unpack_component  libvorbis                                      ||
    ! build_component   libvorbis                                      ||
-   ! free_component    libvorbis  $VERSION_VORBIS "libvorbis"
+   ! deldir_component  libvorbis  $VERSION_VORBIS "libvorbis"
 then
   log_error "Audio stack build failed"
   exit 1
@@ -1188,15 +1188,15 @@ if test "x$CROSSER_SDL2" = "xyes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! build_component_def_make SDL2                                    ||
-   ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
+   ! deldir_component  SDL2       $VERSION_SDL2 "SDL2"                ||
    ! unpack_component  SDL2_image                                     ||
    ! build_component   SDL2_image                                     ||
-   ! free_component    SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"    ||
+   ! deldir_component  SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"    ||
    ! unpack_component  SDL2_gfx                                       ||
    ! autogen_component SDL2_gfx   $VERSION_SDL2_GFX \
         "aclocal automake autoconf"                                   ||
    ! build_component   SDL2_gfx                                       ||
-   ! free_component    SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
+   ! deldir_component  SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
    ! unpack_component  SDL2_ttf                                       ||
    ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS          ||
    ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/README        ||
@@ -1206,10 +1206,10 @@ if ! unpack_component  SDL2                                           ||
         "aclocal automake autoconf"                                   ||
    ! build_component   SDL2_ttf                                       \
      "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
-   ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
+   ! deldir_component  SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
    ! unpack_component  SDL2_mixer                                     ||
    ! build_component   SDL2_mixer                                     ||
-   ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
+   ! deldir_component  SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
 then
   log_error "SDL2 stack build failed"
   exit 1
@@ -1221,15 +1221,15 @@ if ! unpack_component     ffmpeg                                                
    ! build_component_full ffmpeg ffmpeg                                         \
      "--cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
      "custom"                                                                   ||
-   ! free_component       ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
+   ! deldir_component     ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_rdynamic_workaround"           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
    ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
-   ! free_component       openal-soft $VERSION_OPENAL "openal-soft"             ||
+   ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
    ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"                ||
-   ! free_component       "SFML-${VERSION_SFML}" "" "sfml"
+   ! deldir_component     "SFML-${VERSION_SFML}" "" "sfml"
 then
     log_error "SFML stack build failed"
     exit 1
@@ -1280,7 +1280,7 @@ if ! unpack_component qt5                                                    ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
-   ! free_component   qt-everywhere-src $VERSION_QT5 "qt5"
+   ! deldir_component qt-everywhere-src $VERSION_QT5 "qt5"
 then
   log_error "QT5 stack build failed"
   exit 1
@@ -1295,11 +1295,11 @@ if ! unpack_component qt6                                                       
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
-   ! free_build "native-qt6"                                                    ||
+   ! deldir_build "native-qt6"                                                  ||
    ! build_component_full  qt6 qt6                                              \
      "-opensource -confirm-license -xplatform win32-g++ -qt-host-path $NATIVE_PREFIX -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -system-pcre -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt" "" "" "" "yes"                                                        ||
-   ! free_component   qt-everywhere-src $VERSION_QT6 "qt6"
+   ! deldir_component qt-everywhere-src $VERSION_QT6 "qt6"
 then
   log_error "Qt6 stack build failed"
   exit 1
