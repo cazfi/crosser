@@ -2,7 +2,7 @@
 
 # trim_packetdir.sh: Delete old source packets
 #
-# (c) 2009-2020 Marko Lindqvist
+# (c) 2009-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -23,19 +23,19 @@ then
   exit 1
 fi
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
+if test "$1" = "-h" || test "$1" = "--help" ; then
   HELP_RETURN=0
-elif test "x$1" = "x" ; then
+elif test "$1" = "" ; then
   HELP_RETURN=1
 fi
 
-if test "x$1" = "x-v" || test "x$1" = "x--version"
+if test "$1" = "-v" || test "$1" = "--version"
 then
   echo "Packetdir trimmer script for Crosser $CROSSER_VERSION"
   exit 0
 fi
 
-if test "x$2" != "x" ; then
+if test "$2" != "" ; then
   FILELIMIT=$2
   if test $FILELIMIT -eq 0 ; then
     echo "Illegal filecount parameter \"$2\"" >&2
@@ -43,7 +43,7 @@ if test "x$2" != "x" ; then
   fi
 fi
 
-if test "x$HELP_RETURN" != "x" ; then
+if test "$HELP_RETURN" != "" ; then
   echo "Usage: $(basename "$0") <packetdir> [files left=200]"
   exit $HELP_RETURN
 fi
@@ -71,7 +71,7 @@ declare -i FILECOUNT=$(wc -l "$1/filelist.tmp" | sed 's/ .*//')
     if test $FILECOUNT -gt $FILELIMIT ; then
       rm "$1/$F5"
       DNAME=$(dirname $F5)
-      if test "x$DNAME" != "x." ; then
+      if test "$DNAME" != "." ; then
         rmdir $DNAME >/dev/null 2>/dev/null
       fi
       FILECOUNT=$FILECOUNT-1

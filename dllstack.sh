@@ -19,7 +19,7 @@ then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
 
-if test "x$1" = "x-h" || test "x$1" = "x--help"
+if test "$1" = "-h" || test "$1" = "--help"
 then
   echo "Usage: $(basename "$0") [[-h|--help]|[-v|--version]|[install prefix]] [versionset] [setup]"
   exit 0
@@ -28,7 +28,7 @@ fi
 # In order to give local setup opportunity to override versions,
 # we have to load versionset before setup_reader.sh
 # helpers.sh requires environment to be set up by setup_reader.sh.
-if test "x$2" != "x" ; then
+if test "$2" != "" ; then
   CROSSER_VERSIONSET="$2"
 else
   CROSSER_VERSIONSET="current"
@@ -49,13 +49,13 @@ fi
 . "$CROSSER_MAINDIR/scripts/packethandlers.sh"
 
 # This must be after reading helpers.sh so that $CROSSER_VERSION is set
-if test "x$1" = "x-v" || test "x$1" = "x--version"
+if test "$1" = "-v" || test "$1" = "--version"
 then
   echo "Windows library stack builder for Crosser $CROSSER_VERSION"
   exit 0
 fi
 
-if test "x$3" = "x"
+if test "$3" = ""
 then
   CROSSER_SETUP="$CROSSER_DEFAULT_SETUP"
 else
@@ -68,13 +68,13 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_ERR_MSG" != "x"
+if test "$CROSSER_ERR_MSG" != ""
 then
   log_error "$CROSSER_ERR_MSG"
   exit 1
 fi
 
-if test "x$1" != "x"
+if test "$1" != ""
 then
   DLLSPREFIX="$1"
 fi
@@ -103,12 +103,12 @@ build_component_def_make()
 # [$3] - "native", "cross", or "pkg-config"
 build_component_host()
 {
-  if test "x$3" = "xpkg-config"
+  if test "$3" = "pkg-config"
   then
     BTYPE="$3"
     BDTYPE="cross"
   else
-    if test "x$3" != "x"
+    if test "$3" != ""
     then
       BTYPE="$3"
     else
@@ -127,7 +127,7 @@ build_component_host()
   # just built tool
   hash -r
 
-  if test "x$BERR" = "xtrue"
+  if test "$BERR" = "true"
   then
     return 1
   fi
@@ -145,27 +145,27 @@ build_component_full()
 {
   log_packet "$2"
 
-  if test "x$7" != "x"
+  if test "$7" != ""
   then
     BVER="$7"
   else
     BVER="$(component_version $2)"
   fi
 
-  if test "x$BVER" = "x"
+  if test "$BVER" = ""
   then
     log_error "Version for $2 not defined"
     return 1
   fi
 
-  if test "x$BVER" = "x0"
+  if test "$BVER" = "0"
   then
     return 0
   fi
 
   BNAME=$(component_name_to_package_name $2 $BVER)
 
-  if test "x$5" != "x"
+  if test "$5" != ""
   then
     SUBDIR="$5"
     if ! test -d "$CROSSER_SRCDIR/$SUBDIR"
@@ -175,14 +175,14 @@ build_component_full()
     fi
   else
     SUBDIR="$(src_subdir $BNAME $BVER)"
-    if test "x$SUBDIR" = "x"
+    if test "$SUBDIR" = ""
     then
       log_error "Cannot find srcdir for $BNAME version $BVER"
       return 1
     fi
   fi
 
-  if test "x$1" != "xsrc"
+  if test "$1" != "src"
   then
     DISPLAY_NAME="$1"
     BUILDDIR="$CROSSER_BUILDDIR/$1"
@@ -201,37 +201,37 @@ build_component_full()
   (
   cd "$BUILDDIR"
 
-  if test "x$4" = "xnative"
+  if test "$4" = "native"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
-  elif test "x$4" = "xcross"
+  elif test "$4" = "cross"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
-  elif test "x$4" = "xpkg-config"
+  elif test "$4" = "pkg-config"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
-  elif test "x$4" = "xcustom"
+  elif test "$4" = "custom"
   then
     CONFOPTIONS="--prefix=${DLLSPREFIX} $3"
     unset CPPFLAGS
     unset LDFLAGS
-  elif test "x$4" = "xwindres"
+  elif test "$4" = "windres"
   then
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$CROSSER_TARGET-gcc -static-libgcc"
     export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
-  elif test "x$4" = "xqt"
+  elif test "$4" = "qt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
   else
@@ -269,16 +269,16 @@ build_component_full()
 
   if test -f Makefile
   then
-    if test "x$8" = "xyes"
+    if test "$8" = "yes"
     then
       log_write 3 "  Make targets: [default] install"
     else
       log_write 3 "  Make targets: install"
     fi
-    if test "x$6" = "xno"
+    if test "$6" = "no"
     then
       MAKEOPTIONS=""
-    elif test "x$6" != "x"
+    elif test "$6" != ""
     then
       MAKEOPTIONS="$6"
     else
@@ -286,7 +286,7 @@ build_component_full()
     fi
     log_write 4 "  Options: \"$MAKEOPTIONS\""
 
-    if test "x$8" = "xyes"
+    if test "$8" = "yes"
     then
       if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
       then
@@ -352,13 +352,13 @@ build_with_meson_full()
 
   BVER=$(component_version $2)
 
-  if test "x$BVER" = "x"
+  if test "$BVER" = ""
   then
     log_error "Version for $2 not defined"
     return 1
   fi
 
-  if test "x$BVER" = "x0"
+  if test "$BVER" = "0"
   then
     return 0
   fi
@@ -366,12 +366,12 @@ build_with_meson_full()
   BNAME=$(component_name_to_package_name $2 $BVER)
 
   SUBDIR="$(src_subdir $BNAME $BVER)"
-  if test "x$SUBDIR" = "x"
+  if test "$SUBDIR" = ""
   then
     log_error "Cannot find srcdir for $BNAME version $BVER"
     return 1
   fi
-  if test "x$5" != "x" ; then
+  if test "$5" != "" ; then
     SUBDIR="$SUBDIR/$5"
     if ! test -d "$CROSSER_SRCDIR/$SUBDIR" ; then
       log_error "Cannot find source subdir \"$SUBDIR\""
@@ -392,7 +392,7 @@ build_with_meson_full()
   (
   cd "$BUILDDIR"
 
-  if test "x$4" = "xnative" ; then
+  if test "$4" = "native" ; then
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   else
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
@@ -403,7 +403,7 @@ build_with_meson_full()
   log_write 1 "Running meson for $DISPLAY_NAME"
   log_write 3 "  Options: $3"
 
-  if test "x$4" = "xnative"
+  if test "$4" = "native"
   then
     if ! meson.py $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
@@ -450,7 +450,7 @@ build_zlib()
 
   SUBDIR="$(src_subdir $1 $2)"
 
-  if test "x$SUBDIR" = "x"
+  if test "$SUBDIR" = ""
   then
     log_error "Cannot find srcdir for $1 version $2"
     return 1
@@ -534,7 +534,7 @@ build_zlib()
 #
 build_pdcurses()
 {
-  if test "x$2" = "x0"
+  if test "$2" = "0"
   then
     return 0
   fi
@@ -543,7 +543,7 @@ build_pdcurses()
 
   SUBDIR="$(src_subdir $1 $2)"
 
-  if test "x$SUBDIR" = "x"
+  if test "$SUBDIR" = ""
   then
     log_error "Cannot find srcdir for $1 version $2"
     return 1
@@ -608,7 +608,7 @@ if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
 fi
 . "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf"
 
-if test "x$TARGET_VENDOR" = "x"
+if test "$TARGET_VENDOR" = ""
 then
   export CROSSER_TARGET="$TARGET_ARCH-$TARGET_OS"
 else
@@ -643,10 +643,10 @@ CROSSER_STDCXX="-static-libstdc++"
 remove_dir "$CROSSER_SRCDIR" && remove_dir "$CROSSER_BUILDDIR" && remove_dir "$DLLSPREFIX" && remove_dir "$NATIVE_PREFIX"
 RDRET=$?
 
-if test "x$RDRET" = "x1" ; then
+if test "$RDRET" = "1" ; then
     log_error "Old directories not removed"
     exit 1
-elif test "x$RDRET" != "x0" ; then
+elif test "$RDRET" != "0" ; then
     log_error "Failed to remove old directories"
     exit 1
 fi
@@ -694,11 +694,11 @@ log_write 1 "Creating meson cross file"
   TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
   TARGET_WINDRES=$(command -v $CROSSER_TARGET-windres)
 
-  if test "x$TARGET_GCC" = "x"   ||
-     test "x$TARGET_GPP" = "x"   ||
-     test "x$TARGET_AR" = "x"    ||
-     test "x$TARGET_STRIP" = "x" ||
-     test "x$TARGET_WINDRES" = "x"
+  if test "$TARGET_GCC" = ""   ||
+     test "$TARGET_GPP" = ""   ||
+     test "$TARGET_AR" = ""    ||
+     test "$TARGET_STRIP" = "" ||
+     test "$TARGET_WINDRES" = ""
   then
     log_error "Cross-tools missing"
     exit 1
@@ -723,8 +723,8 @@ log_write 1 "Creating cmake toolchain file"
   TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
   TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
 
-  if test "x$TARGET_GCC" = "x"   ||
-     test "x$TARGET_GPP" = "x"
+  if test "$TARGET_GCC" = ""   ||
+     test "$TARGET_GPP" = ""
   then
     log_error "Cross-tools missing"
     exit 1
@@ -748,17 +748,17 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_DOWNLOAD" = "xyes"
+if test "$CROSSER_DOWNLOAD" = "yes"
 then
     steplist="win"
-    if test "x$CROSSER_SDL2" = "xyes" ; then
-        steplist="${steplist},sdl2"
+    if test "xCROSSER_SDL2" = "yes" ; then
+      steplist="${steplist},sdl2"
     fi
-    if test "x$CROSSER_SFML" = "xyes" ; then
-        steplist="${steplist},sfml"
+    if test "$CROSSER_SFML" = "yes" ; then
+      steplist="${steplist},sfml"
     fi
-    if test "x$CROSSER_FULL" = "xyes" ; then
-        steplist="${steplist},full"
+    if test "$CROSSER_FULL" = "yes" ; then
+      steplist="${steplist},full"
     fi
     if ! (cd "$CROSSER_PACKETDIR" &&
           "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$CROSSER_VERSIONSET" "$CROSSER_SETUP")
@@ -956,7 +956,7 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_READLINE" = "xyes" ; then
+if test "$CROSSER_READLINE" = "yes" ; then
 if ! unpack_component  PDCurses                                          ||
    ! (is_minimum_version $VERSION_PDCURSES 3.6 ||
       patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin" )         ||
@@ -1063,12 +1063,12 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_GTK3" = "xno" && test "x$CROSSER_GTK4" != "xyes"
+if test "$CROSSER_GTK3" = "no" && test "$CROSSER_GTK4" != "yes"
 then
   CROSSER_GTK=no
 fi
 
-if test "x$CROSSER_GTK" != "xno" ; then
+if test "$CROSSER_GTK" != "no" ; then
 if ! unpack_component     gdk-pixbuf                                  ||
    ! (is_smaller_version $VERSION_GDK_PIXBUF 2.42.0 ||
       build_with_meson gdk-pixbuf \
@@ -1084,7 +1084,7 @@ then
 fi
 
 # This is within CROSSER_GTK != xno
-if test "x$CROSSER_GTK3" != "xno" ; then
+if test "$CROSSER_GTK3" != "no" ; then
 if ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
@@ -1131,7 +1131,7 @@ then
 fi
 fi
 
-if test "x$CROSSER_GTK" != "xno" && test "x$CROSSER_GTK4" = "xyes" ; then
+if test "$CROSSER_GTK" != "no" && test "$CROSSER_GTK4" = "yes" ; then
 if ! unpack_component  graphene                                         ||
    ! ( is_minimum_version $VERSION_GRAPHENE 1.10.0 ||
        patch_src graphene $VERSION_GRAPHENE graphene_epsilon )          ||
@@ -1184,7 +1184,7 @@ then
   exit 1
 fi
 
-if test "x$CROSSER_SDL2" = "xyes" ; then
+if test "$CROSSER_SDL2" = "yes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! build_component_def_make SDL2                                    ||
@@ -1216,7 +1216,7 @@ then
 fi
 fi
 
-if test "x$CROSSER_SFML" = "xyes" ; then
+if test "$CROSSER_SFML" = "yes" ; then
 if ! unpack_component     ffmpeg                                                ||
    ! build_component_full ffmpeg ffmpeg                                         \
      "--cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
@@ -1236,7 +1236,7 @@ then
 fi
 fi
 
-if test "x$CROSSER_QT5" = "xyes"
+if test "$CROSSER_QT5" = "yes"
 then
 if ! unpack_component qt5                                                    ||
    ! (is_minimum_version $VERSION_QT5 5.14.0 ||
@@ -1287,7 +1287,7 @@ then
 fi
 fi
 
-if test "x$CROSSER_QT6" = "xyes"
+if test "$CROSSER_QT6" = "yes"
 then
 if ! unpack_component qt6                                                       ||
    ! patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2"          ||
@@ -1327,7 +1327,7 @@ log_write 1 "Creating crosser.txt"
   echo "CrosserBuilt=\"$(date +"%d.%m.%Y")\""
   echo
   echo "# -------------------------"
-  if test "x$VERSION_GTK3" != "x0"
+  if test "$VERSION_GTK3" != "0"
   then
     echo "CROSSER_GTK3=\"yes\""
   else
@@ -1357,7 +1357,7 @@ fi
 
 log_write 1 "Creating configuration files"
 
-if test "x$VERSION_GTK3" != "x0"
+if test "$VERSION_GTK3" != "0"
 then
   mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
   (
@@ -1371,18 +1371,18 @@ fi
 log_write 1 "Creating setup.bat"
 (
   echo -n -e "bin\\\glib-compile-schemas.exe share\\\glib-2.0\\\schemas\r\n"
-  if test "x$VERSION_GDK_PIXBUF" != "x0"
+  if test "$VERSION_GDK_PIXBUF" != "0"
   then
-      echo -n -e "bin\\\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
+    echo -n -e "bin\\\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
   fi
-  if test "x$VERSION_GTK4" != "x0"
+  if test "$VERSION_GTK4" != "0"
   then
-      echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
-      echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\hicolor\r\n"
-  elif test "x$VERSION_GTK3" != "x0"
+    echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
+    echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\hicolor\r\n"
+  elif test "$VERSION_GTK3" != "0"
   then
-      echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
-      echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\hicolor\r\n"
+    echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
+    echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\hicolor\r\n"
   fi
   echo -n -e "if not exist etc\\\crosser mkdir etc\\\crosser\r\n"
   echo -n -e "echo done > etc\\\crosser\\\setup.state\r\n"
@@ -1392,10 +1392,10 @@ log_write 1 "Creating launch.bat"
 (
   echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
-  if test "x$CROSSER_QT5" = "xyes"
+  if test "$CROSSER_QT5" = "yes"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt5\\\plugins\r\n"
-  elif test "x$CROSSER_QT6" = "xyes"
+  elif test "$CROSSER_QT6" = "yes"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt6\\\plugins\r\n"
   fi

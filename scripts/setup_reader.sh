@@ -6,16 +6,16 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
-if test "x$CROSSER_TMPDIR" = "x"
+if test "$CROSSER_TMPDIR" = ""
 then
   CROSSER_TMPDIR="/tmp/crosser-$(whoami)"
 fi
 
-if test "x$CROSSER_GLOBAL_CONF" = "x" && test -e "/etc/crosser.conf" ; then
+if test "$CROSSER_GLOBAL_CONF" = "" && test -e "/etc/crosser.conf" ; then
   CROSSER_GLOBAL_CONF="/etc/crosser.conf"
 fi
 
-if test "x$CROSSER_GLOBAL_CONF" != "x" ; then
+if test "$CROSSER_GLOBAL_CONF" != "" ; then
   if ! test -e "$CROSSER_GLOBAL_CONF" ; then
     echo "Error: Can't find global configuration file \"$CROSSER_GLOBAL_CONF\"" >&2
     exit 1
@@ -23,7 +23,7 @@ if test "x$CROSSER_GLOBAL_CONF" != "x" ; then
   . "$CROSSER_GLOBAL_CONF"
 fi
 
-if test "x$CROSSER_CONF" != "x" ; then
+if test "$CROSSER_CONF" != "" ; then
   if test -e "$CROSSER_CONF" ; then
     . "$CROSSER_CONF"
   else
@@ -34,27 +34,27 @@ elif test -e $CROSSER_MAINDIR/local_setup.conf ; then
   . $CROSSER_MAINDIR/local_setup.conf
 elif test -e $HOME/.crosser.conf ; then
   . $HOME/.crosser.conf
-elif test "x$CROSSER_GLOBAL_CONF" = "x" ; then
+elif test "$CROSSER_GLOBAL_CONF" = "" ; then
   echo "Warning: No configuration found. Trying to build with default values." >&2
   echo "         Read doc/setup.txt for configuration instructions." >&2
 fi
 
-if test "x$CROSSER_PACKETDIR" = "x" ; then
-    CROSSER_PACKETDIR="$HOME/.crosser/packets"
+if test "$CROSSER_PACKETDIR" = "" ; then
+  CROSSER_PACKETDIR="$HOME/.crosser/packets"
 fi
-if test "x$CROSSER_BUILDDIR" = "x" ; then
+if test "$CROSSER_BUILDDIR" = "" ; then
   CROSSER_BUILDDIR="$CROSSER_TMPDIR/build"
 fi
-if test "x$CROSSER_SRCDIR" = "x" ; then
+if test "$CROSSER_SRCDIR" = "" ; then
   CROSSER_SRCDIR="$CROSSER_TMPDIR/src"
 fi
-if test "x$CROSSER_LOGDIR" = "x" ; then
+if test "$CROSSER_LOGDIR" = "" ; then
   CROSSER_LOGDIR="$HOME/.crosser/log"
 fi
-if test "x$CROSSER_DOWNLOAD" = "x" ; then
+if test "$CROSSER_DOWNLOAD" = "" ; then
   CROSSER_DOWNLOAD="demand"
 fi
-if test "x$CROSSER_CORES" = "x" ; then
+if test "$CROSSER_CORES" = "" ; then
   declare -i CROSSER_CORES
   CROSSER_CORES=$(nproc)
   CROSSER_CORES=$CROSSER_CORES+1
@@ -71,74 +71,74 @@ if test "$CROSSER_TMPFREE" != "" && test "$CROSSER_TMPDEL" = "x" ; then
   echo "Configuration variable CROSSER_TMPFREE is deprecated. Please use CROSSER_TMPDEL" >&2
   CROSSER_TMPDEL="$CROSSER_TMPDEL"
 fi
-if test "x$CROSSER_FULL" = "x" ; then
+if test "$CROSSER_FULL" = "" ; then
   CROSSER_FULL="no"
 fi
-if test "x$CROSSER_FULL" != "xyes" && test "x$CROSSER_FULL" != "xno" ; then
+if test "$CROSSER_FULL" != "yes" && test "$CROSSER_FULL" != "no" ; then
   echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "x$CROSSER_QT5" = "x" && test "x$CROSSER_QT" != "x" ; then
+if test "$CROSSER_QT5" = "" && test "$CROSSER_QT" != "" ; then
   echo "Configuration variable CROSSER_QT is deprecated. Please use CROSSER_QT5" >&2
   CROSSER_QT5="$CROSSER_QT"
 fi
-if test "x$CROSSER_QT5" = "x" ; then
+if test "$CROSSER_QT5" = "" ; then
   CROSSER_QT5="$CROSSER_FULL"
 fi
-if test "x$CROSSER_QT5" != "xyes" && test "x$CROSSER_QT5" != "xno" ; then
+if test "$CROSSER_QT5" != "yes" && test "$CROSSER_QT5" != "no" ; then
   echo "Unknown value \"$CROSSER_QT5\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "x$CROSSER_QT6" = "x" ; then
+if test "$CROSSER_QT6" = "" ; then
   CROSSER_QT6="$CROSSER_FULL"
 fi
-if test "x$CROSSER_QT6" != "xyes" && test "x$CROSSER_QT6" != "xno" ; then
+if test "$CROSSER_QT6" != "yes" && test "$CROSSER_QT6" != "no" ; then
   echo "Unknown value \"$CROSSER_QT6\" for CROSSER_QT6. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "x$CROSSER_GTK4" = "x" ; then
-    CROSSER_GTK4="$CROSSER_FULL"
+if test "$CROSSER_GTK4" = "" ; then
+  CROSSER_GTK4="$CROSSER_FULL"
 fi
-if test "x$CROSSER_GTK4" != "xyes" && test "x$CROSSER_GTK4" != "xno" ; then
-    echo "Unknown value \"$CROSSER_GTK4\" for CROSSER_GTK4. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+if test "$CROSSER_GTK4" != "yes" && test "$CROSSER_GTK4" != "no" ; then
+  echo "Unknown value \"$CROSSER_GTK4\" for CROSSER_GTK4. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
-if test "x$CROSSER_SDL2" = "x" ; then
-    CROSSER_SDL2="yes"
+if test "$CROSSER_SDL2" = "" ; then
+  CROSSER_SDL2="yes"
 fi
-if test "x$CROSSER_SDL2" != "xyes" && test "x$CROSSER_SDL2" != "xno" ; then
-    echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+if test "$CROSSER_SDL2" != "yes" && test "$CROSSER_SDL2" != "no" ; then
+  echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
-if test "x$CROSSER_SFML" = "x" ; then
-    CROSSER_SFML="no"
+if test "$CROSSER_SFML" = "" ; then
+  CROSSER_SFML="no"
 fi
-if test "x$CROSSER_SFML" != "xyes" && test "x$CROSSER_SFML" != "xno" ; then
-    echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+if test "$CROSSER_SFML" != "yes" && test "$CROSSER_SFML" != "no" ; then
+  echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
-if test "x$CROSSER_READLINE" = "x" ; then
-    CROSSER_READLINE="no"
+if test "$CROSSER_READLINE" = "" ; then
+  CROSSER_READLINE="no"
 fi
-if test "x$CROSSER_READLINE" != "xyes" && test "x$CROSSER_READLINE" != "xno" ; then
-    echo "Unknown value \"$CROSSER_READLINE\" for CROSSER_READLINE. Valid values are \"yes\" and \"no\"" >&2
-    exit 1
+if test "$CROSSER_READLINE" != "yes" && test "$CROSSER_READLINE" != "no" ; then
+  echo "Unknown value \"$CROSSER_READLINE\" for CROSSER_READLINE. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
 fi
-if test "x$CROSSER_PKGCONF" = "x" ; then
-    CROSSER_PKGCONF="pkgconf"
+if test "$CROSSER_PKGCONF" = "" ; then
+  CROSSER_PKGCONF="pkgconf"
 fi
-if test "x$CROSSER_PKGCONF" != "xpkg-config" && test "x$CROSSER_PKGCONF" != "xpkgconf" ; then
-    echo "Unknown value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
-    exit 1
+if test "$CROSSER_PKGCONF" != "pkg-config" && test "$CROSSER_PKGCONF" != "pkgconf" ; then
+  echo "Unknown value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
+  exit 1
 fi
-if test "x$CROSSER_DEFAULT_SETUP" = "x" ; then
-    CROSSER_DEFAULT_SETUP="win64"
+if test "$CROSSER_DEFAULT_SETUP" = "" ; then
+  CROSSER_DEFAULT_SETUP="win64"
 fi
-if test "x$CROSSER_PKGCONF" = "xpkg-config" ; then
-    # Use real pkg-config, not recursively the link we create
-    CROSSER_PKGCONF="pkg-config.real"
+if test "$CROSSER_PKGCONF" = "pkg-config" ; then
+  # Use real pkg-config, not recursively the link we create
+  CROSSER_PKGCONF="pkg-config.real"
 fi
-if test "x$CROSSER_WINVER" = "x" ; then
-    # Default minimum version is Windows 7
-    CROSSER_WINVER=0x0601
+if test "$CROSSER_WINVER" = "" ; then
+  # Default minimum version is Windows 7
+  CROSSER_WINVER=0x0601
 fi

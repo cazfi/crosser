@@ -26,7 +26,7 @@ belongs_to_step() {
 
   for PACKET in $STEP_PACKETS
   do
-    if test "x$1" = "x$PACKET" ; then
+    if test "$1" = "$PACKET" ; then
       return 0
     fi
   done
@@ -45,7 +45,7 @@ step2id() {
 
   while test $SID -lt ${#STEPLIST[@]}
   do
-    if test "x$1" = "x${STEPLIST[$SID]}"
+    if test "$1" = "${STEPLIST[$SID]}"
     then
       # Index + 1
       SID=$SID+1
@@ -76,15 +76,15 @@ parse_stepparam() {
   echo $1 | sed 's/:/ /' |
   (
     read BEGIN_STEP END_STEP
-    if test "x$END_STEP" != "x"
+    if test "$END_STEP" != ""
     then
       LIST_STEP=""
       step2id $BEGIN_STEP
       declare -i BID=$?
       step2id $END_STEP
       declare -i EID=$?
-      if test "x$BID" = "x" || test "x$BID" = "x0" ||
-         test "x$EID" = "x" || test "x$EID" = "x0"
+      if test "$BID" = "" || test "$BID" = "0" ||
+         test "$EID" = "" || test "$EID" = "0"
       then
         return 1
       fi
@@ -102,7 +102,7 @@ parse_stepparam() {
         LIST_STEP="$LIST_STEP $(id2step $BID)"
         BID=$BID+1
       done
-    elif test "x$BEGIN_STEP" = "xall"
+    elif test "$BEGIN_STEP" = "all"
     then
       declare -i BID=1
       while test $BID -le ${#STEPLIST[@]}
@@ -139,7 +139,7 @@ parse_steplist() {
      do
        STEP="$(parse_stepparam $PART)"
        RET=$?
-       if test "x$RET" != "x0"
+       if test "$RET" != "0"
        then
          return 1
        fi
@@ -150,7 +150,7 @@ parse_steplist() {
   )
   RET=$?
 
-  if test "x$RET" != "x0"
+  if test "$RET" != "0"
   then
     return 1
   fi

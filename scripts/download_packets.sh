@@ -11,11 +11,11 @@
 # $2 - Filename
 # $3 - Download directory
 download_file() {
-  if test "x$2" = "x" ; then
+  if test "$2" = "" ; then
     return 0
   fi
 
-  if test "x$3" != "x"
+  if test "$3" != ""
   then
     DLDIR="$3"
     if ! mkdir -p "$DLDIR"
@@ -43,7 +43,7 @@ download_file() {
     fi
   else
     # Creating new filelist
-    if test "x$CROSSER_GROUP" != "x" ; then
+    if test "$CROSSER_GROUP" != "" ; then
       touch filelist.txt
       if ! chown ":$CROSSER_GROUP" filelist.txt ; then
         echo "Cannot set owner group for filelist.txt" >&2
@@ -53,14 +53,14 @@ download_file() {
     APPEND=yes
   fi
 
-  if test "x$APPEND" = "xyes"
+  if test "$APPEND" = "yes"
   then
     echo "$TIMEPART : $TIMEPART : $FLFILE" >> filelist.txt
   fi
 
   if test -f "$DLDIR/$2"
   then
-    if test "x$DLDIR" != "x."
+    if test "$DLDIR" != "."
     then
       echo "Already has $DLDIR/$2, skipping"
     else
@@ -74,7 +74,7 @@ download_file() {
     return 1
   fi
 
-  if test "x$CROSSER_GROUP" != "x" ; then
+  if test "$CROSSER_GROUP" != "" ; then
     if ! chown ":$CROSSER_GROUP" "$2" ; then
       echo "Cannot set owner group for \"$2\"" >&2
       return 1
@@ -94,16 +94,16 @@ download_packet() {
 
   BFNAME=$(component_name_to_tarball_name $2 $3)
 
-  if test "x$4" = "x" ; then
+  if test "$4" = "" ; then
     DLFILENAME="$3"
   else
     DLFILENAME="$BFNAME-$3.$4"
   fi
   if ! download_file "$1" "$DLFILENAME" "$6"
   then
-    if test "x$5" = "x" || ! download_file "$5" "$DLFILENAME" "$6"
+    if test "$5" = "" || ! download_file "$5" "$DLFILENAME" "$6"
     then
-      if test "x$4" != "x"
+      if test "$4" != ""
       then
         echo "Download of $BFNAME version $3 failed" >&2
       else
@@ -150,25 +150,25 @@ download_patches_internal() {
 # 1 - Failure
 # 2 - Not needed
 download_needed() {
-  if test "x$3" != "x"
+  if test "$3" != ""
   then
     PACKVER="$3"
   else
     PACKVER="$VERSION_SELECTED"
   fi
-  if test "x$PACKVER" = "x0" ; then
+  if test "$PACKVER" = "0" ; then
     echo "$2 disabled, not downloading."
     return 2
   fi
 
-  if test "x$DOWNLOAD_PACKET" != "x" ; then
-    if test "x$DOWNLOAD_PACKET" = "x$2" ; then
+  if test "$DOWNLOAD_PACKET" != "" ; then
+    if test "$DOWNLOAD_PACKET" = "$2" ; then
       download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
       return $?
     fi
     return 2
   fi
-  if test "x$STEPLIST" = "x" ; then
+  if test "$STEPLIST" = "" ; then
     download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
     return $?
   fi
@@ -195,26 +195,26 @@ download_needed() {
 # 1 - Failure
 # 2 - Not needed
 download_patches() {
-  if test "x$4" != "x"
+  if test "$4" != ""
   then
     PACKVER="$4"
   else
     PACKVER="$VERSION_SELECTED"
   fi
 
-  if test "x$PACKVER" = "x0"
+  if test "$PACKVER" = "0"
   then
       return 2
   fi
 
-  if test "x$DOWNLOAD_PACKET" != "x" ; then
-    if test "x$DOWNLOAD_PACKET" = "x$2" ; then
+  if test "$DOWNLOAD_PACKET" != "" ; then
+    if test "$DOWNLOAD_PACKET" = "$2" ; then
       download_patches_internal "$1" "$2" "$3" "$5"
       return $?
     fi
     return 2
   fi
-  if test "x$STEPLIST" = "x" ; then
+  if test "$STEPLIST" = "" ; then
     download_patches_internal "$1" "$2" "$3" "$5"
     return $?
   fi
@@ -233,7 +233,7 @@ download_patches() {
 # $1 - Version number
 major.minor_from_version()
 {
-  if test "x$1" = "x" ; then
+  if test "$1" = "" ; then
     DIRVER=$VERSION_SELECTED
   else
     DIRVER=$1
@@ -245,7 +245,7 @@ major.minor_from_version()
 # $1 - Version number
 major_from_version()
 {
-  if test "x$1" = "x" ; then
+  if test "$1" = "" ; then
     DIRVER=$VERSION_SELECTED
   else
     DIRVER=$1
@@ -273,13 +273,13 @@ then
   exit 1
 fi
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
+if test "$1" = "-h" || test "$1" = "--help" ; then
   HELP_RETURN=0
-elif test "x$1" = "x" ; then
+elif test "$1" = "" ; then
   HELP_RETURN=1
 fi
 
-if test "x$HELP_RETURN" != "x" ; then
+if test "$HELP_RETURN" != "" ; then
   echo "Usage: $(basename "$0") <step> [versionset] [setup]"
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
@@ -289,19 +289,19 @@ if test "x$HELP_RETURN" != "x" ; then
   exit $HELP_RETURN
 fi
 
-if test "x$1" = "x-v" || test "x$1" = "x--version"
+if test "$1" = "-v" || test "$1" = "--version"
 then
   echo "Downloader for Crosser $CROSSER_VERSION"
   exit 0
 fi
 
-if test "x$1" = "x--packet"
+if test "$1" = "--packet"
 then
-  if test "x$3" != "x"
+  if test "$3" != ""
   then
     export VERSION_SELECTED="$3"
-    if test "x$4" != "x" ; then
-      if test "x$2" != "xreadline"
+    if test "$4" != "" ; then
+      if test "$2" != "readline"
       then
         echo "Number of patches given for component which has no patches." >&2
         exit 1
@@ -313,15 +313,15 @@ then
   else
     CROSSER_VERSIONSET="current"
   fi
-elif test "x$1" != "x--packet"
+elif test "$1" != "--packet"
 then
-  if test "x$2" != "x"
+  if test "$2" != ""
   then
     CROSSER_VERSIONSET="$2"
   else
     CROSSER_VERSIONSET="current"
   fi
-  if test "x$3" != "x"
+  if test "$3" != ""
   then
     CROSSER_SETUP="$3"
   fi
@@ -329,7 +329,7 @@ else
   CROSSER_VERSIONSET="current"
 fi
 
-if test "x$CROSSER_VERSIONSET" != "x"
+if test "$CROSSER_VERSIONSET" != ""
 then
   if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
   then
@@ -343,7 +343,7 @@ then
   fi
 fi
 
-if test "x$CROSSER_SETUP" != "x"
+if test "$CROSSER_SETUP" != ""
 then
   if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_SETUP}.conf"
   then
@@ -363,7 +363,7 @@ elif test -e "$HOME/.crosser.mirrors" ; then
   MIRRORCONF="$HOME/.crosser.mirrors"
 fi
 
-if test "x$MIRRORCONF" != "x" ; then
+if test "$MIRRORCONF" != "" ; then
   if ! . "$MIRRORCONF" ; then
     echo "Problem in reading list of mirrors to use from $MIRRORCONF" >&2
     exit 1
@@ -375,8 +375,8 @@ if ! . "$CROSSER_MAINDIR/steps/stepfuncs.sh" ; then
   exit 1
 fi
 
-if test "x$1" = "x--packet" ; then
-  if test "x$2" = "x" ; then
+if test "$1" = "--packet" ; then
+  if test "$2" = "" ; then
     echo "No packet name given after --packet" >&2
     exit 1
   fi
@@ -384,18 +384,18 @@ if test "x$1" = "x--packet" ; then
 else
   STEPLIST="$(parse_steplist $1)"
   RET=$?
-  if test "x$RET" != "x0"
+  if test "$RET" != "0"
   then
     echo "Error in step parameters \"$1\"" >&2
     exit 1
   fi
 fi
 
-if test "x$MIRROR_GNU" = "x" ; then
+if test "$MIRROR_GNU" = "" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
 fi
 
-if test "x$MIRROR_IM" = "x" ; then
+if test "$MIRROR_IM" = "" ; then
   MIRROR_IM="http://www.imagemagick.org/download/releases"
 fi
 
@@ -403,7 +403,7 @@ MIRROR_SOURCEFORGE="http://sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 
-if test "x$VERSION_SELECTED" != "x"
+if test "$VERSION_SELECTED" != ""
 then
   case $DOWNLOAD_PACKET in
     zlib)        VERSION_ZLIB=$VERSION_SELECTED ;;
@@ -719,13 +719,13 @@ do
   fi
 done
 
-if test "x$DOWNLOAD_PACKET" != "x" && test "x$DOWNLOADED" != "xtrue" &&
-   test "x$FAILED" != "xtrue" ; then
+if test "$DOWNLOAD_PACKET" != "" && test "$DOWNLOADED" != "true" &&
+   test "$FAILED" != "true" ; then
   echo "Download instructions for $DOWNLOAD_PACKET not found." >&2
   exit 1
 fi
 
-if test "x$FAILED" = "xtrue" ; then
+if test "$FAILED" = "true" ; then
   echo "Some packet(s) failed to download." >&2
   exit 1
 fi
