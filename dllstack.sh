@@ -769,7 +769,6 @@ then
 fi
 
 GETTEXT_VARS="$(read_configure_vars gettext)"
-IM_VARS="$(read_configure_vars imagemagick)"
 CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
