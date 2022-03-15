@@ -4,6 +4,7 @@
 	- Updated gtk3 to version 3.24.33
 	- Updated pango to version 1.50.5
 	- Updated curl to version 7.82.0
+	- Updated sqlite to version 3.38.1
 
 2.3 (05-Mar-22)
 	- Added Qt6 (version 6.2.3) build to full build
