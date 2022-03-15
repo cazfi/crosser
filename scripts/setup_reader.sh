@@ -67,9 +67,9 @@ if test $CTMP -lt 1 ; then
 fi
 CROSSER_COREOPTIONS="-j $CROSSER_CORES"
 
-if test "$CROSSER_TMPFREE" != "" && test "$CROSSER_TMPDEL" = "x" ; then
+if test "$CROSSER_TMPFREE" != "" && test "$CROSSER_TMPDEL" = "" ; then
   echo "Configuration variable CROSSER_TMPFREE is deprecated. Please use CROSSER_TMPDEL" >&2
-  CROSSER_TMPDEL="$CROSSER_TMPDEL"
+  CROSSER_TMPDEL="$CROSSER_TMPFREE"
 fi
 if test "$CROSSER_FULL" = "" ; then
   CROSSER_FULL="no"
