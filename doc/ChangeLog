@@ -7,6 +7,7 @@
 	- Updated sqlite to version 3.38.1
 	- Updated libtool to version 2.4.7
 	- Updated glib to version 2.72.0
+	- Updated qt6 to version 6.2.4
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6

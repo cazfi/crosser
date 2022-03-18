@@ -1289,8 +1289,9 @@ fi
 if test "$CROSSER_QT6" = "yes"
 then
 if ! unpack_component qt6                                                       ||
-   ! patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2"          ||
-   ! patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25255-qprocess6-2"  ||
+   ! (is_minimum_version $VERSION_QT6 6.2.4 ||
+      (patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2" &&
+       patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25255-qprocess6-2")) ||
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
