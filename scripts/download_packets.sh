@@ -513,13 +513,6 @@ else
   ZLIB_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_CAIRO 1.12.2
-then
-  CAIRO_PACK="tar.xz"
-else
-  CAIRO_PACK="tar.gz"
-fi
-
 if is_minimum_version $VERSION_AUTOCONF 2.68b
 then
   AUTOCONF_PACK="tar.xz"
@@ -636,7 +629,7 @@ download_needed "https://github.com/libffi/libffi/releases/download/v$VERSION_FF
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "$CAIRO_PACK" "http://cairographics.org/snapshots/"
+download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.xz" "http://cairographics.org/snapshots/"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
 RET="$RET $?"
