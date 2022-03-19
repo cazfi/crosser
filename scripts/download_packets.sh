@@ -470,6 +470,7 @@ PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -
 QT5_DIR="$(echo $VERSION_QT5 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 QT6_DIR="$(echo $VERSION_QT6 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
 XML2_DIR="$(echo $VERSION_XML2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+CAIRO_DIR="$(echo $VERSION_CAIRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
@@ -629,8 +630,14 @@ download_needed "https://github.com/libffi/libffi/releases/download/v$VERSION_FF
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.xz" "http://cairographics.org/snapshots/"
-RET="$RET $?"
+if is_minimum_version "$VERSION_CAIRO" 1.17.6
+then
+  download_needed "$MIRROR_GNOME/sources/cairo/$CAIRO_DIR/" "cairo"      "$VERSION_CAIRO" "tar.xz"
+  RET="$RET $?"
+else
+  download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.xz" "http://cairographics.org/snapshots/"
+  RET="$RET $?"
+fi
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"
