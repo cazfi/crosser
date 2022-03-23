@@ -256,12 +256,16 @@ build_component_full()
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
   then
-    if test -f "$SRCDIR/XCompile.txt"
+    if ! cmake -DCMAKE_TOOLCHAIN_FILE="${DLLSPREFIX}/etc/toolchain.cmake" \
+               -DCMAKE_PREFIX_PATH="${DLLSPREFIX}" \
+               -DCMAKE_SYSTEM_NAME="Windows" \
+               -DHOST="$CROSSER_TARGET" \
+               -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" \
+               "$SRCDIR" \
+               >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
-      # openal-soft uses this
-      cmake -DCMAKE_TOOLCHAIN_FILE="$SRCDIR/XCompile.txt" -DCMAKE_SYSTEM_NAME="Windows" -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
-    else
-      cmake -DCMAKE_SYSTEM_NAME="Windows" -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" "$SRCDIR" >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+      log_error "CMake configure for $DISPLAY_NAME failed"
+      return 1
     fi
   fi
 
