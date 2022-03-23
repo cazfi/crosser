@@ -14,6 +14,7 @@
 	- Updated libepoxy to version 1.5.10
 	- Updated gtk4 to version 4.6.2
 	- Updated adwaita-icon-theme to version 42.0
+	- Updated meson to version 0.62.0
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
