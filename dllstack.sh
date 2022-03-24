@@ -735,6 +735,7 @@ log_write 1 "Creating cmake toolchain file"
   fi
   if ! sed -e "s,<TARGET_GCC>,$TARGET_GCC,g" \
            -e "s,<TARGET_GPP>,$TARGET_GPP,g" \
+           -e "s,<DLLSPREFIX>,$DLLSPREFIX,g" \
            $CROSSER_MAINDIR/scripts/$CMAKE_PLATFORM_FILE \
            > $DLLSPREFIX/etc/toolchain.cmake
   then
