@@ -1185,7 +1185,10 @@ if ! unpack_component  libogg                                         ||
    ! deldir_component  libogg     $VERSION_OGG "libogg"               ||
    ! unpack_component  libvorbis                                      ||
    ! build_component   libvorbis                                      ||
-   ! deldir_component  libvorbis  $VERSION_VORBIS "libvorbis"
+   ! deldir_component  libvorbis  $VERSION_VORBIS "libvorbis"         ||
+   ! unpack_component  flac                                           ||
+   ! LIBS="-lssp" build_component   flac "--disable-cpplibs"          ||
+   ! deldir_component  flac       $VERSION_FLAC "flac"
 then
   log_error "Audio stack build failed"
   exit 1

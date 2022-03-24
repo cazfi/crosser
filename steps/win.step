@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2021 Marko Lindqvist
+# (c) 2008-2022 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -54,5 +54,6 @@ adwaita-icon-theme ADWAITA_ICON
 tango-icon-theme  TANGO_ICONS
 libogg            OGG
 libvorbis         VORBIS
+flac              FLAC
 libxml2           XML2
 jansson           JANSSON

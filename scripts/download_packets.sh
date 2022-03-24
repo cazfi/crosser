@@ -673,6 +673,8 @@ download_needed "http://downloads.xiph.org/releases/ogg/" "libogg"   "$VERSION_O
 RET="$RET $?"
 download_needed "http://downloads.xiph.org/releases/vorbis/" "libvorbis" "$VERSION_VORBIS" "tar.xz"
 RET="$RET $?"
+download_needed "http://downloads.xiph.org/releases/flac/" "flac"   "$VERSION_FLAC"        "tar.xz"
+RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"    "SDL2"       "$VERSION_SDL2"       "tar.gz"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/"      "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
