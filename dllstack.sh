@@ -1234,7 +1234,6 @@ if ! unpack_component     ffmpeg                                                
      "custom"                                                                   ||
    ! deldir_component     ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
-   ! patch_src openal-soft $VERSION_OPENAL "oals_rdynamic_workaround"           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
    ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
    ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
