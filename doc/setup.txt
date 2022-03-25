@@ -183,4 +183,4 @@ renice 15 $$
  ; else with the computer meanwhile, you may want to make crosser low
  ; priority. That makes other tasks to run faster and crosser to use just
  ; those CPU cycles left over. Above command makes current script
- ; (crosser.sh itself) to run at nice level 15.
+ ; (dllstack.sh itself) to run at nice level 15.
