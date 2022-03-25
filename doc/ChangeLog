@@ -23,6 +23,7 @@
 	- Updated SFML to version 2.5.1
 	- Updated openal-soft to version 1.18.2
 	- Updated ffmpeg to version 3.4.9
+	- Added readline-7.0 patches 004 and 005
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
