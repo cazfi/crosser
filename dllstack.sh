@@ -1236,7 +1236,8 @@ if ! unpack_component     ffmpeg                                                
    ! deldir_component     ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
-   ! build_component_full openal-soft openal-soft "" "custom"                   ||
+   ! build_component_full openal-soft openal-soft "-DALSOFT_EXAMPLES=OFF"       \
+     "custom"                                                                   ||
    ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
    ! build_component_full sfml sfml "" "custom" "SFML-${VERSION_SFML}"          ||
