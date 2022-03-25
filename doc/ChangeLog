@@ -21,6 +21,7 @@
 	- Updated atk to version 2.38.0
 	- Updated SFML to version 2.5.1
 	- Updated openal-soft to version 1.18.2
+	- Updated ffmpeg to version 3.4.9
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
