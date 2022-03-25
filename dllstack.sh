@@ -221,7 +221,7 @@ build_component_full()
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   elif test "$4" = "custom"
   then
-    CONFOPTIONS="--prefix=${DLLSPREFIX} $3"
+    CONFOPTIONS="$3"
     unset CPPFLAGS
     unset LDFLAGS
   elif test "$4" = "windres"
@@ -256,12 +256,13 @@ build_component_full()
     fi
   elif test -f "$SRCDIR/CMakeLists.txt"
   then
-    if ! cmake -DCMAKE_TOOLCHAIN_FILE="${DLLSPREFIX}/etc/toolchain.cmake" \
-               -DCMAKE_PREFIX_PATH="${DLLSPREFIX}" \
-               -DCMAKE_SYSTEM_NAME="Windows" \
-               -DHOST="$CROSSER_TARGET" \
-               -DCMAKE_INSTALL_PREFIX="${DLLSPREFIX}" \
-               "$SRCDIR" \
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $CONFOPTIONS"
+
+    log_write 1 "Configuring $DISPLAY_NAME"
+    log_write 3 "  Options: \"$CONFOPTIONS\""
+    log_flags
+
+    if ! cmake $CONFOPTIONS "$SRCDIR" \
                >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
     then
       log_error "CMake configure for $DISPLAY_NAME failed"
@@ -1230,15 +1231,16 @@ fi
 if test "$CROSSER_SFML" = "yes" ; then
 if ! unpack_component     ffmpeg                                                ||
    ! build_component_full ffmpeg ffmpeg                                         \
-     "--cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
+     "--prefix=${DLLSPREFIX} --cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
      "custom"                                                                   ||
    ! deldir_component     ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
    ! patch_src openal-soft $VERSION_OPENAL "oals_inc_check_param"               ||
-   ! SDL2DIR="$DLLSPREFIX" build_component      openal-soft                     ||
+   ! SDL2DIR="$DLLSPREFIX" build_component_full openal-soft openal-soft ""      \
+       "custom"                                                                 ||
    ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
-   ! build_component_full sfml sfml "" "" "SFML-${VERSION_SFML}"                ||
+   ! build_component_full sfml sfml "" "custom" "SFML-${VERSION_SFML}"          ||
    ! deldir_component     "SFML-${VERSION_SFML}" "" "sfml"
 then
     log_error "SFML stack build failed"
