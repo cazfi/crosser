@@ -97,7 +97,7 @@ if test "$CROSSER_QT6" != "yes" && test "$CROSSER_QT6" != "no" ; then
   exit 1
 fi
 if test "$CROSSER_GTK4" = "" ; then
-  CROSSER_GTK4="$CROSSER_FULL"
+  CROSSER_GTK4="yes"
 fi
 if test "$CROSSER_GTK4" != "yes" && test "$CROSSER_GTK4" != "no" ; then
   echo "Unknown value \"$CROSSER_GTK4\" for CROSSER_GTK4. Valid values are \"yes\" and \"no\"" >&2

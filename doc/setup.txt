@@ -135,8 +135,7 @@ CROSSER_GROUP
 
 CROSSER_FULL
  ; If set to value "yes", more components will be built by default.
- ; Currently this is like enabling CROSSER_QT5, CROSSER_QT6,
- ; and CROSSER_GTK4
+ ; Currently this is like enabling CROSSER_QT5 and CROSSER_QT6.
 
 CROSSER_QT5
  ; If set to value "yes", Qt5 will be built as part of crosser.
@@ -159,8 +158,7 @@ CROSSER_GTK3
  ; Whether gtk3 parts of gtk-chain should be built. Current default is 'yes'.
 
 CROSSER_GTK4
- ; Whether gtk4 parts of gtk-chain should be built.
- ; Current default is 'no'. If CROSSER_FULL is enabled, default value is 'yes'.
+ ; Whether gtk4 parts of gtk-chain should be built. Current default is 'yes'.
 
 CROSSER_SFML
  ; Whether sfml-chain should be built as part of crosser.
