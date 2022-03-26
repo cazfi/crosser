@@ -19,6 +19,7 @@ zstd              ZSTD
 tinycthread       TCT
 icu4c             ICU
 PDCurses          PDCURSES
+ncurses           NCURSES
 readline          READLINE
 curl              CURL
 sqlite            SQLITE

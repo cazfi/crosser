@@ -600,6 +600,8 @@ download_needed "https://github.com/facebook/zstd/releases/download/v${VERSION_Z
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
 RET="$RET $?"
+download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
+RET="$RET $?"
 download_needed "$MIRROR_GNU/${RL_SUBDIR}/"             "readline"   "$VERSION_READLINE"   "tar.gz"
 RET="$RET $?"
 download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \

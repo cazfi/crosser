@@ -970,6 +970,10 @@ if ! unpack_component  PDCurses                                          ||
    ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
      "--without-x"                                                       ||
    ! deldir_src        PDCurses $VERSION_PDCURSES                        ||
+   ! unpack_component  ncurses                                           ||
+   ! patch_src ncurses $VERSION_NCURSES "ncurses_windows_h"              ||
+   ! build_component   ncurses "--enable-term-driver"                    ||
+   ! deldir_component  ncurses $VERSION_NCURSES "ncurses"                ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
    ! patch_src readline $VERSION_READLINE "readline_posix"               ||
