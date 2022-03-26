@@ -972,6 +972,7 @@ if ! unpack_component  PDCurses                                          ||
    ! deldir_src        PDCurses $VERSION_PDCURSES                        ||
    ! unpack_component  ncurses                                           ||
    ! patch_src ncurses $VERSION_NCURSES "ncurses_windows_h"              ||
+   ! patch_src ncurses $VERSION_NCURSES "ncurses_static"                 ||
    ! build_component   ncurses "--enable-term-driver"                    ||
    ! deldir_component  ncurses $VERSION_NCURSES "ncurses"                ||
    ! unpack_component  readline                                          ||
@@ -981,7 +982,7 @@ if ! unpack_component  PDCurses                                          ||
        patch_src readline $VERSION_READLINE "readline_chown" ) ||
       patch_src readline $VERSION_READLINE "readline_sighup" )           ||
    ! patch_src readline $VERSION_READLINE "readline_statf"               ||
-   ! patch_src readline $VERSION_READLINE "readline_pdcurses"            ||
+   ! patch_src readline $VERSION_READLINE "readline_ncurses"             ||
    ! build_component   readline                                          \
      "$READLINE_VARS --with-curses"                                      ||
    ! deldir_component  readline   $VERSION_READLINE "readline"

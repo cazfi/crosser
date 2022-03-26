@@ -1,48 +1,48 @@
-diff -Nurd readline-6.3/configure readline-6.3/configure
---- readline-6.3/configure	2013-03-13 16:14:53.000000000 +0200
-+++ readline-6.3/configure	2015-07-26 19:39:38.730646242 +0300
-@@ -5871,13 +5871,13 @@
+diff -Nurd readline-7.0/configure readline-7.0/configure
+--- readline-7.0/configure	2022-03-26 12:37:23.929843466 +0200
++++ readline-7.0/configure	2022-03-26 12:38:11.514034385 +0200
+@@ -5983,13 +5983,13 @@
  if test "x$ac_cv_lib_tinfo_tgetent" = xyes; then :
    bash_cv_termcap_lib=libtinfo
  else
 -  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in -lcurses" >&5
 -$as_echo_n "checking for tgetent in -lcurses... " >&6; }
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in -lpdcurses" >&5
-+$as_echo_n "checking for tgetent in -lpdcurses... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in -lncurses" >&5
++$as_echo_n "checking for tgetent in -lncurses... " >&6; }
  if ${ac_cv_lib_curses_tgetent+:} false; then :
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-lcurses  $LIBS"
-+LIBS="-lpdcurses  $LIBS"
++LIBS="-lncurses  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -5985,13 +5985,13 @@
+@@ -6097,13 +6097,13 @@
  TERMCAP_LIB=
  TERMCAP_DEP=
  else
 -TERMCAP_LIB=-lcurses
-+TERMCAP_LIB=-lpdcurses
++TERMCAP_LIB=-lncurses
  TERMCAP_DEP=
  fi
  
  if test "$TERMCAP_LIB" = "./lib/termcap/libtermcap.a"; then
  	if test "$prefer_curses" = yes; then
 -		TERMCAP_LIB=-lcurses
-+		TERMCAP_LIB=-lpdcurses
++		TERMCAP_LIB=-lncurses
  	else
  		TERMCAP_LIB=-ltermcap	#default
  	fi
-diff -Nurd readline-6.3/configure.ac readline-6.3/configure.ac
---- readline-6.3/configure.ac	2015-07-26 19:37:26.298644543 +0300
-+++ readline-6.3/configure.ac	2015-07-26 19:37:15.198644401 +0300
-@@ -192,7 +192,7 @@
+diff -Nurd readline-7.0/configure.ac readline-7.0/configure.ac
+--- readline-7.0/configure.ac	2022-03-26 12:37:23.929843466 +0200
++++ readline-7.0/configure.ac	2022-03-26 12:38:34.730127527 +0200
+@@ -186,7 +186,7 @@
  BASH_CHECK_LIB_TERMCAP
  if test "$TERMCAP_LIB" = "./lib/termcap/libtermcap.a"; then
  	if test "$prefer_curses" = yes; then
 -		TERMCAP_LIB=-lcurses
-+		TERMCAP_LIB=-lpdcurses
++		TERMCAP_LIB=-lncurses
  	else
  		TERMCAP_LIB=-ltermcap	#default
  	fi
