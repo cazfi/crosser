@@ -981,6 +981,7 @@ if ! unpack_component  PDCurses                                          ||
    ! (is_minimum_version $VERSION_READLINE 7.0 ||
       patch_src readline $VERSION_READLINE "readline_sighup" )           ||
    ! (is_smaller_version $VERSION_READLINE 7.0 ||
+      is_minimum_version $VERSION_READLINE 8.0 ||
       patch_src readline $VERSION_READLINE "readline_chown" )            ||
    ! patch_src readline $VERSION_READLINE "readline_statf"               ||
    ! patch_src readline $VERSION_READLINE "readline_ncurses"             ||
