@@ -6,7 +6,7 @@
 	- Added ncurses (6.3) to readline-chain
 	- Link readline against ncurses instead of PDcurses
 	- Disabled croco build
-	- Updated harfbuzz to version 4.1.0
+	- Updated harfbuzz to version 4.2.0
 	- Updated gtk3 to version 3.24.33
 	- Updated pango to version 1.50.6
 	- Updated curl to version 7.82.0
