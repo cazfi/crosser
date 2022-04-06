@@ -886,6 +886,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! patch_src zlib $VERSION_ZLIB zlib_seeko-1.2.6-2                  ||
    ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                 ||
    ! patch_src zlib $VERSION_ZLIB zlib_dllext                         ||
+   ! (is_smaller_version $VERSION_ZLIB 1.2.12 ||
+      patch_src zlib $VERSION_ZLIB zlib_cc )                          ||
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
    ! deldir_component  zlib       $VERSION_ZLIB "zlib"                ||
    ! unpack_component  xz                                             ||
