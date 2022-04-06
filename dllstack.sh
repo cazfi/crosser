@@ -485,9 +485,6 @@ build_zlib()
 
   CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
 
-  # TODO: zlib build doesn't like this variable, check why.
-  unset TARGET_ARCH
-
   log_write 1 "Configuring $1"
   log_write 3 "  Options: \"$CONFOPTIONS\""
   log_flags
