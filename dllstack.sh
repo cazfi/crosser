@@ -1316,6 +1316,9 @@ if ! unpack_component qt6                                                       
    ! (is_minimum_version $VERSION_QT6 6.2.4 ||
       (patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2" &&
        patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25255-qprocess6-2")) ||
+   ! (is_minimum_version "$VERSION_QT6" 6.2.5 ||
+      (patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2022-1096-6.2" &&
+       patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2018-25032-6.2" ))      ||
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
      "native"                                                                   ||
