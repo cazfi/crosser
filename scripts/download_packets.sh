@@ -588,7 +588,8 @@ RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
                 "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/" "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK"
+download_needed "https://zlib.net/"                     "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK" \
+                "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/"
 RET="$RET $?"
 download_needed "$MIRROR_SOURCEFORGE/projects/pcre/files/pcre/$VERSION_PCRE/" "pcre" "$VERSION_PCRE" "tar.bz2"
 RET="$RET $?"
