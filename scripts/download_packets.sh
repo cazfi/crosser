@@ -440,6 +440,7 @@ then
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
     freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
+    fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
@@ -549,6 +550,13 @@ else
   FT_PACK="tar.bz2"
 fi
 
+if is_minimum_version $VERSION_FONTCONFIG 2.13.91
+then
+  FC_PACK="tar.xz"
+else
+  FC_PACK="tar.gz"
+fi
+
 if echo $VERSION_QT5 | grep alpha >/dev/null ||
    echo $VERSION_QT5 | grep beta >/dev/null ||
    echo $VERSION_QT5 | grep rc >/dev/null
@@ -625,7 +633,7 @@ download_needed "https://github.com/harfbuzz/harfbuzz/archive/" "harfbuzz" "$VER
 RET="$RET $?"
 download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "$FT_PACK"
 RET="$RET $?"
-download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "tar.gz"
+download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "${FC_PACK}"
 RET="$RET $?"
 download_needed "http://curl.haxx.se/download/"         "curl"       "$VERSION_CURL"       "tar.bz2"
 RET="$RET $?"
