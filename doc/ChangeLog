@@ -13,7 +13,7 @@
 	- Updated sqlite to version 3.38.2
 	- Updated libtool to version 2.4.7
 	- Updated glib to version 2.72.0
-	- Updated qt6 to version 6.2.4
+	- Updated qt6 to version 6.3.0
 	- Updated gdk-pixbuf to version 2.42.8
 	- Updated gobject-introspection to version 1.72.0
 	- Updated graphene to version 1.10.8
