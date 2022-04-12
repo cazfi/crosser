@@ -891,6 +891,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
    ! deldir_component  zlib       $VERSION_ZLIB "zlib"                ||
    ! unpack_component  xz                                             ||
+   ! patch_src xz      "$VERSION_XZ" "xzgrep-ZDI-CAN-16587"           ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
    ! deldir_component  xz         $VERSION_XZ "xz"                    ||
    ! unpack_component  zstd                                           ||
