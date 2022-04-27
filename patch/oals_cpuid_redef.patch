@@ -1,0 +1,13 @@
+diff -Nurd openal-soft-1.19.1/Alc/helpers.c openal-soft-1.19.1/Alc/helpers.c
+--- openal-soft-1.19.1/Alc/helpers.c	2018-10-12 01:05:31.000000000 +0300
++++ openal-soft-1.19.1/Alc/helpers.c	2022-04-27 20:28:05.001203503 +0300
+@@ -85,8 +85,7 @@
+ #endif
+ #ifdef HAVE_INTRIN_H
+ #include <intrin.h>
+-#endif
+-#ifdef HAVE_CPUID_H
++#elif defined(HAVE_CPUID_H)
+ #include <cpuid.h>
+ #endif
+ #ifdef HAVE_SYS_SYSCONF_H

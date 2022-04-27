@@ -1252,6 +1252,7 @@ if ! unpack_component     ffmpeg                                                
    ! (is_smaller_version $VERSION_OPENAL 1.19.0 ||
       is_minimum_version "$VERSION_OPENAL" 1.20.0 ||
       patch_src openal-soft $VERSION_OPENAL "oals_externs" )                    ||
+   ! patch_src openal-soft "$VERSION_OPENAL" "oals_cpuid_redef"                 ||
    ! build_component_full openal-soft openal-soft "-DALSOFT_EXAMPLES=OFF"       \
      "custom"                                                                   ||
    ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
