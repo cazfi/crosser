@@ -32,6 +32,7 @@
 	- Updated fontconfig to version 2.14.0
 	- Updated pcre2 to version 10.40
 	- Updated fribidi to version 1.0.12
+	- Updated SDL2 to version 2.0.22
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
