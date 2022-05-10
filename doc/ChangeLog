@@ -2,6 +2,7 @@
 	- Renamed configure option CROSSER_TMPFREE as CROSSER_TMPDEL
 	- Fixed SFML-chain build
 	- Gtk4 is built by default, also in regular (not 'full') build
+	- Updated auxiliary config.guess and config.sub to '2022-05-08' level
 	- Added FLAC (1.3.2) to build
 	- Added ncurses (6.3) to readline-chain
 	- Link readline against ncurses instead of PDcurses
