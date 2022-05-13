@@ -1304,9 +1304,10 @@ if ! unpack_component qt5                                                    ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_limits_inc"                ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt5-CVE-2022-25643-5.15"         ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt5-CVE-2022-25255-qprocess5-15" ||
-   ! patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2018-25032-5.15"       ||
+   ! (is_minimum_version "$VERSION_QT5" 5.15.4 ||
+      (patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-25643-5.15" &&
+       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-25255-qprocess5-15" &&
+       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2018-25032-5.15" ) ) ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
