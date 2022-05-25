@@ -37,6 +37,7 @@
 	- Updated libxml2 to version 2.9.14
 	- Updated qt5 to version 5.15.4
 	- Updated libiconv to version 1.17
+	- Updated libxkbcommon to version 1.4.1
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
