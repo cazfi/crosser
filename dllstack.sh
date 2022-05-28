@@ -754,7 +754,7 @@ fi
 if test "$CROSSER_DOWNLOAD" = "yes"
 then
     steplist="win"
-    if test "xCROSSER_SDL2" = "yes" ; then
+    if test "$CROSSER_SDL2" = "yes" ; then
       steplist="${steplist},sdl2"
     fi
     if test "$CROSSER_SFML" = "yes" ; then
