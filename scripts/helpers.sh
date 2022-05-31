@@ -868,7 +868,7 @@ component_version()
   VARNAME="$(component_varname $1)"
 
   if test "$VARNAME" != "" ; then
-    echo $(eval echo \$VERSION_$VARNAME)
+    eval echo \$VERSION_$VARNAME
   fi
 }
 
