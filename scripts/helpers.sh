@@ -588,7 +588,7 @@ cmp_versions() {
       fi
       PART1TEXT="$(echo $PART1 | sed 's/[0-9]*//')"
       PART2TEXT="$(echo $PART2 | sed 's/[0-9]*//')"
-      SMALLERTEXT="$(( echo $PART1TEXT && echo $PART2TEXT ) | sort | head -n 1)"
+      SMALLERTEXT="$( ( echo $PART1TEXT && echo $PART2TEXT ) | sort | head -n 1)"
       if test "$PART2TEXT" = "$SMALLERTEXT"
       then
         return 1
