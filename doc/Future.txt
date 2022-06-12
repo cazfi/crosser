@@ -1,5 +1,6 @@
 These changes are coming in future versions:
 
+- Due to upstream changes, minimum Windows version will soon be 8.1
 - Drop win32 support completely
 - Enable readline build by default (-> part of the ready-made build)
 - Drop Qt5
