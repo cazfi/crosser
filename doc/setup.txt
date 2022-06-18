@@ -166,6 +166,7 @@ CROSSER_SFML
 
 CROSSER_READLINE
  ; If set to value "yes", readline will be built as part of crosser.
+ ; Default value is "yes" if CROSSER_FULL is enabled.
 
 CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
