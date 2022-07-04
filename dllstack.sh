@@ -1342,6 +1342,15 @@ then
   exit 1
 fi
 
+# Hack to fix broken .pc file produced by Qt6 build
+if ! sed 's/UNICODE>/UNICODE/' "${DLLSPREFIX}/lib/pkgconfig/Qt6Platform.pc" \
+     > "${CROSSER_TMPDIR}/fixed.pc"                                         ||
+   ! mv "${CROSSER_TMPDIR}/fixed.pc" "${DLLSPREFIX}/lib/pkgconfig/Qt6Platform.pc"
+then
+  log_error "Qt6 .pc file fixing failed"
+  exit 1
+fi
+
 if ! mkdir -p "${DLLSPREFIX}/linux/libexec" ||
    ! cp "${NATIVE_PREFIX}/libexec/moc" "${DLLSPREFIX}/linux/libexec/moc-qt6"
 then
