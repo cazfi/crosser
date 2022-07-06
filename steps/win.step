@@ -41,6 +41,7 @@ libffi            FFI
 pixman            PIXMAN
 cairo             CAIRO
 pango             PANGO
+pango2            PANGO2
 graphene          GRAPHENE
 libxkbcommon      XKBCOMMON
 libcroco          CROCO
