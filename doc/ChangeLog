@@ -41,6 +41,7 @@
 	- Updated libxkbcommon to version 1.4.1
 	- Updated tiff to version 4.4.0
 	- Updated SDL2_ttf to version 2.20.0
+	- Updated SDL2_mixer to version 2.6.1
 
 2.3.2
 	- Updated SDL2_mixer download URL
