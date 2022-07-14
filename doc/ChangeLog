@@ -40,6 +40,7 @@
 	- Updated libiconv to version 1.17
 	- Updated libxkbcommon to version 1.4.1
 	- Updated tiff to version 4.4.0
+	- Updated SDL2_ttf to version 2.20.0
 
 2.3.1 (17-Mar-22)
 	- Corrected backup download URL for Qt5 and Qt6
