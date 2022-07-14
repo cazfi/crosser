@@ -449,6 +449,7 @@ then
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
     SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
+    SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
     libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
   esac
 fi
@@ -693,7 +694,7 @@ download_needed "http://downloads.xiph.org/releases/flac/" "flac"   "$VERSION_FL
 RET="$RET $?"
 download_needed "http://www.libsdl.org/release/"    "SDL2"       "$VERSION_SDL2"       "tar.gz"
 RET="$RET $?"
-download_needed "http://www.libsdl.org/projects/SDL_image/release/"      "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
+download_needed "https://github.com/libsdl-org/SDL_image/releases/download/release-${VERSION_SDL2_IMAGE}/" "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
 RET="$RET $?"
 download_needed "https://github.com/libsdl-org/SDL_mixer/releases/download/release-${VERSION_SDL2_MIXER}/" "SDL2_mixer" "$VERSION_SDL2_MIXER" "tar.gz"
 RET="$RET $?"
