@@ -448,6 +448,7 @@ then
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
     SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
+    SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
     libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
   esac
 fi
@@ -694,7 +695,7 @@ download_needed "http://www.libsdl.org/release/"    "SDL2"       "$VERSION_SDL2"
 RET="$RET $?"
 download_needed "http://www.libsdl.org/projects/SDL_image/release/"      "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
 RET="$RET $?"
-download_needed "http://www.libsdl.org/projects/SDL_mixer/release/"      "SDL2_mixer" "$VERSION_SDL2_MIXER" "tar.gz"
+download_needed "https://github.com/libsdl-org/SDL_mixer/releases/download/release-${VERSION_SDL2_MIXER}/" "SDL2_mixer" "$VERSION_SDL2_MIXER" "tar.gz"
 RET="$RET $?"
 download_needed "http://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "$VERSION_SDL2_GFX" "tar.gz"
 RET="$RET $?"
