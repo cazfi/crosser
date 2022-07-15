@@ -1189,9 +1189,13 @@ if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! build_component_def_make SDL2                                    ||
    ! free_component    SDL2       $VERSION_SDL2 "SDL2"                ||
-   ! unpack_component  SDL2_image                                     ||
-   ! build_component   SDL2_image                                     ||
-   ! free_component    SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"    ||
+   ! unpack_component  SDL2_image ""                                  \
+     "SDL2_image/release-${VERSION_SDL2_IMAGE}"                       ||
+   ! build_component_full SDL2_image SDL2_image "" ""                 \
+     "SDL_image-release-${VERSION_SDL2_IMAGE}"                        ||
+   ! free_src          SDL2_image "${VERSION_SDL2_IMAGE}"             \
+     "SDL_image-release-${VERSION_SDL2_IMAGE}"                        ||
+   ! free_build        SDL2_image                                     ||
    ! unpack_component  SDL2_gfx                                       ||
    ! autogen_component SDL2_gfx   $VERSION_SDL2_GFX \
         "aclocal automake autoconf"                                   ||
@@ -1207,9 +1211,13 @@ if ! unpack_component  SDL2                                           ||
    ! build_component   SDL2_ttf                                       \
      "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
    ! free_component    SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
-   ! unpack_component  SDL2_mixer                                     ||
-   ! build_component   SDL2_mixer                                     ||
-   ! free_component    SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
+   ! unpack_component  SDL2_mixer ""                                  \
+      "SDL2_mixer/release-${VERSION_SDL2_MIXER}"                      ||
+   ! build_component_full SDL2_mixer SDL2_mixer "" ""                 \
+     "SDL_mixer-release-${VERSION_SDL2_MIXER}"                        ||
+   ! free_src          SDL2_mixer "${VERSION_SDL2_MIXER}"             \
+     "SDL_mixer-release-${VERSION_SDL2_MIXER}"                        ||
+   ! free_build        SDL2_mixer
 then
   log_error "SDL2 stack build failed"
   exit 1
