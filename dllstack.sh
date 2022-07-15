@@ -861,7 +861,8 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! patch_src            libpng      $VERSION_PNG "png_epsilon-1.6.8"      ||
    ! build_component_host libpng                                            ||
    ! deldir_build         "native-libpng"                                   ||
-   ! unpack_component     ImageMagick                                       ||
+   ! unpack_component     ImageMagick ""                                    \
+     "ImageMagick/${VERSION_IMAGEMAGICK}"                                   ||
    ! ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.10 ||
        patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread" )            ||
    ! ( is_smaller_version $VERSION_IMAGEMAGICK 7.0.10 ||

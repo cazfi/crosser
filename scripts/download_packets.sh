@@ -451,6 +451,7 @@ then
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
     SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
     libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
+    ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -710,7 +711,7 @@ download_needed "http://www.ffmpeg.org/releases/" "ffmpeg" "$VERSION_FFMPEG" "ta
 RET="$RET $?"
 download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_IM/" "ImageMagick" "$VERSION_IMAGEMAGICK" "tar.xz"
+download_needed "https://github.com/ImageMagick/ImageMagick/archive/refs/tags/" "ImageMagick" "${VERSION_IMAGEMAGICK}.tar.gz" "" "" "ImageMagick"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libxml2/$XML2_DIR/" "libxml2" "$VERSION_XML2" "tar.xz"
 RET="$RET $?"
