@@ -395,10 +395,6 @@ if test "$MIRROR_GNU" = "" ; then
   MIRROR_GNU="ftp://ftp.gnu.org/gnu"
 fi
 
-if test "$MIRROR_IM" = "" ; then
-  MIRROR_IM="http://www.imagemagick.org/download/releases"
-fi
-
 MIRROR_SOURCEFORGE="http://sourceforge.net"
 MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
