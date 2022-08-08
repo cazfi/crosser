@@ -8,6 +8,7 @@
 	- Link readline against ncurses instead of PDcurses
 	- Readline chain is built by default to full build
 	- Disabled croco build
+	- Updated pkgconf download URL
 	- Updated harfbuzz to version 5.1.0
 	- Updated gtk3 to version 3.24.34
 	- Updated pango to version 1.50.8

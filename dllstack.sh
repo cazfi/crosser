@@ -793,7 +793,6 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_host libffi                            ||
    ! deldir_build         "native-libffi"                   ||
    ! unpack_component     pkgconf                                           ||
-   ! mv "$CROSSER_SRCDIR/pkgconf-pkgconf-$VERSION_PKGCONF" "$CROSSER_SRCDIR/pkgconf-$VERSION_PKGCONF" ||
    ! autogen_component pkgconf $VERSION_PKGCONF                             ||
    ! build_component_host pkgconf                                           \
      "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
