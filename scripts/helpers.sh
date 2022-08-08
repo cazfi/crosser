@@ -237,7 +237,13 @@ unpack_component() {
     NAME_BASE="$BNAME-$BVER"
   fi
 
-  if test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" ; then
+  if test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" ; then
+    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
+    then
+      log_error "Unpacking $NAME_BASE.tar.xz failed"
+      return 1
+    fi
+  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" ; then
     if ! tar xjf "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.bz2 failed"
@@ -247,12 +253,6 @@ unpack_component() {
     if ! tar xzf "$CROSSER_PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$2"
     then
       log_error "Unpacking $NAME_BASE.tar.gz failed"
-      return 1
-    fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" ; then
-    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
-    then
-      log_error "Unpacking $NAME_BASE.tar.xz failed"
       return 1
     fi
   elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.lzma" ; then
