@@ -1347,12 +1347,16 @@ then
 fi
 
 # Hack to fix broken .pc file produced by Qt6 build
+if is_minimum_version "$VERSION_QT6" 6.3.0
+then
+
 if ! sed 's/UNICODE>/UNICODE/' "${DLLSPREFIX}/lib/pkgconfig/Qt6Platform.pc" \
      > "${CROSSER_TMPDIR}/fixed.pc"                                         ||
    ! mv "${CROSSER_TMPDIR}/fixed.pc" "${DLLSPREFIX}/lib/pkgconfig/Qt6Platform.pc"
 then
   log_error "Qt6 .pc file fixing failed"
   exit 1
+fi
 fi
 
 if ! mkdir -p "${DLLSPREFIX}/linux/libexec" ||
