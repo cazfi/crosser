@@ -1,3 +1,5 @@
+2.5
+
 2.4
 	- Renamed configure option CROSSER_TMPFREE as CROSSER_TMPDEL
 	- Fixed SFML-chain build
