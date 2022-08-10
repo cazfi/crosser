@@ -1088,11 +1088,14 @@ fi
 
 if test "$CROSSER_GTK" != "no" ; then
 if ! unpack_component     gdk-pixbuf                                  ||
-   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.42.0 ||
+   ! (is_smaller_version "$VERSION_GDK_PIXBUF" 2.42.9 ||
+      build_with_meson gdk-pixbuf \
+        "-Drelocatable=true -Dintrospection=disabled -Dman=false" )   ||
+   ! (is_smaller_version "$VERSION_GDK_PIXBUF" 2.42.0 ||
+      is_minimum_version "$VERSION_GDK_PIXBUF" 2.42.9 ||
       build_with_meson gdk-pixbuf \
         "-D relocatable=true -D introspection=disabled" ) ||
-   ! (is_smaller_version $VERSION_GDK_PIXBUF 2.38.0 ||
-      is_minimum_version $VERSION_GDK_PIXBUF 2.42.0 ||
+   ! (is_minimum_version "$VERSION_GDK_PIXBUF" 2.42.0 ||
       build_with_meson gdk-pixbuf \
         "-D relocatable=true -D x11=false -D gir=false" )             ||
    ! deldir_component gdk-pixbuf $VERSION_GDK_PIXBUF "gdk-pixbuf"
