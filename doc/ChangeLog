@@ -1,5 +1,6 @@
 2.5
 	- Updated pkgconf to version 1.9.2
+	- Updated xz to version 5.2.6
 
 2.4
 	- Renamed configure option CROSSER_TMPFREE as CROSSER_TMPDEL
