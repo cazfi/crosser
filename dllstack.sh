@@ -846,8 +846,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! ( is_minimum_version $VERSION_SHARED_MIME_INFO 2.2 ||
        patch_src shared-mime-info $VERSION_SHARED_MIME_INFO \
                  "smi-meson-0.60" )                                         ||
+   ! patch_src shared-mime-info "$VERSION_SHARED_MIME_INFO" "smi-html"      ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
-      build_with_meson_host shared-mime-info )                              ||
+      build_with_meson_host shared-mime-info \
+        "-Dbuild-spec-html=false" )                                         ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full native-shared-mime-info shared-mime-info \
       "" "native" "" "no" )                                                 ||
@@ -1009,7 +1011,8 @@ if ! build_component   tiff                                                 ||
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! deldir_component  libxml2    $VERSION_XML2 "libxml2"                   ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
-      build_with_meson shared-mime-info )                                   ||
+      build_with_meson shared-mime-info \
+        "-Dbuild-spec-html=false" )                                         ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full shared-mime-info shared-mime-info "" "" "" \
        "no" )                                                               ||
@@ -1026,7 +1029,8 @@ if ! build_component   tiff                                                 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
        patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
-   ! build_with_meson  harfbuzz   "-Dicu=disabled -Dtests=disabled"         ||
+   ! build_with_meson  harfbuzz \
+       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled"                    ||
    ! deldir_component  harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
    ! unpack_component  fontconfig                                           ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
