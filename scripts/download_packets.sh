@@ -443,6 +443,7 @@ then
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
+    SDL2)        VERSION_SDL2="${VERSION_SELECTED}" ;;
     SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
     SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
@@ -689,7 +690,7 @@ download_needed "http://downloads.xiph.org/releases/vorbis/" "libvorbis" "$VERSI
 RET="$RET $?"
 download_needed "http://downloads.xiph.org/releases/flac/" "flac"   "$VERSION_FLAC"        "tar.xz"
 RET="$RET $?"
-download_needed "http://www.libsdl.org/release/"    "SDL2"       "$VERSION_SDL2"       "tar.gz"
+download_needed "https://github.com/libsdl-org/SDL/releases/download/release-${VERSION_SDL2}/" "SDL2" "$VERSION_SDL2" "tar.gz"
 RET="$RET $?"
 download_needed "https://github.com/libsdl-org/SDL_image/releases/download/release-${VERSION_SDL2_IMAGE}/" "SDL2_image" "$VERSION_SDL2_IMAGE" "tar.gz"
 RET="$RET $?"
