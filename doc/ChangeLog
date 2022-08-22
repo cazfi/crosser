@@ -1,3 +1,6 @@
+2.4.1
+	- Updated SDL2 download URL
+
 2.4 (14-Aug-22)
 	- Renamed configure option CROSSER_TMPFREE as CROSSER_TMPDEL
 	- Fixed SFML-chain build
