@@ -7,6 +7,11 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
+echo "Crosser repository \"master\" branch has been abandoned." >&2
+echo "See \"main\" instead" >&2
+
+exit 1
+
 #############################################################################################
 #
 # Preparations
