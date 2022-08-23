@@ -7,6 +7,7 @@
 	- Updated SDL2 to version 2.24.0
 	- Updated SDL2_image to version 2.6.2
 	- Updated SDL2_ttf to version 2.20.1
+	- Updated SDL2_mixer to version 2.6.2
 
 2.4.1
 	- Updated SDL2 download URL
