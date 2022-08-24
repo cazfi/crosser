@@ -688,7 +688,7 @@ fi
 
 log_write 1 "Creating meson cross file"
 
-(
+if ! (
   TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
   TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
   TARGET_AR=$(command -v $CROSSER_TARGET-ar)
@@ -718,10 +718,13 @@ log_write 1 "Creating meson cross file"
     exit 1
   fi
 )
+then
+  exit 1
+fi
 
 log_write 1 "Creating cmake toolchain file"
 
-(
+if ! (
   TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
   TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
 
@@ -741,6 +744,9 @@ log_write 1 "Creating cmake toolchain file"
     exit 1
   fi
 )
+then
+  exit 1
+fi
 
 log_write 1 "Setting up fixed environment"
 
