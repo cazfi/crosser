@@ -848,8 +848,8 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
                  "smi-meson-0.60" )                                         ||
    ! patch_src shared-mime-info "$VERSION_SHARED_MIME_INFO" "smi-html"      ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
-      build_with_meson_host shared-mime-info \
-        "-Dbuild-spec-html=false" )                                         ||
+      XML_CATALOG_FILES="/etc/xml/catalog" \
+      build_with_meson_host shared-mime-info )                              ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full native-shared-mime-info shared-mime-info \
       "" "native" "" "no" )                                                 ||
@@ -1011,8 +1011,8 @@ if ! build_component   tiff                                                 ||
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! deldir_component  libxml2    $VERSION_XML2 "libxml2"                   ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
-      build_with_meson shared-mime-info \
-        "-Dbuild-spec-html=false" )                                         ||
+      XML_CATALOG_FILES="/etc/xml/catalog" \
+      build_with_meson shared-mime-info )                                   ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full shared-mime-info shared-mime-info "" "" "" \
        "no" )                                                               ||
