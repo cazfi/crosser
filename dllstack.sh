@@ -229,8 +229,8 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     unset CPPFLAGS
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$CROSSER_TARGET-gcc -static-libgcc"
-    export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
+    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
   elif test "$4" = "qt"
   then
     CONFOPTIONS="-prefix $DLLSPREFIX $3"
@@ -238,8 +238,8 @@ build_component_full()
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$CROSSER_TARGET-gcc -static-libgcc"
-    export CXX="$CROSSER_TARGET-g++ $CROSSER_STDCXX -static-libgcc"
+    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
     export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   fi
 
@@ -470,7 +470,7 @@ build_zlib()
   SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
 
   (
-  export CC="$CROSSER_TARGET-gcc -static-libgcc"
+  export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
   export RANLIB="$CROSSER_TARGET-ranlib"
   export AR="$CROSSER_TARGET-ar"
 
@@ -626,8 +626,8 @@ export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
 
-TARGET_GCC_VER=$($CROSSER_TARGET-gcc -dumpversion | sed 's/-.*//')
-TARGET_GXX_VER=$($CROSSER_TARGET-g++ -dumpversion | sed 's/-.*//')
+TARGET_GCC_VER=$($CROSSER_TARGET-gcc${TARGET_SUFFIX} -dumpversion | sed 's/-.*//')
+TARGET_GXX_VER=$($CROSSER_TARGET-g++${TARGET_SUFFIX} -dumpversion | sed 's/-.*//')
 
 CROSSER_WINVER_FLAG="-D_WIN32_WINNT=${CROSSER_WINVER}"
 
@@ -689,8 +689,8 @@ fi
 log_write 1 "Creating meson cross file"
 
 if ! (
-  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
-  TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
+  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc${TARGET_SUFFIX})
+  TARGET_GPP=$(command -v $CROSSER_TARGET-g++${TARGET_SUFFIX})
   TARGET_AR=$(command -v $CROSSER_TARGET-ar)
   TARGET_STRIP=$(command -v $CROSSER_TARGET-strip)
   TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
@@ -725,8 +725,8 @@ fi
 log_write 1 "Creating cmake toolchain file"
 
 if ! (
-  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc)
-  TARGET_GPP=$(command -v $CROSSER_TARGET-g++)
+  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc${TARGET_SUFFIX})
+  TARGET_GPP=$(command -v $CROSSER_TARGET-g++${TARGET_SUFFIX})
 
   if test "$TARGET_GCC" = ""   ||
      test "$TARGET_GPP" = ""
