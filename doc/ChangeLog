@@ -8,6 +8,7 @@
 	- Updated SDL2_image to version 2.6.2
 	- Updated SDL2_ttf to version 2.20.1
 	- Updated SDL2_mixer to version 2.6.2
+	- Updated curl to version 7.85.0
 
 2.4.1
 	- Error out on cross-file setup problems
