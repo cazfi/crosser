@@ -9,6 +9,7 @@
 	- Updated SDL2_ttf to version 2.20.1
 	- Updated SDL2_mixer to version 2.6.2
 	- Updated curl to version 7.85.0
+	- Updated sqlite to version 3.39.3
 
 2.4.1
 	- Error out on cross-file setup problems
