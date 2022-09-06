@@ -3,7 +3,7 @@
 	- Updated xz to version 5.2.6
 	- Updated libxml2 to version 2.10.2
 	- Updated gtk4 to version 4.6.7
-	- Updated meson to version 0.63.1
+	- Updated meson to version 0.63.2
 	- Updated SDL2 to version 2.24.0
 	- Updated SDL2_image to version 2.6.2
 	- Updated SDL2_ttf to version 2.20.1
