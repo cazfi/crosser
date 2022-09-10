@@ -11,6 +11,7 @@
 	- Updated curl to version 7.85.0
 	- Updated sqlite to version 3.39.3
 	- Updated qt5 to version 5.15.6
+	- Updated qt6 to version 6.3.2
 
 2.4.1
 	- Error out on cross-file setup problems
