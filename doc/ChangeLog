@@ -1,4 +1,5 @@
 2.5
+	- Updated auxiliary config.guess and config.sub to '2022-08-01' level
 	- Updated pkgconf to version 1.9.3
 	- Updated xz to version 5.2.6
 	- Updated libxml2 to version 2.10.2
