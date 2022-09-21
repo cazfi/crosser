@@ -14,6 +14,7 @@
 	- Updated qt5 to version 5.15.6
 	- Updated qt6 to version 6.3.2
 	- Updated pango to version 1.50.10
+	- Updated glib to version 2.74.0
 
 2.4.1
 	- Error out on cross-file setup problems
