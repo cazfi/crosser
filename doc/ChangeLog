@@ -13,6 +13,7 @@
 	- Updated sqlite to version 3.39.3
 	- Updated qt5 to version 5.15.6
 	- Updated qt6 to version 6.3.2
+	- Updated pango to version 1.50.10
 
 2.4.1
 	- Error out on cross-file setup problems
