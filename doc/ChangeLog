@@ -16,6 +16,7 @@
 	- Updated pango to version 1.50.10
 	- Updated glib to version 2.74.0
 	- Updated ffi to version 3.4.3
+	- Updated harfbuzz to version 5.2.0
 
 2.4.1
 	- Error out on cross-file setup problems
