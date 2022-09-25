@@ -18,6 +18,7 @@
 	- Updated ffi to version 3.4.3
 	- Updated harfbuzz to version 5.2.0
 	- Updated gobject-introspection to version 1.74.0
+	- Updated libpng to version 1.6.38
 
 2.4.1
 	- Error out on cross-file setup problems

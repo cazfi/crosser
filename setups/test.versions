@@ -16,7 +16,8 @@ VERSION_LIBTOOL=2.4.7
 VERSION_MESON=0.63.2
 
 VERSION_ICONV=1.17
-VERSION_PNG=1.7.0beta89
+# There is a 1.7 development version, but upstream has abandoned it
+VERSION_PNG=1.6.38
 VERSION_ZLIB=1.2.12
 VERSION_XZ=5.3.3alpha
 VERSION_ZSTD=1.5.2
