@@ -136,7 +136,8 @@ build_component_host()
 # $1   - Build dir or 'src'
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'windres' | 'cross' | 'qt' | 'pkg-config' | 'custom')
+# [$4] - Build type ('native' | 'native-qt6' | 'windres' | 'cross' |
+#                    'qt' | 'pkg-config' | 'custom')
 # [$5] - Src subdir
 # [$6] - Make options
 # [$7] - Version
@@ -204,6 +205,12 @@ build_component_full()
   if test "$4" = "native"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
+    unset CPPFLAGS
+    unset LDFLAGS
+    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
+  elif test "$4" = "native-qt6"
+  then
+    CONFOPTIONS="--prefix=$DLLSPREFIX/linux $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
@@ -1336,10 +1343,10 @@ if ! unpack_component qt6                                                       
        patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2018-25032-6.2" ))      ||
    ! build_component_full "native-qt6" "qt6"                                    \
      "-opensource -confirm-license -qt-harfbuzz"                                \
-     "native"                                                                   ||
+     "native-qt6"                                                               ||
    ! deldir_build "native-qt6"                                                  ||
    ! build_component_full  qt6 qt6                                              \
-     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path $NATIVE_PREFIX -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
+     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt" "" "" "" "yes"                                                        ||
    ! deldir_component qt-everywhere-src $VERSION_QT6 "qt6"
 then
@@ -1360,12 +1367,16 @@ then
 fi
 fi
 
-if ! mkdir -p "${DLLSPREFIX}/linux/libexec" ||
-   ! cp "${NATIVE_PREFIX}/libexec/moc" "${DLLSPREFIX}/linux/libexec/moc-qt6"
+if ! test -f "${DLLSPREFIX}/linux/libexec/moc-qt6"
 then
-  log_error "Qt6 moc installation failed"
-  exit 1
+  # For compatibility with crosser < 2.5.
+  if ! ln -s "${DLLSPREFIX}/linux/libexec/moc" "${DLLSPREFIX}/linux/libexec/moc-qt6"
+  then
+    log_error "Failed to make moc-qt6 compatibility link"
+    exit 1
+  fi
 fi
+
 fi
 
 GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
