@@ -1287,25 +1287,15 @@ fi
 if test "$CROSSER_QT5" = "yes"
 then
 if ! unpack_component qt5                                                    ||
-   ! (is_minimum_version $VERSION_QT5 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_g++" )                    ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_g++-5.14" )               ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_disableidc-5.4.2"       ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_linkflags-5.11"         ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_vs_interop-5.11"        ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_dllsprefix-5.11"        ||
-   ! (is_minimum_version $VERSION_QT5 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable" )      ||
-   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
-      is_minimum_version $VERSION_QT5 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable-5.14" ) ||
    ! (is_smaller_version $VERSION_QT5 5.14.2 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable-5.14.2" ) ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_yarr_inc_conflict"         ||
-   ! (is_smaller_version $VERSION_QT5 5.13 ||
-      is_minimum_version $VERSION_QT5 5.14 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r" )        ||
    ! (is_smaller_version $VERSION_QT5 5.14 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r-5.14" )   ||
    ! (is_minimum_version $VERSION_QT5 5.15 ||
@@ -1316,9 +1306,6 @@ if ! unpack_component qt5                                                    ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_test_thread_disable" )    ||
    ! (is_smaller_version $VERSION_QT5 5.15 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_location_disable" )       ||
-   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
-      is_minimum_version $VERSION_QT5 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_setupapi_case" )          ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
    ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
