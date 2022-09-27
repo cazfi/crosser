@@ -480,9 +480,9 @@ ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 if echo "$VERSION_READLINE" | grep "\-rc" >/dev/null
 then
-    RL_SUBDIR="bash"
+  RL_SUBDIR="bash"
 else
-    RL_SUBDIR="readline"
+  RL_SUBDIR="readline"
 fi
 
 SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
@@ -517,32 +517,11 @@ else
   ZLIB_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_AUTOCONF 2.68b
-then
-  AUTOCONF_PACK="tar.xz"
-else
-  AUTOCONF_PACK="tar.bz2"
-fi
-
-if is_minimum_version $VERSION_PANGO 1.30.0
-then
-  PANGO_PACK="tar.xz"
-else
-  PANGO_PACK="tar.bz2"
-fi
-
 if is_minimum_version $VERSION_GETTEXT 0.19.1
 then
   GETTEXT_PACK="tar.xz"
 else
   GETTEXT_PACK="tar.gz"
-fi
-
-if is_minimum_version $VERSION_HICOLOR 0.14
-then
-  HICOLOR_PACK="tar.xz"
-else
-  HICOLOR_PACK="tar.gz"
 fi
 
 if is_minimum_version $VERSION_FREETYPE 2.10.1
@@ -563,23 +542,23 @@ if echo $VERSION_QT5 | grep alpha >/dev/null ||
    echo $VERSION_QT5 | grep beta >/dev/null ||
    echo $VERSION_QT5 | grep rc >/dev/null
 then
-    QT5_RELEASEDIR="development_releases"
+  QT5_RELEASEDIR="development_releases"
 else
-    QT5_RELEASEDIR="official_releases"
+  QT5_RELEASEDIR="official_releases"
 fi
 
 if echo $VERSION_QT6 | grep alpha >/dev/null ||
    echo $VERSION_QT6 | grep beta >/dev/null ||
    echo $VERSION_QT6 | grep rc >/dev/null
 then
-    QT6_RELEASEDIR="development_releases"
+  QT6_RELEASEDIR="development_releases"
 else
-    QT6_RELEASEDIR="official_releases"
+  QT6_RELEASEDIR="official_releases"
 fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
-download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "$AUTOCONF_PACK"
+download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
 RET="$RET $?"
@@ -651,7 +630,7 @@ else
   download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.xz" "http://cairographics.org/snapshots/"
   RET="$RET $?"
 fi
-download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "$PANGO_PACK"
+download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/pango2/$PANGO2_DIR/" "pango2"    "$VERSION_PANGO2"      "tar.xz"
 RET="$RET $?"
@@ -680,7 +659,7 @@ RET="$RET $?"
 fi
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
 RET="$RET $?"
-download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "$HICOLOR_PACK"
+download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/adwaita-icon-theme/$ADWAITA_ICON_DIR/" "adwaita-icon-theme" "$VERSION_ADWAITA_ICON" "tar.xz"
 RET="$RET $?"
