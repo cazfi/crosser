@@ -1,6 +1,6 @@
 2.5
 	- Improved installation of native Qt6 tools
-	- Updated auxiliary config.guess and config.sub to '2022-08-01' level
+	- Updated auxiliary config.guess and config.sub to '2022-09-17' level
 	- Updated pkgconf to version 1.9.3
 	- Updated xz to version 5.2.7
 	- Updated libxml2 to version 2.10.2
