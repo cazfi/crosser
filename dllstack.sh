@@ -859,7 +859,8 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! ( is_minimum_version $VERSION_SHARED_MIME_INFO 2.2 ||
        patch_src shared-mime-info $VERSION_SHARED_MIME_INFO \
                  "smi-meson-0.60" )                                         ||
-   ! patch_src shared-mime-info "$VERSION_SHARED_MIME_INFO" "smi-html"      ||
+   ! ( is_smaller_version "$VERSION_SHARED_MIME_INFO" 2.2 ||
+       patch_src shared-mime-info "$VERSION_SHARED_MIME_INFO" "smi-html" )  ||
    ! (is_smaller_version $VERSION_SHARED_MIME_INFO 2.0 ||
       XML_CATALOG_FILES="/etc/xml/catalog" \
       build_with_meson_host shared-mime-info )                              ||
