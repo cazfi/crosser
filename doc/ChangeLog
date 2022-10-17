@@ -24,6 +24,7 @@
 	- Updated gobject-introspection to version 1.74.0
 	- Updated libpng to version 1.6.38
 	- Updated gettext to version 0.21.1
+	- Updated zlib to version 1.2.13
 
 2.4.1
 	- Error out on cross-file setup problems
