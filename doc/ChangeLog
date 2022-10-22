@@ -4,6 +4,8 @@
 2.5
 	- Improved installation of native Qt6 tools
 	- Updated auxiliary config.guess and config.sub to '2022-09-17' level
+	- Error out on cross-file setup problems
+	- Updated SDL2 download URL
 	- Updated pkgconf to version 1.9.3
 	- Updated xz to version 5.2.7
 	- Updated libxml2 to version 2.10.3
@@ -25,10 +27,6 @@
 	- Updated libpng to version 1.6.38
 	- Updated gettext to version 0.21.1
 	- Updated zlib to version 1.2.13
-
-2.4.1
-	- Error out on cross-file setup problems
-	- Updated SDL2 download URL
 
 2.4 (14-Aug-22)
 	- Renamed configure option CROSSER_TMPFREE as CROSSER_TMPDEL
