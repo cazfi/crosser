@@ -1,4 +1,4 @@
-2.5
+2.5 (22-Oct-22)
 	- Improved installation of native Qt6 tools
 	- Updated auxiliary config.guess and config.sub to '2022-09-17' level
 	- Error out on cross-file setup problems
