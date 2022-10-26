@@ -1,5 +1,6 @@
 2.6
 	- Updated gtk4 to version 4.8.2
+	- Updated glib to version 2.74.1
 
 2.5 (22-Oct-22)
 	- Improved installation of native Qt6 tools
