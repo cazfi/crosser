@@ -915,7 +915,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
    ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
    ! unpack_component  curl                                           ||
-   ! patch_src curl $VERSION_CURL curl_winpollfd                      ||
+   ! (is_minimum_version "$VERSION_CURL" 7.86.0 ||
+      patch_src curl "$VERSION_CURL" curl_winpollfd )                 ||
    ! build_component   curl                                           \
      "--disable-pthreads --with-schannel"                             ||
    ! deldir_component  curl       $VERSION_CURL "curl"                ||
