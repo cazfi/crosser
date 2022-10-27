@@ -3,6 +3,7 @@
 	- Updated glib to version 2.74.1
 	- Updated gdk-pixbuf to version 2.42.10
 	- Updated curl to version 7.86.0
+	- Updated ffi to version 3.4.4
 
 2.5 (22-Oct-22)
 	- Improved installation of native Qt6 tools
