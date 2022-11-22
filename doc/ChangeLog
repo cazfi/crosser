@@ -9,6 +9,7 @@
 	- Updated meson to version 0.64.0
 	- Updated xz to version 5.2.8
 	- Updated sqlite to version 3.40.0
+	- Updated libpng to version 1.6.39
 
 2.5 (22-Oct-22)
 	- Improved installation of native Qt6 tools
