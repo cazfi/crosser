@@ -417,13 +417,13 @@ build_with_meson_full()
 
   if test "$4" = "native"
   then
-    if ! meson.py $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
+    if ! meson.py setup $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
       log_error "Meson for $DISPLAY_NAME failed"
       return 1
     fi
-  elif ! meson.py $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
+  elif ! meson.py setup $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
        --prefix=$DLLSPREFIX $3 \
        >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
   then
