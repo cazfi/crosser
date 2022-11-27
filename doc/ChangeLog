@@ -1,5 +1,6 @@
 2.6
 	- Explicitly use 'setup' subcommand on meson builds
+	- It's now possible to disable tinycthread build
 	- Updated gtk4 to version 4.8.2
 	- Updated glib to version 2.74.2
 	- Updated gdk-pixbuf to version 2.42.10

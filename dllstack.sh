@@ -925,17 +925,18 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component_full sqlite sqlite                                              \
      "--disable-threadsafe" "" "sqlite-autoconf-${SQL_VERSTR}"                       ||
    ! deldir_component  sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
-   ! unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"                  ||
-   ! cp ${CROSSER_MAINDIR}/patch/tct/Makefile.am                                     \
-        ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/                         ||
-   ! cp ${CROSSER_MAINDIR}/patch/tct/configure.ac                                    \
-        ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/                         ||
-   ! ( cd ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source &&
-       aclocal && autoconf && automake --add-missing --foreign )                     \
-           >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log                ||
-   ! build_component_full tinycthread tinycthread "" ""                              \
-     "tinycthread-${VERSION_TCT}/source"                                             ||
-   ! deldir_component  tinycthread $VERSION_TCT "tinycthread"                        ||
+   ! ( test "$CROSSER_POSIX" = "yes" || test "${VERSION_TCT}" = "0" ||
+      ( unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"  &&
+        cp ${CROSSER_MAINDIR}/patch/tct/Makefile.am                     \
+           ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/         &&
+        cp ${CROSSER_MAINDIR}/patch/tct/configure.ac                    \
+           ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/         &&
+        ( cd ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source &&
+          aclocal && autoconf && automake --add-missing --foreign )     \
+             >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log &&
+        build_component_full tinycthread tinycthread "" ""              \
+          "tinycthread-${VERSION_TCT}/source"                           &&
+        deldir_component  tinycthread $VERSION_TCT "tinycthread" ))                  ||
    ! (test "$CROSSER_POSIX" = "yes" ||
       is_smaller_version $VERSION_ICU 64.1 ||
       patch_src icu $VERSION_ICU icu_tct )                                           ||
