@@ -1,0 +1,12 @@
+diff -Nurd qt-everywhere-src-6.3.2/qtwebengine/configure.cmake qt-everywhere-src-6.3.2/qtwebengine/configure.cmake
+--- qt-everywhere-src-6.3.2/qtwebengine/configure.cmake	2022-09-07 09:54:19.000000000 +0300
++++ qt-everywhere-src-6.3.2/qtwebengine/configure.cmake	2022-12-23 21:41:14.865342177 +0200
+@@ -3,6 +3,8 @@
+     endfunction()
+     function(add_check_for_support)
+     endfunction()
++    function(check_for_ulimit)
++    endfunction()
+ else()
+     find_package(Ninja 1.7.2)
+     find_package(Gn ${QT_REPO_MODULE_VERSION} EXACT)
