@@ -8,7 +8,7 @@
 	- Updated ffi to version 3.4.4
 	- Updated fontconfig to version 2.14.1
 	- Updated pango to version 1.50.12
-	- Updated meson to version 0.64.1
+	- Updated meson to version 1.0.0
 	- Updated xz to version 5.2.10
 	- Updated sqlite to version 3.40.0
 	- Updated libpng to version 1.6.39
