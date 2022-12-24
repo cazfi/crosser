@@ -1135,8 +1135,9 @@ if ! unpack_component gtk3                                            ||
    ! patch_src gtk+ $VERSION_GTK3 "gtk3_wm_macros-3.24.14"            ||
    ! ( is_minimum_version $VERSION_GTK3 3.24.32 ||
        patch_src gtk+ $VERSION_GTK3 "gtk3_host_no_install-3.24.16" )  ||
-   ! ( is_smaller_version $VERSION_GTK3 3.24.20 ||
-       patch_src gtk+ $VERSION_GTK3 "gtk3_ver_test_disable" )         ||
+   ! ( is_smaller_version "$VERSION_GTK3" 3.24.20 ||
+       is_minimum_version "$VERSION_GTK3" 3.24.36 ||
+       patch_src gtk+ "$VERSION_GTK3" "gtk3_ver_test_disable" )       ||
    ! build_with_meson gtk3                                            \
      "-Dx11_backend=false -Dwayland_backend=false -Dwin32_backend=true -Dintrospection=false"                                                    ||
    ! deldir_component gtk+        $VERSION_GTK3 "gtk3"
