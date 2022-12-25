@@ -633,8 +633,17 @@ export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/
 export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
                        "$DLLSHOST_PREFIX")
 
-TARGET_GCC_VER=$($CROSSER_TARGET-gcc${TARGET_SUFFIX} -dumpversion | sed 's/-.*//')
-TARGET_GXX_VER=$($CROSSER_TARGET-g++${TARGET_SUFFIX} -dumpversion | sed 's/-.*//')
+TARGET_GCC_VER=$(${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
+TARGET_GXX_VER=$(${CROSSER_TARGET}-g++${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
+
+if test "$TARGET_GCC_VER" = "" ; then
+  log_error "Target compiler ${CROSSER_TARGET}-gcc${TARGET_SUFFIX} version not found!"
+  exit 1
+fi
+if test "$TARGET_GXX_VER" = "" ; then
+  log_error "Target compiler ${CROSSER_TARGET}-g++${TARGET_SUFFIX} version not found!"
+  exit 1
+fi
 
 CROSSER_WINVER_FLAG="-D_WIN32_WINNT=${CROSSER_WINVER}"
 
@@ -653,11 +662,11 @@ remove_dir "$CROSSER_SRCDIR" && remove_dir "$CROSSER_BUILDDIR" && remove_dir "$D
 RDRET=$?
 
 if test "$RDRET" = "1" ; then
-    log_error "Old directories not removed"
-    exit 1
+  log_error "Old directories not removed"
+  exit 1
 elif test "$RDRET" != "0" ; then
-    log_error "Failed to remove old directories"
-    exit 1
+  log_error "Failed to remove old directories"
+  exit 1
 fi
 
 if ! mkdir -p "$CROSSER_SRCDIR"
