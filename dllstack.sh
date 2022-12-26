@@ -12,7 +12,7 @@
 # Preparations
 #
 
-CROSSER_MAINDIR="$(cd "$(dirname "$0")" ; pwd)"
+CROSSER_MAINDIR="$(cd "$(dirname "$0")" || exit 1 ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
@@ -606,7 +606,7 @@ build_pdcurses()
 # Main
 #
 
-cd $(dirname $0)
+cd "$(dirname "$0")" || exit 1
 
 CROSSER_BUILD_ARCH="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
 CROSSER_PKG_ARCH="$(echo $CROSSER_BUILD_ARCH | sed 's/-pc//')"

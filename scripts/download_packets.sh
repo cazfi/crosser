@@ -254,7 +254,7 @@ major_from_version()
   echo $DIRVER | sed 's/\./ /g' | (read MAJOR REST ; echo -n "$MAJOR")
 }
 
-CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." ; pwd)"
+CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
