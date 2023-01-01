@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2022 Marko Lindqvist
+# (c) 2008-2023 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -111,7 +111,7 @@ if test "$CROSSER_SDL2" != "yes" && test "$CROSSER_SDL2" != "no" ; then
   exit 1
 fi
 if test "$CROSSER_SFML" = "" ; then
-  CROSSER_SFML="no"
+  CROSSER_SFML="$CROSSER_FULL"
 fi
 if test "$CROSSER_SFML" != "yes" && test "$CROSSER_SFML" != "no" ; then
   echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
