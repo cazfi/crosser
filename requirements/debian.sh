@@ -3,7 +3,7 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2022 Marko Lindqvist
+# (c) 2014-2023 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -47,4 +47,4 @@ if test "$UID" != "0" ; then
   exit 1
 fi
 
-apt install $PACKAGES
+apt-get install $PACKAGES
