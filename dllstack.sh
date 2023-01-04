@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2022 Marko Lindqvist
+# (c) 2008-2023 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1358,8 +1358,8 @@ if ! unpack_component qt6                                                       
       (patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2022-1096-6.2" &&
        patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2018-25032-6.2" ))      ||
    ! patch_src qt-everywhere-src "$VERSION_QT6" "qt6-check_for_ulimit"             ||
-   ! build_component_full "native-qt6" "qt6"                                    \
-     "-opensource -confirm-license -qt-harfbuzz"                                \
+   ! build_component_full "native-qt6" "qt6"                                       \
+     "-opensource -confirm-license -qt-harfbuzz -no-opengl"                        \
      "native-qt6"                                                               ||
    ! deldir_build "native-qt6"                                                  ||
    ! build_component_full  qt6 qt6                                              \
