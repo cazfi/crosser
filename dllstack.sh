@@ -1199,8 +1199,9 @@ if ! unpack_component  graphene                                         ||
    ! unpack_component  libxkbcommon                                     ||
    ! (is_minimum_version $VERSION_XKBCOMMON 1.1.0 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt" )     ||
-   ! (is_smaller_version $VERSION_XKBCOMMON 1.2.0 ||
-      patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_test_opt-1.2" ) ||
+   ! (is_smaller_version "$VERSION_XKBCOMMON" 1.2.0 ||
+      is_minimim_version "$VERSION_XKBCOMMON" 1.5.0 ||
+      patch_src libxkbcommon "$VERSION_XKBCOMMON" "xkbcommon_test_opt-1.2" ) ||
    ! (is_smaller_version $VERSION_XKBCOMMON 1.0.0 ||
       is_minimum_version "$VERSION_XKBCOMMON" 1.4.1 ||
       patch_src libxkbcommon $VERSION_XKBCOMMON "xkbcommon_eof" )          ||
