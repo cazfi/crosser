@@ -22,6 +22,7 @@
 	- Updated pcre2 to version 10.42
 	- Updated harfbuzz to version 6.0.0
 	- Updated ffmpeg to version 4.3.5
+	- Updated libxkbcommon to version 1.5.0
 
 2.5 (22-Oct-22)
 	- Improved installation of native Qt6 tools
