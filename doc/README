@@ -36,8 +36,9 @@ Crosser homepage is https://www.cazfi.net/crosser/
                  know suitable version combinations yourself.
 
   Third parameter is description of system dllstack is built for.
-  win32 - 32bit compilation. Qt can't be built on win32 setup.
-  win64 - Default one. 64bit compilation.
+  win32       - 32bit compilation. Qt can't be built on win32 setup.
+  win64       - Default one. 64bit compilation.
+  win64-posix - 64bit compilation with posix threading
 
 ------
 

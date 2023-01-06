@@ -1,4 +1,5 @@
 2.6
+	- Added win64-posix setup
 	- SFML chain is built by default to full build
 	- Explicitly use 'setup' subcommand on meson builds
 	- It's now possible to disable tinycthread build

@@ -1,7 +1,6 @@
 These changes are coming in future versions:
 
 - Due to upstream changes, minimum Windows version will soon be 8.1
-- Make it possible to use '-posix' version of the MinGW compiler
 - Drop win32 support completely
 - Drop Qt5
 - Drop pcre, once glib really no longer needs it
