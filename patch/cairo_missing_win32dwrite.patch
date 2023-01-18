@@ -1,0 +1,19 @@
+diff -Nurd cairo-1.17.6/meson.build cairo-1.17.6/meson.build
+--- cairo-1.17.6/meson.build	2023-01-18 04:19:40.020661232 +0200
++++ cairo-1.17.6/meson.build	2023-01-18 04:53:58.031594460 +0200
+@@ -512,6 +512,7 @@
+   wincodec_dep = cpp_compiler.find_library('windowscodecs', required: false)
+   wincodec_header = cpp_compiler.has_header('wincodec.h')
+ 
++  if false
+   if d2d_dep.found() and dwrite_dep.found() and d2d_header and dwrite_header and wincodec_dep.found() and wincodec_header
+     feature_conf.set('CAIRO_HAS_DWRITE_FONT', 1)
+     built_features += [{
+@@ -530,6 +531,7 @@
+       conf.set('HAVE_DWRITE_3_H', 1)
+     endif
+   endif
++  endif
+ endif
+ 
+ # GL / GLESV2 / GLESV3 are mutually exclusive

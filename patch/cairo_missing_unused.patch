@@ -1,0 +1,16 @@
+diff -Nurd cairo-1.17.6/meson.build cairo-1.17.6/meson.build
+--- cairo-1.17.6/meson.build	2022-03-18 19:28:47.000000000 +0200
++++ cairo-1.17.6/meson.build	2023-01-18 03:25:28.487506432 +0200
+@@ -80,9 +80,9 @@
+   # attribute to void functions and variables.
+   warn_unused_result = ''
+   if supported_cflags.contains('-Wno-attributes')
+-    if cc.compiles(files('meson-cc-tests/check-unused-result.c'), args : ['-Wno-attributes', '-Werror'])
+-      warn_unused_result = '__attribute__((__warn_unused_result__))'
+-    endif
++#    if cc.compiles(files('meson-cc-tests/check-unused-result.c'), args : ['-Wno-attributes', '-Werror'])
++#      warn_unused_result = '__attribute__((__warn_unused_result__))'
++#    endif
+   endif
+   conf.set('WARN_UNUSED_RESULT', warn_unused_result)
+ endif

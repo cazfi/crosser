@@ -1,0 +1,12 @@
+diff -Nurd cairo-1.17.6/meson.build cairo-1.17.6/meson.build
+--- cairo-1.17.6/meson.build	2023-01-18 05:20:36.482959074 +0200
++++ cairo-1.17.6/meson.build	2023-01-18 05:23:37.041109888 +0200
+@@ -919,7 +919,7 @@
+ 
+ if not get_option('tests').disabled() and feature_conf.get('CAIRO_HAS_PNG_FUNCTIONS', 0) == 1
+   subdir('test')
+-  subdir('perf')
++#  subdir('perf')
+ endif
+ 
+ if get_option('gtk_doc')

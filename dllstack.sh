@@ -1087,9 +1087,13 @@ if ! build_component   tiff                                                 ||
    ! patch_src         cairo $VERSION_CAIRO "cairo_fortify_disable"         ||
    ! ( is_minimum_version    $VERSION_CAIRO 1.15.2 ||
        patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
-   ! ( is_minimum_version cairo "$VERSION_CAIRO" 1.17.6 ||
+   ! ( is_smaller_version    "$VERSION_CAIRO" 1.17.6 ||
+       ( patch_src     cairo "$VERSION_CAIRO" "cairo_missing_unused" &&
+         patch_src     cairo "$VERSION_CAIRO" "cairo_missing_win32dwrite" &&
+         patch_src     cairo "$VERSION_CAIRO" "cairo_missing_perf" ))       ||
+   ! ( is_minimum_version "$VERSION_CAIRO" 1.17.6 ||
        build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32" ) ||
-   ! ( is_smaller_version cairo "$VERSION_CAIRO" 1.17.6 ||
+   ! ( is_smaller_version "$VERSION_CAIRO" 1.17.6 ||
        build_with_meson cairo "-Dxlib=disabled" )                           ||
    ! deldir_component  cairo      $VERSION_CAIRO "cairo"                    ||
    ! unpack_component  pango                                                ||
