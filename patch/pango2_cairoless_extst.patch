@@ -1,0 +1,72 @@
+diff -Nurd pango2-0.91.0/examples/meson.build pango2-0.91.0/examples/meson.build
+--- pango2-0.91.0/examples/meson.build	2023-01-18 10:43:24.210922882 +0200
++++ pango2-0.91.0/examples/meson.build	2023-01-18 10:43:06.522785073 +0200
+@@ -1,14 +1,16 @@
+ examples = []
+ 
+-examples += [
+-  'first-steps',
+-  'cairoshape',
+-  'cairosimple',
+-  'cairotwisted',
+-  'parshape',
+-  'columns',
+-  'userfont',
+-]
++if cairo_dep.found()
++  examples += [
++    'first-steps',
++    'cairoshape',
++    'cairosimple',
++    'cairotwisted',
++    'parshape',
++    'columns',
++    'userfont',
++  ]
++endif
+ 
+ examples_deps = [ libpango_dep ]
+ 
+diff -Nurd pango2-0.91.0/tests/test-common.c pango2-0.91.0/tests/test-common.c
+--- pango2-0.91.0/tests/test-common.c	2023-01-18 10:43:24.210922882 +0200
++++ pango2-0.91.0/tests/test-common.c	2023-01-18 10:43:06.550785291 +0200
+@@ -32,7 +32,7 @@
+ #include <unistd.h>
+ #endif
+ 
+-#include <pango2/pangocairo.h>
++//#include <pango2/pangocairo.h>
+ #include "test-common.h"
+ 
+ #include <hb-ot.h>
+diff -Nurd pango2-0.91.0/tests/test-common.h pango2-0.91.0/tests/test-common.h
+--- pango2-0.91.0/tests/test-common.h	2023-01-18 10:43:24.210922882 +0200
++++ pango2-0.91.0/tests/test-common.h	2023-01-18 10:43:06.558785352 +0200
+@@ -1,6 +1,8 @@
+ #ifndef __TEST_COMMON_H__
+ #define __TEST_COMMON_H__
+ 
++#include "pango2/pango.h"
++
+ char * diff_with_file (const char  *file,
+                        char        *text,
+                        gssize       len,
+diff -Nurd pango2-0.91.0/utils/meson.build pango2-0.91.0/utils/meson.build
+--- pango2-0.91.0/utils/meson.build	2022-07-04 18:24:16.000000000 +0300
++++ pango2-0.91.0/utils/meson.build	2023-01-18 10:45:03.303709896 +0200
+@@ -28,7 +28,6 @@
+     'viewer-cairo.c',
+     'viewer-pangocairo.c',
+   ]
+-endif
+ 
+ pango_view = executable('pango-view', pango_view_sources,
+                         dependencies: pango_view_deps,
+@@ -55,6 +54,7 @@
+                 install: true,
+                 install_dir: join_paths(pango_datadir, 'man/man1'))
+ endif
++endif
+ 
+ if cairo_dep.found()
+   pango_list_sources = [

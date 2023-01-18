@@ -1104,7 +1104,8 @@ if ! build_component   tiff                                                 ||
       build_with_meson pango "-Dintrospection=disabled" )                   ||
    ! deldir_component  pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  pango2                                               ||
-   ! build_with_meson  pango2 "-Dintrospection=disabled"                    ||
+   ! patch_src         pango2 "$VERSION_PANGO2" "pango2_cairoless_extst"    ||
+   ! build_with_meson  pango2 "-Dintrospection=disabled -Dcairo=disabled"   ||
    ! deldir_component  pango2    "$VERSION_PANGO2" "pango2"                 ||
    ! unpack_component  atk                                                  ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
