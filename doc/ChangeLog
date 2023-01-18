@@ -1,5 +1,6 @@
 2.6
 	- Added win64-posix setup
+	- Added pango2 to build (version 0.91.0)
 	- Updated auxiliary config.guess and config.sub to '2023-01-01' level
 	- SFML chain is built by default to full build
 	- Explicitly use 'setup' subcommand on meson builds
