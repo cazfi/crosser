@@ -1218,7 +1218,10 @@ if ! unpack_component  graphene                                         ||
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
    ! deldir_component  libxkbcommon  $VERSION_XKBCOMMON "libxkbcommon"     ||
    ! unpack_component  gtk4                                                ||
-   ! patch_src gtk  $VERSION_GTK4 "gtk4_winnt"                             ||
+   ! (is_minimum_version "$VERSION_GTK4" 4.9 ||
+      patch_src gtk  "$VERSION_GTK4" "gtk4_winnt" )                        ||
+   ! (is_smaller_version "$VERSION_GTK4" 4.9 ||
+      patch_src gtk  "$VERSION_GTK4" "gtk4_winnt-4.9" )                    ||
    ! (is_minimum_version $VERSION_GTK4 4.6.0 ||
       patch_src gtk  $VERSION_GTK4 "gtk4_lowercase_windows_h" )            ||
    ! (is_smaller_version $VERSION_GTK4 4.6.0 ||

@@ -1,0 +1,13 @@
+diff -Nurd gtk-4.9.2/gtk/gtkfilechoosernativewin32.c gtk-4.9.2/gtk/gtkfilechoosernativewin32.c
+--- gtk-4.9.2/gtk/gtkfilechoosernativewin32.c	2022-12-26 13:41:21.000000000 +0200
++++ gtk-4.9.2/gtk/gtkfilechoosernativewin32.c	2023-01-19 16:00:17.267460681 +0200
+@@ -20,7 +20,9 @@
+ #include "config.h"
+ 
+ /* Vista or newer */
++#ifndef _WIN32_WINNT
+ #define _WIN32_WINNT 0x0600
++#endif
+ #include <sdkddkver.h>
+ 
+ #define COBJMACROS
