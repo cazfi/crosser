@@ -8,5 +8,7 @@ For building with it, the official dllstack builds of crosser assumes
 that the environment resides in
 /usr/crosser/<arch>stack-<version>, or
 /usr/crosser/<arch>stack-full-<version>
-That is; extract the environment package to /usr/crosser. Symbolic links
-should work.
+That is; extract the environment package to /usr/crosser.
+
+Those directories as symbolic link(s) to crosser environment actually
+residing in annother place should work too.
