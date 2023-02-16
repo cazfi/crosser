@@ -449,6 +449,7 @@ then
     SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
     libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
     ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
+    util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -501,6 +502,13 @@ then
   SQL_SUBDIR="2020/"
 else
   SQL_SUBDIR=""
+fi
+
+if is_minimum_version "$VERSION_UTIL_MACROS" 1.20.0
+then
+  UMACROS_PACK="tar.xz"
+else
+  UMACROS_PACK="tar.bz2"
 fi
 
 if is_minimum_version $VERSION_FRIBIDI 1.0.9
@@ -638,7 +646,7 @@ download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VER
 RET="$RET $?"
 download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOMMON" "tar.xz"
 RET="$RET $?"
-download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "tar.bz2"
+download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "$UMACROS_PACK"
 RET="$RET $?"
 download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$VERSION_SHARED_MIME_INFO/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.bz2"
 RET="$RET $?"
