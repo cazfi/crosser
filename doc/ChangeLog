@@ -13,7 +13,7 @@
 	- Updated curl to version 7.88.0
 	- Updated ffi to version 3.4.4
 	- Updated fontconfig to version 2.14.2
-	- Updated pango to version 1.50.12
+	- Updated pango to version 1.50.14
 	- Updated meson to version 1.0.0
 	- Updated xz to version 5.4.1
 	- Updated sqlite to version 3.40.1
