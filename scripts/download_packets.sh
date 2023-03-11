@@ -693,7 +693,7 @@ download_needed "https://openal-soft.org/openal-releases/" "openal-soft" "$VERSI
 RET="$RET $?"
 download_needed "http://www.ffmpeg.org/releases/" "ffmpeg" "$VERSION_FFMPEG" "tar.xz"
 RET="$RET $?"
-download_needed "http://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
+download_needed "https://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
 download_needed "https://github.com/ImageMagick/ImageMagick/archive/refs/tags/" "ImageMagick" "${VERSION_IMAGEMAGICK}.tar.gz" "" "" "ImageMagick"
 RET="$RET $?"
