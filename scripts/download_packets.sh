@@ -630,7 +630,7 @@ download_needed "https://github.com/libffi/libffi/releases/download/v$VERSION_FF
 RET="$RET $?"
 download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
 RET="$RET $?"
-if is_minimum_version "$VERSION_CAIRO" 1.17.6
+if cmp_versions "$VERSION_CAIRO" 1.17.6
 then
   download_needed "$MIRROR_GNOME/sources/cairo/$CAIRO_DIR/" "cairo"      "$VERSION_CAIRO" "tar.xz"
   RET="$RET $?"
