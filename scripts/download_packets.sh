@@ -392,7 +392,7 @@ else
 fi
 
 if test "$MIRROR_GNU" = "" ; then
-  MIRROR_GNU="ftp://ftp.gnu.org/gnu"
+  MIRROR_GNU="https://ftp.gnu.org/gnu/"
 fi
 
 MIRROR_SOURCEFORGE="http://sourceforge.net"
