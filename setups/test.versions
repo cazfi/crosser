@@ -19,7 +19,7 @@ VERSION_ICONV=1.17
 # There is a 1.7 development version, but upstream has abandoned it
 VERSION_PNG=1.6.39
 VERSION_ZLIB=1.2.13
-VERSION_XZ=5.4.1
+VERSION_XZ=5.4.2
 VERSION_ZSTD=1.5.4
 VERSION_CURL=7.88.1
 VERSION_SQLITE=3.41.1
