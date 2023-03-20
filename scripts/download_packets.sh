@@ -621,7 +621,7 @@ download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_F
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "${FC_PACK}"
 RET="$RET $?"
-download_needed "http://curl.haxx.se/download/"         "curl"       "$VERSION_CURL"       "tar.bz2"
+download_needed "https://curl.haxx.se/download/"        "curl"       "$VERSION_CURL"       "tar.bz2"
 RET="$RET $?"
 download_needed "https://github.com/libffi/libffi/releases/download/v$VERSION_FFI/" "libffi" "$VERSION_FFI" "tar.gz"
 RET="$RET $?"
