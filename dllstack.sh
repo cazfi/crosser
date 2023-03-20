@@ -973,12 +973,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! LIBS="-liconv" build_component gettext                                          \
      "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
    ! deldir_component  gettext    $VERSION_GETTEXT "gettext"                         ||
-   ! unpack_component     pcre                                                       ||
-   ! patch_src pcre $VERSION_PCRE "pcre_test_disable"                                ||
-   ! patch_src pcre $VERSION_PCRE "pcre_doublemacros"                                ||
-   ! build_component   pcre                                           \
-     "--disable-cpp --enable-unicode-properties"                      ||
-   ! deldir_component  pcre       $VERSION_PCRE    "pcre"             ||
    ! build_component   pcre2                                          \
      "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
    ! deldir_component  pcre2      $VERSION_PCRE2    "pcre2"           ||
