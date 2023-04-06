@@ -1,3 +1,5 @@
+2.7
+
 2.6
 	- Added win64-posix setup
 	- Added crosser building docker container
