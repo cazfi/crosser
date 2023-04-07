@@ -13,4 +13,4 @@ else
   CROSSER_UID="$1"
 fi
 
-docker build --build-arg CROSSER_UID="$CROSSER_UID" -t "crosser-bldr" input
+docker build --build-arg CROSSER_UID="$CROSSER_UID" -t "crosser-bldr-2.6" input
