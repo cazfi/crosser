@@ -7,9 +7,13 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-cd /crosser
+CROSSER_MAINDIR="/crosser"
+cd "${CROSSER_MAINDIR}" || exit 1
 
 export CROSSER_FORCE=yes
 export CROSSER_TMPDEL=yes
 
-CROSSER_FULL=yes CROSSER_LOGDIR=/usr/crosser/log CROSSER_PACKETDIR=/packets ./dllstack.sh "/usr/crosser/win64stack-full-${CROSSER_VERSION}"
+source scripts/helpers.sh
+
+CROSSER_FULL=yes CROSSER_LOGDIR=/usr/crosser/log CROSSER_PACKETDIR=/packets \
+  ./dllstack.sh "/usr/crosser/win64stack-full-${CROSSER_VERSION}"
