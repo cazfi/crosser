@@ -609,19 +609,23 @@
 	- Updated ImageMagick download locations
 
 1.0.1 (06-Apr-16)
-	- Corrected error message shown when package download fails, in case of packages with unusual naming
+	- Corrected error message shown when package download fails,
+	  in case of packages with unusual naming
 
 1.0 (12-Jan-16)
 	- Made sdl-chain build optional
 	- Added entries about gtk2, gtk3, sdl, and sdl2 existence to crosser.txt
-	- Added pkgconf (version 0.9.12) to build, optionally use it instead of pkg-config
+	- Added pkgconf (version 0.9.12) to build, optionally use it
+	  instead of pkg-config
 	- launch.bat sets WINSTACK_ROOT
 	- win64 setup no longer considered experimental
 	- Fixed build of ImageMagick dlls
 	- Obsoleted PREFIX configuration variable
 	- Configuration variable CROSSER_PACKETDIR replaces PACKETDIR
-	- Configuration variables CROSSER_LOGLVL_FILE and CROSSER_LOGLVL_STDOUT replace LOGLEVEL_FILE and LOGLEVEL_STDOUT
-	- Reduced namespace pollution by giving prefix CROSSER_ for some internal variables
+	- Configuration variables CROSSER_LOGLVL_FILE and CROSSER_LOGLVL_STDOUT
+	  replace LOGLEVEL_FILE and LOGLEVEL_STDOUT
+	- Reduced namespace pollution by giving prefix CROSSER_ for
+	  some internal variables
 	- Removed broken AUTOWINE support
 	- Added custom versionset example 'custom.versions'
 	- trim_packetdir.sh cleans all nonexistent files from the filelist
@@ -802,7 +806,8 @@
 0.11.1 (20-Jul-13)
 	- Fixed gettext build with newer MinGW
 	- Fixed gtk2 & gtk3 build with newer MinGW
-	- All components are explicitly configured to use win32 thread implementation
+	- All components are explicitly configured to use
+	  win32 thread implementation
 
 0.11 (06-Jul-13)
 	- Bugfix: Do not try to free directories of disabled components
@@ -890,8 +895,10 @@
 
 0.8 (29-Jun-12)
 	- Fixed building of gettext when /bin/sh is not bash
-	- trim_packetdir.sh accepts optional parameter that tells how many files it should leave
-	- Fixed native compiler build in latest Debian and derivatives testing versions
+	- trim_packetdir.sh accepts optional parameter that tells
+	  how many files it should leave
+	- Fixed native compiler build in latest Debian and derivatives
+	  testing versions
 	- Use cvercmp for version number comparisons if it's available
 	- Added debian packaging of crosser itself
 	- Added support for tar.xz source packages
@@ -946,7 +953,8 @@
 	- Updated cairo to version 1.12.2
 
 0.7 (17-Nov-11)
-	- Fixed native compiler build in latest Debian and derivatives testing versions
+	- Fixed native compiler build in latest Debian and derivatives
+	  testing versions
 	- Added support for defining configuration file location in CROSSER_CONF
 	- Added configuration variable CROSSER_GROUP
 	- Added support for global configuration in /etc/crosser.conf
@@ -990,7 +998,8 @@
 	- Updated libtool to version 2.4.2
 
 0.6.5 (01-Feb-11)
-	- build_setup.conf moved to scripts directory from root and renamed as setup_reader.sh
+	- build_setup.conf moved to scripts directory from root and
+	  renamed as setup_reader.sh
 	- Build date saved to crosser.hierarchy file
 	- Tag <DATE> now expands to form "dd.mm.yy"
 	- Fixed a bug causing duplicate entries on filelist.txt
@@ -1016,7 +1025,8 @@
 	- Renamed configuration variable MAINBUILDDIR as CROSSER_BUILDDIR
 	- Renamed configuration variable LOGDIR as CROSSER_LOGDIR
 	- Added configuration variable CROSSER_TMPDIR
-	- Fixed syntax error in download_packets.sh when packets downloaded by step
+	- Fixed syntax error in download_packets.sh when packets downloaded
+	  by step
 	- Do not create target arch directories if building only native step
 	- Most default paths now have <VERSIONSET> component
 	- Updated libpng to version 1.4.5
@@ -1064,7 +1074,8 @@
 	- Renamed configuration variable FORCERM as CROSSER_FORCE
 	- Renamed configuration variable LSPREFIX as DLLSPREFIX
 	- Renamed configuration variable LSHOST_PREFIX as DLLSHOST_PREFIX
-	- Default directory for dllstack host files now $HOME/.crosser/<VERSION>/dllshost
+	- Default directory for dllstack host files now
+	  $HOME/.crosser/<VERSION>/dllshost
 	- Preparation for installable version of crosser instead of running
 	  it from its own directory tree
 	- Documented trim_packetdir.sh
