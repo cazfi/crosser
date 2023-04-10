@@ -1054,9 +1054,9 @@ if ! build_component   tiff                                                 ||
    ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
        patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
    ! build_with_meson  harfbuzz \
-       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled -Ddirectwrite=enabled" ||
-   ! deldir_component  harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
-   ! unpack_component  fontconfig                                           ||
+       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled -Ddirectwrite=disabled" ||
+   ! deldir_component  harfbuzz   "$VERSION_HARFBUZZ" "harfbuzz"                ||
+   ! unpack_component  fontconfig                                               ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.0 ||

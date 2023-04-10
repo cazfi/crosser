@@ -1,7 +1,7 @@
 2.6
 	- Added win64-posix setup
 	- Added crosser building docker container
-	- Added pango2 to build (version 0.91.0)
+	- Added pango2 download support
 	- Dropped pcre
 	- trim_packetdir.sh: Increased number of packets to keep to 250
 	- Updated auxiliary config.guess and config.sub to '2023-01-21' level
