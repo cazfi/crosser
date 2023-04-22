@@ -1327,8 +1327,11 @@ if ! unpack_component qt5                                                    ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r-5.14" )   ||
    ! (is_minimum_version $VERSION_QT5 5.15 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_python3" )                ||
-   ! (is_smaller_version $VERSION_QT5 5.15 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_python3-5.15" )           ||
+   ! (is_smaller_version "$VERSION_QT5" 5.15 ||
+      is_minimum_version "$VERSION_QT5" 5.15.9 ||
+      patch_src qt-everywhere-src "$VERSION_QT5" "qt_python3-5.15" )         ||
+   ! (is_smaller_version "$VERSION_QT5" 5.15.9 ||
+      patch_src qt-everywhere-src "$VERSION_QT5" "qt5_python3-5.15.9" )      ||
    ! (is_smaller_version $VERSION_QT5 5.15 ||
       patch_src qt-everywhere-src $VERSION_QT5 "qt_test_thread_disable" )    ||
    ! (is_smaller_version $VERSION_QT5 5.15 ||
