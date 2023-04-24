@@ -30,4 +30,4 @@ docker run \
        --mount type=bind,source="${CROSSER_MAINDIR}",target=/crosser \
        --mount type=bind,source="${CROSSER_PACKETDIR}",target=/packets \
        --mount type=bind,source="${CROSSER_DOCKER_OUTDIR}",target=/usr/crosser/ \
-       -t "crosser-bldr"
+       -t "crosser-bldr-${CROSSER_FEATURE_LEVEL}"
