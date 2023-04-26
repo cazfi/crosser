@@ -407,8 +407,10 @@ build_with_meson_full()
   if test "$4" = "native" ; then
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
   else
+    # The argument that can be given properly via the cross-file,
+    # are given that way. Here are the rest.
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+    export LDFLAGS="-L$DLLSPREFIX/lib"
     export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   fi
 
