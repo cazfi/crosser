@@ -396,7 +396,7 @@ if test "$MIRROR_GNU" = "" ; then
 fi
 
 MIRROR_SOURCEFORGE="http://sourceforge.net"
-MIRROR_GNOME="http://ftp.gnome.org/pub/gnome"
+MIRROR_GNOME="https://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="http://download.savannah.gnu.org"
 
 if test "$VERSION_SELECTED" != ""
