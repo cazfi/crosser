@@ -139,6 +139,6 @@ if test "$CROSSER_PKGCONF" = "pkg-config" ; then
   CROSSER_PKGCONF="pkg-config.real"
 fi
 if test "$CROSSER_WINVER" = "" ; then
-  # Default minimum version is Windows 7
-  CROSSER_WINVER=0x0601
+  # Default minimum version is Windows 8.1
+  CROSSER_WINVER=0x0603
 fi
