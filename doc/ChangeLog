@@ -10,6 +10,7 @@
 	- Updated pkgconf to version 1.9.5
 	- Updated xz to version 5.4.3
 	- Updated harfbuzz to version 7.3.0
+	- Updated gtk3 to version 3.24.38
 
 2.6 (12-Apr-23)
 	- Added win64-posix setup
