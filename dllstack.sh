@@ -137,7 +137,10 @@ build_component_host()
 # $2   - Component
 # $3   - Extra configure options
 # [$4] - Build type ('native' | 'native-qt6' | 'windres' | 'cross' |
-#                    'qt' | 'pkg-config' | 'custom')
+#                    'qt' | 'pkg-config' | 'custom' |
+#                    'unicode' | 'nounicode')
+#        Of these either 'unicode' is 'nounicode' is also the default,
+#        but if you really want one of them, make it explicit.
 # [$5] - Src subdir
 # [$6] - Make options
 # [$7] - Version
@@ -244,6 +247,11 @@ build_component_full()
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+    # Defeult is 'nounicode'. To change that, make this check
+    # ' "$4" != "nounicode" '
+    if test "$4" = "unicode" ; then
+      CPPFLAGS="${CPPFLAGS} -DUNICODE"
+    fi
     export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
     export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
     export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
@@ -931,13 +939,13 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  curl                                           ||
    ! (is_minimum_version "$VERSION_CURL" 7.86.0 ||
       patch_src curl "$VERSION_CURL" curl_winpollfd )                 ||
-   ! build_component   curl                                           \
-     "--disable-pthreads --with-schannel"                             ||
+   ! build_component_full curl curl                                   \
+     "--disable-pthreads --with-schannel" "nounicode"                 ||
    ! deldir_component  curl       $VERSION_CURL "curl"                ||
    ! unpack_component  sqlite                                                        \
      "" "sqlite-autoconf-${SQL_VERSTR}"                                              ||
    ! build_component_full sqlite sqlite                                              \
-     "--disable-threadsafe" "" "sqlite-autoconf-${SQL_VERSTR}"                       ||
+     "--disable-threadsafe" "nounicode" "sqlite-autoconf-${SQL_VERSTR}"              ||
    ! deldir_component  sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
    ! ( test "$CROSSER_POSIX" = "yes" || test "${VERSION_TCT}" = "0" ||
       ( unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"  &&
