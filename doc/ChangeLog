@@ -12,6 +12,7 @@
 	- Updated harfbuzz to version 7.3.0
 	- Updated gtk3 to version 3.24.38
 	- Updated curl to version 8.1.1
+	- Updated sqlite to version 3.42.0
 
 2.6 (12-Apr-23)
 	- Added win64-posix setup
