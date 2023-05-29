@@ -523,14 +523,14 @@ build_zlib()
     return 1
   fi
 
-  if ! make $CROSSER_COREOPTIONS install \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make ${CROSSER_COREOPTIONS} install \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
     log_error "Install for $1 failed"
     return 1
   fi
 
-  if ! cp "$DLLSPREFIX/lib/libz.dll"* "$DLLSPREFIX/bin/"
+  if ! cp "${DLLSPREFIX}/lib/libz.dll"* "${DLLSPREFIX}/bin/"
   then
     log_error "Failed to move libz dll:s to correct directory"
     return 1
@@ -540,7 +540,7 @@ build_zlib()
   RET=$?
 
   if test $RET = 0 ; then
-    echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
+    echo "$1 : $2" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
   return $RET
@@ -560,7 +560,7 @@ build_pdcurses()
 
   log_packet "$1"
 
-  SUBDIR="$(src_subdir $1 $2)"
+  SUBDIR="$(src_subdir "$1" "$2")"
 
   if test "$SUBDIR" = ""
   then
@@ -586,16 +586,16 @@ build_pdcurses()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default]"
-  log_write 4 "  Options: \"$CROSSER_COREOPTIONS\""
+  log_write 4 "  Options: \"${CROSSER_COREOPTIONS}\""
 
-  if ! make -f $MKFILE $CROSSER_COREOPTIONS \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make -f "${MKFILE}" ${CROSSER_COREOPTIONS} \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
   fi
 
-  if ! cp pdcurses.a "$DLLSPREFIX/lib/libpdcurses.a"
+  if ! cp pdcurses.a "${DLLSPREFIX}/lib/libpdcurses.a"
   then
       log_error "pdcurses.a copy failed"
       return 1
@@ -605,7 +605,7 @@ build_pdcurses()
   RET=$?
 
   if test $RET = 0 ; then
-    echo "$1 : $2" >> $DLLSPREFIX/ComponentVersions.txt
+    echo "$1 : $2" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
   return $RET
@@ -618,14 +618,14 @@ build_pdcurses()
 
 cd "$(dirname "$0")" || exit 1
 
-CROSSER_BUILD_ARCH="$($CROSSER_MAINDIR/scripts/aux/config.guess)"
-CROSSER_PKG_ARCH="$(echo $CROSSER_BUILD_ARCH | sed 's/-pc//')"
+CROSSER_BUILD_ARCH="$("${CROSSER_MAINDIR}/scripts/aux/config.guess")"
+CROSSER_PKG_ARCH="$(echo ${CROSSER_BUILD_ARCH} | sed 's/-pc//')"
 
-if ! test -e "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf" ; then
-  log_error "Can't find setup \"$CROSSER_SETUP.conf\""
+if ! test -e "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf" ; then
+  log_error "Can't find setup \"${CROSSER_SETUP}.conf\""
   exit 1
 fi
-. "$CROSSER_MAINDIR/setups/$CROSSER_SETUP.conf"
+. "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf"
 
 if test "$TARGET_VENDOR" = ""
 then
@@ -668,43 +668,46 @@ log_write 2 "cross-g++:  $TARGET_GXX_VER"
 
 CROSSER_STDCXX="-static-libstdc++"
 
-remove_dir "$CROSSER_SRCDIR" && remove_dir "$CROSSER_BUILDDIR" && remove_dir "$DLLSPREFIX" && remove_dir "$NATIVE_PREFIX"
+remove_dir "${CROSSER_SRCDIR}" &&
+remove_dir "${CROSSER_BUILDDIR}" &&
+remove_dir "${DLLSPREFIX}" &&
+remove_dir "${NATIVE_PREFIX}"
 RDRET=$?
 
-if test "$RDRET" = "1" ; then
+if test "${RDRET}" = "1" ; then
   log_error "Old directories not removed"
   exit 1
-elif test "$RDRET" != "0" ; then
+elif test "${RDRET}" != "0" ; then
   log_error "Failed to remove old directories"
   exit 1
 fi
 
-if ! mkdir -p "$CROSSER_SRCDIR"
+if ! mkdir -p "${CROSSER_SRCDIR}"
 then
-  log_error "Cannot create directory $CROSSER_SRCDIR"
+  log_error "Cannot create directory ${CROSSER_SRCDIR}"
   exit 1
 fi
 
-if ! mkdir -p "$CROSSER_BUILDDIR"
+if ! mkdir -p "${CROSSER_BUILDDIR}"
 then
-  log_error "Cannot create directory $CROSSER_BUILDDIR"
+  log_error "Cannot create directory ${CROSSER_BUILDDIR}"
   exit 1
 fi
 
-if ! mkdir -p "$DLLSPREFIX/man/man1" ||
-   ! mkdir -p "$DLLSPREFIX/etc"
+if ! mkdir -p "${DLLSPREFIX}/man/man1" ||
+   ! mkdir -p "${DLLSPREFIX}/etc"
 then
-  log_error "Cannot create target directory hierarchy under $DLLSPREFIX"
+  log_error "Cannot create target directory hierarchy under ${DLLSPREFIX}"
   exit 1
 fi
 
-if ! mkdir -p "$NATIVE_PREFIX/bin"
+if ! mkdir -p "${NATIVE_PREFIX}/bin"
 then
-  log_error "Cannot create host directory hierarchy under $NATIVE_PREFIX"
+  log_error "Cannot create host directory hierarchy under ${NATIVE_PREFIX}"
   exit 1
 fi
 
-export PATH="$NATIVE_PREFIX/bin:$NATIVE_PREFIX/meson-$VERSION_MESON:$PATH"
+export PATH="${NATIVE_PREFIX}/bin:${NATIVE_PREFIX}/meson-${VERSION_MESON}:${PATH}"
 
 if ! packetdir_check
 then
@@ -776,27 +779,27 @@ fi
 
 log_write 1 "Setting up fixed environment"
 
-if ! mkdir -p "$DLLSPREFIX/lib/$CROSSER_PKG_ARCH" ||
-   ! ln -s ../pkgconfig "$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/"
+if ! mkdir -p "${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}" ||
+   ! ln -s ../pkgconfig "${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/"
 then
   log_error "Failed to set up fixed environment"
   exit 1
 fi
 
-if test "$CROSSER_DOWNLOAD" = "yes"
+if test "${CROSSER_DOWNLOAD}" = "yes"
 then
-    steplist="win"
-    if test "$CROSSER_SDL2" = "yes" ; then
-      steplist="${steplist},sdl2"
-    fi
-    if test "$CROSSER_SFML" = "yes" ; then
-      steplist="${steplist},sfml"
-    fi
-    if test "$CROSSER_FULL" = "yes" ; then
-      steplist="${steplist},full"
-    fi
-    if ! (cd "$CROSSER_PACKETDIR" &&
-          "$CROSSER_MAINDIR/scripts/download_packets.sh" "$steplist" "$CROSSER_VERSIONSET" "$CROSSER_SETUP")
+  steplist="win"
+  if test "$CROSSER_SDL2" = "yes" ; then
+    steplist="${steplist},sdl2"
+  fi
+  if test "$CROSSER_SFML" = "yes" ; then
+    steplist="${steplist},sfml"
+  fi
+  if test "$CROSSER_FULL" = "yes" ; then
+    steplist="${steplist},full"
+  fi
+  if ! (cd "${CROSSER_PACKETDIR}" &&
+        "${CROSSER_MAINDIR}/scripts/download_packets.sh" "$steplist" "${CROSSER_VERSIONSET}" "${CROSSER_SETUP}")
   then
     log_error "Downloading packets failed"
     exit 1
@@ -998,7 +1001,7 @@ then
   exit 1
 fi
 
-if test "$CROSSER_READLINE" = "yes" ; then
+if test "${CROSSER_READLINE}" = "yes" ; then
 if ! unpack_component  PDCurses                                          ||
    ! (is_minimum_version $VERSION_PDCURSES 3.6 ||
       patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin" )         ||
@@ -1127,12 +1130,12 @@ then
   exit 1
 fi
 
-if test "$CROSSER_GTK3" = "no" && test "$CROSSER_GTK4" != "yes"
+if test "${CROSSER_GTK3}" = "no" && test "${CROSSER_GTK4}" != "yes"
 then
   CROSSER_GTK=no
 fi
 
-if test "$CROSSER_GTK" != "no" ; then
+if test "${CROSSER_GTK}" != "no" ; then
 if ! unpack_component     gdk-pixbuf                                  ||
    ! (is_smaller_version "$VERSION_GDK_PIXBUF" 2.42.9 ||
       build_with_meson gdk-pixbuf \
@@ -1151,7 +1154,7 @@ then
 fi
 
 # This is within CROSSER_GTK != xno
-if test "$CROSSER_GTK3" != "no" ; then
+if test "${CROSSER_GTK3}" != "no" ; then
 if ! unpack_component gtk3                                            ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gdk/gdkconfig.h         ||
    ! rm -f $CROSSER_SRCDIR/gtk+-$VERSION_GTK3/gtk/gtk.gresource.xml   ||
@@ -1199,7 +1202,7 @@ then
 fi
 fi
 
-if test "$CROSSER_GTK" != "no" && test "$CROSSER_GTK4" = "yes" ; then
+if test "${CROSSER_GTK}" != "no" && test "${CROSSER_GTK4}" = "yes" ; then
 if ! unpack_component  graphene                                         ||
    ! ( is_minimum_version $VERSION_GRAPHENE 1.10.0 ||
        patch_src graphene $VERSION_GRAPHENE graphene_epsilon )          ||
@@ -1260,7 +1263,7 @@ then
   exit 1
 fi
 
-if test "$CROSSER_SDL2" = "yes" ; then
+if test "${CROSSER_SDL2}" = "yes" ; then
 if ! unpack_component  SDL2                                           ||
    ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
    ! build_component_def_make SDL2                                    ||
@@ -1292,7 +1295,7 @@ then
 fi
 fi
 
-if test "$CROSSER_SFML" = "yes" ; then
+if test "${CROSSER_SFML}" = "yes" ; then
 if ! unpack_component     ffmpeg                                                ||
    ! build_component_full ffmpeg ffmpeg                                         \
      "--prefix=${DLLSPREFIX} --cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
@@ -1321,7 +1324,7 @@ then
 fi
 fi
 
-if test "$CROSSER_QT5" = "yes"
+if test "${CROSSER_QT5}" = "yes"
 then
 if ! unpack_component qt5                                                    ||
    ! (is_smaller_version $VERSION_QT5 5.14.0 ||
@@ -1369,7 +1372,7 @@ then
 fi
 fi
 
-if test "$CROSSER_QT6" = "yes"
+if test "${CROSSER_QT6}" = "yes"
 then
 if ! unpack_component qt6                                                       ||
    ! (is_minimum_version $VERSION_QT6 6.2.4 ||
@@ -1396,7 +1399,7 @@ then
 fi
 
 # Hack to fix broken .pc file produced by Qt6 build
-if is_minimum_version "$VERSION_QT6" 6.3.0
+if is_minimum_version "${VERSION_QT6}" 6.3.0
 then
 
 if ! sed 's/UNICODE>/UNICODE/' "${DLLSPREFIX}/lib/pkgconfig/Qt6Platform.pc" \
@@ -1451,12 +1454,12 @@ log_write 1 "Creating crosser.txt"
   echo "# -------------------------"
   echo "CROSSER_QT=\"$CROSSER_QT5\""
   echo "CROSSER_GTK2=\"no\""
-) > "$DLLSPREFIX/crosser.txt"
+) > "${DLLSPREFIX}/crosser.txt"
 
 log_write 1 "Copying license information"
-if ! mkdir -p $DLLSPREFIX/license ||
-   ! cp $CROSSER_MAINDIR/license/crosser.license $DLLSPREFIX/license/ ||
-   ! cp $CROSSER_MAINDIR/COPYING $DLLSPREFIX/license/
+if ! mkdir -p "${DLLSPREFIX}/license" ||
+   ! cp "${CROSSER_MAINDIR}/license/crosser.license" "${DLLSPREFIX}/license/" ||
+   ! cp "${CROSSER_MAINDIR}/COPYING" "${DLLSPREFIX}/license/"
 then
   log_error "Failed to copy license information"
   exit 1
@@ -1464,15 +1467,15 @@ fi
 
 log_write 1 "Creating configuration files"
 
-if test "$VERSION_GTK3" != "0"
+if test "${VERSION_GTK3}" != "0"
 then
-  mkdir -p "$DLLSPREFIX/etc/gtk-3.0"
+  mkdir -p "${DLLSPREFIX}/etc/gtk-3.0"
   (
     echo -n -e "[Settings]\r\n"
     echo -n -e "gtk-fallback-icon-theme = hicolor\r\n"
     echo -n -e "gtk-button-images = true\r\n"
     echo -n -e "gtk-menu-images = true\r\n"
-  ) > "$DLLSPREFIX/etc/gtk-3.0/settings.ini"
+  ) > "${DLLSPREFIX}/etc/gtk-3.0/settings.ini"
 fi
 
 log_write 1 "Creating setup.bat"
@@ -1493,7 +1496,7 @@ log_write 1 "Creating setup.bat"
   fi
   echo -n -e "if not exist etc\\\crosser mkdir etc\\\crosser\r\n"
   echo -n -e "echo done > etc\\\crosser\\\setup.state\r\n"
-) > "$DLLSPREFIX/setup.bat"
+) > "${DLLSPREFIX}/setup.bat"
 
 log_write 1 "Creating launch.bat"
 (
@@ -1506,7 +1509,7 @@ log_write 1 "Creating launch.bat"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt6\\\plugins\r\n"
   fi
-) > "$DLLSPREFIX/launch.bat"
+) > "${DLLSPREFIX}/launch.bat"
 
 log_write 1 "IMPORTANT: Remember to run setup.bat when installing to target"
 
