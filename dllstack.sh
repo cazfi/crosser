@@ -139,7 +139,7 @@ build_component_host()
 # [$4] - Build type ('native' | 'native-qt6' | 'windres' | 'cross' |
 #                    'qt' | 'pkg-config' | 'custom' |
 #                    'unicode' | 'nounicode')
-#        Of these either 'unicode' is 'nounicode' is also the default,
+#        Of these, either 'unicode' or 'nounicode' is also the default,
 #        but if you really want one of them, make it explicit.
 # [$5] - Src subdir
 # [$6] - Make options
@@ -247,7 +247,7 @@ build_component_full()
   else
     CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
     export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-    # Defeult is 'nounicode'. To change that, make this check
+    # Default is 'nounicode'. To change that, make this check
     # ' "$4" != "nounicode" '
     if test "$4" = "unicode" ; then
       CPPFLAGS="${CPPFLAGS} -DUNICODE"
