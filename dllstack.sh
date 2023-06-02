@@ -348,6 +348,110 @@ build_component_full()
 }
 
 # $1 - Component
+# $2 - Extra cmake options
+build_with_cmake()
+{
+  build_with_cmake_full "$1" "$1" "$2"
+}
+
+# $1   - Build dir
+# $2   - Component
+# $3   - Extra configure options
+build_with_cmake_full()
+{
+  log_packet "$2"
+
+  BVER="$(component_version "$2")"
+
+  if test "${BVER}" = "0"
+  then
+    return 0
+  fi
+
+  BNAME=$(component_name_to_package_name "$2" "${BVER}")
+
+  SUBDIR="$(src_subdir "${BNAME}" "${BVER}")"
+  if test "${SUBDIR}" = ""
+  then
+    log_error "Cannot find srcdir for ${BNAME} version ${BVER}"
+    return 1
+  fi
+
+  DISPLAY_NAME="$1"
+  BUILDDIR="${CROSSER_BUILDDIR}/$1"
+  if ! mkdir -p "${BUILDDIR}"
+  then
+    log_error "Failed to create directory ${BUILDDIR}"
+    return 1
+  fi
+  SRCDIR="${CROSSER_SRCDIR}/${SUBDIR}"
+
+  (
+  cd "${BUILDDIR}" || return 1
+
+  export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+  export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+  export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
+  export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
+  export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+
+  CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $3"
+
+  log_write 1 "Configuring ${DISPLAY_NAME}"
+  log_write 3 "  Options: \"${CONFOPTIONS}\""
+  log_flags
+
+  if ! cmake $CONFOPTIONS "${SRCDIR}" \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+  then
+    log_error "CMake configure for ${DISPLAY_NAME} failed"
+    return 1
+  fi
+
+  log_write 1 "Building ${DISPLAY_NAME}"
+
+  if test -f CMakeCache.txt
+  then
+    if ! cmake --build . --parallel \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "CMake build for ${DISPLAY_NAME} failed"
+      return 1
+    fi
+    if ! cmake --install . \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "CMake install for ${DISPLAY_NAME} failed"
+      return 1
+    fi
+  elif test -f Makefile
+  then
+    log_write 3 "  Make targets: [default] install"
+
+    MAKEOPTIONS="${CROSSER_COREOPTIONS}"
+    log_write 4 "  Options: \"${MAKEOPTIONS}\""
+
+    if ! make ${MAKEOPTIONS} \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "Make for ${DISPLAY_NAME} failed"
+      return 1
+    fi
+
+    if ! make ${MAKEOPTIONS} install \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "Install for ${DISPLAY_NAME} failed"
+      return 1
+    fi
+  else
+    log_error "Can't detect build method for ${DISPLAY_NAME}"
+    return 1
+  fi
+  )
+}
+
+# $1 - Component
 # $2 - Extra meson options
 build_with_meson()
 {
