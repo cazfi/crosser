@@ -914,7 +914,7 @@ GETTEXT_VARS="$(read_configure_vars gettext)"
 CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
+export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "$CROSSER_SRCDIR/meson-$VERSION_MESON" "$NATIVE_PREFIX"       ||
