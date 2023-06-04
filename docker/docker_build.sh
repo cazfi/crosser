@@ -9,6 +9,11 @@
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 
+if test "$1" = "-h" || test "$1" = "--help" ; then
+  echo "Usage: $(basename "$0") [-h|--help]|[uid=current user]"
+  exit 0
+fi
+
 if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
