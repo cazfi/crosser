@@ -13,5 +13,5 @@ cpu = 'x86_64'
 endian = 'little'
 
 [built-in options]
-c_link_args = ['-static-libgcc']
-cpp_link_args = ['-static-libgcc', '-static-libstdc++']
+c_link_args = ['-static-libgcc', '-L<DLLSTACK>/lib']
+cpp_link_args = ['-static-libgcc', '-static-libstdc++', '-L<DLLSTACK>/lib']

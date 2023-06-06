@@ -844,8 +844,9 @@ if ! (
            -e "s,<TARGET_STRIP>,$TARGET_STRIP,g" \
            -e "s,<TARGET_PKGCONFIG>,$TARGET_PKGCONFIG,g" \
            -e "s,<TARGET_WINDRES>,$TARGET_WINDRES,g" \
-           $CROSSER_MAINDIR/scripts/$MESON_CROSS_FILE \
-           > $DLLSPREFIX/etc/meson_cross_file.txt
+           -e "s,<DLLSTACK>,$DLLSPREFIX,g" \
+           "$CROSSER_MAINDIR/scripts/$MESON_CROSS_FILE" \
+           > "$DLLSPREFIX/etc/meson_cross_file.txt"
   then
     log_error "Meson cross-file creation failed"
     exit 1
