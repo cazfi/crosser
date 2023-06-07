@@ -6,7 +6,7 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-FROM ubuntu:jammy
+FROM debian:bookworm
 
 MAINTAINER Marko Lindqvist
 
