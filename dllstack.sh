@@ -136,7 +136,7 @@ build_component_host()
 # $1   - Build dir or 'src'
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native' | 'native-qt6' | 'windres' | 'cross' |
+# [$4] - Build type ('native' | 'windres' | 'cross' |
 #                    'qt' | 'pkg-config' | 'custom' |
 #                    'unicode' | 'nounicode')
 #        Of these, either 'unicode' or 'nounicode' is also the default,
@@ -153,35 +153,35 @@ build_component_full()
   then
     BVER="$7"
   else
-    BVER="$(component_version $2)"
+    BVER="$(component_version "$2")"
   fi
 
-  if test "$BVER" = ""
+  if test "${BVER}" = ""
   then
     log_error "Version for $2 not defined"
     return 1
   fi
 
-  if test "$BVER" = "0"
+  if test "${BVER}" = "0"
   then
     return 0
   fi
 
-  BNAME=$(component_name_to_package_name $2 $BVER)
+  BNAME=$(component_name_to_package_name "$2" "${BVER}")
 
   if test "$5" != ""
   then
     SUBDIR="$5"
-    if ! test -d "$CROSSER_SRCDIR/$SUBDIR"
+    if ! test -d "${CROSSER_SRCDIR}/${SUBDIR}"
     then
-      log_error "$BNAME srcdir \"$5\" doesn't exist"
+      log_error "${BNAME} srcdir \"$5\" doesn't exist"
       return 1
     fi
   else
-    SUBDIR="$(src_subdir $BNAME $BVER)"
-    if test "$SUBDIR" = ""
+    SUBDIR="$(src_subdir "${BNAME}" "${BVER}")"
+    if test "${SUBDIR}" = ""
     then
-      log_error "Cannot find srcdir for $BNAME version $BVER"
+      log_error "Cannot find srcdir for ${BNAME} version ${BVER}"
       return 1
     fi
   fi
@@ -189,16 +189,16 @@ build_component_full()
   if test "$1" != "src"
   then
     DISPLAY_NAME="$1"
-    BUILDDIR="$CROSSER_BUILDDIR/$1"
-    if ! mkdir -p "$BUILDDIR"
+    BUILDDIR="${CROSSER_BUILDDIR}/$1"
+    if ! mkdir -p "${BUILDDIR}"
     then
-      log_error "Failed to create directory $BUILDDIR"
+      log_error "Failed to create directory ${BUILDDIR}"
       return 1
     fi
-    SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+    SRCDIR="${CROSSER_SRCDIR}/${SUBDIR}"
   else
     DISPLAY_NAME="$2"
-    BUILDDIR="$CROSSER_SRCDIR/$SUBDIR"
+    BUILDDIR="${CROSSER_SRCDIR}/${SUBDIR}"
     SRCDIR="."
   fi
 
@@ -208,12 +208,6 @@ build_component_full()
   if test "$4" = "native"
   then
     CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
-    unset CPPFLAGS
-    unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
-  elif test "$4" = "native-qt6"
-  then
-    CONFOPTIONS="--prefix=$DLLSPREFIX/linux $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
@@ -258,29 +252,30 @@ build_component_full()
     export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
   fi
 
-  if test -x "$SRCDIR/configure"
+  if test -x "${SRCDIR}/configure"
   then
-    log_write 1 "Configuring $DISPLAY_NAME"
-    log_write 3 "  Options: \"$CONFOPTIONS\""
+    log_write 1 "Configuring ${DISPLAY_NAME}"
+    log_write 3 "  Options: \"${CONFOPTIONS}\""
     log_flags
 
-    if ! "$SRCDIR/configure" $CONFOPTIONS >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    if ! "${SRCDIR}/configure" ${CONFOPTIONS} \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
-      log_error "Configure for $DISPLAY_NAME failed"
+      log_error "Configure for ${DISPLAY_NAME} failed"
       return 1
     fi
-  elif test -f "$SRCDIR/CMakeLists.txt"
+  elif test -f "${SRCDIR}/CMakeLists.txt"
   then
     CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $CONFOPTIONS"
 
-    log_write 1 "Configuring $DISPLAY_NAME"
-    log_write 3 "  Options: \"$CONFOPTIONS\""
+    log_write 1 "Configuring ${DISPLAY_NAME}"
+    log_write 3 "  Options: \"${CONFOPTIONS}\""
     log_flags
 
-    if ! cmake $CONFOPTIONS "$SRCDIR" \
-               >>$CROSSER_LOGDIR/stdout.log 2>>$CROSSER_LOGDIR/stderr.log
+    if ! cmake $CONFOPTIONS "${SRCDIR}" \
+               >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
-      log_error "CMake configure for $DISPLAY_NAME failed"
+      log_error "CMake configure for ${DISPLAY_NAME} failed"
       return 1
     fi
   fi
@@ -357,11 +352,19 @@ build_with_cmake()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
+# [$4] - Build type ('native-qt6')
+# [$5] - Src subdir
 build_with_cmake_full()
 {
   log_packet "$2"
 
   BVER="$(component_version "$2")"
+
+  if test "${BVER}" = ""
+  then
+    log_error "Version for $2 not defined"
+    return 1
+  fi
 
   if test "${BVER}" = "0"
   then
@@ -370,11 +373,21 @@ build_with_cmake_full()
 
   BNAME=$(component_name_to_package_name "$2" "${BVER}")
 
-  SUBDIR="$(src_subdir "${BNAME}" "${BVER}")"
-  if test "${SUBDIR}" = ""
+  if test "$5" != ""
   then
-    log_error "Cannot find srcdir for ${BNAME} version ${BVER}"
-    return 1
+    SUBDIR="$5"
+    if ! test -d "${CROSSER_SRCDIR}/${SUBDIR}"
+    then
+      log_error "${BNAME} srcdir \"$5\" doesn't exist"
+      return 1
+    fi
+  else
+    SUBDIR="$(src_subdir "${BNAME}" "${BVER}")"
+    if test "${SUBDIR}" = ""
+    then
+      log_error "Cannot find srcdir for ${BNAME} version ${BVER}"
+      return 1
+    fi
   fi
 
   DISPLAY_NAME="$1"
@@ -389,23 +402,40 @@ build_with_cmake_full()
   (
   cd "${BUILDDIR}" || return 1
 
-  export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-  export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-  export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
-  export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
-  export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
-
-  CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $3"
+  if test "$4" = "native-qt6"
+  then
+    CONFOPTIONS="--prefix=${DLLSPREFIX}/linux $3"
+    unset CPPFLAGS
+    unset LDFLAGS
+    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+  else
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $3"
+    export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
+    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
+    export PKG_CONFIG_PATH="${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig"
+  fi
 
   log_write 1 "Configuring ${DISPLAY_NAME}"
   log_write 3 "  Options: \"${CONFOPTIONS}\""
   log_flags
 
-  if ! cmake $CONFOPTIONS "${SRCDIR}" \
-       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+  if test "$4" = "native-qt6" && test -x "${SRCDIR}/configure"
   then
-    log_error "CMake configure for ${DISPLAY_NAME} failed"
-    return 1
+    if ! "${SRCDIR}/configure" ${CONFOPTIONS} \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "Configure for ${DISPLAY_NAME} failed"
+      return 1
+    fi
+  else
+    if ! cmake $CONFOPTIONS "${SRCDIR}" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+    then
+      log_error "CMake configure for ${DISPLAY_NAME} failed"
+      return 1
+    fi
   fi
 
   log_write 1 "Building ${DISPLAY_NAME}"
@@ -1502,11 +1532,11 @@ if ! unpack_component qt6                                                       
       patch_src qt-everywhere-src "$VERSION_QT6" "qt6-check_for_ulimit" )          ||
    ! (is_minimum_version "$VERSION_QT6" 6.4.3 ||
       patch_src qt-everywhere-src "$VERSION_QT6" "qt6-CVE-2023-24607-6.2" )        ||
-   ! build_component_full "native-qt6" "qt6"                                       \
+   ! build_with_cmake_full "native-qt6" "qt6"                                      \
      "-opensource -confirm-license -qt-harfbuzz -no-opengl"                        \
-     "native-qt6"                                                               ||
-   ! deldir_build "native-qt6"                                                  ||
-   ! build_component_full  qt6 qt6                                              \
+     "native-qt6"                                                                  ||
+   ! deldir_build "native-qt6"                                                     ||
+   ! build_component_full  qt6 qt6                                                 \
      "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt" "" "" "" "yes"                                                        ||
    ! deldir_component qt-everywhere-src $VERSION_QT6 "qt6"
