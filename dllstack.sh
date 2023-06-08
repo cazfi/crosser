@@ -341,7 +341,7 @@ build_component_full()
   RET=$?
 
   if test $RET = 0 ; then
-    echo "$DISPLAY_NAME : $BVER" >> $DLLSPREFIX/ComponentVersions.txt
+    echo "${DISPLAY_NAME} : ${BVER}" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
   return $RET
@@ -449,6 +449,14 @@ build_with_cmake_full()
     return 1
   fi
   )
+
+  RET=$?
+
+  if test $RET = 0 ; then
+    echo "${DISPLAY_NAME} : ${BVER}" >> "${DLLSPREFIX}/ComponentVersions.txt"
+  fi
+
+  return $RET
 }
 
 # $1 - Component
@@ -558,7 +566,7 @@ build_with_meson_full()
   RET=$?
 
   if test $RET = 0 ; then
-    echo "$DISPLAY_NAME : $BVER" >> $DLLSPREFIX/ComponentVersions.txt
+    echo "${DISPLAY_NAME} : ${BVER}" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
   return $RET
