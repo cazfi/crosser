@@ -447,7 +447,7 @@ then
     SDL2_ttf)    VERSION_SDL2_TTF=$VERSION_SELECTED ;;
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
     SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
-    libxml2)     VERSION_XML2=$VERSION_SELECTED ;;
+    libxml2)     VERSION_XML2="${VERSION_SELECTED}" ;;
     ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
     util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
   esac
@@ -695,7 +695,7 @@ download_needed "https://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/ImageMagick/ImageMagick/archive/refs/tags/" "ImageMagick" "${VERSION_IMAGEMAGICK}.tar.gz" "" "" "ImageMagick"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/libxml2/$XML2_DIR/" "libxml2" "$VERSION_XML2" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/libxml2/${XML2_DIR}/" "libxml2" "${VERSION_XML2}" "tar.xz"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "$VERSION_JANSSON" "tar.bz2"
 RET="$RET $?"
