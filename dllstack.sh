@@ -315,18 +315,6 @@ build_component_full()
       log_error "Install for $DISPLAY_NAME failed"
       return 1
     fi
-  elif test -f CMakeCache.txt
-  then
-    if ! cmake --build . --parallel >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-    then
-      log_error "CMake build for $DISPLAY_NAME failed"
-      return 1
-    fi
-    if ! cmake --install . >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
-    then
-      log_error "CMake install for $DISPLAY_NAME failed"
-      return 1
-    fi
   else
     log_error "Can't detect build method for $DISPLAY_NAME"
     return 1
