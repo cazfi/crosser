@@ -352,7 +352,7 @@ build_with_cmake()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native-qt6', 'custom')
+# [$4] - Build type ('native-qt6', 'qt', 'custom')
 # [$5] - Src subdir
 build_with_cmake_full()
 {
@@ -408,6 +408,9 @@ build_with_cmake_full()
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+  elif test "$4" = "qt"
+  then
+    CONFOPTIONS="-prefix ${DLLSPREFIX} $3"
   elif test "$4" = "custom"
   then
     CONFOPTIONS="$3"
@@ -426,7 +429,8 @@ build_with_cmake_full()
   log_write 3 "  Options: \"${CONFOPTIONS}\""
   log_flags
 
-  if test -x "${SRCDIR}/configure" && test "$4" = "native-qt6"
+  if test -x "${SRCDIR}/configure" &&
+     (test "$4" = "native-qt6" || test "$4" = "qt" )
   then
     if ! "${SRCDIR}/configure" ${CONFOPTIONS} \
          >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
@@ -1517,7 +1521,7 @@ if ! unpack_component qt5                                                    ||
    ! (is_minimum_version "$VERSION_QT5" 5.15.9 ||
       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2023-24607" )         ||
    ! build_component_full  qt5 qt5                                              \
-     "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
+     "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
    ! deldir_component qt-everywhere-src $VERSION_QT5 "qt5"
 then
@@ -1543,10 +1547,10 @@ if ! unpack_component qt6                                                       
      "-opensource -confirm-license -qt-harfbuzz -no-opengl"                        \
      "native-qt6"                                                                  ||
    ! deldir_build "native-qt6"                                                     ||
-   ! build_component_full  qt6 qt6                                                 \
+   ! build_with_cmake_full  qt6 qt6                                                \
      "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
-     "qt" "" "" "" "yes"                                                        ||
-   ! deldir_component qt-everywhere-src $VERSION_QT6 "qt6"
+     "qt"                                                                          ||
+   ! deldir_component qt-everywhere-src "$VERSION_QT6" "qt6"
 then
   log_error "Qt6 stack build failed"
   exit 1
