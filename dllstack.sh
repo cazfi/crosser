@@ -266,21 +266,21 @@ build_component_full()
     fi
   elif test -f "${SRCDIR}/CMakeLists.txt"
   then
-    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $CONFOPTIONS"
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
 
     log_write 1 "Configuring ${DISPLAY_NAME}"
     log_write 3 "  Options: \"${CONFOPTIONS}\""
     log_flags
 
     if ! cmake $CONFOPTIONS "${SRCDIR}" \
-               >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+           >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "CMake configure for ${DISPLAY_NAME} failed"
       return 1
     fi
   fi
 
-  log_write 1 "Building $DISPLAY_NAME"
+  log_write 1 "Building ${DISPLAY_NAME}"
 
   if test -f Makefile
   then
@@ -352,7 +352,7 @@ build_with_cmake()
 # $1   - Build dir
 # $2   - Component
 # $3   - Extra configure options
-# [$4] - Build type ('native-qt6')
+# [$4] - Build type ('native-qt6', 'custom')
 # [$5] - Src subdir
 build_with_cmake_full()
 {
@@ -408,12 +408,17 @@ build_with_cmake_full()
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+  elif test "$4" = "custom"
+  then
+    CONFOPTIONS="$3"
+    unset CPPFLAGS
+    unset LDFLAGS
   else
-    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} $3"
-    export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
-    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
+    CONFOPTIONS="$3"
+    export CPPFLAGS="-I${DLLSPREFIX}/include -I${TGT_HEADERS} ${CROSSER_WINVER_FLAG}"
+    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
+    export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="${CROSSER_TARGET}-g++${TARGET_SUFFIX} ${CROSSER_STDCXX} -static-libgcc"
     export PKG_CONFIG_PATH="${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig"
   fi
 
@@ -421,7 +426,7 @@ build_with_cmake_full()
   log_write 3 "  Options: \"${CONFOPTIONS}\""
   log_flags
 
-  if test "$4" = "native-qt6" && test -x "${SRCDIR}/configure"
+  if test -x "${SRCDIR}/configure" && test "$4" = "native-qt6"
   then
     if ! "${SRCDIR}/configure" ${CONFOPTIONS} \
          >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
@@ -430,8 +435,10 @@ build_with_cmake_full()
       return 1
     fi
   else
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
+
     if ! cmake $CONFOPTIONS "${SRCDIR}" \
-         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
+           >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "CMake configure for ${DISPLAY_NAME} failed"
       return 1
@@ -1459,7 +1466,7 @@ if ! unpack_component     ffmpeg                                                
    ! (is_smaller_version $VERSION_OPENAL 1.19.0 ||
       is_minimum_version "$VERSION_OPENAL" 1.20.0 ||
       patch_src openal-soft $VERSION_OPENAL "oals_externs" )                    ||
-   ! build_component_full openal-soft openal-soft "-DALSOFT_EXAMPLES=OFF"       \
+   ! build_with_cmake_full openal-soft openal-soft "-DALSOFT_EXAMPLES=OFF"      \
      "custom"                                                                   ||
    ! deldir_component     openal-soft $VERSION_OPENAL "openal-soft"             ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
