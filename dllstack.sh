@@ -1427,14 +1427,15 @@ if ! unpack_component  SDL2                                           ||
    ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/README        ||
    ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/AUTHORS       ||
    ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/ChangeLog     ||
-   ! autogen_component SDL2_ttf   $VERSION_SDL2_TTF \
-        "aclocal automake autoconf"                                   ||
-   ! build_component   SDL2_ttf                                       \
-     "--with-freetype-exec-prefix=$DLLSPREFIX"                        ||
-   ! deldir_component  SDL2_ttf   $VERSION_SDL2_TTF   "SDL2_ttf"      ||
-   ! unpack_component  SDL2_mixer                                     ||
-   ! build_component   SDL2_mixer                                     ||
-   ! deldir_component  SDL2_mixer $VERSION_SDL2_MIXER "SDL2_mixer"
+   ! autogen_component SDL2_ttf   "${VERSION_SDL2_TTF}" \
+        "aclocal automake autoconf"                                    ||
+   ! build_component   SDL2_ttf                                        \
+     "--with-freetype-exec-prefix=${DLLSPREFIX}"                       ||
+   ! deldir_component  SDL2_ttf   "${VERSION_SDL2_TTF}"   "SDL2_ttf"   ||
+   ! unpack_component  SDL2_mixer                                      ||
+   ! build_with_cmake  SDL2_mixer                                      \
+     "-DSDL2MIXER_OPUS=OFF -DSDL2MIXER_MOD_MODPLUG=OFF -DSDL2MIXER_MIDI_FLUIDSYNTH=OFF" ||
+   ! deldir_component  SDL2_mixer "${VERSION_SDL2_MIXER}" "SDL2_mixer"
 then
   log_error "SDL2 stack build failed"
   exit 1
