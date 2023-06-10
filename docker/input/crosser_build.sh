@@ -13,7 +13,7 @@ cd "${CROSSER_MAINDIR}" || exit 1
 export CROSSER_FORCE=yes
 export CROSSER_TMPDEL=yes
 
-source scripts/helpers.sh
+. scripts/helpers.sh
 
 CROSSER_FULL=yes CROSSER_LOGDIR=/usr/crosser/log CROSSER_PACKETDIR=/packets \
   ./dllstack.sh "/usr/crosser/win64stack-full-${CROSSER_VERSION}"
