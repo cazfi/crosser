@@ -14,7 +14,7 @@
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")" || exit 1 ; pwd)"
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
+if ! test -e "${CROSSER_MAINDIR}/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
@@ -33,9 +33,9 @@ if test "$2" != "" ; then
 else
   CROSSER_VERSIONSET="current"
 fi
-if test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
+if test -e "${CROSSER_MAINDIR}/setups/${CROSSER_VERSIONSET}.versions"
 then
-  . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
+  . "${CROSSER_MAINDIR}/setups/${CROSSER_VERSIONSET}.versions"
 else
   # Versions being unset do not prevent loading of setup_reader.sh and helper.sh,
   # resulting environment would just be unusable for building.
@@ -44,20 +44,20 @@ else
   CROSSER_ERR_MSG="Cannot find versionset \"${CROSSER_VERSIONSET}.versions\""
 fi
 
-. "$CROSSER_MAINDIR/scripts/setup_reader.sh"
-. "$CROSSER_MAINDIR/scripts/helpers.sh"
-. "$CROSSER_MAINDIR/scripts/packethandlers.sh"
+. "${CROSSER_MAINDIR}/scripts/setup_reader.sh"
+. "${CROSSER_MAINDIR}/scripts/helpers.sh"
+. "${CROSSER_MAINDIR}/scripts/packethandlers.sh"
 
-# This must be after reading helpers.sh so that $CROSSER_VERSION is set
+# This must be after reading helpers.sh so that ${CROSSER_VERSION} is set
 if test "$1" = "-v" || test "$1" = "--version"
 then
-  echo "Windows library stack builder for Crosser $CROSSER_VERSION"
+  echo "Windows library stack builder for Crosser ${CROSSER_VERSION}"
   exit 0
 fi
 
 if test "$3" = ""
 then
-  CROSSER_SETUP="$CROSSER_DEFAULT_SETUP"
+  CROSSER_SETUP="${CROSSER_DEFAULT_SETUP}"
 else
   CROSSER_SETUP="$3"
 fi
@@ -68,9 +68,9 @@ then
   exit 1
 fi
 
-if test "$CROSSER_ERR_MSG" != ""
+if test "${CROSSER_ERR_MSG}" != ""
 then
-  log_error "$CROSSER_ERR_MSG"
+  log_error "${CROSSER_ERR_MSG}"
   exit 1
 fi
 
@@ -207,22 +207,22 @@ build_component_full()
 
   if test "$4" = "native"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX $3"
+    CONFOPTIONS="--prefix=${NATIVE_PREFIX} $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
   elif test "$4" = "cross"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_BUILD_ARCH --target=$CROSSER_TARGET $3"
+    CONFOPTIONS="--prefix=${NATIVE_PREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_BUILD_ARCH} --target=${CROSSER_TARGET} $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
   elif test "$4" = "pkg-config"
   then
-    CONFOPTIONS="--prefix=$NATIVE_PREFIX --program-prefix=$CROSSER_TARGET- $3"
+    CONFOPTIONS="--prefix=${NATIVE_PREFIX} --program-prefix=${CROSSER_TARGET}- $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
   elif test "$4" = "custom"
   then
     CONFOPTIONS="$3"
@@ -230,26 +230,26 @@ build_component_full()
     unset LDFLAGS
   elif test "$4" = "windres"
   then
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
+    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} --target=${CROSSER_TARGET} $3"
     unset CPPFLAGS
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
-    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
+    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
+    export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="${CROSSER_TARGET}-g++${TARGET_SUFFIX} ${CROSSER_STDCXX} -static-libgcc"
   elif test "$4" = "qt"
   then
-    CONFOPTIONS="-prefix $DLLSPREFIX $3"
+    CONFOPTIONS="-prefix ${DLLSPREFIX} $3"
   else
-    CONFOPTIONS="--prefix=$DLLSPREFIX --build=$CROSSER_BUILD_ARCH --host=$CROSSER_TARGET --target=$CROSSER_TARGET $3"
-    export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
+    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} --target=${CROSSER_TARGET} $3"
+    export CPPFLAGS="-I${DLLSPREFIX}/include -I${TGT_HEADERS} ${CROSSER_WINVER_FLAG}"
     # Default is 'nounicode'. To change that, make this check
     # ' "$4" != "nounicode" '
     if test "$4" = "unicode" ; then
       CPPFLAGS="${CPPFLAGS} -DUNICODE"
     fi
-    export LDFLAGS="-L$DLLSPREFIX/lib -static-libgcc $CROSSER_STDCXX"
-    export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
-    export CXX="$CROSSER_TARGET-g++${TARGET_SUFFIX} $CROSSER_STDCXX -static-libgcc"
-    export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
+    export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
+    export CXX="${CROSSER_TARGET}-g++${TARGET_SUFFIX} ${CROSSER_STDCXX} -static-libgcc"
+    export PKG_CONFIG_PATH="${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig"
   fi
 
   if test -x "${SRCDIR}/configure"
@@ -266,7 +266,7 @@ build_component_full()
     fi
   elif test -f "${SRCDIR}/CMakeLists.txt"
   then
-    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=${CROSSER_TARGET} -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
 
     log_write 1 "Configuring ${DISPLAY_NAME}"
     log_write 3 "  Options: \"${CONFOPTIONS}\""
@@ -297,26 +297,26 @@ build_component_full()
     then
       MAKEOPTIONS="$6"
     else
-      MAKEOPTIONS="$CROSSER_COREOPTIONS"
+      MAKEOPTIONS="${CROSSER_COREOPTIONS}"
     fi
-    log_write 4 "  Options: \"$MAKEOPTIONS\""
+    log_write 4 "  Options: \"${MAKEOPTIONS}\""
 
     if test "$8" = "yes"
     then
-      if ! make $MAKEOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+      if ! make ${MAKEOPTIONS} >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
       then
-        log_error "Make for $DISPLAY_NAME failed"
+        log_error "Make for ${DISPLAY_NAME} failed"
         return 1
       fi
     fi
 
-    if ! make $MAKEOPTIONS install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    if ! make ${MAKEOPTIONS} install >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
     then
-      log_error "Install for $DISPLAY_NAME failed"
+      log_error "Install for ${DISPLAY_NAME} failed"
       return 1
     fi
   else
-    log_error "Can't detect build method for $DISPLAY_NAME"
+    log_error "Can't detect build method for ${DISPLAY_NAME}"
     return 1
   fi
   )
@@ -427,9 +427,9 @@ build_with_cmake_full()
       return 1
     fi
   else
-    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=$CROSSER_TARGET -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
+    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=${CROSSER_TARGET} -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
 
-    if ! cmake $CONFOPTIONS "${SRCDIR}" \
+    if ! cmake ${CONFOPTIONS} "${SRCDIR}" \
            >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "CMake configure for ${DISPLAY_NAME} failed"
@@ -513,13 +513,13 @@ build_with_meson_full()
 
   BVER=$(component_version $2)
 
-  if test "$BVER" = ""
+  if test "${BVER}" = ""
   then
     log_error "Version for $2 not defined"
     return 1
   fi
 
-  if test "$BVER" = "0"
+  if test "${BVER}" = "0"
   then
     return 0
   fi
@@ -527,67 +527,67 @@ build_with_meson_full()
   BNAME=$(component_name_to_package_name $2 $BVER)
 
   SUBDIR="$(src_subdir $BNAME $BVER)"
-  if test "$SUBDIR" = ""
+  if test "${SUBDIR}" = ""
   then
-    log_error "Cannot find srcdir for $BNAME version $BVER"
+    log_error "Cannot find srcdir for ${BNAME} version ${BVER}"
     return 1
   fi
   if test "$5" != "" ; then
-    SUBDIR="$SUBDIR/$5"
-    if ! test -d "$CROSSER_SRCDIR/$SUBDIR" ; then
-      log_error "Cannot find source subdir \"$SUBDIR\""
+    SUBDIR="${SUBDIR}/$5"
+    if ! test -d "${CROSSER_SRCDIR}/${SUBDIR}" ; then
+      log_error "Cannot find source subdir \"${SUBDIR}\""
       return 1
     fi
   fi
 
   DISPLAY_NAME="$1"
 
-  BUILDDIR="$CROSSER_BUILDDIR/$1"
-  if ! mkdir -p "$BUILDDIR"
+  BUILDDIR="${CROSSER_BUILDDIR}/$1"
+  if ! mkdir -p "${BUILDDIR}"
   then
-    log_error "Failed to create directory $BUILDDIR"
+    log_error "Failed to create directory ${BUILDDIR}"
     return 1
   fi
-  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+  SRCDIR="${CROSSER_SRCDIR}/${SUBDIR}"
 
   (
-  cd "$BUILDDIR"
+  cd "${BUILDDIR}"
 
   if test "$4" = "native" ; then
-    export PKG_CONFIG_PATH="$NATIVE_PREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig:$NATIVE_PREFIX/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
   else
     # The argument that can be given properly via the cross-file,
     # are given that way. Here are the rest.
-    export CPPFLAGS="-I$DLLSPREFIX/include -I$TGT_HEADERS $CROSSER_WINVER_FLAG"
-    export LDFLAGS="-L$DLLSPREFIX/lib"
-    export PKG_CONFIG_PATH="$DLLSPREFIX/lib/$CROSSER_PKG_ARCH/pkgconfig"
+    export CPPFLAGS="-I${DLLSPREFIX}/include -I${TGT_HEADERS} ${CROSSER_WINVER_FLAG}"
+    export LDFLAGS="-L${DLLSPREFIX}/lib"
+    export PKG_CONFIG_PATH="${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig"
   fi
 
-  log_write 1 "Running meson for $DISPLAY_NAME"
+  log_write 1 "Running meson for ${DISPLAY_NAME}"
   log_write 3 "  Options: $3"
 
   if test "$4" = "native"
   then
-    if ! meson.py setup $SRCDIR . --prefix=$NATIVE_PREFIX $3 \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+    if ! meson.py setup "${SRCDIR}" . --prefix="${NATIVE_PREFIX}" $3 \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
-      log_error "Meson for $DISPLAY_NAME failed"
+      log_error "Meson for ${DISPLAY_NAME} failed"
       return 1
     fi
-  elif ! meson.py setup $SRCDIR . --cross-file $DLLSPREFIX/etc/meson_cross_file.txt \
-       --prefix=$DLLSPREFIX $3 \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  elif ! meson.py setup "${SRCDIR}" . --cross-file "${DLLSPREFIX}/etc/meson_cross_file.txt" \
+       "--prefix=${DLLSPREFIX}" $3 \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
-    log_error "Meson for $DISPLAY_NAME failed"
+    log_error "Meson for ${DISPLAY_NAME} failed"
     return 1
   fi
 
-  log_write 1 "Running ninja for $DISPLAY_NAME"
+  log_write 1 "Running ninja for ${DISPLAY_NAME}"
 
   if ! ninja install \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
-    log_error "Ninja for $DISPLAY_NAME failed"
+    log_error "Ninja for ${DISPLAY_NAME} failed"
     return 1
   fi
   )
@@ -613,41 +613,42 @@ build_zlib()
 
   SUBDIR="$(src_subdir $1 $2)"
 
-  if test "$SUBDIR" = ""
+  if test "${SUBDIR}" = ""
   then
     log_error "Cannot find srcdir for $1 version $2"
     return 1
   fi
 
-  BUILDDIR="$CROSSER_BUILDDIR/$1"
-  if ! mkdir -p "$BUILDDIR"
+  BUILDDIR="${CROSSER_BUILDDIR}/$1"
+  if ! mkdir -p "${BUILDDIR}"
   then
-    log_error "Failed to create directory $BUILDDIR"
+    log_error "Failed to create directory \"${BUILDDIR}\""
     return 1
   fi
-  SRCDIR="$CROSSER_SRCDIR/$SUBDIR"
+  SRCDIR="${CROSSER_SRCDIR}/${SUBDIR}"
 
   (
-  export CC="$CROSSER_TARGET-gcc${TARGET_SUFFIX} -static-libgcc"
-  export RANLIB="$CROSSER_TARGET-ranlib"
-  export AR="$CROSSER_TARGET-ar"
+  export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
+  export RANLIB="${CROSSER_TARGET}-ranlib"
+  export AR="${CROSSER_TARGET}-ar"
 
-  if ! cd "$BUILDDIR"
+  if ! cd "${BUILDDIR}"
   then
-    log_error "Cannot change to directory $BUILDDIR"
+    log_error "Cannot change to directory \"${BUILDDIR}\""
     return 1
   fi
 
-  export CPPFLAGS="-isystem $DLLSPREFIX/include -isystem $TGT_HEADERS $CROSSER_WINVER_FLAG"
-  export LDFLAGS="-L$DLLSPREFIX/lib"
+  export CPPFLAGS="-isystem ${DLLSPREFIX}/include -isystem ${TGT_HEADERS} ${CROSSER_WINVER_FLAG}"
+  export LDFLAGS="-L${DLLSPREFIX}/lib"
 
-  CONFOPTIONS="--prefix=$DLLSPREFIX --shared $3"
+  CONFOPTIONS="--prefix=${DLLSPREFIX} --shared $3"
 
   log_write 1 "Configuring $1"
-  log_write 3 "  Options: \"$CONFOPTIONS\""
+  log_write 3 "  Options: \"${CONFOPTIONS}\""
   log_flags
 
-  if ! $SRCDIR/configure $CONFOPTIONS >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! "${SRCDIR}/configure" ${CONFOPTIONS} \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
     log_error "Configure for $1 failed"
     return 1
@@ -655,10 +656,10 @@ build_zlib()
 
   log_write 1 "Building $1"
   log_write 3 "  Make targets: [default] install"
-  log_write 4 "  Options: \"$CROSSER_COREOPTIONS\""
+  log_write 4 "  Options: \"${CROSSER_COREOPTIONS}\""
 
-  if ! make $CROSSER_COREOPTIONS \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! make ${CROSSER_COREOPTIONS} \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
     log_error "Make for $1 failed"
     return 1
@@ -680,7 +681,7 @@ build_zlib()
 
   RET=$?
 
-  if test $RET = 0 ; then
+  if test "${RET}" = 0 ; then
     echo "$1 : $2" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
@@ -703,25 +704,25 @@ build_pdcurses()
 
   SUBDIR="$(src_subdir "$1" "$2")"
 
-  if test "$SUBDIR" = ""
+  if test "${SUBDIR}" = ""
   then
     log_error "Cannot find srcdir for $1 version $2"
     return 1
   fi
 
-  if is_minimum_version $VERSION_PDCURSES 3.6
+  if is_minimum_version "${VERSION_PDCURSES}" 3.6
   then
-    SUBDIR=$SUBDIR/wincon
+    SUBDIR="${SUBDIR}/wincon"
     MKFILE=Makefile
   else
-    SUBDIR=$SUBDIR/win32
+    SUBDIR="${SUBDIR}/win32"
     MKFILE=mingwin32.mak
   fi
 
   (
-  if ! cd "$CROSSER_SRCDIR/$SUBDIR"
+  if ! cd "${CROSSER_SRCDIR}/${SUBDIR}"
   then
-    log_error "Cannot change to directory $CROSSER_SRCDIR/$SUBDIR"
+    log_error "Cannot change to directory \"${CROSSER_SRCDIR}/${SUBDIR}\""
     return 1
   fi
 
@@ -738,14 +739,14 @@ build_pdcurses()
 
   if ! cp pdcurses.a "${DLLSPREFIX}/lib/libpdcurses.a"
   then
-      log_error "pdcurses.a copy failed"
-      return 1
+    log_error "pdcurses.a copy failed"
+    return 1
   fi
   )
 
   RET=$?
 
-  if test $RET = 0 ; then
+  if test "${RET}" = 0 ; then
     echo "$1 : $2" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
@@ -768,44 +769,44 @@ if ! test -e "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf" ; then
 fi
 . "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf"
 
-if test "$TARGET_VENDOR" = ""
+if test "${TARGET_VENDOR}" = ""
 then
-  export CROSSER_TARGET="$TARGET_ARCH-$TARGET_OS"
+  export CROSSER_TARGET="${TARGET_ARCH}-${TARGET_OS}"
 else
-  export CROSSER_TARGET="$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS"
+  export CROSSER_TARGET="${TARGET_ARCH}-${TARGET_VENDOR}-${TARGET_OS}"
 fi
 
-if test -d "/usr/$CROSSER_TARGET/include"
+if test -d "/usr/${CROSSER_TARGET}/include"
 then
-  export TGT_HEADERS="/usr/$CROSSER_TARGET/include"
+  export TGT_HEADERS="/usr/${CROSSER_TARGET}/include"
 fi
 
-export DLLSPREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "$DLLSPREFIX")
-export NATIVE_PREFIX=$(setup_prefix_default "$HOME/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
-                       "$DLLSHOST_PREFIX")
+export DLLSPREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "${DLLSPREFIX}")
+export NATIVE_PREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
+                       "${DLLSHOST_PREFIX}")
 
 TARGET_GCC_VER=$(${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
 TARGET_GXX_VER=$(${CROSSER_TARGET}-g++${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
 
-if test "$TARGET_GCC_VER" = "" ; then
+if test "${TARGET_GCC_VER}" = "" ; then
   log_error "Target compiler ${CROSSER_TARGET}-gcc${TARGET_SUFFIX} version not found!"
   exit 1
 fi
-if test "$TARGET_GXX_VER" = "" ; then
+if test "${TARGET_GXX_VER}" = "" ; then
   log_error "Target compiler ${CROSSER_TARGET}-g++${TARGET_SUFFIX} version not found!"
   exit 1
 fi
 
 CROSSER_WINVER_FLAG="-D_WIN32_WINNT=${CROSSER_WINVER}"
 
-log_write 2 "Install:    \"$DLLSPREFIX\""
-log_write 2 "Src:        \"$CROSSER_SRCDIR\""
-log_write 2 "Log:        \"$CROSSER_LOGDIR\""
-log_write 2 "Build:      \"$CROSSER_BUILDDIR\""
-log_write 2 "Setup:      \"$CROSSER_SETUP\""
-log_write 2 "Versionset: \"$CROSSER_VERSIONSET\""
-log_write 2 "cross-gcc:  $TARGET_GCC_VER"
-log_write 2 "cross-g++:  $TARGET_GXX_VER"
+log_write 2 "Install:    \"${DLLSPREFIX}\""
+log_write 2 "Src:        \"${CROSSER_SRCDIR}\""
+log_write 2 "Log:        \"${CROSSER_LOGDIR}\""
+log_write 2 "Build:      \"${CROSSER_BUILDDIR}\""
+log_write 2 "Setup:      \"${CROSSER_SETUP}\""
+log_write 2 "Versionset: \"${CROSSER_VERSIONSET}\""
+log_write 2 "cross-gcc:  ${TARGET_GCC_VER}"
+log_write 2 "cross-g++:  ${TARGET_GXX_VER}"
 
 CROSSER_STDCXX="-static-libstdc++"
 
@@ -825,26 +826,26 @@ fi
 
 if ! mkdir -p "${CROSSER_SRCDIR}"
 then
-  log_error "Cannot create directory ${CROSSER_SRCDIR}"
+  log_error "Cannot create directory \"${CROSSER_SRCDIR}\""
   exit 1
 fi
 
 if ! mkdir -p "${CROSSER_BUILDDIR}"
 then
-  log_error "Cannot create directory ${CROSSER_BUILDDIR}"
+  log_error "Cannot create directory \"${CROSSER_BUILDDIR}\""
   exit 1
 fi
 
 if ! mkdir -p "${DLLSPREFIX}/man/man1" ||
    ! mkdir -p "${DLLSPREFIX}/etc"
 then
-  log_error "Cannot create target directory hierarchy under ${DLLSPREFIX}"
+  log_error "Cannot create target directory hierarchy under \"${DLLSPREFIX}\""
   exit 1
 fi
 
 if ! mkdir -p "${NATIVE_PREFIX}/bin"
 then
-  log_error "Cannot create host directory hierarchy under ${NATIVE_PREFIX}"
+  log_error "Cannot create host directory hierarchy under \"${NATIVE_PREFIX}\""
   exit 1
 fi
 
@@ -859,31 +860,31 @@ fi
 log_write 1 "Creating meson cross file"
 
 if ! (
-  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc${TARGET_SUFFIX})
-  TARGET_GPP=$(command -v $CROSSER_TARGET-g++${TARGET_SUFFIX})
-  TARGET_AR=$(command -v $CROSSER_TARGET-ar)
-  TARGET_STRIP=$(command -v $CROSSER_TARGET-strip)
-  TARGET_PKGCONFIG=$NATIVE_PREFIX/bin/$CROSSER_TARGET-pkg-config
-  TARGET_WINDRES=$(command -v $CROSSER_TARGET-windres)
+  TARGET_GCC=$(command -v ${CROSSER_TARGET}-gcc${TARGET_SUFFIX})
+  TARGET_GPP=$(command -v ${CROSSER_TARGET}-g++${TARGET_SUFFIX})
+  TARGET_AR=$(command -v ${CROSSER_TARGET}-ar)
+  TARGET_STRIP=$(command -v ${CROSSER_TARGET}-strip)
+  TARGET_PKGCONFIG="${NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"
+  TARGET_WINDRES=$(command -v ${CROSSER_TARGET}-windres)
 
-  if test "$TARGET_GCC" = ""   ||
-     test "$TARGET_GPP" = ""   ||
-     test "$TARGET_AR" = ""    ||
-     test "$TARGET_STRIP" = "" ||
-     test "$TARGET_WINDRES" = ""
+  if test "${TARGET_GCC}" = ""   ||
+     test "${TARGET_GPP}" = ""   ||
+     test "${TARGET_AR}" = ""    ||
+     test "${TARGET_STRIP}" = "" ||
+     test "${TARGET_WINDRES}" = ""
   then
     log_error "Cross-tools missing"
     exit 1
   fi
-  if ! sed -e "s,<TARGET_GCC>,$TARGET_GCC,g" \
-           -e "s,<TARGET_GPP>,$TARGET_GPP,g" \
-           -e "s,<TARGET_AR>,$TARGET_AR,g" \
-           -e "s,<TARGET_STRIP>,$TARGET_STRIP,g" \
-           -e "s,<TARGET_PKGCONFIG>,$TARGET_PKGCONFIG,g" \
-           -e "s,<TARGET_WINDRES>,$TARGET_WINDRES,g" \
-           -e "s,<DLLSTACK>,$DLLSPREFIX,g" \
-           "$CROSSER_MAINDIR/scripts/$MESON_CROSS_FILE" \
-           > "$DLLSPREFIX/etc/meson_cross_file.txt"
+  if ! sed -e "s,<TARGET_GCC>,${TARGET_GCC},g" \
+           -e "s,<TARGET_GPP>,${TARGET_GPP},g" \
+           -e "s,<TARGET_AR>,${TARGET_AR},g" \
+           -e "s,<TARGET_STRIP>,${TARGET_STRIP},g" \
+           -e "s,<TARGET_PKGCONFIG>,${TARGET_PKGCONFIG},g" \
+           -e "s,<TARGET_WINDRES>,${TARGET_WINDRES},g" \
+           -e "s,<DLLSTACK>,${DLLSPREFIX},g" \
+           "${CROSSER_MAINDIR}/scripts/${MESON_CROSS_FILE}" \
+           > "${DLLSPREFIX}/etc/meson_cross_file.txt"
   then
     log_error "Meson cross-file creation failed"
     exit 1
@@ -896,20 +897,20 @@ fi
 log_write 1 "Creating cmake toolchain file"
 
 if ! (
-  TARGET_GCC=$(command -v $CROSSER_TARGET-gcc${TARGET_SUFFIX})
-  TARGET_GPP=$(command -v $CROSSER_TARGET-g++${TARGET_SUFFIX})
+  TARGET_GCC=$(command -v ${CROSSER_TARGET}-gcc${TARGET_SUFFIX})
+  TARGET_GPP=$(command -v ${CROSSER_TARGET}-g++${TARGET_SUFFIX})
 
-  if test "$TARGET_GCC" = ""   ||
-     test "$TARGET_GPP" = ""
+  if test "${TARGET_GCC}" = ""   ||
+     test "${TARGET_GPP}" = ""
   then
     log_error "Cross-tools missing"
     exit 1
   fi
-  if ! sed -e "s,<TARGET_GCC>,$TARGET_GCC,g" \
-           -e "s,<TARGET_GPP>,$TARGET_GPP,g" \
-           -e "s,<DLLSPREFIX>,$DLLSPREFIX,g" \
-           $CROSSER_MAINDIR/scripts/$CMAKE_PLATFORM_FILE \
-           > $DLLSPREFIX/etc/toolchain.cmake
+  if ! sed -e "s,<TARGET_GCC>,${TARGET_GCC},g" \
+           -e "s,<TARGET_GPP>,${TARGET_GPP},g" \
+           -e "s,<DLLSPREFIX>,${DLLSPREFIX},g" \
+           "${CROSSER_MAINDIR}/scripts/${CMAKE_PLATFORM_FILE}" \
+           > "${DLLSPREFIX}/etc/toolchain.cmake"
   then
     log_error "CMake toolchain file creation failed"
     exit 1
@@ -931,13 +932,13 @@ fi
 if test "${CROSSER_DOWNLOAD}" = "yes"
 then
   steplist="win"
-  if test "$CROSSER_SDL2" = "yes" ; then
+  if test "${CROSSER_SDL2}" = "yes" ; then
     steplist="${steplist},sdl2"
   fi
-  if test "$CROSSER_SFML" = "yes" ; then
+  if test "${CROSSER_SFML}" = "yes" ; then
     steplist="${steplist},sfml"
   fi
-  if test "$CROSSER_FULL" = "yes" ; then
+  if test "${CROSSER_FULL}" = "yes" ; then
     steplist="${steplist},full"
   fi
   if ! (cd "${CROSSER_PACKETDIR}" &&
@@ -955,7 +956,7 @@ ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
-   ! cp -R "$CROSSER_SRCDIR/meson-$VERSION_MESON" "$NATIVE_PREFIX"       ||
+   ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
    ! unpack_component     autoconf                          ||
    ! build_component_host autoconf                          ||
    ! deldir_component     autoconf   $VERSION_AUTOCONF "native-autoconf" ||
@@ -1571,16 +1572,16 @@ fi
 fi
 
 GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-WGDKPBL="$(echo $GDKPBL | sed 's,/,\\,g')"
+WGDKPBL="$(echo "${GDKPBL}" | sed 's,/,\\,g')"
 
 log_write 1 "Creating crosser.txt"
 (
   echo "# Dllstack"
   echo "# ========================="
-  echo "CrosserVersion=\"$CROSSER_VERSION\""
-  echo "CrosserFeatureLevel=\"$CROSSER_FEATURE_LEVEL\""
-  echo "CrosserSetup=\"$CROSSER_SETUP\""
-  echo "CrosserSet=\"$CROSSER_VERSIONSET\""
+  echo "CrosserVersion=\"${CROSSER_VERSION}\""
+  echo "CrosserFeatureLevel=\"${CROSSER_FEATURE_LEVEL}\""
+  echo "CrosserSetup=\"${CROSSER_SETUP}\""
+  echo "CrosserSet=\"${CROSSER_VERSIONSET}\""
   echo "CrosserBuilt=\"$(date +"%d.%m.%Y")\""
   echo
   echo "# -------------------------"
@@ -1590,16 +1591,16 @@ log_write 1 "Creating crosser.txt"
   else
     echo "CROSSER_GTK3=\"no\""
   fi
-  echo "CROSSER_GTK4=\"$CROSSER_GTK4\""
-  echo "CROSSER_QT5=\"$CROSSER_QT5\""
-  echo "CROSSER_QT6=\"$CROSSER_QT6\""
-  echo "CROSSER_SDL2=\"$CROSSER_SDL2\""
-  echo "CROSSER_READLINE=\"$CROSSER_READLINE\""
-  echo "CROSSER_SFML=\"$CROSSER_SFML\""
+  echo "CROSSER_GTK4=\"${CROSSER_GTK4}\""
+  echo "CROSSER_QT5=\"${CROSSER_QT5}\""
+  echo "CROSSER_QT6=\"${CROSSER_QT6}\""
+  echo "CROSSER_SDL2=\"${CROSSER_SDL2}\""
+  echo "CROSSER_READLINE=\"${CROSSER_READLINE}\""
+  echo "CROSSER_SFML=\"${CROSSER_SFML}\""
   echo
   echo "# Deprecated entries"
   echo "# -------------------------"
-  echo "CROSSER_QT=\"$CROSSER_QT5\""
+  echo "CROSSER_QT=\"${CROSSER_QT5}\""
   echo "CROSSER_GTK2=\"no\""
 ) > "${DLLSPREFIX}/crosser.txt"
 
@@ -1628,15 +1629,15 @@ fi
 log_write 1 "Creating setup.bat"
 (
   echo -n -e "bin\\\glib-compile-schemas.exe share\\\glib-2.0\\\schemas\r\n"
-  if test "$VERSION_GDK_PIXBUF" != "0"
+  if test "${VERSION_GDK_PIXBUF}" != "0"
   then
-    echo -n -e "bin\\\gdk-pixbuf-query-loaders.exe > $WGDKPBL\r\n"
+    echo -n -e "bin\\\gdk-pixbuf-query-loaders.exe > \"${WGDKPBL}\"\r\n"
   fi
-  if test "$VERSION_GTK4" != "0"
+  if test "${VERSION_GTK4}" != "0"
   then
     echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
     echo -n -e "bin\\\gtk4-update-icon-cache.exe share\\\icons\\hicolor\r\n"
-  elif test "$VERSION_GTK3" != "0"
+  elif test "${VERSION_GTK3}" != "0"
   then
     echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\Adwaita\r\n"
     echo -n -e "bin\\\gtk-update-icon-cache.exe share\\\icons\\hicolor\r\n"
@@ -1649,10 +1650,10 @@ log_write 1 "Creating launch.bat"
 (
   echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
-  if test "$CROSSER_QT5" = "yes"
+  if test "${CROSSER_QT5}" = "yes"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt5\\\plugins\r\n"
-  elif test "$CROSSER_QT6" = "yes"
+  elif test "${CROSSER_QT6}" = "yes"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt6\\\plugins\r\n"
   fi
