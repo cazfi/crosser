@@ -1,5 +1,6 @@
 2.7
 	- Produced binaries now require Windows 8.1 by default
+	- Crosser building docker container updated to Debian Bookworm
 	- Added pango2 to build (version 0.91.0)
 	- Updated gtk4 to version 4.10.4
 	- Updated glib to version 2.76.3
