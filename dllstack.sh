@@ -1510,12 +1510,14 @@ if ! unpack_component qt5                                                    ||
       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-37434-qtbase-5.15" ) ||
    ! (is_minimum_version "$VERSION_QT5" 5.15.9 ||
       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2023-24607" )         ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.11 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2023-34410" )       ||
    ! build_component_full  qt5 qt5                                              \
      "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
      "qt" "" "" "" "yes"                                                        ||
-   ! deldir_component qt-everywhere-src $VERSION_QT5 "qt5"
+   ! deldir_component qt-everywhere-src "${VERSION_QT5}" "qt5"
 then
-  log_error "QT5 stack build failed"
+  log_error "Qt5 stack build failed"
   exit 1
 fi
 fi
