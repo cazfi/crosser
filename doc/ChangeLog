@@ -19,6 +19,7 @@
 	- Updated gobject-introspection to version 1.76.1
 	- Updated tiff to version 4.5.1
 	- Updated gettext to version 0.22
+	- Updated SFML to version 2.6.0
 
 2.6 (12-Apr-23)
 	- Added win64-posix setup

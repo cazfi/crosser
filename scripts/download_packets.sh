@@ -432,7 +432,7 @@ then
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
-    sfml)        VERSION_SFML=$VERSION_SELECTED ;;
+    sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
@@ -685,7 +685,7 @@ download_needed "http://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "$V
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_ttf/releases/download/release-${VERSION_SDL2_TTF}/" "SDL2_ttf" "$VERSION_SDL2_TTF" "tar.gz"
 RET="$RET $?"
-download_needed "http://www.sfml-dev.org/files/" "sfml" "SFML-$VERSION_SFML-sources.zip"
+download_needed "https://www.sfml-dev.org/files/" "sfml" "SFML-${VERSION_SFML}-sources.zip"
 RET="$RET $?"
 download_needed "https://openal-soft.org/openal-releases/" "openal-soft" "$VERSION_OPENAL" "tar.bz2"
 RET="$RET $?"
