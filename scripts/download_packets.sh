@@ -689,7 +689,7 @@ download_needed "https://www.sfml-dev.org/files/" "sfml" "SFML-${VERSION_SFML}-s
 RET="$RET $?"
 download_needed "https://openal-soft.org/openal-releases/" "openal-soft" "$VERSION_OPENAL" "tar.bz2"
 RET="$RET $?"
-download_needed "http://www.ffmpeg.org/releases/" "ffmpeg" "$VERSION_FFMPEG" "tar.xz"
+download_needed "https://www.ffmpeg.org/releases/" "ffmpeg" "${VERSION_FFMPEG}" "tar.xz"
 RET="$RET $?"
 download_needed "https://www.sqlite.com/${SQL_SUBDIR}" "sqlite" "autoconf-${SQL_VERSTR}" "tar.gz"
 RET="$RET $?"
