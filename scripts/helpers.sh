@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2022 Marko Lindqvist
+# (c) 2008-2023 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -304,32 +304,40 @@ deldir_component() {
 # $2 -   Version
 # $3 -   Alt subdir name
 deldir_src() {
-  if test "$CROSSER_TMPDEL" != "yes"
+  if test "${CROSSER_TMPDEL}" != "yes"
   then
     return 0
   fi
 
-  log_write 2 "Delete source directory of $1 version $2"
+  if test "$2" = "" ; then
+    log_write 2 "Delete source directory of $1"
+  else
+    log_write 2 "Delete source directory of $1 version $2"
+  fi
 
   if test "$3" = "" ; then
-    SRCSUBDIR=$(src_subdir $1 $2)
+    SRCSUBDIR="$(src_subdir "$1" "$2")"
   else
     SRCSUBDIR="$3"
   fi
-  if test "$SRCSUBDIR" = ""
+  if test "${SRCSUBDIR}" = ""
   then
-    echo "Cannot find srcdir of $1 version $2 to delete" >&2
+    if test "$2" = "" ; then
+      echo "Cannot find srcdir \"${SRCSUBDIR}\" of $1 to delete" >&2
+    else
+      echo "Cannot find srcdir \"${SRCSUBDIR}\" of $1 version $2 to delete" >&2
+    fi
     return 1
   fi
 
-  rm -Rf "$CROSSER_SRCDIR/$SRCSUBDIR"
+  rm -Rf "${CROSSER_SRCDIR}/${SRCSUBDIR}"
 }
 
 # Delete component's temporary build directory
 #
 # $1 -   Builddir
 deldir_build() {
-  if test "$CROSSER_TMPDEL" != "yes"
+  if test "${CROSSER_TMPDEL}" != "yes"
   then
     return 0
   fi
@@ -342,13 +350,13 @@ deldir_build() {
 
   log_write 2 "Delete builddir $1"
 
-  if ! test -d "$CROSSER_BUILDDIR/$1"
+  if ! test -d "${CROSSER_BUILDDIR}/$1"
   then
-    echo "Cannot find builddir \"$CROSSER_BUILDDIR/$1\" to delete" >&2
+    echo "Cannot find builddir \"${CROSSER_BUILDDIR}/$1\" to delete" >&2
     return 1
   fi
 
-  rm -Rf "$CROSSER_BUILDDIR/$1"
+  rm -Rf "${CROSSER_BUILDDIR}/$1"
 }
 
 # Output subdir under source hierarchy where component lives
