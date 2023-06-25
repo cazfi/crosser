@@ -1203,7 +1203,7 @@ if ! build_component   tiff                                                 ||
    ! deldir_component  jansson    $VERSION_JANSSON "jansson"                ||
    ! unpack_component  freetype                                             ||
    ! build_component   freetype   "--without-bzip2"                         ||
-   ! deldir_component  freetype   $VERSION_FREETYPE "freetype"              ||
+   ! deldir_component  freetype   "${VERSION_FREETYPE}" "freetype"          ||
    ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"           ||
    ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
        patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||

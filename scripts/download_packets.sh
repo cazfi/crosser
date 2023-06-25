@@ -397,7 +397,7 @@ fi
 
 MIRROR_SOURCEFORGE="http://sourceforge.net"
 MIRROR_GNOME="https://ftp.gnome.org/pub/gnome"
-MIRROR_SAVANNAH="http://download.savannah.gnu.org"
+MIRROR_SAVANNAH="https://download.savannah.gnu.org"
 MIRROR_GITHUB="https://github.com"
 
 if test "$VERSION_SELECTED" != ""
@@ -436,7 +436,7 @@ then
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
     harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
-    freetype)    VERSION_FREETYPE=$VERSION_SELECTED ;;
+    freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
@@ -532,7 +532,7 @@ else
   GETTEXT_PACK="tar.gz"
 fi
 
-if is_minimum_version $VERSION_FREETYPE 2.10.1
+if is_minimum_version "${VERSION_FREETYPE}" 2.10.1
 then
   FT_PACK="tar.xz"
 else
@@ -618,7 +618,7 @@ download_needed "https://download.osgeo.org/libtiff/"    "tiff"    "${VERSION_TI
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/harfbuzz/harfbuzz/archive/" "harfbuzz" "$VERSION_HARFBUZZ.tar.gz" "" "" "harfbuzz"
 RET="$RET $?"
-download_needed "$MIRROR_SAVANNAH/releases/freetype/"   "freetype"   "$VERSION_FREETYPE"   "$FT_PACK"
+download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSION_FREETYPE}"   "${FT_PACK}"
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "${FC_PACK}"
 RET="$RET $?"
