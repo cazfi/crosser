@@ -1524,6 +1524,13 @@ fi
 
 if test "${CROSSER_QT6}" = "yes"
 then
+
+QT6_EXTRA_CONF=""
+if is_minimum_version "${VERSION_QT6}" 6.4.0
+then
+  QT6_EXTRA_CONF+=" -skip qtmultimedia"
+fi
+
 if ! unpack_component qt6                                                       ||
    ! (is_minimum_version $VERSION_QT6 6.2.4 ||
       (patch_src qt-everywhere-src $VERSION_QT6 "qt6-CVE-2022-25643-6.2" &&
@@ -1540,9 +1547,9 @@ if ! unpack_component qt6                                                       
      "native-qt6"                                                                  ||
    ! deldir_build "native-qt6"                                                     ||
    ! build_with_cmake_full  qt6 qt6                                                \
-     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=$DLLSPREFIX/lib -device-option EXTRA_INCDIR=$DLLSPREFIX/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
+     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations ${QT6_EXTRA_CONF} -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt"                                                                          ||
-   ! deldir_component qt-everywhere-src "$VERSION_QT6" "qt6"
+   ! deldir_component qt-everywhere-src "${VERSION_QT6}" "qt6"
 then
   log_error "Qt6 stack build failed"
   exit 1
