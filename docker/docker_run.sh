@@ -9,12 +9,8 @@
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 
-if test "$1" != "" ; then
-  echo "Usage: $(basename "$0") [-h|--help]"
-
-  if test "$1" != "-h" && test "$1" != "--help" ; then
-    exit 1
-  fi
+if test "$1" = "-h" || test "$1" = "--help" ; then
+  echo "Usage: $(basename "$0") [-h|--help|setup]"
 
   exit 0
 fi
@@ -41,4 +37,5 @@ docker run \
        --mount type=bind,source="${CROSSER_MAINDIR}",target=/crosser \
        --mount type=bind,source="${CROSSER_PACKETDIR}",target=/packets \
        --mount type=bind,source="${CROSSER_DOCKER_OUTDIR}",target=/usr/crosser/ \
+       -e "CROSSER_SETUP=$1" \
        -t "crosser-bldr-${CROSSER_FEATURE_LEVEL}"

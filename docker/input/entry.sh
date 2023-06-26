@@ -7,4 +7,4 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-su - crosser /build/crosser_build.sh
+su - crosser /build/crosser_build.sh "${CROSSER_SETUP}"
