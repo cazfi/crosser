@@ -1413,23 +1413,23 @@ then
 fi
 
 if test "${CROSSER_SDL2}" = "yes" ; then
-if ! unpack_component  SDL2                                           ||
-   ! patch_src SDL2 $VERSION_SDL2 "sdl2_epsilon"                      ||
-   ! build_component_def_make SDL2                                    ||
-   ! deldir_component  SDL2       $VERSION_SDL2 "SDL2"                ||
-   ! unpack_component  SDL2_image                                     ||
-   ! build_component   SDL2_image                                     ||
-   ! deldir_component  SDL2_image $VERSION_SDL2_IMAGE "SDL2_image"    ||
-   ! unpack_component  SDL2_gfx                                       ||
-   ! autogen_component SDL2_gfx   $VERSION_SDL2_GFX \
-        "aclocal automake autoconf"                                   ||
-   ! build_component   SDL2_gfx                                       ||
-   ! deldir_component  SDL2_gfx   $VERSION_SDL2_GFX   "SDL2_gfx"      ||
-   ! unpack_component  SDL2_ttf                                       ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS          ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/README        ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/AUTHORS       ||
-   ! touch $CROSSER_SRCDIR/SDL2_ttf-${VERSION_SDL2_TTF}/ChangeLog     ||
+if ! unpack_component  SDL2                                            ||
+   ! patch_src SDL2 "${VERSION_SDL2}" "sdl2_epsilon"                   ||
+   ! build_component_def_make SDL2                                     ||
+   ! deldir_component  SDL2       "${VERSION_SDL2}" "SDL2"             ||
+   ! unpack_component  SDL2_image                                      ||
+   ! build_component   SDL2_image                                      ||
+   ! deldir_component  SDL2_image "${VERSION_SDL2_IMAGE}" "SDL2_image" ||
+   ! unpack_component  SDL2_gfx                                        ||
+   ! autogen_component SDL2_gfx   "${VERSION_SDL2_GFX}" \
+        "aclocal automake autoconf"                                    ||
+   ! build_component   SDL2_gfx                                        ||
+   ! deldir_component  SDL2_gfx   "${VERSION_SDL2_GFX}"   "SDL2_gfx"   ||
+   ! unpack_component  SDL2_ttf                                        ||
+   ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS"       ||
+   ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/README"     ||
+   ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/AUTHORS"    ||
+   ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/ChangeLog"  ||
    ! autogen_component SDL2_ttf   "${VERSION_SDL2_TTF}" \
         "aclocal automake autoconf"                                    ||
    ! build_component   SDL2_ttf                                        \
