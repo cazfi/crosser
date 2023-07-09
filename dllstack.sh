@@ -1197,24 +1197,24 @@ if ! build_component   tiff                                                 ||
       build_with_meson shared-mime-info )                                   ||
    ! (is_minimum_version $VERSION_SHARED_MIME_INFO 2.0 ||
       build_component_full shared-mime-info shared-mime-info "" "" "" \
-       "no" )                                                               ||
-   ! deldir_component  shared-mime-info $VERSION_SHARED_MIME_INFO           \
-     "shared-mime-info"                                                     ||
-   ! unpack_component  jansson                                              ||
-   ! build_component   jansson                                              ||
-   ! deldir_component  jansson    $VERSION_JANSSON "jansson"                ||
-   ! unpack_component  freetype                                             ||
-   ! build_component   freetype   "--without-bzip2"                         ||
-   ! deldir_component  freetype   "${VERSION_FREETYPE}" "freetype"          ||
-   ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"           ||
-   ! ( is_max_version $VERSION_HARFBUZZ 2.5.0 ||
-       patch_src harfbuzz $VERSION_HARFBUZZ "harfbuzz_pthread_disable" )    ||
-   ! ( is_minimum_version $VERSION_HARFBUZZ 2.6.7 ||
-       patch_src       harfbuzz   $VERSION_HARFBUZZ "harfbuzz_python3" )    ||
+       "no" )                                                                ||
+   ! deldir_component  shared-mime-info "${VERSION_SHARED_MIME_INFO}"        \
+     "shared-mime-info"                                                      ||
+   ! unpack_component  jansson                                               ||
+   ! build_component   jansson                                               ||
+   ! deldir_component  jansson    "${VERSION_JANSSON}" "jansson"             ||
+   ! unpack_component  freetype                                              ||
+   ! build_component   freetype   "--without-bzip2"                          ||
+   ! deldir_component  freetype   "${VERSION_FREETYPE}" "freetype"           ||
+   ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"            ||
+   ! ( is_max_version "${VERSION_HARFBUZZ}" 2.5.0 ||
+       patch_src harfbuzz "${VERSION_HARFBUZZ}" "harfbuzz_pthread_disable" ) ||
+   ! ( is_minimum_version "${VERSION_HARFBUZZ}" 2.6.7 ||
+       patch_src       harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz_python3" ) ||
    ! build_with_meson  harfbuzz \
-       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled"                    ||
-   ! deldir_component  harfbuzz   $VERSION_HARFBUZZ "harfbuzz"              ||
-   ! unpack_component  fontconfig                                           ||
+       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled"                     ||
+   ! deldir_component  harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz"           ||
+   ! unpack_component  fontconfig                                            ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.0 ||

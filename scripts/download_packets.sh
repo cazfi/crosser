@@ -435,7 +435,7 @@ then
     sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON=$VERSION_SELECTED ;;
-    harfbuzz)    VERSION_HARFBUZZ=$VERSION_SELECTED ;;
+    harfbuzz)    VERSION_HARFBUZZ="${VERSION_SELECTED}" ;;
     freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
@@ -616,7 +616,7 @@ download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v$
 RET="$RET $?"
 download_needed "https://download.osgeo.org/libtiff/"    "tiff"    "${VERSION_TIFF}"       "tar.xz"
 RET="$RET $?"
-download_needed "${MIRROR_GITHUB}/harfbuzz/harfbuzz/archive/" "harfbuzz" "$VERSION_HARFBUZZ.tar.gz" "" "" "harfbuzz"
+download_needed "${MIRROR_GITHUB}/harfbuzz/harfbuzz/archive/" "harfbuzz" "${VERSION_HARFBUZZ}.tar.gz" "" "" "harfbuzz"
 RET="$RET $?"
 download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSION_FREETYPE}"   "${FT_PACK}"
 RET="$RET $?"
