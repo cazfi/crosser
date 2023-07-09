@@ -1137,7 +1137,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libffi                                         ||
    ! deldir_component  libffi     $VERSION_FFI     "libffi"           ||
    ! build_with_meson  glib                                           ||
-   ! deldir_component  glib       $VERSION_GLIB    "glib"             ||
+   ! deldir_component  glib       "${VERSION_GLIB}" "glib"            ||
    ! unpack_component  fribidi                                        ||
    ! build_component   fribidi    "--disable-docs"                    ||
    ! deldir_component  fribidi    $VERSION_FRIBIDI "fribidi"

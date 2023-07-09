@@ -400,11 +400,11 @@ MIRROR_GNOME="https://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="https://download.savannah.gnu.org"
 MIRROR_GITHUB="https://github.com"
 
-if test "$VERSION_SELECTED" != ""
+if test "${VERSION_SELECTED}" != ""
 then
   case $DOWNLOAD_PACKET in
     zlib)        VERSION_ZLIB=$VERSION_SELECTED ;;
-    glib)        VERSION_GLIB=$VERSION_SELECTED ;;
+    glib)        VERSION_GLIB="${VERSION_SELECTED}" ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
     pango2)      VERSION_PANGO2=$VERSION_SELECTED ;;
     graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
@@ -453,7 +453,7 @@ then
   esac
 fi
 
-GLIB_DIR="$(echo $VERSION_GLIB | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GLIB_DIR="$(echo "${VERSION_GLIB}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR} ))"
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GOBJ_INTRO_DIR="$(echo $VERSION_GOBJ_INTRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -606,7 +606,7 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
 RET="$RET $?"
 download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
 RET="$RET $?"
-download_needed "$MIRROR_GNOME/sources/glib/$GLIB_DIR/" "glib"       "$VERSION_GLIB"       "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/glib/${GLIB_DIR}/" "glib"     "${VERSION_GLIB}"       "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.xz"
 RET="$RET $?"
