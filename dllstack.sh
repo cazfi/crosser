@@ -1603,9 +1603,11 @@ log_write 1 "Creating crosser.txt"
     echo "CROSSER_GTK3=\"no\""
   fi
   echo "CROSSER_GTK4=\"${CROSSER_GTK4}\""
+  echo "CROSSER_GTK5=\"no\""
   echo "CROSSER_QT5=\"${CROSSER_QT5}\""
   echo "CROSSER_QT6=\"${CROSSER_QT6}\""
   echo "CROSSER_SDL2=\"${CROSSER_SDL2}\""
+  echo "CROSSER_SDL3=\"no\""
   echo "CROSSER_READLINE=\"${CROSSER_READLINE}\""
   echo "CROSSER_SFML=\"${CROSSER_SFML}\""
   echo
