@@ -392,7 +392,7 @@ build_with_cmake_full()
 
   if test "$4" = "native-qt6"
   then
-    CONFOPTIONS="--prefix=${DLLSPREFIX}/linux $3"
+    CONFOPTIONS="--prefix=${DIST_NATIVE_PREFIX} $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
@@ -848,6 +848,8 @@ then
   log_error "Cannot create host directory hierarchy under \"${NATIVE_PREFIX}\""
   exit 1
 fi
+
+export DIST_NATIVE_PREFIX="${DLLSPREFIX}/linux"
 
 export PATH="${NATIVE_PREFIX}/bin:${NATIVE_PREFIX}/meson-${VERSION_MESON}:${PATH}"
 
@@ -1547,7 +1549,7 @@ if ! unpack_component qt6                                                       
      "native-qt6"                                                                  ||
    ! deldir_build "native-qt6"                                                     ||
    ! build_with_cmake_full  qt6 qt6                                                \
-     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DLLSPREFIX}/linux -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations ${QT6_EXTRA_CONF} -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
+     "-opensource -confirm-license -xplatform win32-g++ -qt-host-path ${DIST_NATIVE_PREFIX} -plugindir ${DLLSPREFIX}/qt6/plugins -headerdir ${DLLSPREFIX}/qt6/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -pkg-config -system-pcre -system-harfbuzz -skip qtquick3d -skip qtquick3dphysics -skip qtactiveqt -skip qttools -skip qtcoap -skip qtdoc -skip qtmqtt -skip qtopcua -skip qttranslations ${QT6_EXTRA_CONF} -- -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX}" \
      "qt"                                                                          ||
    ! deldir_component qt-everywhere-src "${VERSION_QT6}" "qt6"
 then
@@ -1568,10 +1570,10 @@ then
 fi
 fi
 
-if ! test -f "${DLLSPREFIX}/linux/libexec/moc-qt6"
+if ! test -f "${DIST_NATIVE_PREFIX}/libexec/moc-qt6"
 then
   # For compatibility with crosser < 2.5.
-  if ! ln -s "${DLLSPREFIX}/linux/libexec/moc" "${DLLSPREFIX}/linux/libexec/moc-qt6"
+  if ! ln -s "${DIST_NATIVE_PREFIX}/libexec/moc" "${DIST_NATIVE_PREFIX}/libexec/moc-qt6"
   then
     log_error "Failed to make moc-qt6 compatibility link"
     exit 1
