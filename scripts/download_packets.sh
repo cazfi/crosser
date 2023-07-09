@@ -424,8 +424,8 @@ then
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
-    qt5)         VERSION_QT5=$VERSION_SELECTED ;;
-    qt6)         VERSION_QT6=$VERSION_SELECTED ;;
+    qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
+    qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
     tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
     libpng)      VERSION_PNG=$VERSION_SELECTED ;;
@@ -471,8 +471,8 @@ CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
 LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
-QT5_DIR="$(echo $VERSION_QT5 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
-QT6_DIR="$(echo $VERSION_QT6 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR))"
+QT5_DIR="$(echo "${VERSION_QT5}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR}))"
+QT6_DIR="$(echo "${VERSION_QT6}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR}))"
 XML2_DIR="$(echo $VERSION_XML2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 CAIRO_DIR="$(echo $VERSION_CAIRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
@@ -546,18 +546,18 @@ else
   FC_PACK="tar.gz"
 fi
 
-if echo $VERSION_QT5 | grep alpha >/dev/null ||
-   echo $VERSION_QT5 | grep beta >/dev/null ||
-   echo $VERSION_QT5 | grep rc >/dev/null
+if echo "${VERSION_QT5}" | grep alpha >/dev/null ||
+   echo "${VERSION_QT5}" | grep beta >/dev/null ||
+   echo "${VERSION_QT5}" | grep rc >/dev/null
 then
   QT5_RELEASEDIR="development_releases"
 else
   QT5_RELEASEDIR="official_releases"
 fi
 
-if echo $VERSION_QT6 | grep alpha >/dev/null ||
-   echo $VERSION_QT6 | grep beta >/dev/null ||
-   echo $VERSION_QT6 | grep rc >/dev/null
+if echo "${VERSION_QT6}" | grep alpha >/dev/null ||
+   echo "${VERSION_QT6}" | grep beta >/dev/null ||
+   echo "${VERSION_QT6}" | grep rc >/dev/null
 then
   QT6_RELEASEDIR="development_releases"
 else
@@ -703,11 +703,11 @@ download_needed "${MIRROR_GITHUB}/tinycthread/tinycthread/archive/refs/tags/" "t
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/unicode-org/icu/releases/download/${ICU_DIR}/" "icu4c" "icu4c-${ICU_FILEVER}-src.tgz"
 RET="$RET $?"
-download_needed "http://download.qt.io/$QT5_RELEASEDIR/qt/$QT5_DIR/$VERSION_QT5/single/" "qt5" "$VERSION_QT5" "tar.xz" \
-                "http://download.qt.io/archive/qt/$QT5_DIR/$VERSION_QT5/single/"
+download_needed "https://download.qt.io/${QT5_RELEASEDIR}/qt/${QT5_DIR}/${VERSION_QT5}/single/" "qt5" "${VERSION_QT5}" "tar.xz" \
+                "https://download.qt.io/archive/qt/${QT5_DIR}/${VERSION_QT5}/single/"
 RET="$RET $?"
-download_needed "http://download.qt.io/$QT6_RELEASEDIR/qt/$QT6_DIR/$VERSION_QT6/single/" "qt6" "$VERSION_QT6" "tar.xz" \
-                "http://download.qt.io/archive/qt/$QT6_DIR/$VERSION_QT6/single/"
+download_needed "https://download.qt.io/${QT6_RELEASEDIR}/qt/${QT6_DIR}/${VERSION_QT6}/single/" "qt6" "${VERSION_QT6}" "tar.xz" \
+                "https://download.qt.io/archive/qt/${QT6_DIR}/${VERSION_QT6}/single/"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/mesonbuild/meson/archive/" "meson" "${VERSION_MESON}.tar.gz" "" "" "meson"
 RET="$RET $?"
