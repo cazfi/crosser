@@ -1187,6 +1187,13 @@ then
   exit 1
 fi
 
+if test "${VERSION_PANGO2}" != "0"
+then
+  HB_EXTRA_CONFIG="-Ddirectwrite=enabled"
+else
+  HB_EXTRA_CONFIG=""
+fi
+
 if ! build_component   tiff                                                 ||
    ! deldir_component  tiff       $VERSION_TIFF "tiff"                      ||
    ! build_component   libxml2                                              \
@@ -1212,7 +1219,7 @@ if ! build_component   tiff                                                 ||
    ! ( is_minimum_version "${VERSION_HARFBUZZ}" 2.6.7 ||
        patch_src       harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz_python3" ) ||
    ! build_with_meson  harfbuzz \
-       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled"                     ||
+       "-Dicu=disabled -Dtests=disabled -Ddocs=disabled ${HB_EXTRA_CONFIG}"  ||
    ! deldir_component  harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz"           ||
    ! unpack_component  fontconfig                                            ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
@@ -1261,9 +1268,9 @@ if ! build_component   tiff                                                 ||
       build_with_meson pango "-Dintrospection=disabled" )                   ||
    ! deldir_component  pango      $VERSION_PANGO "pango"                    ||
    ! unpack_component  pango2                                               ||
-   ! patch_src         pango2 "$VERSION_PANGO2" "pango2_cairoless_extst"    ||
+   ! patch_src         pango2 "${VERSION_PANGO2}" "pango2_cairoless_extst"  ||
    ! build_with_meson  pango2 "-Dintrospection=disabled -Dcairo=disabled"   ||
-   ! deldir_component  pango2    "$VERSION_PANGO2" "pango2"                 ||
+   ! deldir_component  pango2    "${VERSION_PANGO2}" "pango2"               ||
    ! unpack_component  atk                                                  ||
    ! (is_minimum_version $VERSION_ATK 2.29.1 ||
       build_component   atk )                                               ||
