@@ -417,7 +417,7 @@ then
     PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
-    autoconf)    VERSION_AUTOCONF=$VERSION_SELECTED ;;
+    autoconf)    VERSION_AUTOCONF="${VERSION_SELECTED}" ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     gettext)     VERSION_GETTEXT=$VERSION_SELECTED ;;
@@ -566,7 +566,8 @@ fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
-download_needed "$MIRROR_GNU/autoconf/" "autoconf" "$VERSION_AUTOCONF" "tar.xz"
+download_needed "${MIRROR_GNU}/autoconf/" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
+                "https://alpha.gnu.org/pub/gnu/autoconf/"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
 RET="$RET $?"

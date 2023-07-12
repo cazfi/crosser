@@ -961,7 +961,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
    ! unpack_component     autoconf                          ||
    ! build_component_host autoconf                          ||
-   ! deldir_component     autoconf   $VERSION_AUTOCONF "native-autoconf" ||
+   ! deldir_component     autoconf   "${VERSION_AUTOCONF}" "native-autoconf" ||
    ! unpack_component     automake                          ||
    ! build_component_host automake                          ||
    ! deldir_component     automake   $VERSION_AUTOMAKE "native-automake" ||
