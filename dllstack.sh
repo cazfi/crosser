@@ -219,7 +219,7 @@ build_component_full()
     export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
   elif test "$4" = "pkg-config"
   then
-    CONFOPTIONS="--prefix=${NATIVE_PREFIX} --program-prefix=${CROSSER_TARGET}- $3"
+    CONFOPTIONS="--prefix=${DIST_NATIVE_PREFIX} --program-prefix=${CROSSER_TARGET}- $3"
     unset CPPFLAGS
     unset LDFLAGS
     export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
@@ -511,7 +511,7 @@ build_with_meson_full()
 {
   log_packet "$2"
 
-  BVER=$(component_version $2)
+  BVER="$(component_version $2)"
 
   if test "${BVER}" = ""
   then
@@ -524,7 +524,7 @@ build_with_meson_full()
     return 0
   fi
 
-  BNAME=$(component_name_to_package_name $2 $BVER)
+  BNAME="$(component_name_to_package_name $2 "${BVER}")"
 
   SUBDIR="$(src_subdir $BNAME $BVER)"
   if test "${SUBDIR}" = ""
@@ -564,6 +564,7 @@ build_with_meson_full()
   fi
 
   log_write 1 "Running meson for ${DISPLAY_NAME}"
+  log_write 3 "  PKG_CONFIG_PATH: \"${PKG_CONFIG_PATH}\""
   log_write 3 "  Options: $3"
 
   if test "$4" = "native"
@@ -851,7 +852,7 @@ fi
 
 export DIST_NATIVE_PREFIX="${DLLSPREFIX}/linux"
 
-export PATH="${NATIVE_PREFIX}/bin:${NATIVE_PREFIX}/meson-${VERSION_MESON}:${PATH}"
+export PATH="${DIST_NATIVE_PREFIX}/bin:${NATIVE_PREFIX}/bin:${NATIVE_PREFIX}/meson-${VERSION_MESON}:${PATH}"
 
 if ! packetdir_check
 then
@@ -866,7 +867,7 @@ if ! (
   TARGET_GPP=$(command -v ${CROSSER_TARGET}-g++${TARGET_SUFFIX})
   TARGET_AR=$(command -v ${CROSSER_TARGET}-ar)
   TARGET_STRIP=$(command -v ${CROSSER_TARGET}-strip)
-  TARGET_PKGCONFIG="${NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"
+  TARGET_PKGCONFIG="${DIST_NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"
   TARGET_WINDRES=$(command -v ${CROSSER_TARGET}-windres)
 
   if test "${TARGET_GCC}" = ""   ||
@@ -955,7 +956,7 @@ GETTEXT_VARS="$(read_configure_vars gettext)"
 CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-export LD_LIBRARY_PATH="${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
+export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
@@ -1003,10 +1004,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
      "native-gobject-introspection"                                         ||
    ! build_component_host pkg-config                                        \
-     "--with-pc-path=$DLLSPREFIX/lib/pkgconfig --disable-host-tool" "pkg-config" ||
-   ! deldir_component     pkg-config $VERSION_PKG_CONFIG "cross-pkg-config"      ||
-   ! mv $NATIVE_PREFIX/bin/pkg-config $NATIVE_PREFIX/bin/pkg-config.real         ||
-   ! ln -s $CROSSER_PKGCONF $NATIVE_PREFIX/bin/pkg-config                        ||
+     "--with-pc-path=${DLLSPREFIX}/lib/pkgconfig --disable-host-tool" "pkg-config" ||
+   ! deldir_component     pkg-config "${VERSION_PKG_CONFIG}" "cross-pkg-config"    ||
+   ! mv "${NATIVE_PREFIX}/bin/pkg-config" "${NATIVE_PREFIX}/bin/pkg-config.real"   ||
+   ! ln -s "${CROSSER_PKGCONF}" "${NATIVE_PREFIX}/bin/pkg-config"                  ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||
