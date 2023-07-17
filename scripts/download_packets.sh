@@ -395,7 +395,7 @@ if test "$MIRROR_GNU" = "" ; then
   MIRROR_GNU="https://ftp.gnu.org/gnu/"
 fi
 
-MIRROR_SOURCEFORGE="http://sourceforge.net"
+MIRROR_SOURCEFORGE="https://sourceforge.net"
 MIRROR_GNOME="https://ftp.gnome.org/pub/gnome"
 MIRROR_SAVANNAH="https://download.savannah.gnu.org"
 MIRROR_GITHUB="https://github.com"
@@ -428,7 +428,7 @@ then
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
     tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
     icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
-    libpng)      VERSION_PNG=$VERSION_SELECTED ;;
+    libpng)      VERSION_PNG="${VERSION_SELECTED}" ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
@@ -470,7 +470,7 @@ fi
 CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
 LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-PNG_DIR="$(echo $VERSION_PNG | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
+PNG_DIR="$(echo "${VERSION_PNG}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT5_DIR="$(echo "${VERSION_QT5}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR}))"
 QT6_DIR="$(echo "${VERSION_QT6}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR}))"
 XML2_DIR="$(echo $VERSION_XML2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -583,11 +583,11 @@ download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VE
 RET="$RET $?"
 download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/$VERSION_PNG/" "libpng" "$VERSION_PNG" "tar.xz" \
-                "$MIRROR_SOURCEFORGE/projects/libpng/files/$PNG_DIR/older-releases/$VERSION_PNG/"
+download_needed "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/${VERSION_PNG}/" "libpng" "${VERSION_PNG}" "tar.xz" \
+                "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/older-releases/${VERSION_PNG}/"
 RET="$RET $?"
 download_needed "https://zlib.net/"                     "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK" \
-                "$MIRROR_SOURCEFORGE/projects/libpng/files/zlib/$VERSION_ZLIB/"
+                "${MIRROR_SOURCEFORGE}/projects/libpng/files/zlib/${VERSION_ZLIB}/"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
 RET="$RET $?"
@@ -595,7 +595,7 @@ download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_X
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
 RET="$RET $?"
-download_needed "$MIRROR_SOURCEFORGE/projects/pdcurses/files/pdcurses/$VERSION_PDCURSES/" "PDCurses"      "$VERSION_PDCURSES"      "tar.gz"
+download_needed "${MIRROR_SOURCEFORGE}/projects/pdcurses/files/pdcurses/${VERSION_PDCURSES}/" "PDCurses"      "${VERSION_PDCURSES}"      "tar.gz"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
 RET="$RET $?"
