@@ -3,6 +3,7 @@
 	- Crosser building docker container updated to Debian Bookworm
 	- Container supports building versionsets other than "current"
 	- Container supports building for other "setup" than the default
+	- Container output directory provides access to host-side builds
 	- Cross pkg-config is installed under native tree on dllstack package
 	- Renamed configure option DLLSHOST_PREFIX as CROSSER_HOST_PREFIX
 	- Updated auxiliary config.guess and config.sub to '2023-06-26' level

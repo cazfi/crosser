@@ -16,4 +16,5 @@ export CROSSER_TMPDEL=yes
 . scripts/helpers.sh
 
 CROSSER_FULL=yes CROSSER_LOGDIR=/usr/crosser/log CROSSER_PACKETDIR=/packets \
+CROSSER_HOST_PREFIX="/usr/crosser/host/<VERSION>/<VERSIONSET>" \
   ./dllstack.sh "/usr/crosser/win64stack-full-${CROSSER_VERSION}" "$1" "$2"
