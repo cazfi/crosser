@@ -71,6 +71,10 @@ if test "$CROSSER_TMPFREE" != "" && test "$CROSSER_TMPDEL" = "" ; then
   echo "Configuration variable CROSSER_TMPFREE is deprecated. Please use CROSSER_TMPDEL" >&2
   CROSSER_TMPDEL="$CROSSER_TMPFREE"
 fi
+if test "${CROSSER_HOST_PREFIX}" = "" && test "${DLLSHOST_PREFIX}" != "" ; then
+  echo "Configuration variable DLLSHOST_PREFIX is deprecated. Please use CROSSER_HOST_PREFIX" >&2
+  CROSSER_HOST_PREFIX="${DLLSHOST_PREFIX}"
+fi
 if test "$CROSSER_FULL" = "" ; then
   CROSSER_FULL="no"
 fi

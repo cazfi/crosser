@@ -784,7 +784,7 @@ fi
 
 export DLLSPREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "${DLLSPREFIX}")
 export NATIVE_PREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
-                       "${DLLSHOST_PREFIX}")
+                       "${CROSSER_HOST_PREFIX}")
 
 TARGET_GCC_VER=$(${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
 TARGET_GXX_VER=$(${CROSSER_TARGET}-g++${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')

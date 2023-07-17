@@ -4,6 +4,7 @@
 	- Container supports building versionsets other than "current"
 	- Container supports building for other "setup" than the default
 	- Cross pkg-config is installed under native tree on dllstack package
+	- Renamed configure option DLLSHOST_PREFIX as CROSSER_HOST_PREFIX
 	- Updated auxiliary config.guess and config.sub to '2023-06-26' level
 	- Added pango2 to build (version 0.91.0)
 	- Updated gtk4 to version 4.10.4
