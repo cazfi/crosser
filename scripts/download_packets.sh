@@ -434,7 +434,7 @@ then
     pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
     sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
-    meson)       VERSION_MESON=$VERSION_SELECTED ;;
+    meson)       VERSION_MESON="${VERSION_SELECTED}" ;;
     harfbuzz)    VERSION_HARFBUZZ="${VERSION_SELECTED}" ;;
     freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
