@@ -17,7 +17,7 @@ VERSION_MESON=1.2.0
 
 VERSION_ICONV=1.17
 # There is a 1.7 development version, but upstream has abandoned it
-VERSION_PNG=1.6.39
+VERSION_PNG=1.6.40
 VERSION_ZLIB=1.2.13
 VERSION_XZ=5.4.3
 VERSION_ZSTD=1.5.5

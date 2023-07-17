@@ -1044,7 +1044,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_component     util-macros $VERSION_UTIL_MACROS                  \
      "native-util-macros"                                                   ||
    ! unpack_component     libpng                                            ||
-   ! patch_src            libpng      $VERSION_PNG "png_epsilon-1.6.8"      ||
+   ! patch_src            libpng      "${VERSION_PNG}" "png_epsilon-1.6.8"  ||
    ! build_component_host libpng                                            ||
    ! deldir_build         "native-libpng"                                   ||
    ! unpack_component     ImageMagick ""                                    \
@@ -1121,7 +1121,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
    ! deldir_component  ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
    ! build_component   libpng                                                        ||
-   ! deldir_component  libpng     $VERSION_PNG "libpng"                              ||
+   ! deldir_component  libpng     "${VERSION_PNG}" "libpng"                          ||
    ! unpack_component  gettext                                                       ||
    ! (is_smaller_version $VERSION_GETTEXT 0.20 ||
       is_minimum_version $VERSION_GETTEXT 0.20.2 ||
