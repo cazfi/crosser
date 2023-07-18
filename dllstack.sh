@@ -1591,7 +1591,7 @@ fi
 fi
 
 GDKPBL="lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-WGDKPBL="$(echo "${GDKPBL}" | sed 's,/,\\,g')"
+WGDKPBL="${GDKPBL//\//\\}"
 
 log_write 1 "Creating crosser.txt"
 (
