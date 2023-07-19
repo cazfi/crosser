@@ -896,8 +896,8 @@ component_patches()
 #
 host_pkg_config()
 {
-    # Make sure we don't run 'command -v' in a removed directory
-    # cd to safe directory
-    cd $CROSSER_MAINDIR
-    command -v pkg-config
+  # Make sure we don't run 'command -v' in a removed directory
+  # cd to safe directory
+  cd "${CROSSER_MAINDIR}"
+  command -v pkg-config
 }

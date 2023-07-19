@@ -1338,11 +1338,12 @@ if ! unpack_component libcroco                                        ||
    ! deldir_component hicolor-icon-theme $VERSION_HICOLOR             \
      "hicolor-icon-theme"                                             ||
    ! unpack_component tango-icon-theme                                ||
-   ! patch_src tango-icon-theme $VERSION_TANGO_ICONS                  \
+   ! patch_src tango-icon-theme "${VERSION_TANGO_ICONS}"              \
      "tango_pkg_config_host"                                          ||
    ! PKG_CONFIG_FOR_BUILD="$(host_pkg_config)"                        \
-     build_component  tango-icon-theme   $VERSION_TANGO_ICONS         ||
-   ! deldir_component tango-icon-theme   $VERSION_TANGO_ICONS         \
+     PKG_PATH_FOR_BUILD="${NATIVE_PKG_CONFIG_PATH}"                   \
+     build_component  tango-icon-theme   "${VERSION_TANGO_ICONS}"     ||
+   ! deldir_component tango-icon-theme   "${VERSION_TANGO_ICONS}"     \
      "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
    ! patch_src adwaita-icon-theme $VERSION_ADWAITA_ICON               \

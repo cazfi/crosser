@@ -1,6 +1,6 @@
 diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
---- tango-icon-theme-0.8.90/configure	2015-10-16 19:58:33.255795468 +0300
-+++ tango-icon-theme-0.8.90/configure	2015-10-16 19:57:00.974783757 +0300
+--- tango-icon-theme-0.8.90/configure	2009-02-26 05:08:00.000000000 +0200
++++ tango-icon-theme-0.8.90/configure	2023-07-19 12:57:42.158152198 +0300
 @@ -6410,9 +6410,9 @@
  
  { echo "$as_me:$LINENO: checking icon-naming-utils >= $UTILS_REQUIRED" >&5
@@ -8,9 +8,9 @@ diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
 -if test -n "$PKG_CONFIG" && \
 -    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"icon-naming-utils >= \$UTILS_REQUIRED\"") >&5
 -  ($PKG_CONFIG --exists --print-errors "icon-naming-utils >= $UTILS_REQUIRED") 2>&5
-+if test -n "$PKG_CONFIG_FOR_BUILD" && \
-+    { (echo "$as_me:$LINENO: \$PKG_CONFIG_FOR_BUILD --exists --print-errors \"icon-naming-utils >= \$UTILS_REQUIRED\"") >&5
-+  ($PKG_CONFIG_FOR_BUILD --exists --print-errors "icon-naming-utils >= $UTILS_REQUIRED") 2>&5
++if test -n "${PKG_CONFIG_FOR_BUILD}" && \
++    { (echo "$as_me:$LINENO: \${PKG_CONFIG_FOR_BUILD} --exists --print-errors \"icon-naming-utils >= \$UTILS_REQUIRED\"") >&5
++  (PKG_CONFIG_PATH="${PKG_PATH_FOR_BUILD}" "${PKG_CONFIG_FOR_BUILD}" --exists --print-errors "icon-naming-utils >= $UTILS_REQUIRED") 2>&5
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
@@ -19,7 +19,7 @@ diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
  fi
  if test "x$have_utils" = "xyes"; then
 -   UTILS_PATH="`$PKG_CONFIG --variable=program_path icon-naming-utils`"
-+   UTILS_PATH="`$PKG_CONFIG_FOR_BUILD --variable=program_path icon-naming-utils`"
++   UTILS_PATH="$(PKG_CONFIG_PATH="${PKG_PATH_FOR_BUILD}" "${PKG_CONFIG_FOR_BUILD}" --variable=program_path icon-naming-utils)"
     ICONMAP="$UTILS_PATH/icon-name-mapping"
  
     { echo "$as_me:$LINENO: result: yes" >&5
@@ -30,9 +30,9 @@ diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
 -   if test -n "$PKG_CONFIG" && \
 -    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"ImageMagick >= 5.5.7\"") >&5
 -  ($PKG_CONFIG --exists --print-errors "ImageMagick >= 5.5.7") 2>&5
-+   if test -n "$PKG_CONFIG_FOR_BUILD" && \
-+    { (echo "$as_me:$LINENO: \$PKG_CONFIG_FOR_BUILD --exists --print-errors \"ImageMagick >= 5.5.7\"") >&5
-+  ($PKG_CONFIG_FOR_BUILD --exists --print-errors "ImageMagick >= 5.5.7") 2>&5
++   if test -n "${PKG_CONFIG_FOR_BUILD}" && \
++    { (echo "$as_me:$LINENO: \${PKG_CONFIG_FOR_BUILD} --exists --print-errors \"ImageMagick >= 5.5.7\"") >&5
++  (PKG_CONFIG_PATH="${PKG_PATH_FOR_BUILD}" "${PKG_CONFIG_FOR_BUILD}" --exists --print-errors "ImageMagick >= 5.5.7") 2>&5
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
@@ -41,9 +41,9 @@ diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
 -  if test -n "$PKG_CONFIG" && \
 -    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"GraphicsMagick >= 1.1\"") >&5
 -  ($PKG_CONFIG --exists --print-errors "GraphicsMagick >= 1.1") 2>&5
-+  if test -n "$PKG_CONFIG_FOR_BUILD" && \
-+    { (echo "$as_me:$LINENO: \$PKG_CONFIG_FOR_BUILD --exists --print-errors \"GraphicsMagick >= 1.1\"") >&5
-+  ($PKG_CONFIG_FOR_BUILD --exists --print-errors "GraphicsMagick >= 1.1") 2>&5
++  if test -n "${PKG_CONFIG_FOR_BUILD}" && \
++    { (echo "$as_me:$LINENO: \${PKG_CONFIG_FOR_BUILD} --exists --print-errors \"GraphicsMagick >= 1.1\"") >&5
++  (PKG_CONFIG_PATH="${PKG_PATH_FOR_BUILD}" "${PKG_CONFIG_FOR_BUILD}" --exists --print-errors "GraphicsMagick >= 1.1") 2>&5
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
@@ -54,9 +54,9 @@ diff -Nurd tango-icon-theme-0.8.90/configure tango-icon-theme-0.8.90/configure
 -   if test -n "$PKG_CONFIG" && \
 -    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"librsvg-2.0 >= 2.12.3\"") >&5
 -  ($PKG_CONFIG --exists --print-errors "librsvg-2.0 >= 2.12.3") 2>&5
-+   if test -n "$PKG_CONFIG_FOR_BUILD" && \
-+    { (echo "$as_me:$LINENO: \$PKG_CONFIG_FOR_BUILD --exists --print-errors \"librsvg-2.0 >= 2.12.3\"") >&5
-+  ($PKG_CONFIG_FOR_BUILD --exists --print-errors "librsvg-2.0 >= 2.12.3") 2>&5
++   if test -n "${PKG_CONFIG_FOR_BUILD}" && \
++    { (echo "$as_me:$LINENO: \${PKG_CONFIG_FOR_BUILD} --exists --print-errors \"librsvg-2.0 >= 2.12.3\"") >&5
++  (PKG_CONFIG_PATH="${PKG_PATH_FOR_BUILD}" "${PKG_CONFIG_FOR_BUILD}" --exists --print-errors "librsvg-2.0 >= 2.12.3") 2>&5
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
