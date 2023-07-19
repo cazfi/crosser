@@ -210,19 +210,19 @@ build_component_full()
     CONFOPTIONS="--prefix=${NATIVE_PREFIX} $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PKG_CONFIG_PATH}"
   elif test "$4" = "cross"
   then
     CONFOPTIONS="--prefix=${NATIVE_PREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_BUILD_ARCH} --target=${CROSSER_TARGET} $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PKG_CONFIG_PATH}"
   elif test "$4" = "pkg-config"
   then
     CONFOPTIONS="--prefix=${DIST_NATIVE_PREFIX} --program-prefix=${CROSSER_TARGET}- $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PKG_CONFIG_PATH}"
   elif test "$4" = "custom"
   then
     CONFOPTIONS="$3"
@@ -395,7 +395,7 @@ build_with_cmake_full()
     CONFOPTIONS="--prefix=${DIST_NATIVE_PREFIX} $3"
     unset CPPFLAGS
     unset LDFLAGS
-    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PKG_CONFIG_PATH}"
   elif test "$4" = "qt"
   then
     CONFOPTIONS="-prefix ${DLLSPREFIX} $3"
@@ -554,7 +554,7 @@ build_with_meson_full()
   cd "${BUILDDIR}"
 
   if test "$4" = "native" ; then
-    export PKG_CONFIG_PATH="${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+    export PKG_CONFIG_PATH="${NATIVE_PKG_CONFIG_PATH}"
   else
     # The argument that can be given properly via the cross-file,
     # are given that way. Here are the rest.
@@ -957,6 +957,7 @@ CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
 export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
+export NATIVE_PKG_CONFIG_PATH="${DIST_NATIVE_PREFIX}/lib64/pkgconfig:${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
