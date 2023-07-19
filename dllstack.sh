@@ -926,7 +926,9 @@ fi
 log_write 1 "Setting up fixed environment"
 
 if ! mkdir -p "${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}" ||
-   ! ln -s ../pkgconfig "${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/"
+   ! ln -s ../pkgconfig "${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/" ||
+   ! mkdir -p "${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}" ||
+   ! ln -s ../pkgconfig "${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/"
 then
   log_error "Failed to set up fixed environment"
   exit 1
@@ -956,8 +958,8 @@ GETTEXT_VARS="$(read_configure_vars gettext)"
 CAIRO_VARS="$(read_configure_vars cairo)"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${DIST_NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/$CROSSER_PKG_ARCH"
-export NATIVE_PKG_CONFIG_PATH="${DIST_NATIVE_PREFIX}/lib64/pkgconfig:${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
+export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${DIST_NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}"
+export NATIVE_PKG_CONFIG_PATH="${DIST_NATIVE_PREFIX}/lib64/pkgconfig:${NATIVE_PREFIX}/lib/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
 
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
