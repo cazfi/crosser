@@ -976,15 +976,15 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
    ! deldir_build         "native-libffi"                   ||
-   ! unpack_component     pkgconf                                           ||
-   ! autogen_component pkgconf $VERSION_PKGCONF                             ||
-   ! build_component_host pkgconf                                           \
-     "--with-pkg-config-dir=$NATIVE_PREFIX/lib/pkgconfig"                   ||
-   ! deldir_component     pkgconf $VERSION_PKGCONF native-pkgconf           ||
-   ! unpack_component     pkg-config                                        ||
-   ! build_component_host pkg-config                                        \
-     "--with-pc-path=$NATIVE_PREFIX/lib/pkgconfig --with-internal-glib --disable-compile-warnings"    ||
-   ! deldir_build         "native-pkg-config"                               ||
+   ! unpack_component     pkgconf                                            ||
+   ! autogen_component    pkgconf "${VERSION_PKGCONF}"                       ||
+   ! build_component_host pkgconf                                            \
+     "--with-pkg-config-dir=${NATIVE_PREFIX}/lib/pkgconfig --disable-shared" ||
+   ! deldir_build         "native-pkgconf"                                   ||
+   ! unpack_component     pkg-config                                         ||
+   ! build_component_host pkg-config                                         \
+     "--with-pc-path=${NATIVE_PREFIX}/lib/pkgconfig --with-internal-glib --disable-compile-warnings" ||
+   ! deldir_build         "native-pkg-config"                                ||
    ! unpack_component     pcre2                                             ||
    ! build_component_host pcre2                                             \
      "--enable-unicode-properties"                                          ||
@@ -1006,7 +1006,11 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_with_meson_host gobject-introspection                            ||
    ! deldir_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
      "native-gobject-introspection"                                         ||
-   ! build_component_host pkg-config                                        \
+   ! build_component_host pkgconf                                                  \
+     "--with-pkg-config-dir=${DLLSPREFIX}/lib/pkgconfig --disable-shared"          \
+     "pkg-config"                                                                  ||
+   ! deldir_component     pkgconf "${VERSION_PKGCONF}" "cross-pkgconf"             ||
+   ! build_component_host pkg-config                                               \
      "--with-pc-path=${DLLSPREFIX}/lib/pkgconfig --disable-host-tool" "pkg-config" ||
    ! deldir_component     pkg-config "${VERSION_PKG_CONFIG}" "cross-pkg-config"    ||
    ! mv "${NATIVE_PREFIX}/bin/pkg-config" "${NATIVE_PREFIX}/bin/pkg-config.real"   ||
