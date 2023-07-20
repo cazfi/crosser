@@ -1097,11 +1097,11 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
    ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
    ! unpack_component  curl                                           ||
-   ! (is_minimum_version "$VERSION_CURL" 7.86.0 ||
-      patch_src curl "$VERSION_CURL" curl_winpollfd )                 ||
+   ! (is_minimum_version "${VERSION_CURL}" 7.86.0 ||
+      patch_src curl "${VERSION_CURL}" curl_winpollfd )               ||
    ! build_component_full curl curl                                   \
      "--disable-pthreads --with-schannel" "nounicode"                 ||
-   ! deldir_component  curl       $VERSION_CURL "curl"                ||
+   ! deldir_component  curl       "${VERSION_CURL}" "curl"            ||
    ! unpack_component  sqlite                                                        \
      "" "sqlite-autoconf-${SQL_VERSTR}"                                              ||
    ! build_component_full sqlite sqlite                                              \

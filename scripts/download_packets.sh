@@ -623,7 +623,7 @@ download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSIO
 RET="$RET $?"
 download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "${FC_PACK}"
 RET="$RET $?"
-download_needed "https://curl.haxx.se/download/"        "curl"       "$VERSION_CURL"       "tar.xz"
+download_needed "https://curl.haxx.se/download/"        "curl"       "${VERSION_CURL}"     "tar.xz"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/libffi/libffi/releases/download/v${VERSION_FFI}/" "libffi" "$VERSION_FFI" "tar.gz"
 RET="$RET $?"
