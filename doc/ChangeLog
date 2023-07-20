@@ -1,5 +1,6 @@
 2.7
 	- Produced binaries now require Windows 8.1 by default
+	- Properly use pkgconf also as the cross-tool when so configured
 	- Crosser building docker container updated to Debian Bookworm
 	- Container supports building versionsets other than "current"
 	- Container supports building for other "setup" than the default

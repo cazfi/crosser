@@ -1015,6 +1015,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_component     pkg-config "${VERSION_PKG_CONFIG}" "cross-pkg-config"    ||
    ! mv "${NATIVE_PREFIX}/bin/pkg-config" "${NATIVE_PREFIX}/bin/pkg-config.real"   ||
    ! ln -s "${CROSSER_PKGCONF}" "${NATIVE_PREFIX}/bin/pkg-config"                  ||
+   ! mv "${DIST_NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"                   \
+        "${DIST_NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config.real"              ||
+   ! ln -s "${CROSSER_TARGET}-${CROSSER_PKGCONF}"                                  \
+        "${DIST_NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"                   ||
    ! unpack_component  icon-naming-utils                                    ||
    ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
    ! build_component_host icon-naming-utils                                 ||
