@@ -1,0 +1,14 @@
+diff -Nurd ImageMagick-7.1.0-62/configure ImageMagick-7.1.0-62/configure
+--- ImageMagick-7.1.0-62/configure	2023-02-12 17:54:37.000000000 +0200
++++ ImageMagick-7.1.0-62/configure	2023-07-21 21:31:20.400362761 +0300
+@@ -9725,7 +9725,9 @@
+         cygwin_build='yes'
+     ;;
+     mingw* )
+-        native_win32_build='yes'
++       ## There's no check if this is NATIVE build, only if it's win32 build!
++       ## Crosser build is a cross-build.
++       # native_win32_build='yes'
+     ;;
+ esac
+  if test "${native_win32_build}" = 'yes'; then
