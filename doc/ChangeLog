@@ -31,6 +31,7 @@
 	- Updated freetype to version 2.13.1
 	- Updated qt6 to version 6.5.2
 	- Updated libpng to version 1.6.40
+	- Updated zlib to version 1.3
 
 2.6 (12-Apr-23)
 	- Added win64-posix setup

@@ -239,7 +239,7 @@ major.minor_from_version()
     DIRVER=$1
   fi
 
-  echo $DIRVER | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "$MAJOR.$MINOR")
+  echo $DIRVER | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}")
 }
 
 # $1 - Version number
@@ -251,7 +251,7 @@ major_from_version()
     DIRVER=$1
   fi
 
-  echo $DIRVER | sed 's/\./ /g' | (read MAJOR REST ; echo -n "$MAJOR")
+  echo $DIRVER | sed 's/\./ /g' | (read MAJOR REST ; echo -n "${MAJOR}")
 }
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
@@ -403,7 +403,7 @@ MIRROR_GITHUB="https://github.com"
 if test "${VERSION_SELECTED}" != ""
 then
   case $DOWNLOAD_PACKET in
-    zlib)        VERSION_ZLIB=$VERSION_SELECTED ;;
+    zlib)        VERSION_ZLIB="${VERSION_SELECTED}" ;;
     glib)        VERSION_GLIB="${VERSION_SELECTED}" ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
     pango2)      VERSION_PANGO2=$VERSION_SELECTED ;;
@@ -518,7 +518,7 @@ else
   FRIBIDI_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_ZLIB 1.2.8
+if is_minimum_version "${VERSION_ZLIB}" 1.2.8
 then
   ZLIB_PACK="tar.xz"
 else
@@ -566,7 +566,7 @@ fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
-download_needed "${MIRROR_GNU}/autoconf/" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
+download_needed "${MIRROR_GNU}/autoconf" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
                 "https://alpha.gnu.org/pub/gnu/autoconf/"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
@@ -586,7 +586,7 @@ RET="$RET $?"
 download_needed "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/${VERSION_PNG}/" "libpng" "${VERSION_PNG}" "tar.xz" \
                 "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/older-releases/${VERSION_PNG}/"
 RET="$RET $?"
-download_needed "https://zlib.net/"                     "zlib"       "$VERSION_ZLIB"       "$ZLIB_PACK" \
+download_needed "https://zlib.net/"                     "zlib"       "${VERSION_ZLIB}"       "${ZLIB_PACK}" \
                 "${MIRROR_SOURCEFORGE}/projects/libpng/files/zlib/${VERSION_ZLIB}/"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
