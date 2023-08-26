@@ -566,7 +566,7 @@ fi
 
 download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
 RET="$?"
-download_needed "${MIRROR_GNU}/autoconf" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
+download_needed "${MIRROR_GNU}/autoconf/" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
                 "https://alpha.gnu.org/pub/gnu/autoconf/"
 RET="$RET $?"
 download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
