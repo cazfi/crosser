@@ -7,7 +7,7 @@
 	- Container output directory provides access to host-side builds
 	- Cross pkg-config is installed under native tree on dllstack package
 	- Renamed configure option DLLSHOST_PREFIX as CROSSER_HOST_PREFIX
-	- Updated auxiliary config.guess and config.sub to '2023-06-26' level
+	- Updated auxiliary config.guess and config.sub to '2023-07-31' level
 	- Added pango2 to build (version 0.91.0)
 	- Updated gtk4 to version 4.10.5
 	- Updated glib to version 2.76.4
