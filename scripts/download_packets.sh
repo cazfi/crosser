@@ -422,7 +422,7 @@ then
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     gettext)     VERSION_GETTEXT=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
-    sqlite)      VERSION_SQLITE=$VERSION_SELECTED ;;
+    sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
     cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
     qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
@@ -486,18 +486,18 @@ else
   RL_SUBDIR="readline"
 fi
 
-SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
+SQL_VERSTR="$(sqlite_verstr ${VERSION_SQLITE})"
 
-if is_minimum_version "$VERSION_SQLITE" 3.40.2
+if is_minimum_version "${VERSION_SQLITE}" 3.40.2
 then
   SQL_SUBDIR="2023/"
-elif is_minimum_version "$VERSION_SQLITE" 3.37.2
+elif is_minimum_version "${VERSION_SQLITE}" 3.37.2
 then
   SQL_SUBDIR="2022/"
-elif is_minimum_version "$VERSION_SQLITE" 3.34.1
+elif is_minimum_version "${VERSION_SQLITE}" 3.34.1
 then
   SQL_SUBDIR="2021/"
-elif is_minimum_version "$VERSION_SQLITE" 3.31.0
+elif is_minimum_version "${VERSION_SQLITE}" 3.31.0
 then
   SQL_SUBDIR="2020/"
 else

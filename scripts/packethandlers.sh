@@ -2,7 +2,7 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2022 Marko Lindqvist
+# (c) 2008-2023 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -40,18 +40,18 @@ patch_readline() {
 # $1 - Version number in dotted format
 sqlite_verstr() {
   echo $1 | sed 's/\./ /g' | (read part1 part2 part3 part4
-    echo -n $part1
-    if test "$part4" = ""
+    echo -n ${part1}
+    if test "${part4}" = ""
     then
       part4="0"
     fi
-    for part in $part2 $part3 $part4
+    for part in ${part2} ${part3} ${part4}
     do
-      if test $part -lt 10
+      if test ${part} -lt 10
       then
         echo -n "0"
       fi
-      echo -n $part
+      echo -n ${part}
     done
   )
 }
@@ -60,5 +60,5 @@ sqlite_verstr() {
 #
 # $1 - icu version
 icu_filever() {
-    echo "$1" | sed -e 's/\./_/g'
+  echo "$1" | sed -e 's/\./_/g'
 }

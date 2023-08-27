@@ -20,7 +20,7 @@
 	- Updated harfbuzz to version 8.1.1
 	- Updated gtk3 to version 3.24.38
 	- Updated curl to version 8.2.0
-	- Updated sqlite to version 3.42.0
+	- Updated sqlite to version 3.43.0
 	- Updated fribidi to version 1.0.13
 	- Updated FLAC to version 1.4.2
 	- Updated gobject-introspection to version 1.76.1

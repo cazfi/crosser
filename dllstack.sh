@@ -1072,7 +1072,7 @@ then
   exit 1
 fi
 
-SQL_VERSTR="$(sqlite_verstr $VERSION_SQLITE)"
+SQL_VERSTR="$(sqlite_verstr ${VERSION_SQLITE})"
 READLINE_VARS="$(read_configure_vars readline)"
 
 if ! build_component_full libtool libtool "" "" "" ""                 \
@@ -1107,7 +1107,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "" "sqlite-autoconf-${SQL_VERSTR}"                                              ||
    ! build_component_full sqlite sqlite                                              \
      "--disable-threadsafe" "nounicode" "sqlite-autoconf-${SQL_VERSTR}"              ||
-   ! deldir_component  sqlite-autoconf $SQL_VERSTR "sqlite"                          ||
+   ! deldir_component  sqlite-autoconf "${SQL_VERSTR}" "sqlite"                      ||
    ! ( test "$CROSSER_POSIX" = "yes" || test "${VERSION_TCT}" = "0" ||
       ( unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"  &&
         cp ${CROSSER_MAINDIR}/patch/tct/Makefile.am                     \
