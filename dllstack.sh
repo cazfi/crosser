@@ -1243,7 +1243,7 @@ if ! build_component   tiff                                                 ||
    ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.90 ||
        patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_disable_test-2.13.96) ||
    ! build_component   fontconfig                                           \
-     "--with-freetype-config=$DLLSPREFIX/bin/freetype-config --with-arch=$CROSSER_TARGET --enable-libxml2" ||
+     "--with-freetype-config=${DLLSPREFIX}/bin/freetype-config --with-arch=${CROSSER_TARGET} --enable-libxml2" ||
    ! deldir_component  fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
    ! unpack_component  libepoxy                                             ||
    ! ( is_minimum_version $VERSION_LIBEPOXY 1.5.0 ||
