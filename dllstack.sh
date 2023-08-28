@@ -1060,11 +1060,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_build         "native-libpng"                                   ||
    ! unpack_component     ImageMagick ""                                    \
      "ImageMagick/${VERSION_IMAGEMAGICK}"                                   ||
-   ! ( is_minimum_version "${VERSION_IMAGEMAGICK}" 7.0.10 ||
-       patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_pthread" )        ||
-   ! ( is_smaller_version "${VERSION_IMAGEMAGICK}" 7.0.10 ||
-       patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_pthread-7.0.10" ) ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_nonnativewin"       ||
+   ! ( is_minimum_version $VERSION_IMAGEMAGICK 7.0.10 ||
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread" )            ||
+   ! ( is_smaller_version $VERSION_IMAGEMAGICK 7.0.10 ||
+       patch_src ImageMagick $VERSION_IMAGEMAGICK "im_pthread-7.0.10" )     ||
    ! build_component_host ImageMagick "--without-utilities"                 ||
    ! deldir_build         "native-ImageMagick"
 then
@@ -1127,11 +1126,11 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
    ! deldir_build      "native-icu4c"                                                ||
    ! deldir_component  icu        $VERSION_ICU "icu4c"                               ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_link_ws2_7"                  ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                     ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_link_ws2_7"                      ||
+   ! patch_src ImageMagick $VERSION_IMAGEMAGICK "im_dll_not"                         ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
-   ! deldir_component  ImageMagick "${VERSION_IMAGEMAGICK}" "ImageMagick"            ||
+   ! deldir_component  ImageMagick $VERSION_IMAGEMAGICK "ImageMagick"                ||
    ! build_component   libpng                                                        ||
    ! deldir_component  libpng     "${VERSION_PNG}" "libpng"                          ||
    ! unpack_component  gettext                                                       ||
