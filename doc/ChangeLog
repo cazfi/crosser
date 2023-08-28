@@ -1,3 +1,5 @@
+2.8
+
 2.7
 	- Produced binaries now require Windows 8.1 by default
 	- Properly use pkgconf also as the cross-tool when so configured
