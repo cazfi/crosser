@@ -1,4 +1,5 @@
 2.8
+	- Updated gtk4 to version 4.12.1
 
 2.7
 	- Produced binaries now require Windows 8.1 by default
