@@ -10,7 +10,7 @@
 	- Updated auxiliary config.guess and config.sub to '2023-07-31' level
 	- Added pango2 to build (version 0.91.0)
 	- Updated gtk4 to version 4.10.5
-	- Updated glib to version 2.76.4
+	- Updated glib to version 2.76.5
 	- Updated qt5 to version 5.15.10
 	- Updated libxml2 to version 2.11.5
 	- Updated meson to version 1.2.1
