@@ -1,4 +1,4 @@
-2.7
+2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
 	- Properly use pkgconf also as the cross-tool when so configured
 	- Crosser building docker container updated to Debian Bookworm
