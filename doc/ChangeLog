@@ -1,6 +1,7 @@
 2.8
 	- Updated gtk4 to version 4.12.1
 	- Updated SDL2 to version 2.28.3
+	- Updated glib to version 2.78.0
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
