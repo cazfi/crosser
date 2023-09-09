@@ -3,6 +3,7 @@
 	- Updated SDL2 to version 2.28.3
 	- Updated glib to version 2.78.0
         - Updated gobject-introspection to version 1.78.0
+	- Updated pkgconf to version 2.0.3
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
