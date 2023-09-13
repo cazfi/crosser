@@ -1208,7 +1208,7 @@ else
 fi
 
 if ! build_component   tiff                                                 ||
-   ! deldir_component  tiff       $VERSION_TIFF "tiff"                      ||
+   ! deldir_component  tiff       "${VERSION_TIFF}" "tiff"                  ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
    ! deldir_component  libxml2    $VERSION_XML2 "libxml2"                   ||
