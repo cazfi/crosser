@@ -2,13 +2,13 @@
 	- Updated gtk4 to version 4.12.1
 	- Updated SDL2 to version 2.28.3
 	- Updated glib to version 2.78.0
-        - Updated gobject-introspection to version 1.78.1
+	- Updated gobject-introspection to version 1.78.1
 	- Updated pkgconf to version 2.0.3
-        - Updated sqlite to version 3.43.1
-        - Updated harfbuzz to version 8.2.0
-        - Updated ffmpeg to version 5.1.3
-        - Updated curl to version 8.3.0
-        - Updated tiff to version 4.6.0
+	- Updated sqlite to version 3.43.1
+	- Updated harfbuzz to version 8.2.0
+	- Updated ffmpeg to version 5.1.3
+	- Updated curl to version 8.3.0
+	- Updated tiff to version 4.6.0
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
