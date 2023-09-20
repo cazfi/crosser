@@ -784,7 +784,11 @@ fi
 
 export DLLSPREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/<SETUP>/winstack" "${DLLSPREFIX}")
 export NATIVE_PREFIX=$(setup_prefix_default "${HOME}/.crosser/<VERSION>/<VERSIONSET>/dllshost" \
-                       "${CROSSER_HOST_PREFIX}")
+                                            "${CROSSER_HOST_PREFIX}")
+
+if test "${TARGET_SUFFIX_P}" = "" ; then
+  TARGET_SUFFIX_P="${TARGET_SUFFIX}"
+fi
 
 TARGET_GCC_VER=$(${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
 TARGET_GXX_VER=$(${CROSSER_TARGET}-g++${TARGET_SUFFIX} -dumpversion 2>/dev/null | sed 's/-.*//')
@@ -1123,7 +1127,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! (test "$CROSSER_POSIX" = "yes" ||
       is_smaller_version $VERSION_ICU 64.1 ||
       patch_src icu $VERSION_ICU icu_tct )                                           ||
-   ! build_component_full icu4c icu4c                                                \
+   ! TARGET_SUFFIX="${TARGET_SUFFIX_P}" build_component_full icu4c icu4c                                                \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
    ! deldir_build      "native-icu4c"                                                ||
    ! deldir_component  icu        $VERSION_ICU "icu4c"                               ||
