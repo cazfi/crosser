@@ -1359,12 +1359,15 @@ if ! unpack_component libcroco                                        ||
    ! deldir_component tango-icon-theme   "${VERSION_TANGO_ICONS}"     \
      "tango-icon-theme"                                               ||
    ! unpack_component adwaita-icon-theme                              ||
-   ! patch_src adwaita-icon-theme $VERSION_ADWAITA_ICON               \
-     "adwaita_no_host_icon_cache"                                     ||
-   ! autogen_component adwaita-icon-theme  $VERSION_ADWAITA_ICON      \
-     "aclocal automake"                                               ||
-   ! build_component  adwaita-icon-theme                              ||
-   ! deldir_component adwaita-icon-theme $VERSION_ADWAITA_ICON        \
+   ! (is_minimum_version "${VERSION_ADWAITA_ICON}" 45.0 ||
+      (patch_src adwaita-icon-theme "${VERSION_ADWAITA_ICON}" \
+         "adwaita_no_host_icon_cache" &&
+       autogen_component adwaita-icon-theme "${VERSION_ADWAITA_ICON}" \
+         "aclocal automake" &&
+       build_component  adwaita-icon-theme ) )                        ||
+    ! (is_smaller_version "${VERSION_ADWAITA_ICON}" 45.0 ||
+       build_with_meson adwaita-icon-theme )                          ||
+   ! deldir_component adwaita-icon-theme "${VERSION_ADWAITA_ICON}"    \
      "adwaita-icon-theme"
 then
   log_error "gtk+ theme stack build failed"
