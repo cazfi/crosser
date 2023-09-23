@@ -1,5 +1,6 @@
 2.8
 	- Added "mixed" setup
+	- Updated auxiliary config.guess and config.sub to '2023-09-19' level
 	- Updated gtk4 to version 4.12.2
 	- Updated SDL2 to version 2.28.3
 	- Updated glib to version 2.78.0
