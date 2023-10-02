@@ -423,7 +423,7 @@ then
     gettext)     VERSION_GETTEXT=$VERSION_SELECTED ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
-    cairo)       VERSION_CAIRO=$VERSION_SELECTED ;;
+    cairo)       VERSION_CAIRO="${VERSION_SELECTED}" ;;
     qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
     tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
@@ -474,7 +474,7 @@ PNG_DIR="$(echo "${VERSION_PNG}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; ec
 QT5_DIR="$(echo "${VERSION_QT5}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}"))"
 QT6_DIR="$(echo "${VERSION_QT6}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}"))"
 XML2_DIR="$(echo $VERSION_XML2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-CAIRO_DIR="$(echo $VERSION_CAIRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+CAIRO_DIR="$(echo "${VERSION_CAIRO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
@@ -627,14 +627,14 @@ download_needed "https://curl.haxx.se/download/"        "curl"       "${VERSION_
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/libffi/libffi/releases/download/v${VERSION_FFI}/" "libffi" "$VERSION_FFI" "tar.gz"
 RET="$RET $?"
-download_needed "http://cairographics.org/releases/"    "pixman"     "$VERSION_PIXMAN"     "tar.gz"
+download_needed "https://cairographics.org/releases/"    "pixman"     "${VERSION_PIXMAN}"     "tar.gz"
 RET="$RET $?"
-if cmp_versions "$VERSION_CAIRO" 1.17.6
+if cmp_versions "${VERSION_CAIRO}" 1.17.6
 then
-  download_needed "$MIRROR_GNOME/sources/cairo/$CAIRO_DIR/" "cairo"      "$VERSION_CAIRO" "tar.xz"
+  download_needed "${MIRROR_GNOME}/sources/cairo/${CAIRO_DIR}/" "cairo"      "${VERSION_CAIRO}" "tar.xz"
   RET="$RET $?"
 else
-  download_needed "http://cairographics.org/releases/"    "cairo"      "$VERSION_CAIRO"      "tar.xz" "http://cairographics.org/snapshots/"
+  download_needed "https://cairographics.org/releases/"    "cairo"      "${VERSION_CAIRO}"      "tar.xz" "https://cairographics.org/snapshots/"
   RET="$RET $?"
 fi
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.xz"
