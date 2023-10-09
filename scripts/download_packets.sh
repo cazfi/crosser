@@ -438,7 +438,7 @@ then
     harfbuzz)    VERSION_HARFBUZZ="${VERSION_SELECTED}" ;;
     freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
-    shared-mime-info) VERSION_SHARED_MIME_INFO=$VERSION_SELECTED ;;
+    shared-mime-info) VERSION_SHARED_MIME_INFO="${VERSION_SELECTED}" ;;
     libffi)      VERSION_FFI=$VERSION_SELECTED ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
@@ -647,7 +647,7 @@ download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOM
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "$UMACROS_PACK"
 RET="$RET $?"
-download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$VERSION_SHARED_MIME_INFO/" "shared-mime-info" "$VERSION_SHARED_MIME_INFO" "tar.bz2"
+download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${VERSION_SHARED_MIME_INFO}/" "shared-mime-info" "${VERSION_SHARED_MIME_INFO}" "tar.bz2"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
 RET="$RET $?"
