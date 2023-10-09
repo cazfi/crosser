@@ -14,6 +14,7 @@
 	- Updated adwaita-icon-theme to version 45.0
 	- Updated qt6 to version 6.5.3
 	- Updated qt5 to version 5.15.11
+	- Updated meson to version 1.2.2
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
