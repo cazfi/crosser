@@ -643,7 +643,7 @@ download_needed "$MIRROR_GNOME/sources/pango2/$PANGO2_DIR/" "pango2"    "$VERSIO
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"
 RET="$RET $?"
-download_needed "http://xkbcommon.org/download/" "libxkbcommon" "$VERSION_XKBCOMMON" "tar.xz"
+download_needed "https://xkbcommon.org/download/" "libxkbcommon" "${VERSION_XKBCOMMON}" "tar.xz"
 RET="$RET $?"
 download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "$UMACROS_PACK"
 RET="$RET $?"
