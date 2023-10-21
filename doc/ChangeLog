@@ -6,7 +6,7 @@
 	- Updated glib to version 2.78.0
 	- Updated gobject-introspection to version 1.78.1
 	- Updated pkgconf to version 2.0.3
-	- Updated sqlite to version 3.43.1
+	- Updated sqlite to version 3.43.2
 	- Updated harfbuzz to version 8.2.1
 	- Updated ffmpeg to version 5.1.3
 	- Updated curl to version 8.4.0
