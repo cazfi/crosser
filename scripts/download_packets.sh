@@ -18,9 +18,9 @@ download_file() {
   if test "$3" != ""
   then
     DLDIR="$3"
-    if ! mkdir -p "$DLDIR"
+    if ! mkdir -p "${DLDIR}"
     then
-      echo "Failed to create packet subdirectory \"$DLDIR\"" >&2
+      echo "Failed to create packet subdirectory \"${DLDIR}\"" >&2
       return 1
     fi
     FLFILE="$3/$2"
@@ -33,9 +33,9 @@ download_file() {
 
   if test -f filelist.txt
   then
-    if grep ": $FLFILE\$" filelist.txt > /dev/null
+    if grep ": ${FLFILE}\$" filelist.txt > /dev/null
     then
-      sed "s,: .* : $FLFILE\$,: $TIMEPART : $FLFILE," filelist.txt > filelist.tmp
+      sed "s,: .* : ${FLFILE}\$,: ${TIMEPART} : ${FLFILE}," filelist.txt > filelist.tmp
       mv filelist.tmp filelist.txt
       APPEND=no
     else
@@ -43,9 +43,9 @@ download_file() {
     fi
   else
     # Creating new filelist
-    if test "$CROSSER_GROUP" != "" ; then
+    if test "${CROSSER_GROUP}" != "" ; then
       touch filelist.txt
-      if ! chown ":$CROSSER_GROUP" filelist.txt ; then
+      if ! chown ":${CROSSER_GROUP}" filelist.txt ; then
         echo "Cannot set owner group for filelist.txt" >&2
         return 1
       fi
@@ -53,29 +53,29 @@ download_file() {
     APPEND=yes
   fi
 
-  if test "$APPEND" = "yes"
+  if test "${APPEND}" = "yes"
   then
-    echo "$TIMEPART : $TIMEPART : $FLFILE" >> filelist.txt
+    echo "${TIMEPART} : ${TIMEPART} : ${FLFILE}" >> filelist.txt
   fi
 
-  if test -f "$DLDIR/$2"
+  if test -f "${DLDIR}/$2"
   then
-    if test "$DLDIR" != "."
+    if test "${DLDIR}" != "."
     then
-      echo "Already has $DLDIR/$2, skipping"
+      echo "Already has ${DLDIR}/$2, skipping"
     else
       echo "Already has $2, skipping"
     fi
     return 0
   fi
 
-  if ! ( cd "$DLDIR" && wget -T 180 -t 2 "$1$2" ) ; then
+  if ! ( cd "${DLDIR}" && wget -T 180 -t 2 "${1}${2}" ) ; then
     echo "Download of $2 failed" >&2
     return 1
   fi
 
-  if test "$CROSSER_GROUP" != "" ; then
-    if ! chown ":$CROSSER_GROUP" "$2" ; then
+  if test "${CROSSER_GROUP}" != "" ; then
+    if ! chown ":${CROSSER_GROUP}" "$2" ; then
       echo "Cannot set owner group for \"$2\"" >&2
       return 1
     fi
@@ -97,15 +97,15 @@ download_packet() {
   if test "$4" = "" ; then
     DLFILENAME="$3"
   else
-    DLFILENAME="$BFNAME-$3.$4"
+    DLFILENAME="${BFNAME}-$3.$4"
   fi
-  if ! download_file "$1" "$DLFILENAME" "$6"
+  if ! download_file "$1" "${DLFILENAME}" "$6"
   then
-    if test "$5" = "" || ! download_file "$5" "$DLFILENAME" "$6"
+    if test "$5" = "" || ! download_file "$5" "${DLFILENAME}" "$6"
     then
       if test "$4" != ""
       then
-        echo "Download of $BFNAME version $3 failed" >&2
+        echo "Download of ${BFNAME} version $3 failed" >&2
       else
         echo "Download of $3 failed" >&2
       fi
@@ -122,20 +122,20 @@ download_patches_internal() {
   declare -i DLNUM=1
   declare -i DLTOTAL=$4
 
-  while test $DLNUM -le $DLTOTAL
+  while test ${DLNUM} -le ${DLTOTAL}
   do
-    if test $DLNUM -lt 10 ; then
+    if test ${DLNUM} -lt 10 ; then
       ZEROES="00"
     else
       ZEROES="0"
     fi
     DLFILENAME="${3}${ZEROES}${DLNUM}"
-    if ! download_file "$1" "$DLFILENAME" "patch"
+    if ! download_file "$1" "${DLFILENAME}" "patch"
     then
-      echo "Download of $2 patch $DLNUM failed" >&2
+      echo "Download of $2 patch ${DLNUM} failed" >&2
       return 1
     fi
-    DLNUM=$DLNUM+1
+    DLNUM=${DLNUM}+1
   done
 }
 
@@ -154,34 +154,34 @@ download_needed() {
   then
     PACKVER="$3"
   else
-    PACKVER="$VERSION_SELECTED"
+    PACKVER="${VERSION_SELECTED}"
   fi
-  if test "$PACKVER" = "0" ; then
+  if test "${PACKVER}" = "0" ; then
     echo "$2 disabled, not downloading."
     return 2
   fi
 
-  if test "$DOWNLOAD_PACKET" != "" ; then
-    if test "$DOWNLOAD_PACKET" = "$2" ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+  if test "${DOWNLOAD_PACKET}" != "" ; then
+    if test "${DOWNLOAD_PACKET}" = "$2" ; then
+      download_packet "$1" "$2" "${PACKVER}" "$4" "$5" "$6"
       return $?
     fi
     return 2
   fi
-  if test "$STEPLIST" = "" ; then
-    download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+  if test "${STEPLIST}" = "" ; then
+    download_packet "$1" "$2" "${PACKVER}" "$4" "$5" "$6"
     return $?
   fi
-  for STEP in $STEPLIST
+  for STEP in ${STEPLIST}
   do
     BASENAME=$2
-    if belongs_to_step $BASENAME $STEP ; then
-      download_packet "$1" "$2" "$PACKVER" "$4" "$5" "$6"
+    if belongs_to_step "${BASENAME}" "${STEP}" ; then
+      download_packet "$1" "$2" "${PACKVER}" "$4" "$5" "$6"
       return $?
     fi
   done
 
-  echo "$2 version $PACKVER not needed, skipping"
+  echo "$2 version ${PACKVER} not needed, skipping"
   return 2
 }
 
@@ -199,34 +199,34 @@ download_patches() {
   then
     PACKVER="$4"
   else
-    PACKVER="$VERSION_SELECTED"
+    PACKVER="${VERSION_SELECTED}"
   fi
 
-  if test "$PACKVER" = "0"
+  if test "${PACKVER}" = "0"
   then
       return 2
   fi
 
-  if test "$DOWNLOAD_PACKET" != "" ; then
-    if test "$DOWNLOAD_PACKET" = "$2" ; then
+  if test "${DOWNLOAD_PACKET}" != "" ; then
+    if test "${DOWNLOAD_PACKET}" = "$2" ; then
       download_patches_internal "$1" "$2" "$3" "$5"
       return $?
     fi
     return 2
   fi
-  if test "$STEPLIST" = "" ; then
+  if test "${STEPLIST}" = "" ; then
     download_patches_internal "$1" "$2" "$3" "$5"
     return $?
   fi
-  for STEP in $STEPLIST
+  for STEP in ${STEPLIST}
   do
-    if belongs_to_step $2 $STEP ; then
+    if belongs_to_step "$2" "${STEP}" ; then
       download_patches_internal "$1" "$2" "$3" "$5"
       return $?
     fi
   done
 
-  echo "$3 version $PACKVER patches not needed, skipping"
+  echo "$3 version ${PACKVER} patches not needed, skipping"
   return 2
 }
 
@@ -234,42 +234,42 @@ download_patches() {
 major.minor_from_version()
 {
   if test "$1" = "" ; then
-    DIRVER=$VERSION_SELECTED
+    DIRVER="${VERSION_SELECTED}"
   else
-    DIRVER=$1
+    DIRVER="$1"
   fi
 
-  echo $DIRVER | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}")
+  echo "${DIRVER}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}")
 }
 
 # $1 - Version number
 major_from_version()
 {
   if test "$1" = "" ; then
-    DIRVER=$VERSION_SELECTED
+    DIRVER="${VERSION_SELECTED}"
   else
-    DIRVER=$1
+    DIRVER="$1"
   fi
 
-  echo $DIRVER | sed 's/\./ /g' | (read MAJOR REST ; echo -n "${MAJOR}")
+  echo "${DIRVER}" | sed 's/\./ /g' | (read MAJOR REST ; echo -n "${MAJOR}")
 }
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
+if ! test -e "${CROSSER_MAINDIR}/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
 
-if ! . "$CROSSER_MAINDIR/scripts/helpers.sh"
+if ! . "${CROSSER_MAINDIR}/scripts/helpers.sh"
 then
-  echo "Failed to read \"$CROSSER_MAINDIR/scripts/helpers.sh\"" >&2
+  echo "Failed to read \"${CROSSER_MAINDIR}/scripts/helpers.sh\"" >&2
   exit 1
 fi
 
-if ! . "$CROSSER_MAINDIR/scripts/packethandlers.sh"
+if ! . "${CROSSER_MAINDIR}/scripts/packethandlers.sh"
 then
-  echo "Failed to read \"$CROSSER_MAINDIR/scripts/packethandlers.sh\"" >&2
+  echo "Failed to read \"${CROSSER_MAINDIR}/scripts/packethandlers.sh\"" >&2
   exit 1
 fi
 
@@ -279,19 +279,19 @@ elif test "$1" = "" ; then
   HELP_RETURN=1
 fi
 
-if test "$HELP_RETURN" != "" ; then
+if test "${HELP_RETURN}" != "" ; then
   echo "Usage: $(basename "$0") <step> [versionset] [setup]"
   echo "       $(basename "$0") --packet <name> [version] [patches]"
   echo
   echo " Possible steps:"
   echo "  - win,sdl2,sfml,full"
 
-  exit $HELP_RETURN
+  exit ${HELP_RETURN}
 fi
 
 if test "$1" = "-v" || test "$1" = "--version"
 then
-  echo "Downloader for Crosser $CROSSER_VERSION"
+  echo "Downloader for Crosser ${CROSSER_VERSION}"
   exit 0
 fi
 
@@ -329,48 +329,48 @@ else
   CROSSER_VERSIONSET="current"
 fi
 
-if test "$CROSSER_VERSIONSET" != ""
+if test "${CROSSER_VERSIONSET}" != ""
 then
-  if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions"
+  if ! test -e "${CROSSER_MAINDIR}/setups/${CROSSER_VERSIONSET}.versions"
   then
     echo "Versionset ${CROSSER_VERSIONSET}.versions not found" >&2
     exit 1
   fi
 
-  if ! . "$CROSSER_MAINDIR/setups/${CROSSER_VERSIONSET}.versions" ; then
+  if ! . "${CROSSER_MAINDIR}/setups/${CROSSER_VERSIONSET}.versions" ; then
     echo "Failed to read list of package versions (${CROSSER_VERSIONSET}.versions)" >&2
     exit 1
   fi
 fi
 
-if test "$CROSSER_SETUP" != ""
+if test "${CROSSER_SETUP}" != ""
 then
-  if ! test -e "$CROSSER_MAINDIR/setups/${CROSSER_SETUP}.conf"
+  if ! test -e "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf"
   then
     echo "Setup ${CROSSER_SETUP}.conf not found" >&2
     exit 1
   fi
 
-  if ! . "$CROSSER_MAINDIR/setups/${CROSSER_SETUP}.conf" ; then
+  if ! . "${CROSSER_MAINDIR}/setups/${CROSSER_SETUP}.conf" ; then
     echo "Failed to read setup (${CROSSER_SETUP}.conf)" >&2
     exit 1
   fi
 fi
 
-if test -e "$CROSSER_MAINDIR/mirrors.conf" ; then
-  MIRRORCONF="$CROSSER_MAINDIR/mirrors.conf"
-elif test -e "$HOME/.crosser.mirrors" ; then
-  MIRRORCONF="$HOME/.crosser.mirrors"
+if test -e "${CROSSER_MAINDIR}/mirrors.conf" ; then
+  MIRRORCONF="${CROSSER_MAINDIR}/mirrors.conf"
+elif test -e "${HOME}/.crosser.mirrors" ; then
+  MIRRORCONF="${HOME}/.crosser.mirrors"
 fi
 
-if test "$MIRRORCONF" != "" ; then
-  if ! . "$MIRRORCONF" ; then
-    echo "Problem in reading list of mirrors to use from $MIRRORCONF" >&2
+if test "${MIRRORCONF}" != "" ; then
+  if ! . "${MIRRORCONF}" ; then
+    echo "Problem in reading list of mirrors to use from ${MIRRORCONF}" >&2
     exit 1
   fi
 fi
 
-if ! . "$CROSSER_MAINDIR/steps/stepfuncs.sh" ; then
+if ! . "${CROSSER_MAINDIR}/steps/stepfuncs.sh" ; then
   echo "Problem in reading stepfuncs.sh" >&2
   exit 1
 fi
@@ -384,14 +384,14 @@ if test "$1" = "--packet" ; then
 else
   STEPLIST="$(parse_steplist $1)"
   RET=$?
-  if test "$RET" != "0"
+  if test "${RET}" != "0"
   then
     echo "Error in step parameters \"$1\"" >&2
     exit 1
   fi
 fi
 
-if test "$MIRROR_GNU" = "" ; then
+if test "${MIRROR_GNU}" = "" ; then
   MIRROR_GNU="https://ftp.gnu.org/gnu/"
 fi
 
@@ -402,7 +402,7 @@ MIRROR_GITHUB="https://github.com"
 
 if test "${VERSION_SELECTED}" != ""
 then
-  case $DOWNLOAD_PACKET in
+  case "${DOWNLOAD_PACKET}" in
     zlib)        VERSION_ZLIB="${VERSION_SELECTED}" ;;
     glib)        VERSION_GLIB="${VERSION_SELECTED}" ;;
     pango)       VERSION_PANGO=$VERSION_SELECTED ;;
@@ -478,8 +478,8 @@ CAIRO_DIR="$(echo "${VERSION_CAIRO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH 
 ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
 ICU_FILEVER="$(icu_filever $VERSION_ICU)"
 
-READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
-if echo "$VERSION_READLINE" | grep "\-rc" >/dev/null
+READLINE_SHORT="$(echo ${VERSION_READLINE} | sed 's/\.//g')"
+if echo "${VERSION_READLINE}" | grep "\-rc" >/dev/null
 then
   RL_SUBDIR="bash"
 else
