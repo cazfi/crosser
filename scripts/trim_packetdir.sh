@@ -12,14 +12,14 @@ FILELIMIT=250
 
 CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
+if ! test -e "${CROSSER_MAINDIR}/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
 fi
 
-if ! . "$CROSSER_MAINDIR/scripts/helpers.sh"
+if ! . "${CROSSER_MAINDIR}/scripts/helpers.sh"
 then
-  echo "Failed to read $CROSSER_MAINDIR/scripts/helpers.sh" >&2
+  echo "Failed to read ${CROSSER_MAINDIR}/scripts/helpers.sh" >&2
   exit 1
 fi
 
@@ -31,21 +31,21 @@ fi
 
 if test "$1" = "-v" || test "$1" = "--version"
 then
-  echo "Packetdir trimmer script for Crosser $CROSSER_VERSION"
+  echo "Packetdir trimmer script for Crosser ${CROSSER_VERSION}"
   exit 0
 fi
 
 if test "$2" != "" ; then
   FILELIMIT=$2
-  if test $FILELIMIT -eq 0 ; then
+  if test ${FILELIMIT} -eq 0 ; then
     echo "Illegal filecount parameter \"$2\"" >&2
     exit 1
   fi
 fi
 
-if test "$HELP_RETURN" != "" ; then
+if test "${HELP_RETURN}" != "" ; then
   echo "Usage: $(basename "$0") <packetdir> [files left=${FILELIMIT}]"
-  exit $HELP_RETURN
+  exit ${HELP_RETURN}
 fi
 
 if ! test -f "$1/filelist.txt" ; then
@@ -68,13 +68,13 @@ declare -i FILECOUNT=$(wc -l "$1/filelist.tmp" | sed 's/ .*//')
 
 ( sort -k 3 "$1/filelist.tmp" | while read F1 F2 F3 F4 F5
   do
-    if test $FILECOUNT -gt $FILELIMIT ; then
+    if test ${FILECOUNT} -gt ${FILELIMIT} ; then
       rm "$1/$F5"
       DNAME=$(dirname $F5)
-      if test "$DNAME" != "." ; then
-        rmdir $DNAME >/dev/null 2>/dev/null
+      if test "${DNAME}" != "." ; then
+        rmdir "${DNAME}" >/dev/null 2>/dev/null
       fi
-      FILECOUNT=$FILECOUNT-1
+      FILECOUNT=${FILECOUNT}-1
     else
       echo $F1 $F2 $F3 $F4 $F5
     fi
