@@ -1,5 +1,6 @@
 2.8
 	- Added "mixed" setup
+	- trim_packetdir.sh: Clean out filelist.tmp
 	- Updated auxiliary config.guess and config.sub to '2023-09-19' level
 	- Updated gtk4 to version 4.12.3
 	- Updated SDL2 to version 2.28.4

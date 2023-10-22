@@ -80,3 +80,5 @@ declare -i FILECOUNT=$(wc -l "$1/filelist.tmp" | sed 's/ .*//')
     fi
   done
 ) > "$1/filelist.txt"
+
+rm "$1/filelist.tmp"
