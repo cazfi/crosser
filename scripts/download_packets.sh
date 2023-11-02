@@ -591,7 +591,7 @@ download_needed "https://zlib.net/"                     "zlib"       "${VERSION_
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
 RET="$RET $?"
-download_needed "http://tukaani.org/xz/"                "xz"         "$VERSION_XZ"         "tar.xz"
+download_needed "https://tukaani.org/xz/"               "xz"         "${VERSION_XZ}"       "tar.xz"
 RET="$RET $?"
 download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
 RET="$RET $?"

@@ -1094,10 +1094,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_zlib        zlib       $VERSION_ZLIB                       ||
    ! deldir_component  zlib       $VERSION_ZLIB "zlib"                ||
    ! unpack_component  xz                                             ||
-   ! (is_minimum_version "$VERSION_XZ" 5.2.6 ||
-      patch_src xz      "$VERSION_XZ" "xzgrep-ZDI-CAN-16587" )        ||
+   ! (is_minimum_version "${VERSION_XZ}" 5.2.6 ||
+      patch_src xz      "${VERSION_XZ}" "xzgrep-ZDI-CAN-16587" )      ||
    ! build_component_full xz xz   "--disable-threads" "windres"       ||
-   ! deldir_component  xz         $VERSION_XZ "xz"                    ||
+   ! deldir_component  xz         "${VERSION_XZ}" "xz"                ||
    ! unpack_component  zstd                                           ||
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
    ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
