@@ -203,79 +203,79 @@ unpack_component() {
   BVER=$(component_version $1)
   BPTCH=$(component_patches $1)
 
-  if test "$BVER" = ""
+  if test "${BVER}" = ""
   then
     log_error "No version defined for $1"
     return 1
   fi
 
-  if test "$BVER" = "0"
+  if test "${BVER}" = "0"
   then
     return 0
   fi
 
-  BNAME=$(component_name_to_tarball_name $1 $BVER)
+  BNAME=$(component_name_to_tarball_name "$1" "${BVER}")
 
-  if test "$CROSSER_DOWNLOAD" = "demand"
+  if test "${CROSSER_DOWNLOAD}" = "demand"
   then
-    log_write 1 "Fetching $BNAME version $BVER"
-    if ! ( cd "$CROSSER_PACKETDIR" && "$CROSSER_MAINDIR/scripts/download_packets.sh" --packet "$1" "$BVER" "$BPTCH" \
-         >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" )
+    log_write 1 "Fetching ${BNAME} version ${BVER}"
+    if ! ( cd "${CROSSER_PACKETDIR}" && "${CROSSER_MAINDIR}/scripts/download_packets.sh" --packet "$1" "${BVER}" "${BPTCH}" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log" )
     then
-      log_error "Failed to download $BNAME version $BVER"
+      log_error "Failed to download ${BNAME} version ${BVER}"
       return 1
     fi
   fi
 
-  log_write 1 "Unpacking $BNAME version $BVER"
+  log_write 1 "Unpacking ${BNAME} version ${BVER}"
 
   if test "$3" != ""
   then
     # Custom file name format
     NAME_BASE="$3"
   else
-    NAME_BASE="$BNAME-$BVER"
+    NAME_BASE="${BNAME}-${BVER}"
   fi
 
-  if test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" ; then
-    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.xz" -C "$CROSSER_SRCDIR/$2"
+  if test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.xz" ; then
+    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.xz" -C "${CROSSER_SRCDIR}/$2"
     then
-      log_error "Unpacking $NAME_BASE.tar.xz failed"
+      log_error "Unpacking ${NAME_BASE}.tar.xz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" ; then
-    if ! tar xjf "$CROSSER_PACKETDIR/$NAME_BASE.tar.bz2" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.bz2" ; then
+    if ! tar xjf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.bz2" -C "${CROSSER_SRCDIR}/$2"
     then
-      log_error "Unpacking $NAME_BASE.tar.bz2 failed"
+      log_error "Unpacking ${NAME_BASE}.tar.bz2 failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.gz" ; then
-    if ! tar xzf "$CROSSER_PACKETDIR/$NAME_BASE.tar.gz" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.gz" ; then
+    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.gz" -C "${CROSSER_SRCDIR}/$2"
     then
-      log_error "Unpacking $NAME_BASE.tar.gz failed"
+      log_error "Unpacking ${NAME_BASE}.tar.gz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tar.lzma" ; then
-    if ! tar xJf "$CROSSER_PACKETDIR/$NAME_BASE.tar.lzma" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.lzma" ; then
+    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.lzma" -C "${CROSSER_SRCDIR}/$2"
     then
-      log_error "Unpacking $NAME_BASE.tar.lzma failed"
+      log_error "Unpacking ${NAME_BASE}.tar.lzma failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.tgz" ; then
-    if ! tar xzf "$CROSSER_PACKETDIR/$NAME_BASE.tgz" -C "$CROSSER_SRCDIR/$2"
+  elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tgz" ; then
+    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tgz" -C "${CROSSER_SRCDIR}/$2"
     then
-      log_error "Unpacking $NAME_BASE.tgz failed"
+      log_error "Unpacking ${NAME_BASE}.tgz failed"
       return 1
     fi
-  elif test -e "$CROSSER_PACKETDIR/$NAME_BASE.zip" ; then
-    if ! unzip "$CROSSER_PACKETDIR/$NAME_BASE.zip" -d "$CROSSER_SRCDIR/$2" \
-         >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.zip" ; then
+    if ! unzip "${CROSSER_PACKETDIR}/${NAME_BASE}.zip" -d "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
-      log_error "Unpacking $NAME_BASE.zip failed"
+      log_error "Unpacking ${NAME_BASE}.zip failed"
       return 1
     fi
   else
-    log_error "Can't find $BNAME version $BVER package to unpack."
+    log_error "Can't find ${BNAME} version ${BVER} package to unpack."
     return 1
   fi
 }
