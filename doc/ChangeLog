@@ -4,7 +4,7 @@
 	- Updated auxiliary config.guess and config.sub to '2023-09-19' level
 	- Updated gtk4 to version 4.12.3
 	- Updated SDL2 to version 2.28.4
-	- Updated glib to version 2.78.0
+	- Updated glib to version 2.78.1
 	- Updated gobject-introspection to version 1.78.1
 	- Updated pkgconf to version 2.0.3
 	- Updated sqlite to version 3.43.2
