@@ -6,33 +6,33 @@
 #
 # This program is licensed under Gnu General Public License version 2.
 
-if test "$CROSSER_MAINDIR" = ""
+if test "${CROSSER_MAINDIR}" = ""
 then
   echo "helpers.sh: Mandatory environment variables missing! Have you sourced proper settings already?" >&2
   exit 1
 fi
 
-if ! test -e "$CROSSER_MAINDIR/CrosserVersion"
+if ! test -e "${CROSSER_MAINDIR}/CrosserVersion"
 then
   echo "helpers.sh: There seems to be problem with crosser installation." >&2
-  echo "Looking data from $CROSSER_MAINDIR, but it's not there!" >&2
+  echo "Looking data from ${CROSSER_MAINDIR}, but it's not there!" >&2
   exit 1
 fi
 
-CROSSER_VERSION=$(tail -n 1 "$CROSSER_MAINDIR/CrosserVersion")
-CROSSER_FEATURE_LEVEL=$(echo $CROSSER_VERSION | sed 's/\./ /g' |
+CROSSER_VERSION=$(tail -n 1 "${CROSSER_MAINDIR}/CrosserVersion")
+CROSSER_FEATURE_LEVEL=$(echo "${CROSSER_VERSION}" | sed 's/\./ /g' |
                             (read CR_MAJOR CR_MINOR CR_PATCH CR_REST
-                             declare -i REAL_MINOR=$CR_MINOR
-                             if test "$CR_PATCH" != "" && test "$CR_PATCH" -ge 50 ; then
-                                 REAL_MINOR=$REAL_MINOR+1
+                             declare -i REAL_MINOR=${CR_MINOR}
+                             if test "${CR_PATCH}" != "" && test "${CR_PATCH}" -ge 50 ; then
+                                 REAL_MINOR=${REAL_MINOR}+1
                              fi
-                             echo "$CR_MAJOR.$REAL_MINOR"))
+                             echo "${CR_MAJOR}.${REAL_MINOR}"))
 CROSSER_BUILD_DATE=$(date +"%d.%m.%y")
 
-if test "$CROSSER_LOGLVL_STDOUT" = "" ; then
+if test "${CROSSER_LOGLVL_STDOUT}" = "" ; then
   CROSSER_LOGLVL_STDOUT=2
 fi
-if test "$CROSSER_LOGLVL_FILE" = "" ; then
+if test "${CROSSER_LOGLVL_FILE}" = "" ; then
   CROSSER_LOGLVL_FILE=4
 fi
 
@@ -43,15 +43,15 @@ fi
 # Start new logfiles
 #
 log_init() {
-  if ! mkdir -p "$CROSSER_LOGDIR"
+  if ! mkdir -p "${CROSSER_LOGDIR}"
   then
-    echo "Failed to create logdir \"$CROSSER_LOGDIR\"" >&2
+    echo "Failed to create logdir \"${CROSSER_LOGDIR}\"" >&2
     return 1
   fi
 
-  log_write 0 "== $(basename $0) $CROSSER_VERSION build starts =="
-  rm -f "$CROSSER_LOGDIR/stderr.log"
-  rm -f "$CROSSER_LOGDIR/stdout.log"
+  log_write 0 "== $(basename $0) ${CROSSER_VERSION} build starts =="
+  rm -f "${CROSSER_LOGDIR}/stderr.log"
+  rm -f "${CROSSER_LOGDIR}/stdout.log"
 }
 
 # Call this when starting build of new packet
@@ -59,8 +59,8 @@ log_init() {
 # $1 - Packet name
 log_packet() {
   # Create lines separating output from one packet build from the other
-  echo "**** $1 ****" >> "$CROSSER_LOGDIR/stdout.log"
-  echo "**** $1 ****" >> "$CROSSER_LOGDIR/stderr.log"
+  echo "**** $1 ****" >> "${CROSSER_LOGDIR}/stdout.log"
+  echo "**** $1 ****" >> "${CROSSER_LOGDIR}/stderr.log"
 }
 
 # Write message to logs
@@ -71,25 +71,25 @@ log_write() {
   DSTAMP=$(date +"%d.%m %H:%M")
 
   if test "$1" = "0" ; then
-    echo >> "$CROSSER_LOGDIR/main.log"
+    echo >> "${CROSSER_LOGDIR}/main.log"
     log_write 1 "==========================================="
   fi
 
-  if test $1 -le $CROSSER_LOGLVL_FILE
+  if test $1 -le ${CROSSER_LOGLVL_FILE}
   then
-    if test -f "$CROSSER_LOGDIR/main.log"
+    if test -f "${CROSSER_LOGDIR}/main.log"
     then
-      LOGSIZE=$(ls -l "$CROSSER_LOGDIR/main.log" | cut -f 5 -d " ")
-      if test $LOGSIZE -gt 250000
+      LOGSIZE=$(ls -l "${CROSSER_LOGDIR}/main.log" | cut -f 5 -d " ")
+      if test ${LOGSIZE} -gt 250000
       then
-        mv "$CROSSER_LOGDIR/main.log" "$CROSSER_LOGDIR/main.old"
+        mv "${CROSSER_LOGDIR}/main.log" "${CROSSER_LOGDIR}/main.old"
       fi
     fi
-    echo -e "$DSTAMP : $2" >> "$CROSSER_LOGDIR/main.log"
+    echo -e "${DSTAMP} : $2" >> "${CROSSER_LOGDIR}/main.log"
   fi
 
-  if test $1 -le $CROSSER_LOGLVL_STDOUT ; then
-    echo -e "$DSTAMP : $2"
+  if test $1 -le ${CROSSER_LOGLVL_STDOUT} ; then
+    echo -e "${DSTAMP} : $2"
   fi
 }
 
@@ -104,11 +104,11 @@ log_error() {
 # Write flag variables to logfile
 #
 log_flags() {
-  log_write 4 "  CPPFLAGS: \"$CPPFLAGS\""
-  log_write 4 "  CFLAGS:   \"$CFLAGS\""
-  log_write 4 "  CXXFLAGS: \"$CXXFLAGS\""
-  log_write 4 "  LDFLAGS:  \"$LDFLAGS\""
-  log_write 4 "  PATH:     \"$PATH\""
+  log_write 4 "  CPPFLAGS: \"${CPPFLAGS}\""
+  log_write 4 "  CFLAGS:   \"${CFLAGS}\""
+  log_write 4 "  CXXFLAGS: \"${CXXFLAGS}\""
+  log_write 4 "  LDFLAGS:  \"${LDFLAGS}\""
+  log_write 4 "  PATH:     \"${PATH}\""
 }
 
 # Apply patch to component
@@ -124,9 +124,9 @@ patch_src() {
 
   SRCSUBDIR="$(src_subdir $1 $2)"
 
-  log_write 2 "Patching $SRCSUBDIR: $3.patch"
+  log_write 2 "Patching ${SRCSUBDIR}: $3.patch"
 
-  if test -r "$CROSSER_MAINDIR/patch/$3.patch"
+  if test -r "${CROSSER_MAINDIR}/patch/$3.patch"
   then
     PATCH_NAME="$3.patch"
   else
@@ -134,10 +134,10 @@ patch_src() {
     return 1
   fi
 
-  if ! patch -u -p1 -d "$CROSSER_SRCDIR/$SRCSUBDIR" < "$CROSSER_MAINDIR/patch/$PATCH_NAME" \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! patch -u -p1 -d "${CROSSER_SRCDIR}/${SRCSUBDIR}" < "${CROSSER_MAINDIR}/patch/${PATCH_NAME}" \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
-    log_error "Patching $SRCSUBDIR with $PATCH_NAME failed"
+    log_error "Patching ${SRCSUBDIR} with ${PATCH_NAME} failed"
     return 1
   fi
 }
@@ -149,8 +149,8 @@ patch_src() {
 upstream_patch() {
   log_write 2 "Patching $1: Upstream $2"
 
-  if ! patch -p0 -d "$CROSSER_SRCDIR/$1" < "$CROSSER_PACKETDIR/patch/$2" \
-       >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+  if ! patch -p0 -d "${CROSSER_SRCDIR}/$1" < "${CROSSER_PACKETDIR}/patch/$2" \
+       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
   then
     log_error "Patching $1 with $2 failed"
     return 1
@@ -364,12 +364,12 @@ deldir_build() {
 # $1 -   Package
 # $2 -   Version
 src_subdir() {
-  if test -d "$CROSSER_SRCDIR/$1-$2"
+  if test -d "${CROSSER_SRCDIR}/${1}-${2}"
   then
-    echo "$1-$2"
-  elif test -d "$CROSSER_SRCDIR/$1"
+    echo "${1}-${2}"
+  elif test -d "${CROSSER_SRCDIR}/${1}"
   then
-    echo "$1"
+    echo "${1}"
   else
     return 1
   fi
@@ -393,31 +393,31 @@ autogen_component()
 
   if test "$4" = ""
   then
-      SUBDIR="$(src_subdir $1 $2)"
+    SUBDIR="$(src_subdir $1 $2)"
 
-      if test "$SUBDIR" = ""
-      then
-          log_error "Cannot find srcdir for $1 version $2"
-          return 1
-      fi
+    if test "${SUBDIR}" = ""
+    then
+      log_error "Cannot find srcdir for $1 version $2"
+      return 1
+    fi
   else
-      SUBDIR="$4"
+    SUBDIR="$4"
   fi
 
-  if ! test -d "$CROSSER_SRCDIR/$SUBDIR"
+  if ! test -d "${CROSSER_SRCDIR}/${SUBDIR}"
   then
-    log_error "No directory $SUBDIR for $1 version $2 src"
+    log_error "No directory ${SUBDIR} for $1 version $2 src"
     return 1
   fi
 
-  cd "$CROSSER_SRCDIR/$SUBDIR"
+  cd "${CROSSER_SRCDIR}/${SUBDIR}"
 
   if test "$3" = "" && test -f autogen.sh ; then
     if ! test -x autogen.sh ; then
       log_write 1 "Making $1 autogen.sh executable"
       chmod u+x autogen.sh
     fi
-    if ! ./autogen.sh >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log" ; then
+    if ! ./autogen.sh >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log" ; then
       log_error "Autogen failed for $1"
       return 1
     fi
@@ -429,13 +429,13 @@ autogen_component()
     fi
     for TOOL in $TOOLS
     do
-      if test "$TOOL" = "libtoolize"
+      if test "${TOOL}" = "libtoolize"
       then
         TOOLPARAM=" -f"
-      elif test "$TOOL" = "automake"
+      elif test "${TOOL}" = "automake"
       then
         TOOLPARAM=" -a --add-missing"
-      elif test "$TOOL" = "aclocal"
+      elif test "${TOOL}" = "aclocal"
       then
         if test -d m4
         then
@@ -448,19 +448,19 @@ autogen_component()
         fi
         if test -d gnulib-m4
         then
-          TOOLPARAM="$TOOLPARAM -I gnulib-m4"
+          TOOLPARAM="${TOOLPARAM} -I gnulib-m4"
         fi
         if test "$4" != "" && test -d "../m4"
         then
-          TOOLPARAM="$TOOLPARAM -I ../m4"
+          TOOLPARAM="${TOOLPARAM} -I ../m4"
         fi
       else
         TOOLPARAM=""
       fi
 
-      if ! $TOOL$TOOLPARAM >> "$CROSSER_LOGDIR/stdout.log" 2>> "$CROSSER_LOGDIR/stderr.log"
+      if ! ${TOOL}${TOOLPARAM} >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
       then
-        log_error "Autotool $TOOL failed for $1 version $2"
+        log_error "Autotool ${TOOL} failed for $1 version $2"
         return 1
       fi
     done
@@ -471,11 +471,11 @@ autogen_component()
 #
 # $1   - Prefix to parse
 setup_prefix() {
-  echo $1 | sed -e "s/<TARGET>/$CROSSER_TARGET/g" \
-                -e "s/<DATE>/$CROSSER_BUILD_DATE/g" \
-                -e "s/<VERSION>/$CROSSER_VERSION/g" \
-                -e "s/<VERSIONSET>/$CROSSER_VERSIONSET/g" \
-                -e "s/<SETUP>/$CROSSER_SETUP/g"
+  echo $1 | sed -e "s/<TARGET>/${CROSSER_TARGET}/g" \
+                -e "s/<DATE>/${CROSSER_BUILD_DATE}/g" \
+                -e "s/<VERSION>/${CROSSER_VERSION}/g" \
+                -e "s/<VERSIONSET>/${CROSSER_VERSIONSET}/g" \
+                -e "s/<SETUP>/${CROSSER_SETUP}/g"
 }
 
 # Outputs one parsed prefix. Can take one or two parameters and decides
@@ -517,7 +517,7 @@ tokenize_version() {
 # 1  - $1 is greater than $2
 # 2  - $2 is greater than $1
 cmp_versions() {
-  if test "$CROSSER_CVERCMP" = "yes"
+  if test "${CROSSER_CVERCMP}" = "yes"
   then
     if cvercmp "$1" equal "$2" > /dev/null
     then
@@ -533,85 +533,85 @@ cmp_versions() {
   VER1PARTS="$(tokenize_version $1)"
   VER2PARTS="$(tokenize_version $2)"
 
-  for PART1 in $VER1PARTS
+  for PART1 in ${VER1PARTS}
   do
     # First remaining part of VER2PARTS
-    PART2="$(echo $VER2PARTS | cut -f 1 -d ' ')"
-    if test "$PART2" = ""
+    PART2="$(echo ${VER2PARTS} | cut -f 1 -d ' ')"
+    if test "${PART2}" = ""
     then
-      if test "$PART1" = "alpha" || test "$PART1" = "beta" ||
-         test "$PART1" = "pre"   || test "$PART1" = "rc"
+      if test "${PART1}" = "alpha" || test "${PART1}" = "beta" ||
+         test "${PART1}" = "pre"   || test "${PART1}" = "rc"
       then
         # alpha and beta are less than pure version.
         return 2
       fi
       return 1
     fi
-    if test "$PART1" != "$PART2"
+    if test "${PART1}" != "${PART2}"
     then
       # Comparison between special version tokens.
       # We consider increasing order (latter is newer version) to be:
       #   alpha - beta - pre - rc
-      if test "$PART1" = "alpha"
+      if test "${PART1}" = "alpha"
       then
         return 2
       fi
-      if test "$PART2" = "alpha"
+      if test "${PART2}" = "alpha"
       then
         return 1
       fi
-      if test "$PART1" = "beta"
+      if test "${PART1}" = "beta"
       then
         return 2
       fi
-      if test "$PART2" = "beta"
+      if test "${PART2}" = "beta"
       then
         return 1
       fi
-      if test "$PART1" = "pre"
+      if test "${PART1}" = "pre"
       then
         return 2
       fi
-      if test "$PART2" = "pre"
+      if test "${PART2}" = "pre"
       then
         return 1
       fi
-      if test "$PART1" = "rc"
+      if test "${PART1}" = "rc"
       then
         return 2
       fi
-      if test "$PART2" = "rc"
+      if test "${PART2}" = "rc"
       then
         return 1
       fi
-      PART1NBR="$(echo $PART1 | sed 's/[^0-9].*//')"
-      PART2NBR="$(echo $PART2 | sed 's/[^0-9].*//')"
-      if test 0$PART1NBR -gt 0$PART2NBR
+      PART1NBR="$(echo ${PART1} | sed 's/[^0-9].*//')"
+      PART2NBR="$(echo ${PART2} | sed 's/[^0-9].*//')"
+      if test 0${PART1NBR} -gt 0${PART2NBR}
       then
         return 1
       fi
-      if test 0$PART2NBR -gt 0$PART1NBR
+      if test 0${PART2NBR} -gt 0${PART1NBR}
       then
         return 2
       fi
-      PART1TEXT="$(echo $PART1 | sed 's/[0-9]*//')"
-      PART2TEXT="$(echo $PART2 | sed 's/[0-9]*//')"
-      SMALLERTEXT="$( ( echo $PART1TEXT && echo $PART2TEXT ) | sort | head -n 1)"
-      if test "$PART2TEXT" = "$SMALLERTEXT"
+      PART1TEXT="$(echo ${PART1} | sed 's/[0-9]*//')"
+      PART2TEXT="$(echo ${PART2} | sed 's/[0-9]*//')"
+      SMALLERTEXT="$( ( echo ${PART1TEXT} && echo ${PART2TEXT} ) | sort | head -n 1)"
+      if test "${PART2TEXT}" = "${SMALLERTEXT}"
       then
         return 1
       fi
       return 2
     fi
     # Remove first, now handled, part of VER2PARTS
-    VER2PARTS="$(echo $VER2PARTS | sed 's/[^ ]*//')"
+    VER2PARTS="$(echo ${VER2PARTS} | sed 's/[^ ]*//')"
   done
 
-  if test "$VER2PARTS" != ""
+  if test "${VER2PARTS}" != ""
   then
-    PART2=$(echo $VER2PARTS | cut -f 1 -d " ")
-    if test "$PART2" = "alpha" || test "$PART2" = "beta" ||
-       test "$PART2" = "pre"   || test "$PART2" = "rc"
+    PART2=$(echo ${VER2PARTS} | cut -f 1 -d " ")
+    if test "${PART2}" = "alpha" || test "${PART2}" = "beta" ||
+       test "${PART2}" = "pre"   || test "${PART2}" = "rc"
     then
       # alpha and beta are less than pure version.
       return 1
@@ -627,7 +627,7 @@ cmp_versions() {
 # $1 - Version number
 # $2 - Comparison version
 is_minimum_version() {
-  if test "$CROSSER_CVERCMP" = "yes"
+  if test "${CROSSER_CVERCMP}" = "yes"
   then
     cvercmp "$1" min "$2" > /dev/null
     return $?
@@ -646,7 +646,7 @@ is_minimum_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_max_version() {
-  if test "$CROSSER_CVERCMP" = "yes"
+  if test "${CROSSER_CVERCMP}" = "yes"
   then
     cvercmp "$1" max "$2" > /dev/null
     return $?
@@ -665,7 +665,7 @@ is_max_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_smaller_version() {
-  if test "$CROSSER_CVERCMP" = "yes"
+  if test "${CROSSER_CVERCMP}" = "yes"
   then
     cvercmp "$1" lesser "$2" > /dev/null
     return $?
@@ -684,7 +684,7 @@ is_smaller_version() {
 # $1 - Version number
 # $2 - Comparison version
 is_greater_version() {
-  if test "$CROSSER_CVERCMP" = "yes"
+  if test "${CROSSER_CVERCMP}" = "yes"
   then
     cvercmp "$1" greater "$2" > /dev/null
     return $?
@@ -708,7 +708,7 @@ is_greater_version() {
 ask_yes_no() {
   ANSWER="unknown"
 
-  while test "$ANSWER" != "yes" && test "$ANSWER" != "no"
+  while test "${ANSWER}" != "yes" && test "${ANSWER}" != "no"
   do
     echo "$1"
     if test "$2" != ""
@@ -718,14 +718,14 @@ ask_yes_no() {
     echo "yes/no"
     echo -n "> "
     read ANSWER
-    case "$ANSWER" in
+    case "${ANSWER}" in
       yes|y|YES|Yes) ANSWER="yes" ;;
       no|NO|No) ANSWER="no" ;;
       *) echo "Please answer \"yes\" or \"no\"." ;;
     esac
   done
 
-  if test "$ANSWER" != "yes"
+  if test "${ANSWER}" != "yes"
   then
     return 1
   fi
@@ -749,12 +749,12 @@ remove_dir() {
 
   log_write 3 "Directory \"$1\" exist already - needs to be removed"
 
-  if test "$CROSSER_FORCE" = "no"
+  if test "${CROSSER_FORCE}" = "no"
   then
     return 1
   fi
 
-  if test "$CROSSER_FORCE" != "yes"
+  if test "${CROSSER_FORCE}" != "yes"
   then
     if ! ask_yes_no "Directory \"$1\" already exist." \
                     "Is it ok to delete that directory and all its contents?"
@@ -776,20 +776,20 @@ remove_dir() {
 # 0 - Success
 # 1 - Failure
 read_configure_vars_sub() {
-  CONF_FILE="$CROSSER_MAINDIR/setups/cachevars/$1.vars"
+  CONF_FILE="${CROSSER_MAINDIR}/setups/cachevars/$1.vars"
 
-  if test -f "$CONF_FILE"
+  if test -f "${CONF_FILE}"
   then
-    cat "$CONF_FILE" | ( while read CONDITION SEPARATOR REST
+    cat "${CONF_FILE}" | ( while read CONDITION SEPARATOR REST
       do
-        if test "$SEPARATOR" != ":"
+        if test "${SEPARATOR}" != ":"
         then
-          log_error "Error in format of $CONF_FILE"
+          log_error "Error in format of ${CONF_FILE}"
           return 1
         fi
-        if echo "$CROSSER_TARGET" | grep $CONDITION > /dev/null
+        if echo "${CROSSER_TARGET}" | grep ${CONDITION} > /dev/null
         then
-          echo -n "$REST "
+          echo -n "${REST} "
         fi
       done )
   fi
@@ -811,7 +811,7 @@ read_configure_vars() {
     return 1
   fi
 
-  echo "$FULLTEXT" | sed 's/ $//'
+  echo "${FULLTEXT}" | sed 's/ $//'
 }
 
 # Check if packet directory exist and possibly create one
@@ -819,25 +819,25 @@ read_configure_vars() {
 # 0 - Packetdir exist
 # 1 - Packetdir missing
 packetdir_check() {
-  if ! test -d "$CROSSER_PACKETDIR/patch"
+  if ! test -d "${CROSSER_PACKETDIR}/patch"
   then
-    if test "$CROSSER_FORCE" = "no"
+    if test "${CROSSER_FORCE}" = "no"
     then
       return 1
     fi
 
-    if test "$CROSSER_FORCE" != "yes"
+    if test "${CROSSER_FORCE}" != "yes"
     then
 
-      if ! ask_yes_no "Packet directory $CROSSER_PACKETDIR, or some subdirectory, missing. Create one?"
+      if ! ask_yes_no "Packet directory ${CROSSER_PACKETDIR}, or some subdirectory, missing. Create one?"
       then
         return 1
       fi
     fi
 
-    if ! mkdir -p "$CROSSER_PACKETDIR/patch"
+    if ! mkdir -p "${CROSSER_PACKETDIR}/patch"
     then
-      echo "Failed to create packet directory $CROSSER_PACKETDIR"
+      echo "Failed to create packet directory ${CROSSER_PACKETDIR}"
       return 1
     fi
   fi
@@ -850,22 +850,22 @@ packetdir_check() {
 # $1 - Component name
 component_varname()
 {
-  VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/win.step | sed 's/.*[ \t]//')
+  VARNAME=$(grep "^$1[ \t]" "${CROSSER_MAINDIR}/steps/win.step" | sed 's/.*[ \t]//')
 
-  if test "$VARNAME" = "" ; then
-    VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/full.step | sed 's/.*[ \t]//')
+  if test "${VARNAME}" = "" ; then
+    VARNAME=$(grep "^$1[ \t]" "${CROSSER_MAINDIR}/steps/full.step" | sed 's/.*[ \t]//')
   fi
-  if test "$VARNAME" = "" ; then
-    VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sdl2.step | sed 's/.*[ \t]//')
+  if test "${VARNAME}" = "" ; then
+    VARNAME=$(grep "^$1[ \t]" "${CROSSER_MAINDIR}/steps/sdl2.step" | sed 's/.*[ \t]//')
   fi
-  if test "$VARNAME" = "" ; then
-    VARNAME=$(grep "^$1[ \t]" $CROSSER_MAINDIR/steps/sfml.step | sed 's/.*[ \t]//')
+  if test "${VARNAME}" = "" ; then
+    VARNAME=$(grep "^$1[ \t]" "${CROSSER_MAINDIR}/steps/sfml.step" | sed 's/.*[ \t]//')
   fi
-  if test "$VARNAME" = "" ; then
+  if test "${VARNAME}" = "" ; then
     return 1
   fi
 
-  echo $VARNAME
+  echo "${VARNAME}"
 }
 
 # Prints version of the component
@@ -875,8 +875,8 @@ component_version()
 {
   VARNAME="$(component_varname $1)"
 
-  if test "$VARNAME" != "" ; then
-    eval echo \$VERSION_$VARNAME
+  if test "${VARNAME}" != "" ; then
+    eval echo \${VERSION_${VARNAME}}
   fi
 }
 
@@ -887,8 +887,8 @@ component_patches()
 {
   VARNAME="$(component_varname $1)"
 
-  if test "$VARNAME" != "" ; then
-    echo $(eval echo \$PATCHES_$VARNAME)
+  if test "${VARNAME}" != "" ; then
+    echo $(eval echo \${PATCHES_${VARNAME}})
   fi
 }
 
