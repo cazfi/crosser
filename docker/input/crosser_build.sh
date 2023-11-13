@@ -13,6 +13,10 @@ cd "${CROSSER_MAINDIR}" || exit 1
 export CROSSER_FORCE=yes
 export CROSSER_TMPDEL=yes
 
+if test "$3" != "" ; then
+  export CROSSER_TMPDIR="$3"
+fi
+
 . scripts/helpers.sh
 
 CROSSER_FULL=yes CROSSER_LOGDIR=/usr/crosser/log CROSSER_PACKETDIR=/packets \
