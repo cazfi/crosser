@@ -1469,7 +1469,7 @@ fi
 if test "${CROSSER_SFML}" = "yes" ; then
 if ! unpack_component     ffmpeg                                                ||
    ! build_component_full ffmpeg ffmpeg                                         \
-     "--prefix=${DLLSPREFIX} --cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-yasm"    \
+     "--prefix=${DLLSPREFIX} --cross-prefix=$CROSSER_TARGET- --target-os=win32 --arch=$TARGET_ARCH --disable-x86asm"    \
      "custom"                                                                   ||
    ! deldir_component     ffmpeg $VERSION_FFMPEG "ffmpeg"                       ||
    ! unpack_component     openal-soft                                           ||
