@@ -36,7 +36,7 @@
 	- Updated gtk4 to version 4.10.5
 	- Updated glib to version 2.76.5
 	- Updated qt5 to version 5.15.10
-	- Updated libxml2 to version 2.11.5
+	- Updated libxml2 to version 2.12.0
 	- Updated meson to version 1.2.1
 	- Updated ffmpeg to version 5.0.3
 	- Updated pkgconf to version 2.0.2

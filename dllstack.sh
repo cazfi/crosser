@@ -1214,8 +1214,8 @@ fi
 if ! build_component   tiff                                                 ||
    ! deldir_component  tiff       "${VERSION_TIFF}" "tiff"                  ||
    ! build_component   libxml2                                              \
-     "--without-python --with-zlib=$DLLSPREFIX --with-lzma=$DLLSPREFIX"     ||
-   ! deldir_component  libxml2    $VERSION_XML2 "libxml2"                   ||
+     "--without-python --with-zlib=${DLLSPREFIX} --with-lzma=${DLLSPREFIX}" ||
+   ! deldir_component  libxml2    "${VERSION_XML2}" "libxml2"               ||
    ! (is_smaller_version "${VERSION_SHARED_MIME_INFO}" 2.0 ||
       XML_CATALOG_FILES="/etc/xml/catalog" \
       build_with_meson shared-mime-info )                                   ||
