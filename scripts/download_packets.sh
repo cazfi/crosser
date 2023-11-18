@@ -411,7 +411,7 @@ then
     gobject-introspection) VERSION_GOBJ_INTRO=$VERSION_SELECTED ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3=$VERSION_SELECTED ;;
-    gtk4)        VERSION_GTK4=$VERSION_SELECTED ;;
+    gtk4)        VERSION_GTK4="${VERSION_SELECTED}" ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
     PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
@@ -461,7 +461,7 @@ PANGO2_DIR="$(echo $VERSION_PANGO2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; 
 GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo $VERSION_GTK3 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GTK4_DIR="$(echo $VERSION_GTK4 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GTK4_DIR="$(echo "${VERSION_GTK4}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 if is_smaller_version $VERSION_ADWAITA_ICON 40.0 ; then
   ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
 else
@@ -657,13 +657,8 @@ download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$V
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk+/$GTK3_DIR/" "gtk3"       "$VERSION_GTK3"        "tar.xz"
 RET="$RET $?"
-if is_minimum_version "$VERSION_GTK4" 3.96 ; then
-download_needed "$MIRROR_GNOME/sources/gtk/$GTK4_DIR/"  "gtk4"       "$VERSION_GTK4"        "tar.xz"
-RET="$RET $?"
-else
-download_needed "$MIRROR_GNOME/sources/gtk+/$GTK4_DIR/" "gtk4"       "$VERSION_GTK4"        "tar.xz"
-RET="$RET $?"
-fi
+download_needed "${MIRROR_GNOME}/sources/gtk/${GTK4_DIR}/" "gtk4"    "${VERSION_GTK4}"        "tar.xz"
+RET="${RET} $?"
 download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
 RET="$RET $?"
 download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.xz"
