@@ -1260,23 +1260,23 @@ if ! build_component   tiff                                                 ||
    ! build_component   pixman                                               \
      "--disable-gtk"                                                        ||
    ! deldir_component  pixman     $VERSION_PIXMAN "pixman"                  ||
-   ! unpack_component  cairo                                                ||
-   ! rm -f "$CROSSER_SRCDIR/cairo-$VERSION_CAIRO/src/cairo-features.h"      ||
-   ! ( is_minimum_version    "$VERSION_CAIRO" 1.17.8 ||
-       patch_src       cairo "$VERSION_CAIRO" "cairo-1.12.10_epsilon" )     ||
-   ! ( is_minimum_version    "$VERSION_CAIRO" 1.17.8 ||
-       patch_src       cairo "$VERSION_CAIRO" "cairo_fortify_disable" )     ||
-   ! ( is_minimum_version    $VERSION_CAIRO 1.15.2 ||
-       patch_src       cairo $VERSION_CAIRO cairo_1.14.2+ )                 ||
-   ! ( is_smaller_version    "$VERSION_CAIRO" 1.17.6 ||
-       ( patch_src     cairo "$VERSION_CAIRO" "cairo_missing_unused" &&
-         patch_src     cairo "$VERSION_CAIRO" "cairo_missing_win32dwrite" &&
-         patch_src     cairo "$VERSION_CAIRO" "cairo_missing_perf" ))       ||
-   ! ( is_minimum_version "$VERSION_CAIRO" 1.17.6 ||
-       build_component   cairo "$CAIRO_VARS --disable-xlib --enable-win32" ) ||
-   ! ( is_smaller_version "$VERSION_CAIRO" 1.17.6 ||
-       build_with_meson cairo "-Dxlib=disabled" )                           ||
-   ! deldir_component  cairo      $VERSION_CAIRO "cairo"                    ||
+   ! unpack_component  cairo                                                   ||
+   ! rm -f "${CROSSER_SRCDIR}/cairo-${VERSION_CAIRO}/src/cairo-features.h"     ||
+   ! ( is_minimum_version    "${VERSION_CAIRO}" 1.17.8 ||
+       patch_src       cairo "${VERSION_CAIRO}" "cairo-1.12.10_epsilon" )      ||
+   ! ( is_minimum_version    "${VERSION_CAIRO}" 1.17.8 ||
+       patch_src       cairo "${VERSION_CAIRO}" "cairo_fortify_disable" )      ||
+   ! ( is_minimum_version    "${VERSION_CAIRO}" 1.15.2 ||
+       patch_src       cairo "${VERSION_CAIRO}" cairo_1.14.2+ )                ||
+   ! ( is_smaller_version    "${VERSION_CAIRO}" 1.17.6 ||
+       ( patch_src     cairo "${VERSION_CAIRO}" "cairo_missing_unused" &&
+         patch_src     cairo "${VERSION_CAIRO}" "cairo_missing_win32dwrite" &&
+         patch_src     cairo "${VERSION_CAIRO}" "cairo_missing_perf" ))        ||
+   ! ( is_minimum_version "${VERSION_CAIRO}" 1.17.6 ||
+       build_component   cairo "${CAIRO_VARS} --disable-xlib --enable-win32" ) ||
+   ! ( is_smaller_version "${VERSION_CAIRO}" 1.17.6 ||
+       build_with_meson cairo "-Dxlib=disabled" )                              ||
+   ! deldir_component  cairo      "${VERSION_CAIRO}" "cairo"                   ||
    ! unpack_component  pango                                                ||
    ! (is_smaller_version $VERSION_PANGO 1.44 ||
       is_minimum_version $VERSION_PANGO 1.48 ||

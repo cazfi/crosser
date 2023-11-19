@@ -632,10 +632,10 @@ RET="$RET $?"
 if cmp_versions "${VERSION_CAIRO}" 1.17.6
 then
   download_needed "${MIRROR_GNOME}/sources/cairo/${CAIRO_DIR}/" "cairo"      "${VERSION_CAIRO}" "tar.xz"
-  RET="$RET $?"
+  RET="${RET} $?"
 else
   download_needed "https://cairographics.org/releases/"    "cairo"      "${VERSION_CAIRO}"      "tar.xz" "https://cairographics.org/snapshots/"
-  RET="$RET $?"
+  RET="${RET} $?"
 fi
 download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.xz"
 RET="$RET $?"
