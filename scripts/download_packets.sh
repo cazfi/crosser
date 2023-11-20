@@ -405,7 +405,7 @@ then
   case "${DOWNLOAD_PACKET}" in
     zlib)        VERSION_ZLIB="${VERSION_SELECTED}" ;;
     glib)        VERSION_GLIB="${VERSION_SELECTED}" ;;
-    pango)       VERSION_PANGO=$VERSION_SELECTED ;;
+    pango)       VERSION_PANGO="${VERSION_SELECTED}" ;;
     pango2)      VERSION_PANGO2=$VERSION_SELECTED ;;
     graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
     gobject-introspection) VERSION_GOBJ_INTRO=$VERSION_SELECTED ;;
@@ -456,7 +456,7 @@ fi
 GLIB_DIR="$(echo "${VERSION_GLIB}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR} ))"
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GOBJ_INTRO_DIR="$(echo $VERSION_GOBJ_INTRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-PANGO_DIR="$(echo $VERSION_PANGO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+PANGO_DIR="$(echo "${VERSION_PANGO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO2_DIR="$(echo $VERSION_PANGO2 | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -637,8 +637,8 @@ else
   download_needed "https://cairographics.org/releases/"    "cairo"      "${VERSION_CAIRO}"      "tar.xz" "https://cairographics.org/snapshots/"
   RET="${RET} $?"
 fi
-download_needed "$MIRROR_GNOME/sources/pango/$PANGO_DIR/" "pango"    "$VERSION_PANGO"      "tar.xz"
-RET="$RET $?"
+download_needed "$MIRROR_GNOME/sources/pango/${PANGO_DIR}/" "pango"    "${VERSION_PANGO}"      "tar.xz"
+RET="${RET} $?"
 download_needed "$MIRROR_GNOME/sources/pango2/$PANGO2_DIR/" "pango2"    "$VERSION_PANGO2"      "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/graphene/$GRAPHENE_DIR/" "graphene" "$VERSION_GRAPHENE" "tar.xz"

@@ -1278,12 +1278,12 @@ if ! build_component   tiff                                                 ||
        build_with_meson cairo "-Dxlib=disabled" )                              ||
    ! deldir_component  cairo      "${VERSION_CAIRO}" "cairo"                   ||
    ! unpack_component  pango                                                ||
-   ! (is_smaller_version $VERSION_PANGO 1.44 ||
-      is_minimum_version $VERSION_PANGO 1.48 ||
+   ! (is_smaller_version "${VERSION_PANGO}" 1.44 ||
+      is_minimum_version "${VERSION_PANGO}" 1.48 ||
       build_with_meson pango "-Dintrospection=false" )                      ||
-   ! (is_smaller_version $VERSION_PANGO 1.48 ||
+   ! (is_smaller_version "${VERSION_PANGO}" 1.48 ||
       build_with_meson pango "-Dintrospection=disabled" )                   ||
-   ! deldir_component  pango      $VERSION_PANGO "pango"                    ||
+   ! deldir_component  pango      "${VERSION_PANGO}" "pango"                ||
    ! unpack_component  pango2                                               ||
    ! patch_src         pango2 "${VERSION_PANGO2}" "pango2_cairoless_extst"  ||
    ! build_with_meson  pango2 "-Dintrospection=disabled -Dcairo=disabled"   ||
