@@ -22,6 +22,7 @@
 	- Updated xz to version 5.4.5
 	- Updated SFML to version 2.6.1
 	- Updated pango to version 1.51.0
+	- Updated cairo to version 1.18.0
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
