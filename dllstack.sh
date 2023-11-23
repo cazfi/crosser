@@ -1497,42 +1497,33 @@ fi
 
 if test "${CROSSER_QT5}" = "yes"
 then
-if ! unpack_component qt5                                                    ||
-   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_g++-5.14" )               ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_disableidc-5.4.2"       ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_linkflags-5.11"         ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_vs_interop-5.11"        ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_dllsprefix-5.11"        ||
-   ! (is_smaller_version $VERSION_QT5 5.14.2 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_winextras_disable-5.14.2" ) ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_yarr_inc_conflict"         ||
-   ! (is_smaller_version $VERSION_QT5 5.14 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_localtime_not_r-5.14" )   ||
-   ! (is_minimum_version $VERSION_QT5 5.15 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_python3" )                ||
-   ! (is_smaller_version "$VERSION_QT5" 5.15 ||
-      is_minimum_version "$VERSION_QT5" 5.15.9 ||
-      patch_src qt-everywhere-src "$VERSION_QT5" "qt_python3-5.15" )         ||
-   ! (is_smaller_version "$VERSION_QT5" 5.15.9 ||
-      patch_src qt-everywhere-src "$VERSION_QT5" "qt5_python3-5.15.9" )      ||
-   ! (is_smaller_version $VERSION_QT5 5.15 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_test_thread_disable" )    ||
-   ! (is_smaller_version $VERSION_QT5 5.15 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_location_disable" )       ||
-   ! (is_smaller_version $VERSION_QT5 5.14.0 ||
-      patch_src qt-everywhere-src $VERSION_QT5 "qt_quick3d_req_ogl" )        ||
-   ! patch_src qt-everywhere-src $VERSION_QT5 "qt_d3d12_disable"             ||
-   ! (is_minimum_version "$VERSION_QT5" 5.15.5 ||
-      patch_src qt-everywhere-src "$VERSION_QT5" "qt_limits_inc")            ||
-   ! (is_minimum_version "$VERSION_QT5" 5.15.4 ||
-      (patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-25643-5.15" &&
-       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-25255-qprocess5-15" &&
-       patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2018-25032-5.15" ) ) ||
-   ! (is_minimum_version "$VERSION_QT5" 5.15.7 ||
-      patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2022-37434-qtbase-5.15" ) ||
-   ! (is_minimum_version "$VERSION_QT5" 5.15.9 ||
-      patch_src qt-everywhere-src "$VERSION_QT5" "qt5-CVE-2023-24607" )         ||
+if ! unpack_component qt5                                                       ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_g++-5.14"                 ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_disableidc-5.4.2"         ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_linkflags-5.11"           ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_vs_interop-5.11"          ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_dllsprefix-5.11"          ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_winextras_disable-5.14.2" ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_yarr_inc_conflict"        ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_localtime_not_r-5.14"     ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.9 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt_python3-5.15" )          ||
+   ! (is_smaller_version "${VERSION_QT5}" 5.15.9 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5_python3-5.15.9" )       ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_test_thread_disable"      ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_location_disable"         ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_quick3d_req_ogl"          ||
+   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_d3d12_disable"            ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.5 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt_limits_inc")             ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.4 ||
+      (patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-25643-5.15" &&
+       patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-25255-qprocess5-15" &&
+       patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2018-25032-5.15" ) ) ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.7 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-37434-qtbase-5.15" ) ||
+   ! (is_minimum_version "${VERSION_QT5}" 5.15.9 ||
+      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2023-24607" )       ||
    ! (is_minimum_version "${VERSION_QT5}" 5.15.11 ||
       patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2023-34410" )       ||
    ! build_component_full  qt5 qt5                                              \
