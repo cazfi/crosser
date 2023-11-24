@@ -3,6 +3,7 @@
 	- Container supports storing tmpdir to output, for debug purposes
 	- trim_packetdir.sh: Clean out filelist.tmp
 	- Updated auxiliary config.guess and config.sub to '2023-09-19' level
+	- Enabled pango2 build
 	- Updated gtk4 to version 4.12.4
 	- Updated SDL2 to version 2.28.5
 	- Updated glib to version 2.78.1
