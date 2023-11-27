@@ -1139,15 +1139,15 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libpng                                                        ||
    ! deldir_component  libpng     "${VERSION_PNG}" "libpng"                          ||
    ! unpack_component  gettext                                                       ||
-   ! (is_smaller_version $VERSION_GETTEXT 0.20 ||
-      is_minimum_version $VERSION_GETTEXT 0.20.2 ||
-      patch_src gettext $VERSION_GETTEXT "gettext_pthread_test_disable" )            ||
-   ! (is_smaller_version "$VERSION_GETTEXT" 0.21   ||
-      is_minimum_version "$VERSION_GETTEXT" 0.21.1 ||
-      patch_src gettext $VERSION_GETTEXT "gettext_fs_ruby" )                         ||
+   ! (is_smaller_version "${VERSION_GETTEXT}" 0.20 ||
+      is_minimum_version "${VERSION_GETTEXT}" 0.20.2 ||
+      patch_src gettext "${VERSION_GETTEXT}" "gettext_pthread_test_disable" )        ||
+   ! (is_smaller_version "${VERSION_GETTEXT}" 0.21   ||
+      is_minimum_version "${VERSION_GETTEXT}" 0.21.1 ||
+      patch_src gettext "${VERSION_GETTEXT}" "gettext_fs_ruby" )                     ||
    ! LIBS="-liconv" build_component gettext                                          \
-     "$GETTEXT_VARS --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
-   ! deldir_component  gettext    $VERSION_GETTEXT "gettext"                         ||
+     "${GETTEXT_VARS} --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
+   ! deldir_component  gettext    "${VERSION_GETTEXT}" "gettext"                     ||
    ! build_component   pcre2                                          \
      "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
    ! deldir_component  pcre2      $VERSION_PCRE2    "pcre2"           ||

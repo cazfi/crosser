@@ -420,7 +420,7 @@ then
     autoconf)    VERSION_AUTOCONF="${VERSION_SELECTED}" ;;
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
-    gettext)     VERSION_GETTEXT=$VERSION_SELECTED ;;
+    gettext)     VERSION_GETTEXT="${VERSION_SELECTED}" ;;
     jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
     sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
     cairo)       VERSION_CAIRO="${VERSION_SELECTED}" ;;
@@ -525,7 +525,7 @@ else
   ZLIB_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_GETTEXT 0.19.1
+if is_minimum_version "${VERSION_GETTEXT}" 0.19.1
 then
   GETTEXT_PACK="tar.xz"
 else
@@ -605,8 +605,8 @@ download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
                  "readline"            "readline${READLINE_SHORT}-" \
                  "$VERSION_READLINE"   "$PATCHES_READLINE"
 RET="$RET $?"
-download_needed "$MIRROR_GNU/gettext/"                  "gettext"    "$VERSION_GETTEXT"    "$GETTEXT_PACK"
-RET="$RET $?"
+download_needed "${MIRROR_GNU}/gettext/"                "gettext"    "${VERSION_GETTEXT}"    "${GETTEXT_PACK}"
+RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/glib/${GLIB_DIR}/" "glib"     "${VERSION_GLIB}"       "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.xz"
