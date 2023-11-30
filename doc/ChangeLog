@@ -1,4 +1,5 @@
 2.8
+	- Qt5 is no longer built as part of "full" chain by default
 	- Added "mixed" setup
 	- Container supports storing tmpdir to output, for debug purposes
 	- trim_packetdir.sh: Clean out filelist.tmp
