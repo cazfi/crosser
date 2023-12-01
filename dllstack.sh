@@ -1376,17 +1376,15 @@ fi
 fi
 
 if test "${CROSSER_GTK}" != "no" && test "${CROSSER_GTK4}" = "yes" ; then
-if ! unpack_component  graphene                                         ||
-   ! ( is_minimum_version $VERSION_GRAPHENE 1.10.0 ||
-       patch_src graphene $VERSION_GRAPHENE graphene_epsilon )          ||
-   ! patch_src graphene $VERSION_GRAPHENE "graphene_infinity_cast"      ||
-   ! patch_src graphene $VERSION_GRAPHENE "graphene_nopthread"          ||
-   ! ( ( is_minimum_version $VERSION_GRAPHENE 1.10.6 &&
+if ! unpack_component  graphene                                            ||
+   ! patch_src graphene "${VERSION_GRAPHENE}" "graphene_infinity_cast"     ||
+   ! patch_src graphene "${VERSION_GRAPHENE}" "graphene_nopthread"         ||
+   ! ( ( is_minimum_version "${VERSION_GRAPHENE}" 1.10.6 &&
          build_with_meson graphene "-Dintrospection=disabled" ) ||
-       ( is_smaller_version $VERSION_GRAPHENE 1.10.6 &&
-         build_with_meson  graphene "-D introspection=false" ) )        ||
-   ! deldir_component  graphene   $VERSION_GRAPHENE "graphene"          ||
-   ! unpack_component  libxkbcommon                                     ||
+       ( is_smaller_version "${VERSION_GRAPHENE}" 1.10.6 &&
+         build_with_meson  graphene "-D introspection=false" ) )           ||
+   ! deldir_component  graphene   "${VERSION_GRAPHENE}" "graphene"         ||
+   ! unpack_component  libxkbcommon                                        ||
    ! (is_minimum_version "${VERSION_XKBCOMMON}" 1.1.0 ||
       patch_src libxkbcommon "${VERSION_XKBCOMMON}" "xkbcommon_test_opt" ) ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.2.0 ||
