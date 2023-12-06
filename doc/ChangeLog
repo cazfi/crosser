@@ -25,7 +25,7 @@
 	- Updated SFML to version 2.6.1
 	- Updated pango to version 1.51.0
 	- Updated cairo to version 1.18.0
-	- Updated libxml2 to version 2.12.1
+	- Updated libxml2 to version 2.12.2
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default
