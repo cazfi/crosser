@@ -453,7 +453,7 @@ then
   esac
 fi
 
-GLIB_DIR="$(echo "${VERSION_GLIB}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n ${MAJOR}.${MINOR} ))"
+GLIB_DIR="$(echo "${VERSION_GLIB}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK_DOC_DIR="$(echo $VERSION_GTK_DOC | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GOBJ_INTRO_DIR="$(echo $VERSION_GOBJ_INTRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 PANGO_DIR="$(echo "${VERSION_PANGO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
@@ -608,7 +608,7 @@ RET="$RET $?"
 download_needed "${MIRROR_GNU}/gettext/"                "gettext"    "${VERSION_GETTEXT}"    "${GETTEXT_PACK}"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/glib/${GLIB_DIR}/" "glib"     "${VERSION_GLIB}"       "tar.xz"
-RET="$RET $?"
+RET="${RET} $?"
 download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSION_GTK_DOC" "tar.xz"
 RET="$RET $?"
 download_needed "$MIRROR_GNOME/sources/gobject-introspection/$GOBJ_INTRO_DIR/" "gobject-introspection" "$VERSION_GOBJ_INTRO" "tar.xz"

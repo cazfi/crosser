@@ -7,7 +7,7 @@
 	- Enabled pango2 build
 	- Updated gtk4 to version 4.12.4
 	- Updated SDL2 to version 2.28.5
-	- Updated glib to version 2.78.1
+	- Updated glib to version 2.78.2
 	- Updated gobject-introspection to version 1.78.1
 	- Updated pkgconf to version 2.1.0
 	- Updated sqlite to version 3.44.2
