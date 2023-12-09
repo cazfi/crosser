@@ -1,9 +1,10 @@
 2.8
-	- Use posix compliant shebangs
 	- Qt5 is no longer built as part of "full" chain by default
+	- Use posix compliant shebangs
 	- Added "mixed" setup
 	- Container supports storing tmpdir to output, for debug purposes
 	- trim_packetdir.sh: Clean out filelist.tmp
+	- Output of source package unpacking logged
 	- Updated auxiliary config.guess and config.sub to '2023-09-19' level
 	- Enabled pango2 build
 	- Updated gtk4 to version 4.12.4

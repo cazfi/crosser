@@ -238,31 +238,36 @@ unpack_component() {
   fi
 
   if test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.xz" ; then
-    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.xz" -C "${CROSSER_SRCDIR}/$2"
+    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.xz" -C "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "Unpacking ${NAME_BASE}.tar.xz failed"
       return 1
     fi
   elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.bz2" ; then
-    if ! tar xjf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.bz2" -C "${CROSSER_SRCDIR}/$2"
+    if ! tar xjf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.bz2" -C "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "Unpacking ${NAME_BASE}.tar.bz2 failed"
       return 1
     fi
   elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.gz" ; then
-    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.gz" -C "${CROSSER_SRCDIR}/$2"
+    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.gz" -C "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "Unpacking ${NAME_BASE}.tar.gz failed"
       return 1
     fi
   elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.lzma" ; then
-    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.lzma" -C "${CROSSER_SRCDIR}/$2"
+    if ! tar xJf "${CROSSER_PACKETDIR}/${NAME_BASE}.tar.lzma" -C "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "Unpacking ${NAME_BASE}.tar.lzma failed"
       return 1
     fi
   elif test -e "${CROSSER_PACKETDIR}/${NAME_BASE}.tgz" ; then
-    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tgz" -C "${CROSSER_SRCDIR}/$2"
+    if ! tar xzf "${CROSSER_PACKETDIR}/${NAME_BASE}.tgz" -C "${CROSSER_SRCDIR}/$2" \
+         >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
     then
       log_error "Unpacking ${NAME_BASE}.tgz failed"
       return 1
