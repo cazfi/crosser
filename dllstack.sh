@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #

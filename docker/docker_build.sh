@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # docker_build.sh : Build docker container for building crosser
 #

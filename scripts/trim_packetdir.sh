@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # trim_packetdir.sh: Delete old source packets
 #
