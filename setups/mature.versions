@@ -12,7 +12,7 @@
 # 2.34 series until glib 2.38.0 is released, at which point latest 2.36
 # release is added here.
 
-VERSION_AUTOCONF=2.69
+VERSION_AUTOCONF=2.71
 VERSION_AUTOMAKE=1.16.4
 VERSION_LIBTOOL=2.4.6
 VERSION_MESON=1.2.3
