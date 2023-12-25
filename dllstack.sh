@@ -1068,7 +1068,6 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
        patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_pthread" )        ||
    ! ( is_smaller_version "${VERSION_IMAGEMAGICK}" 7.0.10 ||
        patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_pthread-7.0.10" ) ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_nonnativewin"       ||
    ! build_component_host ImageMagick "--without-utilities"                 ||
    ! deldir_build         "native-ImageMagick"
 then
