@@ -1541,6 +1541,10 @@ if is_minimum_version "${VERSION_QT6}" 6.4.0
 then
   QT6_EXTRA_CONF+=" -skip qtmultimedia"
 fi
+if is_minimum_version "${VERSION_QT6}" 6.6.0
+then
+  QT6_EXTRA_CONF+=" -skip qtgraphs"
+fi
 
 if ! unpack_component qt6                                                       ||
    ! (is_minimum_version "${VERSION_QT6}" 6.2.4 ||
