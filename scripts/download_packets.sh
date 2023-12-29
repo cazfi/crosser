@@ -539,7 +539,7 @@ else
   FT_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_FONTCONFIG 2.13.91
+if is_minimum_version "${VERSION_FONTCONFIG}" 2.13.91
 then
   FC_PACK="tar.xz"
 else
@@ -621,7 +621,7 @@ download_needed "${MIRROR_GITHUB}/harfbuzz/harfbuzz/archive/" "harfbuzz" "${VERS
 RET="${RET} $?"
 download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSION_FREETYPE}"   "${FT_PACK}"
 RET="${RET} $?"
-download_needed "http://fontconfig.org/release/"        "fontconfig" "$VERSION_FONTCONFIG" "${FC_PACK}"
+download_needed "https://fontconfig.org/release/"       "fontconfig" "${VERSION_FONTCONFIG}" "${FC_PACK}"
 RET="${RET} $?"
 download_needed "https://curl.haxx.se/download/"        "curl"       "${VERSION_CURL}"     "tar.xz"
 RET="${RET} $?"

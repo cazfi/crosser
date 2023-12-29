@@ -1238,16 +1238,16 @@ if ! build_component   tiff                                                 ||
        "-Dicu=disabled -Dtests=disabled -Ddocs=disabled ${HB_EXTRA_CONFIG}"  ||
    ! deldir_component  harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz"           ||
    ! unpack_component  fontconfig                                            ||
-   ! ( is_smaller_version $VERSION_FONTCONFIG 2.12.3 ||
-       patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_fcobjs_prototypes ) ||
-   ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.0 ||
-       is_minimum_version $VERSION_FONTCONFIG 2.13.90 ||
-       patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_disable_test) ||
-   ! ( is_smaller_version $VERSION_FONTCONFIG 2.13.90 ||
-       patch_src       fontconfig $VERSION_FONTCONFIG fontconfig_disable_test-2.13.96) ||
+   ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.12.3 ||
+       patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_fcobjs_prototypes ) ||
+   ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.13.0 ||
+       is_minimum_version "${VERSION_FONTCONFIG}" 2.13.90 ||
+       patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test) ||
+   ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.13.90 ||
+       patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test-2.13.96) ||
    ! build_component   fontconfig                                           \
      "--with-freetype-config=${DLLSPREFIX}/bin/freetype-config --with-arch=${CROSSER_TARGET} --enable-libxml2" ||
-   ! deldir_component  fontconfig $VERSION_FONTCONFIG "fontconfig"          ||
+   ! deldir_component  fontconfig "${VERSION_FONTCONFIG}" "fontconfig"      ||
    ! unpack_component  libepoxy                                             ||
    ! ( is_minimum_version $VERSION_LIBEPOXY 1.5.0 ||
        build_component   libepoxy )                                         ||
