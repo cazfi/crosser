@@ -499,7 +499,7 @@ build_with_meson()
 # $2 - Extra meson options
 build_with_meson_host()
 {
-  build_with_meson_full "native-$1" "$1" "$2" "native"
+  build_with_meson_full "native-${1}" "$1" "$2" "native"
 }
 
 # $1 - Build dir
