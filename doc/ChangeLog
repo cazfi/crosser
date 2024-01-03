@@ -27,7 +27,7 @@
 	- Updated pango to version 1.51.0
 	- Updated cairo to version 1.18.0
 	- Updated libxml2 to version 2.12.3
-	- Updated SDL2_image to version 2.8.1
+	- Updated SDL2_image to version 2.8.2
 	- Updated autoconf to version 2.72
 	- Updated gtk3 to version 3.24.39
 	- Updated fontconfig to version 2.15.0
