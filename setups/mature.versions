@@ -1,6 +1,6 @@
 # mature.versions: Package versions
 #
-# (c) 2009-2023 Marko Lindqvist
+# (c) 2009-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -23,7 +23,7 @@ VERSION_ZLIB=1.2.13
 VERSION_XZ=5.2.12
 VERSION_ZSTD=1.5.2
 VERSION_CURL=8.4.0
-VERSION_SQLITE=3.43.2
+VERSION_SQLITE=3.44.2
 VERSION_GETTEXT=0.21.1
 VERSION_PKG_CONFIG=0.29.2
 VERSION_PKGCONF=2.0.3
