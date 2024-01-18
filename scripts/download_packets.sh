@@ -421,7 +421,7 @@ then
     automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     gettext)     VERSION_GETTEXT="${VERSION_SELECTED}" ;;
-    jpeg)        VERSION_JPEG=$VERSION_SELECTED ;;
+    jpeg)        VERSION_JPEG="${VERSION_SELECTED}" ;;
     sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
     cairo)       VERSION_CAIRO="${VERSION_SELECTED}" ;;
     qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
@@ -613,7 +613,7 @@ download_needed "$MIRROR_GNOME/sources/gtk-doc/$GTK_DOC_DIR/" "gtk-doc" "$VERSIO
 RET="${RET} $?"
 download_needed "$MIRROR_GNOME/sources/gobject-introspection/$GOBJ_INTRO_DIR/" "gobject-introspection" "$VERSION_GOBJ_INTRO" "tar.xz"
 RET="${RET} $?"
-download_needed "http://www.ijg.org/files/"             "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
+download_needed "https://www.ijg.org/files/"            "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="${RET} $?"
 download_needed "https://download.osgeo.org/libtiff/"    "tiff"    "${VERSION_TIFF}"       "tar.xz"
 RET="${RET} $?"

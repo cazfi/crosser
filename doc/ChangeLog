@@ -32,6 +32,7 @@
 	- Updated gtk3 to version 3.24.39
 	- Updated fontconfig to version 2.15.0
 	- Updated libxkbcommon to version 1.6.0
+	- Updated jpeg to version 9f
 
 2.7 (03-Sep-23)
 	- Produced binaries now require Windows 8.1 by default

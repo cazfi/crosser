@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2023 Marko Lindqvist
+# (c) 2008-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -1197,7 +1197,7 @@ fi
 
 if ! unpack_component jpeg  "" "jpegsrc.v${VERSION_JPEG}"             ||
    ! build_component jpeg "--enable-shared"                           ||
-   ! deldir_component jpeg $VERSION_JPEG "jpeg"
+   ! deldir_component jpeg "${VERSION_JPEG}" "jpeg"
 then
   log_error "Libjpeg build failed"
   exit 1
