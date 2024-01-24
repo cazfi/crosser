@@ -450,6 +450,7 @@ then
     libxml2)     VERSION_XML2="${VERSION_SELECTED}" ;;
     ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
     util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
+    libxmp)      VERSION_LIBXMP="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -670,6 +671,8 @@ RET="${RET} $?"
 download_needed "https://downloads.xiph.org/releases/vorbis/" "libvorbis" "${VERSION_VORBIS}" "tar.xz"
 RET="${RET} $?"
 download_needed "https://downloads.xiph.org/releases/flac/" "flac"   "${VERSION_FLAC}"        "tar.xz"
+RET="${RET} $?"
+download_needed "${MIRROR_GITHUB}/libxmp/libxmp/releases/download/libxmp-${VERSION_LIBXMP}/" "libxmp" "${VERSION_LIBXMP}" "tar.gz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL/releases/download/release-${VERSION_SDL2}/" "SDL2" "${VERSION_SDL2}" "tar.gz"
 RET="${RET} $?"

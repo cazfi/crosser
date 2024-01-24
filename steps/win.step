@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2023 Marko Lindqvist
+# (c) 2008-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -58,3 +58,4 @@ libvorbis         VORBIS
 flac              FLAC
 libxml2           XML2
 jansson           JANSSON
+libxmp            LIBXMP
