@@ -6,7 +6,7 @@
 	- trim_packetdir.sh: Clean out filelist.tmp
 	- Output of source package unpacking logged
 	- Updated auxiliary config.guess and config.sub to '2024-01-01' level
-	- Updated gtk4 to version 4.12.4
+	- Updated gtk4 to version 4.12.5
 	- Updated SDL2 to version 2.28.5
 	- Updated glib to version 2.78.3
 	- Updated gobject-introspection to version 1.78.1
