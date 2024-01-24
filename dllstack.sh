@@ -1085,13 +1085,13 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libiconv                                       ||
    ! deldir_component  libiconv   $VERSION_ICONV "libiconv"           ||
    ! unpack_component  zlib                                           ||
-   ! patch_src zlib $VERSION_ZLIB zlib_seeko-1.2.6-2                  ||
-   ! patch_src zlib $VERSION_ZLIB zlib_nolibc-1.2.6-2                 ||
-   ! patch_src zlib $VERSION_ZLIB zlib_dllext                         ||
-   ! (is_smaller_version $VERSION_ZLIB 1.2.12 ||
-      patch_src zlib $VERSION_ZLIB zlib_cc )                          ||
-   ! build_zlib        zlib       $VERSION_ZLIB                       ||
-   ! deldir_component  zlib       $VERSION_ZLIB "zlib"                ||
+   ! patch_src zlib "${VERSION_ZLIB}" zlib_seeko-1.2.6-2              ||
+   ! patch_src zlib "${VERSION_ZLIB}" zlib_nolibc-1.2.6-2             ||
+   ! patch_src zlib "${VERSION_ZLIB}" zlib_dllext                     ||
+   ! (is_smaller_version "${VERSION_ZLIB}" 1.2.12 ||
+      patch_src zlib "${VERSION_ZLIB}" zlib_cc )                      ||
+   ! build_zlib        zlib       "${VERSION_ZLIB}"                   ||
+   ! deldir_component  zlib       "${VERSION_ZLIB}" "zlib"            ||
    ! unpack_component  xz                                             ||
    ! (is_minimum_version "${VERSION_XZ}" 5.2.6 ||
       patch_src xz      "${VERSION_XZ}" "xzgrep-ZDI-CAN-16587" )      ||
