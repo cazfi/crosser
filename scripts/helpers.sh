@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2023 Marko Lindqvist
+# (c) 2008-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -305,9 +305,9 @@ deldir_component() {
 
 # Delete component's temporary source directory
 #
-# $1 -   Package
-# $2 -   Version
-# $3 -   Alt subdir name
+# $1   -   Package
+# [$2] -   Version
+# [$3] -   Alt subdir name
 deldir_src() {
   if test "${CROSSER_TMPDEL}" != "yes"
   then

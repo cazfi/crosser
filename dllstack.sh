@@ -84,22 +84,22 @@ fi
 # Functions
 #
 
-# $1 - Component
-# $2 - Extra configure options
+# $1   - Component
+# [$2] - Extra configure options
 build_component()
 {
   build_component_full "$1" "$1" "$2"
 }
 
-# $1 - Component
-# $2 - Extra configure options
+# $1   - Component
+# [$2] - Extra configure options
 build_component_def_make()
 {
   build_component_full "$1" "$1" "$2" "" "" "" "" "yes"
 }
 
 # $1   - Component
-# $2   - Extra configure options
+# [$2] - Extra configure options
 # [$3] - "native", "cross", or "pkg-config"
 build_component_host()
 {
@@ -135,7 +135,7 @@ build_component_host()
 
 # $1   - Build dir or 'src'
 # $2   - Component
-# $3   - Extra configure options
+# [$3] - Extra configure options
 # [$4] - Build type ('native' | 'windres' | 'cross' |
 #                    'qt' | 'pkg-config' | 'custom' |
 #                    'unicode' | 'nounicode')
@@ -1424,7 +1424,10 @@ if ! unpack_component  libogg                                         ||
    ! (is_smaller_version "${VERSION_FLAC}" 1.3.4     ||
       build_with_cmake  flac                         \
               "-DWITH_STACK_PROTECTOR=OFF -DWITH_OGG=OFF" )           ||
-   ! deldir_component  flac   "${VERSION_FLAC}" "flac"
+   ! deldir_component  flac   "${VERSION_FLAC}" "flac"                ||
+   ! unpack_component  libxmp                                         ||
+   ! build_component_full src libxmp                                  ||
+   ! deldir_src        libxmp     "${VERSION_LIBXMP}"
 then
   log_error "Audio stack build failed"
   exit 1
