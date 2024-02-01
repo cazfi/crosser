@@ -451,6 +451,7 @@ then
     ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
     util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
     libxmp)      VERSION_LIBXMP="${VERSION_SELECTED}" ;;
+    xz)          VERSION_XZ="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -592,7 +593,7 @@ download_needed "https://zlib.net/"                     "zlib"       "${VERSION_
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
 RET="${RET} $?"
-download_needed "https://tukaani.org/xz/"               "xz"         "${VERSION_XZ}"       "tar.xz"
+download_needed "https://github.com/tukaani-project/xz/releases/download/v${VERSION_XZ}/" "xz" "${VERSION_XZ}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
 RET="${RET} $?"
