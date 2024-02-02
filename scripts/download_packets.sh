@@ -520,12 +520,14 @@ else
   FRIBIDI_PACK="tar.bz2"
 fi
 
-if is_minimum_version "${VERSION_ZLIB}" 1.2.8
-then
-  ZLIB_PACK="tar.xz"
-else
-  ZLIB_PACK="tar.bz2"
-fi
+# Fallback directory has only .tar.gz packaged ones
+ZLIB_PACK="tar.gz"
+#if is_minimum_version "${VERSION_ZLIB}" 1.2.8
+#then
+#  ZLIB_PACK="tar.xz"
+#else
+#  ZLIB_PACK="tar.bz2"
+#fi
 
 if is_minimum_version "${VERSION_GETTEXT}" 0.19.1
 then
@@ -589,7 +591,7 @@ download_needed "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/${VERSIO
                 "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/older-releases/${VERSION_PNG}/"
 RET="${RET} $?"
 download_needed "https://zlib.net/"                     "zlib"       "${VERSION_ZLIB}"       "${ZLIB_PACK}" \
-                "${MIRROR_SOURCEFORGE}/projects/libpng/files/zlib/${VERSION_ZLIB}/"
+                "https://zlib.net/fossils/"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
 RET="${RET} $?"
