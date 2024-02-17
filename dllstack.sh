@@ -1130,7 +1130,6 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
    ! deldir_build      "native-icu4c"                                                ||
    ! deldir_component  icu        $VERSION_ICU "icu4c"                               ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_link_ws2_7"                  ||
    ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                     ||
    ! build_component   ImageMagick                                                   \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||

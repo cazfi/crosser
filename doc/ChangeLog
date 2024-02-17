@@ -1,4 +1,5 @@
 2.9
+	- Dropped illegal linker parameter from ImageMagick config
 	- Updated SDL2 to version 2.30.0
 	- Updated libxml2 to version 2.12.5
 	- Updated pango to version 1.51.2
