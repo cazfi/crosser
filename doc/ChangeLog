@@ -6,6 +6,7 @@
 	- Updated gettext to version 0.22.5
 	- Updated meson to version 1.3.2
 	- Updated pkgconf to version 2.1.1
+	- Updated libpng to version 1.6.43
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
