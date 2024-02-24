@@ -10,6 +10,7 @@
 	- Updated libpng to version 1.6.43
 	- Updated ffi to version 3.4.5
 	- Updated pcre2 to version 10.43
+	- Updated SDL2_mixer to version 2.8.0
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
