@@ -3,6 +3,7 @@
 	- Updated SDL2 to version 2.30.0
 	- Updated libxml2 to version 2.12.5
 	- Updated pango to version 1.51.2
+	- Updated gettext to version 0.22.5
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
