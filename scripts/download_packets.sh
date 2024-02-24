@@ -451,6 +451,7 @@ then
     util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
     libxmp)      VERSION_LIBXMP="${VERSION_SELECTED}" ;;
     xz)          VERSION_XZ="${VERSION_SELECTED}" ;;
+    libpsl)      VERSION_LIBPSL="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -624,6 +625,8 @@ RET="${RET} $?"
 download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSION_FREETYPE}"   "${FT_PACK}"
 RET="${RET} $?"
 download_needed "https://fontconfig.org/release/"       "fontconfig" "${VERSION_FONTCONFIG}" "${FC_PACK}"
+RET="${RET} $?"
+download_needed "${MIRROR_GITHUB}/rockdaboot/libpsl/releases/download/${VERSION_LIBPSL}/" "libpsl" "${VERSION_LIBPSL}" "tar.gz"
 RET="${RET} $?"
 download_needed "https://curl.haxx.se/download/"        "curl"       "${VERSION_CURL}"     "tar.xz"
 RET="${RET} $?"

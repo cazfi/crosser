@@ -20,6 +20,7 @@ tinycthread       TCT
 icu4c             ICU
 ncurses           NCURSES
 readline          READLINE
+libpsl            LIBPSL
 curl              CURL
 sqlite            SQLITE
 ImageMagick       IMAGEMAGICK

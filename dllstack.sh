@@ -1035,6 +1035,9 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! unpack_component  zstd                                           ||
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
    ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
+   ! unpack_component  libpsl                                         ||
+   ! build_with_meson  libpsl                                         ||
+   ! deldir_component  libpsl "${VERSION_LIBPSL}" "libpsl"            ||
    ! unpack_component  curl                                           ||
    ! (is_minimum_version "${VERSION_CURL}" 7.86.0 ||
       patch_src curl "${VERSION_CURL}" curl_winpollfd )               ||
