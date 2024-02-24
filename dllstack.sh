@@ -1150,7 +1150,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
      "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
    ! deldir_component  pcre2      $VERSION_PCRE2    "pcre2"           ||
    ! build_component   libffi                                         ||
-   ! deldir_component  libffi     $VERSION_FFI     "libffi"           ||
+   ! deldir_component  libffi     "${VERSION_FFI}"  "libffi"          ||
    ! build_with_meson  glib                                           ||
    ! deldir_component  glib       "${VERSION_GLIB}" "glib"            ||
    ! unpack_component  fribidi                                        ||

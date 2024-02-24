@@ -439,7 +439,7 @@ then
     freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO="${VERSION_SELECTED}" ;;
-    libffi)      VERSION_FFI=$VERSION_SELECTED ;;
+    libffi)      VERSION_FFI="${VERSION_SELECTED}" ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
@@ -629,7 +629,7 @@ download_needed "https://fontconfig.org/release/"       "fontconfig" "${VERSION_
 RET="${RET} $?"
 download_needed "https://curl.haxx.se/download/"        "curl"       "${VERSION_CURL}"     "tar.xz"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/libffi/libffi/releases/download/v${VERSION_FFI}/" "libffi" "$VERSION_FFI" "tar.gz"
+download_needed "${MIRROR_GITHUB}/libffi/libffi/releases/download/v${VERSION_FFI}/" "libffi" "${VERSION_FFI}" "tar.gz"
 RET="${RET} $?"
 download_needed "https://cairographics.org/releases/"    "pixman"     "${VERSION_PIXMAN}"     "tar.gz"
 RET="${RET} $?"
