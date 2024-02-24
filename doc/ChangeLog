@@ -8,6 +8,7 @@
 	- Updated pkgconf to version 2.1.1
 	- Updated libpng to version 1.6.43
 	- Updated ffi to version 3.4.5
+	- Updated pcre2 to version 10.43
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default

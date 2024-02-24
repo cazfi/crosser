@@ -431,7 +431,7 @@ then
     libpng)      VERSION_PNG="${VERSION_SELECTED}" ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
-    pcre2)       VERSION_PCRE2=$VERSION_SELECTED ;;
+    pcre2)       VERSION_PCRE2="${VERSION_SELECTED}" ;;
     sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
     fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
     meson)       VERSION_MESON="${VERSION_SELECTED}" ;;
@@ -593,7 +593,8 @@ RET="${RET} $?"
 download_needed "https://zlib.net/"                     "zlib"       "${VERSION_ZLIB}"       "${ZLIB_PACK}" \
                 "https://zlib.net/fossils/"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-$VERSION_PCRE2/" "pcre2" "$VERSION_PCRE2" "tar.bz2" "https://ftp.pcre.org/pub/pcre/"
+download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-${VERSION_PCRE2}/" "pcre2" "${VERSION_PCRE2}" "tar.bz2" \
+                "https://ftp.pcre.org/pub/pcre/"
 RET="${RET} $?"
 download_needed "https://github.com/tukaani-project/xz/releases/download/v${VERSION_XZ}/" "xz" "${VERSION_XZ}" "tar.xz"
 RET="${RET} $?"

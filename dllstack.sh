@@ -1146,16 +1146,16 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! LIBS="-liconv" build_component gettext                                          \
      "${GETTEXT_VARS} --enable-relocatable --enable-threads=windows --disable-libasprintf --without-emacs"    ||
    ! deldir_component  gettext    "${VERSION_GETTEXT}" "gettext"                     ||
-   ! build_component   pcre2                                          \
-     "--disable-cpp --enable-unicode-properties --enable-pcre2-16"    ||
-   ! deldir_component  pcre2      $VERSION_PCRE2    "pcre2"           ||
-   ! build_component   libffi                                         ||
-   ! deldir_component  libffi     "${VERSION_FFI}"  "libffi"          ||
-   ! build_with_meson  glib                                           ||
-   ! deldir_component  glib       "${VERSION_GLIB}" "glib"            ||
-   ! unpack_component  fribidi                                        ||
-   ! build_component   fribidi    "--disable-docs"                    ||
-   ! deldir_component  fribidi    $VERSION_FRIBIDI "fribidi"
+   ! build_component   pcre2                                           \
+     "--disable-cpp --enable-unicode-properties --enable-pcre2-16"     ||
+   ! deldir_component  pcre2      "${VERSION_PCRE2}" "pcre2"           ||
+   ! build_component   libffi                                          ||
+   ! deldir_component  libffi     "${VERSION_FFI}"   "libffi"          ||
+   ! build_with_meson  glib                                            ||
+   ! deldir_component  glib       "${VERSION_GLIB}"  "glib"            ||
+   ! unpack_component  fribidi                                         ||
+   ! build_component   fribidi    "--disable-docs"                     ||
+   ! deldir_component  fribidi    $VERSION_FRIBIDI   "fribidi"
 then
   log_error "Build failed"
   exit 1
