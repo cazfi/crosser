@@ -689,71 +689,6 @@ build_zlib()
   return $RET
 }
 
-# Build PDCurses
-#
-# $1 - Package name
-# $2 - Version
-#
-build_pdcurses()
-{
-  if test "$2" = "0"
-  then
-    return 0
-  fi
-
-  log_packet "$1"
-
-  SUBDIR="$(src_subdir "$1" "$2")"
-
-  if test "${SUBDIR}" = ""
-  then
-    log_error "Cannot find srcdir for $1 version $2"
-    return 1
-  fi
-
-  if is_minimum_version "${VERSION_PDCURSES}" 3.6
-  then
-    SUBDIR="${SUBDIR}/wincon"
-    MKFILE=Makefile
-  else
-    SUBDIR="${SUBDIR}/win32"
-    MKFILE=mingwin32.mak
-  fi
-
-  (
-  if ! cd "${CROSSER_SRCDIR}/${SUBDIR}"
-  then
-    log_error "Cannot change to directory \"${CROSSER_SRCDIR}/${SUBDIR}\""
-    return 1
-  fi
-
-  log_write 1 "Building $1"
-  log_write 3 "  Make targets: [default]"
-  log_write 4 "  Options: \"${CROSSER_COREOPTIONS}\""
-
-  if ! make -f "${MKFILE}" ${CROSSER_COREOPTIONS} \
-       >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
-  then
-    log_error "Make for $1 failed"
-    return 1
-  fi
-
-  if ! cp pdcurses.a "${DLLSPREFIX}/lib/libpdcurses.a"
-  then
-    log_error "pdcurses.a copy failed"
-    return 1
-  fi
-  )
-
-  RET=$?
-
-  if test "${RET}" = 0 ; then
-    echo "$1 : $2" >> "${DLLSPREFIX}/ComponentVersions.txt"
-  fi
-
-  return $RET
-}
-
 #######################################################################################################
 #
 # Main
@@ -1162,15 +1097,7 @@ then
 fi
 
 if test "${CROSSER_READLINE}" = "yes" ; then
-if ! unpack_component  PDCurses                                          ||
-   ! (is_minimum_version $VERSION_PDCURSES 3.6 ||
-      patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin" )         ||
-   ! (is_smaller_version $VERSION_PDCURSES 3.6 ||
-      patch_src PDCurses $VERSION_PDCURSES "PDCurses_crosswin-3.6" )     ||
-   ! build_pdcurses    PDCurses $VERSION_PDCURSES                        \
-     "--without-x"                                                       ||
-   ! deldir_src        PDCurses $VERSION_PDCURSES                        ||
-   ! unpack_component  ncurses                                           ||
+if ! unpack_component  ncurses                                           ||
    ! patch_src ncurses $VERSION_NCURSES "ncurses_windows_h"              ||
    ! patch_src ncurses $VERSION_NCURSES "ncurses_static"                 ||
    ! build_component   ncurses "--enable-term-driver"                    ||

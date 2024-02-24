@@ -414,7 +414,6 @@ then
     gtk4)        VERSION_GTK4="${VERSION_SELECTED}" ;;
     gtk-doc)     VERSION_GTK_DOC=$VERSION_SELECTED ;;
     atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    PDCurses)    VERSION_PDCURSES=$VERSION_SELECTED ;;
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF="${VERSION_SELECTED}" ;;
@@ -599,8 +598,6 @@ RET="${RET} $?"
 download_needed "https://github.com/tukaani-project/xz/releases/download/v${VERSION_XZ}/" "xz" "${VERSION_XZ}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
-RET="${RET} $?"
-download_needed "${MIRROR_SOURCEFORGE}/projects/pdcurses/files/pdcurses/${VERSION_PDCURSES}/" "PDCurses"      "${VERSION_PDCURSES}"      "tar.gz"
 RET="${RET} $?"
 download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
 RET="${RET} $?"
