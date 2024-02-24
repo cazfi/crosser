@@ -59,3 +59,4 @@ flac              FLAC
 libxml2           XML2
 jansson           JANSSON
 libxmp            LIBXMP
+wavpack           WAVPACK

@@ -678,6 +678,8 @@ download_needed "https://downloads.xiph.org/releases/flac/" "flac"   "${VERSION_
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libxmp/libxmp/releases/download/libxmp-${VERSION_LIBXMP}/" "libxmp" "${VERSION_LIBXMP}" "tar.gz"
 RET="${RET} $?"
+download_needed "https://www.wavpack.com/" "wavpack" "${VERSION_WAVPACK}" "tar.xz"
+RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL/releases/download/release-${VERSION_SDL2}/" "SDL2" "${VERSION_SDL2}" "tar.gz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_image/releases/download/release-${VERSION_SDL2_IMAGE}/" "SDL2_image" "${VERSION_SDL2_IMAGE}" "tar.gz"

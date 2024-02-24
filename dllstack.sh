@@ -1426,7 +1426,10 @@ if ! unpack_component  libogg                                         ||
    ! deldir_component  flac   "${VERSION_FLAC}" "flac"                ||
    ! unpack_component  libxmp                                         ||
    ! build_component_full src libxmp                                  ||
-   ! deldir_src        libxmp     "${VERSION_LIBXMP}"
+   ! deldir_src        libxmp     "${VERSION_LIBXMP}"                 ||
+   ! unpack_component  wavpack                                        ||
+   ! build_component   wavpack                                        ||
+   ! deldir_component  wavpack "${VERSION_WAVPACK}" "wavpack"
 then
   log_error "Audio stack build failed"
   exit 1
