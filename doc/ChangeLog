@@ -5,7 +5,7 @@
 	- Dropped PDCurses from the build
 	- Updated SDL2 to version 2.30.0
 	- Updated libxml2 to version 2.12.5
-	- Updated pango to version 1.52.0
+	- Updated pango to version 1.52.1
 	- Updated gettext to version 0.22.5
 	- Updated meson to version 1.3.2
 	- Updated pkgconf to version 2.1.1
