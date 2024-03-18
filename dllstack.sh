@@ -932,14 +932,14 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_with_meson_host glib "-D libmount=disabled -D selinux=disabled"  ||
    ! deldir_build         "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
-   ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_pc"                         ||
-   ! patch_src gtk-doc $VERSION_GTK_DOC "gtkdoc_configheaders"              ||
-   ! ( is_minimum_version "$VERSION_GTK_DOC" 1.33 ||
-       ( autogen_component    gtk-doc "$VERSION_GTK_DOC" &&
+   ! patch_src gtk-doc "${VERSION_GTK_DOC}" "gtkdoc_pc"                     ||
+   ! patch_src gtk-doc "${VERSION_GTK_DOC}" "gtkdoc_configheaders"          ||
+   ! ( is_minimum_version "${VERSION_GTK_DOC}" 1.33 ||
+       ( autogen_component    gtk-doc "${VERSION_GTK_DOC}" &&
          build_component_host gtk-doc ) )                                   ||
-   ! ( is_smaller_version "$VERSION_GTK_DOC" 1.33 ||
+   ! ( is_smaller_version "${VERSION_GTK_DOC}" 1.33 ||
        build_with_meson_host gtk-doc )                                      ||
-   ! deldir_component  gtk-doc   "$VERSION_GTK_DOC"                         \
+   ! deldir_component  gtk-doc   "${VERSION_GTK_DOC}"                       \
      "native-gtk-doc"                                                       ||
    ! unpack_component     gobject-introspection                             ||
    ! build_with_meson_host gobject-introspection                            ||
