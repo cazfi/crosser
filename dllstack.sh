@@ -943,7 +943,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "native-gtk-doc"                                                       ||
    ! unpack_component     gobject-introspection                             ||
    ! build_with_meson_host gobject-introspection                            ||
-   ! deldir_component  gobject-introspection   $VERSION_GOBJ_INTRO            \
+   ! deldir_component  gobject-introspection   "${VERSION_GOBJ_INTRO}"      \
      "native-gobject-introspection"                                         ||
    ! build_component_host pkgconf                                                  \
      "--with-pkg-config-dir=${DLLSPREFIX}/lib/pkgconfig --disable-shared"          \

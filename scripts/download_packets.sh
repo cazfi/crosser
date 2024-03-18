@@ -408,7 +408,7 @@ then
     pango)       VERSION_PANGO="${VERSION_SELECTED}" ;;
     pango2)      VERSION_PANGO2="${VERSION_SELECTED}" ;;
     graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
-    gobject-introspection) VERSION_GOBJ_INTRO=$VERSION_SELECTED ;;
+    gobject-introspection) VERSION_GOBJ_INTRO="${VERSION_SELECTED}" ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
     gtk3)        VERSION_GTK3="${VERSION_SELECTED}" ;;
     gtk4)        VERSION_GTK4="${VERSION_SELECTED}" ;;
@@ -457,7 +457,7 @@ fi
 
 GLIB_DIR="$(echo "${VERSION_GLIB}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK_DOC_DIR="$(echo "${VERSION_GTK_DOC}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
-GOBJ_INTRO_DIR="$(echo $VERSION_GOBJ_INTRO | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GOBJ_INTRO_DIR="$(echo "${VERSION_GOBJ_INTRO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO_DIR="$(echo "${VERSION_PANGO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO2_DIR="$(echo "${VERSION_PANGO2}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -614,7 +614,7 @@ download_needed "${MIRROR_GNOME}/sources/glib/${GLIB_DIR}/" "glib"     "${VERSIO
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gtk-doc/${GTK_DOC_DIR}/" "gtk-doc" "${VERSION_GTK_DOC}" "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/gobject-introspection/$GOBJ_INTRO_DIR/" "gobject-introspection" "$VERSION_GOBJ_INTRO" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/gobject-introspection/${GOBJ_INTRO_DIR}/" "gobject-introspection" "${VERSION_GOBJ_INTRO}" "tar.xz"
 RET="${RET} $?"
 download_needed "https://www.ijg.org/files/"            "jpeg"       "jpegsrc.v${VERSION_JPEG}.tar.gz"
 RET="${RET} $?"

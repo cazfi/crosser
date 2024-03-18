@@ -18,6 +18,7 @@
 	- Updated xz to version 5.6.0
 	- Updated gtk-doc to version 1.34.0
 	- Updated glib to version 2.80.0
+	- Updated gobject-introspection to version 1.80.0
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
