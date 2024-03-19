@@ -41,6 +41,7 @@ PACKAGES="\
  python3-pygments \
  libclang-dev \
  python3-packaging \
+ python3-setuptools \
 "
 
 if test "${UID}" != "0" ; then
