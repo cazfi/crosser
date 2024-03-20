@@ -21,6 +21,7 @@
 	- Updated gobject-introspection to version 1.80.0
 	- Updated gtk4 to version 4.14.1
 	- Updated adwaita-icon-theme to version 46.0
+	- Updated sqlite to version 3.45.2
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
