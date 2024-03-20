@@ -1,0 +1,11 @@
+diff -Nurd gtk-4.14.1/gsk/gskprivate.c gtk-4.14.1/gsk/gskprivate.c
+--- gtk-4.14.1/gsk/gskprivate.c	2024-03-17 02:52:15.000000000 +0200
++++ gtk-4.14.1/gsk/gskprivate.c	2024-03-20 02:11:50.283222760 +0200
+@@ -3,7 +3,6 @@
+ 
+ #include <cairo.h>
+ #include <pango/pangocairo.h>
+-#include <pango/pangoft2.h>
+ #include <math.h>
+ 
+ static gpointer
