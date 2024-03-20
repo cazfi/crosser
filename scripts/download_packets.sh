@@ -440,7 +440,7 @@ then
     shared-mime-info) VERSION_SHARED_MIME_INFO="${VERSION_SELECTED}" ;;
     libffi)      VERSION_FFI="${VERSION_SELECTED}" ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
-    adwaita-icon-theme) VERSION_ADWAITA_ICON=$VERSION_SELECTED ;;
+    adwaita-icon-theme) VERSION_ADWAITA_ICON="${VERSION_SELECTED}" ;;
     zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
     SDL2)        VERSION_SDL2="${VERSION_SELECTED}" ;;
     SDL2_ttf)    VERSION_SDL2_TTF="${VERSION_SELECTED}" ;;
@@ -464,10 +464,10 @@ GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATC
 GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
 GTK3_DIR="$(echo "${VERSION_GTK3}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK4_DIR="$(echo "${VERSION_GTK4}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
-if is_smaller_version $VERSION_ADWAITA_ICON 40.0 ; then
-  ADWAITA_ICON_DIR="$(major.minor_from_version $VERSION_ADWAITA_ICON)"
+if is_smaller_version "${VERSION_ADWAITA_ICON}" 40.0 ; then
+  ADWAITA_ICON_DIR="$(major.minor_from_version "${VERSION_ADWAITA_ICON}")"
 else
-  ADWAITA_ICON_DIR="$(major_from_version $VERSION_ADWAITA_ICON)"
+  ADWAITA_ICON_DIR="$(major_from_version "${VERSION_ADWAITA_ICON}")"
 fi
 CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
 LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
@@ -668,7 +668,7 @@ download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSIO
 RET="${RET} $?"
 download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/adwaita-icon-theme/$ADWAITA_ICON_DIR/" "adwaita-icon-theme" "$VERSION_ADWAITA_ICON" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/adwaita-icon-theme/${ADWAITA_ICON_DIR}/" "adwaita-icon-theme" "${VERSION_ADWAITA_ICON}" "tar.xz"
 RET="${RET} $?"
 download_needed "https://downloads.xiph.org/releases/ogg/" "libogg"   "${VERSION_OGG}"        "tar.xz"
 RET="${RET} $?"
