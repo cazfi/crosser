@@ -441,7 +441,7 @@ then
     libffi)      VERSION_FFI="${VERSION_SELECTED}" ;;
     jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON="${VERSION_SELECTED}" ;;
-    zstd)        VERSION_ZSTD=$VERSION_SELECTED ;;
+    zstd)        VERSION_ZSTD="${VERSION_SELECTED}" ;;
     SDL2)        VERSION_SDL2="${VERSION_SELECTED}" ;;
     SDL2_ttf)    VERSION_SDL2_TTF="${VERSION_SELECTED}" ;;
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
@@ -598,7 +598,7 @@ download_needed "${MIRROR_GITHUB}/PhilipHazel/pcre2/releases/download/pcre2-${VE
 RET="${RET} $?"
 download_needed "https://github.com/tukaani-project/xz/releases/download/v${VERSION_XZ}/" "xz" "${VERSION_XZ}" "tar.xz"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "$VERSION_ZSTD" "tar.gz"
+download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "${VERSION_ZSTD}" "tar.gz"
 RET="${RET} $?"
 download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
 RET="${RET} $?"

@@ -1034,7 +1034,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! deldir_component  xz         "${VERSION_XZ}" "xz"                ||
    ! unpack_component  zstd                                           ||
    ! build_with_meson_full zstd zstd "" "" "build/meson"              ||
-   ! deldir_component  zstd       $VERSION_ZSTD "zstd"                ||
+   ! deldir_component  zstd   "${VERSION_ZSTD}"   "zstd"              ||
    ! unpack_component  libpsl                                         ||
    ! build_with_meson  libpsl                                         ||
    ! deldir_component  libpsl "${VERSION_LIBPSL}" "libpsl"            ||
