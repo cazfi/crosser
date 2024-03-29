@@ -1184,10 +1184,12 @@ if ! build_component   tiff                                                 ||
        build_with_meson   libepoxy )                                        ||
    ! deldir_component  libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
    ! unpack_component  pixman                                               ||
-   ! patch_src          pixman $VERSION_PIXMAN pixman_epsilon               ||
-   ! build_component   pixman                                               \
-     "--disable-gtk"                                                        ||
-   ! deldir_component  pixman     $VERSION_PIXMAN "pixman"                  ||
+   ! patch_src          pixman  "${VERSION_PIXMAN}" pixman_epsilon             ||
+   ! (is_minimum_version "{VERSION_PIXMAN}" 0.43 ||
+      build_component   pixman "--disable-gtk" )                               ||
+   ! (is_smaller_version "${VERSION_PIXMAN}" 0.43 ||
+      build_with_meson pixman "-Dgtk=disabled" )                               ||
+   ! deldir_component  pixman   "${VERSION_PIXMAN}" "pixman"                   ||
    ! unpack_component  cairo                                                   ||
    ! rm -f "${CROSSER_SRCDIR}/cairo-${VERSION_CAIRO}/src/cairo-features.h"     ||
    ! ( is_minimum_version    "${VERSION_CAIRO}" 1.17.8 ||
