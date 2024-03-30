@@ -2,11 +2,11 @@
 
 # packethandlers.sh: Functions for Crosser
 #
-# (c) 2008-2023 Marko Lindqvist
+# (c) 2008-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
-# Helper functions that are not generic enought to be part of helper.sh
+# Helper functions that are not generic enough to be part of helper.sh
 
 READLINE_SHORT="$(echo $VERSION_READLINE | sed 's/\.//g')"
 
