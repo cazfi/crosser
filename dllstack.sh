@@ -1333,7 +1333,8 @@ if ! unpack_component  graphene                                            ||
    ! (is_smaller_version "${VERSION_GTK4}" 4.9 ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_winnt-4.9" )                  ||
    ! patch_src gtk  "${VERSION_GTK4}" "gtk4_stdlib_inc"                    ||
-   ! patch_src gtk  "${VERSION_GTK4}" "gtk4_pangoft2disable"               ||
+   ! (is_minimum_version "${VERSION_GTK4}" 4.14.2 ||
+      patch_src gtk  "${VERSION_GTK4}" "gtk4_pangoft2disable" )            ||
    ! build_with_meson gtk4 \
      "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false -D media-gstreamer=disabled -Dvulkan=disabled" ||
    ! deldir_component  gtk        "${VERSION_GTK4}" "gtk4"
