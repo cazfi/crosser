@@ -409,7 +409,7 @@ then
     pango2)      VERSION_PANGO2="${VERSION_SELECTED}" ;;
     graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
     gobject-introspection) VERSION_GOBJ_INTRO="${VERSION_SELECTED}" ;;
-    gdk-pixbuf)  VERSION_GDK_PIXBUF=$VERSION_SELECTED ;;
+    gdk-pixbuf)  VERSION_GDK_PIXBUF="${VERSION_SELECTED}" ;;
     gtk3)        VERSION_GTK3="${VERSION_SELECTED}" ;;
     gtk4)        VERSION_GTK4="${VERSION_SELECTED}" ;;
     gtk-doc)     VERSION_GTK_DOC="${VERSION_SELECTED}" ;;
@@ -461,7 +461,7 @@ GOBJ_INTRO_DIR="$(echo "${VERSION_GOBJ_INTRO}" | sed 's/\./ /g' | (read MAJOR MI
 PANGO_DIR="$(echo "${VERSION_PANGO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO2_DIR="$(echo "${VERSION_PANGO2}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-GDK_PB_DIR="$(echo $VERSION_GDK_PIXBUF | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GDK_PB_DIR="$(echo "${VERSION_GDK_PIXBUF}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK3_DIR="$(echo "${VERSION_GTK3}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK4_DIR="$(echo "${VERSION_GTK4}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 if is_smaller_version "${VERSION_ADWAITA_ICON}" 40.0 ; then
@@ -658,7 +658,7 @@ download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VER
 RET="${RET} $?"
 download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/$GDK_PB_DIR/" "gdk-pixbuf" "$VERSION_GDK_PIXBUF"  "tar.xz"
+download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/${GDK_PB_DIR}/" "gdk-pixbuf" "${VERSION_GDK_PIXBUF}"  "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gtk+/${GTK3_DIR}/" "gtk3"   "${VERSION_GTK3}"        "tar.xz"
 RET="${RET} $?"
