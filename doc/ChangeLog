@@ -1,5 +1,6 @@
 2.9
 	- Dropped illegal linker parameter from ImageMagick config
+	- Container updated to Ubuntu Noble (24.04 LTS)
 	- Added wavpack (version 5.7.0) to build
 	- Added libpsl (version 0.21.5) to build
 	- Dropped PDCurses from the build
