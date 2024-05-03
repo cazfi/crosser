@@ -1483,7 +1483,7 @@ then
 fi
 if is_minimum_version "${VERSION_QT6}" 6.6.0
 then
-  QT6_EXTRA_CONF+=" -skip qtgraphs"
+  QT6_EXTRA_CONF+=" -skip qtgraphs,qtspeech"
 fi
 
 if ! unpack_component qt6                                                       ||
