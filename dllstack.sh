@@ -1497,7 +1497,8 @@ if ! unpack_component qt6                                                       
       patch_src qt-everywhere-src "${VERSION_QT6}" "qt6-check_for_ulimit" )          ||
    ! (is_minimum_version "${VERSION_QT6}" 6.4.3 ||
       patch_src qt-everywhere-src "${VERSION_QT6}" "qt6-CVE-2023-24607-6.2" )        ||
-   ! patch_src qt-everywhere-src "${VERSION_QT6}" "qt6_xkb_1.6.0_support"            ||
+   ! (is_minimum_version "${VERSION_QT6}" 6.6.1 ||
+      patch_src qt-everywhere-src "${VERSION_QT6}" "qt6_xkb_1.6.0_support" )         ||
    ! build_with_cmake_full "native-qt6" "qt6"                                      \
      "-opensource -confirm-license -qt-harfbuzz -no-opengl"                        \
      "native-qt6"                                                                  ||
