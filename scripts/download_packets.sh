@@ -432,7 +432,7 @@ then
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
     pcre2)       VERSION_PCRE2="${VERSION_SELECTED}" ;;
     sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
-    fribidi)     VERSION_FRIBIDI=$VERSION_SELECTED ;;
+    fribidi)     VERSION_FRIBIDI="${VERSION_SELECTED}" ;;
     meson)       VERSION_MESON="${VERSION_SELECTED}" ;;
     harfbuzz)    VERSION_HARFBUZZ="${VERSION_SELECTED}" ;;
     freetype)    VERSION_FREETYPE="${VERSION_SELECTED}" ;;
@@ -513,7 +513,7 @@ else
   UMACROS_PACK="tar.bz2"
 fi
 
-if is_minimum_version $VERSION_FRIBIDI 1.0.9
+if is_minimum_version "${VERSION_FRIBIDI}" 1.0.9
 then
   FRIBIDI_PACK="tar.xz"
 else
@@ -579,7 +579,7 @@ download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERS
 RET="${RET} $?"
 download_needed "https://distfiles.dereferenced.org/pkgconf/" "pkgconf" "${VERSION_PKGCONF}" "tar.xz"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "$VERSION_FRIBIDI" "$FRIBIDI_PACK"
+download_needed "${MIRROR_GITHUB}/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "${VERSION_FRIBIDI}" "${FRIBIDI_PACK}"
 RET="${RET} $?"
 download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
 RET="${RET} $?"

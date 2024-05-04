@@ -27,6 +27,7 @@
 	- Updated pixman to version 0.43.4
 	- Updated gdk-pixbuf to version 2.42.11
 	- Updated qt6 to version 6.6.1
+	- Updated fribidi to version 1.0.14
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default

@@ -1093,7 +1093,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! deldir_component  glib       "${VERSION_GLIB}"  "glib"            ||
    ! unpack_component  fribidi                                         ||
    ! build_component   fribidi    "--disable-docs"                     ||
-   ! deldir_component  fribidi    $VERSION_FRIBIDI   "fribidi"
+   ! deldir_component  fribidi    "${VERSION_FRIBIDI}" "fribidi"
 then
   log_error "Build failed"
   exit 1
