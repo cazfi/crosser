@@ -506,7 +506,7 @@ else
   SQL_SUBDIR=""
 fi
 
-if is_minimum_version "$VERSION_UTIL_MACROS" 1.20.0
+if is_minimum_version "${VERSION_UTIL_MACROS}" 1.20.0
 then
   UMACROS_PACK="tar.xz"
 else
@@ -650,7 +650,7 @@ download_needed "${MIRROR_GNOME}/sources/graphene/${GRAPHENE_DIR}/" "graphene" "
 RET="${RET} $?"
 download_needed "https://xkbcommon.org/download/" "libxkbcommon" "${VERSION_XKBCOMMON}" "tar.xz"
 RET="${RET} $?"
-download_needed "http://xorg.freedesktop.org/releases/individual/util/" "util-macros" "$VERSION_UTIL_MACROS" "$UMACROS_PACK"
+download_needed "https://xorg.freedesktop.org/releases/individual/util/" "util-macros" "${VERSION_UTIL_MACROS}" "${UMACROS_PACK}"
 RET="${RET} $?"
 download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${VERSION_SHARED_MIME_INFO}/" "shared-mime-info" "${VERSION_SHARED_MIME_INFO}" "tar.bz2"
 RET="${RET} $?"

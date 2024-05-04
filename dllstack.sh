@@ -991,7 +991,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_build         "native-shared-mime-info"                         ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
-   ! deldir_component     util-macros $VERSION_UTIL_MACROS                  \
+   ! deldir_component     util-macros "${VERSION_UTIL_MACROS}"              \
      "native-util-macros"                                                   ||
    ! unpack_component     libpng                                            ||
    ! patch_src            libpng      "${VERSION_PNG}" "png_epsilon-1.6.8"  ||
