@@ -29,6 +29,7 @@
 	- Updated qt6 to version 6.6.3
 	- Updated fribidi to version 1.0.14
 	- Updated util-macros to version 1.20.1
+	- Updated gtk3 to version 3.24.42
 
 2.8 (05-Feb-24)
 	- Qt5 is no longer built as part of "full" chain by default
