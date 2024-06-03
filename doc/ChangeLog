@@ -20,7 +20,7 @@
 	- Updated glib to version 2.80.2
 	- Updated gobject-introspection to version 1.80.1
 	- Updated gtk4 to version 4.14.4
-	- Updated adwaita-icon-theme to version 46.0
+	- Updated adwaita-icon-theme to version 46.2
 	- Updated sqlite to version 3.45.3
 	- Updated harfbuzz to version 8.4.0
 	- Updated zstd to version 1.5.6
