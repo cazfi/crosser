@@ -8,7 +8,7 @@
 	- Updated libxml2 to version 2.12.7
 	- Updated pango to version 1.52.2
 	- Updated gettext to version 0.22.5
-	- Updated meson to version 1.4.0
+	- Updated meson to version 1.4.1
 	- Updated pkgconf to version 2.2.0
 	- Updated libpng to version 1.6.43
 	- Updated ffi to version 3.4.5
