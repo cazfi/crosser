@@ -895,7 +895,7 @@ fi
 
 GETTEXT_VARS="$(read_configure_vars gettext)"
 CAIRO_VARS="$(read_configure_vars cairo)"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
+ICU_FILEVER="$(icu_filever "${VERSION_ICU}")"
 
 export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${DIST_NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}"
 export NATIVE_PKG_CONFIG_PATH="${DIST_NATIVE_PREFIX}/lib64/pkgconfig:${NATIVE_PREFIX}/lib/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
@@ -963,10 +963,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_host icon-naming-utils                                 ||
    ! deldir_component  icon-naming-utils $VERSION_ICON_NUTILS               \
      "native-icon-naming-utils"                                             ||
-   ! unpack_component  icu4c         "" "icu4c-$ICU_FILEVER-src"            ||
-   ! patch_src icu $VERSION_ICU icu_dbl_mant                                ||
-   ! (is_smaller_version $VERSION_ICU 59.1 ||
-      patch_src icu $VERSION_ICU icu_filetools_inc )                        ||
+   ! unpack_component  icu4c         "" "icu4c-${ICU_FILEVER}-src"          ||
+   ! patch_src icu "${VERSION_ICU}" icu_dbl_mant                            ||
+   ! (is_smaller_version "${VERSION_ICU}" 59.1 ||
+      patch_src icu "${VERSION_ICU}" icu_filetools_inc )                    ||
    ! CXX="g++" CFLAGS="-fPIC" build_component_full native-icu4c icu4c ""    \
      "native" "icu/source" "" "" "yes"                                      ||
    ! unpack_component tiff                                                  ||
@@ -1062,14 +1062,15 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
           "tinycthread-${VERSION_TCT}/source"                           &&
         deldir_component  tinycthread $VERSION_TCT "tinycthread" ))                  ||
    ! (test "${CROSSER_POSIX}" = "yes" ||
-      is_smaller_version $VERSION_ICU 64.1 ||
-      patch_src icu $VERSION_ICU icu_tct )                                           ||
-   ! TARGET_SUFFIX="${TARGET_SUFFIX_P}" build_component_full icu4c icu4c                                                \
-     "--with-cross-build=$CROSSER_BUILDDIR/native-icu4c" "" "icu/source" "" "" "yes" ||
-   ! deldir_build      "native-icu4c"                                                ||
-   ! deldir_component  icu        $VERSION_ICU "icu4c"                               ||
-   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                     ||
-   ! build_component   ImageMagick                                                   \
+      is_smaller_version "${VERSION_ICU}" 64.1 ||
+      is_minimum_version "${VERSION_ICU}" 65.1 ||
+      patch_src icu "${VERSION_ICU}" icu_tct )                                         ||
+   ! TARGET_SUFFIX="${TARGET_SUFFIX_P}" build_component_full icu4c icu4c               \
+     "--with-cross-build=${CROSSER_BUILDDIR}/native-icu4c" "" "icu/source" "" "" "yes" ||
+   ! deldir_build      "native-icu4c"                                                  ||
+   ! deldir_component  icu        "${VERSION_ICU}" "icu4c"                             ||
+   ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                       ||
+   ! build_component   ImageMagick                                                     \
      "--without-bzlib --without-threads --without-magick-plus-plus --disable-openmp --without-utilities" ||
    ! deldir_component  ImageMagick "${VERSION_IMAGEMAGICK}" "ImageMagick"            ||
    ! build_component   libpng                                                        ||

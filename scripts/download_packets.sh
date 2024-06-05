@@ -426,7 +426,7 @@ then
     qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
     tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
-    icu4c)       VERSION_ICU=$VERSION_SELECTED ;;
+    icu4c)       VERSION_ICU="${VERSION_SELECTED}" ;;
     libpng)      VERSION_PNG="${VERSION_SELECTED}" ;;
     hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
     libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
@@ -477,8 +477,8 @@ QT5_DIR="$(echo "${VERSION_QT5}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; ec
 QT6_DIR="$(echo "${VERSION_QT6}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}"))"
 XML2_DIR="$(echo "${VERSION_XML2}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 CAIRO_DIR="$(echo "${VERSION_CAIRO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
-ICU_DIR="release-$(echo $VERSION_ICU | sed 's/\./-/')"
-ICU_FILEVER="$(icu_filever $VERSION_ICU)"
+ICU_DIR="release-$(echo "${VERSION_ICU}" | sed 's/\./-/')"
+ICU_FILEVER="$(icu_filever "${VERSION_ICU}")"
 
 READLINE_SHORT="$(echo ${VERSION_READLINE} | sed 's/\.//g')"
 if echo "${VERSION_READLINE}" | grep "\-rc" >/dev/null
