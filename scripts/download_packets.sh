@@ -692,7 +692,7 @@ download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_ttf/releases/download/release-$
 RET="${RET} $?"
 download_needed "https://www.sfml-dev.org/files/" "sfml" "SFML-${VERSION_SFML}-sources.zip"
 RET="${RET} $?"
-download_needed "https://openal-soft.org/openal-releases/" "openal-soft" "$VERSION_OPENAL" "tar.bz2"
+download_needed "https://openal-soft.org/openal-releases/" "openal-soft" "${VERSION_OPENAL}" "tar.bz2"
 RET="${RET} $?"
 download_needed "https://www.ffmpeg.org/releases/" "ffmpeg" "${VERSION_FFMPEG}" "tar.xz"
 RET="${RET} $?"
