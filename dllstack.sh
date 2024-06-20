@@ -929,7 +929,8 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "--enable-unicode-properties"                                          ||
    ! deldir_build         "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
-   ! build_with_meson_host glib "-D libmount=disabled -D selinux=disabled"  ||
+   ! build_with_meson_host glib                                             \
+     "-Dlibmount=disabled -Dselinux=disabled -Dintrospection=disabled"      ||
    ! deldir_build         "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc "${VERSION_GTK_DOC}" "gtkdoc_pc"                     ||
