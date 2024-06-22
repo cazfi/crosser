@@ -900,6 +900,12 @@ ICU_FILEVER="$(icu_filever "${VERSION_ICU}")"
 export LD_LIBRARY_PATH="${DIST_NATIVE_PREFIX}/lib:${DIST_NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib:${NATIVE_PREFIX}/lib64:${NATIVE_PREFIX}/lib/${CROSSER_PKG_ARCH}"
 export NATIVE_PKG_CONFIG_PATH="${DIST_NATIVE_PREFIX}/lib64/pkgconfig:${NATIVE_PREFIX}/lib/pkgconfig:${NATIVE_PREFIX}/lib64/pkgconfig"
 
+GLIB_CONF_HOST="-Dlibmount=disabled -Dselinux=disabled"
+if is_minimum_version "${VERSION_GLIB}" "2.80.0"
+then
+  GLIB_CONF_HOST="${GLIB_CONF_HOST} -Dintrospection=disabled"
+fi
+
 if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! cp -R "${CROSSER_SRCDIR}/meson-${VERSION_MESON}" "${NATIVE_PREFIX}" ||
    ! unpack_component     autoconf                          ||
@@ -929,8 +935,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "--enable-unicode-properties"                                          ||
    ! deldir_build         "native-pcre2"                                    ||
    ! unpack_component     glib                                              ||
-   ! build_with_meson_host glib                                             \
-     "-Dlibmount=disabled -Dselinux=disabled -Dintrospection=disabled"      ||
+   ! build_with_meson_host glib "${GLIB_CONF_HOST}"                         ||
    ! deldir_build         "native-glib"                                     ||
    ! unpack_component     gtk-doc                                           ||
    ! patch_src gtk-doc "${VERSION_GTK_DOC}" "gtkdoc_pc"                     ||
@@ -1187,7 +1192,7 @@ if ! build_component   tiff                                                 ||
    ! deldir_component  libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
    ! unpack_component  pixman                                               ||
    ! patch_src          pixman  "${VERSION_PIXMAN}" pixman_epsilon             ||
-   ! (is_minimum_version "{VERSION_PIXMAN}" 0.43 ||
+   ! (is_minimum_version "${VERSION_PIXMAN}" 0.43 ||
       build_component   pixman "--disable-gtk" )                               ||
    ! (is_smaller_version "${VERSION_PIXMAN}" 0.43 ||
       build_with_meson pixman "-Dgtk=disabled" )                               ||
@@ -1336,6 +1341,7 @@ if ! unpack_component  graphene                                            ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_winnt-4.9" )                  ||
    ! patch_src gtk  "${VERSION_GTK4}" "gtk4_stdlib_inc"                    ||
    ! (is_minimum_version "${VERSION_GTK4}" 4.14.2 ||
+      is_smaller_version "${VERSION_GTK4}" 4.14.0 ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_pangoft2disable" )            ||
    ! build_with_meson gtk4 \
      "-D x11-backend=false -D wayland-backend=false -D win32-backend=true -D introspection=disabled -D build-tests=false -D media-gstreamer=disabled -Dvulkan=disabled" ||
