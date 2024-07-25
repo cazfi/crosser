@@ -417,7 +417,7 @@ then
     readline)    VERSION_READLINE=$VERSION_SELECTED
                  PATCHES_READLINE=$PATCHES_SELECTED ;;
     autoconf)    VERSION_AUTOCONF="${VERSION_SELECTED}" ;;
-    automake)    VERSION_AUTOMAKE=$VERSION_SELECTED ;;
+    automake)    VERSION_AUTOMAKE="${VERSION_SELECTED}" ;;
     libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
     gettext)     VERSION_GETTEXT="${VERSION_SELECTED}" ;;
     jpeg)        VERSION_JPEG="${VERSION_SELECTED}" ;;
@@ -573,7 +573,7 @@ RET="$?"
 download_needed "${MIRROR_GNU}/autoconf/" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
                 "https://alpha.gnu.org/pub/gnu/autoconf/"
 RET="${RET} $?"
-download_needed "$MIRROR_GNU/automake/" "automake" "$VERSION_AUTOMAKE" "tar.xz"
+download_needed "${MIRROR_GNU}/automake/" "automake" "${VERSION_AUTOMAKE}" "tar.xz"
 RET="${RET} $?"
 download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
 RET="${RET} $?"

@@ -913,7 +913,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_component     autoconf   "${VERSION_AUTOCONF}" "native-autoconf" ||
    ! unpack_component     automake                          ||
    ! build_component_host automake                          ||
-   ! deldir_component     automake   $VERSION_AUTOMAKE "native-automake" ||
+   ! deldir_component     automake   "${VERSION_AUTOMAKE}" "native-automake" ||
    ! unpack_component     libtool                           ||
    ! build_component_full native-libtool libtool            \
      "" "native" "" "" "$VERSION_LIBTOOL"                   ||
