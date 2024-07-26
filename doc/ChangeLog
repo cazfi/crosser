@@ -5,7 +5,7 @@
 	- Added libpsl (version 0.21.5) to build
 	- Dropped PDCurses from the build
 	- Updated SDL2 to version 2.30.5
-	- Updated libxml2 to version 2.12.8
+	- Updated libxml2 to version 2.12.9
 	- Updated pango to version 1.54.0
 	- Updated gettext to version 0.22.5
 	- Updated meson to version 1.5.0
