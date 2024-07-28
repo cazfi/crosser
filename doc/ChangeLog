@@ -4,6 +4,7 @@
 	- Added wavpack (version 5.7.0) to build
 	- Added libpsl (version 0.21.5) to build
 	- Dropped PDCurses from the build
+	- Updated auxiliary config.guess and config.sub to '2024-07-27' level
 	- Updated SDL2 to version 2.30.5
 	- Updated libxml2 to version 2.12.9
 	- Updated pango to version 1.54.0
