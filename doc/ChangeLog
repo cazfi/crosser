@@ -22,7 +22,7 @@
 	- Updated gobject-introspection to version 1.80.1
 	- Updated gtk4 to version 4.14.5
 	- Updated adwaita-icon-theme to version 46.2
-	- Updated sqlite to version 3.46.0
+	- Updated sqlite to version 3.46.1
 	- Updated harfbuzz to version 8.5.0
 	- Updated zstd to version 1.5.6
 	- Updated pixman to version 0.43.4
