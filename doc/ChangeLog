@@ -1,3 +1,5 @@
+2.10
+
 2.9
 	- Dropped illegal linker parameter from ImageMagick config
 	- Container updated to Ubuntu Noble (24.04 LTS)
