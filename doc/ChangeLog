@@ -1,6 +1,6 @@
 2.10
 
-2.9
+2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
 	- Container updated to Ubuntu Noble (24.04 LTS)
 	- Added wavpack (version 5.7.0) to build
