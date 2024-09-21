@@ -1,6 +1,7 @@
 2.10
 	- Updated meson to version 1.5.2
 	- Updated glib to version 2.82.1
+	- Updated gobject-introspection to version 1.82.0
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
