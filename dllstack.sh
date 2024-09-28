@@ -1072,7 +1072,8 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
       is_minimum_version "${VERSION_ICU}" 65.1 ||
       patch_src icu "${VERSION_ICU}" icu_tct )                                         ||
    ! TARGET_SUFFIX="${TARGET_SUFFIX_P}" build_component_full icu4c icu4c               \
-     "--with-cross-build=${CROSSER_BUILDDIR}/native-icu4c" "" "icu/source" "" "" "yes" ||
+     "--with-cross-build=${CROSSER_BUILDDIR}/native-icu4c --disable-tools --disable-extras --disable-samples" \
+     "" "icu/source" "" "" "yes"                                                       ||
    ! deldir_build      "native-icu4c"                                                  ||
    ! deldir_component  icu        "${VERSION_ICU}" "icu4c"                             ||
    ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                       ||
