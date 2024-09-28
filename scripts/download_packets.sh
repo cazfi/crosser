@@ -407,29 +407,29 @@ then
     glib)        VERSION_GLIB="${VERSION_SELECTED}" ;;
     pango)       VERSION_PANGO="${VERSION_SELECTED}" ;;
     pango2)      VERSION_PANGO2="${VERSION_SELECTED}" ;;
-    graphene)    VERSION_GRAPHENE=$VERSION_SELECTED ;;
+    graphene)    VERSION_GRAPHENE="${VERSION_SELECTED}" ;;
     gobject-introspection) VERSION_GOBJ_INTRO="${VERSION_SELECTED}" ;;
     gdk-pixbuf)  VERSION_GDK_PIXBUF="${VERSION_SELECTED}" ;;
     gtk3)        VERSION_GTK3="${VERSION_SELECTED}" ;;
     gtk4)        VERSION_GTK4="${VERSION_SELECTED}" ;;
     gtk-doc)     VERSION_GTK_DOC="${VERSION_SELECTED}" ;;
-    atk)         VERSION_ATK=$VERSION_SELECTED ;;
-    readline)    VERSION_READLINE=$VERSION_SELECTED
-                 PATCHES_READLINE=$PATCHES_SELECTED ;;
+    atk)         VERSION_ATK="${VERSION_SELECTED}" ;;
+    readline)    VERSION_READLINE="${VERSION_SELECTED}"
+                 PATCHES_READLINE="${PATCHES_SELECTED}" ;;
     autoconf)    VERSION_AUTOCONF="${VERSION_SELECTED}" ;;
     automake)    VERSION_AUTOMAKE="${VERSION_SELECTED}" ;;
-    libtool)     VERSION_LIBTOOL=$VERSION_SELECTED ;;
+    libtool)     VERSION_LIBTOOL="${VERSION_SELECTED}" ;;
     gettext)     VERSION_GETTEXT="${VERSION_SELECTED}" ;;
     jpeg)        VERSION_JPEG="${VERSION_SELECTED}" ;;
     sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
     cairo)       VERSION_CAIRO="${VERSION_SELECTED}" ;;
     qt5)         VERSION_QT5="${VERSION_SELECTED}" ;;
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
-    tinycthread) VERSION_TCT=$VERSION_SELECTED ;;
+    tinycthread) VERSION_TCT="${VERSION_SELECTED}" ;;
     icu4c)       VERSION_ICU="${VERSION_SELECTED}" ;;
     libpng)      VERSION_PNG="${VERSION_SELECTED}" ;;
-    hicolor-icon-theme) VERSION_HICOLOR=$VERSION_SELECTED ;;
-    libepoxy)    VERSION_LIBEPOXY=$VERSION_SELECTED ;;
+    hicolor-icon-theme) VERSION_HICOLOR="${VERSION_SELECTED}" ;;
+    libepoxy)    VERSION_LIBEPOXY="${VERSION_SELECTED}" ;;
     pcre2)       VERSION_PCRE2="${VERSION_SELECTED}" ;;
     sfml)        VERSION_SFML="${VERSION_SELECTED}" ;;
     fribidi)     VERSION_FRIBIDI="${VERSION_SELECTED}" ;;
@@ -439,7 +439,7 @@ then
     fontconfig)  VERSION_FONTCONFIG="${VERSION_SELECTED}" ;;
     shared-mime-info) VERSION_SHARED_MIME_INFO="${VERSION_SELECTED}" ;;
     libffi)      VERSION_FFI="${VERSION_SELECTED}" ;;
-    jansson)     VERSION_JANSSON=$VERSION_SELECTED ;;
+    jansson)     VERSION_JANSSON="${VERSION_SELECTED}" ;;
     adwaita-icon-theme) VERSION_ADWAITA_ICON="${VERSION_SELECTED}" ;;
     zstd)        VERSION_ZSTD="${VERSION_SELECTED}" ;;
     SDL2)        VERSION_SDL2="${VERSION_SELECTED}" ;;
@@ -460,7 +460,7 @@ GTK_DOC_DIR="$(echo "${VERSION_GTK_DOC}" | sed 's/\./ /g' | (read MAJOR MINOR PA
 GOBJ_INTRO_DIR="$(echo "${VERSION_GOBJ_INTRO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO_DIR="$(echo "${VERSION_PANGO}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PANGO2_DIR="$(echo "${VERSION_PANGO2}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
-GRAPHENE_DIR="$(echo $VERSION_GRAPHENE | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+GRAPHENE_DIR="$(echo "${VERSION_GRAPHENE}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GDK_PB_DIR="$(echo "${VERSION_GDK_PIXBUF}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK3_DIR="$(echo "${VERSION_GTK3}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 GTK4_DIR="$(echo "${VERSION_GTK4}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
@@ -469,9 +469,9 @@ if is_smaller_version "${VERSION_ADWAITA_ICON}" 40.0 ; then
 else
   ADWAITA_ICON_DIR="$(major_from_version "${VERSION_ADWAITA_ICON}")"
 fi
-CROCO_DIR="$(major.minor_from_version $VERSION_CROCO)"
-LIBEPOXY_DIR="$(echo $VERSION_LIBEPOXY | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
-ATK_DIR="$(echo $VERSION_ATK | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n $MAJOR.$MINOR ))"
+CROCO_DIR="$(major.minor_from_version "${VERSION_CROCO}")"
+LIBEPOXY_DIR="$(echo "${VERSION_LIBEPOXY}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
+ATK_DIR="$(echo "${VERSION_ATK}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}" ))"
 PNG_DIR="$(echo "${VERSION_PNG}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "libpng${MAJOR}${MINOR}"))"
 QT5_DIR="$(echo "${VERSION_QT5}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}"))"
 QT6_DIR="$(echo "${VERSION_QT6}" | sed 's/\./ /g' | (read MAJOR MINOR PATCH ; echo -n "${MAJOR}.${MINOR}"))"
@@ -568,24 +568,24 @@ else
   QT6_RELEASEDIR="official_releases"
 fi
 
-download_needed "$MIRROR_GNU/libtool/"  "libtool"  "$VERSION_LIBTOOL"  "tar.xz"
+download_needed "${MIRROR_GNU}/libtool/"  "libtool"  "${VERSION_LIBTOOL}"  "tar.xz"
 RET="$?"
 download_needed "${MIRROR_GNU}/autoconf/" "autoconf" "${VERSION_AUTOCONF}" "tar.xz" \
                 "https://alpha.gnu.org/pub/gnu/autoconf/"
 RET="${RET} $?"
 download_needed "${MIRROR_GNU}/automake/" "automake" "${VERSION_AUTOMAKE}" "tar.xz"
 RET="${RET} $?"
-download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "$VERSION_PKG_CONFIG" "tar.gz"
+download_needed "http://pkgconfig.freedesktop.org/releases/" "pkg-config" "${VERSION_PKG_CONFIG}" "tar.gz"
 RET="${RET} $?"
 download_needed "https://distfiles.dereferenced.org/pkgconf/" "pkgconf" "${VERSION_PKGCONF}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/fribidi/fribidi/releases/download/v${VERSION_FRIBIDI}/" "fribidi" "${VERSION_FRIBIDI}" "${FRIBIDI_PACK}"
 RET="${RET} $?"
-download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "$VERSION_ICON_NUTILS" "tar.bz2"
+download_needed "http://tango.freedesktop.org/releases/" "icon-naming-utils" "${VERSION_ICON_NUTILS}" "tar.bz2"
 RET="${RET} $?"
-download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "$VERSION_TANGO_ICONS" "tar.bz2"
+download_needed "http://tango.freedesktop.org/releases/" "tango-icon-theme" "${VERSION_TANGO_ICONS}" "tar.bz2"
 RET="${RET} $?"
-download_needed "$MIRROR_GNU/libiconv/"                 "libiconv"   "$VERSION_ICONV"      "tar.gz"
+download_needed "${MIRROR_GNU}/libiconv/"                 "libiconv"   "${VERSION_ICONV}"      "tar.gz"
 RET="${RET} $?"
 download_needed "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/${VERSION_PNG}/" "libpng" "${VERSION_PNG}" "tar.xz" \
                 "${MIRROR_SOURCEFORGE}/projects/libpng/files/${PNG_DIR}/older-releases/${VERSION_PNG}/"
@@ -600,13 +600,13 @@ download_needed "https://github.com/tukaani-project/xz/releases/download/v${VERS
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/facebook/zstd/releases/download/v${VERSION_ZSTD}/" "zstd" "${VERSION_ZSTD}" "tar.gz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNU/ncurses/"                  "ncurses"    "$VERSION_NCURSES"    "tar.gz"
+download_needed "${MIRROR_GNU}/ncurses/"                  "ncurses"    "${VERSION_NCURSES}"    "tar.gz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNU/${RL_SUBDIR}/"             "readline"   "$VERSION_READLINE"   "tar.gz"
+download_needed "${MIRROR_GNU}/${RL_SUBDIR}/"             "readline"   "${VERSION_READLINE}"   "tar.gz"
 RET="${RET} $?"
-download_patches "$MIRROR_GNU/readline/readline-$VERSION_READLINE-patches/" \
+download_patches "${MIRROR_GNU}/readline/readline-${VERSION_READLINE}-patches/" \
                  "readline"            "readline${READLINE_SHORT}-" \
-                 "$VERSION_READLINE"   "$PATCHES_READLINE"
+                 "${VERSION_READLINE}"   "${PATCHES_READLINE}"
 RET="${RET} $?"
 download_needed "${MIRROR_GNU}/gettext/"                "gettext"    "${VERSION_GETTEXT}"    "${GETTEXT_PACK}"
 RET="${RET} $?"
@@ -654,19 +654,19 @@ download_needed "https://xorg.freedesktop.org/releases/individual/util/" "util-m
 RET="${RET} $?"
 download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${VERSION_SHARED_MIME_INFO}/" "shared-mime-info" "${VERSION_SHARED_MIME_INFO}" "tar.bz2"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "$VERSION_LIBEPOXY" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "${VERSION_LIBEPOXY}" "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/atk/$ATK_DIR/"   "atk"        "$VERSION_ATK"        "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/atk/${ATK_DIR}/"   "atk"        "${VERSION_ATK}"        "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/gdk-pixbuf/${GDK_PB_DIR}/" "gdk-pixbuf" "${VERSION_GDK_PIXBUF}"  "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/gdk-pixbuf/${GDK_PB_DIR}/" "gdk-pixbuf" "${VERSION_GDK_PIXBUF}"  "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gtk+/${GTK3_DIR}/" "gtk3"   "${VERSION_GTK3}"        "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gtk/${GTK4_DIR}/" "gtk4"    "${VERSION_GTK4}"        "tar.xz"
 RET="${RET} $?"
-download_needed "$MIRROR_GNOME/sources/libcroco/$CROCO_DIR/" "libcroco" "$VERSION_CROCO" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/libcroco/${CROCO_DIR}/" "libcroco" "${VERSION_CROCO}" "tar.xz"
 RET="${RET} $?"
-download_needed "icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "$VERSION_HICOLOR" "tar.xz"
+download_needed "https://icon-theme.freedesktop.org/releases/" "hicolor-icon-theme" "${VERSION_HICOLOR}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/adwaita-icon-theme/${ADWAITA_ICON_DIR}/" "adwaita-icon-theme" "${VERSION_ADWAITA_ICON}" "tar.xz"
 RET="${RET} $?"
@@ -702,7 +702,7 @@ download_needed "${MIRROR_GITHUB}/ImageMagick/ImageMagick/archive/refs/tags/" "I
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/libxml2/${XML2_DIR}/" "libxml2" "${VERSION_XML2}" "tar.xz"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "$VERSION_JANSSON" "tar.bz2"
+download_needed "${MIRROR_GITHUB}/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "${VERSION_JANSSON}" "tar.bz2"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/tinycthread/tinycthread/archive/refs/tags/" "tinycthread" "v${VERSION_TCT}.tar.gz" "" "" "tinycthread"
 RET="${RET} $?"
