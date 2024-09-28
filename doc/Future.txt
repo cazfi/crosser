@@ -2,4 +2,3 @@ These changes are coming in future versions:
 
 - Drop pkg-config
 - Drop win32 support completely
-- Drop Qt5

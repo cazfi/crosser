@@ -1,9 +1,0 @@
-diff -Nurd qt-everywhere-src-5.15.9/qtscxml/tests/3rdparty/gen-scion-tests.py qt-everywhere-src-5.15.9/qtscxml/tests/3rdparty/gen-scion-tests.py
---- qt-everywhere-src-5.15.9/qtscxml/tests/3rdparty/gen-scion-tests.py	2023-04-22 13:11:39.838313415 +0300
-+++ qt-everywhere-src-5.15.9/qtscxml/tests/3rdparty/gen-scion-tests.py	2023-04-22 13:48:04.097581537 +0300
-@@ -1,4 +1,4 @@
--#!/usr/bin/python
-+#!/usr/bin/python3
- 
- # Copyright (C) 2016 The Qt Company Ltd.
- # Contact: https://www.qt.io/licensing/

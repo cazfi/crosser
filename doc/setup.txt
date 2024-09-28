@@ -135,12 +135,8 @@ CROSSER_GROUP
 
 CROSSER_FULL
  ; If set to value "yes", more components will be built by default.
- ; Currently this is like enabling CROSSER_QT5, CROSSER_QT6,
+ ; Currently this is like enabling CROSSER_QT6,
  ; CROSSER_READLINE, and CROSSER_SFML
-
-CROSSER_QT5
- ; If set to value "yes", Qt5 will be built as part of crosser.
- ; Default value is "no"
 
 CROSSER_QT6
  ; If set to value "yes", Qt6 will be built as part of crosser.

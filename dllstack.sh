@@ -1439,48 +1439,6 @@ then
 fi
 fi
 
-if test "${CROSSER_QT5}" = "yes"
-then
-if ! unpack_component qt5                                                       ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_g++-5.14"                 ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_disableidc-5.4.2"         ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_linkflags-5.11"           ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_vs_interop-5.11"          ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_dllsprefix-5.11"          ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_winextras_disable-5.14.2" ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_yarr_inc_conflict"        ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_localtime_not_r-5.14"     ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.9 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt_python3-5.15" )          ||
-   ! (is_smaller_version "${VERSION_QT5}" 5.15.9 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5_python3-5.15.9" )       ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_test_thread_disable"      ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_location_disable"         ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_quick3d_req_ogl"          ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt_d3d12_disable"            ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.5 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt_limits_inc")             ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.4 ||
-      (patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-25643-5.15" &&
-       patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-25255-qprocess5-15" &&
-       patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2018-25032-5.15" ) ) ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.7 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2022-37434-qtbase-5.15" ) ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.9 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2023-24607" )       ||
-   ! (is_minimum_version "${VERSION_QT5}" 5.15.11 ||
-      patch_src qt-everywhere-src "${VERSION_QT5}" "qt5-CVE-2023-34410" )       ||
-   ! patch_src qt-everywhere-src "${VERSION_QT5}" "qt5_xkb_1.6.0_support"       ||
-   ! build_component_full  qt5 qt5                                              \
-     "-opensource -confirm-license -xplatform win32-g++ -plugindir ${DLLSPREFIX}/qt5/plugins -headerdir ${DLLSPREFIX}/qt5/include -device-option CROSS_COMPILE=${CROSSER_TARGET}- -device-option DLLSPREFIX=${DLLSPREFIX} -device-option EXTRA_LIBDIR=${DLLSPREFIX}/lib -device-option EXTRA_INCDIR=${DLLSPREFIX}/include -nomake examples -no-opengl -no-evr -system-pcre -system-zlib -system-harfbuzz" \
-     "qt" "" "" "" "yes"                                                        ||
-   ! deldir_component qt-everywhere-src "${VERSION_QT5}" "qt5"
-then
-  log_error "Qt5 stack build failed"
-  exit 1
-fi
-fi
-
 if test "${CROSSER_QT6}" = "yes"
 then
 
@@ -1567,7 +1525,7 @@ log_write 1 "Creating crosser.txt"
   fi
   echo "CROSSER_GTK4=\"${CROSSER_GTK4}\""
   echo "CROSSER_GTK5=\"no\""
-  echo "CROSSER_QT5=\"${CROSSER_QT5}\""
+  echo "CROSSER_QT5=\"no\""
   echo "CROSSER_QT6=\"${CROSSER_QT6}\""
   echo "CROSSER_SDL2=\"${CROSSER_SDL2}\""
   echo "CROSSER_SDL3=\"no\""
@@ -1576,7 +1534,7 @@ log_write 1 "Creating crosser.txt"
   echo
   echo "# Deprecated entries"
   echo "# -------------------------"
-  echo "CROSSER_QT=\"${CROSSER_QT5}\""
+  echo "CROSSER_QT=\"no\""
   echo "CROSSER_GTK2=\"no\""
 ) > "${DLLSPREFIX}/crosser.txt"
 
@@ -1626,10 +1584,7 @@ log_write 1 "Creating launch.bat"
 (
   echo -n -e "set WINSTACK_ROOT=%~dp0\r\n"
   echo -n -e "set PATH=%~dp0\\\lib;%~dp0\\\bin;%PATH%\r\n"
-  if test "${CROSSER_QT5}" = "yes"
-  then
-    echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt5\\\plugins\r\n"
-  elif test "${CROSSER_QT6}" = "yes"
+  if test "${CROSSER_QT6}" = "yes"
   then
     echo -n -e "set QT_PLUGIN_PATH=%~dp0\\\qt6\\\plugins\r\n"
   fi

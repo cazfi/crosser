@@ -173,7 +173,7 @@ component_name_to_package_name() {
     else
       echo "gtk+"
     fi
-  elif test "$1" = "qt5" || test "$1" = "qt6"
+  elif test "$1" = "qt6"
   then
     echo "qt-everywhere-src"
   else
@@ -186,12 +186,7 @@ component_name_to_package_name() {
 # $1 - Component name
 # $2 - Component version
 component_name_to_tarball_name() {
-  if test "$1" = "qt5"
-  then
-    echo "qt-everywhere-opensource-src"
-  else
-    echo "$(component_name_to_package_name $1 $2)"
-  fi
+  echo "$(component_name_to_package_name $1 $2)"
 }
 
 # Unpack component package to source directory

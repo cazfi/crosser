@@ -1,9 +1,8 @@
 # full.step: Packages in optional step
 #
-# (c) 2015-2022 Marko Lindqvist
+# (c) 2015-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 
-qt5                  QT5
 qt6                  QT6

@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2023 Marko Lindqvist
+# (c) 2008-2024 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -80,17 +80,6 @@ if test "$CROSSER_FULL" = "" ; then
 fi
 if test "$CROSSER_FULL" != "yes" && test "$CROSSER_FULL" != "no" ; then
   echo "Unknown value \"$CROSSER_FULL\" for CROSSER_FULL. Valid values are \"yes\" and \"no\"" >&2
-  exit 1
-fi
-if test "${CROSSER_QT5}" = "" && test "${CROSSER_QT}" != "" ; then
-  echo "Configuration variable CROSSER_QT is deprecated. Please use CROSSER_QT5" >&2
-  CROSSER_QT5="${CROSSER_QT}"
-fi
-if test "${CROSSER_QT5}" = "" ; then
-  CROSSER_QT5="no"
-fi
-if test "${CROSSER_QT5}" != "yes" && test "${CROSSER_QT5}" != "no" ; then
-  echo "Unknown value \"${CROSSER_QT5}\" for CROSSER_QT5. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
 if test "$CROSSER_QT6" = "" ; then
