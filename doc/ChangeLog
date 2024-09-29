@@ -8,6 +8,7 @@
 	- Updated libxml2 to version 2.13.4
 	- Updated qt6 to version 6.7.3
 	- Updated icu to version 67.1
+	- Updated curl to version 8.10.1
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
