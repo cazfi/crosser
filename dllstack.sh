@@ -138,7 +138,7 @@ build_component_host()
 # [$3] - Extra configure options
 # [$4] - Build type ('native' | 'windres' | 'cross' |
 #                    'qt' | 'pkg-config' | 'custom' |
-#                    'unicode' | 'nounicode')
+#                    'icu' | 'unicode' | 'nounicode')
 #        Of these, either 'unicode' or 'nounicode' is also the default,
 #        but if you really want one of them, make it explicit.
 # [$5] - Src subdir
@@ -203,7 +203,7 @@ build_component_full()
   fi
 
   (
-  cd "$BUILDDIR"
+  cd "${BUILDDIR}"
 
   if test "$4" = "native"
   then
@@ -246,7 +246,11 @@ build_component_full()
     if test "$4" = "unicode" ; then
       CPPFLAGS="${CPPFLAGS} -DUNICODE"
     fi
-    export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
+    if test "$4" = "icu" ; then
+      export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX} -Wl,-allow-multiple-definition"
+    else
+      export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
+    fi
     export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
     export CXX="${CROSSER_TARGET}-g++${TARGET_SUFFIX} ${CROSSER_STDCXX} -static-libgcc"
     export PKG_CONFIG_PATH="${DLLSPREFIX}/lib/${CROSSER_PKG_ARCH}/pkgconfig"
@@ -1073,7 +1077,7 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
       patch_src icu "${VERSION_ICU}" icu_tct )                                         ||
    ! TARGET_SUFFIX="${TARGET_SUFFIX_P}" build_component_full icu4c icu4c               \
      "--with-cross-build=${CROSSER_BUILDDIR}/native-icu4c --disable-tools --disable-extras --disable-samples" \
-     "" "icu/source" "" "" "yes"                                                       ||
+     "icu" "icu/source" "" "" "yes"                                                    ||
    ! deldir_build      "native-icu4c"                                                  ||
    ! deldir_component  icu        "${VERSION_ICU}" "icu4c"                             ||
    ! patch_src ImageMagick "${VERSION_IMAGEMAGICK}" "im_dll_not"                       ||
