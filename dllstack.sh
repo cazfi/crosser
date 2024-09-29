@@ -1171,8 +1171,6 @@ if ! build_component   tiff                                                 ||
    ! build_component   freetype   "--without-bzip2"                          ||
    ! deldir_component  freetype   "${VERSION_FREETYPE}" "freetype"           ||
    ! unpack_component  harfbuzz "" "harfbuzz/${VERSION_HARFBUZZ}"            ||
-   ! ( is_max_version "${VERSION_HARFBUZZ}" 2.5.0 ||
-       patch_src harfbuzz "${VERSION_HARFBUZZ}" "harfbuzz_pthread_disable" ) ||
    ! ( is_minimum_version "${VERSION_HARFBUZZ}" 2.6.7 ||
        patch_src       harfbuzz   "${VERSION_HARFBUZZ}" "harfbuzz_python3" ) ||
    ! build_with_meson  harfbuzz \
