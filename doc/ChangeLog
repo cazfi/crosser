@@ -10,6 +10,7 @@
 	- Updated icu to version 67.1
 	- Updated curl to version 8.10.1
 	- Updated libpng to version 1.6.44
+	- Updated tiff to version 4.7.0
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
