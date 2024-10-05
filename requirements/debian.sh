@@ -12,7 +12,7 @@ PACKAGES="\
  mingw-w64 \
  g++-mingw-w64 \
  g++ \
- wget \
+ wget2 \
  tar \
  gzip \
  bzip2 \
