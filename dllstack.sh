@@ -920,7 +920,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! deldir_component     automake   "${VERSION_AUTOMAKE}" "native-automake" ||
    ! unpack_component     libtool                           ||
    ! build_component_full native-libtool libtool            \
-     "" "native" "" "" "$VERSION_LIBTOOL"                   ||
+     "" "native" "" "" "${VERSION_LIBTOOL}"                 ||
    ! deldir_build         "native-libtool"                               ||
    ! unpack_component     libffi                            ||
    ! build_component_host libffi                            ||
@@ -1025,10 +1025,10 @@ READLINE_VARS="$(read_configure_vars readline)"
 
 if ! build_component_full libtool libtool "" "" "" ""                 \
      "${VERSION_LIBTOOL}"                                             ||
-   ! deldir_component  libtool    $VERSION_LIBTOOL "libtool"          ||
+   ! deldir_component  libtool    "${VERSION_LIBTOOL}" "libtool"      ||
    ! unpack_component  libiconv                                       ||
    ! build_component   libiconv                                       ||
-   ! deldir_component  libiconv   $VERSION_ICONV "libiconv"           ||
+   ! deldir_component  libiconv   "${VERSION_ICONV}" "libiconv"       ||
    ! unpack_component  zlib                                           ||
    ! patch_src zlib "${VERSION_ZLIB}" zlib_seeko-1.2.6-2              ||
    ! patch_src zlib "${VERSION_ZLIB}" zlib_nolibc-1.2.6-2             ||
