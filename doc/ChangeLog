@@ -2,7 +2,7 @@
 	- Do source package downloads with wget2
 	- Dropped Qt5 support
 	- Updated meson to version 1.5.2
-	- Updated glib to version 2.82.1
+	- Updated glib to version 2.82.2
 	- Updated gobject-introspection to version 1.82.0
 	- Updated gtk4 to version 4.16.3
 	- Updated adwaita-icon-theme to version 47.0
