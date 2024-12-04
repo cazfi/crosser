@@ -9,7 +9,7 @@ dllstack.sh
 - MinGW cross-toolchain (i686-w64-mingw32-gcc or x86_64-w64-mingw32-gcc etc)
 - gcc (native compiler)
 - g++ (native compiler)
-- wget2       - for fetching source packages
+- wget        - for fetching source packages
 - tar         - for unpacking source packages
 - gzip        - for unpacking source packages
 - bzip2       - for unpacking source packages
