@@ -18,6 +18,7 @@
 	- Updated ffmpeg to version 6.1.2
 	- Updated libtool to version 2.5.4
 	- Updated gettext to version 0.23
+	- Updated xz to version 5.6.3
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
