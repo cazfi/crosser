@@ -17,6 +17,7 @@
 	- Updated SDL2 to version 2.30.9
 	- Updated ffmpeg to version 6.1.2
 	- Updated libtool to version 2.5.3
+	- Updated gettext to version 0.23
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
