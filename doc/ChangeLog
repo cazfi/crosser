@@ -1,4 +1,5 @@
 2.10
+	- Added configure option for using wget2 for downloads
 	- Dropped Qt5 support
 	- Updated meson to version 1.6.0
 	- Updated glib to version 2.82.2

@@ -169,6 +169,10 @@ CROSSER_PKGCONF
  ; Which program to use to parse .pc -files. Valid values are 'pkg-config'
  ; and 'pkgconf'. Default is 'pkgconf'
 
+CROSSER_WGET
+ ; Which program to use to download source packages. Valid values are 'wget'
+ ; and 'wget2'. Default is 'wget'
+
 =======================================================================
 
 local_setup.conf is actually shell script fragment. Here are some things

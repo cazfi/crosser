@@ -69,7 +69,7 @@ download_file() {
     return 0
   fi
 
-  if ! ( cd "${DLDIR}" && wget -T 180 -t 2 "${1}${2}" ) ; then
+  if ! ( cd "${DLDIR}" && ${CROSSER_WGET} -T 180 -t 2 "${1}${2}" ) ; then
     echo "Download of $2 failed" >&2
     return 1
   fi
@@ -259,6 +259,12 @@ CROSSER_MAINDIR="$(cd "$(dirname "$0")/.." || exit 1 ; pwd)"
 if ! test -e "${CROSSER_MAINDIR}/CrosserVersion" && test -e "/usr/share/crosser/CrosserVersion"
 then
   CROSSER_MAINDIR="/usr/share/crosser"
+fi
+
+if ! . "${CROSSER_MAINDIR}/scripts/setup_reader.sh"
+then
+  echo "Failed to read \"${CROSSER_MAINDIR}/scripts/setup_reader.sh\"" >&2
+  exit 1
 fi
 
 if ! . "${CROSSER_MAINDIR}/scripts/helpers.sh"

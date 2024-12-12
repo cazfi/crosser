@@ -121,7 +121,14 @@ if test "$CROSSER_PKGCONF" = "" ; then
   CROSSER_PKGCONF="pkgconf"
 fi
 if test "$CROSSER_PKGCONF" != "pkg-config" && test "$CROSSER_PKGCONF" != "pkgconf" ; then
-  echo "Unknown value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf" >&2
+  echo "Unknown value \"$CROSSER_PKGCONF\" for CROSSER_PKGCONF. Valid values are \"pkg-config\" and \"pkgconf\"" >&2
+  exit 1
+fi
+if test "${CROSSER_WGET}" = "" ; then
+  CROSSER_WGET="wget"
+fi
+if test "${CROSSER_WGET}" != "wget" && test "${CROSSER_WGET}" != "wget2" ; then
+  echo "Unknown value \"${CROSSER_WGET}\" for CROSSER_WGET. Valid values are \"wget\" and \"wget2\"" >&2
   exit 1
 fi
 if test "$CROSSER_DEFAULT_SETUP" = "" ; then
