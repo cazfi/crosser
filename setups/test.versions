@@ -13,7 +13,7 @@
 VERSION_AUTOCONF=2.72
 VERSION_AUTOMAKE=1.17
 VERSION_LIBTOOL=2.5.4
-VERSION_MESON=1.6.0
+VERSION_MESON=1.6.1
 
 VERSION_ICONV=1.18
 # There is a 1.7 development version, but upstream has abandoned it
