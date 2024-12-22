@@ -1,0 +1,59 @@
+diff -Nurd readline-8.1/signals.c readline-8.1-newbie/signals.c
+--- readline-8.1/signals.c	2020-08-06 23:30:02.000000000 +0300
++++ readline-8.1-newbie/signals.c	2024-12-22 23:27:14.902660588 +0200
+@@ -210,7 +210,7 @@
+       _rl_sigcleanarg = 0;
+     }
+ 
+-#if defined (HAVE_POSIX_SIGNALS)
++#if defined (HAVE_POSIX_SIGNALS) && defined (SIG_BLOCK)
+   /* Get the current set of blocked signals. If we want to block a signal for
+      the duration of the cleanup functions, make sure to add it to SET and
+      set block_sig = 1 (see the SIGHUP case below). */
+@@ -266,8 +266,10 @@
+     case SIGQUIT:
+ #endif
+ 
++#ifdef SIG_BLOCK
+       if (block_sig)
+ 	sigprocmask (SIG_BLOCK, &set, &oset);
++#endif
+ 
+       rl_echo_signal_char (sig);
+       rl_cleanup_after_signal ();
+@@ -284,7 +286,7 @@
+       /* We don't have to bother unblocking the signal because we are not
+ 	 running in a signal handler context. */
+ #if 0
+-#if defined (HAVE_POSIX_SIGNALS)
++#if defined (HAVE_POSIX_SIGNALS) && defined (SIG_BLOCK)
+       /* Make sure this signal is not blocked when we resend it to the
+ 	 calling application. */
+       sigemptyset (&set);
+@@ -470,7 +472,7 @@
+ 
+   if (rl_catch_signals && signals_set_flag == 0)
+     {
+-#if defined (HAVE_POSIX_SIGNALS)
++#if defined (HAVE_POSIX_SIGNALS) && defined (SIG_BLOCK)
+       sigemptyset (&_rl_orig_sigset);
+       sigprocmask (SIG_BLOCK, &bset, &_rl_orig_sigset);
+ #endif
+@@ -518,7 +520,7 @@
+     }
+   else if (rl_catch_signals == 0)
+     {
+-#if defined (HAVE_POSIX_SIGNALS)
++#if defined (HAVE_POSIX_SIGNALS) && defined (SIG_BLOCK)
+       sigemptyset (&_rl_orig_sigset);
+       sigprocmask (SIG_BLOCK, (sigset_t *)NULL, &_rl_orig_sigset);
+ #endif
+@@ -691,7 +693,7 @@
+ 
+ #if defined (SIGWINCH)
+ 
+-#if defined (HAVE_POSIX_SIGNALS)
++#if defined (HAVE_POSIX_SIGNALS) && defined (SIG_BLOCK)
+   sigemptyset (&sigwinch_set);
+   sigemptyset (&sigwinch_oset);
+   sigaddset (&sigwinch_set, SIGWINCH);

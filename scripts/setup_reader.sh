@@ -110,11 +110,11 @@ if test "$CROSSER_SFML" != "yes" && test "$CROSSER_SFML" != "no" ; then
   echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "$CROSSER_READLINE" = "" ; then
-  CROSSER_READLINE="$CROSSER_FULL"
+if test "${CROSSER_READLINE}" = "" ; then
+  CROSSER_READLINE="${CROSSER_FULL}"
 fi
-if test "$CROSSER_READLINE" != "yes" && test "$CROSSER_READLINE" != "no" ; then
-  echo "Unknown value \"$CROSSER_READLINE\" for CROSSER_READLINE. Valid values are \"yes\" and \"no\"" >&2
+if test "${CROSSER_READLINE}" != "yes" && test "${CROSSER_READLINE}" != "no" ; then
+  echo "Unknown value \"${CROSSER_READLINE}\" for CROSSER_READLINE. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
 if test "$CROSSER_PKGCONF" = "" ; then
