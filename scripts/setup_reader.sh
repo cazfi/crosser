@@ -103,11 +103,11 @@ if test "$CROSSER_SDL2" != "yes" && test "$CROSSER_SDL2" != "no" ; then
   echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
-if test "$CROSSER_SFML" = "" ; then
-  CROSSER_SFML="$CROSSER_FULL"
+if test "${CROSSER_SFML}" = "" ; then
+  CROSSER_SFML="${CROSSER_FULL}"
 fi
-if test "$CROSSER_SFML" != "yes" && test "$CROSSER_SFML" != "no" ; then
-  echo "Unknown value \"$CROSSER_SFML\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
+if test "${CROSSER_SFML}" != "yes" && test "${CROSSER_SFML}" != "no" ; then
+  echo "Unknown value \"${CROSSER_SFML}\" for CROSSER_SFML. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
 if test "${CROSSER_READLINE}" = "" ; then

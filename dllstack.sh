@@ -1428,6 +1428,7 @@ if ! unpack_component     ffmpeg                                                
       is_minimum_version "${VERSION_OPENAL}" 1.20.0 ||
       patch_src openal-soft "${VERSION_OPENAL}" "oals_inc_check_param-1.19" )   ||
    ! (is_smaller_version "${VERSION_OPENAL}" 1.20.0 ||
+      is_minimum_version "${VERSION_OPENAL}" 1.21.0 ||
       patch_src openal-soft "${VERSION_OPENAL}" "oals_WIN32_WINNT" )            ||
    ! (is_smaller_version "${VERSION_OPENAL}" 1.19.0 ||
       is_minimum_version "${VERSION_OPENAL}" 1.20.0 ||
