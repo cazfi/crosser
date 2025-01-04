@@ -1,6 +1,6 @@
 # current.versions: Package versions
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -60,7 +60,7 @@ VERSION_FLAC=1.4.2
 VERSION_LIBXMP=4.6.0
 VERSION_WAVPACK=5.7.0
 
-VERSION_SDL2=2.30.10
+VERSION_SDL2=2.30.11
 VERSION_SDL2_IMAGE=2.8.3
 VERSION_SDL2_MIXER=2.8.0
 VERSION_SDL2_GFX=1.0.4
