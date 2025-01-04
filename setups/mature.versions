@@ -1,6 +1,6 @@
 # mature.versions: Package versions
 #
-# (c) 2009-2024 Marko Lindqvist
+# (c) 2009-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -71,7 +71,7 @@ VERSION_SDL2=2.28.5
 VERSION_SDL2_IMAGE=2.6.3
 VERSION_SDL2_MIXER=2.6.3
 VERSION_SDL2_GFX=1.0.3
-VERSION_SDL2_TTF=2.20.2
+VERSION_SDL2_TTF=2.22.0
 
 VERSION_FFMPEG=6.1.2
 VERSION_OPENAL=1.20.1

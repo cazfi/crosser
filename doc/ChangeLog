@@ -27,6 +27,7 @@
 	- Updated SDL2_image to version 2.8.4
 	- Updated readline to version 8.1-002
 	- Updated openal-soft to version 1.21.1
+	- Updated SDL2_ttf to version 2.24.0
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
