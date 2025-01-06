@@ -18,7 +18,7 @@
 	- Updated SDL2 to version 2.30.11
 	- Updated ffmpeg to version 7.0.2
 	- Updated libtool to version 2.5.4
-	- Updated gettext to version 0.23
+	- Updated gettext to version 0.23.1
 	- Updated xz to version 5.6.3
 	- Updated sqlite to version 3.47.2
 	- Updated util-macros to version 1.20.2
