@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -969,9 +969,9 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! ln -s "${CROSSER_TARGET}-${CROSSER_PKGCONF}"                                  \
         "${DIST_NATIVE_PREFIX}/bin/${CROSSER_TARGET}-pkg-config"                   ||
    ! unpack_component  icon-naming-utils                                    ||
-   ! patch_src icon-naming-utils $VERSION_ICON_NUTILS "icon-nutils-pc"      ||
+   ! patch_src icon-naming-utils "${VERSION_ICON_NUTILS}" "icon-nutils-pc"  ||
    ! build_component_host icon-naming-utils                                 ||
-   ! deldir_component  icon-naming-utils $VERSION_ICON_NUTILS               \
+   ! deldir_component  icon-naming-utils "${VERSION_ICON_NUTILS}"           \
      "native-icon-naming-utils"                                             ||
    ! unpack_component  icu4c         "" "icu4c-${ICU_FILEVER}-src"          ||
    ! patch_src icu "${VERSION_ICU}" icu_dbl_mant                            ||
@@ -1061,16 +1061,16 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! deldir_component  sqlite-autoconf "${SQL_VERSTR}" "sqlite"                      ||
    ! ( test "${CROSSER_POSIX}" = "yes" || test "${VERSION_TCT}" = "0" ||
       ( unpack_component  tinycthread "" "tinycthread/v${VERSION_TCT}"  &&
-        cp ${CROSSER_MAINDIR}/patch/tct/Makefile.am                     \
-           ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/         &&
-        cp ${CROSSER_MAINDIR}/patch/tct/configure.ac                    \
-           ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/         &&
-        ( cd ${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source &&
+        cp "${CROSSER_MAINDIR}/patch/tct/Makefile.am"                   \
+           "${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/"       &&
+        cp "${CROSSER_MAINDIR}/patch/tct/configure.ac"                  \
+           "${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source/"       &&
+        ( cd "${CROSSER_SRCDIR}/tinycthread-${VERSION_TCT}/source" &&
           aclocal && autoconf && automake --add-missing --foreign )     \
              >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log" &&
         build_component_full tinycthread tinycthread "" ""              \
           "tinycthread-${VERSION_TCT}/source"                           &&
-        deldir_component  tinycthread $VERSION_TCT "tinycthread" ))                  ||
+        deldir_component  tinycthread "${VERSION_TCT}" "tinycthread" ))                ||
    ! (test "${CROSSER_POSIX}" = "yes" ||
       is_smaller_version "${VERSION_ICU}" 64.1 ||
       is_minimum_version "${VERSION_ICU}" 65.1 ||
@@ -1113,10 +1113,10 @@ fi
 
 if test "${CROSSER_READLINE}" = "yes" ; then
 if ! unpack_component  ncurses                                           ||
-   ! patch_src ncurses $VERSION_NCURSES "ncurses_windows_h"              ||
-   ! patch_src ncurses $VERSION_NCURSES "ncurses_static"                 ||
+   ! patch_src ncurses "${VERSION_NCURSES}" "ncurses_windows_h"          ||
+   ! patch_src ncurses "${VERSION_NCURSES}" "ncurses_static"             ||
    ! build_component   ncurses "--enable-term-driver"                    ||
-   ! deldir_component  ncurses $VERSION_NCURSES "ncurses"                ||
+   ! deldir_component  ncurses "${VERSION_NCURSES}" "ncurses"            ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
    ! patch_src readline "${VERSION_READLINE}" "readline_posix"           ||
@@ -1186,16 +1186,16 @@ if ! build_component   tiff                                                 ||
        patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test) ||
    ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.13.90 ||
        patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test-2.13.96) ||
-   ! build_component   fontconfig                                           \
+   ! build_component   fontconfig                                              \
      "--with-freetype-config=${DLLSPREFIX}/bin/freetype-config --with-arch=${CROSSER_TARGET} --enable-libxml2" ||
-   ! deldir_component  fontconfig "${VERSION_FONTCONFIG}" "fontconfig"      ||
-   ! unpack_component  libepoxy                                             ||
-   ! ( is_minimum_version $VERSION_LIBEPOXY 1.5.0 ||
-       build_component   libepoxy )                                         ||
-   ! ( is_smaller_version $VERSION_LIBEPOXY 1.5.0 ||
-       build_with_meson   libepoxy )                                        ||
-   ! deldir_component  libepoxy $VERSION_LIBEPOXY "libepoxy"                ||
-   ! unpack_component  pixman                                               ||
+   ! deldir_component  fontconfig "${VERSION_FONTCONFIG}" "fontconfig"         ||
+   ! unpack_component  libepoxy                                                ||
+   ! ( is_minimum_version "${VERSION_LIBEPOXY}" 1.5.0 ||
+       build_component   libepoxy )                                            ||
+   ! ( is_smaller_version "${VERSION_LIBEPOXY}" 1.5.0 ||
+       build_with_meson   libepoxy )                                           ||
+   ! deldir_component  libepoxy "${VERSION_LIBEPOXY}" "libepoxy"               ||
+   ! unpack_component  pixman                                                  ||
    ! patch_src          pixman  "${VERSION_PIXMAN}" pixman_epsilon             ||
    ! (is_minimum_version "${VERSION_PIXMAN}" 0.43 ||
       build_component   pixman "--disable-gtk" )                               ||
@@ -1231,11 +1231,11 @@ if ! build_component   tiff                                                 ||
    ! build_with_meson  pango2 "-Dintrospection=disabled -Dcairo=disabled"   ||
    ! deldir_component  pango2    "${VERSION_PANGO2}" "pango2"               ||
    ! unpack_component  atk                                                  ||
-   ! (is_minimum_version $VERSION_ATK 2.29.1 ||
+   ! (is_minimum_version "${VERSION_ATK}" 2.29.1 ||
       build_component   atk )                                               ||
-   ! (is_smaller_version $VERSION_ATK 2.29.1 ||
+   ! (is_smaller_version "${VERSION_ATK}" 2.29.1 ||
       build_with_meson atk "-D introspection=false" )                       ||
-   ! deldir_component  atk        $VERSION_ATK "atk"
+   ! deldir_component  atk "${VERSION_ATK}" "atk"
 then
   log_error "Build failed"
   exit 1
@@ -1287,10 +1287,10 @@ fi
 # This is within CROSSER_GTK != xno
 if ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
-   ! deldir_component libcroco    $VERSION_CROCO   "libcroco"         ||
+   ! deldir_component libcroco    "${VERSION_CROCO}" "libcroco"       ||
    ! unpack_component hicolor-icon-theme                              ||
    ! build_component  hicolor-icon-theme                              ||
-   ! deldir_component hicolor-icon-theme $VERSION_HICOLOR             \
+   ! deldir_component hicolor-icon-theme "${VERSION_HICOLOR}"         \
      "hicolor-icon-theme"                                             ||
    ! unpack_component tango-icon-theme                                ||
    ! patch_src tango-icon-theme "${VERSION_TANGO_ICONS}"              \
@@ -1359,10 +1359,10 @@ fi
 
 if ! unpack_component  libogg                                         ||
    ! build_component   libogg                                         ||
-   ! deldir_component  libogg     $VERSION_OGG "libogg"               ||
+   ! deldir_component  libogg     "${VERSION_OGG}" "libogg"           ||
    ! unpack_component  libvorbis                                      ||
    ! build_component   libvorbis                                      ||
-   ! deldir_component  libvorbis  $VERSION_VORBIS "libvorbis"         ||
+   ! deldir_component  libvorbis  "${VERSION_VORBIS}" "libvorbis"     ||
    ! unpack_component  flac                                           ||
    ! (is_minimum_version "${VERSION_FLAC}" 1.3.4     ||
       LIBS="-lssp" build_component flac              \
