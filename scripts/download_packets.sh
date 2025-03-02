@@ -501,7 +501,10 @@ fi
 
 SQL_VERSTR="$(sqlite_verstr ${VERSION_SQLITE})"
 
-if is_minimum_version "${VERSION_SQLITE}" 3.45.0
+if is_minimum_version "${VERSION_SQLITE}" 3.48.0
+then
+  SQL_SUBDIR="2025/"
+elif is_minimum_version "${VERSION_SQLITE}" 3.45.0
 then
   SQL_SUBDIR="2024/"
 elif is_minimum_version "${VERSION_SQLITE}" 3.40.2
@@ -510,9 +513,6 @@ then
 elif is_minimum_version "${VERSION_SQLITE}" 3.37.2
 then
   SQL_SUBDIR="2022/"
-elif is_minimum_version "${VERSION_SQLITE}" 3.34.1
-then
-  SQL_SUBDIR="2021/"
 else
   SQL_SUBDIR=""
 fi
