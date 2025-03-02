@@ -2,7 +2,7 @@
 
 # download_packets.sh: Source package downloader
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -492,6 +492,13 @@ else
   RL_SUBDIR="readline"
 fi
 
+if is_minimum_version "${VERSION_GTK3}" 3.24.48
+then
+  GTK3_MAINDIR="gtk"
+else
+  GTK3_MAINDIR="gtk+"
+fi
+
 SQL_VERSTR="$(sqlite_verstr ${VERSION_SQLITE})"
 
 if is_minimum_version "${VERSION_SQLITE}" 3.45.0
@@ -655,7 +662,7 @@ download_needed "${MIRROR_GNOME}/sources/atk/${ATK_DIR}/"   "atk"        "${VERS
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gdk-pixbuf/${GDK_PB_DIR}/" "gdk-pixbuf" "${VERSION_GDK_PIXBUF}"  "tar.xz"
 RET="${RET} $?"
-download_needed "${MIRROR_GNOME}/sources/gtk+/${GTK3_DIR}/" "gtk3"   "${VERSION_GTK3}"        "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/${GTK3_MAINDIR}/${GTK3_DIR}/" "gtk3" "${VERSION_GTK3}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/gtk/${GTK4_DIR}/" "gtk4"    "${VERSION_GTK4}"        "tar.xz"
 RET="${RET} $?"

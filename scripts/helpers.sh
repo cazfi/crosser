@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -164,7 +164,12 @@ upstream_patch() {
 component_name_to_package_name() {
   if test "$1" = "gtk3"
   then
-    echo "gtk+"
+    if is_minimum_version $2 3.24.48
+    then
+      echo "gtk"
+    else
+      echo "gtk+"
+    fi
   elif test "$1" = "gtk4"
   then
     if is_minimum_version $2 3.96
