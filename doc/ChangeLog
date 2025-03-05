@@ -32,6 +32,7 @@
 	- Updated pango to version 1.56.0
 	- Updated gtk3 to version 3.24.48
 	- Updated zstd to version 1.5.7
+	- Updated pcre2 to version 10.45
 
 2.9 (04-Sep-24)
 	- Dropped illegal linker parameter from ImageMagick config
