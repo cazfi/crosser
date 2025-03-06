@@ -1,5 +1,6 @@
 2.10
 	- Added configure option for using wget2 for downloads
+	- Fixed Qt6Svg module build
 	- Dropped Qt5 support
 	- Updated meson to version 1.7.0
 	- Updated glib to version 2.82.4
