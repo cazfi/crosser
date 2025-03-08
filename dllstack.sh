@@ -230,7 +230,7 @@ build_component_full()
     unset LDFLAGS
   elif test "$4" = "windres"
   then
-    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} --target=${CROSSER_TARGET} $3"
+    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} $3"
     unset CPPFLAGS
     export LDFLAGS="-L${DLLSPREFIX}/lib -static-libgcc ${CROSSER_STDCXX}"
     export CC="${CROSSER_TARGET}-gcc${TARGET_SUFFIX} -static-libgcc"
@@ -239,7 +239,7 @@ build_component_full()
   then
     CONFOPTIONS="-prefix ${DLLSPREFIX} $3"
   else
-    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} --target=${CROSSER_TARGET} $3"
+    CONFOPTIONS="--prefix=${DLLSPREFIX} --build=${CROSSER_BUILD_ARCH} --host=${CROSSER_TARGET} $3"
     export CPPFLAGS="-I${DLLSPREFIX}/include -I${TGT_HEADERS} ${CROSSER_WINVER_FLAG}"
     # Default is 'nounicode'. To change that, make this check
     # ' "$4" != "nounicode" '
