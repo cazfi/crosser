@@ -1345,6 +1345,7 @@ if ! unpack_component  graphene                                            ||
    ! (is_minimum_version "${VERSION_GTK4}" 4.9 ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_winnt" )                      ||
    ! (is_smaller_version "${VERSION_GTK4}" 4.9 ||
+      is_minimum_version "${VERSION_GTK4}" 4.18 ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_winnt-4.9" )                  ||
    ! patch_src gtk  "${VERSION_GTK4}" "gtk4_stdlib_inc"                    ||
    ! (is_minimum_version "${VERSION_GTK4}" 4.14.2 ||
