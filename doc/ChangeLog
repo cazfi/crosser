@@ -7,7 +7,7 @@
 	- Updated gobject-introspection to version 1.84.0
 	- Updated gtk4 to version 4.16.12
 	- Updated adwaita-icon-theme to version 47.0
-	- Updated libxml2 to version 2.13.5
+	- Updated libxml2 to version 2.14.2
 	- Updated qt6 to version 6.8.3
 	- Updated icu to version 71.1
 	- Updated curl to version 8.12.1
