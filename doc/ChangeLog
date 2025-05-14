@@ -23,7 +23,7 @@
 	- Updated xz to version 5.8.1
 	- Updated sqlite to version 3.49.2
 	- Updated util-macros to version 1.20.2
-	- Updated pixman to version 0.44.2
+	- Updated pixman to version 0.46.0
 	- Updated libiconv to version 1.18
 	- Updated SDL2_image to version 2.8.8
 	- Updated readline to version 8.1-002
