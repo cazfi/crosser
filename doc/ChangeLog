@@ -2,7 +2,7 @@
 	- Added configure option for using wget2 for downloads
 	- Fixed Qt6Svg module build
 	- Dropped Qt5 support
-	- Updated meson to version 1.7.0
+	- Updated meson to version 1.8.0
 	- Updated glib to version 2.84.1
 	- Updated gobject-introspection to version 1.84.0
 	- Updated gtk4 to version 4.18.5
