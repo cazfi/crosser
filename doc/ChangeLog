@@ -1,3 +1,5 @@
+2.11
+
 2.10
 	- Added configure option for using wget2 for downloads
 	- Fixed Qt6Svg module build
