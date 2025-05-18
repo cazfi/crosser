@@ -1,5 +1,6 @@
 2.11
 	- Updated icu to version 71.1
+	- Updated ffmpeg to version 7.1.1
 
 2.10
 	- Added configure option for using wget2 for downloads
