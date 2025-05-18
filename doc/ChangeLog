@@ -1,4 +1,5 @@
 2.11
+	- Updated icu to version 71.1
 
 2.10
 	- Added configure option for using wget2 for downloads
