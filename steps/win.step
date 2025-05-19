@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -16,7 +16,6 @@ libpng            PNG
 zlib              ZLIB
 xz                XZ
 zstd              ZSTD
-tinycthread       TCT
 icu4c             ICU
 ncurses           NCURSES
 readline          READLINE

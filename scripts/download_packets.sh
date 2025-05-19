@@ -430,7 +430,6 @@ then
     sqlite)      VERSION_SQLITE="${VERSION_SELECTED}" ;;
     cairo)       VERSION_CAIRO="${VERSION_SELECTED}" ;;
     qt6)         VERSION_QT6="${VERSION_SELECTED}" ;;
-    tinycthread) VERSION_TCT="${VERSION_SELECTED}" ;;
     icu4c)       VERSION_ICU="${VERSION_SELECTED}" ;;
     libpng)      VERSION_PNG="${VERSION_SELECTED}" ;;
     hicolor-icon-theme) VERSION_HICOLOR="${VERSION_SELECTED}" ;;
@@ -705,8 +704,6 @@ RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/libxml2/${XML2_DIR}/" "libxml2" "${VERSION_XML2}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "${VERSION_JANSSON}" "tar.bz2"
-RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/tinycthread/tinycthread/archive/refs/tags/" "tinycthread" "v${VERSION_TCT}.tar.gz" "" "" "tinycthread"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/unicode-org/icu/releases/download/${ICU_DIR}/" "icu4c" "icu4c-${ICU_FILEVER}-src.tgz"
 RET="${RET} $?"

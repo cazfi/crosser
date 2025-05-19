@@ -1,4 +1,5 @@
 2.11
+	- Dropped tinycthread build
 	- Updated icu to version 71.1
 	- Updated ffmpeg to version 7.1.1
 
