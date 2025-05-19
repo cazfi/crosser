@@ -1,4 +1,4 @@
-2.10
+2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
 	- Fixed Qt6Svg module build
 	- Dropped Qt5 support
