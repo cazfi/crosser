@@ -2,6 +2,7 @@
 	- Dropped tinycthread build
 	- Updated icu to version 71.1
 	- Updated ffmpeg to version 7.1.1
+	- Updated glib to version 2.84.2
 
 2.10
 	- Added configure option for using wget2 for downloads
