@@ -4,6 +4,7 @@
 	- Updated ffmpeg to version 7.1.1
 	- Updated glib to version 2.84.2
 	- Updated qt6 to version 6.9.1
+	- Updated automake to version 1.18
 
 2.10
 	- Added configure option for using wget2 for downloads
