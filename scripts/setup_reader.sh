@@ -2,7 +2,7 @@
 
 # setup_reader.sh: Setup build environment variables
 #
-# (c) 2008-2024 Marko Lindqvist
+# (c) 2008-2025 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -101,6 +101,13 @@ if test "$CROSSER_SDL2" = "" ; then
 fi
 if test "$CROSSER_SDL2" != "yes" && test "$CROSSER_SDL2" != "no" ; then
   echo "Unknown value \"$CROSSER_SDL2\" for CROSSER_SDL2. Valid values are \"yes\" and \"no\"" >&2
+  exit 1
+fi
+if test "${CROSSER_SDL3_PRE}" = "" ; then
+  CROSSER_SDL3_PRE="no"
+fi
+if test "${CROSSER_SDL3_PRE}" != "yes" && test "${CROSSER_SDL3_PRE}" != "no" ; then
+  echo "Unknown value \"${CROSSER_SDL3_PRE}\" for CROSSER_SDL3_PRE. Valid values are \"yes\" and \"no\"" >&2
   exit 1
 fi
 if test "${CROSSER_SFML}" = "" ; then

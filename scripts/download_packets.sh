@@ -450,6 +450,7 @@ then
     SDL2_ttf)    VERSION_SDL2_TTF="${VERSION_SELECTED}" ;;
     SDL2_mixer)  VERSION_SDL2_MIXER="${VERSION_SELECTED}" ;;
     SDL2_image)  VERSION_SDL2_IMAGE="${VERSION_SELECTED}" ;;
+    SDL3)        VERSION_SDL3="${VERSION_SELECTED}" ;;
     libxml2)     VERSION_XML2="${VERSION_SELECTED}" ;;
     ImageMagick) VERSION_IMAGEMAGICK="${VERSION_SELECTED}" ;;
     util-macros) VERSION_UTIL_MACROS="${VERSION_SELECTED}" ;;
@@ -690,6 +691,8 @@ RET="${RET} $?"
 download_needed "https://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "${VERSION_SDL2_GFX}" "tar.gz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_ttf/releases/download/release-${VERSION_SDL2_TTF}/" "SDL2_ttf" "${VERSION_SDL2_TTF}" "tar.gz"
+RET="${RET} $?"
+download_needed "${MIRROR_GITHUB}/libsdl-org/SDL/releases/download/release-${VERSION_SDL3}/" "SDL3" "${VERSION_SDL3}" "tar.gz"
 RET="${RET} $?"
 download_needed "https://www.sfml-dev.org/files/" "sfml" "SFML-${VERSION_SFML}-sources.zip"
 RET="${RET} $?"

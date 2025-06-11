@@ -1402,6 +1402,16 @@ then
 fi
 fi
 
+if test "${CROSSER_SDL3_PRE}" = "yes" ; then
+if ! unpack_component  SDL3                                            ||
+   ! build_with_cmake  SDL3                                            ||
+   ! deldir_component  SDL3       "${VERSION_SDL3}" "SDL3"
+then
+  log_error "SDL3 stack build failed"
+  exit 1
+fi
+fi
+
 if test "${CROSSER_SFML}" = "yes" ; then
 if ! unpack_component     ffmpeg                                                ||
    ! build_component_full ffmpeg ffmpeg                                         \

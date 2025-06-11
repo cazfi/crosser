@@ -1,5 +1,6 @@
 2.11
 	- Merged sdl2 step to win step
+	- Added preliminary sdl3 chain
 	- Dropped tinycthread build
 	- Updated icu to version 74.2
 	- Updated ffmpeg to version 7.1.1
