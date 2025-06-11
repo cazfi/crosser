@@ -1434,7 +1434,7 @@ if ! unpack_component     ffmpeg                                                
      "custom"                                                                   ||
    ! deldir_component     openal-soft "${VERSION_OPENAL}" "openal-soft"         ||
    ! unpack_component     sfml "" "SFML-${VERSION_SFML}-sources"                ||
-   ! build_component_full sfml sfml "" "custom" "SFML-${VERSION_SFML}"          ||
+   ! build_with_cmake_full sfml sfml "" "" "SFML-${VERSION_SFML}"               ||
    ! deldir_component     "SFML-${VERSION_SFML}" "" "sfml"
 then
     log_error "SFML stack build failed"
