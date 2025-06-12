@@ -17,7 +17,7 @@
 	- Updated adwaita-icon-theme to version 48.0
 	- Updated SDL2 to version 2.32.8
 
-2.10
+2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
 	- Fixed Qt6Svg module build
 	- Dropped Qt5 support
