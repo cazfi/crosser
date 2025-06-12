@@ -268,20 +268,6 @@ build_component_full()
       log_error "Configure for ${DISPLAY_NAME} failed"
       return 1
     fi
-  elif test -f "${SRCDIR}/CMakeLists.txt"
-  then
-    CONFOPTIONS="-DCMAKE_TOOLCHAIN_FILE=${DLLSPREFIX}/etc/toolchain.cmake -DCMAKE_PREFIX_PATH=${DLLSPREFIX} -DCMAKE_SYSTEM_NAME=Windows -DHOST=${CROSSER_TARGET} -DCMAKE_INSTALL_PREFIX=${DLLSPREFIX} ${CONFOPTIONS}"
-
-    log_write 1 "Configuring ${DISPLAY_NAME}"
-    log_write 3 "  Options: \"${CONFOPTIONS}\""
-    log_flags
-
-    if ! cmake $CONFOPTIONS "${SRCDIR}" \
-           >> "${CROSSER_LOGDIR}/stdout.log" 2>> "${CROSSER_LOGDIR}/stderr.log"
-    then
-      log_error "CMake configure for ${DISPLAY_NAME} failed"
-      return 1
-    fi
   fi
 
   log_write 1 "Building ${DISPLAY_NAME}"
