@@ -363,7 +363,7 @@ build_with_cmake_full()
     return 0
   fi
 
-  BNAME=$(component_name_to_package_name "$2" "${BVER}")
+  BNAME="$(component_name_to_package_name "$2" "${BVER}")"
 
   if test "$5" != ""
   then
@@ -485,11 +485,11 @@ build_with_cmake_full()
 
   RET=$?
 
-  if test $RET = 0 ; then
+  if test ${RET} = 0 ; then
     echo "${DISPLAY_NAME} : ${BVER}" >> "${DLLSPREFIX}/ComponentVersions.txt"
   fi
 
-  return $RET
+  return ${RET}
 }
 
 # $1 - Component
