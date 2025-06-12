@@ -18,6 +18,7 @@
 	- Updated SDL2 to version 2.32.8
 	- Updated openal-soft to version 1.22.2
 	- Updated pango to version 1.56.3
+	- Updated gtk3 to version 3.24.49
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
