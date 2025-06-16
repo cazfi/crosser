@@ -4,7 +4,7 @@
 	- Dropped tinycthread build
 	- Updated icu to version 74.2
 	- Updated ffmpeg to version 7.1.1
-	- Updated glib to version 2.84.2
+	- Updated glib to version 2.84.3
 	- Updated qt6 to version 6.9.1
 	- Updated automake to version 1.18
 	- Updated libxml2 to version 2.14.3
