@@ -20,6 +20,7 @@
 	- Updated pango to version 1.56.3
 	- Updated gtk3 to version 3.24.49
 	- Updated ImageMagick to version 7.1.1-47
+	- Updated libpng to version 1.6.49
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
