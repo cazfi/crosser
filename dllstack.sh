@@ -1083,7 +1083,10 @@ fi
 
 if test "${CROSSER_READLINE}" = "yes" ; then
 if ! unpack_component  ncurses                                           ||
-   ! patch_src ncurses "${VERSION_NCURSES}" "ncurses_windows_h"          ||
+   ! (is_minimum_version "${VERSION_NCURSES}" 6.5 ||
+      patch_src ncurses "${VERSION_NCURSES}" "ncurses_windows_h" )       ||
+   ! (is_smaller_version "${VERSION_NCURSES}" 6.5 ||
+      patch_src ncurses "${VERSION_NCURSES}" "ncurses_windows_h-6.5" )   ||
    ! patch_src ncurses "${VERSION_NCURSES}" "ncurses_static"             ||
    ! build_component   ncurses "--enable-term-driver"                    ||
    ! deldir_component  ncurses "${VERSION_NCURSES}" "ncurses"            ||

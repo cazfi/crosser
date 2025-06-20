@@ -1,0 +1,14 @@
+diff -Nurd ncurses-6.5/ncurses/tinfo/lib_napms.c ncurses-6.5/ncurses/tinfo/lib_napms.c
+--- ncurses-6.5/ncurses/tinfo/lib_napms.c	2023-09-16 19:09:33.000000000 +0300
++++ ncurses-6.5/ncurses/tinfo/lib_napms.c	2025-06-20 17:13:01.828894162 +0300
+@@ -52,6 +52,10 @@
+ #endif
+ #endif
+ 
++#if defined(_NC_WINDOWS)
++#include <windows.h>
++#endif
++
+ MODULE_ID("$Id: lib_napms.c,v 1.28 2023/09/16 16:09:33 tom Exp $")
+ 
+ NCURSES_EXPORT(int)
