@@ -377,12 +377,14 @@ deldir_build() {
 # $1 -   Package
 # $2 -   Version
 src_subdir() {
-  if test -d "${CROSSER_SRCDIR}/${1}-${2}"
+  DIRNAME="$(component_name_to_package_name "$1" "$2")"
+
+  if test -d "${CROSSER_SRCDIR}/${DIRNAME}-${2}"
   then
-    echo "${1}-${2}"
-  elif test -d "${CROSSER_SRCDIR}/${1}"
+    echo "${DIRNAME}-${2}"
+  elif test -d "${CROSSER_SRCDIR}/${DIRNAME}"
   then
-    echo "${1}"
+    echo "${DIRNAME}"
   else
     return 1
   fi

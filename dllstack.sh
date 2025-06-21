@@ -1303,24 +1303,24 @@ if ! unpack_component  graphene                                            ||
    ! deldir_component  graphene   "${VERSION_GRAPHENE}" "graphene"         ||
    ! unpack_component  xkbcommon                                           ||
    ! (is_minimum_version "${VERSION_XKBCOMMON}" 1.1.0 ||
-      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+      patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_test_opt" )                                     ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.2.0 ||
-      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+      patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_test_opt-1.2" )                                 ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
       is_minimum_version "${VERSION_XKBCOMMON}" 1.4.1 ||
-      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+      patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_eof" )                                          ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
-      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+      patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_mscver" )                                       ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.7.0 ||
-      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+      patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_basetsd_case" )                                 ||
    ! build_with_meson  xkbcommon                                           \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
-   ! deldir_component  libxkbcommon-xkbcommon  "${VERSION_XKBCOMMON}"      \
+   ! deldir_component  xkbcommon  "${VERSION_XKBCOMMON}"                   \
                        "xkbcommon"                                         ||
    ! unpack_component  gtk4                                                ||
    ! (is_minimum_version "${VERSION_GTK4}" 4.9 ||
