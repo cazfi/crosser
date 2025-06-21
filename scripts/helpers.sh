@@ -181,6 +181,9 @@ component_name_to_package_name() {
   elif test "$1" = "qt6"
   then
     echo "qt-everywhere-src"
+  elif test "$1" = "xkbcommon"
+  then
+    echo "libxkbcommon-xkbcommon"
   else
     echo "$1"
   fi
@@ -191,7 +194,12 @@ component_name_to_package_name() {
 # $1 - Component name
 # $2 - Component version
 component_name_to_tarball_name() {
-  echo "$(component_name_to_package_name $1 $2)"
+  if test "$1" = "xkbcommon"
+  then
+    echo "$1"
+  else
+    echo "$(component_name_to_package_name "$1" "$2")"
+  fi
 }
 
 # Unpack component package to source directory

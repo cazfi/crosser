@@ -41,7 +41,7 @@ cairo             CAIRO
 pango             PANGO
 pango2            PANGO2
 graphene          GRAPHENE
-libxkbcommon      XKBCOMMON
+xkbcommon         XKBCOMMON
 libcroco          CROCO
 atk               ATK
 util-macros       UTIL_MACROS

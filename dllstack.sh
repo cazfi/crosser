@@ -167,7 +167,7 @@ build_component_full()
     return 0
   fi
 
-  BNAME=$(component_name_to_package_name "$2" "${BVER}")
+  BNAME="$(component_name_to_package_name "$2" "${BVER}")"
 
   if test "$5" != ""
   then
@@ -1301,19 +1301,24 @@ if ! unpack_component  graphene                                            ||
        ( is_smaller_version "${VERSION_GRAPHENE}" 1.10.6 &&
          build_with_meson  graphene "-D introspection=false" ) )           ||
    ! deldir_component  graphene   "${VERSION_GRAPHENE}" "graphene"         ||
-   ! unpack_component  libxkbcommon                                        ||
+   ! unpack_component  xkbcommon                                           ||
    ! (is_minimum_version "${VERSION_XKBCOMMON}" 1.1.0 ||
-      patch_src libxkbcommon "${VERSION_XKBCOMMON}" "xkbcommon_test_opt" ) ||
+      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+                "xkbcommon_test_opt" )                                     ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.2.0 ||
-      patch_src libxkbcommon "${VERSION_XKBCOMMON}" "xkbcommon_test_opt-1.2" ) ||
+      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+                "xkbcommon_test_opt-1.2" )                                 ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
       is_minimum_version "${VERSION_XKBCOMMON}" 1.4.1 ||
-      patch_src libxkbcommon "${VERSION_XKBCOMMON}" "xkbcommon_eof" )      ||
+      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+                "xkbcommon_eof" )                                          ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
-      patch_src libxkbcommon "${VERSION_XKBCOMMON}" "xkbcommon_mscver" )   ||
-   ! build_with_meson  libxkbcommon                                        \
+      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+                "xkbcommon_mscver" )                                       ||
+   ! build_with_meson  xkbcommon                                           \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
-   ! deldir_component  libxkbcommon  "${VERSION_XKBCOMMON}" "libxkbcommon" ||
+   ! deldir_component  libxkbcommon-xkbcommon  "${VERSION_XKBCOMMON}"      \
+                       "xkbcommon"                                         ||
    ! unpack_component  gtk4                                                ||
    ! (is_minimum_version "${VERSION_GTK4}" 4.9 ||
       patch_src gtk  "${VERSION_GTK4}" "gtk4_winnt" )                      ||

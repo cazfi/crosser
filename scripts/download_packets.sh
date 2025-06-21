@@ -92,7 +92,7 @@ download_file() {
 # $6 - Subdirectory to download to
 download_packet() {
 
-  BFNAME=$(component_name_to_tarball_name $2 $3)
+  BFNAME="$(component_name_to_tarball_name "$2" "$3")"
 
   if test "$4" = "" ; then
     DLFILENAME="$3"
@@ -650,7 +650,7 @@ download_needed "${MIRROR_GNOME}/sources/pango2/${PANGO2_DIR}/" "pango2"   "${VE
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/graphene/${GRAPHENE_DIR}/" "graphene" "${VERSION_GRAPHENE}" "tar.xz"
 RET="${RET} $?"
-download_needed "https://xkbcommon.org/download/" "libxkbcommon" "${VERSION_XKBCOMMON}" "tar.xz"
+download_needed "${MIRROR_GITHUB}/xkbcommon/libxkbcommon/archive/refs/tags/" "xkbcommon" "${VERSION_XKBCOMMON}" "tar.gz"
 RET="${RET} $?"
 download_needed "https://xorg.freedesktop.org/releases/individual/util/" "util-macros" "${VERSION_UTIL_MACROS}" "${UMACROS_PACK}"
 RET="${RET} $?"
