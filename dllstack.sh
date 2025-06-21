@@ -1315,6 +1315,9 @@ if ! unpack_component  graphene                                            ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
       patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_mscver" )                                       ||
+   ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.7.0 ||
+      patch_src libxkbcommon-xkbcommon "${VERSION_XKBCOMMON}" \
+                "xkbcommon_basetsd_case" )                                 ||
    ! build_with_meson  xkbcommon                                           \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
    ! deldir_component  libxkbcommon-xkbcommon  "${VERSION_XKBCOMMON}"      \

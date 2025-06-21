@@ -1,0 +1,12 @@
+diff -Nurd libxkbcommon-1.7.0/src/utils.h libxkbcommon-1.7.0/src/utils.h
+--- libxkbcommon-1.7.0/src/utils.h	2024-03-23 23:23:43.000000000 +0200
++++ libxkbcommon-1.7.0/src/utils.h	2025-06-21 11:56:04.608477487 +0300
+@@ -43,7 +43,7 @@
+ #ifdef _WIN32
+ # include <direct.h>
+ # include <io.h>
+-# include <BaseTsd.h>
++# include <basetsd.h>
+ # ifndef S_ISDIR
+ #  define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
+ # endif
