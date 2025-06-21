@@ -2,7 +2,7 @@
 	- Merged sdl2 step to win step
 	- Added preliminary sdl3 chain
 	- Dropped tinycthread build
-	- Updated icu to version 74.2
+	- Updated icu to version 75.1
 	- Updated ffmpeg to version 7.1.1
 	- Updated glib to version 2.84.3
 	- Updated qt6 to version 6.9.1
