@@ -323,9 +323,9 @@ deldir_src() {
   fi
 
   if test "$2" = "" ; then
-    log_write 2 "Delete source directory of $1"
+    log_write 2 "Deleting source directory of $1"
   else
-    log_write 2 "Delete source directory of $1 version $2"
+    log_write 2 "Deleting source directory of $1 version $2"
   fi
 
   if test "$3" = "" ; then
@@ -361,7 +361,7 @@ deldir_build() {
     return 1
   fi
 
-  log_write 2 "Delete builddir $1"
+  log_write 2 "Deleting builddir $1"
 
   if ! test -d "${CROSSER_BUILDDIR}/$1"
   then
