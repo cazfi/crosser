@@ -2,7 +2,7 @@
 	- Merged sdl2 step to win step
 	- Added preliminary sdl3 chain
 	- Dropped tinycthread build
-	- Updated auxiliary config.guess and config.sub to '2025-01-06' level
+	- Updated auxiliary config.guess and config.sub to '2025-07-10' level
 	- Updated icu to version 75.1
 	- Updated ffmpeg to version 7.1.1
 	- Updated glib to version 2.84.3
