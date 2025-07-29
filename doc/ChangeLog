@@ -23,6 +23,7 @@
 	- Updated ImageMagick to version 7.1.1-47
 	- Updated libpng to version 1.6.49
 	- Updated xkbcommon to version 1.8.1
+	- Updated gettext to version 0.26
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
