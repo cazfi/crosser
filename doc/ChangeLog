@@ -24,6 +24,7 @@
 	- Updated libpng to version 1.6.50
 	- Updated xkbcommon to version 1.8.1
 	- Updated gettext to version 0.26
+	- Updated harfbuzz to version 11.3.3
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
