@@ -1405,7 +1405,10 @@ if ! unpack_component  SDL3                                            ||
    ! deldir_component  SDL3       "${VERSION_SDL3}" "SDL3"             ||
    ! unpack_component  SDL3_image                                      ||
    ! build_with_cmake  SDL3_image                                      ||
-   ! deldir_component  SDL3_image "${VERSION_SDL3_IMAGE}" "SDL3_image"
+   ! deldir_component  SDL3_image "${VERSION_SDL3_IMAGE}" "SDL3_image" ||
+   ! unpack_component  SDL3_ttf                                        ||
+   ! build_with_cmake  SDL3_ttf                                        ||
+   ! deldir_component  SDL3_ttf "${VERSION_SDL3_TTF}" "SDL3_ttf"
 then
   log_error "SDL3 stack build failed"
   exit 1

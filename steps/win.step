@@ -66,3 +66,4 @@ SDL2_ttf          SDL2_TTF
 SDL2_mixer        SDL2_MIXER
 SDL3              SDL3
 SDL3_image        SDL3_IMAGE
+SDL3_ttf          SDL3_TTF
