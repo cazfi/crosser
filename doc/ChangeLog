@@ -1,4 +1,5 @@
 2.11
+	- Container updated to Debian Trixie
 	- Merged sdl2 step to win step
 	- Added preliminary sdl3 chain
 	- Dropped tinycthread build
