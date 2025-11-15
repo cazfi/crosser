@@ -26,6 +26,7 @@
 	- Updated xkbcommon to version 1.8.1
 	- Updated gettext to version 0.26
 	- Updated harfbuzz to version 11.3.3
+	- Updated gobject-introspection to version 1.86.0
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
