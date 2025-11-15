@@ -28,6 +28,7 @@
 	- Updated harfbuzz to version 11.3.3
 	- Updated gobject-introspection to version 1.86.0
 	- Updated gtk-doc to version 1.35.1
+	- Updated gdk-pixbuf to version 2.44.4
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
