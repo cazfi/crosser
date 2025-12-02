@@ -563,6 +563,13 @@ else
   FC_PACK="tar.gz"
 fi
 
+if is_minimum_version "${VERSION_FONTCONFIG}" 2.17.0
+then
+  FC_URL="https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/${VERSION_FONTCONFIG}/"
+else
+  FC_URL="https://fontconfig.org/release/"
+fi
+
 if echo "${VERSION_QT6}" | grep alpha >/dev/null ||
    echo "${VERSION_QT6}" | grep beta >/dev/null ||
    echo "${VERSION_QT6}" | grep rc >/dev/null
@@ -628,7 +635,7 @@ download_needed "${MIRROR_GITHUB}/harfbuzz/harfbuzz/archive/" "harfbuzz" "${VERS
 RET="${RET} $?"
 download_needed "${MIRROR_SAVANNAH}/releases/freetype/"   "freetype"   "${VERSION_FREETYPE}"   "${FT_PACK}"
 RET="${RET} $?"
-download_needed "https://fontconfig.org/release/"       "fontconfig" "${VERSION_FONTCONFIG}" "${FC_PACK}"
+download_needed "${FC_URL}" "fontconfig" "${VERSION_FONTCONFIG}" "${FC_PACK}"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/rockdaboot/libpsl/releases/download/${VERSION_LIBPSL}/" "libpsl" "${VERSION_LIBPSL}" "tar.gz"
 RET="${RET} $?"
