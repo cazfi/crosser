@@ -25,7 +25,7 @@
 	- Updated libpng to version 1.6.51
 	- Updated xkbcommon to version 1.8.1
 	- Updated gettext to version 0.26
-	- Updated harfbuzz to version 11.3.3
+	- Updated harfbuzz to version 12.2.0
 	- Updated gobject-introspection to version 1.86.0
 	- Updated gtk-doc to version 1.35.1
 	- Updated gdk-pixbuf to version 2.44.4
