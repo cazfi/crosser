@@ -1313,11 +1313,15 @@ if ! unpack_component  graphene                                            ||
       patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_eof" )                                          ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.0.0 ||
+      is_minimum_version "${VERSION_XKBCOMMON}" 1.9.0 ||
       patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_mscver" )                                       ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.7.0 ||
       patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_basetsd_case" )                                 ||
+   ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.9.0 ||
+      patch_src "libxkbcommon-xkbcommon" "${VERSION_XKBCOMMON}" \
+                "xkbcommon_merge_modes_var" )                              ||
    ! build_with_meson  xkbcommon                                           \
      "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
    ! deldir_component  xkbcommon  "${VERSION_XKBCOMMON}"                   \
