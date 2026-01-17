@@ -6,7 +6,7 @@
 	- Updated auxiliary config.guess and config.sub to '2025-07-10' level
 	- Updated icu to version 76.1
 	- Updated ffmpeg to version 7.1.1
-	- Updated glib to version 2.86.1
+	- Updated glib to version 2.86.3
 	- Updated qt6 to version 6.10.1
 	- Updated automake to version 1.18.1
 	- Updated libxml2 to version 2.15.1
