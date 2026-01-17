@@ -1,6 +1,6 @@
 # test.versions: Package versions
 #
-# (c) 2008-2025 Marko Lindqvist
+# (c) 2008-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -13,7 +13,7 @@
 VERSION_AUTOCONF=2.72
 VERSION_AUTOMAKE=1.18.1
 VERSION_LIBTOOL=2.5.4
-VERSION_MESON=1.9.1
+VERSION_MESON=1.10.0
 
 VERSION_ICONV=1.18
 # There is a 1.7 development version, but upstream has abandoned it
