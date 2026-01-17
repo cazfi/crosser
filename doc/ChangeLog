@@ -32,6 +32,7 @@
 	- Updated tiff to version 4.7.1
 	- Updated pcre2 to version 10.47
 	- Updated freetype to version 2.14.1
+	- Updated xz to version 5.8.2
 
 2.10 (19-May-25)
 	- Added configure option for using wget2 for downloads
