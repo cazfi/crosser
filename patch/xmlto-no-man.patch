@@ -1,0 +1,11 @@
+diff -Nurd xmlto-0.0.29/Makefile.am xmlto-0.0.29/Makefile.am
+--- xmlto-0.0.29/Makefile.am	2024-06-11 21:42:54.000000000 +0300
++++ xmlto-0.0.29/Makefile.am	2026-01-24 15:14:40.952968489 +0200
+@@ -1,6 +1,6 @@
+ bin_SCRIPTS = xmlto
+ bin_PROGRAMS = xmlif/xmlif
+-dist_man1_MANS = man/man1/xmlto.1 man/man1/xmlif.1
++dist_man1_MANS =
+ 
+ xmlif_xmlif_SOURCES = xmlif/xmlif.l
+ 
