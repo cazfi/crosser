@@ -972,19 +972,15 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! unpack_component     libxml2                                           ||
    ! build_component_host libxml2 "--without-python"                        ||
    ! deldir_build         "native-libxml2"                                  ||
-   ! unpack_component  shared-mime-info                                     ||
-   ! ln -s "../lib/pkgconfig" "${NATIVE_PREFIX}/share/pkgconfig"            ||
+   ! unpack_component  shared-mime-info                                      ||
+   ! ln -s "../lib/pkgconfig" "${NATIVE_PREFIX}/share/pkgconfig"             ||
    ! ( is_minimum_version "${VERSION_SHARED_MIME_INFO}" 2.2 ||
        patch_src shared-mime-info "${VERSION_SHARED_MIME_INFO}" \
-                 "smi-meson-0.60" )                                         ||
+                 "smi-meson-0.60" )                                          ||
    ! ( is_smaller_version "${VERSION_SHARED_MIME_INFO}" 2.2 ||
        patch_src shared-mime-info "${VERSION_SHARED_MIME_INFO}" "smi-html" ) ||
-   ! (is_smaller_version "${VERSION_SHARED_MIME_INFO}" 2.0 ||
-      XML_CATALOG_FILES="/etc/xml/catalog" \
-      build_with_meson_host shared-mime-info )                              ||
-   ! (is_minimum_version "${VERSION_SHARED_MIME_INFO}" 2.0 ||
-      build_component_full native-shared-mime-info shared-mime-info \
-      "" "native" "" "no" )                                                 ||
+   ! XML_CATALOG_FILES="/etc/xml/catalog" \
+      build_with_meson_host shared-mime-info                                 ||
    ! deldir_build         "native-shared-mime-info"                         ||
    ! unpack_component     util-macros                                       ||
    ! build_component_host util-macros                                       ||
@@ -1132,12 +1128,8 @@ if ! build_component   tiff                                                 ||
    ! build_component   libxml2                                              \
      "--without-python --with-zlib=${DLLSPREFIX} --with-lzma=${DLLSPREFIX}" ||
    ! deldir_component  libxml2    "${VERSION_XML2}" "libxml2"               ||
-   ! (is_smaller_version "${VERSION_SHARED_MIME_INFO}" 2.0 ||
-      XML_CATALOG_FILES="/etc/xml/catalog" \
-      build_with_meson shared-mime-info )                                   ||
-   ! (is_minimum_version "${VERSION_SHARED_MIME_INFO}" 2.0 ||
-      build_component_full shared-mime-info shared-mime-info "" "" "" \
-       "no" )                                                                ||
+   ! XML_CATALOG_FILES="/etc/xml/catalog" \
+      build_with_meson shared-mime-info                                      ||
    ! deldir_component  shared-mime-info "${VERSION_SHARED_MIME_INFO}"        \
      "shared-mime-info"                                                      ||
    ! unpack_component  jansson                                               ||
