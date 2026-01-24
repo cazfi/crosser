@@ -2,7 +2,7 @@
 
 # dllstack.sh: Cross-compile set of libraries for Windows target.
 #
-# (c) 2008-2025 Marko Lindqvist
+# (c) 2008-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -917,6 +917,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
      "--with-pkg-config-dir=${NATIVE_PREFIX}/lib/pkgconfig --disable-shared" ||
    ! deldir_build         "native-pkgconf"                                   ||
    ! unpack_component     pkg-config                                         ||
+   ! patch_src pkg-config "${VERSION_PKG_CONFIG}" "pkg-config-bool"          ||
    ! build_component_host pkg-config                                         \
      "--with-pc-path=${NATIVE_PREFIX}/lib/pkgconfig --with-internal-glib --disable-compile-warnings" ||
    ! deldir_build         "native-pkg-config"                                ||

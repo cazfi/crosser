@@ -1,0 +1,21 @@
+diff -Nurd pkg-config-0.29.2/glib/glib/goption.c pkg-config-0.29.2/glib/glib/goption.c
+--- pkg-config-0.29.2/glib/glib/goption.c	2016-04-12 00:39:26.000000000 +0300
++++ pkg-config-0.29.2/glib/glib/goption.c	2026-01-24 13:00:05.873009115 +0200
+@@ -166,7 +166,7 @@
+   gpointer arg_data;
+   union
+   {
+-    gboolean bool;
++    gboolean boolean;
+     gint integer;
+     gchar *str;
+     gchar **array;
+@@ -1600,7 +1600,7 @@
+           switch (change->arg_type)
+             {
+             case G_OPTION_ARG_NONE:
+-              *(gboolean *)change->arg_data = change->prev.bool;
++              *(gboolean *)change->arg_data = change->prev.boolean;
+               break;
+             case G_OPTION_ARG_INT:
+               *(gint *)change->arg_data = change->prev.integer;
