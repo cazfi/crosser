@@ -4,6 +4,7 @@
 	- Added preliminary sdl3 chain
 	- Dropped tinycthread build
 	- Updated auxiliary config.guess and config.sub to '2025-07-10' level
+	- Added xmlto (version 0.0.29) to build
 	- Updated icu to version 76.1
 	- Updated ffmpeg to version 7.1.1
 	- Updated glib to version 2.86.3

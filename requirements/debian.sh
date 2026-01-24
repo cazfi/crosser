@@ -3,7 +3,7 @@
 # requirements/debian.sh: Crosser requirements installer for
 #                         Debian system and derivatives
 #
-# (c) 2014-2024 Marko Lindqvist
+# (c) 2014-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -37,7 +37,7 @@ PACKAGES="\
  graphviz \
  ninja-build \
  sassc \
- xmlto \
+ gtk-update-icon-cache \
  python3-pygments \
  libclang-dev \
  python3-packaging \

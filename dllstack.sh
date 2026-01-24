@@ -972,6 +972,11 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! unpack_component     libxml2                                           ||
    ! build_component_host libxml2 "--without-python"                        ||
    ! deldir_build         "native-libxml2"                                  ||
+   ! unpack_component     xmlto                                              ||
+   ! patch_src            xmlto "${VERSION_XMLTO}" "xmlto-no-man"            ||
+   ! autogen_component    xmlto "${VERSION_XMLTO}"                           ||
+   ! build_component_host xmlto                                              ||
+   ! deldir_component     xmlto "${VERSION_XMLTO}" "native-xmlto"            ||
    ! unpack_component  shared-mime-info                                      ||
    ! ln -s "../lib/pkgconfig" "${NATIVE_PREFIX}/share/pkgconfig"             ||
    ! ( is_minimum_version "${VERSION_SHARED_MIME_INFO}" 2.2 ||

@@ -1,6 +1,6 @@
 # win.step: Packages in windows dllstack build step
 #
-# (c) 2008-2025 Marko Lindqvist
+# (c) 2008-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
@@ -31,6 +31,7 @@ gtk-doc           GTK_DOC
 gobject-introspection GOBJ_INTRO
 jpeg              JPEG
 tiff              TIFF
+xmlto             XMLTO
 shared-mime-info  SHARED_MIME_INFO
 freetype          FREETYPE
 fontconfig        FONTCONFIG
