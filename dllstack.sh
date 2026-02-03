@@ -1399,7 +1399,7 @@ then
 fi
 fi
 
-if test "${CROSSER_SDL3_PRE}" = "yes" ; then
+if test "${CROSSER_SDL3}" = "yes" ; then
 if ! unpack_component  SDL3                                            ||
    ! build_with_cmake  SDL3                                            ||
    ! deldir_component  SDL3       "${VERSION_SDL3}" "SDL3"             ||
@@ -1537,7 +1537,7 @@ log_write 1 "Creating crosser.txt"
   echo "CROSSER_QT5=\"no\""
   echo "CROSSER_QT6=\"${CROSSER_QT6}\""
   echo "CROSSER_SDL2=\"${CROSSER_SDL2}\""
-  echo "CROSSER_SDL3=\"no\""
+  echo "CROSSER_SDL3=\"${CROSSER_SDL3}\""
   echo "CROSSER_READLINE=\"${CROSSER_READLINE}\""
   echo "CROSSER_SFML=\"${CROSSER_SFML}\""
   echo
