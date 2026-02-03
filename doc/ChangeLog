@@ -7,6 +7,7 @@
 	- Updated SDL3 to version 3.4.0
 	- Updated SDL3_image to version 3.4.0
 	- Updated qt6 to version 6.10.2
+	- Updated pkgconf to version 2.5.1
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
