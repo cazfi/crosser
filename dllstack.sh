@@ -1408,7 +1408,10 @@ if ! unpack_component  SDL3                                            ||
    ! deldir_component  SDL3_image "${VERSION_SDL3_IMAGE}" "SDL3_image" ||
    ! unpack_component  SDL3_ttf                                        ||
    ! build_with_cmake  SDL3_ttf                                        ||
-   ! deldir_component  SDL3_ttf "${VERSION_SDL3_TTF}" "SDL3_ttf"
+   ! deldir_component  SDL3_ttf "${VERSION_SDL3_TTF}" "SDL3_ttf"       ||
+   ! unpack_component  SDL3_mixer                                      ||
+   ! build_with_cmake  SDL3_mixer "-DSDLMIXER_FLAC=OFF"                ||
+   ! deldir_component  SDL3_mixer "${VERSION_SDL3_MIXER}" "SDL3_mixer"
 then
   log_error "SDL3 stack build failed"
   exit 1
