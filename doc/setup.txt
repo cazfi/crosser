@@ -148,7 +148,7 @@ CROSSER_SDL2
 
 CROSSER_SDL3
  ; Whether SDL3-chain should be built as part of crosser.
- ; Current default is 'no'.
+ ; Current default is 'yes'.
 
 CROSSER_GTK
  ; If set to 'no', gtk-chain is not built. This implies lack of any

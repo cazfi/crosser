@@ -104,7 +104,7 @@ if test "$CROSSER_SDL2" != "yes" && test "$CROSSER_SDL2" != "no" ; then
   exit 1
 fi
 if test "${CROSSER_SDL3}" = "" ; then
-  CROSSER_SDL3="no"
+  CROSSER_SDL3="yes"
 fi
 if test "${CROSSER_SDL3}" != "yes" && test "${CROSSER_SDL3}" != "no" ; then
   echo "Unknown value \"${CROSSER_SDL3}\" for CROSSER_SDL3. Valid values are \"yes\" and \"no\"" >&2
