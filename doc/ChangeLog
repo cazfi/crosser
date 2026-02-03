@@ -2,6 +2,7 @@
 	- Updated gettext to version 1.0
 	- Updated icu to version 77.1
 	- Updated xkbcommon to version 1.10.0
+	- Updated SDL3 to version 3.4.0
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
