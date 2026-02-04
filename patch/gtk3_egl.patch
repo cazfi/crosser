@@ -1,0 +1,14 @@
+diff -Nurd gtk-3.24.51/gdk/win32/gdkglcontext-win32.c gtk-3.24.51/gdk/win32/gdkglcontext-win32.c
+--- gtk-3.24.51/gdk/win32/gdkglcontext-win32.c	2025-09-30 02:41:38.000000000 +0300
++++ gtk-3.24.51/gdk/win32/gdkglcontext-win32.c	2026-02-04 01:46:02.452966717 +0200
+@@ -1554,8 +1554,10 @@
+   if (display_win32->gl_type == GDK_WIN32_GL_WGL)
+     return gdk_win32_display_is_wgl_context_current (display, context);
+ 
++#ifdef GDK_WIN32_ENABLE_EGL
+   if (display_win32->gl_type == GDK_WIN32_GL_EGL)
+     return gdk_win32_display_is_egl_context_current (display, context);
++#endif
+ 
+   g_assert_not_reached ();
+   return TRUE;

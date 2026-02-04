@@ -1237,15 +1237,17 @@ GTK3_PACKNAME="$(component_name_to_package_name gtk3 ${VERSION_GTK3})"
 
 # This is within CROSSER_GTK != xno
 if test "${CROSSER_GTK3}" != "no" ; then
-if ! unpack_component gtk3                                                ||
-   ! rm -f "${CROSSER_SRCDIR}/${GTK3_PACKNAME}-${VERSION_GTK3}/gdk/gdkconfig.h"       ||
-   ! rm -f "${CROSSER_SRCDIR}/${GTK3_PACKNAME}-${VERSION_GTK3}/gtk/gtk.gresource.xml" ||
-   ! patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_wm_macros-3.24.14"            ||
+if ! unpack_component gtk3                                                                    ||
+   ! rm -f "${CROSSER_SRCDIR}/${GTK3_PACKNAME}-${VERSION_GTK3}/gdk/gdkconfig.h"               ||
+   ! rm -f "${CROSSER_SRCDIR}/${GTK3_PACKNAME}-${VERSION_GTK3}/gtk/gtk.gresource.xml"         ||
+   ! patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_wm_macros-3.24.14"                  ||
    ! ( is_minimum_version "${VERSION_GTK3}" 3.24.32 ||
-       patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_host_no_install-3.24.16" )  ||
+       patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_host_no_install-3.24.16" )        ||
    ! ( is_smaller_version "${VERSION_GTK3}" 3.24.20 ||
        is_minimum_version "${VERSION_GTK3}" 3.24.36 ||
-       patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_ver_test_disable" )         ||
+       patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_ver_test_disable" )               ||
+   ! ( is_smaller_version "${VERSION_GTK3}" 3.24.51 ||
+       patch_src "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3_egl" )                            ||
    ! build_with_meson gtk3                                            \
      "-Dx11_backend=false -Dwayland_backend=false -Dwin32_backend=true -Dintrospection=false" ||
    ! deldir_component "${GTK3_PACKNAME}" "${VERSION_GTK3}" "gtk3"
