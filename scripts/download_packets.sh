@@ -564,7 +564,7 @@ else
   FC_PACK="tar.gz"
 fi
 
-if is_minimum_version "${VERSION_FONTCONFIG}" 2.17.0
+if is_minimum_version "${VERSION_FONTCONFIG}" 2.16.1
 then
   FC_URL="https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/${VERSION_FONTCONFIG}/"
 else

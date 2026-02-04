@@ -10,6 +10,7 @@
 	- Updated pkgconf to version 2.5.1
 	- Updated gtk3 to version 3.24.51
 	- Updated gdk-pixbuf to version 2.44.5
+	- Updated fontconfig to version 2.16.2
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
