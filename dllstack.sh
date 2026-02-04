@@ -1088,7 +1088,7 @@ if ! unpack_component  ncurses                                           ||
    ! (is_smaller_version "${VERSION_NCURSES}" 6.5 ||
       patch_src ncurses "${VERSION_NCURSES}" "ncurses_windows_h-6.5" )   ||
    ! patch_src ncurses "${VERSION_NCURSES}" "ncurses_static"             ||
-   ! build_component   ncurses "--enable-term-driver"                    ||
+   ! build_component   ncurses "--enable-term-driver --disable-widec"    ||
    ! deldir_component  ncurses "${VERSION_NCURSES}" "ncurses"            ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
