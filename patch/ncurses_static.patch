@@ -1,12 +1,14 @@
-diff -Nurd ncurses-6.3/include/ncurses_dll.h.in ncurses-6.3/include/ncurses_dll.h.in
---- ncurses-6.3/include/ncurses_dll.h.in	2020-09-05 20:58:47.000000000 +0300
-+++ ncurses-6.3/include/ncurses_dll.h.in	2022-03-26 13:09:51.903738724 +0200
-@@ -31,6 +31,9 @@
+diff -Nurd ncurses-6.5/include/ncurses_dll.h.in ncurses-6.5/include/ncurses_dll.h.in
+--- ncurses-6.5/include/ncurses_dll.h.in	2023-05-06 23:12:43.000000000 +0300
++++ ncurses-6.5/include/ncurses_dll.h.in	2026-02-04 06:49:54.388896887 +0200
+@@ -31,6 +31,11 @@
  #ifndef NCURSES_DLL_H_incl
  #define NCURSES_DLL_H_incl 1
  
 +/* Currently, it's always static */
++#ifndef NCURSES_STATIC
 +#define NCURSES_STATIC
++#endif
 +
  /*
   * MinGW gcc (unlike MSYS2 and Cygwin) should define _WIN32 and possibly _WIN64.
