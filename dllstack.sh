@@ -1092,16 +1092,20 @@ if ! unpack_component  ncurses                                           ||
    ! deldir_component  ncurses "${VERSION_NCURSES}" "ncurses"            ||
    ! unpack_component  readline                                          ||
    ! patch_readline                                                      ||
-   ! patch_src readline "${VERSION_READLINE}" "readline_posix"           ||
+   ! (is_minimum_version "${VERSION_READLINE}" 8.1 ||
+      patch_src readline "${VERSION_READLINE}" "readline_posix" )        ||
    ! (is_minimum_version "${VERSION_READLINE}" 7.0 ||
       patch_src readline "${VERSION_READLINE}" "readline_sighup" )       ||
    ! (is_smaller_version "${VERSION_READLINE}" 7.0 ||
       is_minimum_version "${VERSION_READLINE}" 8.0 ||
       patch_src readline "${VERSION_READLINE}" "readline_chown" )        ||
    ! (is_smaller_version "${VERSION_READLINE}" 8.1 ||
+      is_minimum_version "${VERSION_READLINE}" 8.2 ||
       patch_src readline "${VERSION_READLINE}" "readline_sigblock" )     ||
-   ! patch_src readline "${VERSION_READLINE}" "readline_statf"           ||
-   ! patch_src readline "${VERSION_READLINE}" "readline_ncurses"         ||
+   ! (is_minimum_version "${VERSION_READLINE}" 8.1 ||
+      patch_src readline "${VERSION_READLINE}" "readline_statf" )        ||
+   ! (is_minimum_version "${VERSION_READLINE}" 8.2 ||
+      patch_src readline "${VERSION_READLINE}" "readline_ncurses" )      ||
    ! build_component   readline                                          \
      "${READLINE_VARS} --with-curses"                                    ||
    ! deldir_component  readline   "${VERSION_READLINE}" "readline"
