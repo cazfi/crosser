@@ -1,14 +1,14 @@
 
 # Dockerfile for crosser building container
 #
-# (c) 2023-2025 Marko Lindqvist
+# (c) 2023-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 #
 
 FROM debian:trixie
 
-MAINTAINER Marko Lindqvist
+LABEL org.opencontainers.image.authors="Marko Lindqvist"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade --yes && \
