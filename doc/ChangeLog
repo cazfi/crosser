@@ -17,6 +17,7 @@
 	- Updated ncurses to version 6.5
 	- Updated autoconf to version 2.73
 	- Updated libiconv to version 1.19
+	- Updated adwaita-icon-theme to version 50.0
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
