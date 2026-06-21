@@ -44,6 +44,7 @@ PACKAGES="\
  libclang-dev \
  python3-packaging \
  python3-setuptools \
+ python3-parameterized \
 "
 
 if test "${UID}" != "0" ; then
