@@ -2,6 +2,7 @@
 	- SDL3-chain built by default
 	- Added SDL3_mixer (version 3.1.2) to build
 	- Updated Dockerfile format to match modern docker
+	- Updated xmlto download URL
 	- Updated auxiliary config.guess and config.sub to '2026-05-17' level
 	- Updated gettext to version 1.0
 	- Updated icu to version 77.1

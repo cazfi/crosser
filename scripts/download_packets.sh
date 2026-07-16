@@ -460,6 +460,7 @@ then
     libxmp)      VERSION_LIBXMP="${VERSION_SELECTED}" ;;
     xz)          VERSION_XZ="${VERSION_SELECTED}" ;;
     libpsl)      VERSION_LIBPSL="${VERSION_SELECTED}" ;;
+    xmlto)       VERSION_XMLTO="${VERSION_SELECTED}" ;;
   esac
 fi
 
@@ -664,11 +665,11 @@ download_needed "${MIRROR_GITHUB}/xkbcommon/libxkbcommon/archive/refs/tags/" "xk
 RET="${RET} $?"
 download_needed "https://xorg.freedesktop.org/releases/individual/util/" "util-macros" "${VERSION_UTIL_MACROS}" "${UMACROS_PACK}"
 RET="${RET} $?"
-download_needed "https://releases.pagure.org/xmlto/" "xmlto" "${VERSION_XMLTO}" "tar.bz2"
+download_needed "https://codeberg.org/xmlto/xmlto/archive/" "xmlto" "${VERSION_XMLTO}.tar.gz" "" "" "xmlto"
 RET="${RET} $?"
 download_needed "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${VERSION_SHARED_MIME_INFO}/" "shared-mime-info" "${VERSION_SHARED_MIME_INFO}" "tar.bz2"
 RET="${RET} $?"
-download_needed "${MIRROR_GNOME}/sources/libepoxy/$LIBEPOXY_DIR/" "libepoxy" "${VERSION_LIBEPOXY}" "tar.xz"
+download_needed "${MIRROR_GNOME}/sources/libepoxy/${LIBEPOXY_DIR}/" "libepoxy" "${VERSION_LIBEPOXY}" "tar.xz"
 RET="${RET} $?"
 download_needed "${MIRROR_GNOME}/sources/atk/${ATK_DIR}/"   "atk"        "${VERSION_ATK}"        "tar.xz"
 RET="${RET} $?"

@@ -972,7 +972,7 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! unpack_component     libxml2                                           ||
    ! build_component_host libxml2 "--without-python"                        ||
    ! deldir_build         "native-libxml2"                                  ||
-   ! unpack_component     xmlto                                              ||
+   ! unpack_component     xmlto "" "xmlto/${VERSION_XMLTO}"                  ||
    ! patch_src            xmlto "${VERSION_XMLTO}" "xmlto-no-man"            ||
    ! autogen_component    xmlto "${VERSION_XMLTO}"                           ||
    ! build_component_host xmlto                                              ||
