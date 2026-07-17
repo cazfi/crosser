@@ -24,6 +24,7 @@
 	- Updated libxml2 to version 2.15.3
 	- Updated glib to version 2.88.1
 	- Updated meson to version 1.11.1
+	- Updated shared-mime-info to version 2.5.1
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
