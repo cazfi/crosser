@@ -1,0 +1,36 @@
+diff -Nurd zlib-1.3.2/configure zlib-1.3.2/configure
+--- zlib-1.3.2/configure	2026-08-03 06:08:06.548453762 +0300
++++ zlib-1.3.2/configure	2026-08-03 06:10:41.240175916 +0300
+@@ -603,24 +603,23 @@
+   ALL="${ALL} all64"
+   TEST="${TEST} test64"
+   echo "Checking for off64_t... Yes." | tee -a configure.log
+-  echo "Checking for fseeko... Yes." | tee -a configure.log
+ else
+   echo "Checking for off64_t... No." | tee -a configure.log
+   echo >> configure.log
+-  cat > $test.c <<EOF
++fi
++cat > $test.c <<EOF
+ #include <stdio.h>
+ int main(void) {
+   fseeko(NULL, 0, 0);
+   return 0;
+ }
+ EOF
+-  if try $CC $CFLAGS $LDFLAGS -o $test $test.c; then
+-    echo "Checking for fseeko... Yes." | tee -a configure.log
+-  else
+-    CFLAGS="${CFLAGS} -DNO_FSEEKO"
+-    SFLAGS="${SFLAGS} -DNO_FSEEKO"
+-    echo "Checking for fseeko... No." | tee -a configure.log
+-  fi
++if try $CC $CFLAGS $LDFLAGS -o $test $test.c; then
++  echo "Checking for fseeko... Yes." | tee -a configure.log
++else
++  CFLAGS="${CFLAGS} -DNO_FSEEKO"
++  SFLAGS="${SFLAGS} -DNO_FSEEKO"
++  echo "Checking for fseeko... No." | tee -a configure.log
+ fi
+ 
+ echo >> configure.log

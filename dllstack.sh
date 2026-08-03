@@ -1016,7 +1016,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_component   libiconv                                       ||
    ! deldir_component  libiconv   "${VERSION_ICONV}" "libiconv"       ||
    ! unpack_component  zlib                                           ||
-   ! patch_src zlib "${VERSION_ZLIB}" zlib_seeko-1.2.6-2              ||
+   ! (is_minimum_version "${VERSION_ZLIB}" 1.3.2 ||
+      patch_src zlib "${VERSION_ZLIB}" zlib_seeko-1.2.6-2 )           ||
+   ! (is_smaller_version "${VERSION_ZLIB}" 1.3.2 ||
+      patch_src zlib "${VERSION_ZLIB}" zlib_seeko-1.3.2 )             ||
    ! patch_src zlib "${VERSION_ZLIB}" zlib_nolibc-1.2.6-2             ||
    ! patch_src zlib "${VERSION_ZLIB}" zlib_dllext                     ||
    ! (is_smaller_version "${VERSION_ZLIB}" 1.2.12 ||
