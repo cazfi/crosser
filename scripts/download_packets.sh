@@ -727,8 +727,13 @@ download_needed "${MIRROR_GNOME}/sources/libxml2/${XML2_DIR}/" "libxml2" "${VERS
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/akheron/jansson/releases/download/v${VERSION_JANSSON}/" "jansson" "${VERSION_JANSSON}" "tar.bz2"
 RET="${RET} $?"
-download_needed "${MIRROR_GITHUB}/unicode-org/icu/releases/download/${ICU_DIR}/" "icu4c" "icu4c-${ICU_FILEVER}-src.tgz"
-RET="${RET} $?"
+if is_smaller_version "${VERSION_ICU}" 78.0 ; then
+  download_needed "${MIRROR_GITHUB}/unicode-org/icu/releases/download/${ICU_DIR}/" "icu4c" "icu4c-${ICU_FILEVER}-src.tgz"
+  RET="${RET} $?"
+else
+  download_needed "${MIRROR_GITHUB}/unicode-org/icu/releases/download/release-${VERSION_ICU}/" "icu4c" "icu4c-${ICU_FILEVER}-sources.tgz"
+  RET="${RET} $?"
+fi
 download_needed "https://download.qt.io/${QT6_RELEASEDIR}/qt/${QT6_DIR}/${VERSION_QT6}/single/" "qt6" "${VERSION_QT6}" "tar.xz" \
                 "https://download.qt.io/archive/qt/${QT6_DIR}/${VERSION_QT6}/single/"
 RET="${RET} $?"

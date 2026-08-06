@@ -960,7 +960,10 @@ if ! unpack_component     meson "" "meson/${VERSION_MESON}"              ||
    ! build_component_host icon-naming-utils                                 ||
    ! deldir_component  icon-naming-utils "${VERSION_ICON_NUTILS}"           \
      "native-icon-naming-utils"                                             ||
-   ! unpack_component  icu4c         "" "icu4c-${ICU_FILEVER}-src"          ||
+   ! (is_minimum_version "${VERSION_ICU}" 78.0 ||
+      unpack_component  icu4c         "" "icu4c-${ICU_FILEVER}-src" )       ||
+   ! (is_smaller_version "${VERSION_ICU}" 78.0 ||
+      unpack_component  icu4c         "" "icu4c-${ICU_FILEVER}-sources" )   ||
    ! patch_src icu "${VERSION_ICU}" icu_dbl_mant                            ||
    ! (is_smaller_version "${VERSION_ICU}" 59.1 ||
       patch_src icu "${VERSION_ICU}" icu_filetools_inc )                    ||
