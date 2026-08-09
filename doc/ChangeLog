@@ -30,6 +30,7 @@
 	- Updated libpsl to version 0.23.1
 	- Updated curl to version 8.21.0
 	- Updated sqlite to version 3.53.4
+	- Updated libpng to version 1.6.58
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
