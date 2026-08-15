@@ -34,6 +34,7 @@
 	- Updated jpeg to version 10
 	- Updated tiff to version 4.7.2
 	- Updated jansson to version 2.15.1
+	- Updated ffi to version 3.8.0
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
