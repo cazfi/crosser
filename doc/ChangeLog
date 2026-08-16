@@ -37,6 +37,7 @@
 	- Updated ffi to version 3.8.0
 	- Updated freetype to version 2.14.3
 	- Updated harfbuzz to version 14.3.1
+	- Updated openal-soft to version 1.23.1
 
 2.11 (31-Jan-26)
 	- Container updated to Debian Trixie
