@@ -1279,7 +1279,10 @@ if ! unpack_component libcroco                                        ||
    ! build_component  libcroco                                        ||
    ! deldir_component libcroco    "${VERSION_CROCO}" "libcroco"       ||
    ! unpack_component hicolor-icon-theme                              ||
-   ! build_component  hicolor-icon-theme                              ||
+   ! (is_minimum_version "${VERSION_HICOLOR}" 0.18 ||
+      build_component hicolor-icon-theme )                            ||
+   ! (is_smaller_version "${VERSION_HICOLOR}" 0.18 ||
+      build_with_meson hicolor-icon-theme )                           ||
    ! deldir_component hicolor-icon-theme "${VERSION_HICOLOR}"         \
      "hicolor-icon-theme"                                             ||
    ! unpack_component tango-icon-theme                                ||
