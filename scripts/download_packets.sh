@@ -701,8 +701,6 @@ download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_image/releases/download/release
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_mixer/releases/download/release-${VERSION_SDL2_MIXER}/" "SDL2_mixer" "${VERSION_SDL2_MIXER}" "tar.gz"
 RET="${RET} $?"
-download_needed "https://www.ferzkopp.net/Software/SDL2_gfx/"      "SDL2_gfx" "${VERSION_SDL2_GFX}" "tar.gz"
-RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL_ttf/releases/download/release-${VERSION_SDL2_TTF}/" "SDL2_ttf" "${VERSION_SDL2_TTF}" "tar.gz"
 RET="${RET} $?"
 download_needed "${MIRROR_GITHUB}/libsdl-org/SDL/releases/download/release-${VERSION_SDL3}/" "SDL3" "${VERSION_SDL3}" "tar.gz"

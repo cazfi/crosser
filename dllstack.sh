@@ -1396,11 +1396,6 @@ if ! unpack_component  SDL2                                            ||
    ! unpack_component  SDL2_image                                      ||
    ! build_component   SDL2_image                                      ||
    ! deldir_component  SDL2_image "${VERSION_SDL2_IMAGE}" "SDL2_image" ||
-   ! unpack_component  SDL2_gfx                                        ||
-   ! autogen_component SDL2_gfx   "${VERSION_SDL2_GFX}" \
-        "aclocal automake autoconf"                                    ||
-   ! build_component   SDL2_gfx                                        ||
-   ! deldir_component  SDL2_gfx   "${VERSION_SDL2_GFX}"   "SDL2_gfx"   ||
    ! unpack_component  SDL2_ttf                                        ||
    ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/NEWS"       ||
    ! touch "${CROSSER_SRCDIR}/SDL2_ttf-${VERSION_SDL2_TTF}/README"     ||
