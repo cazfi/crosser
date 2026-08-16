@@ -6,7 +6,7 @@
 	- Updated auxiliary config.guess and config.sub to '2026-05-17' level
 	- Updated gettext to version 1.0
 	- Updated icu to version 78.3
-	- Updated xkbcommon to version 1.10.0
+	- Updated xkbcommon to version 1.11.0
 	- Updated SDL3 to version 3.4.2
 	- Updated SDL3_image to version 3.4.0
 	- Updated qt6 to version 6.11.1
