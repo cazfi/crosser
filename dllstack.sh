@@ -1375,7 +1375,7 @@ if ! unpack_component  libogg                                         ||
                    "--disable-cpplibs --disable-ogg" )                ||
    ! (is_smaller_version "${VERSION_FLAC}" 1.3.4     ||
       build_with_cmake  flac                         \
-              "-DWITH_STACK_PROTECTOR=OFF -DWITH_OGG=OFF" )           ||
+        "-DWITH_STACK_PROTECTOR=OFF -DWITH_OGG=OFF -DENABLE_MULTITHREADING=OFF" ) ||
    ! deldir_component  flac   "${VERSION_FLAC}" "flac"                ||
    ! unpack_component  libxmp                                         ||
    ! build_component_full src libxmp                                  ||
