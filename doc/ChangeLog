@@ -8,7 +8,7 @@
 	- Updated gettext to version 1.0
 	- Updated icu to version 78.3
 	- Updated xkbcommon to version 1.11.0
-	- Updated SDL3 to version 3.4.2
+	- Updated SDL3 to version 3.4.14
 	- Updated SDL3_image to version 3.4.0
 	- Updated qt6 to version 6.11.1
 	- Updated pkgconf to version 2.5.1
