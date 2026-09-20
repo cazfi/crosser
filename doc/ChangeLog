@@ -1,4 +1,5 @@
 2.13
+	- Updated openal-soft to version 1.24.3
 
 2.12
 	- SDL3-chain built by default
