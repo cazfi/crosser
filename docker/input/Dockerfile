@@ -6,7 +6,7 @@
 # This program is licensed under Gnu General Public License version 2.
 #
 
-FROM debian:trixie
+FROM ubuntu:resolute
 
 LABEL org.opencontainers.image.authors="Marko Lindqvist"
 
@@ -23,13 +23,13 @@ RUN DEBIAN_FRONTEND=noninteractive /build/debian.sh
 ARG CROSSER_UID
 
 # Ubuntu image: uid 1000 is already user "ubuntu"
-#RUN if test "${CROSSER_UID}" != "1000" ; then \
-#    adduser --gecos "" --uid ${CROSSER_UID} --disabled-password crosser && \
-#    echo "crosser" > /build/username.txt ; else echo "ubuntu" > /build/username.txt ; fi
+RUN if test "${CROSSER_UID}" != "1000" ; then \
+    adduser --gecos "" --uid ${CROSSER_UID} --disabled-password crosser && \
+    echo "crosser" > /build/username.txt ; else echo "ubuntu" > /build/username.txt ; fi
 
 # Debian image
-RUN adduser --gecos "" --uid ${CROSSER_UID} --disabled-password crosser && \
-    echo "crosser" > /build/username.txt
+#RUN adduser --gecos "" --uid ${CROSSER_UID} --disabled-password crosser && \
+#    echo "crosser" > /build/username.txt
 
 WORKDIR /build
 
