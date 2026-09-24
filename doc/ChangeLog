@@ -2,6 +2,7 @@
 	- Crosser building docker container updated to Ubuntu Resolute
 	- Updated openal-soft to version 1.24.3
 	- Updated meson to version 1.12.0
+	- Updated glib to version 2.90.0
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
