@@ -10,6 +10,7 @@
 	- Updated fribidi to version 1.0.17
 	- Updated cairo to version 1.18.6
 	- Updated fontconfig to version 2.18.3
+	- Updated harfbuzz to version 14.5.0
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
