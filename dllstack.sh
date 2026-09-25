@@ -1080,7 +1080,10 @@ if ! build_component_full libtool libtool "" "" "" ""                 \
    ! build_with_meson  glib                                            ||
    ! deldir_component  glib       "${VERSION_GLIB}"  "glib"            ||
    ! unpack_component  fribidi                                         ||
-   ! build_component   fribidi    "--disable-docs"                     ||
+   ! (is_minimum_version "${VERSION_FRIBIDI}" 1.0.17 ||
+      build_component   fribidi    "--disable-docs" )                  ||
+   ! (is_smaller_version "${VERSION_FRIBIDI}" 1.0.17 ||
+      build_with_meson  fribidi    "-Ddocs=false -Dtests=false" )      ||
    ! deldir_component  fribidi    "${VERSION_FRIBIDI}" "fribidi"
 then
   log_error "Build failed"

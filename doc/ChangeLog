@@ -7,6 +7,7 @@
 	- Updated pkgconf to version 3.0.7
 	- Updated libpsl to version 0.23.3
 	- Updated pcre2 to version 10.48
+	- Updated fribidi to version 1.0.17
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
