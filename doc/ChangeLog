@@ -9,6 +9,7 @@
 	- Updated pcre2 to version 10.48
 	- Updated fribidi to version 1.0.17
 	- Updated cairo to version 1.18.6
+	- Updated fontconfig to version 2.18.3
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
