@@ -1197,8 +1197,6 @@ if ! build_component   tiff                                                 ||
        patch_src       cairo "${VERSION_CAIRO}" "cairo-1.12.10_epsilon" )      ||
    ! ( is_minimum_version    "${VERSION_CAIRO}" 1.17.8 ||
        patch_src       cairo "${VERSION_CAIRO}" "cairo_fortify_disable" )      ||
-   ! ( is_minimum_version    "${VERSION_CAIRO}" 1.15.2 ||
-       patch_src       cairo "${VERSION_CAIRO}" cairo_1.14.2+ )                ||
    ! ( is_smaller_version    "${VERSION_CAIRO}" 1.17.6 ||
        ( patch_src     cairo "${VERSION_CAIRO}" "cairo_missing_unused" &&
          patch_src     cairo "${VERSION_CAIRO}" "cairo_missing_perf" ))        ||
