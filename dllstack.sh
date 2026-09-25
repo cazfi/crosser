@@ -1169,9 +1169,6 @@ if ! build_component   tiff                                                 ||
    ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.13.90 ||
        is_minimum_version "${VERSION_FONTCONFIG}" 2.17.0  ||
        patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test-2.13.96) ||
-   ! ( is_smaller_version "${VERSION_FONTCONFIG}" 2.17.0 ||
-       is_minimum_version "${VERSION_FONTCONFIG}" 2.18.0  ||
-       patch_src       fontconfig "${VERSION_FONTCONFIG}" fontconfig_disable_test-2.17) ||
    ! ( is_minimum_version "${VERSION_FONTCONFIG}" 2.17.0 ||
        build_component   fontconfig                                              \
          "--with-freetype-config=${DLLSPREFIX}/bin/freetype-config --with-arch=${CROSSER_TARGET} --enable-libxml2" ) ||
