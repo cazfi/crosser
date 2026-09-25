@@ -1,7 +1,7 @@
 2.13
 	- Crosser building docker container updated to Ubuntu Resolute
 	- Updated openal-soft to version 1.24.3
-	- Updated meson to version 1.12.0
+	- Updated meson to version 1.12.1
 	- Updated glib to version 2.90.0
 	- Updated adwaita-icon-theme to version 51.0
 	- Updated pkgconf to version 3.0.7
