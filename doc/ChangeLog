@@ -4,6 +4,7 @@
 	- Updated meson to version 1.12.0
 	- Updated glib to version 2.90.0
 	- Updated adwaita-icon-theme to version 51.0
+	- Updated pkgconf to version 3.0.7
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
