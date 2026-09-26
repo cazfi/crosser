@@ -12,6 +12,7 @@
 	- Updated fontconfig to version 2.18.3
 	- Updated harfbuzz to version 14.5.0
 	- Updated xkbcommon to version 1.13.2
+	- Updated libxmp to version 4.7.3
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
