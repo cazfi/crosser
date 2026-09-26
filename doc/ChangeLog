@@ -14,6 +14,7 @@
 	- Updated xkbcommon to version 1.13.2
 	- Updated libxmp to version 4.7.3
 	- Updated SDL3 to version 3.4.16
+	- Updated SDL3_image to version 3.4.6
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
