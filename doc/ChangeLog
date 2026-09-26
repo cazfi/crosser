@@ -15,6 +15,7 @@
 	- Updated libxmp to version 4.7.3
 	- Updated SDL3 to version 3.4.16
 	- Updated SDL3_image to version 3.4.6
+	- Updated ffmpeg to version 9.0.2
 
 2.12 (22-Sep-26)
 	- SDL3-chain built by default
