@@ -2,7 +2,7 @@
 
 # helpers.sh: Functions for Crosser
 #
-# (c) 2008-2025 Marko Lindqvist
+# (c) 2008-2026 Marko Lindqvist
 #
 # This program is licensed under Gnu General Public License version 2.
 
@@ -438,7 +438,7 @@ autogen_component()
     fi
   else
     if test "$3" = "" || test "$3" = "all" ; then
-      TOOLS="aclocal autoheader automake autoconf"
+      TOOLS="libtoolize aclocal autoheader automake autoconf"
     else
       TOOLS="$3"
     fi
