@@ -1,0 +1,10 @@
+diff -Nurd libxkbcommon-xkbcommon-1.13.2/meson.build libxkbcommon-xkbcommon-1.13.2/meson.build
+--- libxkbcommon-xkbcommon-1.13.2/meson.build	2026-05-30 11:34:04.000000000 +0300
++++ libxkbcommon-xkbcommon-1.13.2/meson.build	2026-09-26 03:46:31.485588996 +0300
+@@ -1519,6 +1519,3 @@
+     'rules': get_option('default-rules'),
+     'variant': get_option('default-variant'),
+ }, section: 'Defaults')
+-summary({
+-    'merge-modes': has_merge_modes_tests,
+-}, section: 'Tests')

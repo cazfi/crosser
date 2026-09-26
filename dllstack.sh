@@ -1339,10 +1339,14 @@ if ! unpack_component  graphene                                            ||
       patch_src xkbcommon "${VERSION_XKBCOMMON}" \
                 "xkbcommon_basetsd_case" )                                 ||
    ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.9.0 ||
+      is_minimum_version "${VERSION_XKBCOMMON}" 1.13.0 ||
       patch_src "libxkbcommon-xkbcommon" "${VERSION_XKBCOMMON}" \
                 "xkbcommon_merge_modes_var" )                              ||
+   ! (is_smaller_version "${VERSION_XKBCOMMON}" 1.13.0 ||
+      patch_src "libxkbcommon-xkbcommon" "${VERSION_XKBCOMMON}" \
+                "xkbcommon_merge_modes_var-1.13" )                         ||
    ! build_with_meson  xkbcommon                                           \
-     "-Denable-x11=false -Denable-wayland=false -Denable-docs=false"       ||
+     "-Denable-x11=false -Denable-wayland=false -Denable-docs=false -Denable-tools=false" ||
    ! deldir_component  xkbcommon  "${VERSION_XKBCOMMON}"                   \
                        "xkbcommon"                                         ||
    ! unpack_component  gtk4                                                ||
